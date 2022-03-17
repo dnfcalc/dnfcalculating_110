@@ -39,7 +39,7 @@ async function createWindow() {
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}`
 
     win.loadURL(url)
-    win.webContents.openDevTools()
+    win.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 
   // Test active push message to Renderer-process
@@ -105,7 +105,7 @@ ipcMain.handle("open-win", (event, arg) => {
 
     ChildWin.loadURL(url)
     console.log(url)
-    // newW.webContents.openDevTools()
+    // ChildWin.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 })
 
