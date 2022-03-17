@@ -31,12 +31,13 @@
     "unocss": "^0.27.1",
     "unplugin-vue-components": "^0.18.0",
     "vite": "^2.8.6",
-    "vite-plugin-electron-renderer": "^0.1.4",
-    "vue-tsc": "^0.31.1"
+    "vue-tsc": "^0.31.1",
+    "vite-plugin-resolve": "^1.8.0"
   },
   "env": {
     "//": "Used in build scripts",
-    "PORT": 3344
+    "VITE_DEV_SERVER_HOST": "127.0.0.1",
+    "VITE_DEV_SERVER_PORT": 3344
   },
   "keywords": [
     "vite",

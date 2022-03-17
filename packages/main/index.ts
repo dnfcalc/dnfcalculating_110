@@ -25,6 +25,8 @@ async function createWindow() {
 
     webPreferences: {
       preload: join(__dirname, "../preload/index.cjs"),
+      nodeIntegration: true,
+      contextIsolation: false,
       webSecurity: false
     }
   })
@@ -89,7 +91,9 @@ ipcMain.handle("open-win", (event, arg) => {
     frame: false,
     webPreferences: {
       preload: join(__dirname, "../preload/index.cjs"),
-      webSecurity: false
+      webSecurity: false,
+      nodeIntegration: true,
+      contextIsolation: false
     }
   })
 
@@ -111,6 +115,7 @@ ipcMain.handle("minimize-win", event => {
     window.minimize()
   }
 })
+
 ipcMain.handle("close-win", event => {
   const window = BrowserWindow.fromWebContents(event.sender)
   if (window) {
