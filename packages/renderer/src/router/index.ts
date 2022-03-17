@@ -28,7 +28,6 @@ const routes: RouteRecordRaw[] = [
         },
         component: () => import("@/pages/main/character/character.vue")
       },
-      //用于组件展示的页面
       {
         path: "/equipment/:name",
         name: "equipment",
@@ -51,7 +50,7 @@ if (import.meta.env.DEV) {
     meta: {
       title: "组件展示"
     },
-    component: () => import("@/pages/show.vue")
+    component: () => import("@/components/show.vue")
   })
 }
 

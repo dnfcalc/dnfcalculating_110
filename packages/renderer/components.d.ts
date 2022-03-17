@@ -15,6 +15,7 @@ declare module 'vue' {
     CalcTooltip: typeof import('./src/components/calc/tooltip/index.vue')['default']
     InternalSkillSkillIcon: typeof import('./src/components/internal/skill/skill-icon.vue')['default']
     InternalSkillSkillPanel: typeof import('./src/components/internal/skill/skill-panel.vue')['default']
+    Show: typeof import('./src/components/show.vue')['default']
   }
 }
 
