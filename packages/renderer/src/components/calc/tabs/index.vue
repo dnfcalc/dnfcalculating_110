@@ -8,6 +8,7 @@
   import { defineComponent, computed, provide, renderSlot } from "vue"
   import NSelection from "@/components/base/selection"
   import { listProps } from "@/components/hooks/selection/list"
+  import { useRoute, useRouter } from "vue-router"
 
   export default defineComponent({
     name: "calc-tabs",
@@ -18,13 +19,35 @@
       ...listProps,
       vertical: {
         type: Boolean
+      },
+      route: {
+        type: Boolean
       }
     },
     setup(props, { emit, slots }) {
+      const router = useRouter()
+      const modelValue = computed({
+        get() {
+          if (props.route) {
+            const route = useRoute()
+            return decodeURIComponent(route.path)
+          }
+          return props.modelValue
+        },
+        set(val) {
+          if (props.route) {
+            router.push(val as string)
+          } else {
+            emit("update:modelValue", val)
+            emit("change", val)
+          }
+        }
+      })
+
       return () => {
         return (
           <n-selection
-            {...props}
+            v-model={modelValue.value}
             class={{ "i-tabs": true, vertical: !!props.vertical }}
             item-class="i-tab cursor-pointer"
           >

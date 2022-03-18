@@ -10,13 +10,9 @@
     return () => (
       <div class="main">
         <div class="header">
-          <calc-tabs>
-            <calc-tab value="1" to={"/equipment/" + char}>
-              装备
-            </calc-tab>
-            <calc-tab value="2" to={"/character/" + char}>
-              技能
-            </calc-tab>
+          <calc-tabs route>
+            <calc-tab value={"/equipment/" + char}>装备</calc-tab>
+            <calc-tab value={"/character/" + char}>技能</calc-tab>
           </calc-tabs>
         </div>
         <div class="center">

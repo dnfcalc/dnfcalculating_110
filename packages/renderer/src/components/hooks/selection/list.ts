@@ -17,6 +17,7 @@ import {
   Option,
   UnactiveSymbol
 } from "./constants"
+import { defineHooks } from "../define"
 
 const valuePropType = [
   String,
@@ -28,7 +29,7 @@ const valuePropType = [
 
 const classPropType = [String, Array] as PropType<string | string[]>
 
-export const listProps: ComponentPropsOptions = {
+export const listProps = {
   modelValue: {
     type: valuePropType,
     default() {
@@ -52,57 +53,60 @@ export const listProps: ComponentPropsOptions = {
   }
 }
 
-export function useSelectionList(props: Readonly<any>, context: SetupContext) {
-  const current = ref<Option>()
+export const useSelectionList = defineHooks(
+  listProps,
+  (props: Readonly<any>, context: SetupContext) => {
+    const current = ref<Option>()
 
-  const modelValue = computed(() => props.modelValue)
+    const modelValue = computed(() => props.modelValue)
 
-  const active = computed<Option | undefined>({
-    set(val: Option | undefined) {
-      context.emit("update:modelValue", val?.value)
-      current.value = val
-    },
-    get() {
-      return (
-        options.find(e => e.value.value == props.modelValue)?.value ??
-        current.value
-      )
+    const active = computed<Option | undefined>({
+      set(val: Option | undefined) {
+        context.emit("update:modelValue", val?.value)
+        current.value = val
+      },
+      get() {
+        return (
+          options.find(e => e.value.value == props.modelValue)?.value ??
+          current.value
+        )
+      }
+    })
+
+    provide(ModelValueSymbol, modelValue)
+
+    provide(AciveSymbol, active)
+
+    provide(
+      AciveClassSymbol,
+      computed(() => props.activeClass)
+    )
+
+    provide(
+      UnactiveSymbol,
+      computed(() => props.unactiveClass)
+    )
+
+    provide(
+      ItemClassSymbol,
+      computed(() => props.itemClass)
+    )
+
+    const options: Ref<Option>[] = []
+
+    provide(InitSymbol, (option: Ref<Option>) => {
+      options.push(option)
+      if (option.value.value == props.modelValue || active.value == undefined) {
+        current.value = option.value
+      }
+      return () => {
+        options.splice(options.indexOf(option), 1)
+      }
+    })
+
+    return {
+      active,
+      modelValue
     }
-  })
-
-  provide(ModelValueSymbol, modelValue)
-
-  provide(AciveSymbol, active)
-
-  provide(
-    AciveClassSymbol,
-    computed(() => props.activeClass)
-  )
-
-  provide(
-    UnactiveSymbol,
-    computed(() => props.unactiveClass)
-  )
-
-  provide(
-    ItemClassSymbol,
-    computed(() => props.itemClass)
-  )
-
-  const options: Ref<Option>[] = []
-
-  provide(InitSymbol, (option: Ref<Option>) => {
-    options.push(option)
-    if (option.value.value == props.modelValue || active.value == undefined) {
-      current.value = option.value
-    }
-    return () => {
-      options.splice(options.indexOf(option), 1)
-    }
-  })
-
-  return {
-    active,
-    modelValue
   }
-}
+)

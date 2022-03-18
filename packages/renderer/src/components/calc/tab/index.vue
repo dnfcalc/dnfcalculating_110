@@ -13,8 +13,7 @@
     name: "calc-tab",
     props: {
       ...itemProps,
-      width: { type: [Number, String], default: () => 120 },
-      to: { type: String }
+      width: { type: [Number, String], default: () => 120 }
     },
     components: { NItem },
     setup(props, { slots }) {
@@ -23,16 +22,11 @@
           width: `${props.width ?? 120}px`
         }
 
-        const defaults = (
+        return (
           <n-item {...props} style={style}>
             {renderSlot(slots, "default")}
           </n-item>
         )
-
-        if (!!props.to) {
-          return <router-link to={props.to}>{defaults}</router-link>
-        }
-        return defaults
       }
     }
   })
