@@ -11,7 +11,9 @@
 
       const title = computed(() => {
         const route = useRoute()
-        return route.meta.title ?? appStore.title
+        return (
+          route.meta.title ?? (route.params.name as string) ?? appStore.title
+        )
       })
 
       return () => (

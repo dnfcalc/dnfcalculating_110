@@ -15,17 +15,14 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/main/:name",
     name: "main",
-    meta: {
-      title: "角色"
-    },
     component: () => import("@/pages/main/main.vue"),
     children: [
       {
         path: "/character/:name",
         name: "character",
-        meta: {
-          title: "角色"
-        },
+        // meta: {
+        //   title: "角色"
+        // },
         component: () => import("@/pages/main/character/character.vue")
       },
       {
@@ -53,7 +50,6 @@ if (import.meta.env.DEV) {
     component: () => import("@/components/show.vue")
   })
 }
-
 
 const router = createRouter({
   routes,

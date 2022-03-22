@@ -3,6 +3,7 @@
   import { useCharacterStore } from "@/store"
   import { ICharacterInfo, ISkillInfo } from "@/api/character/type"
   import { useRoute } from "vue-router"
+  import router from "@/router"
 
   function skill_icon(character: string, skillName: string) {
     return `./images/characters/${character}/skill/${skillName}.png`
@@ -52,27 +53,52 @@
     const showDialog = () => (visible.value = true)
 
     return () => (
-      <div class="pt-8 pb-12 pl-4 character">
-        {renderList(basicInfo.value.skillInfo, (skill, index) => (
-          <div class="flex">
-            <calc-tooltip position="right" offset={5}>
-              {{
-                default() {
-                  return (
-                    <img src={skill_icon(characterName.value, skill.name)} />
-                  )
-                },
-                popper() {
-                  return skill_tooltip(skill)
-                }
-              }}
-            </calc-tooltip>
-            <img
-              src={skill_icon(characterName.value, skill.name)}
-              style="filter: sepia(100%);"
-            />
+      <div class="character flex">
+        <div class="flex w-30%">
+          <div class="flex-column">
+            {renderList(basicInfo.value.skillInfo, (skill, index) => (
+              <div>
+                <calc-tooltip position="right" offset={5}>
+                  {{
+                    default() {
+                      return (
+                        <img
+                          src={skill_icon(characterName.value, skill.name)}
+                        />
+                      )
+                    },
+                    popper() {
+                      return skill_tooltip(skill)
+                    }
+                  }}
+                </calc-tooltip>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+        <div class="flex-column">
+          <div class="h-30% flex-column">
+            {renderList([...Array(3).keys()], item => (
+              <calc-iconselect
+                emptyLabel="点击"
+                // modelValue={test}
+              >
+                {renderList(basicInfo.value.hushi, (hushi, index) => (
+                  <div>
+                    <calc-option value={0}>
+                      <img
+                        src={skill_icon(characterName.value, hushi)}
+                        // style="filter: sepia(100%);"
+                      />
+                    </calc-option>
+                  </div>
+                ))}
+              </calc-iconselect>
+            ))}
+          </div>
+          <div class="h-50%">技能栏及技能队列</div>
+          <div class="h-20%">职业个性化部分</div>
+        </div>
       </div>
     )
   })
