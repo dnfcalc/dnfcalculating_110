@@ -76,24 +76,27 @@
             ))}
           </div>
         </div>
-        <div class="flex-column">
-          <div class="h-30% flex-column">
+        <div>
+          <div class="h-30%">
             {renderList([...Array(3).keys()], item => (
-              <calc-iconselect
-                emptyLabel="点击"
-                // modelValue={test}
-              >
-                {renderList(basicInfo.value.hushi, (hushi, index) => (
-                  <div>
-                    <calc-option value={0}>
-                      <img
-                        src={skill_icon(characterName.value, hushi)}
-                        // style="filter: sepia(100%);"
-                      />
-                    </calc-option>
-                  </div>
-                ))}
-              </calc-iconselect>
+              <div class="CP">
+                <calc-iconselect
+                  class="hushi"
+                  emptyLabel="点击"
+                  // modelValue={test}
+                >
+                  {renderList(basicInfo.value.hushi, (hushi, index) => (
+                    <div>
+                      <calc-option value={0}>
+                        <img
+                          src={skill_icon(characterName.value, hushi)}
+                          // style="filter: sepia(100%);"
+                        />
+                      </calc-option>
+                    </div>
+                  ))}
+                </calc-iconselect>
+              </div>
             ))}
           </div>
           <div class="h-50%">技能栏及技能队列</div>
@@ -107,5 +110,16 @@
 <style lang="scss">
   .character {
     background-color: gray;
+  }
+
+  .CP {
+    background-image: url(./images/common/hushi.png);
+    height: 57px;
+    width: 161px;
+    .hushi {
+      position: relative;
+      top: 13.5px;
+      left: 10px;
+    }
   }
 </style>
