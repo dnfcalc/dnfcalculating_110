@@ -60,14 +60,17 @@
 </script>
 <style lang="scss">
   /**
- * @Author: Kritsu
- * @Date:   2021/11/16 18:31:51
- * @Last Modified by:   Kritsu
- * @Last Modified time: 2021/11/17 18:03:13
- */
+  * @Author: Kritsu
+  * @Date:   2021/11/16 18:31:51
+  * @Last Modified by:   Kritsu
+  * @Last Modified time: 2021/11/17 18:03:13
+  */
   .i-tabs {
     display: flex;
     list-style: none;
+    align-items: flex-end;
+    border-bottom: 1px solid #4f4838;
+    width: 100%;
 
     font-size: 14px;
 
@@ -95,8 +98,8 @@
       font-size: 12px;
 
       width: 120px;
-      height: 24px;
-      line-height: 24px;
+      height: 20px;
+      line-height: 20px;
       text-align: center;
       text-decoration: none;
 
@@ -105,6 +108,7 @@
       }
 
       border: black 1px solid;
+      border-bottom: none;
       border-radius: 5px 5px 0 0;
       background: linear-gradient(#2e2f31, #121315);
       transition: all 0.4s ease-in-out;
@@ -116,7 +120,9 @@
       &.active {
         background: linear-gradient(#574d38, #25221d);
         border-image: url("./img/active_top.png") 1 fill stretch;
-        color: #ffb400;
+        // color: #ffb400;
+        height: 21px;
+        line-height: 21px;
       }
     }
   }

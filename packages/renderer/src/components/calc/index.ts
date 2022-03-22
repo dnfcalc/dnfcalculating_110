@@ -8,6 +8,7 @@ import Checkbox from "./checkbox/index.vue"
 import Collapse from "./collapse/collapse"
 import Dialog from "./dialog/index.vue"
 import Tooltip from "./tooltip/index.vue"
+import Iconselct from "./iconselct/index.vue"
 
 import type { App } from "vue"
 
@@ -21,7 +22,8 @@ export const components = {
   Checkbox,
   Collapse,
   Dialog,
-  Tooltip
+  Tooltip,
+  Iconselct
 }
 
 export type CalcComponents = typeof components

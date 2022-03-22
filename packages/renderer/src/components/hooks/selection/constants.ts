@@ -14,7 +14,7 @@ export const ItemOptionsSymbol = Symbol("[i-selection]options")
 export const ChangeActiveSymbol = Symbol("[i-selection]change-active")
 
 export interface Option {
-  value: any
+  value: any | null
   label: string
   render(): JSX.Element | string
 }

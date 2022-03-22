@@ -41,9 +41,13 @@
 
     .header,
     .footer {
-      flex: 1;
       height: 5%;
       max-height: 25px;
+    }
+
+    .header {
+      display: flex;
+      align-items: flex-end;
     }
 
     .footer {

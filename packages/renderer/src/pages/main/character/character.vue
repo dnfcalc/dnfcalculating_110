@@ -67,6 +67,10 @@
                 }
               }}
             </calc-tooltip>
+            <img
+              src={skill_icon(characterName.value, skill.name)}
+              style="filter: sepia(100%);"
+            />
           </div>
         ))}
       </div>

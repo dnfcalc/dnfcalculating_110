@@ -3,10 +3,11 @@
   import SkillPanel from "@/components/internal/skill/skill-panel.vue"
 
   export default defineComponent({
-    components: { SkillPanel },
+    // components: { SkillPanel },
     setup() {
       const visible = ref(false)
       const showDialog = () => (visible.value = true)
+      const test = ref(-1)
 
       return () => (
         <div>
@@ -18,15 +19,23 @@
           <calc-button disabled>禁用</calc-button>
 
           <calc-checkbox>DYSB</calc-checkbox>
-          <calc-select>
+          <calc-select modelValue={test}>
             <calc-option value={0}>123</calc-option>
 
             <calc-option value={1}>467</calc-option>
           </calc-select>
+          <calc-iconselect emptyLabel="点击" modelValue={test}>
+            <calc-option value={0}>
+              <img src="./images/characters/重霄·弹药专家·女/skill/单兵推进器.png" />
+            </calc-option>
+
+            <calc-option value={1}>
+              <img src="./images/characters/重霄·弹药专家·女/skill/兵器研究.png" />
+            </calc-option>
+          </calc-iconselect>
           <calc-dialog modal v-model:visible={visible.value}>
             测试
           </calc-dialog>
-          <skill-panel></skill-panel>
 
           <div class="flex mx-12 py-12">
             <div class="flex col-6 justify-center">
