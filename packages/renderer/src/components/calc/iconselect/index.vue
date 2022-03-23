@@ -101,7 +101,7 @@
 
       return () => {
         return (
-          <div class="min-w-20 w-40 i-icon-select" onClick={collapse}>
+          <div class="i-icon-select" onClick={collapse}>
             <div
               class={{
                 "i-select-trigger": true,
