@@ -3,7 +3,7 @@
   import SkillPanel from "@/components/internal/skill/skill-panel.vue"
 
   export default defineComponent({
-    // components: { SkillPanel },
+    components: { SkillPanel },
     setup() {
       const visible = ref(false)
       const showDialog = () => (visible.value = true)
@@ -36,6 +36,8 @@
           <calc-dialog modal v-model:visible={visible.value}>
             测试
           </calc-dialog>
+
+          <skill-panel></skill-panel>
 
           <div class="flex mx-12 py-12">
             <div class="flex col-6 justify-center">
