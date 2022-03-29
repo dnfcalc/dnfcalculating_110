@@ -12,3 +12,12 @@ export interface IAdventureInfo {
   时间: string
   备注: string
 }
+
+export interface IEquipmentInfo {
+  groupId: number
+  id: number
+  type: number
+  typeName: string
+  name: string
+  icon: string
+}

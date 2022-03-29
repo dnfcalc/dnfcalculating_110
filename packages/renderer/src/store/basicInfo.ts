@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
-import { GetAdventureInfo } from '../api/info'
-import { IAdventureInfo } from '../api/info/type'
+import { defineStore } from "pinia"
+import { GetAdventureInfo, GetEquipmentInfo } from "../api/info"
+import { IAdventureInfo, IEquipmentInfo } from "../api/info/type"
 
 export interface BasicInfoState {
   // 冒险团信息
@@ -13,9 +13,10 @@ export interface BasicInfoState {
   blacklist?: any
   // 通知信息
   noticeInfo?: any
+  equipmentinfo?: IEquipmentInfo[]
 }
 
-export const useBasicInfoStore = defineStore('BasicInfo', {
+export const useBasicInfoStore = defineStore("BasicInfo", {
   state(): BasicInfoState {
     return {}
   },
@@ -26,10 +27,15 @@ export const useBasicInfoStore = defineStore('BasicInfo', {
       const black_list = null
       const notice_info = null
       this.adventureinfo = adventure_list
-      this.version = '0.0.0.0'
-      this.UID = '西瓜°'
+      this.version = "0.0.0.0"
+      this.UID = "西瓜°"
       this.blacklist = black_list
       this.noticeInfo = notice_info
+    },
+
+    async get_equipment_info() {
+      if (!this.equipmentinfo && this.equipmentinfo != undefined) return
+      this.equipmentinfo = (await GetEquipmentInfo())?.data
     }
   }
 })

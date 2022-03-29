@@ -2,7 +2,7 @@ from typing import List
 from fastapi import APIRouter
 from pydantic import BaseModel
 from utils.apiTools import reponse, Return
-from core.response import sundryInfo,characterInfo
+from core.response import sundryInfo,characterInfo,equipmentInfo
 
 infoRouter = APIRouter()
 
@@ -52,3 +52,7 @@ class characterSkillInfo(BaseModel):
 @infoRouter.get(path='/characterInfo/{character_name}')
 async def get_character_info(character_name : str):
   return reponse(data=characterInfo.get_character_info(character_name))
+
+@infoRouter.get(path='/equipmentInfo')
+async def get_character_info():
+  return reponse(data=equipmentInfo.get_equipment_info())
