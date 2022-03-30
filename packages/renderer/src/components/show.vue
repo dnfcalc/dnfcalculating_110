@@ -1,9 +1,10 @@
 <script lang="tsx">
   import { defineComponent, ref } from "vue"
   import SkillPanel from "@/components/internal/skill/skill-panel.vue"
+  import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
 
   export default defineComponent({
-    components: { SkillPanel },
+    components: { SkillPanel, EquipTips },
     setup() {
       const visible = ref(false)
       const showDialog = () => (visible.value = true)
@@ -38,6 +39,11 @@
           </calc-dialog>
 
           <skill-panel></skill-panel>
+          <equip-tips
+            eq={{ id: 1, icon: "/arms/swordman/katana/218.png" }}
+            colums
+            show-tips
+          ></equip-tips>
 
           <div class="flex mx-12 py-12">
             <div class="flex col-6 justify-center">
@@ -45,7 +51,7 @@
                 {{
                   default() {
                     return (
-                      <img src="https://gitee.com/FeelingsCoder/picture-resource-station/raw/master/equipment/arms/swordman/sswd/192.png" />
+                      <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
                     )
                   },
                   popper() {
@@ -62,7 +68,7 @@
                 {{
                   default() {
                     return (
-                      <img src="https://gitee.com/FeelingsCoder/picture-resource-station/raw/master/equipment/arms/swordman/sswd/192.png" />
+                      <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
                     )
                   },
                   popper() {
@@ -79,11 +85,13 @@
                 {{
                   default() {
                     return (
-                      <img src="https://gitee.com/FeelingsCoder/picture-resource-station/raw/master/equipment/arms/swordman/sswd/192.png" />
+                      <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
                     )
                   },
                   popper() {
-                    return <div class="h-20 text-white w-20">上方ToolTip</div>
+                    return (
+                      <div class="h-20 text-white w-20">上方ToolTip(默认)</div>
+                    )
                   }
                 }}
               </calc-tooltip>
@@ -94,7 +102,7 @@
                 {{
                   default() {
                     return (
-                      <img src="https://gitee.com/FeelingsCoder/picture-resource-station/raw/master/equipment/arms/swordman/sswd/192.png" />
+                      <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
                     )
                   },
                   popper() {
