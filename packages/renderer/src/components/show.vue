@@ -20,6 +20,14 @@
           <calc-button disabled>禁用</calc-button>
 
           <calc-checkbox>DYSB</calc-checkbox>
+          <div class="w-20 flex">
+            <calc-select modelValue={test}>
+              <calc-option value={0}>123</calc-option>
+
+              <calc-option value={1}>467</calc-option>
+            </calc-select>
+          </div>
+
           <calc-select modelValue={test}>
             <calc-option value={0}>123</calc-option>
 

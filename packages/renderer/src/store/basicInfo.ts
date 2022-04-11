@@ -1,5 +1,9 @@
 import { defineStore } from "pinia"
-import { GetAdventureInfo, GetEquipmentInfo } from "../api/info"
+import {
+  GetAdventureInfo,
+  GetEquipmentInfo,
+  GetEquipmentDetailInfo
+} from "../api/info"
 import { IAdventureInfo, IEquipmentInfo } from "../api/info/type"
 
 export interface BasicInfoState {
@@ -36,6 +40,10 @@ export const useBasicInfoStore = defineStore("BasicInfo", {
     async get_equipment_info() {
       if (!this.equipmentinfo && this.equipmentinfo != undefined) return
       this.equipmentinfo = (await GetEquipmentInfo())?.data
+    },
+
+    async get_equipment_detail(equ_id: number) {
+      return (await GetEquipmentDetailInfo(equ_id))?.data
     }
   }
 })

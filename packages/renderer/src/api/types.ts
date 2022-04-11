@@ -1,5 +1,6 @@
 export interface IDataType<T = any> {
-  code: number
+  code?: number
   message: string
   data: T
+  state?: number
 }

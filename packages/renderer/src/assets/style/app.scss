@@ -66,12 +66,12 @@ body {
 ::-webkit-scrollbar-button:vertical:single-button:start {
   width: 11px;
   // 添加标题栏后调整相关位置
-  background: url("@/assets/img/up.png") 0px 2px no-repeat;
+  background: url("@/assets/img/up.png") 0px 1px no-repeat;
 }
 
 ::-webkit-scrollbar-button:vertical:single-button:end {
   width: 11px;
-  background: url("@/assets/img/down.png") 0px 2px no-repeat;
+  background: url("@/assets/img/down.png") 0px 4px no-repeat;
 }
 
 .divider {

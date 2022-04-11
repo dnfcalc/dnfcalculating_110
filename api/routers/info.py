@@ -54,5 +54,9 @@ async def get_character_info(character_name : str):
   return reponse(data=characterInfo.get_character_info(character_name))
 
 @infoRouter.get(path='/equipmentInfo')
-async def get_character_info():
+async def get_equipment_info():
   return reponse(data=equipmentInfo.get_equipment_info())
+
+@infoRouter.get(path='/equipmentDetailInfo/{equID}')
+async def get_equipment_detail_info(equID):
+  return reponse(data=equipmentInfo.get_equipment_detail_info(equID))

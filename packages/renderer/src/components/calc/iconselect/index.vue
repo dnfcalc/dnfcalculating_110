@@ -34,10 +34,14 @@
       },
       width: {
         type: Number,
-        default: 120
+        default: 28
       },
       emptyLabel: {
         type: String
+      },
+      columnNum: {
+        type: Number,
+        default: 1
       }
     },
     components: {
@@ -48,7 +52,8 @@
         { ...props, itemClass: "i-select-dropdown-item" },
         context
       )
-      console.log({ ...props })
+      const columnNum = computed(() => props.columnNum || 1)
+      // console.log({ ...props })
 
       const isOpen = ref(false)
       const triggerRef = ref<HTMLElement>()
@@ -66,7 +71,7 @@
         return {
           left: `${dropdownPosition.value.x}px`,
           top: `${dropdownPosition.value.y}px`,
-          width: `${dropdownPosition.value.w}px`
+          width: `${columnNum.value * 28}px`
         }
       })
 
@@ -95,9 +100,9 @@
       })
 
       const { slots } = context
-      console.log(active.value?.render())
-      console.log(active.value)
-      console.log(active.value?.render() ?? props.emptyLabel)
+      // console.log(active.value?.render())
+      // console.log(active.value)
+      // console.log(active.value?.render() ?? props.emptyLabel)
 
       return () => {
         return (
@@ -174,8 +179,12 @@
   }
 
   .i-icon-select-dropdown {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     position: fixed;
     overflow-y: auto;
+    overflow-x: hidden;
     background: black;
     font-size: 12px;
     z-index: 888;

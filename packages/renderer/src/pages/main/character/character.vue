@@ -51,6 +51,8 @@
 
     const visible = ref(false)
     const showDialog = () => (visible.value = true)
+    // 红 绿
+    const fuwenColor = ["#a128f4", "#a3240c", "#20f948", "#3aa8ff"]
 
     return () => (
       <div class="character flex">
@@ -81,23 +83,57 @@
             <div class="head-sec">护石设置</div>
             <div class="body-sec">
               {renderList([...Array(3).keys()], item => (
-                <div class="cp">
-                  <calc-iconselect
-                    class="hushi"
-                    emptyLabel="点击"
-                    modelValue={-1}
-                  >
-                    {renderList(basicInfo.value.hushi, (hushi, index) => (
-                      <div>
+                <div>
+                  <div class="cp">
+                    <calc-iconselect
+                      class="hushi"
+                      emptyLabel="点击"
+                      modelValue={-1}
+                    >
+                      {renderList(basicInfo.value.hushi, (hushi, index) => (
                         <calc-option value={0}>
-                          <img
-                            src={skill_icon(characterName.value, hushi)}
-                            // style="filter: sepia(100%);"
-                          />
+                          <img src={skill_icon(characterName.value, hushi)} />
                         </calc-option>
-                      </div>
+                      ))}
+                    </calc-iconselect>
+                    {renderList([...Array(3).keys()], index => (
+                      <calc-iconselect
+                        emptyLabel="点击"
+                        modelValue={-1}
+                        columnNum={4}
+                        class="fuwen"
+                      >
+                        {renderList(basicInfo.value.fuwen, fuwen => (
+                          <>
+                            {renderList(
+                              [...Array(fuwenColor.length).keys()],
+                              colorindex => (
+                                <>
+                                  <calc-option value={0}>
+                                    <div
+                                      style={
+                                        "background-color: " +
+                                        fuwenColor[colorindex] +
+                                        "; width:28px;height:28px"
+                                      }
+                                    >
+                                      <img
+                                        style="mix-blend-mode: luminosity;"
+                                        src={skill_icon(
+                                          characterName.value,
+                                          fuwen
+                                        )}
+                                      />
+                                    </div>
+                                  </calc-option>
+                                </>
+                              )
+                            )}
+                          </>
+                        ))}
+                      </calc-iconselect>
                     ))}
-                  </calc-iconselect>
+                  </div>
                 </div>
               ))}
             </div>
@@ -137,20 +173,25 @@
 </script>
 
 <style lang="scss">
-  .character {
-    background-color: gray;
-  }
-
   .cp {
     background-image: url(./images/common/hushi.png);
     height: 52px;
     width: 168px;
     margin: 0 auto;
     margin-top: 5px;
+    display: flex;
     .hushi {
-      position: relative;
-      top: 11px;
-      left: 9px;
+      width: 28px;
+      margin-left: 9px;
+      margin-top: 11px;
+    }
+    .fuwen {
+      width: 28px;
+      margin-left: 5px;
+      margin-top: 12px;
+    }
+    .fuwen:nth-child(2) {
+      margin-left: 21px;
     }
   }
   .skill-slot-item {

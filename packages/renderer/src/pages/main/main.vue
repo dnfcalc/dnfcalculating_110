@@ -8,7 +8,10 @@
     const char = useRoute().params.name as string
 
     return () => (
-      <div class="main">
+      <div
+        class="main"
+        style={"background-image:url(./images/characters/" + char + "/bg.jpg)"}
+      >
         <div class="header">
           <calc-tabs route>
             <calc-tab value={"/equipment/" + char}>装备</calc-tab>
@@ -38,7 +41,8 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-
+    background-repeat: no-repeat;
+    background-size: cover;
     .header,
     .footer {
       height: 5%;
@@ -48,18 +52,31 @@
     .header {
       display: flex;
       align-items: flex-end;
+      z-index: 2;
     }
 
     .footer {
       display: flex;
       align-items: center;
       justify-content: end;
+      z-index: 2;
     }
 
     .center {
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
+      z-index: 2;
     }
+  }
+
+  .main::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(50, 50, 50, 0.75);
   }
 </style>
