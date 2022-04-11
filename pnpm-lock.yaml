@@ -9,6 +9,7 @@ specifiers:
   electron-builder: ^22.14.5
   husky: ^7.0.4
   lint-staged: ^12.3.5
+  lodash: ^4.17.21
   pinia: ^2.0.11
   prettier: ^2.5.1
   sass: ^1.49.9
@@ -24,6 +25,7 @@ specifiers:
 dependencies:
   '@vueuse/core': 7.7.1_vue@3.2.31
   axios: 0.26.1
+  lodash: 4.17.21
   pinia: 2.0.12_typescript@4.6.2+vue@3.2.31
   vue: 3.2.31
   vue-router: 4.0.14_vue@3.2.31
@@ -2874,7 +2876,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /log-update/4.0.0:
     resolution: {integrity: sha512-9fkkDevMefjg0mmzWFBW8YkFP91OrizzkW3diF7CpG+S2EYdy4+TVfGwz1zeF8x7hCx1ovSPTOE9Ngib74qqUg==}

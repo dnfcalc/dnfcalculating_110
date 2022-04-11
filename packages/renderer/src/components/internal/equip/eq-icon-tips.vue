@@ -9,6 +9,7 @@
   } from "vue"
   import EqInfo from "./eq-info.vue"
   import EqIcon from "./eq-icon.vue"
+  import { debounce } from "lodash"
 
   export default defineComponent({
     name: "eq-icon-tips",
@@ -34,7 +35,9 @@
     setup(props, { emit }) {
       const TipsEq = ref({ x: 0, y: 0, show: false })
 
-      function showEqTips(e) {
+      let showTipsD = debounce(showEqTips, 1000)
+
+      function showEqTips(e: any) {
         TipsEq.value.show = true
         TipsEq.value.x =
           window.innerWidth - e.clientX > 500
@@ -52,6 +55,7 @@
       }
 
       function removeEqTips() {
+        showTipsD.cancel()
         TipsEq.value.show = false
       }
 
@@ -66,7 +70,7 @@
               eq={props.eq}
               canClick={props.canClick}
               onclick={onclick}
-              onmousemove={showEqTips}
+              onmousemove={showTipsD}
               onmouseout={removeEqTips}
             ></eq-icon>
             <teleport to="body">
@@ -117,8 +121,8 @@
     &.width-no-colums {
       background-color: rgba($color: #000000, $alpha: 0.92);
       width: 285px;
-      border: 1px solid #252525;
-      box-shadow: 2px 2px 5px #000;
+      border: 1px solid gray;
+      text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
     }
   }
 </style>

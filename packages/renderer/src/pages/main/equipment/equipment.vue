@@ -5,9 +5,14 @@
 
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
 
-  export interface BasicInfo {
+  interface BasicInfo {
     public_110_equ?: IEquipmentInfo[]
     char_weapon_info?: any
+  }
+
+  interface EquiChooseState {
+    id: number
+    state: boolean
   }
 
   export default defineComponent({
@@ -15,30 +20,31 @@
     setup(props, { emit, slots }) {
       const basicStore = useBasicInfoStore()
       let basic_info = ref<BasicInfo>({})
+      let equi_choose = ref<EquiChooseState[]>([])
 
       onMounted(async () => {
         await basicStore.get_equipment_info()
         basic_info.value.public_110_equ =
           basicStore?.equipmentinfo as IEquipmentInfo[]
-      })
 
-      function itemInfo(equ: IEquipmentInfo) {
-        return () => {
-          console.log(basicStore.get_equipment_detail(equ.id))
-        }
-      }
+        basic_info.value.public_110_equ.forEach(item => {
+          equi_choose.value.push({ id: item.id, state: false })
+        })
+      })
 
       return () => (
         <div>
           <div class="equ">
-            <calc-button class="w-100% mt-5px mb-5px">105装备</calc-button>
+            <calc-button class="w-100% mb-5px">105装备</calc-button>
             {renderList(
               basic_info.value.public_110_equ as IEquipmentInfo[],
               (equ, index) => (
-                // <div class="item" onMouseenter={itemInfo(equ)}>
-                //   <img src={"./images/equipment/" + equ.icon} />
-                // </div>
-                <equip-tips eq={equ} show-tips></equip-tips>
+                <equip-tips
+                  eq={equ}
+                  canClick={true}
+                  show-tips
+                  v-model:useActive={equi_choose.value[index].state}
+                ></equip-tips>
               )
             )}
           </div>
@@ -65,5 +71,13 @@
     :nth-child(11n + 9) {
       margin-left: 10px;
     }
+  }
+
+  .imgcover::after {
+    content: "";
+    width: 28px;
+    height: 28px;
+    background-color: rgba(50, 50, 50, 0.75);
+    z-index: 999;
   }
 </style>

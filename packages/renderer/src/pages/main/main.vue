@@ -46,7 +46,7 @@
     .header,
     .footer {
       height: 5%;
-      max-height: 25px;
+      max-height: 26px;
     }
 
     .header {

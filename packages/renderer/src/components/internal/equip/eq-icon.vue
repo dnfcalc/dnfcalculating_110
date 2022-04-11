@@ -41,30 +41,30 @@
       init()
 
       function onclick() {
-        if (props.canClick) {
-          emit("click", eq.value)
-        } else if (props.useActive) {
-          eq.value.active = !eq.value.active
-          emit("click", eq.value)
-        }
+        // emit("click", eq.value)
+        console.log(props.useActive)
+        emit("update:useActive", !props.useActive)
+        console.log(props.useActive)
       }
 
       return () => {
         return (
-          <div class="eq-item-box" onClick={onclick}>
-            {eq.value && eq.value.icon ? (
-              <div
-                class={["eq-icon"].concat([
-                  eq.value.rarityClass ?? "epic",
-                  eq.value.active ? "normal" : "gray",
-                  props.canClick ? "can-click" : ""
-                ])}
-              >
-                <img src={"./images/equipment/" + eq.value.icon} />
-              </div>
-            ) : (
-              <span class="icon"></span>
-            )}
+          <div onClick={onclick}>
+            <div class={eq.value.active ? "" : "floatLayer"}></div>
+            <div class="eq-item-box">
+              {eq.value && eq.value.icon ? (
+                <div
+                  class={["eq-icon"].concat([
+                    eq.value.rarityClass ?? "epic",
+                    props.canClick ? "can-click" : ""
+                  ])}
+                >
+                  <img src={"./images/equipment/" + eq.value.icon} />
+                </div>
+              ) : (
+                <span class="icon"></span>
+              )}
+            </div>
           </div>
         )
       }
@@ -76,6 +76,14 @@
     width: 30px;
     height: 30px;
     display: inline-block;
+  }
+
+  .floatLayer {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 2;
+    background-color: #00000080;
   }
 
   .eq-icon {
@@ -127,10 +135,10 @@
       background-image: linear-gradient(#e7a300, #000);
     }
 
-    &.can-click:hover {
-      cursor: pointer;
-      background-image: linear-gradient(#3ae7fa, #3ae7fa);
-    }
+    // &.can-click:hover {
+    //   cursor: pointer;
+    //   background-image: linear-gradient(#3ae7fa, #3ae7fa);
+    // }
 
     > img {
       position: relative;

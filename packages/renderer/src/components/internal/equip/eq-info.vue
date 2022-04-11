@@ -181,44 +181,49 @@
                 </p>
               </div>
             </div>
-            <div class="">
-              <div class="hr"></div>
-              <span class="strong">
-                <span style="color: #f3e500">最上级</span> (100%)
-              </span>
-              <span class={equip.value.rarityClass} style="float: right">
-                {equip.value.rarity}
-              </span>
-            </div>
-            <div class="" style="text-align: right">
-              Lv{equip.value.lv}以上可以使用
-            </div>
-            <div class="red" style="text-align: right">
-              {equip.value.trade}
-            </div>
-            <div class="yellow" style="text-align: right">
-              {equip.value.position}
-            </div>
-            {!props.simple && equip.value.naijiu > 0 && (
-              <div>
-                耐久度 {equip.value.naijiu}/{equip.value.naijiu}
+            {
+              // <div class="">
+              //   <div class="hr"></div>
+              //   <span class="strong">
+              //     <span style="color: #f3e500">最上级</span> (100%)
+              //   </span>
+              //   <span class={equip.value.rarityClass} style="float: right">
+              //     {equip.value.rarity}
+              //   </span>
+              // </div>
+              // <div class="" style="text-align: right">
+              //   Lv{equip.value.lv}以上可以使用
+              // </div>
+              // <div class="red" style="text-align: right">
+              //   {equip.value.trade}
+              // </div>
+              <div class="yellow" style="text-align: right">
+                {equip.value.position}
               </div>
-            )}
-            {!props.simple && (
-              <div>
-                <div class="hr"></div>
-                <div class="fame">
-                  <img src="https://www.tianyongxian.com/dnfstatic/images/icons/base/mingwang.png" />
-                  冒险家名望 {equip.value.fame}
-                </div>
-                <div class="hr"></div>
-                {equip.value.prop.base.map(renderStatus())}
-                <div class="hr"></div>
-                <div class="green"> &lt;附魔属性&gt; </div>
-                <div class="gey">没有附魔属性</div>
-                <div class="gey">(可以在百科辞典中查看附魔属性)</div>
-              </div>
-            )}
+              // {!props.simple && equip.value.naijiu > 0 && (
+              //   <div>
+              //     耐久度 {equip.value.naijiu}/{equip.value.naijiu}
+              //   </div>
+              // )}
+            }
+            {
+              //   !props.simple && (
+              //   <div>
+              //     <div class="hr"></div>
+              //     <div class="fame">
+              //       <img src="images/common/mingwang.png" />
+              //       冒险家名望 {equip.value.fame}
+              //     </div>
+              //     <div class="hr"></div>
+              //     {equip.value.prop.base.map(renderStatus())}
+              //     <div class="hr"></div>
+              //     <div class="green"> &lt;附魔属性&gt; </div>
+              //     <div class="gey">没有附魔属性</div>
+              //     <div class="gey">(可以在百科辞典中查看附魔属性)</div>
+              //   </div>
+              // )
+            }
+
             {equip.value.prop.effect && equip.value.prop.effect.length > 0 && (
               <div>
                 <div class="hr"></div>
@@ -289,7 +294,7 @@
                       </>
                     ) : (
                       <div class="paddleft suiji-props gey">
-                        <span>随机属性, 获取装备后在背包中查看</span>
+                        <span>随机属性</span>
                       </div>
                     )}
                   </div>
@@ -297,22 +302,24 @@
             {
               // 随机属性装备
             }
-            <div class="bottom">
-              {slots.default ? (
-                slots.default()
-              ) : (
-                <>
-                  <div class="hr"></div>
-                  <div
-                    class="red"
-                    style="text-align: center; padding-right: 15px"
-                  >
-                    {" "}
-                    合成[x]{" "}
-                  </div>
-                </>
-              )}
-            </div>
+            {
+              // <div class="bottom">
+              //   {slots.default ? (
+              //     slots.default()
+              //   ) : (
+              //     <>
+              //       <div class="hr"></div>
+              //       <div
+              //         class="red"
+              //         style="text-align: center; padding-right: 15px"
+              //       >
+              //         {" "}
+              //         合成[x]{" "}
+              //       </div>
+              //     </>
+              //   )}
+              // </div>
+            }
           </div>
         )
       }
