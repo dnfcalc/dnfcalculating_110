@@ -3,41 +3,48 @@
   import { useBasicInfoStore } from "@/store"
   import { IEquipmentInfo } from "@/api/info/type"
 
+  import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
+
   export interface BasicInfo {
     public_110_equ?: IEquipmentInfo[]
     char_weapon_info?: any
   }
 
-  export default defineComponent(() => {
-    const basicStore = useBasicInfoStore()
-    let basic_info = ref<BasicInfo>({})
-    onMounted(async () => {
-      await basicStore.get_equipment_info()
-      basic_info.value.public_110_equ =
-        basicStore?.equipmentinfo as IEquipmentInfo[]
-    })
+  export default defineComponent({
+    components: { EquipTips },
+    setup(props, { emit, slots }) {
+      const basicStore = useBasicInfoStore()
+      let basic_info = ref<BasicInfo>({})
 
-    function itemInfo(equ: IEquipmentInfo) {
-      return () => {
-        console.log(basicStore.get_equipment_detail(equ.id))
+      onMounted(async () => {
+        await basicStore.get_equipment_info()
+        basic_info.value.public_110_equ =
+          basicStore?.equipmentinfo as IEquipmentInfo[]
+      })
+
+      function itemInfo(equ: IEquipmentInfo) {
+        return () => {
+          console.log(basicStore.get_equipment_detail(equ.id))
+        }
       }
-    }
 
-    return () => (
-      <div>
-        <div class="equ">
-          <calc-button class="w-100% mt-5px mb-5px">105装备</calc-button>
-          {renderList(
-            basic_info.value.public_110_equ as IEquipmentInfo[],
-            (equ, index) => (
-              <div class="item" onMouseenter={itemInfo(equ)}>
-                <img src={"./images/equipment/" + equ.icon} />
-              </div>
-            )
-          )}
+      return () => (
+        <div>
+          <div class="equ">
+            <calc-button class="w-100% mt-5px mb-5px">105装备</calc-button>
+            {renderList(
+              basic_info.value.public_110_equ as IEquipmentInfo[],
+              (equ, index) => (
+                // <div class="item" onMouseenter={itemInfo(equ)}>
+                //   <img src={"./images/equipment/" + equ.icon} />
+                // </div>
+                <equip-tips eq={equ} show-tips></equip-tips>
+              )
+            )}
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   })
 </script>
 

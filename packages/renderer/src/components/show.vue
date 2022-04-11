@@ -48,8 +48,7 @@
 
           <skill-panel></skill-panel>
           <equip-tips
-            eq={{ id: 1, icon: "/arms/swordman/katana/218.png" }}
-            colums
+            eq={{ id: 306, icon: "/arms/swordman/katana/218.png" }}
             show-tips
           ></equip-tips>
 

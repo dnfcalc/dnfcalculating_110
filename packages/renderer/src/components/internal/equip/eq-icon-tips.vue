@@ -104,8 +104,8 @@
   .eq-item-icon {
     position: relative;
     display: inline-block;
-    height: 38px;
-    width: 38px;
+    height: 30px;
+    width: 30px;
     border: 1px solid #1a1a1a;
     background-color: rgba($color: #000000, $alpha: 0.5);
   }
@@ -116,7 +116,7 @@
 
     &.width-no-colums {
       background-color: rgba($color: #000000, $alpha: 0.92);
-      width: 315px;
+      width: 285px;
       border: 1px solid #252525;
       box-shadow: 2px 2px 5px #000;
     }

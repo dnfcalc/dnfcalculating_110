@@ -1,13 +1,13 @@
 <script lang="tsx">
-  import {
-    defineComponent,
-    onMounted,
-    reactive,
-    ref,
-    watch,
-    computed
-  } from "vue"
+  import { defineComponent, reactive, ref } from "vue"
   // import useImage from "@/hooks/image"
+
+  interface EqIconType {
+    rarityClass?: string
+    active?: boolean
+    icon?: string
+    id?: number
+  }
 
   export default defineComponent({
     name: "eq-icon",
@@ -23,26 +23,44 @@
       canClick: {
         type: Boolean,
         default: false
+      },
+      useActive: {
+        type: Boolean,
+        default: false
       }
     },
     setup(props, { emit }) {
       // const resolve = useImage("equipment", false)
 
+      const eq = ref<EqIconType>({})
+      function init() {
+        eq.value = { ...props.eq }
+        eq.value.active = !props.useActive ? true : props.eq.active ?? false
+      }
+
+      init()
+
       function onclick() {
-        emit("click", props.eq)
+        if (props.canClick) {
+          emit("click", eq.value)
+        } else if (props.useActive) {
+          eq.value.active = !eq.value.active
+          emit("click", eq.value)
+        }
       }
 
       return () => {
         return (
           <div class="eq-item-box" onClick={onclick}>
-            {props.eq && props.eq.icon ? (
+            {eq.value && eq.value.icon ? (
               <div
                 class={["eq-icon"].concat([
-                  props.eq.rarityClass,
+                  eq.value.rarityClass ?? "epic",
+                  eq.value.active ? "normal" : "gray",
                   props.canClick ? "can-click" : ""
                 ])}
               >
-                <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
+                <img src={"./images/equipment/" + eq.value.icon} />
               </div>
             ) : (
               <span class="icon"></span>
@@ -55,22 +73,31 @@
 </script>
 <style scoped lang="scss">
   .eq-item-box {
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
     display: inline-block;
   }
 
   .eq-icon {
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
     background-image: linear-gradient(#e66465, #000);
     position: relative;
     display: inline-block;
 
+    &.gray {
+      -webkit-filter: grayscale(100%);
+      -moz-filter: grayscale(100%);
+      -ms-filter: grayscale(100%);
+      -o-filter: grayscale(100%);
+      filter: grayscale(100%);
+      filter: gray;
+    }
+
     &::before {
       content: "";
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       display: inline-block;
       position: absolute;
       background-color: rgba($color: #000000, $alpha: 1);
@@ -109,8 +136,8 @@
       position: relative;
       top: 1px;
       left: 1px;
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
     }
   }
 </style>

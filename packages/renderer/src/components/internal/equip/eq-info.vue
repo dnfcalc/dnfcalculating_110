@@ -10,6 +10,7 @@
     renderList
   } from "vue"
   import { asyncComputed } from "@vueuse/core"
+  import { useBasicInfoStore } from "@/store"
 
   import EqIcon from "./eq-icon.vue"
 
@@ -52,182 +53,11 @@
       }
     },
     setup(props, { emit, slots }) {
+      const basicStore = useBasicInfoStore()
+
       const equip = asyncComputed(async () => {
         if (props.eid) {
-          let eq = {
-            groupId: 1,
-            tips: "技能定制武器",
-            position: "太刀(鬼剑士(男))",
-            lv: 105,
-            naijiu: 48,
-            trade: "无法交易",
-            price: 0,
-            fame: 748,
-            prop: {
-              base: [
-                {
-                  id: 1,
-                  index: null,
-                  label: "物理攻击力",
-                  num: 1222,
-                  info: null,
-                  isRate: false
-                },
-                {
-                  id: 2,
-                  index: null,
-                  label: "魔法攻击力",
-                  num: 1351,
-                  info: null,
-                  isRate: false
-                },
-                {
-                  id: 3,
-                  index: null,
-                  label: "独立攻击力",
-                  num: 818,
-                  info: null,
-                  isRate: false
-                },
-                {
-                  id: 6,
-                  index: null,
-                  label: "力量",
-                  num: 85,
-                  info: null,
-                  isRate: false
-                },
-                {
-                  id: 7,
-                  index: null,
-                  label: "智力",
-                  num: 128,
-                  info: null,
-                  isRate: false
-                }
-              ],
-              effect: [
-                {
-                  id: 11,
-                  index: null,
-                  label: "物理百分比技能",
-                  num: null,
-                  info: "MP-5% 冷却时间-5%",
-                  isRate: false
-                },
-                {
-                  id: 12,
-                  index: null,
-                  label: "魔法百分比技能",
-                  num: null,
-                  info: "MP+5% 冷却时间-5%",
-                  isRate: false
-                },
-                {
-                  id: 14,
-                  index: null,
-                  label: "攻击速度",
-                  num: 0.08,
-                  info: null,
-                  isRate: true
-                },
-                {
-                  id: 15,
-                  index: null,
-                  label: "施放速度",
-                  num: 0.05,
-                  info: null,
-                  isRate: true
-                },
-                {
-                  id: 17,
-                  index: null,
-                  label: "物理暴击率",
-                  num: 0.02,
-                  info: null,
-                  isRate: true
-                },
-                {
-                  id: 22,
-                  index: null,
-                  label: "技能攻击力",
-                  num: 0.5,
-                  info: null,
-                  isRate: true
-                }
-              ],
-              growthProps: [
-                {
-                  id: 21,
-                  fromType: null,
-                  index: 1,
-                  buffer: null,
-                  attack: 2223,
-                  level: null,
-                  type: null,
-                  propsStr:
-                    "[杀意波动]技能波动领域范围+20%<br>[邪光波动阵]技能波动攻击范围+25%",
-                  props: [
-                    "[杀意波动]技能波动领域范围+20%",
-                    "[邪光波动阵]技能波动攻击范围+25%"
-                  ]
-                },
-                {
-                  id: 22,
-                  fromType: null,
-                  index: 2,
-                  buffer: null,
-                  attack: 2223,
-                  level: null,
-                  type: null,
-                  propsStr:
-                    "施放特定技能时吸收雷神之力，使[邪光波动阵]获得强化，施放[邪光波动阵]时可无施放动作使用<br>- 爆炎波动剑<br>- 不动冥王阵<br>- 天雷波动剑",
-                  props: [
-                    "施放特定技能时吸收雷神之力，使[邪光波动阵]获得强化，施放[邪光波动阵]时可无施放动作使用",
-                    "- 爆炎波动剑",
-                    "- 不动冥王阵",
-                    "- 天雷波动剑"
-                  ]
-                },
-                {
-                  id: 23,
-                  fromType: null,
-                  index: 3,
-                  buffer: null,
-                  attack: 2223,
-                  level: null,
-                  type: null,
-                  propsStr:
-                    "[爆炎波动剑]爆发间隔距离-90%，爆发位置更变，爆发间隔时间-30%",
-                  props: [
-                    "[爆炎波动剑]爆发间隔距离-90%，爆发位置更变，爆发间隔时间-30%"
-                  ]
-                },
-                {
-                  id: 24,
-                  fromType: null,
-                  index: 4,
-                  buffer: null,
-                  attack: 2223,
-                  level: null,
-                  type: null,
-                  propsStr:
-                    "[爆炎波动剑]第二次爆发大小+45%<br>[爆炎波动剑]第三次爆发大小+70%",
-                  props: [
-                    "[爆炎波动剑]第二次爆发大小+45%",
-                    "[爆炎波动剑]第三次爆发大小+70%"
-                  ]
-                }
-              ],
-              bufferProps: []
-            },
-            id: 422,
-            rarity: "史诗",
-            name: "决战之太刀 - 阿修罗",
-            icon: "/arms/swordman/katana/218.png",
-            group: null,
-            rarityClass: "epic"
-          }
+          let eq = basicStore.get_equipment_detail(props.eid)
           return eq
         }
       })
