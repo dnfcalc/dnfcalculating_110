@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, onMounted, ref, renderList } from "vue"
+  import { defineComponent, onMounted, ref, renderList, computed } from "vue"
   import { useBasicInfoStore } from "@/store"
   import { IEquipmentInfo } from "@/api/info/type"
 
@@ -20,33 +20,53 @@
     setup(props, { emit, slots }) {
       const basicStore = useBasicInfoStore()
       let basic_info = ref<BasicInfo>({})
-      let equi_choose = ref<EquiChooseState[]>([])
 
       onMounted(async () => {
         await basicStore.get_equipment_info()
         basic_info.value.public_110_equ =
           basicStore?.equipmentinfo as IEquipmentInfo[]
-
-        basic_info.value.public_110_equ.forEach(item => {
-          equi_choose.value.push({ id: item.id, state: false })
+        basic_info.value?.public_110_equ.forEach(item => {
+          item.state = false
+          // 这里检查存档，更新 state
         })
+      })
+
+      function changeState(equ: IEquipmentInfo) {
+        return (e: boolean) => {
+          equ.state = e
+          console.log(equi_choose.value)
+        }
+      }
+
+      let equi_choose = computed<EquiChooseState[]>(() => {
+        let list = [] as EquiChooseState[]
+        basic_info.value?.public_110_equ?.forEach(item => {
+          if (item.state) {
+            list.push({ id: item.id, state: false })
+          }
+        })
+        return list
       })
 
       return () => (
         <div>
           <div class="equ">
             <calc-button class="w-100% mb-5px">105装备</calc-button>
-            {renderList(
-              basic_info.value.public_110_equ as IEquipmentInfo[],
-              (equ, index) => (
-                <equip-tips
-                  eq={equ}
-                  canClick={true}
-                  show-tips
-                  v-model:useActive={equi_choose.value[index].state}
-                ></equip-tips>
-              )
-            )}
+            <div>
+              {renderList(
+                basic_info.value.public_110_equ as IEquipmentInfo[],
+                (equ, index) => (
+                  <equip-tips
+                    class="item"
+                    eq={equ}
+                    canClick={true}
+                    show-tips
+                    active={equ.state}
+                    onChange={changeState(equ)}
+                  ></equip-tips>
+                )
+              )}
+            </div>
           </div>
         </div>
       )
@@ -62,14 +82,15 @@
     align-content: space-between;
     justify-content: space-between;
     align-items: center;
-    width: 370px;
+    width: 366px;
     .item {
       width: 30px;
       height: 32px;
-    }
-    .item:nth-child(11n + 6),
-    :nth-child(11n + 9) {
-      margin-left: 10px;
+
+      &:nth-child(11n + 6),
+      &:nth-child(11n + 9) {
+        margin-left: 7px;
+      }
     }
   }
 

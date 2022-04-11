@@ -1,6 +1,5 @@
 <script lang="tsx">
   import { defineComponent, reactive, ref } from "vue"
-  // import useImage from "@/hooks/image"
 
   interface EqIconType {
     rarityClass?: string
@@ -20,31 +19,23 @@
         type: Boolean,
         default: false
       },
-      canClick: {
+      active: {
         type: Boolean,
-        default: false
-      },
-      useActive: {
-        type: Boolean,
-        default: false
+        default: true
       }
     },
     setup(props, { emit }) {
-      // const resolve = useImage("equipment", false)
-
       const eq = ref<EqIconType>({})
       function init() {
         eq.value = { ...props.eq }
-        eq.value.active = !props.useActive ? true : props.eq.active ?? false
+        eq.value.active = props.active ?? true
       }
 
       init()
 
       function onclick() {
-        // emit("click", eq.value)
-        console.log(props.useActive)
-        emit("update:useActive", !props.useActive)
-        console.log(props.useActive)
+        eq.value.active = !eq.value.active
+        emit("change", eq.value.active)
       }
 
       return () => {
@@ -55,8 +46,8 @@
               {eq.value && eq.value.icon ? (
                 <div
                   class={["eq-icon"].concat([
-                    eq.value.rarityClass ?? "epic",
-                    props.canClick ? "can-click" : ""
+                    eq.value.rarityClass ?? "epic"
+                    // eq.value.active ? '' : 'gray'
                   ])}
                 >
                   <img src={"./images/equipment/" + eq.value.icon} />

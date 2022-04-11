@@ -20,4 +20,5 @@ export interface IEquipmentInfo {
   typeName: string
   name: string
   icon: string
+  state?: boolean
 }

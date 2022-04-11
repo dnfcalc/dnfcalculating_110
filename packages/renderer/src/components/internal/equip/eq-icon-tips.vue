@@ -30,6 +30,10 @@
       colums: {
         type: Boolean,
         default: false
+      },
+      active: {
+        type: Boolean,
+        default: true
       }
     },
     setup(props, { emit }) {
@@ -63,6 +67,10 @@
         emit("select", props.eq)
       }
 
+      function changeActive(active: boolean) {
+        emit("change", active)
+      }
+
       return () => {
         return (
           <div class="eq-item-icon">
@@ -72,8 +80,10 @@
               onclick={onclick}
               onmousemove={showTipsD}
               onmouseout={removeEqTips}
+              onChange={changeActive}
+              active={props.active}
             ></eq-icon>
-            <teleport to="body">
+            <div>
               {props.eq && props.showTips && TipsEq.value.show ? (
                 <div
                   id="eq-info-tips"
@@ -97,7 +107,7 @@
               ) : (
                 <div></div>
               )}
-            </teleport>
+            </div>
           </div>
         )
       }
