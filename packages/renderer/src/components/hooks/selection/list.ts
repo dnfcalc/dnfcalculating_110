@@ -63,6 +63,7 @@ export const useSelectionList = defineHooks(
     const active = computed<Option | undefined>({
       set(val: Option | undefined) {
         context.emit("update:modelValue", val?.value)
+        context.emit("change", val?.value)
         current.value = val
       },
       get() {
@@ -96,7 +97,7 @@ export const useSelectionList = defineHooks(
 
     provide(InitSymbol, (option: Ref<Option>) => {
       options.push(option)
-      if (option.value.value == props.modelValue || active.value == undefined) {
+      if (option.value.value == props.modelValue) {
         current.value = option.value
       }
       return () => {

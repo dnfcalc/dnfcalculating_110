@@ -22,3 +22,15 @@ export interface IEquipmentInfo {
   icon: string
   state?: boolean
 }
+
+export interface IWeaponInfo {
+  id: number
+  name: string
+  eqs: IEquipmentInfo[]
+}
+
+export interface IEquipmentList {
+  equipment_Lv110: IEquipmentInfo[]
+  equipment_myth: IEquipmentInfo[]
+  equipment_weapon: IWeaponInfo[]
+}

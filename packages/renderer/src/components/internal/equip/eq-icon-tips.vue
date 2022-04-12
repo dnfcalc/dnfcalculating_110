@@ -27,6 +27,10 @@
       active: {
         type: Boolean,
         default: true
+      },
+      hightlight: {
+        type: Boolean,
+        default: false
       }
     },
     setup(props, { emit }) {
@@ -78,6 +82,7 @@
               onmouseout={removeEqTips}
               onChange={changeActive}
               active={props.active}
+              hightlight={props.hightlight}
             ></eq-icon>
             <div>
               {props.eq && props.showTips && TipsEq.value.show ? (
@@ -117,8 +122,8 @@
     display: inline-block;
     height: 30px;
     width: 30px;
-    border: 1px solid #1a1a1a;
-    background-color: rgba($color: #000000, $alpha: 0.5);
+    // border: 1px solid #1a1a1a;
+    // background-color: rgba($color: #000000, $alpha: 0.5);
   }
 
   .eq-info-tips {

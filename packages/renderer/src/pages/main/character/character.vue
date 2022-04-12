@@ -1,9 +1,8 @@
 <script lang="tsx">
-  import { defineComponent, onMounted, ref, renderList, reactive } from "vue"
+  import { defineComponent, onMounted, ref, renderList } from "vue"
   import { useCharacterStore } from "@/store"
   import { ICharacterInfo, ISkillInfo } from "@/api/character/type"
   import { useRoute } from "vue-router"
-  import router from "@/router"
 
   function skill_icon(character: string, skillName: string) {
     return `./images/characters/${character}/skill/${skillName}.png`

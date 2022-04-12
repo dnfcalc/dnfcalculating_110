@@ -4,7 +4,7 @@ import {
   GetEquipmentInfo,
   GetEquipmentDetailInfo
 } from "../api/info"
-import { IAdventureInfo, IEquipmentInfo } from "../api/info/type"
+import { IAdventureInfo, IEquipmentList } from "../api/info/type"
 
 export interface BasicInfoState {
   // 冒险团信息
@@ -17,7 +17,8 @@ export interface BasicInfoState {
   blacklist?: any
   // 通知信息
   noticeInfo?: any
-  equipmentinfo?: IEquipmentInfo[]
+  // 所有装备信息
+  equipmentinfo?: IEquipmentList
 }
 
 export const useBasicInfoStore = defineStore("BasicInfo", {
@@ -38,7 +39,7 @@ export const useBasicInfoStore = defineStore("BasicInfo", {
     },
 
     async get_equipment_info() {
-      if (!this.equipmentinfo && this.equipmentinfo != undefined) return
+      if (this.equipmentinfo != undefined && this.equipmentinfo != null) return
       this.equipmentinfo = (await GetEquipmentInfo())?.data
     },
 

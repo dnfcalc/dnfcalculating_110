@@ -8,9 +8,17 @@ os.chdir(sys.path[0])
 equ_details = dict()
 
 def get_equipment_info():
-    equipment_info = {}
+    equipment_info = {
+      "equipment_Lv110" : {},
+      "equipment_myth" : {},
+      "equipment_weapon" : {},
+    }
     with open("../configFiles/eq-base-data.json", encoding='utf-8') as fp:
-        equipment_info = json.load(fp)
+        equipment_info["equipment_Lv110"] = json.load(fp)
+    with open("../configFiles/eq-myth-base-data.json", encoding='utf-8') as fp:
+        equipment_info["equipment_myth"] = json.load(fp)
+    with open("../configFiles/arm-base-data.json", encoding='utf-8') as fp:
+        equipment_info["equipment_weapon"]= json.load(fp)
     return equipment_info
 
 def get_equipment_detail_info(equID):

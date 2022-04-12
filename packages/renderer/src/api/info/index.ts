@@ -1,5 +1,5 @@
 import hyRequest from "../index"
-import { IAdventureInfo, IEquipmentInfo } from "./type"
+import { IAdventureInfo, IEquipmentList } from "./type"
 import { IDataType } from "../types"
 
 enum InfoAPI {
@@ -16,7 +16,7 @@ export function GetAdventureInfo() {
 }
 
 export function GetEquipmentInfo() {
-  return hyRequest.get<IDataType<IEquipmentInfo[]>>({
+  return hyRequest.get<IDataType<IEquipmentList>>({
     url: InfoAPI.EquipmentInfo
   })
 }
