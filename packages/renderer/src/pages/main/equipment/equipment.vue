@@ -23,7 +23,7 @@
     setup() {
       const basicStore = useBasicInfoStore()
       const route = useRoute()
-      let test = ref(0)
+      let choose_feature = ref(-1)
       let basic_info = ref<BasicInfo>({})
       let equi_choose_110 = ref<EquiChooseState[]>([])
       let equi_choose_myth = ref<EquiChooseState[]>([])
@@ -79,18 +79,33 @@
       }
 
       function searchEqu() {
-        console.log("nmsl")
+        basic_info.value?.public_110_equ?.forEach((item, index) => {
+          equi_choose_110.value[index].hightlight = false
+          if ((item.features?.indexOf(choose_feature.value) as number) >= 0) {
+            equi_choose_110.value[index].hightlight = true
+          }
+        })
       }
 
-      // 根据当前的用户选择情况进行全选/全部取消选择
-      function selectAll(equList: EquiChooseState[]) {
+      // 根据当前的用户选择情况及筛选情况进行全选/全部取消选择
+      function selectAll(equList: EquiChooseState[], isL110: boolean = false) {
         return () => {
-          let totalState =
-            equList.filter(item => item.state).length > equList.length / 2
-          equList.forEach(item => {
-            item.state = !totalState
-            item.hightlight = false
-          })
+          if (choose_feature.value >= 0 && isL110) {
+            let totalState =
+              equList.filter(item => item.state && item.hightlight).length >
+              equList.length / 2
+            equList.forEach(item => {
+              item.state = item.hightlight ? !totalState : item.state
+              item.hightlight = false
+            })
+            choose_feature.value = -1
+          } else {
+            let totalState =
+              equList.filter(item => item.state).length > equList.length / 2
+            equList.forEach(item => {
+              item.state = !totalState
+            })
+          }
         }
       }
 
@@ -109,17 +124,21 @@
           <div class="equ-105">
             <div class="flex w-100%  mb-5px">
               <calc-select
-                modelValue={test}
+                v-model:modelValue={choose_feature.value}
                 class="ownSelect"
-                emptyLabel="特性"
+                emptyLabel="特性选择"
                 onChange={searchEqu}
               >
+                <calc-option value={0}>全部</calc-option>
                 <calc-option value={1}>出血</calc-option>
-                <calc-option value={2}>石化</calc-option>
+                <calc-option value={3}>石化</calc-option>
               </calc-select>
               <calc-button
                 class="w-100%"
-                onClick={selectAll(equi_choose_110.value as EquiChooseState[])}
+                onClick={selectAll(
+                  equi_choose_110.value as EquiChooseState[],
+                  true
+                )}
               >
                 105装备
               </calc-button>

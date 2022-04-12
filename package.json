@@ -38,7 +38,7 @@
   "env": {
     "//": "Used in build scripts",
     "VITE_DEV_SERVER_HOST": "127.0.0.1",
-    "VITE_DEV_SERVER_PORT": 233
+    "VITE_DEV_SERVER_PORT": 25252
   },
   "keywords": [
     "vite",

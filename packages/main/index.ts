@@ -37,8 +37,12 @@ async function createWindow() {
   } else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}`
+    try {
+      win.loadURL(url)
+    } catch (ex) {
+      win.loadURL(`http://${process.env["VITE_DEV_SERVER_HOST"]}:233`)
+    }
 
-    win.loadURL(url)
     win.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 
@@ -103,7 +107,11 @@ ipcMain.handle("open-win", (event, arg) => {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}/#${arg.url}`
 
-    ChildWin.loadURL(url)
+    try {
+      ChildWin.loadURL(url)
+    } catch (ex) {
+      ChildWin.loadURL(`http://${process.env["VITE_DEV_SERVER_HOST"]}:233`)
+    }
     console.log(url)
     // ChildWin.webContents.openDevTools({ mode: "undocked", activate: true })
   }

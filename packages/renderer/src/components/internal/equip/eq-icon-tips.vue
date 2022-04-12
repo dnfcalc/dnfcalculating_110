@@ -47,7 +47,6 @@
             ? e.clientX + 20
             : e.clientX - 20 - 310
         var dom = document.getElementById("eq-info-tips")
-        console.log(dom)
         if (dom != null) {
           TipsEq.value.y =
             window.innerHeight - e.clientY > dom.offsetHeight + 50

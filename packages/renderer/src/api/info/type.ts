@@ -21,6 +21,7 @@ export interface IEquipmentInfo {
   name: string
   icon: string
   state?: boolean
+  features?: number[]
 }
 
 export interface IWeaponInfo {

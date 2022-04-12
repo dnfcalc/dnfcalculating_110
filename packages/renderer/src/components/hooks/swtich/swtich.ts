@@ -41,8 +41,8 @@ export const useSwitch = defineHooks(switchProps, (props, { emit }) => {
     },
     set(val) {
       checked.value = val
-      emit("change", val)
       emit("update:modelValue", val)
+      emit("change", val)
     }
   })
 
