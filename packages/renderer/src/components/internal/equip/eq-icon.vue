@@ -25,32 +25,24 @@
       }
     },
     setup(props, { emit }) {
-      const eq = ref<EqIconType>({})
-      function init() {
-        eq.value = { ...props.eq }
-        eq.value.active = props.active ?? true
-      }
-
-      init()
-
       function onclick() {
-        eq.value.active = !eq.value.active
-        emit("change", eq.value.active)
+        // eq.value.active = !eq.value.active
+        emit("change", !props.active)
       }
 
       return () => {
         return (
           <div onClick={onclick}>
-            <div class={eq.value.active ? "" : "floatLayer"}></div>
+            <div class={props.active ? "" : "floatLayer"}></div>
             <div class="eq-item-box">
-              {eq.value && eq.value.icon ? (
+              {props.eq && props.eq.icon ? (
                 <div
                   class={["eq-icon"].concat([
-                    eq.value.rarityClass ?? "epic"
+                    props.eq.rarityClass ?? "epic"
                     // eq.value.active ? '' : 'gray'
                   ])}
                 >
-                  <img src={"./images/equipment/" + eq.value.icon} />
+                  <img src={"./images/equipment/" + props.eq.icon} />
                 </div>
               ) : (
                 <span class="icon"></span>
