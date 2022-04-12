@@ -1,12 +1,5 @@
 <script lang="tsx">
-  import {
-    defineComponent,
-    reactive,
-    ref,
-    watch,
-    computed,
-    Teleport
-  } from "vue"
+  import { defineComponent, ref } from "vue"
   import EqInfo from "./eq-info.vue"
   import EqIcon from "./eq-icon.vue"
   import { debounce } from "lodash"
@@ -40,14 +33,17 @@
       const TipsEq = ref({ x: 0, y: 0, show: false })
 
       let showTipsD = debounce(showEqTips, 1000)
-
+      let lastE = ref({})
       function showEqTips(e: any) {
+        e = e ?? lastE
+        lastE = e
         TipsEq.value.show = true
         TipsEq.value.x =
           window.innerWidth - e.clientX > 500
             ? e.clientX + 20
             : e.clientX - 20 - 310
         var dom = document.getElementById("eq-info-tips")
+        console.log(dom)
         if (dom != null) {
           TipsEq.value.y =
             window.innerHeight - e.clientY > dom.offsetHeight + 50
@@ -101,6 +97,7 @@
                   <eq-info
                     colums={props.colums}
                     eid={props.eq.id}
+                    onLoaded={debounce(showEqTips, 10)}
                     pps={props.eq.groupId == 10 ? props.eq.props : null}
                   ></eq-info>
                 </div>

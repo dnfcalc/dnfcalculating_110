@@ -58,6 +58,7 @@
       const equip = asyncComputed(async () => {
         if (props.eid) {
           let eq = basicStore.get_equipment_detail(props.eid)
+          emit("loaded")
           return eq
         }
       })
