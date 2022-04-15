@@ -23,14 +23,14 @@ class Character:
   # 个性化设置，技能选项等
   individuation=[]
   # 护石及符文信息
-  hushi = []
-  fuwen = []
+  talisman = []
+  rune = []
   # 药剂等相关信息设置
 
-  def set_skill_info(self,SkillClassList:技能,fuwen_except=[]):
+  def set_skill_info(self,SkillClassList:技能,rune_except=[]):
     self.skillInfo = []
-    self.fuwen = []
-    self.hushi = []
+    self.rune = []
+    self.talisman = []
     for skill in SkillClassList:
       skill.等级 = skill.基础等级
       self.skillInfo.append({
@@ -44,9 +44,9 @@ class Character:
         "data": 0 if not skill.是否有伤害 else skill.等效百分比('')
       })
       if skill.是否有伤害 == 1 and skill.是否有护石 == 1:
-        self.hushi.append(skill.名称)
-      if skill.所在等级 >= 20 and skill.所在等级 <= 80 and skill.所在等级 != 50 and skill.是否有伤害 == 1 and skill.名称 not in fuwen_except:
-        self.fuwen.append(skill.名称)
+        self.talisman.append(skill.名称)
+      if skill.所在等级 >= 20 and skill.所在等级 <= 80 and skill.所在等级 != 50 and skill.是否有伤害 == 1 and skill.名称 not in rune_except:
+        self.rune.append(skill.名称)
 
   def set_individuation(self):
     pass

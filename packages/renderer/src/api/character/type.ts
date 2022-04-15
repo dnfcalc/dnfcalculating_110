@@ -9,8 +9,8 @@ export interface ICharacterInfo {
   armor_mastery?: string[]
   buff_ratio?: number
   skillInfo: ISkillInfo[]
-  fuwen?: string[]
-  hushi?: string[]
+  rune?: string[]
+  talisman?: string[]
   individuation: IIndividuation[]
 }
 

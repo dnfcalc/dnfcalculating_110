@@ -30,7 +30,7 @@ export const listProps = {
     }
 }
 
-export const useSelectionList = defineHooks(listProps, (props, context) => {
+export const useSelectionList = defineHooks(listProps, (props, context, selectType = 0) => {
     const current = ref<Option>()
 
     const modelValue = computed(() => props.modelValue)
@@ -67,13 +67,14 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
     )
 
     provide(
-        ItemClassSymbol,
+        selectType == 0 ? ItemClassSymbol : "i-select-dropdown-item",
         computed(() => props.itemClass)
     )
 
     provide(InitSymbol, (option: Ref<Option>) => {
         options.push(option)
-        if (option.value.value == modelValue.value || active.value == undefined) {
+        // if (option.value.value == modelValue.value || active.value == undefined) {
+        if (option.value.value == modelValue.value) {
             current.value = option.value
         }
         return () => {

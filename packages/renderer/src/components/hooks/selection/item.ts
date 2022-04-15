@@ -71,7 +71,6 @@ export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
     const unactiveClass = computed(() => {
         return inject<ComputedRef<ClassType>>(UnactiveSymbol)?.value ?? "unactive"
     })
-
     return {
         change,
         render,

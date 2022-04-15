@@ -1,0 +1,146 @@
+[
+  {
+    "groupId": 0,
+    "id": 1499,
+    "type": 2,
+    "typeName": "头肩",
+    "icon": "/wisdom/244.gif",
+    "name": "完美掌控"
+  },
+  {
+    "groupId": 0,
+    "id": 1500,
+    "type": 3,
+    "typeName": "手镯",
+    "icon": "/wisdom/245.gif",
+    "name": "无念之仪服"
+  },
+  {
+    "groupId": 0,
+    "id": 1501,
+    "type": 3,
+    "typeName": "项链",
+    "icon": "/wisdom/246.gif",
+    "name": "先知者的预言"
+  },
+  {
+    "groupId": 0,
+    "id": 1502,
+    "type": 3,
+    "typeName": "戒指",
+    "icon": "/wisdom/247.gif",
+    "name": "骸麒之戒"
+  },
+  {
+    "groupId": 0,
+    "id": 1503,
+    "type": 4,
+    "typeName": "耳环",
+    "icon": "/wisdom/248.gif",
+    "name": "窥视未来耳环"
+  },
+  {
+    "groupId": 0,
+    "id": 1504,
+    "type": 4,
+    "typeName": "辅助装备",
+    "icon": "/wisdom/249.gif",
+    "name": "青面修罗的面具"
+  },
+  {
+    "groupId": 0,
+    "id": 1505,
+    "type": 4,
+    "typeName": "魔法石",
+    "icon": "/wisdom/250.gif",
+    "name": "赤鬼的次元石"
+  },
+  {
+    "groupId": 0,
+    "id": 1506,
+    "type": 2,
+    "typeName": "上衣",
+    "icon": "/wisdom/252.gif",
+    "name": "无念之仪服"
+  },
+  {
+    "groupId": 0,
+    "id": 1507,
+    "type": 2,
+    "typeName": "头肩",
+    "icon": "/wisdom/253.gif",
+    "name": "无欲之花"
+  },
+  {
+    "groupId": 0,
+    "id": 1508,
+    "type": 2,
+    "typeName": "下装",
+    "icon": "/wisdom/254.gif",
+    "name": "无形之气韵"
+  },
+  {
+    "groupId": 0,
+    "id": 1509,
+    "type": 2,
+    "typeName": "鞋",
+    "icon": "/wisdom/255.gif",
+    "name": "无言之罪恶"
+  },
+  {
+    "groupId": 0,
+    "id": 1510,
+    "type": 2,
+    "typeName": "腰带",
+    "icon": "/wisdom/256.gif",
+    "name": "无我之轮回"
+  },
+  {
+    "groupId": 0,
+    "id": 1511,
+    "type": 3,
+    "typeName": "手镯",
+    "icon": "/wisdom/528.gif",
+    "name": "无言怒火"
+  },
+  {
+    "groupId": 0,
+    "id": 1512,
+    "type": 3,
+    "typeName": "项链",
+    "icon": "/wisdom/529.gif",
+    "name": "无形青岩"
+  },
+  {
+    "groupId": 0,
+    "id": 1513,
+    "type": 3,
+    "typeName": "戒指",
+    "icon": "/wisdom/530.gif",
+    "name": "无念剑环"
+  },
+  {
+    "groupId": 0,
+    "id": 1514,
+    "type": 4,
+    "typeName": "辅助装备",
+    "icon": "/wisdom/531.gif",
+    "name": "支配者王冠"
+  },
+  {
+    "groupId": 0,
+    "id": 1515,
+    "type": 4,
+    "typeName": "魔法石",
+    "icon": "/wisdom/532.gif",
+    "name": "灵魂掠夺者"
+  },
+  {
+    "groupId": 0,
+    "id": 1516,
+    "type": 4,
+    "typeName": "耳环",
+    "icon": "/wisdom/533.gif",
+    "name": "无我灵晶"
+  }
+]
