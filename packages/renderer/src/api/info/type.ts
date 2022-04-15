@@ -34,4 +34,5 @@ export interface IEquipmentList {
   equipment_Lv110: IEquipmentInfo[]
   equipment_myth: IEquipmentInfo[]
   equipment_weapon: IWeaponInfo[]
+  equipment_wisdom: IEquipmentInfo[]
 }

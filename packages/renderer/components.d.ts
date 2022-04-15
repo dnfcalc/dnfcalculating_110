@@ -14,6 +14,8 @@ declare module 'vue' {
     CalcTab: typeof import('./src/components/calc/tab/index.vue')['default']
     CalcTabs: typeof import('./src/components/calc/tabs/index.vue')['default']
     CalcTooltip: typeof import('./src/components/calc/tooltip/index.vue')['default']
+    InternalCharinfo: typeof import('./src/components/internal/charinfo/index.vue')['default']
+    InternalEquipEqChoose: typeof import('./src/components/internal/equip/eq-choose.vue')['default']
     InternalEquipEqIcon: typeof import('./src/components/internal/equip/eq-icon.vue')['default']
     InternalEquipEqIconTips: typeof import('./src/components/internal/equip/eq-icon-tips.vue')['default']
     InternalEquipEqInfo: typeof import('./src/components/internal/equip/eq-info.vue')['default']

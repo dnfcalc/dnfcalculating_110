@@ -12,6 +12,7 @@ def get_equipment_info():
       "equipment_Lv110" : {},
       "equipment_myth" : {},
       "equipment_weapon" : {},
+      "equipment_wisdom":{}
     }
     with open("../configFiles/eq-base-data.json", encoding='utf-8') as fp:
         equipment_info["equipment_Lv110"] = json.load(fp)
@@ -19,6 +20,8 @@ def get_equipment_info():
         equipment_info["equipment_myth"] = json.load(fp)
     with open("../configFiles/arm-base-data.json", encoding='utf-8') as fp:
         equipment_info["equipment_weapon"]= json.load(fp)
+    with open("../configFiles/eq-wisdom-base-data.json", encoding='utf-8') as fp:
+        equipment_info["equipment_wisdom"]= json.load(fp)
     return equipment_info
 
 def get_equipment_detail_info(equID):
