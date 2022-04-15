@@ -1,95 +1,87 @@
-import {
-  ComponentPropsOptions,
-  computed,
-  ComputedRef,
-  inject,
-  onDeactivated,
-  PropType,
-  Ref,
-  renderSlot,
-  watch
-} from "vue"
+import { computed, ComputedRef, inject, onDeactivated, PropType, Ref, render, renderSlot, watch } from "vue"
 import { defineHooks } from "../define"
-import {
-  AciveClassSymbol,
-  AciveSymbol,
-  InitSymbol,
-  ItemClassSymbol,
-  ModelValueSymbol,
-  Option,
-  UnactiveSymbol
-} from "./constants"
-import { ClassType } from "./types"
+import { AciveClassSymbol, AciveSymbol, InitSymbol, ItemClassSymbol, ModelValueSymbol, Option, UnactiveSymbol } from "./constants"
+import { BaseType, ClassType, valuePropType } from "./types"
 
-export const itemProps: ComponentPropsOptions = {
-  value: {
-    type: [Object, String, Number, Boolean]
-  },
-  label: {
-    type: [Function, String] as PropType<string | ((val: string) => string)>
-  }
+export const itemProps = {
+    value: {
+        type: valuePropType,
+        required: true
+    },
+    label: {
+        type: [Function, String] as PropType<string | ((val: BaseType) => string) | null>,
+        default() {
+            return null
+        }
+    }
 }
 
 export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
-  const active = inject(AciveSymbol) as Ref<Option>
-  const init = inject<(obj: any) => () => void>(InitSymbol)
-  const modelValue = inject(ModelValueSymbol) as Ref
+    const active = inject(AciveSymbol) as Ref<Option>
+    const init = inject<(obj: any) => () => void>(InitSymbol)
+    const modelValue = inject(ModelValueSymbol) as Ref
 
-  const isActive = computed<boolean>(() => {
-    return props.value == active?.value?.value
-  })
+    const isActive = computed<boolean>(() => {
+        return props.value == active?.value?.value
+    })
 
-  const current = computed(() => {
-    let label = props.label as string | Function
-    if (typeof label == "function") {
-      label = (label(props.value) as string) ?? props.value
+    function render() {
+        let label = props.label
+        if (label) {
+            if (typeof label == "function") {
+                label = label(props.value)
+            }
+        }
+        return label ?? renderSlot(slots, "default")
     }
+
+    const current = computed(() => {
+        return {
+            render,
+            value: props.value
+        }
+    })
+
+    if (!!init) {
+        const remove = init(current)
+
+        onDeactivated(remove)
+    }
+
+    function change() {
+        if (!!active) {
+            active.value = current.value
+        }
+    }
+
+    watch(current, (newVal, oldVal) => {
+        if (active && oldVal.value == modelValue.value) {
+            active.value = newVal
+        }
+    })
+
+    const itemClass = computed(() => {
+        return [inject<ComputedRef<ClassType>>(ItemClassSymbol)?.value ?? ""].concat(isActive.value ? activeClass.value : unactiveClass.value)
+    })
+
+    const activeClass = computed(() => {
+        return inject<ComputedRef<ClassType>>(AciveClassSymbol)?.value ?? "active"
+    })
+
+    const unactiveClass = computed(() => {
+        return inject<ComputedRef<ClassType>>(UnactiveSymbol)?.value ?? "unactive"
+    })
+
     return {
-      label,
-      render,
-      value: props.value
+        change,
+        render,
+        active,
+        isActive,
+        current,
+        activeClass,
+        unactiveClass,
+        itemClass
     }
-  })
-
-  if (!!init) {
-    const remove = init(current)
-    onDeactivated(remove)
-  }
-
-  watch(current, (newVal, oldVal) => {
-    if (active && oldVal.value == modelValue.value) {
-      active.value = newVal
-    }
-  })
-
-  const itemClass = computed(() => {
-    return [
-      inject<ComputedRef<ClassType>>(ItemClassSymbol)?.value ?? "",
-      isActive.value ? activeClass.value : unactiveClass.value
-    ]
-  })
-
-  const activeClass = computed(() => {
-    return inject<ComputedRef<ClassType>>(AciveClassSymbol)?.value ?? "active"
-  })
-
-  const unactiveClass = computed(() => {
-    return inject<ComputedRef<ClassType>>(UnactiveSymbol)?.value ?? "unactive"
-  })
-
-  function render() {
-    return (props.label as string) ?? renderSlot(slots, "default")
-  }
-
-  return {
-    active,
-    isActive,
-    current,
-    activeClass,
-    unactiveClass,
-    itemClass,
-    render
-  }
 })
 
 export interface ItemProps {}

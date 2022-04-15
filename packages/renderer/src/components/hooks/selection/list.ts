@@ -1,77 +1,55 @@
-import type { BaseType, ClassType } from "./types"
-import {
-  computed,
-  provide,
-  ref,
-  SetupContext,
-  ComponentPropsOptions,
-  Ref,
-  PropType
-} from "vue"
-import {
-  AciveClassSymbol,
-  AciveSymbol,
-  InitSymbol,
-  ItemClassSymbol,
-  ModelValueSymbol,
-  Option,
-  UnactiveSymbol
-} from "./constants"
-import { defineHooks } from "../define"
-
-const valuePropType = [
-  String,
-  Number,
-  Object,
-  Boolean,
-  null
-] as PropType<BaseType>
-
-const classPropType = [String, Array] as PropType<string | string[]>
+import { classPropType, valuePropType } from "./types"
+import { computed, provide, ref, SetupContext, ComponentPropsOptions, Ref, watch } from "vue"
+import { AciveClassSymbol, AciveSymbol, InitSymbol, ItemClassSymbol, ModelValueSymbol, Option, UnactiveSymbol } from "./constants"
+import { defineHooks } from "@/components/hooks/define"
 
 export const listProps = {
-  modelValue: {
-    type: valuePropType,
-    default() {
-      return null
+    value: {
+        type: valuePropType,
+        default: () => null
+    },
+    modelValue: {
+        type: valuePropType,
+        default: () => null
+    },
+    defaultValue: {
+        type: valuePropType,
+        default: () => null
+    },
+    activeClass: {
+        type: classPropType,
+        default: () => "active"
+    },
+    itemClass: {
+        type: classPropType,
+        default: () => ""
+    },
+    unactiveClass: {
+        type: classPropType,
+        default: () => ""
     }
-  },
-  defaultValue: {
-    type: valuePropType,
-    default() {
-      return null
-    }
-  },
-  activeClass: {
-    type: classPropType
-  },
-  itemClass: {
-    type: classPropType
-  },
-  unactiveClass: {
-    type: classPropType
-  }
 }
 
-export const useSelectionList = defineHooks(
-  listProps,
-  (props: Readonly<any>, context: SetupContext) => {
+export const useSelectionList = defineHooks(listProps, (props, context) => {
     const current = ref<Option>()
 
     const modelValue = computed(() => props.modelValue)
 
+    const options: Ref<Option>[] = []
+
     const active = computed<Option | undefined>({
-      set(val: Option | undefined) {
-        context.emit("update:modelValue", val?.value)
-        context.emit("change", val?.value)
-        current.value = val
-      },
-      get() {
-        return (
-          options.find(e => e.value.value == props.modelValue)?.value ??
-          current.value
-        )
-      }
+        set(val: Option | undefined) {
+            context.emit("update:modelValue", val?.value)
+            context.emit("change", val?.value)
+            current.value = val
+        },
+        get() {
+            return options.find(e => e.value.value == modelValue.value)?.value ?? current.value
+        }
+    })
+
+    watch(active, val => {
+        console.log(val)
     })
 
     provide(ModelValueSymbol, modelValue)
@@ -79,35 +57,42 @@ export const useSelectionList = defineHooks(
     provide(AciveSymbol, active)
 
     provide(
-      AciveClassSymbol,
-      computed(() => props.activeClass)
+        AciveClassSymbol,
+        computed(() => props.activeClass)
     )
 
     provide(
-      UnactiveSymbol,
-      computed(() => props.unactiveClass)
+        UnactiveSymbol,
+        computed(() => props.unactiveClass)
     )
 
     provide(
-      ItemClassSymbol,
-      computed(() => props.itemClass)
+        ItemClassSymbol,
+        computed(() => props.itemClass)
     )
-
-    const options: Ref<Option>[] = []
 
     provide(InitSymbol, (option: Ref<Option>) => {
-      options.push(option)
-      if (option.value.value == props.modelValue) {
-        current.value = option.value
-      }
-      return () => {
-        options.splice(options.indexOf(option), 1)
-      }
+        options.push(option)
+        if (option.value.value == modelValue.value || active.value == undefined) {
+            current.value = option.value
+        }
+        return () => {
+            options.splice(options.indexOf(option), 1)
+        }
     })
 
-    return {
-      active,
-      modelValue
+    function render() {
+        const option = options.find(e => e.value.value == modelValue.value)
+        console.log(option, options, modelValue.value, props.modelValue)
+        if (option) {
+            const tmp = option.value.render()
+            return tmp
+        }
     }
-  }
-)
+
+    return {
+        active,
+        modelValue,
+        render
+    }
+})
