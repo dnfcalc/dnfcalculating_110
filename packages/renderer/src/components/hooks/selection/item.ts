@@ -1,7 +1,7 @@
 import { computed, ComputedRef, inject, onDeactivated, PropType, Ref, render, renderSlot, watch } from "vue"
 import { defineHooks } from "../define"
 import { AciveClassSymbol, AciveSymbol, InitSymbol, ItemClassSymbol, ModelValueSymbol, Option, UnactiveSymbol } from "./constants"
-import { BaseType, ClassType, valuePropType } from "./types"
+import { BaseType, ClassType, valuePropType } from "../types"
 
 export const itemProps = {
     value: {
@@ -71,6 +71,7 @@ export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
     const unactiveClass = computed(() => {
         return inject<ComputedRef<ClassType>>(UnactiveSymbol)?.value ?? "unactive"
     })
+
     return {
         change,
         render,

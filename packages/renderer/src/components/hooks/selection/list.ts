@@ -1,5 +1,5 @@
-import { classPropType, valuePropType } from "./types"
-import { computed, provide, ref, SetupContext, ComponentPropsOptions, Ref, watch } from "vue"
+import { classPropType, valuePropType } from "../types"
+import { computed, provide, ref, Ref, watch } from "vue"
 import { AciveClassSymbol, AciveSymbol, InitSymbol, ItemClassSymbol, ModelValueSymbol, Option, UnactiveSymbol } from "./constants"
 import { defineHooks } from "@/components/hooks/define"
 
@@ -30,7 +30,7 @@ export const listProps = {
     }
 }
 
-export const useSelectionList = defineHooks(listProps, (props, context, selectType = 0) => {
+export const useSelectionList = defineHooks(listProps, (props, context) => {
     const current = ref<Option>()
 
     const modelValue = computed(() => props.modelValue)
@@ -67,14 +67,13 @@ export const useSelectionList = defineHooks(listProps, (props, context, selectTy
     )
 
     provide(
-        selectType == 0 ? ItemClassSymbol : "i-select-dropdown-item",
+        ItemClassSymbol,
         computed(() => props.itemClass)
     )
 
     provide(InitSymbol, (option: Ref<Option>) => {
         options.push(option)
-        // if (option.value.value == modelValue.value || active.value == undefined) {
-        if (option.value.value == modelValue.value) {
+        if (option.value.value == modelValue.value || active.value == undefined) {
             current.value = option.value
         }
         return () => {

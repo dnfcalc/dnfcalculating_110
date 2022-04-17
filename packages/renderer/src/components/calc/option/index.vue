@@ -8,13 +8,7 @@
         },
         components: { NItem },
         setup(props, { slots }) {
-            return () => (
-                <>
-                    <n-item class="i-option" {...props}>
-                        {renderSlot(slots, "default")}
-                    </n-item>
-                </>
-            )
+            return () => <n-item {...props}>{renderSlot(slots, "default")}</n-item>
         }
     })
 </script>

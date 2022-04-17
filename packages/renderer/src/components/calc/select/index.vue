@@ -28,7 +28,12 @@
         },
 
         setup(props, context) {
-            const { active } = useSelectionList(props, context)
+            const { active } = useSelectionList(() => {
+                return {
+                    ...props,
+                    itemClass: "i-select-dropdown-item"
+                }
+            }, context)
 
             const isOpen = ref(false)
             const triggerRef = ref<HTMLElement>()
@@ -111,11 +116,11 @@
 </script>
 <style lang="scss">
     /**
-  * @Author: Kritsu
-  * @Date:   2021/11/09 15:43:10
-  * @Last Modified by:   Kritsu
-  * @Last Modified time: 2021/11/17 18:03:08
-  */
+      * @Author: Kritsu
+      * @Date:   2021/11/09 15:43:10
+      * @Last Modified by:   Kritsu
+      * @Last Modified time: 2021/11/17 18:03:08
+      */
     $text-color: #e9c556;
     .i-select {
         min-width: 80px;
@@ -194,7 +199,7 @@
         $activeColor: lighten($hoverColor, 5%);
         color: $text-color;
 
-        .i-option {
+        .i-select-dropdown-item {
             font-size: 12px;
             height: 20px;
             line-height: 20px;
