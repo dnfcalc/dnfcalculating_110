@@ -99,7 +99,7 @@
                                                         <>
                                                             {renderList([...Array(runeColor.length).keys()], colorindex => (
                                                                 <>
-                                                                    <calc-option value={index * 4 + colorindex} disabled={false}>
+                                                                    <calc-option value={index * 4 + colorindex}>
                                                                         <div style={"background-color: " + runeColor[colorindex] + "; width:28px;height:28px"}>
                                                                             <img style="mix-blend-mode: luminosity;" src={skill_icon(characterName.value, rune)} />
                                                                         </div>

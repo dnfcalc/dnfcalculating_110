@@ -76,14 +76,14 @@
             return () => {
                 return (
                     <div class="char-info">
-                        <div class="head">
+                        <div class="head" style="background-image:url(images/common/head.png)">
                             <div
                                 class="w-266px h-170px bg-bottom flex char"
                                 style={"background-image:url(images/characters/" + props.charName + "/人物.png);background-repeat: no-repeat; position: absolute;"}
                             >
                                 [{props.charName.replace("·男", "").replace("·女", "")}]
                             </div>
-                            <div class="equinfo"></div>
+                            <div class="h-150px w-266px" style="background-image:url(images/common/equ-back.png)"></div>
                         </div>
                         <div class="mingwang">
                             <img src="./images/common/mingwang.png" />
@@ -145,7 +145,6 @@
         // background-color: rgba(255, 255, 255, 0.5);
         // background-image: url("./img/60.png");
         .head {
-            background-image: url("./img/head.png");
             background-repeat: no-repeat;
             height: 177px;
             display: flex;
@@ -156,12 +155,6 @@
                 justify-content: center;
                 align-items: flex-end;
                 color: white;
-            }
-
-            .equinfo {
-                background-image: url("./img/equ-back.png");
-                height: 150px;
-                width: 266px;
             }
         }
 
