@@ -33,8 +33,14 @@
         setup(props, context) {
             // props.itemClass = "i-select-dropdown-item"
             // const { active } = useSelectionList({ ...props, itemClass: "i-select-dropdown-item" }, context)
+            const { active } = useSelectionList(() => {
+                return {
+                    ...props,
+                    itemClass: "i-option"
+                }
+            }, context)
 
-            const { active } = useSelectionList(props, context)
+            // const { active } = useSelectionList(props, context)
             const columnNum = computed(() => props.columnNum || 1)
             // console.log({ ...props })
 

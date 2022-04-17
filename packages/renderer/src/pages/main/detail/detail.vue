@@ -1,11 +1,12 @@
 <script lang="tsx">
-    import { defineComponent, onMounted, ref, renderList } from "vue"
+    import { defineComponent, onMounted, ref, renderList, computed } from "vue"
     import { useRoute } from "vue-router"
     import profile from "./overview/profile.vue"
+    import equip from "./overview/equip.vue"
     import { IDetailInfo } from "./type"
 
     export default defineComponent({
-        components: { profile },
+        components: { profile, equip },
         setup() {
             let characterName = ref<string>("")
             const route = useRoute()
@@ -26,46 +27,21 @@
                 { position: "宠物", active: false }
             ])
 
+            const currentDetail = computed<IDetailInfo>({
+                get() {
+                    return detail.value.filter(item => item.active)[0]
+                },
+                set(val) {}
+            })
+
             if (typeof route.params.name === "string") characterName.value = route.params.name
             return () => (
                 <div class="detail">
                     <div>
-                        <profile charName={characterName.value} detailInfo={detail.value}></profile>
-                        <calc-collapse title="装备打造">
-                            <div>测试一下</div>
+                        <profile class="ml-auto mr-auto" charName={characterName.value} detailInfo={detail.value}></profile>
+                        <calc-collapse class="w-510px" title="装备打造">
+                            <equip currentDetail={currentDetail.value}></equip>
                         </calc-collapse>
-                    </div>
-
-                    <div>
-                        <div class="item">
-                            <div class="name">耳环</div>
-                            <div class="d-choose">
-                                <div class="w-30% d-choose-item">
-                                    <calc-select></calc-select>
-                                </div>
-                                <div class="w-30% d-choose-item">
-                                    <calc-select></calc-select>
-                                </div>
-                                <div class="w-30% d-choose-item">
-                                    <calc-select></calc-select>
-                                </div>
-                                <div class="w-20% d-choose-item">
-                                    <calc-select></calc-select>
-                                </div>
-                                <div class="w-20% d-choose-item">
-                                    <calc-select></calc-select>
-                                </div>
-                                <div class="w-20% d-choose-item">
-                                    <calc-select></calc-select>
-                                </div>
-                                <div class="w-20% d-choose-item">
-                                    <calc-select></calc-select>
-                                </div>
-                                <div class="w-100% d-choose-item">
-                                    <calc-select></calc-select>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             )
@@ -79,34 +55,5 @@
         margin: 5px;
         height: 100%;
         width: 100%;
-
-        .item {
-            display: flex;
-            align-items: center;
-            margin: 5px;
-
-            .i-select {
-                height: 20px !important;
-                width: 100% !important;
-            }
-            .name {
-                color: #e9c556;
-                font-size: 12px;
-                width: 50px;
-            }
-
-            .d-choose {
-                display: flex;
-                flex-wrap: wrap;
-                width: 100%;
-                justify-content: space-between;
-
-                .d-choose-item {
-                    height: 27px;
-                    display: flex;
-                    align-items: center;
-                }
-            }
-        }
     }
 </style>

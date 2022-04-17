@@ -41,6 +41,9 @@
         width: 100%;
         background-repeat: no-repeat;
         background-size: cover;
+
+        color: #e9c558;
+        font-size: 12px;
         .header,
         .footer {
             height: 5%;

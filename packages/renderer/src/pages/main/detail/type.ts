@@ -15,4 +15,6 @@ export interface IDetailInfo {
     growth?: number[]
     //锻造
     dznumber?: number
+    //改造
+    gznumber?: number
 }
