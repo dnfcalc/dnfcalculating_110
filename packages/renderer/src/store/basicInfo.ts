@@ -1,9 +1,5 @@
 import { defineStore } from "pinia"
-import {
-  GetAdventureInfo,
-  GetEquipmentInfo,
-  GetEquipmentDetailInfo
-} from "../api/info"
+import { GetAdventureInfo, GetEquipmentInfo, GetEquipmentDetailInfo } from "../api/info"
 import { IAdventureInfo, IEquipmentList } from "../api/info/type"
 
 export interface BasicInfoState {
