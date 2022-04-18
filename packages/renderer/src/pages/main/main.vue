@@ -8,11 +8,6 @@
   export default defineComponent(() => {
     const char = useRoute().params.name as string
 
-    onBeforeUnmount(async () => {
-      await useBasicInfoStore().get_equipment_info()
-      await useCharacterStore().get_character_info(char)
-    })
-
     return () => (
       <div class="main" style={"background-image:url(./images/characters/" + char + "/bg.jpg)"}>
         <div class="header">

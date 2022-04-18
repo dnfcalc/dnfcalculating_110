@@ -22,6 +22,7 @@ declare module 'vue' {
     InternalEquipEqIcon: typeof import('./src/components/internal/equip/eq-icon.vue')['default']
     InternalEquipEqIconTips: typeof import('./src/components/internal/equip/eq-icon-tips.vue')['default']
     InternalEquipEqInfo: typeof import('./src/components/internal/equip/eq-info.vue')['default']
+    InternalEquipList: typeof import('./src/components/internal/equip-list.vue')['default']
     InternalSkillSkillIcon: typeof import('./src/components/internal/skill/skill-icon.vue')['default']
     InternalSkillSkillPanel: typeof import('./src/components/internal/skill/skill-panel.vue')['default']
     Show: typeof import('./src/components/show.vue')['default']

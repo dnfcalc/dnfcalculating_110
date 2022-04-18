@@ -2,43 +2,47 @@ import { defineStore } from "pinia"
 import { GetAdventureInfo, GetEquipmentInfo, GetEquipmentDetailInfo } from "../api/info"
 import { IAdventureInfo, IEquipmentList } from "../api/info/type"
 
-export interface BasicInfoState {
+interface BasicInfoState {
   // 冒险团信息
-  adventureinfo?: IAdventureInfo[][]
+  _adventureInfo: IAdventureInfo[][]
   // 版本信息
-  version?: string
+  version: string
   // 用户识别码
-  UID?: string
+  UID: string
   // 黑名单
-  blacklist?: any
+  blacklist: []
   // 通知信息
-  noticeInfo?: any
+  noticeInfo: []
   // 所有装备信息
-  equipmentinfo?: IEquipmentList
+  _equipmentInfo: IEquipmentList | undefined
 }
 
-export const useBasicInfoStore = defineStore("BasicInfo", {
-  state(): BasicInfoState {
-    return {}
+export const useBasicInfoStore = defineStore("basicInfo", {
+  state: (): BasicInfoState => {
+    return {
+      _adventureInfo: [],
+      version: "0.0.0.0",
+      UID: "西瓜",
+      blacklist: [],
+      noticeInfo: [],
+      _equipmentInfo: undefined
+    }
   },
-  getters: {},
+  getters: {
+    equipment_info(state) {
+      if (!state._equipmentInfo) {
+        GetEquipmentInfo().then(res => (state._equipmentInfo = res.data))
+      }
+      return state._equipmentInfo
+    },
+    adventure_info(state) {
+      if (state._adventureInfo.length === 0) {
+        GetAdventureInfo().then(res => (state._adventureInfo = res.data))
+      }
+      return state._adventureInfo
+    }
+  },
   actions: {
-    async get_basic_info() {
-      const adventure_list = (await GetAdventureInfo())?.data
-      const black_list = null
-      const notice_info = null
-      this.adventureinfo = adventure_list
-      this.version = "0.0.0.0"
-      this.UID = "西瓜°"
-      this.blacklist = black_list
-      this.noticeInfo = notice_info
-    },
-
-    async get_equipment_info() {
-      if (this.equipmentinfo != undefined && this.equipmentinfo != null) return
-      this.equipmentinfo = (await GetEquipmentInfo())?.data
-    },
-
     async get_equipment_detail(equ_id: number) {
       return (await GetEquipmentDetailInfo(equ_id))?.data
     }
