@@ -11,9 +11,7 @@
 
       const title = computed(() => {
         const route = useRoute()
-        return (
-          route.meta.title ?? (route.params.name as string) ?? appStore.title
-        )
+        return route.meta.title ?? (route.params.name as string) ?? appStore.title
       })
 
       return () => (
@@ -25,20 +23,11 @@
             <img src="/favicon.ico" class="h-4 leading-4 w-4" />
             <div class="header text-xs">{title.value}</div>
             <div class="flex items-center">
-              <div
-                onClick={appStore.minimize}
-                class="cursor-pointer min-icon h-4  text-center mr-4 text-hex-f0d070 text-opacity-72 w-4 hover:text-opacity-100"
-              ></div>
-              <div
-                onClick={appStore.close}
-                class="cursor-pointer h-4 text-center  text-hex-f0d070 text-opacity-72  w-4 close-icon hover:text-opacity-100"
-              ></div>
+              <div onClick={appStore.minimize} class="cursor-pointer min-icon h-4  text-center mr-4 text-hex-f0d070 text-opacity-72 w-4 hover:text-opacity-100"></div>
+              <div onClick={appStore.close} class="cursor-pointer h-4 text-center  text-hex-f0d070 text-opacity-72  w-4 close-icon hover:text-opacity-100"></div>
             </div>
           </div>
-          <div
-            class="w-full mt-6 overflow-y-auto"
-            style="height:calc(100% - 24px);"
-          >
+          <div class="w-full mt-6 overflow-y-auto" style="height:calc(100% - 24px);">
             <Suspense>
               <router-view></router-view>
             </Suspense>

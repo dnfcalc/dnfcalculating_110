@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { useBasicInfoStore } from "@/store"
+  import { useBasicInfoStore, useDetailsStore } from "@/store"
   import { computed, defineComponent, renderList, PropType } from "vue"
   import { IDetailInfo } from "../type"
   import { IEnchantingInfo } from "@/api/info/type"
@@ -13,13 +13,14 @@
       }
     },
     setup(props, { emit, slots }) {
-      const can_upgrade = computed(() => ["称号", "宠物"].indexOf(currentDetail.value.position as string) < 0)
-      const has_socket = computed(() => ["称号", "宠物", "耳环", "武器"].indexOf(currentDetail.value.position as string) < 0)
-      const has_wisdom = computed(() => ["称号", "宠物", "武器"].indexOf(currentDetail.value.position as string) < 0)
+      const detailsStore = useDetailsStore()
+      const can_upgrade = computed(() => ["称号", "宠物"].indexOf(detailsStore.part as string) < 0)
+      const has_socket = computed(() => ["称号", "宠物", "耳环", "武器"].indexOf(detailsStore.part as string) < 0)
+      const has_wisdom = computed(() => ["称号", "宠物", "武器"].indexOf(detailsStore.part as string) < 0)
       const basicInfoStore = useBasicInfoStore()
 
       const enchanting_list = computed<IEnchantingInfo[] | undefined>(() => {
-        return basicInfoStore.enchanting_info?.filter(item => item.position.includes(currentDetail.value.position)).sort((a, b) => b.maxFrame - a.maxFrame)
+        return basicInfoStore.enchanting_info?.filter(item => item.position.includes(detailsStore.part)).sort((a, b) => b.maxFrame - a.maxFrame)
       })
 
       const currentDetail = useVModel(props, "currentDetail", emit)
@@ -30,7 +31,7 @@
             <div class="flex flex-wrap equ-profile">
               <div class="equ-profile-item">
                 <div class="row-name mr-10px">当前部位</div>
-                {currentDetail.value?.position}
+                {detailsStore.part}
               </div>
               {can_upgrade.value ? (
                 <div class="equ-profile-item">

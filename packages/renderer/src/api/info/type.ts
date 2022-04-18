@@ -43,3 +43,13 @@ export interface IEnchantingInfo {
   position: string
   props: string
 }
+
+export interface KTV<T> {
+  [key: number | string]: T
+}
+
+export interface IStoreInfo {
+  equipmentInfo?: any
+  skillInfo?: any
+  detailInfo?: KTV<Map<string, any>>
+}

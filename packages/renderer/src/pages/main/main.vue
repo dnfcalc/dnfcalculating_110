@@ -2,11 +2,13 @@
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useBasicInfoStore, useCharacterStore } from "@/store"
+  import { useAppStore } from "@/store/app"
   import { defineComponent, onBeforeUnmount, onMounted, Suspense } from "vue"
   import { useRoute, useRouter } from "vue-router"
 
   export default defineComponent(() => {
     const char = useRoute().params.name as string
+    const appStore = useAppStore()
 
     return () => (
       <div class="main" style={"background-image:url(./images/characters/" + char + "/bg.jpg)"}>
