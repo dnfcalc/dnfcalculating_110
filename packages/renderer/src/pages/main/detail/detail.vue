@@ -30,23 +30,21 @@
         { position: "魔法石", fumo: 0 },
         { position: "宠物", fumo: 0 }
       ])
-      watch(
-        detail,
-        () => {
-          console.log(detail.value[activeIndex.value].fumo)
-        },
-        {
-          deep: true
-        }
-      )
 
-      if (typeof route.params.name === "string") characterName.value = route.params.name
+      const currentDetail = ref<IDetailInfo>(detail.value[activeIndex.value])
+
+      watch(activeIndex, () => {
+        currentDetail.value = detail.value[activeIndex.value]
+      })
+
+      characterName.value = route.params.name as string
+
       return () => (
         <div class="detail">
           <div>
             <profile class="ml-auto mr-auto" charName={characterName.value} detailInfo={detail.value} v-model:activeIndex={activeIndex.value}></profile>
             <calc-collapse class="w-510px" title="装备打造">
-              <equip v-model:currentDetail={detail.value[activeIndex.value]}></equip>
+              <equip v-model:currentDetail={currentDetail.value}></equip>
             </calc-collapse>
           </div>
         </div>
