@@ -18,7 +18,16 @@
 
       const equips = computed(() => basicStore.equipment_info?.equipment_Lv110 ?? [])
 
-      const highlight = computed(() => equips.value.map(e => (e.features?.includes(choose_feature.value) ? e.id : 0)).filter(e => e > 0))
+      const highlight = computed<number[]>({
+        get() {
+          return equips.value.map(e => (e.features?.includes(choose_feature.value) ? e.id : 0)).filter(e => e > 0)
+        },
+        set(val) {
+          if (val.length === 0) {
+            choose_feature.value = 0
+          }
+        }
+      })
 
       const weapons = computed(() => basicStore.equipment_info?.equipment_weapon.filter(item => item.name == route.params.name)[0].eqs ?? [])
 
@@ -40,7 +49,7 @@
 
       return () => (
         <div class="flex">
-          <EquipList v-model:selected={selected.value} class="equ-105" highlight={highlight.value} showHighlight={choose_feature.value > 0} list={equips.value} title="Lv110装备">
+          <EquipList v-model:selected={selected.value} class="equ-105" v-model:highlight={highlight.value} showHighlight={choose_feature.value > 0} list={equips.value} title="Lv110装备">
             {{
               header() {
                 return (
@@ -55,10 +64,12 @@
             }}
           </EquipList>
           <div class="equ-else">
-            <EquipList list={myths.value} title="神话装备" />
-            <EquipList list={wisdom.value} title="智慧产物" />
-            <EquipList list={weapons.value} title="武器列表" />
-            <EquipList list={weapons.value} title="称号 " />
+            <EquipList class="equ-else-sort" list={myths.value} title="神话装备" />
+            <EquipList class="equ-else-sort" list={wisdom.value} title="智慧产物" />
+            <EquipList class="equ-else-sort" list={weapons.value} title="武器列表" />
+            {
+              //<EquipList class="equ-else-sort" list={weapons.value} title="称号" />
+            }
           </div>
         </div>
       )

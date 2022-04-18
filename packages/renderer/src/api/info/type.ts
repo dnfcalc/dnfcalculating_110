@@ -36,3 +36,10 @@ export interface IEquipmentList {
   equipment_weapon: IWeaponInfo[]
   equipment_wisdom: IEquipmentInfo[]
 }
+
+export interface IEnchantingInfo {
+  id: number
+  maxFrame: number
+  position: string
+  props: string
+}

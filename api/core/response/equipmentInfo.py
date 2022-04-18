@@ -14,13 +14,13 @@ def get_equipment_info():
       "equipment_weapon" : {},
       "equipment_wisdom":{}
     }
-    with open("../configFiles/eq-base-data.json", encoding='utf-8') as fp:
+    with open("../dataFiles/eq-base-data.json", encoding='utf-8') as fp:
         equipment_info["equipment_Lv110"] = json.load(fp)
-    with open("../configFiles/eq-myth-base-data.json", encoding='utf-8') as fp:
+    with open("../dataFiles/eq-myth-base-data.json", encoding='utf-8') as fp:
         equipment_info["equipment_myth"] = json.load(fp)
-    with open("../configFiles/arm-base-data.json", encoding='utf-8') as fp:
+    with open("../dataFiles/arm-base-data.json", encoding='utf-8') as fp:
         equipment_info["equipment_weapon"]= json.load(fp)
-    with open("../configFiles/eq-wisdom-base-data.json", encoding='utf-8') as fp:
+    with open("../dataFiles/eq-wisdom-base-data.json", encoding='utf-8') as fp:
         equipment_info["equipment_wisdom"]= json.load(fp)
     return equipment_info
 
@@ -28,7 +28,7 @@ def get_equipment_detail_info(equID):
   equipment_detail_info = {}
   global equ_details
   if len(equ_details)==0:
-    with open("../configFiles/eq-info-data.json", encoding='utf-8') as fp:
+    with open("../dataFiles/eq-info-data.json", encoding='utf-8') as fp:
       equ_details = dict()
       for item in json.load(fp):
         equ_details[str(item["id"])] = item
@@ -39,3 +39,9 @@ def get_equipment_detail_info(equID):
         "https://www.skycity.top:8019/api/equipment/"+equID+"?simple=false",
         timeout=2).json()["data"]
   return equipment_detail_info
+
+def get_enchanting_info():
+  get_enchanting_info = {}
+  with open("../dataFiles/enchanting-info.json", encoding='utf-8') as fp:
+        get_enchanting_info = json.load(fp)
+  return get_enchanting_info

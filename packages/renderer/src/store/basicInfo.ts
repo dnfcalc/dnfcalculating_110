@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
-import { GetAdventureInfo, GetEquipmentInfo, GetEquipmentDetailInfo } from "../api/info"
-import { IAdventureInfo, IEquipmentList } from "../api/info/type"
+import { GetAdventureInfo, GetEquipmentInfo, GetEquipmentDetailInfo, GetEnchaningInfo } from "../api/info"
+import { IAdventureInfo, IEnchantingInfo, IEquipmentList } from "../api/info/type"
 
 interface BasicInfoState {
   // 冒险团信息
@@ -15,6 +15,8 @@ interface BasicInfoState {
   noticeInfo: []
   // 所有装备信息
   _equipmentInfo: IEquipmentList | undefined
+  // 所有附魔信息
+  _enchantingInfo: IEnchantingInfo[] | undefined
 }
 
 export const useBasicInfoStore = defineStore("basicInfo", {
@@ -25,7 +27,8 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       UID: "西瓜",
       blacklist: [],
       noticeInfo: [],
-      _equipmentInfo: undefined
+      _equipmentInfo: undefined,
+      _enchantingInfo: undefined
     }
   },
   getters: {
@@ -40,6 +43,12 @@ export const useBasicInfoStore = defineStore("basicInfo", {
         GetAdventureInfo().then(res => (state._adventureInfo = res.data))
       }
       return state._adventureInfo
+    },
+    enchanting_info(state) {
+      if (!state._enchantingInfo) {
+        GetEnchaningInfo().then(res => (state._enchantingInfo = res.data))
+      }
+      return state._enchantingInfo
     }
   },
   actions: {

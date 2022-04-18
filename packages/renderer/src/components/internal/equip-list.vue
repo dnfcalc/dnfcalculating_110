@@ -2,25 +2,31 @@
   import { IEquipmentInfo } from "@/api/info/type"
   import { computed, defineComponent, PropType, reactive, renderList, renderSlot, watch } from "vue"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
+  import { map } from "lodash"
 
   export default defineComponent({
     props: {
+      // 展示列表
       list: {
         type: Array as PropType<IEquipmentInfo[]>,
         default: () => []
       },
+      // 按钮名称
       title: {
         type: String,
         default: ""
       },
+      // 选中列表
       selected: {
         type: Array as PropType<number[]>,
         default: () => []
       },
+      // 需要高亮的
       highlight: {
         type: Array as PropType<number[]>,
         default: () => []
       },
+      // 是不是有筛选
       showHighlight: {
         type: Boolean,
         default: false
@@ -30,19 +36,31 @@
 
     setup(props, { emit, slots }) {
       const selected = reactive<number[]>(props.selected)
+      const highlight = reactive<number[]>(props.highlight)
 
       watch(props.selected, () => {
         selected.splice(0, selected.length, ...props.selected)
       })
 
-      const isSelectAll = computed(() => {
-        const len = props.highlight.length || props.list.length
-        return selected.length === len
+      // const isSelectAll = computed(() => {
+      //   const len = props.highlight.length || props.list.length
+      //   return selected.length === len
+      // })
+
+      const highlightSelectdCount = computed(() => {
+        return selected.filter(item => props.highlight.indexOf(item) >= 0).length
       })
 
       function selectAll() {
-        const new_arr = isSelectAll.value ? [] : props.showHighlight ? props.highlight : props.list.map(item => item.id)
+        const new_arr = props.showHighlight
+          ? highlightSelectdCount.value > props.highlight.length / 2
+            ? selected.filter(item => props.highlight.indexOf(item) < 0)
+            : map([...selected, ...props.highlight])
+          : selected.length > props.list.length / 2
+          ? []
+          : props.list.map(item => item.id)
         selected.splice(0, selected.length, ...new_arr)
+        props.showHighlight ? emit("update:highlight", []) : console.log("=====")
         emit("update:selected", selected)
       }
 
