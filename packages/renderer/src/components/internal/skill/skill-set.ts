@@ -2,58 +2,52 @@ import { ISkillInfo } from "@/api/character/type"
 
 export const skills = new Map<string, ISkillInfoForSkillPanel[]>([
     [
+        "通用技能",
+        [
+            { id: 1, name: '后跳', sp: 0, default: 1, learnMax: 1, learn: 1, master: 1, max: 1, row: 1, col: 1, icon: 'https://101.43.64.95/dnfstatic/images/equipment/title/484.png' },
+            { id: 2, name: '受身蹲伏', sp: 0, default: 1, learnMax: 1, learn: 1, master: 1, max: 20, row: 1, col: 2, icon: 'https://101.43.64.95/dnfstatic/images/equipment/title/484.png' },
+            { id: 3, name: '基础精通', tp: { master: 3, max: 5, tp: 1, learn: 0, default: 0 }, sp: 0, default: 110, learnMax: 110, learn: 110, master: 110, max: 200, row: 1, col: 3, icon: 'https://101.43.64.95/dnfstatic/images/equipment/title/484.png' },
+            { id: 4, name: '跃翔', sp: 20, default: 0, learnMax: 10, learn: 0, master: 10, max: 20, row: 1, col: 4, icon: 'https://101.43.64.95/dnfstatic/images/equipment/title/484.png' },
+            { id: 5, name: '暴击', sp: 20, default: 0, learnMax: 10, learn: 0, master: 10, max: 20, row: 1, col: 5, icon: 'https://101.43.64.95/dnfstatic/images/equipment/title/484.png' },
+            { id: 6, name: '背击', sp: 20, default: 0, learnMax: 10, learn: 0, master: 10, max: 20, row: 1, col: 6, icon: 'https://101.43.64.95/dnfstatic/images/equipment/title/484.png' },
+            { id: 7, name: '远古记忆', sp: 25, default: 0, learnMax: 10, learn: 0, master: 10, max: 20, row: 1, col: 7, icon: 'https://101.43.64.95/dnfstatic/images/equipment/title/484.png' },
+            { id: 8, name: '不屈意志', sp: 25, default: 0, learnMax: 10, learn: 0, master: 10, max: 20, row: 1, col: 8, icon: 'https://101.43.64.95/dnfstatic/images/equipment/title/484.png' },
+            { id: 9, name: '唤醒', sp: 0, default: 1, learnMax: 1, learn: 1, master: 1, max: 1, row: 1, col: 9, icon: 'https://101.43.64.95/dnfstatic/images/equipment/title/484.png' },
+        ]
+    ],
+    [
         "重霄·弹药专家·女", 
         [
-            { id: 1, name: '弹药专家皮甲专精', default: 1, row: 1, col: 1 },
-            { id: 2, name: '基础防具精通', default: 1, row: 1, col: 2 },
-            { id: 3, name: '浮空弹', default: 1, row: 1, col: 4 },
-            { id: 4, name: '后撩踢', default: 1, row: 1, col: 6 },
-            { id: 5, name: 'RX-78追击者', default: 1, row: 5, col: 3 },
-            { id: 6, name: '银弹', default: 0, row: 5, col: 7 },
-            { id: 7, name: '重火器拔击', default: 0, row: 5, col: 10 },
-            { id: 8, name: 'M-137格林机枪', default: 1, row: 5, col: 11 },
-            { id: 9, name: '浮空铲', default: 0, row: 10, col: 1 },
-            { id: 10, name: '烟尘弹', default: 0, row: 10, col: 2 },
-            { id: 11, name: '钉刺射', default: 0, row: 10, col: 6 },
-            { id: 12, name: '上旋踢', default: 0, row: 10, col: 10 },
-            { id: 13, name: 'BBQ', default: 0, row: 10, col: 11, before: [{ id: 8, lv: 1 }] },
-            { id: 14, name: '超负荷装填', default: 1, row: 15, col: 4 },
-            { id: 15, name: '特性弹', default: 1, row: 15, col: 5, before: [{ id: 14, lv: 1 }] },
-            { id: 16, name: 'G-14手雷', default: 1, row: 15, col: 6 },
-            { id: 17, name: '空中射击', default: 1, row: 15, col: 8 },
-            { id: 18, name: '单兵推进器', default: 1, row: 15, col: 9, before: [{ id: 17, lv: 1 }] },
-            { id: 19, name: '刺踢', default: 0, row: 15, col: 10 },
-            { id: 20, name: 'M-3喷火器', default: 0, row: 15, col: 11 },
-            { id: 21, name: '兵器研究', default: 0, row: 20, col: 1 },
-            { id: 22, name: '弹药改良', default: 1, row: 20, col: 2 },
-            { id: 23, name: '手雷精通', default: 0, row: 20, col: 7, before: [{ id: 16, lv: 1 }] },
-            { id: 24, name: 'M18阔剑地雷', default: 0, row: 20, col: 9, before: [{ id: 23, lv: 1 }] },
-            { id: 25, name: '交叉射击', default: 0, row: 25, col: 4, before: [{ id: 14, lv: 1 }] },
-            { id: 26, name: 'G35感电手雷', default: 0, row: 25, col: 6, before: [{ id: 16, lv: 1 }] },
-            { id: 27, name: '贯穿弹', default: 0, row: 30, col: 3, before: [{ id: 14, lv: 1 }] },
-            { id: 28, name: '爆裂弹', default: 0, row: 30, col: 5, before: [{ id: 14, lv: 1 }] },
-            { id: 29, name: 'G18冰冻手雷', default: 0, row: 30, col: 7, before: [{ id: 26, lv: 1 }] },
-            { id: 30, name: '聚合弹', default: 0, row: 35, col: 4, before: [{ id: 25, lv: 1 }] },
-            { id: 31, name: 'C4飞弹', default: 0, row: 35, col: 9 },
-            { id: 32, name: '凝固汽油弹', default: 0, row: 40, col: 4, before: [{ id: 30, lv: 1 }] },
-            { id: 33, name: '镭射狙击', default: 0, row: 45, col: 6, before: [{ id: 26, lv: 1 }] },
-            { id: 34, name: '弹药强化', default: 1, row: 50, col: 5 },
-            { id: 35, name: 'EMP磁暴', default: 0, row: 50, col: 8 },
-            { id: 36, name: 'G61重力手雷', default: 0, row: 60, col: 6, before: [{ id: 33, lv: 1 }] },
-            { id: 37, name: '制空掌握', default: 1, row: 70, col: 2 },
-            { id: 38, name: '轻火力速射', default: 0, row: 70, col: 4, before: [{ id: 32, lv: 1 }] },
-            { id: 39, name: '开火', default: 0, row: 70, col: 8, before: [{ id: 36, lv: 1 }] },
-            { id: 40, name: 'G96热压手雷', default: 0, row: 80, col: 5, before: [{ id: 36, lv: 1 }] },
-            { id: 41, name: '决战之日', default: 0, row: 80, col: 7, before: [{ id: 36, lv: 1 }] },
-            { id: 42, name: '单兵推进器-02X', default: 0, row: 90, col: 5 },
-            { id: 43, name: '空袭战略', default: 0, row: 90, col: 7 },
-            { id: 44, name: '终解·制空霸权', default: 0, row: 100, col: 5 },
+            { id: 18, name: '单兵推进器', sp: 20, default: 1, row: 20, col: 3, before: [{ id: 17, lv: 1 }] },
+            { id: 21, name: '兵器研究', sp: 10, default: 0, row: 20, col: 1 },
+            { id: 22, name: '弹药改良', sp: 10, default: 1, row: 20, col: 2 },
+            { id: 23, name: '手雷精通', sp: 20, default: 0, row: 20, col: 7, before: [{ id: 16, lv: 1 }] },
+            { id: 24, name: 'M18阔剑地雷', tp: { master: 5, max: 7, tp: 2 }, sp: 25, default: 0, row: 20, col: 9 },
+            { id: 25, name: '交叉射击', tp: { master: 5, max: 7, tp: 2 }, sp: 35, default: 0, row: 20, col: 4, before: [{ id: 14, lv: 1 }] },
+            { id: 26, name: 'G35感电手雷', sp: 35, default: 0, row: 20, col: 6, before: [{ id: 16, lv: 1 }] },
+            { id: 28, name: '爆裂弹', sp: 10, default: 0, row: 30, col: 5, before: [{ id: 14, lv: 1 }] },
+            { id: 29, name: 'G18冰冻手雷', sp: 40, default: 0, row: 30, col: 7, before: [{ id: 26, lv: 1 }] },
+            { id: 30, name: '聚合弹', tp: { master: 5, max: 7, tp: 2 }, sp: 35, default: 0, row: 30, col: 4, before: [{ id: 25, lv: 1 }] },
+            { id: 31, name: 'C4飞弹', tp: { master: 5, max: 7, tp: 2 }, sp: 35, default: 0, row: 30, col: 9 },
+            { id: 32, name: '凝固汽油弹', tp: { master: 5, max: 7, tp: 2 }, sp: 50, default: 0, row: 40, col: 4, before: [{ id: 30, lv: 1 }] },
+            { id: 33, name: '镭射狙击', tp: { master: 5, max: 7, tp: 2 }, sp: 60, default: 0, row: 40, col: 6, before: [{ id: 26, lv: 1 }] },
+            { id: 34, name: '弹药强化', sp: 30, default: 1, row: 50, col: 5 },
+            { id: 35, name: 'EMP磁暴', sp: 0, default: 0, row: 50, col: 8 },
+            { id: 36, name: 'G61重力手雷', tp: { master: 5, max: 7, tp: 2 }, sp: 60, default: 0, row: 60, col: 6, before: [{ id: 33, lv: 1 }] },
+            { id: 37, name: '制空掌握', sp: 45, default: 1, row: 70, col: 2 },
+            { id: 38, name: '轻火力速射', tp: { master: 5, max: 7, tp: 2 }, sp: 70, default: 0, row: 70, col: 4, before: [{ id: 32, lv: 1 }] },
+            { id: 39, name: '开火', sp: 80, default: 0, row: 70, col: 8, before: [{ id: 36, lv: 1 }] },
+            { id: 40, name: 'G96热压手雷', sp: 90, default: 0, row: 80, col: 5, before: [{ id: 36, lv: 1 }] },
+            { id: 41, name: '决战之日', sp: 0, default: 0, row: 80, col: 7, before: [{ id: 36, lv: 1 }] },
+            { id: 42, name: '单兵推进器-02X', sp: 60, default: 0, row: 90, col: 5 },
+            { id: 43, name: '空袭战略', sp: 100, default: 0, row: 90, col: 7 },
+            { id: 44, name: '终解·制空霸权', sp:[200, 100], default: 0, row: 100, col: 5 },
         ]
     ],
     [
         "知源·冰结师",
         [
-            { id: 1, name: '冰结师皮甲专精', default: 1, row: 1, col: 1 },
+            { id: 1, name: '冰结师皮甲专精', default: 1, row: 1, sp: 0, col: 1 },
             { id: 2, name: '不死之身', row: 1, col: 2, sp: 0, default: 1 },
             { id: 3, name: '黑暗之眼', row: 1, col: 3, sp: 0, default: 1 },
             { id: 4, name: '基础防具精通', row: 1, col: 4, sp: 0, default: 1 },
@@ -105,12 +99,23 @@ export interface ISkillInfoForSkillPanel {
     before?: ISkillBeforeForSkillPanel[],
     master?: number, // 精通
     max?: number, // 上限
+    learnMax?: number, //学习上限
+    learn?: number, // 学习，不包括等级加成
     skillInfo?: ISkillInfo,
     icon?: string,
-    learn?: number, // 学习，不包括等级加成
     y?: number
     sp?: number | number[]
+    tp?: ITPSkillInfoForSkillPanel
 }
+
+export interface ITPSkillInfoForSkillPanel {
+    master?: number, // 精通
+    max?: number, // 上限
+    learn?: number, // 学习，不包括等级加成
+    tp?: number | number[],
+    default?: number
+}
+
 
 export interface ISkillBeforeForSkillPanel {
     id: number,
