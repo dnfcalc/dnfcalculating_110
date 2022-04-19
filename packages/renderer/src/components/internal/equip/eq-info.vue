@@ -140,7 +140,7 @@
         }
 
         return (
-          <div class={["approved-form"].concat([props.colums ? "with-colums" : ""])}>
+          <div class={["approved-form"].concat([props.colums ? "with-colums" : ""].concat("!w-300px"))}>
             <div class="epic title" style="display: flex">
               <eq-icon eq={equip.value}></eq-icon>
               <div class="eq-name" style="margin-left: 8px">

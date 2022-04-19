@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { useBasicInfoStore, useDetailsStore } from "@/store"
+  import { useBasicInfoStore, useCharacterStore, useDetailsStore } from "@/store"
   import { computed, defineComponent, renderList, PropType } from "vue"
   import { IDetailInfo } from "../type"
   import { IEnchantingInfo } from "@/api/info/type"
@@ -14,6 +14,7 @@
     },
     setup(props, { emit, slots }) {
       const detailsStore = useDetailsStore()
+      const characterStore = useCharacterStore()
       const can_upgrade = computed(() => ["称号", "宠物"].indexOf(detailsStore.part as string) < 0)
       const has_socket = computed(() => ["称号", "宠物", "耳环", "武器"].indexOf(detailsStore.part as string) < 0)
       const has_wisdom = computed(() => ["称号", "宠物", "武器"].indexOf(detailsStore.part as string) < 0)
@@ -24,6 +25,27 @@
       })
 
       const currentDetail = useVModel(props, "currentDetail", emit)
+
+      //当前部位的附魔
+      const enchanting = computed<string>({
+        get() {
+          return characterStore.getForge(detailsStore.part, "enchanting") ?? 0
+        },
+        set(val) {
+          // console.log(val)
+          // let parts = [detailsStore.part]
+          characterStore.setForge(detailsStore.part, "enchanting", val)
+          // if (global_change.value) {
+          //   const enchant = characterStore.enchant_list.find(e => e.name == val) as Enchant
+          //   if (enchant?.parts) {
+          //     parts = enchant.parts
+          //   }
+          // }
+          // for (let part of parts) {
+          //   characterStore.setColumnData(part, "enchanting", val)
+          // }
+        }
+      })
 
       return () => {
         if (currentDetail.value) {
@@ -64,7 +86,7 @@
               )}
               <div class="equ-profile-item">
                 <div class="row-name">附魔</div>
-                <calc-select v-model={currentDetail.value.fumo} class="!h-20px flex-1">
+                <calc-select v-model={enchanting.value} class="!h-20px flex-1">
                   <calc-option value={0}>无</calc-option>
                   {enchanting_list.value?.map(item => (
                     <calc-option value={item.id}>{item.props}</calc-option>
