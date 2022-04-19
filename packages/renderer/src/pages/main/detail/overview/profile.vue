@@ -1,14 +1,10 @@
 <script lang="tsx">
   import { computed, Ref, defineComponent, inject, renderList, PropType } from "vue"
   import { useVModel } from "@vueuse/core"
-  import { useDetailsStore } from "@/store"
+  import { useCharacterStore, useDetailsStore } from "@/store"
   export default defineComponent({
     name: "profile",
     props: {
-      charName: {
-        type: String,
-        required: true
-      },
       activeIndex: {
         type: Number,
         required: true
@@ -16,6 +12,8 @@
     },
     setup(props, { emit, slots }) {
       //面板显示的顺序
+
+      const characterStore = useCharacterStore()
 
       const detailsStore = useDetailsStore()
       const display_parts = detailsStore.display_parts
@@ -62,8 +60,8 @@
       return () => (
         <div class="pro-char-info">
           <div class="head" style="background-image:url(images/common/head.png)">
-            <div class="w-266px h-170px bg-bottom flex char" style={"background-image:url(images/characters/" + props.charName + "/人物.png);background-repeat: no-repeat; position: absolute;"}>
-              [{props.charName?.replace("·男", "").replace("·女", "")}]
+            <div class="w-266px h-170px bg-bottom flex char" style={"background-image:url(images/characters/" + characterStore.alter + "/人物.png);background-repeat: no-repeat; position: absolute;"}>
+              [{characterStore.name}]
               {renderList(display_parts, (item, index) => (
                 <div onClick={setPart(item)} class="absolute w-7 h-7" style={partIconStyle(item)}></div>
               ))}

@@ -537,8 +537,9 @@ while i >= 0:
 
 class classChange(Character):
   def __init__(self):
+      self.alter = 'spitfire_female'
       # 实际名称
-      self.name = '重霄·弹药专家·女'
+      self.name = '重霄·弹药专家'
       # 角色
       self.character = '神枪手(女)'
       # 输出/奶

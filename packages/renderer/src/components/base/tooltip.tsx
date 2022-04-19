@@ -4,18 +4,8 @@
  * @Last Modified by:   Kritsu
  * @Last Modified time: 2021/11/17 18:49:42
  */
-import {
-  watch,
-  defineComponent,
-  renderSlot,
-  Teleport,
-  ref,
-  computed,
-  CSSProperties,
-  Transition,
-  PropType,
-  reactive
-} from "vue"
+import { watchOnce } from "@vueuse/core"
+import { watch, defineComponent, renderSlot, Teleport, ref, computed, CSSProperties, Transition, PropType, reactive, nextTick } from "vue"
 
 export const tooltipProps = {
   popClass: {
@@ -28,6 +18,10 @@ export const tooltipProps = {
   offset: {
     type: Number,
     default: () => 4
+  },
+  lazy: {
+    type: Boolean,
+    default: () => false
   }
 }
 
@@ -38,21 +32,32 @@ export default defineComponent({
   setup(props, { slots, emit }) {
     const isOpen = ref(false)
 
-    const triggerRef = ref<Element>()
-    const popupRef = ref<Element>()
+    const triggerRef = ref<HTMLElement>()
+    const popupRef = ref<HTMLElement>()
 
     const dropdownPosition = reactive({ x: 0, y: 0 })
+
+    const isShow = computed(() => isOpen.value && triggerRef.value && popupRef.value && dropdownPosition.x + dropdownPosition.y > 0)
+
     const dropdownStyle = computed<CSSProperties>(() => {
       return {
         left: `${dropdownPosition.x}px`,
         top: `${dropdownPosition.y}px`,
-        visibility: isOpen.value ? "visible" : "hidden"
+        visibility: isShow.value ? "visible" : "hidden"
       }
     })
 
+    const mounted = ref(false)
+
     function onMouseover() {
       isOpen.value = true
+    }
 
+    function onMouseout() {
+      isOpen.value = false
+    }
+
+    function resize() {
       const trigger = triggerRef.value
       const popup = popupRef.value
 
@@ -60,8 +65,6 @@ export default defineComponent({
         const { width, height, left, top } = trigger.getBoundingClientRect()
 
         const { clientWidth: pWidth, clientHeight: pHeight } = popup
-
-        console.log(pWidth, pHeight)
 
         let x = 0
         let y = 0
@@ -85,29 +88,32 @@ export default defineComponent({
             y = top
             break
         }
+        x = window.innerWidth - x > 500 ? x + 20 : x - 20 - 310
+        y = window.innerHeight - y > popup.offsetHeight + 50 ? y : window.innerHeight - (popup.offsetHeight + 50)
         dropdownPosition.x = x
         dropdownPosition.y = y
       }
     }
 
-    function onMouseout() {
-      isOpen.value = false
-    }
+    watch(isOpen, val => {
+      if (val) {
+        mounted.value = true
+        nextTick(resize)
+      }
+      emit("change", val)
+    })
 
-    watch(isOpen, () => emit("change", isOpen.value))
     return () => {
       return (
         <div {...{ onMouseout, onMouseover }} ref={triggerRef}>
           {renderSlot(slots, "default")}
           <Teleport to="body">
             <Transition name="dropdown" mode="out-in">
-              <div
-                class={["i-popper z-999", props.popClass]}
-                style={dropdownStyle.value}
-                ref={popupRef}
-              >
-                {renderSlot(slots, "popper")}
-              </div>
+              {mounted.value && (
+                <div class={["i-popper z-999", props.popClass]} style={dropdownStyle.value} ref={popupRef}>
+                  {renderSlot(slots, "popper")}
+                </div>
+              )}
             </Transition>
           </Teleport>
         </div>

@@ -10,8 +10,6 @@
   export default defineComponent({
     components: { profile, equip },
     setup() {
-      let characterName = ref<string>("")
-      const route = useRoute()
       const activeIndex = ref(0)
 
       let detail = ref<IDetailInfo[]>([
@@ -37,12 +35,10 @@
         currentDetail.value = detail.value[activeIndex.value]
       })
 
-      characterName.value = route.params.name as string
-
       return () => (
         <div class="detail">
           <div>
-            <profile class="ml-auto mr-auto" charName={characterName.value} detailInfo={detail.value} v-model:activeIndex={activeIndex.value}></profile>
+            <profile class="ml-auto mr-auto" detailInfo={detail.value} v-model:activeIndex={activeIndex.value}></profile>
             <calc-collapse class="w-510px" title="装备打造">
               <equip v-model:currentDetail={currentDetail.value}></equip>
             </calc-collapse>

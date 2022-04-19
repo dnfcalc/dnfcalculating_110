@@ -1,5 +1,6 @@
 from core.baseClass.skill import 技能
 class Character:
+  alter = ''
   # 实际名称
   name = ''
   # 角色

@@ -1,14 +1,15 @@
 <script lang="tsx">
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-  import { useBasicInfoStore, useCharacterStore } from "@/store"
-  import { useAppStore } from "@/store/app"
-  import { defineComponent, onBeforeUnmount, onMounted, Suspense } from "vue"
-  import { useRoute, useRouter } from "vue-router"
+  import { useCharacterStore } from "@/store"
+  import { defineComponent } from "vue"
+  import { useRoute } from "vue-router"
 
   export default defineComponent(() => {
     const char = useRoute().params.name as string
-    const appStore = useAppStore()
+
+    const characterStore = useCharacterStore()
+    characterStore.newCharacter(char)
 
     return () => (
       <div class="main" style={"background-image:url(./images/characters/" + char + "/bg.jpg)"}>
@@ -19,11 +20,7 @@
             <calc-tab value={"/detail/" + char}>打造</calc-tab>
           </calc-tabs>
         </div>
-        <div class="center">
-          <Suspense>
-            <router-view></router-view>
-          </Suspense>
-        </div>
+        <div class="center">{characterStore.alter && <router-view></router-view>}</div>
         <div class="footer">
           <div class="flex col-3 justify-center">
             <calc-button>全局重置</calc-button>

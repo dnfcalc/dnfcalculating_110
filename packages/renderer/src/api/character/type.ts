@@ -1,17 +1,19 @@
 export interface ICharacterInfo {
-  name?: string
-  character?: string
-  characterType?: string
-  classChange?: string
-  weaponType?: string[]
-  carryType?: string[]
+  name: string
+  alter: string
+  character: string
+  characterType: string
+  classChange: string
+  weaponType: string[]
+  carryType: string[]
   armor?: string
-  armor_mastery?: string[]
-  buff_ratio?: number
+  armor_mastery: string[]
+  buff_ratio: number
   skillInfo: ISkillInfo[]
-  rune?: string[]
+  rune: string[]
   talisman?: string[]
   individuation: IIndividuation[]
+  config: string
 }
 
 export interface ISkillInfo {

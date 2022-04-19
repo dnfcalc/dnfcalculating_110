@@ -1,16 +1,14 @@
 export interface IAdventureInfo {
-  职业系: string
-  转职名称: string
-  一次觉醒: string
-  二次觉醒: string
-  三次觉醒: string
-  显示名称: string
-  类名: string
-  类名2: string
-  序号: string
-  作者: string
-  时间: string
-  备注: string
+  name: string
+  alters: IAlterInfo[]
+}
+
+export interface IAlterInfo {
+  alter: string
+  showName: string
+  defaultLabel: string
+  class: string[]
+  label: string[]
 }
 
 export interface IEquipmentInfo {
@@ -24,17 +22,11 @@ export interface IEquipmentInfo {
   features?: number[]
 }
 
-export interface IWeaponInfo {
-  id: number
-  name: string
-  eqs: IEquipmentInfo[]
-}
-
 export interface IEquipmentList {
-  equipment_Lv110: IEquipmentInfo[]
-  equipment_myth: IEquipmentInfo[]
-  equipment_weapon: IWeaponInfo[]
-  equipment_wisdom: IEquipmentInfo[]
+  lv110: IEquipmentInfo[]
+  myth: IEquipmentInfo[]
+  weapon: IEquipmentInfo[]
+  wisdom: IEquipmentInfo[]
 }
 
 export interface IEnchantingInfo {
@@ -48,8 +40,30 @@ export interface KTV<T> {
   [key: number | string]: T
 }
 
-export interface IStoreInfo {
-  equipmentInfo?: any
-  skillInfo?: any
-  detailInfo?: KTV<Map<string, any>>
+interface SkillSet {
+  //技能名
+  name: string
+
+  // 技能等级
+  level: number
+
+  // tp
+  extra: number
+}
+
+interface EquipSet {
+  //装备名
+  name: string
+  // 是否选择
+  active: boolean
+
+  data: Map<string, any>
+}
+
+export interface ICharacterSet {
+  skill_set: SkillSet[]
+
+  forge_set: Record<string, Map<string, any>>
+
+  equips_set: EquipSet[]
 }

@@ -1,14 +1,10 @@
-import hyRequest from "../index"
 import { ICharacterInfo } from "./type"
-import { IDataType } from "../types"
+import { defineRequest } from "../common"
 
-enum CharacterAPI {
-  // /info/characterInfo/重霄·弹药专家·女
-  CharacterInfo = "/info/characterInfo/"
-}
-
-export function GetCharacterInfo(character: string) {
-  return hyRequest.get<IDataType<ICharacterInfo>>({
-    url: CharacterAPI.CharacterInfo + character
-  })
-}
+export default defineRequest(request => {
+  return {
+    getCharacter() {
+      return request.get<ICharacterInfo>(`/character`).then(r => r.data)
+    }
+  }
+})

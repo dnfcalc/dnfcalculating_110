@@ -1,7 +1,7 @@
 import { app, BrowserWindow, shell, ipcMain } from "electron"
 import { release } from "os"
 import { join } from "path"
-import { statrServer, stopServer } from "../preload/server"
+import { startServer, stopServer } from "../preload/server"
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration()
@@ -60,13 +60,16 @@ async function createWindow() {
   win.setMenuBarVisibility(false)
 }
 
-app.whenReady().then(statrServer).then(createWindow)
+app.whenReady().then(startServer).then(createWindow)
 
 app.on("window-all-closed", () => {
-  stopServer()
   win = null
-  console.log("window closed.")
   app.quit()
+})
+
+app.on("quit", () => {
+  console.log("app quit.")
+  stopServer()
   app.exit(0)
 })
 
@@ -129,4 +132,8 @@ ipcMain.handle("close-win", event => {
   if (window) {
     window.close()
   }
+})
+
+process.on("exit", () => {
+  app.quit()
 })

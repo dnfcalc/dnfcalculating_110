@@ -1,7 +1,7 @@
 import { createPinia } from "pinia"
 export * from "./basicInfo"
-export * from "./characterInfo"
+export * from "./character"
 export * from "./details"
-export * from "./storeInfo"
+export * from "./config"
 
 export const pinia = createPinia()

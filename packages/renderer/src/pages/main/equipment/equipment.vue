@@ -1,22 +1,18 @@
 <script lang="tsx">
-  import { defineComponent, onMounted, ref, renderList, computed, reactive } from "vue"
-  import { useBasicInfoStore } from "@/store"
-  import { IEquipmentInfo, IWeaponInfo } from "@/api/info/type"
+  import { defineComponent, ref, renderList, computed, reactive } from "vue"
+  import { useBasicInfoStore, useCharacterStore } from "@/store"
   import featureList from "@/utils/featureList"
 
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
-  import { useRoute } from "vue-router"
   import EquipList from "@/components/internal/equip-list.vue"
-  import item from "@/components/base/item"
 
   export default defineComponent({
     components: { EquipTips, EquipList },
     setup() {
       const basicStore = useBasicInfoStore()
-      const route = useRoute()
       const choose_feature = ref(0)
 
-      const equips = computed(() => basicStore.equipment_info?.equipment_Lv110 ?? [])
+      const equips = computed(() => basicStore.equipment_info?.lv110 ?? [])
 
       const highlight = computed<number[]>({
         get() {
@@ -29,11 +25,13 @@
         }
       })
 
-      const weapons = computed(() => basicStore.equipment_info?.equipment_weapon.filter(item => item.name == route.params.name)[0].eqs ?? [])
+      const characterStore = useCharacterStore()
 
-      const myths = computed(() => basicStore.equipment_info?.equipment_myth ?? [])
+      const weapons = computed(() => basicStore.equipment_info?.weapon ?? [])
 
-      const wisdom = computed(() => basicStore.equipment_info?.equipment_wisdom ?? [])
+      const myths = computed(() => basicStore.equipment_info?.myth ?? [])
+
+      const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
 
       const selected = ref<number[]>([])
 

@@ -1,14 +1,5 @@
 <script lang="tsx">
-  import {
-    computed,
-    defineComponent,
-    reactive,
-    ref,
-    renderSlot,
-    watch,
-    onMounted,
-    renderList
-  } from "vue"
+  import { computed, defineComponent, reactive, ref, renderSlot, watch, onMounted, renderList } from "vue"
   import { asyncComputed } from "@vueuse/core"
   import { useBasicInfoStore } from "@/store"
 
@@ -57,19 +48,17 @@
 
       const equip = asyncComputed(async () => {
         if (props.eid) {
-          let eq = basicStore.get_equipment_detail(props.eid)
-          emit("loaded")
-          return eq
+          return basicStore.get_equipment_detail(props.eid)
         }
       })
+
+      console.log(equip.value)
 
       function renderStatus(rowClass?: classNames, spanClass?: classNames) {
         return ({ id, label, num, isRate }: Status) => {
           const array: JSX.Element[] = []
 
-          array.push(
-            <span style={num ? "margin-right: 10px" : undefined}>{label}</span>
-          )
+          array.push(<span style={num ? "margin-right: 10px" : undefined}>{label}</span>)
           const rowClassNames = rowClass?.(id)
           const spanClassNames = spanClass?.(id)
 
@@ -122,10 +111,7 @@
 
       const sumFZL = computed(() => {
         let s = 0
-        if (
-          equip.value?.prop.growthProps &&
-          equip.value.prop.growthProps.length > 0
-        ) {
+        if (equip.value?.prop.growthProps && equip.value.prop.growthProps.length > 0) {
           let a = equip.value.prop.growthProps
           for (let item of a) {
             s += item.buffer ?? 0
@@ -135,10 +121,7 @@
       })
       const sumSHZJ = computed(() => {
         let s = 0
-        if (
-          equip.value?.prop.growthProps &&
-          equip.value.prop.growthProps.length > 0
-        ) {
+        if (equip.value?.prop.growthProps && equip.value.prop.growthProps.length > 0) {
           let a = equip.value.prop.growthProps
           for (let item of a) {
             s += item.attack
@@ -157,11 +140,7 @@
         }
 
         return (
-          <div
-            class={["approved-form"].concat([
-              props.colums ? "with-colums" : ""
-            ])}
-          >
+          <div class={["approved-form"].concat([props.colums ? "with-colums" : ""])}>
             <div class="epic title" style="display: flex">
               <eq-icon eq={equip.value}></eq-icon>
               <div class="eq-name" style="margin-left: 8px">
@@ -231,9 +210,7 @@
                 {equip.value.prop.effect.map(renderStatus(effectClass))}
               </div>
             )}
-            {!props.simple &&
-            equip.value.prop.bufferProps &&
-            equip.value.prop.bufferProps.length > 0 ? (
+            {!props.simple && equip.value.prop.bufferProps && equip.value.prop.bufferProps.length > 0 ? (
               <div>
                 <div class="hr"></div>
                 <div class="green"> &lt;辅助职业专属属性&gt; </div>
@@ -242,17 +219,14 @@
             ) : (
               <div></div>
             )}
-            {(sumSHZJ.value > 0 ||
-              (props.pps != null && props.pps.length > 0)) && (
+            {(sumSHZJ.value > 0 || (props.pps != null && props.pps.length > 0)) && (
               <div>
                 <div class="hr"></div>
                 <div class="green"> &lt;成长属性&gt; </div>
                 {!props.simple && sumSHZJ.value > 0 && (
                   <div>
                     <div>成长属性总伤害增加 {sumSHZJ.value}</div>
-                    {sumFZL.value > 0 && (
-                      <div>成长属性总Buff量 {sumFZL.value}</div>
-                    )}
+                    {sumFZL.value > 0 && <div>成长属性总Buff量 {sumFZL.value}</div>}
                   </div>
                 )}
               </div>

@@ -1,35 +1,19 @@
-import hyRequest from "../index"
 import { IAdventureInfo, IEquipmentList, IEnchantingInfo } from "./type"
-import { IDataType } from "../types"
+import { defineRequest } from "../common"
 
-enum InfoAPI {
-  AdventureInfo = "/info/adventureinfo",
-  BlackList = "/info/blacklist",
-  EquipmentInfo = "/info/equipmentInfo",
-  EquipmentDetailInfo = "/info/equipmentDetailInfo/",
-  EnchaningInfo = "/info/enchaningInfo"
-}
-
-export function GetAdventureInfo() {
-  return hyRequest.get<IDataType<IAdventureInfo[][]>>({
-    url: InfoAPI.AdventureInfo
-  })
-}
-
-export function GetEquipmentInfo() {
-  return hyRequest.get<IDataType<IEquipmentList>>({
-    url: InfoAPI.EquipmentInfo
-  })
-}
-
-export function GetEquipmentDetailInfo(euqID: Number) {
-  return hyRequest.get<IDataType<any>>({
-    url: InfoAPI.EquipmentDetailInfo + euqID
-  })
-}
-
-export function GetEnchaningInfo() {
-  return hyRequest.get<IDataType<IEnchantingInfo[]>>({
-    url: InfoAPI.EnchaningInfo
-  })
-}
+export default defineRequest(request => {
+  return {
+    getAdventure() {
+      return request.get<IAdventureInfo[]>("/adventure")
+    },
+    getEquipments() {
+      return request.get<IEquipmentList>(`/equips`)
+    },
+    getEquipmentDetail(euqID: ID) {
+      return request.get<any>(`/equip/${euqID}`)
+    },
+    getEnchanting() {
+      return request.get<IEnchantingInfo[]>("/enchanting")
+    }
+  }
+})

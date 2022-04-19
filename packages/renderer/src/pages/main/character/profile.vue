@@ -1,4 +1,5 @@
 <script lang="tsx">
+  import { useCharacterStore } from "@/store"
   import { defineComponent } from "vue"
 
   interface IDetail {
@@ -73,12 +74,14 @@
         an: 999
       }
 
+      const character = useCharacterStore()
+
       return () => {
         return (
           <div class="char-info">
             <div class="head" style="background-image:url(images/common/head.png)">
-              <div class="w-266px h-170px bg-bottom flex char" style={"background-image:url(images/characters/" + props.charName + "/人物.png);background-repeat: no-repeat; position: absolute;"}>
-                [{props.charName.replace("·男", "").replace("·女", "")}]
+              <div class="w-266px h-170px bg-bottom flex char" style={"background-image:url(images/characters/" + character.alter + "/人物.png);background-repeat: no-repeat; position: absolute;"}>
+                [{character.name}]
               </div>
               <div class="h-150px w-266px" style="background-image:url(images/common/equ-back.png)"></div>
             </div>

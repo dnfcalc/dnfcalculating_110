@@ -1,10 +1,11 @@
+import { useCharacterStore } from "./character"
 import { defineStore } from "pinia"
-import { GetAdventureInfo, GetEquipmentInfo, GetEquipmentDetailInfo, GetEnchaningInfo } from "../api/info"
+import api from "@/api"
 import { IAdventureInfo, IEnchantingInfo, IEquipmentList } from "../api/info/type"
 
 interface BasicInfoState {
   // 冒险团信息
-  _adventureInfo: IAdventureInfo[][]
+  _adventureInfo: IAdventureInfo[]
   // 版本信息
   version: string
   // 用户识别码
@@ -34,26 +35,26 @@ export const useBasicInfoStore = defineStore("basicInfo", {
   getters: {
     equipment_info(state) {
       if (!state._equipmentInfo) {
-        GetEquipmentInfo().then(res => (state._equipmentInfo = res.data))
+        api.getEquipments().then(res => (state._equipmentInfo = res.data))
       }
       return state._equipmentInfo
     },
     adventure_info(state) {
       if (state._adventureInfo.length === 0) {
-        GetAdventureInfo().then(res => (state._adventureInfo = res.data))
+        api.getAdventure().then(res => (state._adventureInfo = res.data))
       }
       return state._adventureInfo
     },
     enchanting_info(state) {
       if (!state._enchantingInfo) {
-        GetEnchaningInfo().then(res => (state._enchantingInfo = res.data))
+        api.getEnchanting().then(res => (state._enchantingInfo = res.data))
       }
       return state._enchantingInfo
     }
   },
   actions: {
     async get_equipment_detail(equ_id: number) {
-      return (await GetEquipmentDetailInfo(equ_id))?.data
+      return (await api.getEquipmentDetail(equ_id))?.data
     }
   }
 })

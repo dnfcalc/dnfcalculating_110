@@ -13,7 +13,8 @@
     "prebuild": "vue-tsc --project packages/renderer/tsconfig.json --noEmit && node scripts/build.mjs",
     "build": "electron-builder",
     "debug": "npm run prebuild && vite ./packages/renderer",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "clean-pycache": "rimraf ./**/__pycache__"
   },
   "engines": {
     "node": ">=14.17.0"
@@ -27,6 +28,7 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.3.5",
     "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "sass": "^1.49.9",
     "typescript": "^4.5.5",
     "unocss": "^0.27.1",

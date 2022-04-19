@@ -1,4 +1,5 @@
 <script lang="tsx">
+  import { useToggle, useVModel } from "@vueuse/core"
   import { defineComponent, reactive, ref } from "vue"
 
   interface EqIconType {
@@ -29,16 +30,15 @@
       }
     },
     setup(props, { emit }) {
-      function onclick() {
-        // eq.value.active = !eq.value.active
-        emit("change", !props.active)
-      }
+      const active = useVModel(props, "active")
+
+      const toggle = useToggle(active)
 
       return () => {
         return (
-          <div onClick={onclick}>
+          <div onClick={() => toggle()}>
             <div class={props.hightlight ? "hightLight" : ""}></div>
-            <div class={props.active ? "" : "floatLayer"}></div>
+            <div class={active.value ? "" : "floatLayer"}></div>
             <div class="eq-item-box">
               {props.eq && props.eq.icon ? (
                 <div

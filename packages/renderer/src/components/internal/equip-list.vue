@@ -84,9 +84,17 @@
                 {props.title}
               </calc-button>
             </div>
-            <div class="w-full">
+            <div class="w-full flex flex-wrap">
               {renderList(props.list, equ => (
-                <EquipTips class="item" eq={equ} canClick={true} show-tips active={selected.includes(equ.id)} hightlight={props.highlight.includes(equ.id)} onChange={changeState(equ.id)}></EquipTips>
+                <EquipTips
+                  class="item"
+                  eq={equ}
+                  canClick={true}
+                  show-tips
+                  active={selected.includes(equ.id)}
+                  hightlight={props.highlight.includes(equ.id)}
+                  onUpdate:active={changeState(equ.id)}
+                ></EquipTips>
               ))}
             </div>
           </div>

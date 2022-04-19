@@ -1,27 +1,47 @@
 import json
 import sys
 import os
+from typing import Dict, List
 
 import requests
 
+
 os.chdir(sys.path[0])
 equ_details = dict()
+class WeaponEquip:
+  id: int
+  groupId: int
+  id: int
+  type: int
+  typeName: str
+  icon: str
 
-def get_equipment_info():
+class WeaponInfo:
+  id: int
+  name: str
+  eqs: List[WeaponEquip]
+
+
+
+
+def get_equipment_info(alter:str):
     equipment_info = {
-      "equipment_Lv110" : {},
-      "equipment_myth" : {},
-      "equipment_weapon" : {},
-      "equipment_wisdom":{}
+      "lv110" : {},
+      "myth" : {},
+      "weapon" : [],
+      "wisdom":{}
     }
     with open("../dataFiles/eq-base-data.json", encoding='utf-8') as fp:
-        equipment_info["equipment_Lv110"] = json.load(fp)
+        equipment_info["lv110"] = json.load(fp)
     with open("../dataFiles/eq-myth-base-data.json", encoding='utf-8') as fp:
-        equipment_info["equipment_myth"] = json.load(fp)
+        equipment_info["myth"] = json.load(fp)
     with open("../dataFiles/arm-base-data.json", encoding='utf-8') as fp:
-        equipment_info["equipment_weapon"]= json.load(fp)
+        array:List[Dict] = json.load(fp)
+        for item in array:
+          if item.get("name") == alter:
+            equipment_info["weapon"] = item.get("eqs")
     with open("../dataFiles/eq-wisdom-base-data.json", encoding='utf-8') as fp:
-        equipment_info["equipment_wisdom"]= json.load(fp)
+        equipment_info["wisdom"]= json.load(fp)
     return equipment_info
 
 def get_equipment_detail_info(equID):
