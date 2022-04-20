@@ -27,9 +27,7 @@
       return () => (
         <div onClick={() => toggle()} class={switchClass.value}>
           <span class="i-checkbox-icon"></span>
-          <span class="i-checkbox-label">
-            {props.label ?? renderSlot(slots, "default")}
-          </span>
+          <span class="i-checkbox-label">{props.label ?? renderSlot(slots, "default")}</span>
         </div>
       )
     }

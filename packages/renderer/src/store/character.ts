@@ -60,7 +60,6 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       map.set(key, value)
     },
     getForge(part: string, key: string) {
-      console.log(this.forge_set, part, key)
       if (this.forge_set[part]) {
         let map = this.forge_set[part]
         return map.get(key)

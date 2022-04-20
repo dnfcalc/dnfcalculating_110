@@ -25,8 +25,10 @@ class Character:
   individuation=[]
   # 护石及符文信息
   talisman = []
+  # 符文信息
   rune = []
   # 药剂等相关信息设置
+  # 时装列表
 
   def set_skill_info(self,SkillClassList:技能,rune_except=[]):
     self.skillInfo = []

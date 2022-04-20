@@ -20,9 +20,9 @@
           <div class="main" style={"background-image:url(./images/characters/" + characterStore.alter + "/bg.jpg)"}>
             <div class="header">
               <calc-tabs route>
-                <calc-tab value="/character/equips">装备</calc-tab>
-                <calc-tab value="/character/skills">技能</calc-tab>
-                <calc-tab value="/character/profile">打造</calc-tab>
+                <calc-tab value={"/character/equips?name=" + characterStore.alter}>装备</calc-tab>
+                <calc-tab value={"/character/skills?name=" + characterStore.alter}>技能</calc-tab>
+                <calc-tab value={"/character/profile?name=" + characterStore.alter}>打造</calc-tab>
               </calc-tabs>
             </div>
             <div class="center">{characterStore.alter && <router-view></router-view>}</div>
