@@ -2,7 +2,6 @@
   import { IEquipmentInfo } from "@/api/info/type"
   import { computed, defineComponent, PropType, reactive, renderList, renderSlot, watch } from "vue"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
-  import { map } from "lodash"
 
   export default defineComponent({
     props: {
@@ -55,7 +54,7 @@
         const new_arr = props.showHighlight
           ? highlightSelectdCount.value > props.highlight.length / 2
             ? selected.filter(item => props.highlight.indexOf(item) < 0)
-            : map([...selected, ...props.highlight])
+            : Array.from([...selected, ...props.highlight])
           : selected.length > props.list.length / 2
           ? []
           : props.list.map(item => item.id)

@@ -2,7 +2,6 @@
   import { defineComponent, ref } from "vue"
   import EqInfo from "./eq-info.vue"
   import EqIcon from "./eq-icon.vue"
-  import { debounce } from "lodash"
   import { useVModel } from "@vueuse/core"
 
   export default defineComponent({
