@@ -1,14 +1,15 @@
 export interface IAdventureInfo {
   name: string
-  alters: IAlterInfo[]
+  children: IAlterInfo[]
 }
 
 export interface IAlterInfo {
-  alter: string
-  showName: string
-  defaultLabel: string
+  name: string
+  url?: string
+  title: string
+  default_value: string
   class: string[]
-  label: string[]
+  options: string[]
 }
 
 export interface IEquipmentInfo {

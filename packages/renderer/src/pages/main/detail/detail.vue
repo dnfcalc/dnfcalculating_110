@@ -1,10 +1,8 @@
 <script lang="tsx">
-  import { defineComponent, onMounted, ref, renderList, computed, watch } from "vue"
-  import { useRoute } from "vue-router"
+  import { defineComponent, ref, watch } from "vue"
   import profile from "./overview/profile.vue"
   import equip from "./overview/equip.vue"
 
-  import { useVModel } from "@vueuse/core"
   import { IDetailInfo } from "./type"
 
   export default defineComponent({

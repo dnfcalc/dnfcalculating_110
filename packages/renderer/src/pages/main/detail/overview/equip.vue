@@ -4,6 +4,7 @@
   import { IDetailInfo } from "../type"
   import { IEnchantingInfo } from "@/api/info/type"
   import { useVModel } from "@vueuse/core"
+  import { log } from "console"
   export default defineComponent({
     name: "equip",
     props: {
@@ -27,11 +28,12 @@
       const currentDetail = useVModel(props, "currentDetail", emit)
 
       //当前部位的附魔
-      const enchanting = computed<string>({
+      const enchanting = computed<string | number>({
         get() {
           return characterStore.getForge(detailsStore.part, "enchanting") ?? 0
         },
         set(val) {
+          console.log(characterStore.forge_set, detailsStore.part, "enchanting", val)
           // console.log(val)
           // let parts = [detailsStore.part]
           characterStore.setForge(detailsStore.part, "enchanting", val)
@@ -88,7 +90,7 @@
                 <div class="row-name">附魔</div>
                 <calc-select v-model={enchanting.value} class="!h-20px flex-1">
                   <calc-option value={0}>无</calc-option>
-                  {enchanting_list.value?.map(item => (
+                  {renderList(enchanting_list.value ?? [], item => (
                     <calc-option value={item.id}>{item.props}</calc-option>
                   ))}
                 </calc-select>

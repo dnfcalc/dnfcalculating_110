@@ -53,13 +53,18 @@ export const useCharacterStore = defineStore("CharacterInfo", {
     },
 
     setForge(part: string, key: string, value: any) {
-      let map = this.forge_set[part] ?? new Map<string, any>()
+      if (!this.forge_set[part]) {
+        this.forge_set[part] = new Map<string, any>()
+      }
+      let map = this.forge_set[part]
       map.set(key, value)
-      this.forge_set[part] = map
     },
     getForge(part: string, key: string) {
-      let map = this.forge_set[part] ?? new Map<string, any>()
-      return map.get(key)
+      console.log(this.forge_set, part, key)
+      if (this.forge_set[part]) {
+        let map = this.forge_set[part]
+        return map.get(key)
+      }
     }
   }
 })

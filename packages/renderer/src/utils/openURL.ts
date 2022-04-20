@@ -1,22 +1,24 @@
 import type { Router } from "vue-router"
 
-export default function openURL(
-  router: Router,
-  url: string,
-  args: { width: number; height: number }
-) {
+export default function openURL(url: string, { width = 0, height = 0 } = {}, router?: Router) {
   try {
-    if (args.height > window.screen.height * 0.8)
-      args.height = window.screen.height * 0.8
-    window.ipcRenderer.invoke("open-win", {
-      url: url,
-      ...args
-    })
+    if (width * height > 0) {
+      window.ipcRenderer.invoke("open-win", {
+        url: url,
+        width,
+        height
+      })
+    } else {
+      if (router) {
+        url = router.resolve({
+          path: url
+        }).href
+      }
+      console.log(url)
+      window.open(url, "_blank")
+    }
   } catch (err) {
-    let routerURL = router.resolve({
-      path: url
-    })
-    window.open(routerURL.href, "_blank")
+    console.error(err)
     // router.push(url)
   }
 }

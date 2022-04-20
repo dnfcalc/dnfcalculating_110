@@ -1,0 +1,603 @@
+[
+  {
+    "name": "swordman_male",
+    "children": [
+      {
+        "title": "极诣·剑魂",
+        "name": "weapon_master",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "soul_bringer",
+        "title": "极诣·鬼泣",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "berserker",
+        "title": "极诣·狂战士",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "asura",
+        "title": "极诣·剑魂",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "sword_ghost",
+        "title": "极诣·阿修罗",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "swordman_female",
+    "children": [
+      {
+        "name": "sword_master",
+        "title": "极诣·驭剑士",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "dark_templar",
+        "title": "极诣·暗殿骑士",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "demon_slayer",
+        "title": "极诣·契魔者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "vegabond",
+        "title": "极诣·流浪武士",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "blade",
+        "title": "极诣·刃影",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "fighter_male",
+    "children": [
+      {
+        "name": "nenmaster_male",
+        "title": "归元·气功师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "striker_male",
+        "title": "归元·散打",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "street_fighter_male",
+        "title": "极诣·散打",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "grappler_male",
+        "title": "归元·柔道家",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "fighter_female",
+    "children": [
+      {
+        "name": "nenmaster_male",
+        "title": "归元·气功师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "striker_male",
+        "title": "归元·散打",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "street_fighter_male",
+        "title": "极诣·散打",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "grappler_male",
+        "title": "归元·柔道家",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "gunner_male",
+    "children": [
+      {
+        "name": "ranger_male",
+        "title": "重霄·漫游枪手",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "launcher_male",
+        "title": "重霄·枪炮师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "mechanic_male",
+        "title": "重霄·机械师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "spitfire_male",
+        "title": "重霄·弹药专家",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "gunner_female",
+    "children": [
+      {
+        "name": "ranger_female",
+        "title": "重霄·漫游枪手",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "launcher_female",
+        "title": "重霄·枪炮师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "mechanic_female",
+        "title": "重霄·机械师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "spitfire_female",
+        "title": "重霄·弹药专家",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "sponsor",
+        "url": "https://bbs.colg.cn",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "mage_male",
+    "children": [
+      {
+        "name": "elemental_bomber",
+        "title": "知源·元素爆破师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "glacial_master",
+        "title": "知源·冰结师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "blood_mage",
+        "title": "知源·血法师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "swift_master",
+        "title": "知源·逐风者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "dimension_walker",
+        "title": "知源·次元行者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "mage_female",
+    "children": [
+      {
+        "name": "magiciant",
+        "title": "知源·元素师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "summoner",
+        "title": "知源·召唤师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "battle_mage",
+        "title": "知源·战斗法师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "witch",
+        "title": "知源·魔道学者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "enchantress",
+        "title": "知源·小魔女",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "priest_male",
+    "children": [
+      {
+        "name": "crusader_male",
+        "title": "神启·圣骑士",
+        "default_name": "输出",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "infighter",
+        "title": "神启·蓝拳圣使",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "exorcist",
+        "title": "神启·驱魔师",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "avenger",
+        "title": "神启·复仇者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "priest_female",
+    "children": [
+      {
+        "name": "crusader_female",
+        "title": "神启·圣骑士",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "inquistor",
+        "title": "神启·异端审判者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "sorceress",
+        "title": "神启·巫女",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "mistress",
+        "title": "神启·诱魔者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "thief",
+    "children": [
+      {
+        "name": "rogue",
+        "title": "隐夜·刺客",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "necro",
+        "title": "隐夜·死灵术士",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "kunoichi",
+        "title": "隐夜·忍者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "shadow_dancer",
+        "title": "隐夜·影舞者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "knight",
+    "children": [
+      {
+        "name": "elven_knight",
+        "title": "皓曦·精灵骑士",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "chaos",
+        "title": "皓曦·混沌魔灵",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "paladin",
+        "title": "皓曦·帕拉丁",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "dragon_knight",
+        "title": "皓曦·龙骑士",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "demonic_lancer",
+    "children": [
+      {
+        "name": "vanguard",
+        "title": "千魂·征战者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "chaos",
+        "title": "千魂·决战者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "paladin",
+        "title": "千魂·狩猎者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "dragon_knight",
+        "title": "千魂·暗枪士",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "gunblader",
+    "children": [
+      {
+        "name": "hitman",
+        "title": "苍暮·暗刃",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "agent",
+        "title": "苍暮·特工",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "trouble_shooter",
+        "title": "苍暮·战线佣兵",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "specialist",
+        "title": "苍暮·源能专家",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "extra",
+    "children": [
+      {
+        "name": "creator",
+        "title": "知源·缔造者",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "dark_knight",
+        "title": "苍暮·特工",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "default_name": "国服",
+        "class": [],
+        "options": []
+      }
+    ]
+  }
+]

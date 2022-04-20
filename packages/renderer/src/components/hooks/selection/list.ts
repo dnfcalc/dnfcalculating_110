@@ -1,5 +1,5 @@
 import { classPropType, valuePropType } from "../types"
-import { computed, provide, ref, Ref, watch } from "vue"
+import { computed, provide, reactive, ref, Ref, watch } from "vue"
 import { AciveClassSymbol, AciveSymbol, InitSymbol, ItemClassSymbol, ModelValueSymbol, Option, UnactiveSymbol } from "./constants"
 import { defineHooks } from "@/components/hooks/define"
 
@@ -35,13 +35,13 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
 
   const modelValue = computed(() => props.modelValue)
 
-  const options: Ref<Option>[] = []
+  const options = reactive<Ref<Option>[]>([])
 
   const active = computed<Option | undefined>({
     set(val: Option | undefined) {
+      current.value = val
       context.emit("update:modelValue", val?.value)
       context.emit("change", val?.value)
-      current.value = val
     },
     get() {
       return options.find(e => e.value.value == modelValue.value)?.value ?? current.value
@@ -73,21 +73,21 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
 
   provide(InitSymbol, (option: Ref<Option>) => {
     options.push(option)
+
     if (option.value.value == modelValue.value || active.value == undefined) {
       current.value = option.value
     }
+
     return () => {
-      options.splice(options.indexOf(option), 1)
+      const index = options.findIndex(e => e.value.value == option.value.value)
+      if (index > -1) {
+        options.splice(index, 1)
+      }
     }
   })
 
   function render() {
-    const option = options.find(e => e.value.value == modelValue.value)
-    console.log(option, options, modelValue.value, props.modelValue)
-    if (option) {
-      const tmp = option.value.render()
-      return tmp
-    }
+    return active.value?.render()
   }
 
   return {

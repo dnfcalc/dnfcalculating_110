@@ -3,6 +3,7 @@
   import { defineComponent, onMounted, ref, renderList } from "vue"
   import { useRouter } from "vue-router"
   import openURL from "@/utils/openURL"
+  import { IAlterInfo } from "@/api/info/type"
 
   function sub_icon(sub: number) {
     return {
@@ -26,16 +27,20 @@
     const basicInfoStore = useBasicInfoStore()
 
     // 获取角色相关信息，判定是否开放
-    function choose_job(alter: string) {
+    function choose_job(child: IAlterInfo) {
       return () => {
-        if (ignores.includes(alter)) {
+        if (child.url) {
+          openURL(child.url)
           return
         }
-        console.log(alter)
-        if (alter === "spitfire_female") {
-          openURL(router, "/equipment/" + alter, { width: 1280, height: 900 })
+        if (ignores.includes(child.name)) {
+          return
+        }
+        console.log(child)
+        if (child.name === "spitfire_female") {
+          openURL("/character?name=" + child.name, { width: 1280, height: 900 }, router)
         } else {
-          openURL(router, "/show", { width: 800, height: 800 })
+          openURL("/show", { width: 800, height: 800 }, router)
         }
       }
       // router.push("/character/" + alter)
@@ -54,15 +59,11 @@
             <div class="bg-no-repeat bg-center flex flex-wrap h-25 w-30 job-icon-box justify-center items-center relative">
               <div class="bg-center bg-no-repeat h-22.5 w-30" style={sub_icon(index)}></div>
             </div>
-            {renderList(job.alters, (alter, j) => (
-              <div onClick={choose_job(alter.alter)} class="cursor-pointer h-22.5 m-1 w-30 duration-300 job-box box-border relative">
-                {!!alter && (
-                  <>
-                    {!ignores.includes(alter.alter) ? <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e"></div> : <div></div>}
-                    <div class="text-xs text-center w-full bottom-1 text-hex-bea347 absolute">{alter.showName}</div>
-                  </>
-                )}
-                <div class="bg-no-repeat bg-auto bg-clip-content h-full w-full z-1 overflow-hidden" style={job_icon(alter.alter)}></div>
+            {renderList(job.children, (child, j) => (
+              <div onClick={choose_job(child)} class="cursor-pointer h-22.5 m-1 w-30 duration-300 job-box box-border relative">
+                <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e"></div>
+                <div class="text-xs text-center w-full bottom-1 text-hex-bea347 absolute">{child.title}</div>
+                <div class="bg-no-repeat bg-auto bg-clip-content h-full w-full z-1 overflow-hidden" style={job_icon(child.name)}></div>
               </div>
             ))}
           </div>
