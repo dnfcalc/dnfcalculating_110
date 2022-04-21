@@ -4,12 +4,6 @@
   import { useCharacterStore, useDetailsStore } from "@/store"
   export default defineComponent({
     name: "profile",
-    props: {
-      activeIndex: {
-        type: Number,
-        required: true
-      }
-    },
     setup(props, { emit, slots }) {
       //面板显示的顺序
 
@@ -18,7 +12,7 @@
       const detailsStore = useDetailsStore()
       const display_parts = detailsStore.display_parts
 
-      function partIconStyle(part: string, cIndex: number = 0) {
+      function partIconStyle(part: string) {
         let x = 10
         let y = 10
         let index = display_parts.findIndex(p => p == part)
@@ -50,6 +44,37 @@
         return style
       }
 
+      function infoStyle(part: string) {
+        let x = 28
+        let y = 5
+        let index = display_parts.findIndex(p => p == part)
+        let type = characterStore.getForge(part, "cursed_type")
+
+        if (index == 13) index -= 7
+        else if (index >= 5 && index <= 12) {
+          x += 189
+          index -= 5
+        }
+
+        x += (index % 2) * 32
+        y += Math.floor(index / 2) * 32
+
+        let style = {
+          left: `${x}px`,
+          top: `${y}px`,
+          zIndex: 4,
+          color: type ? "#19C7EA" : "#E458A9",
+          fontWeight: "bolder"
+        }
+
+        return style
+      }
+
+      function currentInfo(part: string) {
+        let num = characterStore.getForge(part, "cursed_number")
+        return num ? "+" + num : ""
+      }
+
       function setPart(part: string) {
         return () => {
           // activeIndex.value = index
@@ -63,7 +88,12 @@
             <div class="w-266px h-170px bg-bottom flex char" style={"background-image:url(images/characters/" + characterStore.alter + "/人物.png);background-repeat: no-repeat; position: absolute;"}>
               [{characterStore.name}]
               {renderList(display_parts, (item, index) => (
-                <div onClick={setPart(item)} class="absolute w-7 h-7" style={partIconStyle(item)}></div>
+                <>
+                  <div onClick={setPart(item)} class="absolute w-7 h-7" style={infoStyle(item)}>
+                    {currentInfo(item)}
+                  </div>
+                  <div onClick={setPart(item)} class="absolute w-7 h-7" style={partIconStyle(item)}></div>
+                </>
               ))}
             </div>
             <div class="h-150px w-266px" style="background-image:url(images/common/equ-back.png)"></div>

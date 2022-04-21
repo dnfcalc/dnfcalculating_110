@@ -61,3 +61,7 @@ async def get_equipment_detail_info(equID):
 async def getToken(alter:str):
     token = createToken(alter)
     return reponse(data=token)
+
+@infoRouter.get(path="/emblem")
+async def get_emblem_info():
+  return reponse(data=equipmentInfo.get_emblems_info())

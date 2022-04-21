@@ -4,19 +4,16 @@
   import { IDetailInfo } from "../type"
   import { IEnchantingInfo } from "@/api/info/type"
   import itemIcon from "@/components/internal/item-icon"
+  import item from "@/components/base/item"
+  import { log } from "console"
   export default defineComponent({
     name: "equip",
-    props: {
-      currentDetail: {
-        type: Object as PropType<IDetailInfo>,
-        required: true
-      }
-    },
     setup(props, { emit, slots }) {
       const detailsStore = useDetailsStore()
       const characterStore = useCharacterStore()
       const can_upgrade = computed(() => ["称号", "宠物"].indexOf(detailsStore.part as string) < 0)
       const has_socket = computed(() => ["称号", "宠物", "耳环", "武器"].indexOf(detailsStore.part as string) < 0)
+      const has_socket_right = computed(() => !["辅助装备", "魔法石"].includes(detailsStore.part as string))
       const has_wisdom = computed(() => ["称号", "宠物", "武器"].indexOf(detailsStore.part as string) < 0)
       const basicInfoStore = useBasicInfoStore()
 
@@ -24,35 +21,40 @@
         return basicInfoStore.enchanting_info?.filter(item => item.position.includes(detailsStore.part)).sort((a, b) => b.maxFrame - a.maxFrame)
       })
 
+      const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {
+        return basicInfoStore.emblem_info?.filter(item => item.position.includes(detailsStore.part))
+      })
+
       const global_change = ref(true)
 
       const currentInfo = function <T>(name: string, defaultValue?: T) {
         return computed<string | number>({
           get() {
-            return characterStore.getForge(detailsStore.part, name) ?? defaultValue
+            return characterStore.getForge(detailsStore.part, name) ?? defaultValue ?? 0
           },
           set(val) {
             if (global_change.value) {
               let parts: string[] = []
-              switch (name) {
-                case "enchanting":
-                  const enchant = basicInfoStore.enchanting_info?.find(item => item.id == val) as IEnchantingInfo | undefined
-                  console.log(enchant?.position.split("，"))
-                  if (enchant?.position) {
-                    parts = enchant.position.split("，")
-                  }
-                  break
-                case "cursed_type":
-                case "cursed_number":
-                case "growth_First":
-                case "growth_Second":
-                case "growth_Fourth":
-                case "growth_Second":
-                  parts = detailsStore.display_parts.filter(e => !["称号", "宠物"].includes(e))
-                  break
+              let appendName = ""
+              if (name === "enchanting") {
+                const enchant = basicInfoStore.enchanting_info?.find(item => item.id == val) as IEnchantingInfo | undefined
+                if (enchant?.position) {
+                  parts = enchant.position.split("，")
+                }
+              }
+              if (name === "socket_left" || name === "socket_right") {
+                const enchant = basicInfoStore.emblem_info?.find(item => item.id.toString() == val.toString()) as IEnchantingInfo | undefined
+                if (enchant?.position) {
+                  parts = enchant.position.split("，").filter(item => !["皮肤", "武器装扮"].includes(item))
+                }
+                appendName = ["socket_left", "socket_right"].filter(item => item !== name)[0]
+              }
+              if (["cursed_type", "cursed_number", "growth_First", "growth_Second", "growth_Third", "growth_Fourth"].includes(name)) {
+                parts = detailsStore.display_parts.filter(e => !["称号", "宠物"].includes(e))
               }
               if (parts.length) {
                 parts.forEach(e => characterStore.setForge(e, name, val))
+                if (appendName) parts.forEach(e => characterStore.setForge(e, appendName, val))
               }
             }
             characterStore.setForge(detailsStore.part, name, val)
@@ -61,22 +63,22 @@
       }
 
       //附魔
-      const enchanting = currentInfo<string | number>("enchanting", 0)
+      const enchanting = currentInfo<string | number>("enchanting")
 
       // 镶嵌栏1
-      const socket_left = currentInfo<string | number>("socket_left")
+      const socket_left = currentInfo<string | number>("socket_left", "0")
 
       // 镶嵌栏2
       const socket_right = currentInfo<string | number>("socket_right")
 
       // 增幅
-      const cursed_type = currentInfo<string | number>("cursed_type", 0)
+      const cursed_type = currentInfo<string | number>("cursed_type")
 
-      const cursed_number = currentInfo<string | number>("cursed_number", 0)
+      const cursed_number = currentInfo<string | number>("cursed_number")
 
-      const wisdom_number = currentInfo<string | number>("wisdom_number", 0)
+      const wisdom_number = currentInfo<string | number>("wisdom_number")
 
-      const dz_number = currentInfo<string | number>("dz_number", 0)
+      const dz_number = currentInfo<string | number>("dz_number")
 
       const growth_First = currentInfo<string | number>("growth_First", 1)
 
@@ -161,8 +163,20 @@
             {has_socket.value ? (
               <div class="equ-profile-item">
                 <div class="row-name">徽章</div>
-                <calc-select v-model={socket_left.value} class="!h-20px flex-1"></calc-select>
-                <calc-select v-model={socket_right.value} class="!h-20px flex-1"></calc-select>
+                <calc-select v-model={socket_left.value} class="!h-20px flex-1">
+                  <calc-option value={0}>无</calc-option>
+                  {renderList(emblem_list.value ?? [], item => (
+                    <calc-option value={item.id}>{`${item.rarity}${item.type}徽章[${item.props}]`}</calc-option>
+                  ))}
+                </calc-select>
+                {has_socket_right.value && (
+                  <calc-select v-model={socket_right.value} class="!h-20px flex-1">
+                    <calc-option value={0}>无</calc-option>
+                    {renderList(emblem_list.value ?? [], item => (
+                      <calc-option value={item.id}>{`${item.rarity}${item.type}徽章[${item.props}]`}</calc-option>
+                    ))}
+                  </calc-select>
+                )}
               </div>
             ) : (
               <div></div>
@@ -218,8 +232,14 @@
         text-align: center;
       }
 
-      :not(:last-child) {
+      :not(:last-child),
+      // :not(.i-select-label)
+      {
         margin-right: 10px !important;
+      }
+
+      .i-select-label {
+        margin-right: 0px !important;
       }
     }
   }

@@ -18,6 +18,8 @@ interface BasicInfoState {
   _equipmentInfo: IEquipmentList | undefined
   // 所有附魔信息
   _enchantingInfo: IEnchantingInfo[] | undefined
+  // 所有徽章信息
+  _emblemInfo: IEnchantingInfo[] | undefined
 }
 
 export const useBasicInfoStore = defineStore("basicInfo", {
@@ -29,7 +31,8 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       blacklist: [],
       noticeInfo: [],
       _equipmentInfo: undefined,
-      _enchantingInfo: undefined
+      _enchantingInfo: undefined,
+      _emblemInfo: undefined
     }
   },
   getters: {
@@ -50,6 +53,25 @@ export const useBasicInfoStore = defineStore("basicInfo", {
         api.getEnchanting().then(res => (state._enchantingInfo = res.data))
       }
       return state._enchantingInfo
+    },
+    emblem_info(state) {
+      if (!state._emblemInfo) {
+        api.getEmblems().then(res => {
+          state._emblemInfo = res.data
+          useCharacterStore().platinum.forEach(item => {
+            state._emblemInfo?.push({
+              id: item,
+              maxFrame: 232,
+              position: "辅助装备，魔法石",
+              props: item + " Lv+1",
+              type: "技能",
+              rarity: "白金"
+            })
+          })
+        })
+      }
+      console.log(state._emblemInfo)
+      return state._emblemInfo
     }
   },
   actions: {

@@ -14,6 +14,9 @@ export default defineRequest(request => {
     },
     getEnchanting() {
       return request.get<IEnchantingInfo[]>("/enchanting")
+    },
+    getEmblems() {
+      return request.get<IEnchantingInfo[]>("/emblem")
     }
   }
 })

@@ -37,5 +37,11 @@
   { "id": "36", "maxFrame": "168", "position": "头肩", "props": "技攻 +3% 三攻 +20 四维 +75" },
   { "id": "37", "maxFrame": "168", "position": "辅助装备", "props": "最终 +3% 全属强 +12 暴击 +3%" },
   { "id": "38", "maxFrame": "130", "position": "项链，手镯，戒指", "props": "四维 +70" },
-  { "id": "39", "maxFrame": "130", "position": "项链，手镯，戒指", "props": "火光+30" }
+  { "id": "39", "maxFrame": "130", "position": "项链，手镯，戒指", "props": "火光+30" },
+  { "id": "40", "maxFrame": "185", "position": "宠物", "props": "火强 +16" },
+  { "id": "41", "maxFrame": "185", "position": "宠物", "props": "光强 +16" },
+  { "id": "42", "maxFrame": "185", "position": "宠物", "props": "冰强 +16" },
+  { "id": "43", "maxFrame": "185", "position": "宠物", "props": "暗强 +16" },
+  { "id": "44", "maxFrame": "170", "position": "宠物", "props": "攻击力 +60" },
+  { "id": "45", "maxFrame": "159", "position": "宠物", "props": "四维 +50" }
 ]

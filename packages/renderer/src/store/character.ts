@@ -24,10 +24,12 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       armor_mastery: [],
       buff_ratio: 0,
       rune: [],
+      platinum: [],
       config: "set",
       skill_set: [],
       equips_set: [],
-      forge_set: {}
+      forge_set: {},
+      clothes: []
     }
   },
   actions: {

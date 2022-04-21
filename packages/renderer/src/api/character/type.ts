@@ -1,3 +1,5 @@
+import { IEnchantingInfo } from "../info/type"
+
 export interface ICharacterInfo {
   name: string
   alter: string
@@ -14,6 +16,8 @@ export interface ICharacterInfo {
   talisman?: string[]
   individuation: IIndividuation[]
   config: string
+  clothes: string[]
+  platinum: string[]
 }
 
 export interface ISkillInfo {

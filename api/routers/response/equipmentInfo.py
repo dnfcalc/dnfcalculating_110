@@ -21,9 +21,6 @@ class WeaponInfo:
   name: str
   eqs: List[WeaponEquip]
 
-
-
-
 def get_equipment_info(alter:str):
     equipment_info = {
       "lv110" : {},
@@ -65,3 +62,9 @@ def get_enchanting_info():
   with open("./dataFiles/enchanting-info.json", encoding='utf-8') as fp:
         get_enchanting_info = json.load(fp)
   return get_enchanting_info
+
+def get_emblems_info():
+  emblems_info={}
+  with open("./dataFiles/emblems-info.json", encoding='utf-8') as fp:
+        emblems_info = json.load(fp)
+  return emblems_info

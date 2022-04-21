@@ -31,10 +31,12 @@ export interface IEquipmentList {
 }
 
 export interface IEnchantingInfo {
-  id: number
-  maxFrame: number
+  id: string | number
+  maxFrame: number | undefined
   position: string
   props: string
+  type: string | undefined
+  rarity: string | undefined
 }
 
 export interface KTV<T> {
