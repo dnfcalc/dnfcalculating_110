@@ -2,6 +2,7 @@
   import { defineComponent, ref } from "vue"
   import SkillPanel from "@/components/internal/skill/skill-panel.vue"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
+  import { TreeNode } from "./calc/tree/types"
 
   export default defineComponent({
     components: { SkillPanel, EquipTips },
@@ -9,6 +10,30 @@
       const visible = ref(false)
       const showDialog = () => (visible.value = true)
       const test = ref(-1)
+      const node: TreeNode[] = [
+        {
+          label: "测试0",
+          value: 0,
+          children: [
+            { label: "测试1", value: 1 },
+            { label: "测试2", value: 2 },
+            { label: "测试3", value: 3 },
+            { label: "测试4", value: 4 },
+            { label: "测试5", value: 5 }
+          ]
+        },
+        {
+          label: "测试6",
+          value: 6,
+          children: [
+            { label: "测试7", value: 7 },
+            { label: "测试8", value: 8 },
+            { label: "测试9", value: 9 },
+            { label: "测试10", value: 10 },
+            { label: "测试11", value: 11 }
+          ]
+        }
+      ]
 
       return () => (
         <div>
@@ -19,7 +44,7 @@
           <calc-button onClick={showDialog}>点击展开窗口</calc-button>
           <calc-button disabled>禁用</calc-button>
 
-          <calc-checkbox>DYSB</calc-checkbox>
+          <calc-checkbox modelValue={visible.value}>DYSB</calc-checkbox>
           <div class="w-20 flex">
             <calc-select modelValue={test}>
               <calc-option value={0}>123</calc-option>
@@ -27,6 +52,7 @@
               <calc-option value={1}>467</calc-option>
             </calc-select>
           </div>
+          <calc-tree data={node} depth="1" />
 
           <calc-select modelValue={test}>
             <calc-option value={0}>123</calc-option>
@@ -47,24 +73,17 @@
           </calc-dialog>
 
           <skill-panel></skill-panel>
-          <equip-tips
-            eq={{ id: 306, icon: "/arms/swordman/katana/218.png" }}
-            show-tips
-          ></equip-tips>
+          <equip-tips eq={{ id: 306, icon: "/arms/swordman/katana/218.png" }} show-tips></equip-tips>
 
           <div class="flex mx-12 py-12">
             <div class="flex col-6 justify-center">
               <calc-tooltip position="left">
                 {{
                   default() {
-                    return (
-                      <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
-                    )
+                    return <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
                   },
                   popper() {
-                    return (
-                      <div class="h-20 text-white w-20">左侧Tooltip(默认)</div>
-                    )
+                    return <div class="h-20 text-white w-20">左侧Tooltip(默认)</div>
                   }
                 }}
               </calc-tooltip>
@@ -74,14 +93,10 @@
               <calc-tooltip>
                 {{
                   default() {
-                    return (
-                      <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
-                    )
+                    return <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
                   },
                   popper() {
-                    return (
-                      <div class="h-20 text-white w-20">下方ToolTip(默认)</div>
-                    )
+                    return <div class="h-20 text-white w-20">下方ToolTip(默认)</div>
                   }
                 }}
               </calc-tooltip>
@@ -91,14 +106,10 @@
               <calc-tooltip position="top">
                 {{
                   default() {
-                    return (
-                      <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
-                    )
+                    return <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
                   },
                   popper() {
-                    return (
-                      <div class="h-20 text-white w-20">上方ToolTip(默认)</div>
-                    )
+                    return <div class="h-20 text-white w-20">上方ToolTip(默认)</div>
                   }
                 }}
               </calc-tooltip>
@@ -108,14 +119,10 @@
               <calc-tooltip position="right">
                 {{
                   default() {
-                    return (
-                      <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
-                    )
+                    return <img src="https://www.tianyongxian.com/dnfstatic/images/equipment/arms/swordman/katana/218.png" />
                   },
                   popper() {
-                    return (
-                      <div class="h-20 text-white w-20">右侧Tooltip(默认)</div>
-                    )
+                    return <div class="h-20 text-white w-20">右侧Tooltip(默认)</div>
                   }
                 }}
               </calc-tooltip>

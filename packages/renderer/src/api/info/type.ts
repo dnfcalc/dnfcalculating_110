@@ -39,6 +39,16 @@ export interface IEnchantingInfo {
   rarity: string | undefined
 }
 
+export interface IJadeInfo {
+  id: string | number
+  min: string | number
+  max: string | number
+  props: string
+  pre: number
+  maxFrame: string | number
+  unit: string
+}
+
 export interface KTV<T> {
   [key: number | string]: T
 }

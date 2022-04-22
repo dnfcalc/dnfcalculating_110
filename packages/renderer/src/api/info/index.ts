@@ -1,4 +1,4 @@
-import { IAdventureInfo, IEquipmentList, IEnchantingInfo } from "./type"
+import { IAdventureInfo, IEquipmentList, IEnchantingInfo, IJadeInfo } from "./type"
 import { defineRequest } from "../common"
 
 export default defineRequest(request => {
@@ -17,6 +17,9 @@ export default defineRequest(request => {
     },
     getEmblems() {
       return request.get<IEnchantingInfo[]>("/emblem")
+    },
+    getJade() {
+      return request.get<IJadeInfo[]>("/jade")
     }
   }
 })

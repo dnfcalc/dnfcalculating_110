@@ -33,6 +33,17 @@ export function format_string(str: string, params: any = {}, ...args: any[]) {
   return str
 }
 
+export function getFloat(value: any, n: any) {
+  value = Number(value)
+  n = n ? parseInt(n) : 0
+  if (n <= 0) {
+    return Math.round(value)
+  }
+  value = Math.round(value * Math.pow(10, n)) / Math.pow(10, n)
+  value = Number(value).toFixed(n)
+  return value
+}
+
 export function cartesian<T = any>(...arr: T[][]): T[][] {
   if (arr.length < 2) {
     return arr

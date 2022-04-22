@@ -1,11 +1,7 @@
 <script lang="tsx">
   import { useBasicInfoStore, useCharacterStore, useDetailsStore } from "@/store"
   import { computed, defineComponent, renderList, PropType, ref } from "vue"
-  import { IDetailInfo } from "../type"
   import { IEnchantingInfo } from "@/api/info/type"
-  import itemIcon from "@/components/internal/item-icon"
-  import item from "@/components/base/item"
-  import { log } from "console"
   export default defineComponent({
     name: "equip",
     setup(props, { emit, slots }) {
@@ -18,7 +14,7 @@
       const basicInfoStore = useBasicInfoStore()
 
       const enchanting_list = computed<IEnchantingInfo[] | undefined>(() => {
-        return basicInfoStore.enchanting_info?.filter(item => item.position.includes(detailsStore.part)).sort((a, b) => b.maxFrame - a.maxFrame)
+        return basicInfoStore.enchanting_info?.filter(item => item.position.includes(detailsStore.part)).sort((a, b) => (b.maxFrame ?? 0) - (a.maxFrame ?? 0))
       })
 
       const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {
@@ -87,31 +83,6 @@
       const growth_Third = currentInfo<string | number>("growth_Third", 1)
 
       const growth_Fourth = currentInfo<string | number>("dz_Fourth", 1)
-
-      // function changeSocket(name: string, left: boolean = true) {
-      //   const glc = global_change.value
-      //   const socket_key = `socket_${left ? "left" : "right"}`
-      //   let parts = [detailsStore.part]
-      //   if (glc) {
-      //     const emblem = characterStore.emblem_list.find(e => e.name == name)
-      //     if (emblem) {
-      //       parts.length = 0
-      //       const colors = emblem.colors ?? []
-      //       for (let color of colors) {
-      //         const values = SocketMaps[color]
-      //         parts.push(...values)
-      //       }
-      //     }
-      //   }
-      //   for (let part of parts) {
-      //     if (glc) {
-      //       characterStore.setColumnData(part, "socket_left", name)
-      //       characterStore.setColumnData(part, "socket_right", name)
-      //     } else {
-      //       characterStore.setColumnData(part, socket_key, name)
-      //     }
-      //   }
-      // }
 
       return () => {
         return (
@@ -232,9 +203,7 @@
         text-align: center;
       }
 
-      :not(:last-child),
-      // :not(.i-select-label)
-      {
+      :not(:last-child) {
         margin-right: 10px !important;
       }
 

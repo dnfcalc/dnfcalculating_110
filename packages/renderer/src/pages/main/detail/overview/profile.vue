@@ -64,7 +64,7 @@
           top: `${y}px`,
           zIndex: 4,
           color: type ? "#19C7EA" : "#E458A9",
-          fontWeight: "bolder"
+          fontWeight: 900
         }
 
         return style
@@ -89,7 +89,7 @@
               [{characterStore.name}]
               {renderList(display_parts, (item, index) => (
                 <>
-                  <div onClick={setPart(item)} class="absolute w-7 h-7" style={infoStyle(item)}>
+                  <div onClick={setPart(item)} class="absolute" style={infoStyle(item)}>
                     {currentInfo(item)}
                   </div>
                   <div onClick={setPart(item)} class="absolute w-7 h-7" style={partIconStyle(item)}></div>

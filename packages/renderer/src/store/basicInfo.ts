@@ -1,7 +1,7 @@
 import { useCharacterStore } from "./character"
 import { defineStore } from "pinia"
 import api from "@/api"
-import { IAdventureInfo, IEnchantingInfo, IEquipmentList } from "../api/info/type"
+import { IAdventureInfo, IEnchantingInfo, IEquipmentList, IJadeInfo } from "../api/info/type"
 
 interface BasicInfoState {
   // 冒险团信息
@@ -20,6 +20,8 @@ interface BasicInfoState {
   _enchantingInfo: IEnchantingInfo[] | undefined
   // 所有徽章信息
   _emblemInfo: IEnchantingInfo[] | undefined
+  // 辟邪玉信息
+  _jadeInfo: IJadeInfo[] | undefined
 }
 
 export const useBasicInfoStore = defineStore("basicInfo", {
@@ -32,7 +34,8 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       noticeInfo: [],
       _equipmentInfo: undefined,
       _enchantingInfo: undefined,
-      _emblemInfo: undefined
+      _emblemInfo: undefined,
+      _jadeInfo: undefined
     }
   },
   getters: {
@@ -70,8 +73,13 @@ export const useBasicInfoStore = defineStore("basicInfo", {
           })
         })
       }
-      console.log(state._emblemInfo)
       return state._emblemInfo
+    },
+    jade_info(state) {
+      if (!state._jadeInfo) {
+        api.getJade().then(res => (state._jadeInfo = res.data))
+      }
+      return state._jadeInfo
     }
   },
   actions: {
