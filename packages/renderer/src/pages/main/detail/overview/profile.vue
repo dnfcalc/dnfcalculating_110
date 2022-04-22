@@ -63,7 +63,7 @@
           left: `${x}px`,
           top: `${y}px`,
           zIndex: 4,
-          color: type ? "#19C7EA" : "#E458A9",
+          color: type == 2 ? "#19C7EA" : "#E458A9",
           fontWeight: 900
         }
 
