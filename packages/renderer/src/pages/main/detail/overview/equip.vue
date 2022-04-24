@@ -186,30 +186,4 @@
   })
 </script>
 
-<style lang="scss">
-  .equ-profile {
-    width: 100%;
-
-    .equ-profile-item {
-      width: 100%;
-      height: 20px;
-      display: flex;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      align-items: center;
-
-      .row-name {
-        flex: 0 0 50px;
-        text-align: center;
-      }
-
-      :not(:last-child) {
-        margin-right: 10px !important;
-      }
-
-      .i-select-label {
-        margin-right: 0px !important;
-      }
-    }
-  }
-</style>
+<style lang="scss"></style>
