@@ -28,7 +28,7 @@
     },
 
     setup(props, context) {
-      const { active } = useSelectionList(() => {
+      const { render } = useSelectionList(() => {
         return {
           ...props,
           itemClass: "i-select-dropdown-item"
@@ -90,7 +90,7 @@
               }}
               ref={triggerRef}
             >
-              <span class="i-select-label">{active.value?.render() ?? props.emptyLabel}</span>
+              <span class="i-select-label">{render() ?? props.emptyLabel}</span>
               <span class="cursor-pointer i-select-down-icon"></span>
             </div>
             <Teleport to="body">

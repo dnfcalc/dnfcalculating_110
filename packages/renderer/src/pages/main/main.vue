@@ -3,7 +3,7 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useCharacterStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import { defineComponent } from "vue"
+  import { defineComponent, ref } from "vue"
   import { useRoute } from "vue-router"
 
   export default defineComponent(() => {

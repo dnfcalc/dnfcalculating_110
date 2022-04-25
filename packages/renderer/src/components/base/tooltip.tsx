@@ -4,7 +4,6 @@
  * @Last Modified by:   Kritsu
  * @Last Modified time: 2021/11/17 18:49:42
  */
-import { watchOnce } from "@vueuse/core"
 import { watch, defineComponent, renderSlot, Teleport, ref, computed, CSSProperties, Transition, PropType, reactive, nextTick } from "vue"
 
 export const tooltipProps = {

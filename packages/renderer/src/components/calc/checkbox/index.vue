@@ -14,11 +14,11 @@
 
     setup(props, context) {
       const { toggle, switchClass } = useSwitch(
-        {
+        () => ({
           ...props,
           class: "i-checkbox flex items-center text-xs h-6 cursor-pointer",
           checkedClass: "checked"
-        },
+        }),
         context
       )
 

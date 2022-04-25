@@ -1,10 +1,13 @@
 from copy import copy
+from dataclasses import Field
 import re
+from typing import Dict
+from typing_extensions import Self
 
 
 class Store:
     def __init__(self):
-        self.__states = {}
+        self.__states: Dict[str, Field] = {}
         self.last_state = None
         pass
 
@@ -65,6 +68,7 @@ class Store:
 
     # 绑定对象的属性
     def bind(self, obj: object, name: str, key=None, defaultValue: any = None):
+
         def getter():
             return getattr(obj, name)
 
@@ -79,12 +83,12 @@ class Store:
 
     # 根据指定的条件删除
     def delete(self, pattern=None):
-        match = lambda _: True
+        def match(_): return True
         if pattern is not None:
             if callable(pattern):
                 match = pattern
             elif isinstance(pattern, str):
-                match = lambda s: re.match(pattern, s)
+                def match(s): return re.match(pattern, s)
         keys = list(filter(match, self.__states.keys()))
         for key in keys:
             self.__states.pop(key)

@@ -9,6 +9,7 @@
   import NSelection from "@/components/base/selection"
   import { listProps } from "@/components/hooks/selection/list"
   import { useRoute, useRouter } from "vue-router"
+  import { BaseType } from "@/components/hooks/types"
 
   export default defineComponent({
     name: "calc-tabs",
@@ -26,21 +27,21 @@
     },
     setup(props, { emit, slots }) {
       const router = useRouter()
-      const modelValue = computed({
+      const modelValue = computed<BaseType>({
         get() {
+          let val = props.modelValue
           if (props.route) {
-            const route = useRoute()
-            return decodeURIComponent(route.path)
+            val = val ?? router.currentRoute.value.fullPath
           }
-          return props.modelValue
+          return val
         },
-        set(val) {
-          if (props.route) {
-            router.push(val as string)
-          } else {
-            emit("update:modelValue", val)
-            emit("change", val)
+        async set(val) {
+          if (props.route && val) {
+            val = decodeURIComponent(val.toString())
+            await router.push(val as string)
           }
+          emit("update:modelValue", val)
+          emit("change", val)
         }
       })
 

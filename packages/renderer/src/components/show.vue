@@ -35,6 +35,8 @@
         }
       ]
 
+      const model = ref(["1", "2"])
+
       return () => (
         <div>
           <calc-tabs>
@@ -54,7 +56,7 @@
           </div>
           <calc-tree data={node} depth="1" />
 
-          <calc-select modelValue={test}>
+          <calc-select multiple modelValue={test}>
             <calc-option value={0}>123</calc-option>
 
             <calc-option value={1}>467</calc-option>
@@ -72,8 +74,11 @@
             测试
           </calc-dialog>
 
-          <skill-panel></skill-panel>
-          <equip-tips eq={{ id: 306, icon: "/arms/swordman/katana/218.png" }} show-tips></equip-tips>
+          <calc-selection onChange={(val: any) => console.log(val)} v-model={model.value} item-class="border-1  " unactive-class="text-red bg-white" active-class="bg-hex-f00 text-white" multiple>
+            <calc-option value="1">123</calc-option>
+
+            <calc-option value="2">467</calc-option>
+          </calc-selection>
 
           <div class="flex mx-12 py-12">
             <div class="flex col-6 justify-center">

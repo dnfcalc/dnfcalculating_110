@@ -4,7 +4,7 @@
   import featureList from "@/utils/featureList"
 
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
-  import EquipList from "@/components/internal/equip-list.vue"
+  import EquipList from "@/components/internal/equip/equip-list.vue"
 
   export default defineComponent({
     components: { EquipTips, EquipList },

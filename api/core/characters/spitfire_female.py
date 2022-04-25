@@ -1,6 +1,17 @@
 
 from core.baseClass.character import Character
-from core.baseClass.skill import 主动技能,被动技能
+from core.baseClass.skill import 主动技能, 被动技能
+
+
+class SkillFrame:
+    data: list[float]
+    hits: int
+
+    def __init__(self, data=[], hits=0) -> None:
+        self.data = data
+        self.hits = hits
+        pass
+
 
 class 职业主动技能(主动技能):
     技能施放时间 = 0.0
@@ -10,16 +21,14 @@ class 职业主动技能(主动技能):
     data2 = []
     data3 = []
 
+    frames: list[SkillFrame] = []
+
     def 等效百分比(self, 武器类型):
         等效倍率 = 0.0
-        if len(self.data0) >= self.等级 and len(self.data0) > 0:
-            等效倍率 += self.data0[self.等级] * self.攻击次数
-        if len(self.data1) >= self.等级 and len(self.data1) > 0:
-            等效倍率 += self.data1[self.等级] * self.攻击次数2
-        if len(self.data2) >= self.等级 and len(self.data2) > 0:
-            等效倍率 += self.data2[self.等级] * self.攻击次数3
-        if len(self.data3) >= self.等级 and len(self.data3) > 0:
-            等效倍率 += self.data3[self.等级] * self.攻击次数4
+
+        for frame in self.frames:
+            if frame.hits > 0 and self.等级 < len(frame.data):
+                等效倍率 += frame.data[self.等级] * frame.hits
         return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率
 
 
@@ -115,9 +124,14 @@ class 技能4(职业主动技能):
     学习间隔 = 2
     等级精通 = 50
 
-    data0 = [int(i*1.132)for i in [0, 700, 771, 842, 913, 984, 1055, 1126, 1197, 1268, 1340, 1411, 1482, 1553, 1624, 1695, 1766, 1837, 1908, 1979, 2050, 2121, 2192, 2263, 2334, 2406, 2477, 2548, 2619, 2690, 2761, 2832, 2903, 2974,
+    deta0 = [int(i*1.132)for i in [0, 700, 771, 842, 913, 984, 1055, 1126, 1197, 1268, 1340, 1411, 1482, 1553, 1624, 1695, 1766, 1837, 1908, 1979, 2050, 2121, 2192, 2263, 2334, 2406, 2477, 2548, 2619, 2690, 2761, 2832, 2903, 2974,
                                    3045, 3116, 3187, 3258, 3329, 3400, 3471, 3543, 3614, 3685, 3756, 3827, 3898, 3969, 4040, 4111, 4182, 4253, 4324, 4395, 4466, 4537, 4609, 4680, 4751, 4822, 4893, 4964, 5035, 5106, 5177, 5248, 5319, 5390, 5461, 5532, 5603]]
-    攻击次数 = 3
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.frames.append(SkillFrame(self.data0, 3))
+        pass
+
     CD = 6.0
     TP成长 = 0.10
     TP基础 = 5
@@ -535,36 +549,40 @@ while i >= 0:
     except:
         i = -1
 
-class classChange(Character):
-  def __init__(self):
-      self.alter = 'spitfire_female'
-      # 实际名称
-      self.name = '重霄·弹药专家'
-      # 角色
-      self.character = '神枪手(女)'
-      # 输出/奶
-      self.characterType = '输出'
-      # 转职
-      self.classChange = '弹药专家'
-      # 武器类型
-      self.weaponType = ['手弩', '步枪']
-      # 输出类型选择，默认类型为第一个
-      self.carryType = ['魔法固伤', '物理固伤']
-      # 防具类型
-      self.armor ='皮甲'
-      # 防具类型精通，智力、力量
-      self.armor_mastery = ['智力', '力量']
-      # buff倍率
-      self.buff_ratio = 1.84
-      # 技能列表、护石及符文信息
-      self.set_skill_info(技能列表,['爆裂弹'])
-      # 个性化设置，技能选项等
-      self.set_individuation()
-      # 药剂等相关信息设置
 
-  def set_individuation(self):
-    self.individuation = [
-      {"type":"checkbox","value":"测试checkbox","items":[],"row":0,"column":0,"key":0},
-      {"type":"select","value":"","items":[1,2,3,4,5,6,7],"row":1,"column":0,"key":1},
-      {"type":"label","value":"测试label","items":[],"row":2,"column":0,"key":2}
-    ]
+class classChange(Character):
+    def __init__(self):
+        self.alter = 'spitfire_female'
+        # 实际名称
+        self.name = '重霄·弹药专家'
+        # 角色
+        self.character = '神枪手(女)'
+        # 输出/奶
+        self.characterType = '输出'
+        # 转职
+        self.classChange = '弹药专家'
+        # 武器类型
+        self.weaponType = ['手弩', '步枪']
+        # 输出类型选择，默认类型为第一个
+        self.carryType = ['魔法固伤', '物理固伤']
+        # 防具类型
+        self.armor = '皮甲'
+        # 防具类型精通，智力、力量
+        self.armor_mastery = ['智力', '力量']
+        # buff倍率
+        self.buff_ratio = 1.84
+        # 技能列表、护石及符文信息
+        self.set_skill_info(技能列表, ['爆裂弹'])
+        # 个性化设置，技能选项等
+        self.set_individuation()
+        # 药剂等相关信息设置
+
+    def set_individuation(self):
+        self.individuation = [
+            {"type": "checkbox", "value": "测试checkbox",
+                "items": [], "row":0, "column":0, "key":0},
+            {"type": "select", "value": "", "items": [
+                1, 2, 3, 4, 5, 6, 7], "row":1, "column":0, "key":1},
+            {"type": "label", "value": "测试label",
+             "items": [], "row":2, "column":0, "key":2}
+        ]

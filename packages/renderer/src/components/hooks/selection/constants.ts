@@ -13,6 +13,8 @@ export const ItemOptionsSymbol = Symbol("[i-selection]options")
 
 export const ChangeActiveSymbol = Symbol("[i-selection]change-active")
 
+export const IsActiveSymbol = Symbol("[i-selection]is-active")
+
 export interface Option {
   id?: string
   value: any | null

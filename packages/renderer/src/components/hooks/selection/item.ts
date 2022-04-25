@@ -1,6 +1,6 @@
 import { computed, ComputedRef, inject, onDeactivated, PropType, Ref, renderSlot } from "vue"
 import { defineHooks } from "../define"
-import { AciveClassSymbol, AciveSymbol, InitSymbol, ItemClassSymbol, Option, UnactiveSymbol } from "./constants"
+import { AciveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, Option, UnactiveSymbol } from "./constants"
 import { BaseType, ClassType, valuePropType } from "../types"
 
 export const itemProps = {
@@ -23,12 +23,7 @@ export const itemProps = {
 }
 
 export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
-  const active = inject(AciveSymbol) as Ref<Option>
   const init = inject<(obj: any) => () => void>(InitSymbol)
-
-  const isActive = computed<boolean>(() => {
-    return props.value == active?.value?.value
-  })
 
   function render() {
     let label = props.label
@@ -42,7 +37,7 @@ export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
 
   const id = Math.random().toString(36).slice(2, 9)
 
-  const current = computed(() => {
+  const current = computed<Option>(() => {
     return {
       id,
       render,
@@ -56,14 +51,12 @@ export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
     onDeactivated(remove)
   }
 
-  function change() {
-    if (!!active) {
-      active.value = current.value
-    }
-  }
+  const isActive = inject<(option: BaseType) => boolean>(IsActiveSymbol) ?? ((_: BaseType) => false)
+
+  const changeActive = inject<(option: BaseType) => boolean>(ChangeActiveSymbol) ?? ((_: BaseType) => false)
 
   const itemClass = computed(() => {
-    return [inject<ComputedRef<ClassType>>(ItemClassSymbol)?.value ?? ""].concat(isActive.value ? activeClass.value : unactiveClass.value)
+    return [inject<ComputedRef<ClassType>>(ItemClassSymbol)?.value ?? ""].concat(isActive(current.value.value) ? activeClass.value : unactiveClass.value)
   })
 
   const activeClass = computed(() => {
@@ -75,9 +68,10 @@ export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
   })
 
   return {
-    change,
+    change() {
+      changeActive(props.value)
+    },
     render,
-    active,
     isActive,
     current,
     activeClass,

@@ -9,29 +9,31 @@ import Collapse from "./collapse/index.vue"
 import Dialog from "./dialog/index.vue"
 import Tooltip from "./tooltip/index.vue"
 import Iconselct from "./iconselct/index.vue"
+import Selection from "./selection/index.vue"
 
 import type { App } from "vue"
 
 export const components = {
-    Button,
-    Tabs,
-    Option,
-    Tab,
-    Select,
-    Menu,
-    Checkbox,
-    Collapse,
-    Dialog,
-    Tooltip,
-    Iconselct
+  Button,
+  Tabs,
+  Option,
+  Tab,
+  Select,
+  Menu,
+  Checkbox,
+  Collapse,
+  Dialog,
+  Tooltip,
+  Iconselct,
+  Selection
 }
 
 export type CalcComponents = typeof components
 
 export function install(app: App) {
-    for (let [key, value] of Object.entries(components)) {
-        app.component(`calc-${key.toLocaleLowerCase()}`, value)
-    }
+  for (let [key, value] of Object.entries(components)) {
+    app.component(`calc-${key.toLocaleLowerCase()}`, value)
+  }
 }
 
 export default components

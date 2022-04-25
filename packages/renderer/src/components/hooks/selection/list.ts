@@ -1,20 +1,12 @@
-import { classPropType, valuePropType } from "../types"
-import { computed, provide, reactive, ref, Ref, watch } from "vue"
-import { AciveClassSymbol, AciveSymbol, InitSymbol, ItemClassSymbol, ModelValueSymbol, Option, UnactiveSymbol } from "./constants"
+import { BaseType, classPropType, valuePropType } from "../types"
+import { computed, PropType, provide, reactive, Ref, watch } from "vue"
+import { AciveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, ModelValueSymbol, Option, UnactiveSymbol } from "./constants"
 import { defineHooks } from "@/components/hooks/define"
 
 export const listProps = {
-  value: {
-    type: valuePropType,
-    default: () => null
-  },
   modelValue: {
     type: valuePropType,
-    default: () => null
-  },
-  defaultValue: {
-    type: valuePropType,
-    default: () => null
+    default: () => undefined
   },
   activeClass: {
     type: classPropType,
@@ -27,34 +19,64 @@ export const listProps = {
   unactiveClass: {
     type: classPropType,
     default: () => ""
+  },
+
+  /**
+   *  多选模式
+   */
+  multiple: {
+    type: Boolean,
+    default: () => false
+  },
+
+  /**
+   *  是否可以反选
+   *  在multiple模式下默认为true
+   */
+  deselect: {
+    type: [Boolean] as PropType<boolean>,
+    default: () => undefined
+  },
+  /**
+   *  默认选择第一个
+   *  在multiple模式下默认为false
+   */
+  defaultFirst: {
+    type: Boolean as PropType<boolean>,
+    default: () => undefined
   }
 }
 
 export const useSelectionList = defineHooks(listProps, (props, context) => {
-  const current = ref<Option>()
-
-  const modelValue = computed(() => props.modelValue)
-
   const options = reactive<Ref<Option>[]>([])
 
-  const active = computed<Option | undefined>({
-    set(val: Option | undefined) {
-      current.value = val
-      context.emit("update:modelValue", val?.value)
-      context.emit("change", val?.value)
-    },
-    get() {
-      return options.find(e => e.value.value == modelValue.value)?.value ?? current.value
+  function toArray(value: BaseType | BaseType[]) {
+    return props.multiple && Array.isArray(value) ? [...value] : [value]
+  }
+
+  const actives = reactive<BaseType[]>(props.modelValue != undefined ? toArray(props.modelValue) : [])
+
+  const deselect = computed(() => props.deselect ?? props.multiple)
+
+  const defaultFirst = computed(() => props.defaultFirst ?? !props.multiple)
+
+  watch(actives, val => {
+    let value: BaseType | BaseType[] | undefined = undefined
+    if (props.multiple) {
+      value = options.filter(e => val.includes(e.value.value)).map(e => e.value.value)
+    } else {
+      value = options.find(e => val.includes(e.value.value))?.value.value
     }
+    context.emit("change", value)
+    context.emit("update:modelValue", value)
   })
 
-  watch(active, val => {
-    // console.log(val)
-  })
-
-  provide(ModelValueSymbol, modelValue)
-
-  provide(AciveSymbol, active)
+  watch(
+    () => props.modelValue,
+    val => {
+      actives.splice(0, actives.length, ...toArray(val))
+    }
+  )
 
   provide(
     AciveClassSymbol,
@@ -71,11 +93,31 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
     computed(() => props.itemClass)
   )
 
+  function isActive(value: BaseType) {
+    return actives.includes(value)
+  }
+
+  function changeActive(option: BaseType) {
+    if (isActive(option) && deselect.value) {
+      actives.splice(actives.indexOf(option), 1)
+    } else {
+      if (!props.multiple) {
+        actives.splice(0, actives.length, option)
+      } else {
+        actives.push(option)
+      }
+    }
+  }
+
+  provide(IsActiveSymbol, isActive)
+
+  provide(ChangeActiveSymbol, changeActive)
+
   provide(InitSymbol, (option: Ref<Option>) => {
     options.push(option)
 
-    if (option.value.value == modelValue.value || active.value == undefined) {
-      current.value = option.value
+    if (option.value.value == props.modelValue || (actives.length == 0 && defaultFirst.value)) {
+      actives.push(option.value.value)
     }
 
     return () => {
@@ -87,12 +129,12 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
   })
 
   function render() {
-    return active.value?.render()
+    return options.filter(e => isActive(e.value.value)).map(e => e.value.render())
   }
 
   return {
-    active,
-    modelValue,
+    isActive,
+    changeActive,
     render
   }
 })
