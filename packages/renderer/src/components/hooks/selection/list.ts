@@ -34,7 +34,7 @@ export const listProps = {
    *  在multiple模式下默认为true
    */
   deselect: {
-    type: [Boolean] as PropType<boolean>,
+    type: [Boolean] as PropType<boolean | undefined>,
     default: () => undefined
   },
   /**
@@ -42,7 +42,7 @@ export const listProps = {
    *  在multiple模式下默认为false
    */
   defaultFirst: {
-    type: Boolean as PropType<boolean>,
+    type: Boolean as PropType<boolean | undefined>,
     default: () => undefined
   }
 }
@@ -116,6 +116,8 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
   provide(InitSymbol, (option: Ref<Option>) => {
     options.push(option)
 
+    console.log(actives, option.value)
+
     if (option.value.value == props.modelValue || (actives.length == 0 && defaultFirst.value)) {
       actives.push(option.value.value)
     }
@@ -129,7 +131,8 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
   })
 
   function render() {
-    return options.filter(e => isActive(e.value.value)).map(e => e.value.render())
+    const children = options.filter(e => isActive(e.value.value)).map(e => e.value.render())
+    return props.multiple ? children : children[0]
   }
 
   return {

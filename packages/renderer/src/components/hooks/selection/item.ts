@@ -6,7 +6,9 @@ import { BaseType, ClassType, valuePropType } from "../types"
 export const itemProps = {
   value: {
     type: valuePropType,
-    required: true
+    default() {
+      return Math.random().toString(16).slice(2)
+    }
   },
   label: {
     type: [Function, String] as PropType<string | ((val: BaseType) => string) | null>,

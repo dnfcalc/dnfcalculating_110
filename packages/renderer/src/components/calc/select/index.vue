@@ -8,7 +8,7 @@
   import { defineComponent, ref, computed, watch, Teleport, onDeactivated, renderSlot, CSSProperties, Transition, render, Fragment, reactive } from "vue"
   import { listProps, useSelectionList } from "@/components/hooks/selection/list"
 
-  import { onClickOutside, reactifyObject } from "@vueuse/core"
+  import { onClickOutside } from "@vueuse/core"
 
   export default defineComponent({
     name: "i-select",
@@ -23,7 +23,8 @@
         default: 120
       },
       emptyLabel: {
-        type: String
+        type: String,
+        default: ""
       }
     },
 

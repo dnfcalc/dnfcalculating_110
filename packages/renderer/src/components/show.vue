@@ -57,9 +57,9 @@
           <calc-tree data={node} depth="1" />
 
           <calc-select multiple modelValue={test}>
-            <calc-option value={0}>123</calc-option>
+            <calc-option>123</calc-option>
 
-            <calc-option value={1}>467</calc-option>
+            <calc-option>467</calc-option>
           </calc-select>
           <calc-iconselect emptyLabel="点击" modelValue={test}>
             <calc-option value={0}>
@@ -75,9 +75,9 @@
           </calc-dialog>
 
           <calc-selection onChange={(val: any) => console.log(val)} v-model={model.value} item-class="border-1  " unactive-class="text-red bg-white" active-class="bg-hex-f00 text-white" multiple>
-            <calc-option value="1">123</calc-option>
+            <calc-option>123</calc-option>
 
-            <calc-option value="2">467</calc-option>
+            <calc-option>467</calc-option>
           </calc-selection>
 
           <div class="flex mx-12 py-12">

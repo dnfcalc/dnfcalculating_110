@@ -1,4 +1,4 @@
-import { defineComponent, h, renderSlot } from "vue"
+import { defineComponent } from "vue"
 import { itemProps, useSelectionItem } from "@/components/hooks/selection/item"
 
 export default defineComponent({
