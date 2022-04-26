@@ -29,7 +29,8 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       skill_set: [],
       equips_set: [],
       forge_set: {},
-      clothes: []
+      clothes: [],
+      talisman: []
     }
   },
   actions: {
@@ -53,7 +54,26 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       //   configStore.save()
       // })
     },
-
+    setSkill(skill: string, key: string, value: any) {
+      const index = this.skill_set.findIndex(item => item.name == skill)
+      if (index < 0) {
+        let temp = {
+          name: skill,
+          level: 0,
+          tp: 0,
+          direct: false,
+          count: 0,
+          pet: 0
+        }
+        temp[key] = value
+        this.skill_set.push(temp)
+      } else {
+        this.skill_set[index][key] = value
+      }
+    },
+    getSkill(skill: string) {
+      return this.skill_set.find(item => item.name == skill)
+    },
     setForge(part: string, key: string, value: any) {
       if (!this.forge_set[part]) {
         this.forge_set[part] = new Map<string, any>()

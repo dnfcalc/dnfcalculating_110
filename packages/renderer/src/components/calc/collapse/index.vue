@@ -1,5 +1,4 @@
 <script lang="tsx">
-  import { useModel } from "@/hooks/vmodel"
   import { useToggle, useVModel } from "@vueuse/core"
   import { computed, defineComponent, ref, renderSlot, watch } from "vue"
 

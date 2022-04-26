@@ -108,8 +108,9 @@
     width: 266px;
     height: 180px;
     position: relative;
-    padding: 5px;
+    padding: 2.5px;
     font-size: 12px;
+    padding-bottom: 0px;
 
     // background-color: rgba(255, 255, 255, 0.5);
     // background-image: url("./img/60.png");

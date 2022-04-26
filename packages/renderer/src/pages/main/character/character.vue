@@ -1,7 +1,8 @@
 <script lang="tsx">
-  import { defineComponent, onMounted, ref, renderList } from "vue"
+  import { computed, defineComponent, onMounted, reactive, ref, renderList } from "vue"
   import { useCharacterStore } from "@/store"
   import { ISkillInfo } from "@/api/character/type"
+  import { SkillSet } from "@/api/info/type"
   import Profile from "./profile.vue"
 
   function skill_tooltip(skill: ISkillInfo) {
@@ -46,26 +47,49 @@
       // 红 绿
       const runeColor = ["#a128f4", "#a3240c", "#20f948", "#3aa8ff"]
 
+      let set: SkillSet[] = []
+
+      characterStore.skillInfo.forEach(item => {
+        const temp = characterStore.getSkill(item.name)
+        if (characterStore.getSkill(item.name)) {
+          set.push(temp as SkillSet)
+        } else {
+          set.push({ name: item.name, tp: 0, count: 0, pet: 0, direct: false, level: item.current_LV })
+        }
+      })
+
+      const skills = reactive<SkillSet[]>(set)
+
       function skill_icon(skillName: string) {
         return `./images/characters/${characterStore.alter}/skill/${skillName}.png`
       }
 
       return () => (
         <div class="character flex">
-          <div class="flex w-30%">
+          <div class="flex w-30% p-5px">
+            <div></div>
             <div class="flex-column">
-              {renderList(characterStore.skillInfo, skill => (
-                <div>
-                  <calc-tooltip position="right" offset={5}>
-                    {{
-                      default() {
-                        return <img src={skill_icon(skill.name)} />
-                      },
-                      popper() {
-                        return skill_tooltip(skill)
-                      }
-                    }}
-                  </calc-tooltip>
+              {renderList(characterStore.skillInfo, (skill, index) => (
+                <div class="flex">
+                  <div>
+                    <calc-tooltip position="right" offset={5}>
+                      {{
+                        default() {
+                          return <img src={skill_icon(skill.name)} />
+                        },
+                        popper() {
+                          return skill_tooltip(skill)
+                        }
+                      }}
+                    </calc-tooltip>
+                  </div>
+                  <calc-select v-model={skills[index].level} class={"!w-45px !min-w-45px !h-20px"}>
+                    {renderList(skill.level_max + 1, item => (
+                      <calc-option value={item - 1}>
+                        <span>{item - 1}</span>
+                      </calc-option>
+                    ))}
+                  </calc-select>
                 </div>
               ))}
             </div>
@@ -77,10 +101,12 @@
                 {renderList([...Array(3).keys()], item => (
                   <div>
                     <div class="cp">
-                      <calc-iconselect class="talisman" emptyLabel="点击" modelValue={-1}>
+                      <calc-iconselect class="talisman" emptyLabel="点击" columnNum={1} v-model={test.value}>
                         {renderList(characterStore.talisman, (talisman, index) => (
-                          <calc-option value={0}>
-                            <img src={skill_icon(talisman)} />
+                          <calc-option value={talisman}>
+                            <div>
+                              <img src={skill_icon(talisman)} />
+                            </div>
                           </calc-option>
                         ))}
                       </calc-iconselect>

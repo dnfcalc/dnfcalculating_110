@@ -196,7 +196,7 @@
       height: 20px;
       line-height: 20px;
       margin: 0;
-      padding: 0 8px;
+      padding: 0 5px;
       border: none;
       outline: none;
       appearance: none;

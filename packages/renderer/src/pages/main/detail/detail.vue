@@ -42,7 +42,6 @@
 <style lang="scss">
   .detail {
     display: flex;
-    margin: 5px;
     width: 100%;
   }
 
@@ -53,8 +52,8 @@
       width: 100%;
       height: 20px;
       display: flex;
-      margin-top: 4px;
-      margin-bottom: 4px;
+      margin-top: 5px;
+      margin-bottom: 5px;
       align-items: center;
 
       .row-name {

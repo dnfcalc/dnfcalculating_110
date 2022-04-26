@@ -7,9 +7,11 @@
     setup(props, { emit, slots }) {
       const detailsStore = useDetailsStore()
       const characterStore = useCharacterStore()
-      const can_upgrade = computed(() => ["称号", "宠物"].indexOf(detailsStore.part as string) < 0)
+      const can_upgrade = computed(() => {
+        return !["称号", "宠物"].includes(detailsStore.part as string)
+      })
       const has_socket = computed(() => ["称号", "宠物", "耳环", "武器"].indexOf(detailsStore.part as string) < 0)
-      const has_socket_right = computed(() => !["辅助装备", "魔法石"].includes(detailsStore.part as string))
+      const has_socket_right = computed(() => !["辅助装备", "魔法石", "称号", "宠物", "耳环", "武器"].includes(detailsStore.part as string))
       const has_wisdom = computed(() => ["称号", "宠物", "武器"].indexOf(detailsStore.part as string) < 0)
       const basicInfoStore = useBasicInfoStore()
 
@@ -29,6 +31,7 @@
             return characterStore.getForge(detailsStore.part, name) ?? defaultValue ?? 0
           },
           set(val) {
+            if (val == undefined) return
             if (global_change.value) {
               let parts: string[] = []
               let appendName = ""
@@ -62,13 +65,13 @@
       const enchanting = currentInfo<string | number>("enchanting")
 
       // 镶嵌栏1
-      const socket_left = currentInfo<string | number>("socket_left", "0")
+      const socket_left = currentInfo<string | number>("socket_left", 0)
 
       // 镶嵌栏2
       const socket_right = currentInfo<string | number>("socket_right")
 
       // 增幅
-      const cursed_type = currentInfo<string | number>("cursed_type")
+      const cursed_type = currentInfo<string | number>("cursed_type", 1)
 
       const cursed_number = currentInfo<string | number>("cursed_number")
 
@@ -140,7 +143,7 @@
                     <calc-option value={item.id}>{`${item.rarity}${item.type}徽章[${item.props}]`}</calc-option>
                   ))}
                 </calc-select>
-                {has_socket_right.value && (
+                {has_socket_right.value && has_socket.value && (
                   <calc-select v-model={socket_right.value} class="!h-20px flex-1">
                     <calc-option value={0}>无</calc-option>
                     {renderList(emblem_list.value ?? [], item => (

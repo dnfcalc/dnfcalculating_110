@@ -53,7 +53,7 @@ export interface KTV<T> {
   [key: number | string]: T
 }
 
-interface SkillSet {
+export interface SkillSet {
   //技能名
   name: string
 
@@ -61,7 +61,16 @@ interface SkillSet {
   level: number
 
   // tp
-  extra: number
+  tp: number
+
+  // 是否手搓
+  direct: boolean
+
+  // 技能次数
+  count: number | string
+
+  // 宠物次数
+  pet: number | string
 }
 
 interface EquipSet {
