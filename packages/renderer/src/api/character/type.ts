@@ -29,6 +29,8 @@ export interface ISkillInfo {
   CD: number
   current_LV: number
   data: number
+  TP_max: number | undefined
+  TP_Lv: number | undefined
 }
 
 export interface IIndividuation {

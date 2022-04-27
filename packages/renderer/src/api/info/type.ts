@@ -66,6 +66,9 @@ export interface SkillSet {
   // 是否手搓
   direct: boolean
 
+  // 方向键数目
+  directNumber: number
+
   // 技能次数
   count: number | string
 

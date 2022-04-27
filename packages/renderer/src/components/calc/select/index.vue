@@ -23,8 +23,16 @@
         default: 120
       },
       emptyLabel: {
+        type: String
+      },
+      highlight: {
         type: String,
+        // warn remind
         default: ""
+      },
+      editeable: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -83,7 +91,7 @@
 
       return () => {
         return (
-          <div class="min-w-20 w-40 i-select" onClick={collapse}>
+          <div class={"min-w-20 w-40 i-select " + props.highlight} onClick={collapse}>
             <div
               class={{
                 "i-select-trigger": true,
@@ -91,7 +99,9 @@
               }}
               ref={triggerRef}
             >
-              <span class="i-select-label">{render() ?? props.emptyLabel}</span>
+              <span class="i-select-label" contenteditable={props.editeable}>
+                {render() ?? props.emptyLabel}
+              </span>
               <span class="cursor-pointer i-select-down-icon"></span>
             </div>
             <Teleport to="body">
@@ -178,6 +188,16 @@
     .i-select-trigger:hover {
       opacity: 1;
     }
+  }
+
+  .warn {
+    color: red !important;
+    border: 1px solid #aa8651;
+  }
+
+  .remind {
+    color: #32e432 !important;
+    border: 1px solid #aa8651;
   }
 
   .i-select-dropdown {

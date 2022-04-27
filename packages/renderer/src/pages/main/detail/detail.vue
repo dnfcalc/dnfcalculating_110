@@ -1,18 +1,18 @@
 <script lang="tsx">
   import { defineComponent, ref, watch } from "vue"
-  import profile from "./overview/profile.vue"
-  import equip from "./overview/equip.vue"
-  import jade from "./overview/jade.vue"
-  import clothes from "./overview/clothes.vue"
-  import others from "./overview/others.vue"
-  import petequ from "./overview/petequ.vue"
+  import profile from "./sub/profile.vue"
+  import equip from "./sub/equip.vue"
+  import jade from "./sub/jade.vue"
+  import clothes from "./sub/clothes.vue"
+  import others from "./sub/others.vue"
+  import petequ from "./sub/petequ.vue"
 
   export default defineComponent({
     components: { profile, equip, jade, clothes, others, petequ },
     setup() {
       return () => (
         <div class="detail">
-          <div class="ml-75px">
+          <div class="ml-35px">
             <profile class="ml-auto mr-auto"></profile>
             <calc-collapse class="w-510px" title="装备打造">
               <equip />
