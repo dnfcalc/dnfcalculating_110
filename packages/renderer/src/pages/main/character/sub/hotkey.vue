@@ -12,7 +12,7 @@
       })
       return () => (
         <div class="w-240px">
-          <div class="skill-slots subitem mt-2%" style={"height:" + (135 + 15 * characterStore.skillInfo.filter(item => item.type == 1).length) + "px"}>
+          <div class="skill-slots subitem mt-2%" style="height:120px">
             <div class="head-sec">技能快捷键设置</div>
             <div class="body-sec">
               <div class="flex flex-row ml-2 mr-2">
@@ -37,18 +37,6 @@
                 <div class="skill-slot-item"></div>
                 <div class="skill-slot-item"></div>
               </div>
-            </div>
-            <div class="body-sec flex flex-wrap m-2px !pt-5px">
-              {renderList(skillList.value, item => (
-                <div class="w-118px flex items-center justify-around h-30px">
-                  <img src={skill_icon(characterStore.alter, item.name)} />
-                  <calc-select class="!w-70px !min-w-70px !h-20px">
-                    {renderList(4, e => (
-                      <calc-option value={e}>{e}</calc-option>
-                    ))}
-                  </calc-select>
-                </div>
-              ))}
             </div>
           </div>
         </div>

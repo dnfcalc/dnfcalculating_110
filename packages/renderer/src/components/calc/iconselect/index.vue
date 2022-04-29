@@ -145,7 +145,7 @@
       padding: 0;
       display: flex;
       height: 100%;
-      opacity: 0.8;
+      opacity: 1;
 
       justify-content: center;
       align-items: center;

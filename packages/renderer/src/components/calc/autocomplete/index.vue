@@ -21,6 +21,10 @@
       delay: {
         type: Number,
         default: 300
+      },
+      dropList: {
+        type: Array as PropType<string[]>,
+        default: () => ""
       }
     },
     setup(props) {
@@ -73,12 +77,23 @@
 
       const droplist = ref<string[]>([])
 
-      debouncedWatch(modelValue, async value => (droplist.value = await props.handleChange(value)), {
-        debounce: delay
-      })
+      debouncedWatch(
+        modelValue,
+        async value => {
+          console.log(props.dropList, value)
+          if (props.dropList.length > 0) {
+            droplist.value = props.dropList.filter(f => f.includes(value))
+          }
+          console.log(droplist.value)
+          await props.handleChange(value)
+        },
+        {
+          debounce: delay
+        }
+      )
 
       function handleInput() {
-        isOpen.value = droplist.value.length > 0
+        isOpen.value = props.dropList.length > 0
       }
 
       return () => {
@@ -136,6 +151,7 @@
         color: inherit;
         font-size: 12px;
         background-color: black;
+        font-family: SimSun;
       }
 
       &.disabled {

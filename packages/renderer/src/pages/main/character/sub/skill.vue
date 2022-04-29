@@ -39,6 +39,7 @@
       const characterStore = useCharacterStore()
 
       let set: SkillSet[] = []
+      const test = ref("")
 
       characterStore.skillInfo.forEach(item => {
         const temp = characterStore.getSkill(item.name)
@@ -66,11 +67,11 @@
           <div class="flex-column">
             <div class="flex items-center h-31px">
               <div class="w-28px"></div>
-              <div class="w-48px !ml-5px text-center">Lv</div>
-              <div class="w-48px !ml-5px text-center">TP</div>
+              <div class="w-48px !ml-10px text-center">Lv</div>
+              <div class="w-48px !ml-10px text-center">TP</div>
               <div class="w-48px !ml-5px text-center">次数</div>
               <div class="w-48px !ml-5px text-center">宠物次数</div>
-              <div class="w-30px !ml-5px text-center">手搓</div>
+              <div class="w-68px !ml-10px text-center">手搓相关</div>
             </div>
             {renderList(
               characterStore.skillInfo,
@@ -89,7 +90,7 @@
                         }}
                       </calc-tooltip>
                     </div>
-                    <calc-select v-model={skills[index].level} highlight={highlight.value(index)} class="!w-45px !min-w-45px !h-20px !ml-5px">
+                    <calc-select v-model={skills[index].level} highlight={highlight.value(index)} class="!w-45px !min-w-45px !h-20px !ml-10px">
                       {renderList(skill.level_max + 1, item => (
                         <calc-option value={item - 1}>
                           <span>{item - 1}</span>
@@ -121,19 +122,28 @@
                         </calc-option>
                       ))}
                     </calc-select>
-                    <div class="w-30px !ml-5px justify-center">
+                    <div class="w-20px !ml-5px justify-center">
                       <calc-checkbox v-model={skills[index].direct}></calc-checkbox>
                     </div>
+
+                    <calc-select v-model={skills[index].directNumber} disabled={!skills[index].direct} class={"!w-45px !min-w-45px !h-20px !mr-5px"}>
+                      {renderList(5, item => (
+                        <calc-option value={item - 1}>
+                          <span>{item - 1}</span>
+                        </calc-option>
+                      ))}
+                    </calc-select>
                   </div>
                 )
             )}
           </div>
-          <div class="flex-column">
+          <div class="flex-column w-150px">
+            <div class="h-31px"></div>
             {renderList(
               characterStore.skillInfo,
               (skill, index) =>
                 skill.type == 0 && (
-                  <div class="flex">
+                  <div class="flex items-center justify-center">
                     <div>
                       <calc-tooltip position="right" offset={5}>
                         {{
@@ -146,7 +156,7 @@
                         }}
                       </calc-tooltip>
                     </div>
-                    <calc-select v-model={skills[index].level} highlight={highlight.value(index)} class={"!w-45px !min-w-45px !h-20px"}>
+                    <calc-select v-model={skills[index].level} highlight={highlight.value(index)} class={"!w-45px !min-w-45px !h-20px !ml-10px"}>
                       {renderList(skill.level_max + 1, item => (
                         <calc-option value={item - 1}>
                           <span>{item - 1}</span>
@@ -156,6 +166,15 @@
                   </div>
                 )
             )}
+            <div class="flex items-center justify-center mt-20px">
+              <img src={skill_icon(characterStore.alter, "BUFF")} />
+              <calc-autocomplete class="!w-48px !min-w-45px ml-10px" v-model={test.value}></calc-autocomplete>
+            </div>
+
+            <div class="flex flex-column items-center justify-center mt-20px">
+              <div class="h-50px w-38px" style="background-image:url('./images/common/waken.png')"></div>
+              <div class="h-50px w-38px ml-10px" style="background-image:url('./images/common/waken.png')"></div>
+            </div>
           </div>
         </div>
       )

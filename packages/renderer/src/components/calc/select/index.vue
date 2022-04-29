@@ -139,7 +139,7 @@
     border: 1px solid #5b472a;
     border-radius: 2px;
     padding: 0;
-    padding-right: 1px;
+    padding-right: 3px;
     margin: 0;
     display: block;
 
@@ -147,7 +147,7 @@
       padding: 0;
       display: flex;
       height: 100%;
-      opacity: 0.8;
+      opacity: 0.9;
 
       justify-content: space-between;
       align-items: center;

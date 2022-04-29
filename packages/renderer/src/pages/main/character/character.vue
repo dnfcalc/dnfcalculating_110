@@ -11,7 +11,7 @@
     setup() {
       return () => (
         <div class="character flex">
-          <div class="flex w-30% p-5px">
+          <div class="flex p-5px">
             <skill></skill>
           </div>
           <div>
