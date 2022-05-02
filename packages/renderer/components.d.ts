@@ -10,7 +10,6 @@ declare module 'vue' {
     CalcCollapse: typeof import('./src/components/calc/collapse/index.vue')['default']
     CalcDialog: typeof import('./src/components/calc/dialog/index.vue')['default']
     CalcIconselect: typeof import('./src/components/calc/iconselect/index.vue')['default']
-    CalcInput: typeof import('./src/components/calc/input/index.vue')['default']
     CalcMenuMenu: typeof import('./src/components/calc/menu/menu.vue')['default']
     CalcOption: typeof import('./src/components/calc/option/index.vue')['default']
     CalcSelect: typeof import('./src/components/calc/select/index.vue')['default']
