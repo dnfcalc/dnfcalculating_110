@@ -29,7 +29,10 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       skill_set: [],
       equips_set: [],
       forge_set: {},
+      other_set: {},
+      clothes_set: {},
       clothes: [],
+      clothes_bottom: [],
       talisman: []
     }
   },
@@ -63,7 +66,8 @@ export const useCharacterStore = defineStore("CharacterInfo", {
           tp: 0,
           direct: false,
           count: 0,
-          pet: 0
+          pet: 0,
+          directNumber: 0
         }
         temp[key] = value
         this.skill_set.push(temp)
@@ -86,6 +90,7 @@ export const useCharacterStore = defineStore("CharacterInfo", {
         let map = this.forge_set[part]
         return map.get(key)
       }
-    }
+    },
+    calc() {}
   }
 })

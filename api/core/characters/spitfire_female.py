@@ -1,4 +1,5 @@
 
+from core.baseClass.skill import 技能
 from core.baseClass.character import Character
 from core.baseClass.skill import 主动技能, 被动技能
 
@@ -588,7 +589,8 @@ class classChange(Character):
         # buff倍率
         self.buff_ratio = 1.84
         # 技能列表、护石及符文信息
-        self.set_skill_info(技能列表, ['爆裂弹'])
+        self.set_skill_info(skillClassList=技能列表, rune_except=[
+                            '爆裂弹'], clothes_bottom=["远古记忆"])
         # 个性化设置，技能选项等
         self.set_individuation()
         # 药剂等相关信息设置

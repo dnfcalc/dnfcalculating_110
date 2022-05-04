@@ -124,7 +124,7 @@
       * @Last Modified by:   Kritsu
       * @Last Modified time: 2021/11/17 18:03:08
       */
-  $text-color: #e9c556;
+  $text-color: #937639;
   .i-select {
     min-width: 80px;
     width: 160px;
@@ -226,6 +226,7 @@
 
       &.active {
         background-color: $activeColor;
+        color: #e9c556;
       }
 
       &:hover:not(.active) {

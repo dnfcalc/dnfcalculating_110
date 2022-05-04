@@ -105,7 +105,7 @@
   })
 </script>
 <style scoped lang="scss">
-  $text-color: #e9c556;
+  $text-color: #937639;
   .i-autocomplete {
     min-width: 80px;
     width: 160px;

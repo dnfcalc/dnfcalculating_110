@@ -91,4 +91,8 @@ export interface ICharacterSet {
   forge_set: Record<string, Map<string, any>>
 
   equips_set: EquipSet[]
+
+  clothes_set: Record<string, Map<string, any>>
+
+  other_set: Record<string, Map<string, any>>
 }

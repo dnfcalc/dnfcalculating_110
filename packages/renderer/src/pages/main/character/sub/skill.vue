@@ -38,8 +38,10 @@
     setup(props, { emit, slots }) {
       const characterStore = useCharacterStore()
 
+      const buind_skill = ref("EMP磁暴")
+
       let set: SkillSet[] = []
-      const test = ref("")
+      const test = ref("0")
 
       characterStore.skillInfo.forEach(item => {
         const temp = characterStore.getSkill(item.name)
@@ -62,15 +64,17 @@
         characterStore.skill_set = val
       })
 
+      const wakens = computed(() => characterStore.skillInfo.filter(item => item.need_level == 50 || item.need_level == 85))
+
       return () => (
         <div class="flex">
           <div class="flex-column">
             <div class="flex items-center h-31px">
               <div class="w-28px"></div>
-              <div class="w-48px !ml-10px text-center">Lv</div>
-              <div class="w-48px !ml-10px text-center">TP</div>
-              <div class="w-48px !ml-5px text-center">次数</div>
-              <div class="w-48px !ml-5px text-center">宠物次数</div>
+              <div class="w-50px !ml-10px text-center">Lv</div>
+              <div class="w-50px !ml-5px text-center">TP</div>
+              <div class="w-50px !ml-5px text-center">次数</div>
+              <div class="w-50px !ml-5px text-center">宠物次数</div>
               <div class="w-68px !ml-10px text-center">手搓相关</div>
             </div>
             {renderList(
@@ -106,7 +110,7 @@
                         ))}
                       </calc-select>
                     ) : (
-                      <div class="!w-48px !h-20px !ml-5px"></div>
+                      <div class="!w-50px !h-20px !ml-5px"></div>
                     )}
                     <calc-select v-model={skills[index].count} class="!w-45px !min-w-45px !h-20px !ml-5px">
                       {renderList(skill.level_max + 1, item => (
@@ -168,12 +172,20 @@
             )}
             <div class="flex items-center justify-center mt-20px">
               <img src={skill_icon(characterStore.alter, "BUFF")} />
-              <calc-autocomplete class="!w-48px !min-w-45px ml-10px" v-model={test.value}></calc-autocomplete>
+              <calc-autocomplete class="!w-50px !min-w-45px ml-10px" v-model={test.value}></calc-autocomplete>
             </div>
 
             <div class="flex flex-column items-center justify-center mt-20px">
-              <div class="h-50px w-38px" style="background-image:url('./images/common/waken.png')"></div>
-              <div class="h-50px w-38px ml-10px" style="background-image:url('./images/common/waken.png')"></div>
+              <div onClick={() => (buind_skill.value = wakens.value[0].name)} class="h-50px w-38px" style="background-image:url('./images/common/waken.png');position:relative">
+                {buind_skill.value == wakens.value[0].name ? <div></div> : <div class="waken"></div>}
+                <img class="ml-5px mt-3px" src={skill_icon(characterStore.alter, wakens.value[0].name)} />
+                <div class="w-100% text-center">1次</div>
+              </div>
+              <div onClick={() => (buind_skill.value = wakens.value[1].name)} class="h-50px w-38px ml-10px" style="background-image:url('./images/common/waken.png');position:relative">
+                {buind_skill.value == wakens.value[1].name ? <div></div> : <div class="waken"></div>}
+                <img class="ml-5px mt-3px" src={skill_icon(characterStore.alter, wakens.value[1].name)} />
+                <div class="w-100% text-center">2次</div>
+              </div>
             </div>
           </div>
         </div>
@@ -182,4 +194,14 @@
   })
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .waken::after {
+    content: "";
+    width: 38px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+</style>

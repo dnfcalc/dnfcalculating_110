@@ -10,10 +10,10 @@
       const currentInfo = function <T>(name: string, defaultValue?: T) {
         return computed<string | number>({
           get() {
-            return characterStore.getForge("jade", name) ?? defaultValue ?? 0
+            return characterStore.getForge("others", name) ?? defaultValue ?? 0
           },
           set(val) {
-            characterStore.setForge("jade", name, val)
+            characterStore.setForge("others", name, val)
           }
         })
       }

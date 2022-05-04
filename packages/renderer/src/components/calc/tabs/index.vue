@@ -93,6 +93,7 @@
 
     .i-tab {
       font-size: 12px;
+      margin-left: 1px;
 
       width: 120px;
       height: 20px;
@@ -104,10 +105,10 @@
         color: currentColor;
       }
 
-      border: black 1px solid;
+      border: #4f4838 1px solid;
       border-bottom: none;
       border-radius: 5px 5px 0 0;
-      background: linear-gradient(#2e2f31, #121315);
+      background: linear-gradient(to top, rgba(6, 6, 6, 0.9), rgba(52, 52, 52, 0.9));
       transition: all 0.4s ease-in-out;
 
       &:hover {

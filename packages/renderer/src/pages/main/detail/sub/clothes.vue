@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { IEnchantingInfo } from "@/api/info/type"
-  import { computed, defineComponent, renderList } from "vue"
+  import { compile, computed, defineComponent, renderList } from "vue"
   import { useBasicInfoStore, useCharacterStore, useDetailsStore } from "@/store"
 
   export default defineComponent({
@@ -9,10 +9,16 @@
       const clothes_type = ["神器装扮", "稀有装扮", "节日装扮", "高级装扮"]
 
       const basicInfoStore = useBasicInfoStore()
+      const characterStore = useCharacterStore()
 
       const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {
         return basicInfoStore.emblem_info?.filter(item => item.rarity != "白金")
       })
+
+      const up_skill = computed(() => characterStore.clothes)
+      const down_skill = computed(() => characterStore.clothes_bottom)
+
+      console.log(up_skill)
 
       return () => (
         <div class="flex flex-wrap equ-profile">
@@ -126,7 +132,12 @@
                 <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1"></calc-select>
+            <calc-select class="!h-20px flex-1">
+              <calc-option value={0}>无</calc-option>
+              {renderList(up_skill.value, item => (
+                <calc-option value={item}>{item} Lv+1</calc-option>
+              ))}
+            </calc-select>
           </div>
           <div class="equ-profile-item">
             <div class="row-name">腰带</div>
@@ -137,7 +148,7 @@
             </calc-select>
             <calc-select class="!h-20px flex-1">
               <calc-option value="0">力量</calc-option>
-              <calc-option value="0">体力</calc-option>
+              <calc-option value="1">体力</calc-option>
               <calc-option value="-1">其它</calc-option>
             </calc-select>
           </div>
@@ -145,10 +156,15 @@
             <div class="row-name">下装</div>
             <calc-select class="!h-20px flex-1">
               {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item}</calc-option>
+                <calc-option value={index}>{item} Lv+1</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1"></calc-select>
+            <calc-select class="!h-20px flex-1">
+              <calc-option value={0}>无</calc-option>
+              {renderList(down_skill.value, item => (
+                <calc-option value={item}>{item}</calc-option>
+              ))}
+            </calc-select>
           </div>
           <div class="equ-profile-item">
             <div class="row-name">鞋</div>
@@ -159,7 +175,7 @@
             </calc-select>
             <calc-select class="!h-20px flex-1">
               <calc-option value="0">力量</calc-option>
-              <calc-option value="0">体力</calc-option>
+              <calc-option value="1">体力</calc-option>
               <calc-option value="-1">其它</calc-option>
             </calc-select>
           </div>
