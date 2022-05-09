@@ -1,8 +1,31 @@
+from unittest import result
 from core.baseClass.skill import 技能
 from core.store import store
+from core.equipment.基础函数 import 基础属性输入
 
 
 class Detail:
+    基础力量 = 0
+    基础智力 = 0
+    基础体力 = 0
+    基础精神 = 0
+
+    力量 = 0
+    智力 = 0
+    体力 = 0
+    精神 = 0
+
+    进图力量 = 0.0
+    进图智力 = 0.0
+    进图体力 = 0.0
+    进图精神 = 0.0
+
+    系统奶系数 = 0
+    系统奶基数 = 0
+    年宠技能 = False
+    白兔子技能 = False
+    斗神之吼秘药 = False
+
     物理攻击力 = 65
     魔法攻击力 = 65
     独立攻击力 = 1045
@@ -42,8 +65,22 @@ class Detail:
     技能类 = []
     #
 
-    def __init__(self) -> None:
-        pass
+    def __init__(self, 角色, 职业):
+        基础属性输入(self, 角色, 职业)
+
+    def 站街力量(self):
+        return int(self.力量)
+
+    def 站街智力(self):
+        return int(self.智力)
+
+    def 面板力量(self):
+        return (self.力量 + int((self.力量 - self.基础力量) * self.系统奶系数 + self.系统奶基数)
+                + self.进图力量) * (1 + self.百分比力智)
+
+    def 面板智力(self):
+        return (self.智力 + int((self.智力 - self.基础智力) * self.系统奶系数 + self.系统奶基数)
+                + self.进图智力) * (1 + self.百分比力智)
 
 
 class Character:
@@ -57,6 +94,7 @@ class Character:
     # 转职
     classChange = ''
     # 武器类型
+    武器类型 = ''
     weaponType = []
     # 输出类型选择，默认类型为第一个
     carryType = []
@@ -67,6 +105,8 @@ class Character:
     # buff倍率
     buff_ratio = 1.0
     # 技能列表
+    技能栏 = []
+    技能字典 = {}
     skillInfo = []
     # 个性化设置，技能选项等
     individuation = []
@@ -80,8 +120,6 @@ class Character:
     # 时装列表
     clothes = []
     clothes_bottom = ['远古记忆', '受身蹲伏']
-    # 计算会修改的部分
-    detail = Detail()
     # 辟邪玉属性
     附加伤害增加增幅 = 1.0
     属性附加伤害增加增幅 = 1.0
@@ -154,7 +192,93 @@ class Character:
     def set_individuation(self):
         pass
 
+    def get_skill_by_name(self, name):
+        return self.技能栏[self.技能字典.get(name, 0)]
+
+    def 站街物理攻击力倍率(self):
+        站街物理攻击倍率 = 1.0
+        for i in self.技能栏:
+            try:
+                站街物理攻击倍率 *= i.物理攻击力倍率(self.武器类型)
+            except:
+                pass
+        return 站街物理攻击倍率
+
+    def 站街魔法攻击力倍率(self):
+        站街魔法攻击倍率 = 1.0
+        for i in self.技能栏:
+            try:
+                站街魔法攻击倍率 *= i.魔法攻击力倍率(self.武器类型)
+            except:
+                pass
+        return 站街魔法攻击倍率
+
+    def 站街独立攻击力倍率(self):
+        站街独立攻击倍率 = 1.0
+        for i in self.技能栏:
+            try:
+                站街独立攻击倍率 *= i.独立攻击力倍率(self.武器类型)
+            except:
+                pass
+        return 站街独立攻击倍率
+
+    def 站街物理攻击力(self):
+        return self.detail.物理攻击力 * self.站街物理攻击力倍率()
+
+    def 站街魔法攻击力(self):
+        return self.detail.魔法攻击力 * self.站街魔法攻击力倍率()
+
+    def 站街独立攻击力(self):
+        return self.detail.独立攻击力 * self.站街独立攻击力倍率()
+
+    def 面板物理攻击力(self):
+        面板物理攻击 = (self.detail.物理攻击力 + self.detail.进图物理攻击力) * (1 + self.detail.百分比三攻) * (
+            1 + self.detail.年宠技能 * 0.10 + self.detail.斗神之吼秘药 * 0.12 + self.detail.白兔子技能 * 0.20)
+        for i in self.技能栏:
+            try:
+                面板物理攻击 *= i.物理攻击力倍率进图(self.武器类型)
+            except:
+                pass
+        return 面板物理攻击 * self.站街物理攻击力倍率()
+
+    def 面板魔法攻击力(self):
+        面板魔法攻击 = (self.detail.魔法攻击力 + self.detail.进图魔法攻击力) * (1 + self.detail.百分比三攻) * (
+            1 + self.detail.年宠技能 * 0.10 + self.detail.斗神之吼秘药 * 0.12 + self.detail.白兔子技能 * 0.20)
+        for i in self.技能栏:
+            try:
+                面板魔法攻击 *= i.魔法攻击力倍率进图(self.武器类型)
+            except:
+                pass
+        return 面板魔法攻击 * self.站街魔法攻击力倍率()
+
+    def 面板独立攻击力(self):
+        面板独立攻击 = (self.detail.独立攻击力 + self.detail.进图独立攻击力) * \
+            (1 + self.detail.百分比三攻)
+        for i in self.技能栏:
+            try:
+                面板独立攻击 *= i.独立攻击力倍率进图(self.武器类型)
+            except:
+                pass
+        return 面板独立攻击 * self.站街独立攻击力倍率()
+
     def calc(self, setName):
+        self.detail = Detail(self.character, self.classChange)
         info = store.get("/{}/setinfo/{}".format(self.alter, setName))
-        print(info['skill_set'])
+        for i in info['skill_set']:
+            k = self.get_skill_by_name(i['name'])
+            k.等级 = i['level']
+
+        result = {
+            '站街力量': self.detail.站街力量(),
+            '站街智力': self.detail.站街智力(),
+            '面板力量': self.detail.面板力量(),
+            '面板智力': self.detail.面板智力(),
+            '站街物理攻击力': self.站街物理攻击力(),
+            '站街魔法攻击力': self.站街魔法攻击力(),
+            '站街独立攻击力': self.站街独立攻击力(),
+            '面板物理攻击力': self.面板物理攻击力(),
+            '面板魔法攻击力': self.面板魔法攻击力(),
+            '面板独立攻击力': self.面板独立攻击力(),
+        }
+        print(result)
         return info
