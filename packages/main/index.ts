@@ -60,7 +60,8 @@ async function createWindow() {
   win.setMenuBarVisibility(false)
 }
 
-app.whenReady().then(startServer).then(createWindow)
+// app.whenReady().then(startServer).then(createWindow)
+app.whenReady().then(createWindow)
 
 app.on("window-all-closed", () => {
   win = null
@@ -116,7 +117,7 @@ ipcMain.handle("open-win", (event, arg) => {
       ChildWin.loadURL(`http://${process.env["VITE_DEV_SERVER_HOST"]}:233`)
     }
     console.log(url)
-    // ChildWin.webContents.openDevTools({ mode: "undocked", activate: true })
+    ChildWin.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 })
 

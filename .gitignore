@@ -1,6 +1,5 @@
 __pycache__
 logs
-set*
 AutoRelease
 *.exe
 .vscode/launch.json

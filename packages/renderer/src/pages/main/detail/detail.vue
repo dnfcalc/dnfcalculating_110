@@ -12,7 +12,7 @@
     setup() {
       return () => (
         <div class="detail">
-          <div class="ml-35px">
+          <div>
             <profile class="ml-auto mr-auto"></profile>
             <calc-collapse class="w-510px" title="装备打造">
               <equip />
@@ -21,7 +21,7 @@
               <clothes />
             </calc-collapse>
           </div>
-          <div class="ml-100px">
+          <div>
             <calc-collapse class="w-510px" title="宠物装备">
               <petequ />
             </calc-collapse>
@@ -43,6 +43,7 @@
   .detail {
     display: flex;
     width: 100%;
+    justify-content: space-around;
   }
 
   .equ-profile {

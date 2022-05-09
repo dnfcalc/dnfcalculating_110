@@ -15,23 +15,37 @@ class equipment:
     魔法攻击力 = 0
     独立攻击力 = 0
     前置条件 = []
+    # Lv1的基础
+    成长基础 = []
+    # -1代表需要选择
+    属性函数 = []
+    # 可选属性列表
+    可选属性 = []
 
     def __init__(self) -> None:
         if self.部位 in ['上衣', '下装', '腰带', '头肩', '鞋']:
             设置防具基础(self)
         pass
 
+    # def 城镇属性(self, 属性):
+    #     pass
+
+    # def 进图属性(self, 属性):
+    #     pass
+
+    # def 其它属性(self, 属性):
+    #     pass
+
+    # def BUFF属性(self, 属性):
+    #     pass
+
+    def 可选属性设置(self, 选择属性):
+        self.属性函数 = 选择属性
+
+    # 城镇属性
     def 城镇属性(self, 属性):
-        pass
-
-    def 进图属性(self, 属性):
-        pass
-
-    def 其它属性(self, 属性):
-        pass
-
-    def BUFF属性(self, 属性):
-        pass
+        for item in self.成长属性:
+            eval("entry{}(属性)")
 
 
 防具基础 = {

@@ -6,6 +6,7 @@ import uvicorn
 import sys
 import os
 from routers.info import infoRouter
+from routers.calc import calcRouter
 from utils.apiTools import register_exception, register_cors
 
 app = FastAPI()
@@ -18,13 +19,15 @@ register_cors(app)
 # 路由添加注册
 app.include_router(infoRouter, prefix="/api", tags=['杂项信息接口'])
 
+app.include_router(calcRouter, prefix="/api", tags=['杂项信息接口'])
+
 if __name__ == '__main__':
     port = 17173
     try:
         port = int(sys.argv[1])
     except:
         pass
-    print(os.getppid())
+    # print(os.getppid())
     uvicorn.run(
         # 运行的 py 文件:FastAPI 实例对象
         app="main:app",

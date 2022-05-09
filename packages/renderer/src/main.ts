@@ -7,11 +7,7 @@ import "uno.css"
 
 import "./assets/style/app.scss"
 
-createApp(App)
-  .use(pinia)
-  .use(router)
-  .mount("#app")
-  .$nextTick(window.removeLoading)
+createApp(App).use(pinia).use(router).mount("#app").$nextTick(window.removeLoading)
 
 // console.log('fs', window.fs)
 // console.log('ipcRenderer', window.ipcRenderer)

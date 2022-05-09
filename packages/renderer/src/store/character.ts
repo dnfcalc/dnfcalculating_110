@@ -3,6 +3,8 @@ import { defineStore } from "pinia"
 import api from "@/api"
 import { ICharacterInfo } from "@/api/character/type"
 import { useConfigStore } from "@/store/config"
+import { tryOnScopeDispose } from "@vueuse/core"
+import { RecordToObj } from "@/utils"
 
 export interface CharacterInfo extends ICharacterInfo, ICharacterSet {
   // 基础信息
@@ -91,6 +93,17 @@ export const useCharacterStore = defineStore("CharacterInfo", {
         return map.get(key)
       }
     },
-    calc() {}
+    async calc() {
+      api.calc({
+        setInfo: {
+          skill_set: this.skill_set,
+          equips_set: this.equips_set,
+          forge_set: RecordToObj(this.forge_set),
+          other_set: RecordToObj(this.other_set),
+          clothes_set: RecordToObj(this.clothes_set)
+        },
+        setName: "set01"
+      })
+    }
   }
 })

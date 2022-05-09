@@ -18,8 +18,6 @@
       const up_skill = computed(() => characterStore.clothes)
       const down_skill = computed(() => characterStore.clothes_bottom)
 
-      console.log(up_skill)
-
       return () => (
         <div class="flex flex-wrap equ-profile">
           <div class="equ-profile-item">

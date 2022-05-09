@@ -15,7 +15,7 @@ class adventureinfo(BaseModel):
 
 @infoRouter.get(path='/adventure')
 async def get_adventure_info():
-    print(sundryInfo.get_adventure_info())
+    # print(sundryInfo.get_adventure_info())
     return reponse(data=sundryInfo.get_adventure_info())
 
 

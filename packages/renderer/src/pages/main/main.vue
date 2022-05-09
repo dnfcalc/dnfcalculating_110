@@ -14,6 +14,10 @@
       appStore.$patch({ title: characterStore.name })
     })
 
+    const cacl = () => {
+      characterStore.calc()
+    }
+
     return () => {
       if (characterStore.alter) {
         return (
@@ -27,11 +31,13 @@
             </div>
             <div class="center">{characterStore.alter && <router-view></router-view>}</div>
             <div class="footer">
+              {
+                // <div class="flex col-3 justify-center">
+                //   <calc-button>全局重置</calc-button>
+                // </div>
+              }
               <div class="flex col-3 justify-center">
-                <calc-button>全局重置</calc-button>
-              </div>
-              <div class="flex col-3 justify-center">
-                <calc-button>开始计算</calc-button>
+                <calc-button onClick={cacl}>开始计算</calc-button>
               </div>
             </div>
           </div>

@@ -131,3 +131,14 @@ Array.prototype.min = function <T>(callback: (t: T) => number): [number, T | und
   }
   return rs
 }
+
+export function RecordToObj(todo: Record<string, Map<any, any>>) {
+  let temp = {}
+  for (let key in todo) {
+    Object.defineProperty(temp, key, {
+      value: Object.fromEntries(todo[key]),
+      enumerable: true
+    })
+  }
+  return temp
+}
