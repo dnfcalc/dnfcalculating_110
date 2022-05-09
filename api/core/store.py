@@ -7,7 +7,6 @@ from typing_extensions import Self
 
 class Store:
     def __init__(self):
-        print("初始化")
         self.__states: Dict[str, Field] = {}
         self.last_state = None
         pass

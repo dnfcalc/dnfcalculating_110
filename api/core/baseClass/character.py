@@ -155,5 +155,6 @@ class Character:
         pass
 
     def calc(self, setName):
-        info = store.get("{}/setinfo/{}".format(self.alter, setName))
+        info = store.get("/{}/setinfo/{}".format(self.alter, setName))
+        print(info['skill_set'])
         return info

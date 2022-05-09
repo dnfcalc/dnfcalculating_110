@@ -12,9 +12,9 @@ def save(alter: str, setName: str, setInfo):
     path = './ResourceFiles/{}/{}'.format(alter, setName)
     if not os.path.exists(path):
         os.makedirs(path, exist_ok=True)
-        with open(path + "/store.json", "w", encoding='utf-8') as fp:
-            json.dump(setInfo, fp, ensure_ascii=False, indent=4)
-        fp.close()
+    with open(path + "/store.json", "w", encoding='utf-8') as fp:
+        json.dump(setInfo, fp, ensure_ascii=False, indent=4)
+    fp.close()
     return get_set_list(alter)
 
 # 获取存档列表
