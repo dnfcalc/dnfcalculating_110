@@ -45,7 +45,7 @@ class equipment:
     # 城镇属性
     def 城镇属性(self, 属性):
         for item in self.成长属性:
-            eval("entry{}(属性)")
+            eval("entry_{}(属性)")
 
 
 防具基础 = {
@@ -95,3 +95,24 @@ def 设置防具基础(装备):
         装备.智力.update({i: round((b[1]) * Decimal(1.1))})
         装备.体力.update({i: round((b[2]) * Decimal(1.1))})
         装备.精神.update({i: round((b[3]) * Decimal(1.1))})
+
+
+class equ_0(equipment):
+    名称 = ''
+    部位 = ''
+    套装 = ''
+    等级 = 0
+    成长基础 = []
+    属性函数 = []
+    可选属性 = []
+
+
+def entry_0(mode=0, text=False, pro={}):
+    if text:
+        return '属性信息'
+    # 计算站街加成
+    if mode == 0:
+        pass
+    # 计算进图加成
+    if mode == 1:
+        pass

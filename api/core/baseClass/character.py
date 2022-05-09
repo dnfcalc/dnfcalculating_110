@@ -1,4 +1,5 @@
 from core.baseClass.skill import 技能
+from core.store import store
 
 
 class Detail:
@@ -96,6 +97,7 @@ class Character:
     # 装备触发选择
 
     def __init__(self) -> None:
+        print("初始化Char")
         self.skillInfo = []
         self.rune = []
         self.talisman = []
@@ -151,3 +153,7 @@ class Character:
 
     def set_individuation(self):
         pass
+
+    def calc(self, setName):
+        info = store.get("{}/setinfo/{}".format(self.alter, setName))
+        return info

@@ -14,6 +14,7 @@ async def calc(setInfo=Body(None), setName=Body(None), alter: str = Depends(auth
         # raise Exception("无效token")
         # 配置信息
     characterInfo.save_set(alter, setName, setInfo)
+    info = characterInfo.calc(alter, setName)
     # 先存档配置信息，再进行计算
     # 职业
-    return reponse(data=characterInfo.save_set(alter, setName, setInfo))
+    return reponse(data=info)
