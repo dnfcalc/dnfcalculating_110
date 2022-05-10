@@ -19015,7 +19015,7 @@
         {
           "id": 1,
           "index": null,
-          "label": "物理攻击力",
+          "label": "物理防御力",
           "num": 3194,
           "info": null,
           "isRate": false
@@ -30276,7 +30276,7 @@
         {
           "id": 1,
           "index": null,
-          "label": "物理攻击力",
+          "label": "物理防御力",
           "num": 3194,
           "info": null,
           "isRate": false
@@ -32027,7 +32027,7 @@
     ],
     "id": 290,
     "rarity": 6,
-    "name": "沙漠隐藏护肩",
+    "name": "沙漠隐者护肩",
     "nameCN": "沙漠装饰披肩",
     "icon": "/armors/cloth_neck/90.png",
     "group": null
@@ -33403,7 +33403,7 @@
         {
           "id": 1,
           "index": null,
-          "label": "物理攻击力",
+          "label": "物理防御力",
           "num": 3194,
           "info": null,
           "isRate": false
@@ -34099,7 +34099,7 @@
         {
           "id": 1,
           "index": null,
-          "label": "物理攻击力",
+          "label": "物理防御力",
           "num": 3194,
           "info": null,
           "isRate": false
@@ -51351,7 +51351,7 @@
         {
           "id": 1,
           "index": null,
-          "label": "物理攻击力",
+          "label": "物理防御力",
           "num": 3194,
           "info": null,
           "isRate": false

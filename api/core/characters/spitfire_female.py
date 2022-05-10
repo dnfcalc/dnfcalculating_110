@@ -601,6 +601,8 @@ class classChange(Character):
         self.类型 = '魔法固伤'
         self.武器类型 = '手弩'
         self.防具类型 = '皮甲'
+        self.装备栏 = ['沙漠隐者上衣','沙漠隐者护肩','沙漠隐者长裤','沙漠隐者腰带','沙漠隐者鞋子','碎光源力','士兵荣耀','移动堡垒','时间的观点','盲盒','虚空中的伪造']#,'吞噬根源手弩']
+        self.防具精通属性 = ['智力', '力量']
 
     def set_individuation(self):
         self.individuation = [

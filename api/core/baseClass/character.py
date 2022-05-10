@@ -2,7 +2,7 @@ from unittest import result
 from core.baseClass.skill import 技能
 from core.baseClass.equipment import equ
 from core.store import store
-from core.equipment.基础函数 import 基础属性输入,刀魂之卡赞数据,部位列表,精通计算
+from core.equipment.基础函数 import 基础属性输入,刀魂之卡赞数据,部位列表,精通计算,增幅计算,耳环计算,左右计算
 
 
 class Detail:
@@ -144,8 +144,8 @@ class Character:
     技能序号 = {}
     远古记忆 = -1
     刀魂之卡赞 = -1
-    装备栏 = []
-
+    防具精通属性 = []
+    
     # 打造属性
 
     # 装备触发选择
@@ -443,7 +443,7 @@ class Character:
             k = self.get_skill_by_name(i['name'])
             k.等级 = i['level']
             k.TP等级 = i['tp']
-    
+
     # 计算伤害前置流程
     def 计算伤害预处理(self):
         self.装备属性计算()
@@ -478,83 +478,83 @@ class Character:
         self.装备词条计算()
 
     def 装备基础(self):
-        #self.防具基础()
-        #self.首饰基础()
-        #self.特殊基础()
+        self.防具基础()
+        self.首饰基础()
+        self.特殊基础()
         #self.武器基础()
-        #self.增幅基础()
+        self.增幅基础()
         pass
     
-    '''
     def 防具精通计算(self, i):
         temp = equ.get_equ_by_name(self.装备栏[i])
-        if temp.所属套装 != '智慧产物':
-            return 精通计算(temp.等级, temp.品质, self.强化等级[i], 部位列表[i])
-        else:
-            return 精通计算(temp.等级, temp.品质, self.改造等级[i], 部位列表[i])
-
-    
+        部位 = 部位列表[i]
+        return 精通计算(temp.等级, temp.品质, self.forge_set.get(部位, {}).get('cursed_number', 0), 部位)
+        #if temp.所属套装 != '智慧产物':
+        #    return 精通计算(temp.等级, temp.品质, self.forge_set.get(部位, {}).get('cursed_number', 0), 部位)
+        #else:
+        #    return 精通计算(temp.等级, temp.品质, self.forge_set.get(部位, {}).get('wisdom_number', 0), 部位)
 
     def 防具基础(self):
         for i in [0, 1, 2, 3, 4]:
             temp = equ.get_equ_by_name(self.装备栏[i])
-            if temp.等级 > 85 or self.转甲选项 == 1:
-                self.力量 += temp.力量[self.防具类型]
-                self.智力 += temp.智力[self.防具类型]
-            else:
-                self.力量 += temp.力量[temp.类型]
-                self.智力 += temp.智力[temp.类型]
+            self.detail.力量 += temp.力量[self.防具类型]
+            self.detail.智力 += temp.智力[self.防具类型]
 
             精通数值 = self.防具精通计算(i)
             if '力量' in self.防具精通属性:
-                self.力量 += 精通数值
+                self.detail.力量 += 精通数值
             if '智力' in self.防具精通属性:
-                self.智力 += 精通数值
+                self.detail.智力 += 精通数值
     
     def 增幅基础(self):
-        for i in range(12):
+        for i in range(11):  #暂时未计算武器
             temp = equ.get_equ_by_name(self.装备栏[i])
-            if self.是否增幅[i] and temp.所属套装 != '智慧产物':
-                x = 增幅计算(temp.等级, temp.品质, self.强化等级[i], self.增幅版本)
+            部位 = 部位列表[i]
+            if self.forge_set.get(部位, {}).get('cursed_type', 0) == 1:
+                x = 增幅计算(temp.等级, temp.品质, self.forge_set.get(部位, {}).get('cursed_number', 0))
                 if '物理' in self.类型 or '力量' in self.类型:
-                    self.力量 += x
+                    self.detail.力量 += x
                 else:
-                    self.智力 += x
-
+                    self.detail.智力 += x
+            #if self.是否增幅[i] and temp.所属套装 != '智慧产物':
+            #    x = 增幅计算(temp.等级, temp.品质, self.强化等级[i])    
+    
     def 首饰基础(self):
         for i in [5, 6, 7]:
             temp = equ.get_equ_by_name(self.装备栏[i])
-            self.力量 += temp.力量
-            self.智力 += temp.智力
-            self.物理攻击力 += temp.物理攻击力
-            self.魔法攻击力 += temp.魔法攻击力
-            self.独立攻击力 += temp.独立攻击力
+            self.detail.力量 += temp.力量
+            self.detail.智力 += temp.智力
+            self.detail.物理攻击力 += temp.物理攻击力
+            self.detail.魔法攻击力 += temp.魔法攻击力
+            self.detail.独立攻击力 += temp.独立攻击力
 
     def 特殊基础(self):
         for i in [8, 9, 10]:
             temp = equ.get_equ_by_name(self.装备栏[i])
-            self.力量 += temp.力量
-            self.智力 += temp.智力
-            self.物理攻击力 += temp.物理攻击力
-            self.魔法攻击力 += temp.魔法攻击力
-            self.独立攻击力 += temp.独立攻击力
+            self.detail.力量 += temp.力量
+            self.detail.智力 += temp.智力
+            self.detail.物理攻击力 += temp.物理攻击力
+            self.detail.魔法攻击力 += temp.魔法攻击力
+            self.detail.独立攻击力 += temp.独立攻击力
 
         # 耳环
         temp = equ.get_equ_by_name(self.装备栏[8])
-        if temp.所属套装 != '智慧产物':
-            x = 耳环计算(temp.等级, temp.品质, self.强化等级[8])
-            self.物理攻击力 += x
-            self.魔法攻击力 += x
-            self.独立攻击力 += x
+        部位 = 部位列表[i]
+        #if temp.所属套装 != '智慧产物':
+        x = 耳环计算(temp.等级, temp.品质, self.forge_set.get(部位, {}).get('cursed_number', 0))
+        self.detail.物理攻击力 += x
+        self.detail.魔法攻击力 += x
+        self.detail.独立攻击力 += x
 
         # 辅助装备、魔法石
         for i in [9, 10]:
             temp = equ.get_equ_by_name(self.装备栏[i])
-            if temp.所属套装 != '智慧产物':
-                x = 左右计算(temp.等级, temp.品质, self.强化等级[i])
-                self.力量 += x
-                self.智力 += x
-
+            部位 = 部位列表[i]
+            #if temp.所属套装 != '智慧产物':
+            x = 左右计算(temp.等级, temp.品质, self.forge_set.get(部位, {}).get('cursed_number', 0))
+            self.detail.力量 += x
+            self.detail.智力 += x
+    '''
     def 武器基础(self):
         temp = equ.get_equ_by_name(self.装备栏[11])
 
@@ -756,8 +756,9 @@ class Character:
         self.detail = Detail(self.character, self.classChange)
         info = store.get("/{}/setinfo/{}".format(self.alter, setName))
         
-        #设置技能相关参数
+        #设置相关参数
         self.skill_set(info['skill_set'])
+        self.forge_set = info['forge_set']
 
         self.计算伤害预处理()
 

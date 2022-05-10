@@ -1,14 +1,231 @@
 {
-    "skill_set": [],
+    "skill_set": [
+        {
+            "name": "单兵推进器",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 10,
+            "directNumber": 0
+        },
+        {
+            "name": "兵器研究",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 20,
+            "directNumber": 0
+        },
+        {
+            "name": "手雷精通",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 10,
+            "directNumber": 0
+        },
+        {
+            "name": "弹药改良",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 10,
+            "directNumber": 0
+        },
+        {
+            "name": "M18阔剑地雷",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 50,
+            "directNumber": 0
+        },
+        {
+            "name": "G35感电手雷",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 48,
+            "directNumber": 0
+        },
+        {
+            "name": "交叉射击",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 48,
+            "directNumber": 0
+        },
+        {
+            "name": "爆裂弹",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 10,
+            "directNumber": 0
+        },
+        {
+            "name": "G18冰冻手雷",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 46,
+            "directNumber": 0
+        },
+        {
+            "name": "聚合弹",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 43,
+            "directNumber": 0
+        },
+        {
+            "name": "C4飞弹",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 43,
+            "directNumber": 0
+        },
+        {
+            "name": "凝固汽油弹",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 41,
+            "directNumber": 0
+        },
+        {
+            "name": "镭射狙击",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 38,
+            "directNumber": 0
+        },
+        {
+            "name": "弹药强化",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 20,
+            "directNumber": 0
+        },
+        {
+            "name": "EMP磁暴",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 15,
+            "directNumber": 0
+        },
+        {
+            "name": "G61重力手雷",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 30,
+            "directNumber": 0
+        },
+        {
+            "name": "轻火力速射",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 26,
+            "directNumber": 0
+        },
+        {
+            "name": "制空掌握",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 11,
+            "directNumber": 0
+        },
+        {
+            "name": "开火",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 23,
+            "directNumber": 0
+        },
+        {
+            "name": "G96热压手雷",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 21,
+            "directNumber": 0
+        },
+        {
+            "name": "决战之日",
+            "tp": 0,
+            "count": 1,
+            "pet": 0,
+            "direct": false,
+            "level": 8,
+            "directNumber": 0
+        },
+        {
+            "name": "单兵推进器-02X",
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": false,
+            "level": 9,
+            "directNumber": 0
+        },
+        {
+            "name": "空袭战略",
+            "tp": 0,
+            "count": 1,
+            "pet": 0,
+            "direct": false,
+            "level": 10,
+            "directNumber": 0
+        },
+        {
+            "name": "终解·制空霸权",
+            "tp": 0,
+            "count": 1,
+            "pet": 0,
+            "direct": false,
+            "level": 5,
+            "directNumber": 0
+        }
+    ],
     "equips_set": [],
     "forge_set": {
         "头肩": {
             "cursed_type": 1,
-            "cursed_number": 26,
-            "wisdom_number": 0,
-            "enchanting": "8",
-            "socket_left": "8",
-            "socket_right": "8",
+            "cursed_number": 12,
+            "wisdom_number": 10,
+            "enchanting": "33",
+            "socket_left": 0,
+            "socket_right": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1,
@@ -16,84 +233,83 @@
         },
         "上衣": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 12,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "下装": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 12,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "腰带": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 12,
             "growth_First": 1,
             "growth_Second": 1,
-            "growth_Third": 1,
-            "enchanting": "8"
+            "growth_Third": 1
         },
         "鞋": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 12,
             "growth_First": 1,
             "growth_Second": 1,
-            "growth_Third": 1,
-            "enchanting": "8"
+            "growth_Third": 1
         },
         "武器": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 12,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "手镯": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 12,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "项链": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 12,
             "growth_First": 1,
             "growth_Second": 1,
-            "growth_Third": 1,
-            "socket_left": "8",
-            "socket_right": "8"
+            "growth_Third": 1
         },
         "辅助装备": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 12,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "戒指": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 12,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "耳环": {
             "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_number": 20,
             "growth_First": 1,
             "growth_Second": 1,
-            "growth_Third": 1
+            "growth_Third": 1,
+            "wisdom_number": 0,
+            "enchanting": 0
         },
         "魔法石": {
-            "cursed_type": 1,
-            "cursed_number": 26,
+            "cursed_type": 2,
+            "cursed_number": 30,
             "growth_First": 1,
             "growth_Second": 1,
-            "growth_Third": 1
+            "growth_Third": 1,
+            "socket_left": 0
         },
         "petequ": {
             "red": "0",
@@ -101,10 +317,10 @@
             "blue": "0"
         },
         "jade": {
-            "jude_First": "3",
-            "jude_Second": "4",
-            "jude_Third": "4",
-            "jude_Fourth": "4"
+            "jude_First": 0,
+            "jude_Second": 0,
+            "jude_Third": 0,
+            "jude_Fourth": 0
         },
         "others": {
             "mxtLV": 28,
