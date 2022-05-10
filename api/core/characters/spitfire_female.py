@@ -556,13 +556,13 @@ class 技能23(职业主动技能):
 
 
 技能列表 = []
-技能字典 = {}
+技能序号 = {}
 i = 0
 while i >= 0:
     try:
         tem = eval('技能'+str(i)+'()')
         tem.基础等级计算()
-        技能字典[tem.名称] = i
+        技能序号[tem.名称] = i
         技能列表.append(tem)
         i += 1
     except:
@@ -597,7 +597,10 @@ class classChange(Character):
         self.set_individuation()
         # 药剂等相关信息设置
         self.技能栏 = 技能列表
-        self.技能字典 = 技能字典
+        self.技能序号 = 技能序号
+        self.类型 = '魔法固伤'
+        self.武器类型 = '手弩'
+        self.防具类型 = '皮甲'
 
     def set_individuation(self):
         self.individuation = [

@@ -77,7 +77,7 @@ class 主动技能(技能):
                 (1 + self.TP成长 * self.TP等级) * self.倍率)
 
     def 等效CD(self, 武器类型, 输出类型):
-        return round(self.CD / self.恢复 * 武器冷却惩罚(武器类型, 输出类型, self.版本), 1)
+        return round(self.CD / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), 1)
 
     def 基础等级计算(self):
         if self.基础等级 == 0:

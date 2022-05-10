@@ -116,3 +116,37 @@ def entry_0(mode=0, text=False, pro={}):
     # 计算进图加成
     if mode == 1:
         pass
+
+
+class equipment_list():
+    def __init__(self):
+        self.load_equ()
+
+    def load_equ(self):
+        self.equ_list = {}
+        self.equ_id = {}
+        self.equ_tuple = ()
+        self.equ_id_tuple = ()
+        for i in range(1):  #1件装备
+            temp = eval('equ_{}()'.format(i))
+            self.equ_list[i] = temp
+            self.equ_id[temp.名称] = i
+            self.equ_tuple += (temp, )
+            self.equ_id_tuple += (i, )
+
+    def get_equ_by_id(self, id):
+        return self.equ_list.get(id, equ_0())
+
+    def get_equ_by_name(self, name):
+        return self.get_equ_by_id(self.equ_id.get(name, 0))
+
+    def get_id_by_name(self, name):
+        return self.equ_id.get(name, 0)
+
+    def get_equ_list(self):
+        return self.equ_tuple
+
+    def get_equ_id_list(self):
+        return self.equ_id_tuple
+
+equ = equipment_list()
