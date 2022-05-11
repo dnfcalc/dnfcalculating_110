@@ -183,7 +183,7 @@
         {
             "name": "决战之日",
             "tp": 0,
-            "count": 1,
+            "count": 0,
             "pet": 0,
             "direct": false,
             "level": 8,
@@ -221,9 +221,9 @@
     "forge_set": {
         "头肩": {
             "cursed_type": 1,
-            "cursed_number": 12,
-            "wisdom_number": 10,
-            "enchanting": "33",
+            "cursed_number": 0,
+            "wisdom_number": 0,
+            "enchanting": 0,
             "socket_left": 0,
             "socket_right": 0,
             "growth_First": 1,
@@ -233,83 +233,80 @@
         },
         "上衣": {
             "cursed_type": 1,
-            "cursed_number": 12,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "下装": {
             "cursed_type": 1,
-            "cursed_number": 12,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "腰带": {
             "cursed_type": 1,
-            "cursed_number": 12,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "鞋": {
             "cursed_type": 1,
-            "cursed_number": 12,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "武器": {
             "cursed_type": 1,
-            "cursed_number": 12,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "手镯": {
             "cursed_type": 1,
-            "cursed_number": 12,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "项链": {
             "cursed_type": 1,
-            "cursed_number": 12,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "辅助装备": {
             "cursed_type": 1,
-            "cursed_number": 12,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "戒指": {
             "cursed_type": 1,
-            "cursed_number": 12,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
             "growth_Third": 1
         },
         "耳环": {
             "cursed_type": 1,
-            "cursed_number": 20,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
-            "growth_Third": 1,
-            "wisdom_number": 0,
-            "enchanting": 0
+            "growth_Third": 1
         },
         "魔法石": {
-            "cursed_type": 2,
-            "cursed_number": 30,
+            "cursed_type": 1,
+            "cursed_number": 0,
             "growth_First": 1,
             "growth_Second": 1,
-            "growth_Third": 1,
-            "socket_left": 0
+            "growth_Third": 1
         },
         "petequ": {
             "red": "0",

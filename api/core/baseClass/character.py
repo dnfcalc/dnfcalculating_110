@@ -573,7 +573,8 @@ class Character:
     '''
 
     def 装备词条计算(self):
-        pass
+        for i in equ.get_entry_list_by_namelist(self.装备栏):
+            i(self)
 
     def 被动倍率计算(self):
         if self.远古记忆 > 0:

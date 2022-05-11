@@ -59,12 +59,10 @@ class equipment:
                     if i['label'] in ['力量', '智力', '体力', '精神']:
                         self.__dict__[i['label']] = i['num']
 
-                #武器属性待补充
+                # 武器属性待补充
                 #self.物理攻击力 = 0
                 #self.魔法攻击力 = 0
                 #self.独立攻击力 = 0
-
-            
 
     # def 城镇属性(self, 属性):
     #     pass
@@ -142,25 +140,61 @@ class equ_0(equipment):
     套装 = ''
     等级 = 0
     成长基础 = []
-    属性函数 = []
+    属性函数 = [0, 1, 2]
     可选属性 = []
 
 
-def entry_0(mode=0, text=False, pro={}):
+def entry_0(char, mode=0, text=False, pro={}):
     if text:
         return '属性信息'
     # 计算站街加成
     if mode == 0:
+        char.力智固定加成(300)
         pass
     # 计算进图加成
     if mode == 1:
         pass
 
 
+def entry_1(char, mode=0, text=False, pro={}):
+    if text:
+        return '属性信息'
+    # 计算站街加成
+    if mode == 0:
+        char.三攻固定加成(250)
+        pass
+    # 计算进图加成
+    if mode == 1:
+        pass
+
+
+def entry_2(char, mode=0, text=False, pro={}):
+    if text:
+        return '属性信息'
+    # 计算站街加成
+    if mode == 0:
+        char.百分比三攻加成(0.1)
+        pass
+    # 计算进图加成
+    if mode == 1:
+        pass
+
+#词条计算优先级，默认为100，特殊需求手动设置优先级
+priority = {
+    1: 150,
+}
+
+
 class equipment_list():
     def __init__(self):
         self.info = get_eq_info_data()
         self.load_equ()
+        self.load_entry()
+
+    def load_entry(self):
+        self.entry_list = {}
+        for i in range(3):
+            self.entry_list[i] = eval('entry_{}'.format(i))
 
     def load_equ(self):
         self.equ_list = {}
@@ -168,8 +202,8 @@ class equipment_list():
         self.equ_tuple = ()
         self.equ_id_tuple = ()
         i = 0
-        for k in self.info:  
-            temp = equipment(k)
+        for k in self.info:
+            temp = equ_0(k)
             self.equ_list[i] = temp
             self.equ_id[temp.名称] = i
             self.equ_tuple += (temp, )
@@ -190,6 +224,26 @@ class equipment_list():
 
     def get_equ_id_list(self):
         return self.equ_id_tuple
+
+    def get_entry_list_by_name(self, name):
+        i = self.get_equ_by_name(name)
+        temp = []
+        for k in i.属性函数:
+            temp.append(self.entry_list.get(k, entry_0))
+        return temp
+
+    def get_entry_list_by_namelist(self, namelist):
+        temp = []
+        for name in namelist:
+            i = self.get_equ_by_name(name)
+            temp += i.属性函数
+        #词条优先级排序
+        temp.sort(key=(lambda x: priority.get(x, 100)))
+        #print(temp)
+        funclist = []
+        for k in temp:
+            funclist.append(self.entry_list.get(k, entry_0))
+        return funclist
 
 
 equ = equipment_list()
