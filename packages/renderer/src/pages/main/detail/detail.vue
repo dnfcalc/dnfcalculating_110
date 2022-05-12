@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { defineComponent, ref, watch } from "vue"
-  import profile from "./sub/profile.vue"
+  import profile from "@/components/internal/profile.vue"
   import equip from "./sub/equip.vue"
   import jade from "./sub/jade.vue"
   import clothes from "./sub/clothes.vue"
@@ -13,7 +13,7 @@
       return () => (
         <div class="detail">
           <div>
-            <profile class="ml-auto mr-auto"></profile>
+            <profile canChoose={true} showDetail={false} class="ml-auto mr-auto"></profile>
             <calc-collapse class="w-510px" title="装备打造">
               <equip />
             </calc-collapse>

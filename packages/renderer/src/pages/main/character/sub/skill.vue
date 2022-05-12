@@ -73,8 +73,10 @@
               <div class="w-28px"></div>
               <div class="w-50px !ml-10px text-center">Lv</div>
               <div class="w-50px !ml-5px text-center">TP</div>
-              <div class="w-50px !ml-5px text-center">次数</div>
-              <div class="w-50px !ml-5px text-center">宠物次数</div>
+              {
+                // <div class="w-50px !ml-5px text-center">次数</div>
+                // <div class="w-50px !ml-5px text-center">宠物次数</div>
+              }
               <div class="w-68px !ml-10px text-center">手搓相关</div>
             </div>
             {renderList(
@@ -112,20 +114,22 @@
                     ) : (
                       <div class="!w-50px !h-20px !ml-5px"></div>
                     )}
-                    <calc-select v-model={skills[index].count} class="!w-45px !min-w-45px !h-20px !ml-5px">
-                      {renderList(skill.level_max + 1, item => (
-                        <calc-option value={item - 1}>
-                          <span>{item - 1}</span>
-                        </calc-option>
-                      ))}
-                    </calc-select>
-                    <calc-select editeable={true} v-model={skills[index].pet} class={"!w-45px !min-w-45px !h-20px !ml-5px !mr-5px"}>
-                      {renderList(skill.level_max + 1, item => (
-                        <calc-option value={item - 1}>
-                          <span>{item - 1}</span>
-                        </calc-option>
-                      ))}
-                    </calc-select>
+                    {
+                      // <calc-select v-model={skills[index].count} class="!w-45px !min-w-45px !h-20px !ml-5px">
+                      //   {renderList(skill.level_max + 1, item => (
+                      //     <calc-option value={item - 1}>
+                      //       <span>{item - 1}</span>
+                      //     </calc-option>
+                      //   ))}
+                      // </calc-select>
+                      // <calc-select editeable={true} v-model={skills[index].pet} class={"!w-45px !min-w-45px !h-20px !ml-5px !mr-5px"}>
+                      //   {renderList(skill.level_max + 1, item => (
+                      //     <calc-option value={item - 1}>
+                      //       <span>{item - 1}</span>
+                      //     </calc-option>
+                      //   ))}
+                      // </calc-select>
+                    }
                     <div class="w-20px !ml-5px justify-center">
                       <calc-checkbox v-model={skills[index].direct}></calc-checkbox>
                     </div>

@@ -23,7 +23,7 @@
         return basicInfoStore.emblem_info?.filter(item => item.position.includes(detailsStore.part))
       })
 
-      const global_change = ref(true)
+      const global_change = ref(false)
 
       const currentInfo = function <T>(name: string, defaultValue?: T) {
         return computed<string | number>({

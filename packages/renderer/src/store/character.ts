@@ -35,7 +35,8 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       clothes_set: {},
       clothes: [],
       clothes_bottom: [],
-      talisman: []
+      talisman: [],
+      single_set: []
     }
   },
   actions: {

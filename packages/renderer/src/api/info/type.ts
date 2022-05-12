@@ -95,4 +95,6 @@ export interface ICharacterSet {
   clothes_set: Record<string, Map<string, any>>
 
   other_set: Record<string, Map<string, any>>
+
+  single_set: IEquipmentInfo[]
 }

@@ -12,8 +12,6 @@
       const basicStore = useBasicInfoStore()
       const choose_feature = ref(0)
 
-      const equips = computed(() => basicStore.equipment_info?.lv110 ?? [])
-
       const highlight = computed<number[]>({
         get() {
           return equips.value.map(e => (e.features?.includes(choose_feature.value) ? e.id : 0)).filter(e => e > 0)
@@ -26,6 +24,8 @@
       })
 
       const characterStore = useCharacterStore()
+
+      const equips = computed(() => basicStore.equipment_info?.lv110 ?? [])
 
       const weapons = computed(() => basicStore.equipment_info?.weapon ?? [])
 
