@@ -60,8 +60,8 @@ async function createWindow() {
   win.setMenuBarVisibility(false)
 }
 
-// app.whenReady().then(startServer).then(createWindow)
-app.whenReady().then(createWindow)
+app.whenReady().then(startServer).then(createWindow)
+// app.whenReady().then(createWindow)
 
 app.on("window-all-closed", () => {
   win = null
