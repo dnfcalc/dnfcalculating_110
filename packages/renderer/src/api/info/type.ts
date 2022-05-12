@@ -97,4 +97,8 @@ export interface ICharacterSet {
   other_set: Record<string, Map<string, any>>
 
   single_set: IEquipmentInfo[]
+
+  carry_type: string
+
+  attack_attribute: number
 }

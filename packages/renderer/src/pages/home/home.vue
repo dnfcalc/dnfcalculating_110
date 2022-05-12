@@ -38,7 +38,7 @@
         }
         console.log(child)
         if (child.name === "spitfire_female") {
-          openURL("/character?name=" + child.name, { width: 1100, height: 750 }, router)
+          openURL("/character?name=" + child.name, { width: 1100, height: 720 }, router)
         } else {
           openURL("/show", { width: 800, height: 800 }, router)
         }

@@ -3,7 +3,7 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useCharacterStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import { defineComponent, ref } from "vue"
+  import { defineComponent, ref, renderList } from "vue"
   import { useRoute } from "vue-router"
 
   export default defineComponent(() => {
@@ -32,13 +32,32 @@
             </div>
             <div class="center">{characterStore.alter && <router-view></router-view>}</div>
             <div class="footer">
-              {
-                // <div class="flex col-3 justify-center">
-                //   <calc-button>全局重置</calc-button>
-                // </div>
-              }
-              <div class="flex col-3 justify-center">
-                <calc-button onClick={cacl}>开始计算</calc-button>
+              <div class="flex col-4 justify-center">
+                <calc-select class="!h-22px">
+                  {renderList(characterStore.carry_type_list, (item, index) => (
+                    <calc-option value={index}>{item}</calc-option>
+                  ))}
+                </calc-select>
+              </div>
+              <div class="flex col-4 justify-center">
+                <calc-select class="!h-22px">
+                  <calc-option value={0}>攻击属性：自适应</calc-option>
+                  <calc-option value={1}>攻击属性：火</calc-option>
+                  <calc-option value={2}>攻击属性：冰</calc-option>
+                  <calc-option value={3}>攻击属性：光</calc-option>
+                  <calc-option value={4}>攻击属性：暗</calc-option>
+                </calc-select>
+              </div>
+              <div class="flex col-4 justify-center">
+                <calc-select class="!h-22px">
+                  <calc-option value={0}>计算模式：减枝</calc-option>
+                  <calc-option value={1}>计算模式：全部</calc-option>
+                </calc-select>
+              </div>
+              <div class="flex col-4 justify-center">
+                <calc-button class="!h-28px" onClick={cacl}>
+                  开始计算
+                </calc-button>
               </div>
             </div>
           </div>
@@ -59,16 +78,12 @@
 
     color: #e9c558;
     font-size: 12px;
-    .header,
-    .footer {
-      height: 5%;
-      max-height: 26px;
-    }
 
     .header {
       display: flex;
       align-items: flex-end;
       z-index: 2;
+      height: 26px;
     }
 
     .footer {
@@ -76,6 +91,7 @@
       align-items: center;
       justify-content: end;
       z-index: 2;
+      height: 35px;
     }
 
     .center {

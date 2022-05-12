@@ -7,7 +7,7 @@ export interface ICharacterInfo {
   characterType: string
   classChange: string
   weaponType: string[]
-  carryType: string[]
+  carry_type_list: string[]
   armor?: string
   armor_mastery: string[]
   buff_ratio: number

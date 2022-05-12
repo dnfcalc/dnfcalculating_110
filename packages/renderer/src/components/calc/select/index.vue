@@ -46,6 +46,8 @@
 
       const isOpen = ref(false)
       const triggerRef = ref<HTMLElement>()
+      const selectRef = ref<HTMLElement>()
+      const dropdownRef = ref<HTMLElement>()
 
       watch(isOpen, onResize)
 
@@ -54,24 +56,41 @@
       }
 
       // 下拉框位置
-      const dropdownPosition = ref({ x: 0, y: 0, w: 0 })
+      const dropdownPosition = ref({ x: 0, y: 0, w: 0, z: 0 })
       // 下拉框位置
       const dropdownStyle = computed<CSSProperties>(() => {
-        return {
-          left: `${dropdownPosition.value.x}px`,
-          top: `${dropdownPosition.value.y}px`,
-          width: `${dropdownPosition.value.w}px`
+        if (dropdownPosition.value.z == 0) {
+          return {
+            left: `${dropdownPosition.value.x}px`,
+            top: `${dropdownPosition.value.y}px`,
+            width: `${dropdownPosition.value.w}px`
+          }
+        } else {
+          return {
+            left: `${dropdownPosition.value.x}px`,
+            bottom: `${dropdownPosition.value.z}px`,
+            width: `${dropdownPosition.value.w}px`
+          }
         }
       })
 
       function onResize() {
         if (!!triggerRef.value) {
           const { width, height, left, top } = triggerRef.value.getBoundingClientRect()
-          dropdownPosition.value = {
-            w: width,
-            x: left,
-            y: top + height + 2
-          }
+          if (window.innerHeight - top > 160)
+            dropdownPosition.value = {
+              w: width,
+              x: left,
+              y: top + height + 2,
+              z: 0
+            }
+          else
+            dropdownPosition.value = {
+              w: width,
+              x: left,
+              z: window.innerHeight - top + 2,
+              y: 0
+            }
         }
       }
 
@@ -91,7 +110,7 @@
 
       return () => {
         return (
-          <div class={"min-w-20 w-40 i-select " + props.highlight} onClick={collapse}>
+          <div class={"min-w-20 w-40 i-select " + props.highlight} onClick={collapse} ref={selectRef}>
             <div
               class={{
                 "i-select-trigger": true,
@@ -106,7 +125,7 @@
             </div>
             <Teleport to="body">
               <Transition name="dropdown" mode="out-in">
-                <div class="i-select-dropdown" style={dropdownStyle.value} v-show={isOpen.value}>
+                <div class="i-select-dropdown" style={dropdownStyle.value} v-show={isOpen.value} ref={dropdownRef}>
                   {renderSlot(slots, "default")}
                 </div>
               </Transition>

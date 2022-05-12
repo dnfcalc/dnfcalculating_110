@@ -271,7 +271,7 @@
 
     .mingwang {
       height: 25px;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.8);
       margin-top: 1px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
@@ -282,7 +282,7 @@
     .details {
       height: 160px;
       -webkit-font-smoothing: none;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.8);
       margin-top: 1px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       .de-item {

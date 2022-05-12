@@ -63,7 +63,7 @@
 
       return () => (
         <div class="flex singleset">
-          <div class="w-445px m-7px flex flex-col">
+          <div class="w-445px m-7px mb-0 flex flex-col">
             <div class="h-25px">
               <calc-tabs v-model:modelValue={type.value}>
                 <calc-tab value="防具" class="!w-60px !h-22px !leading-22px">
@@ -87,18 +87,23 @@
                 </calc-tab>
               </calc-tabs>
             </div>
-            <div class="h-625px equ">
-              {renderList(180, index => (
+            <div class="h-570px equ">
+              {renderList(168, index => (
                 <div onClick={chooseEqu(showequ.value(index - 1))} class="equ-item">
                   {showequ.value(index - 1) && <EquipTips eq={showequ.value(index - 1)} canClick={true} show-tips={false}></EquipTips>}
                 </div>
               ))}
             </div>
           </div>
-          <div class="w-350px m-10px ml-2px mr-2px bg-gray-500">辟邪玉</div>
           <div>
-            <profile equList={chooseEquList.value} class="!m-5px !ml-2px !mr-2px"></profile>
+            <div class="flex !ml-8px !mr-8px mt-7px h-24px items-center justify-between">
+              <calc-button>设为基准</calc-button>
+              <calc-button>清空基准</calc-button>
+              <calc-button>查看详情</calc-button>
+            </div>
+            <profile equList={chooseEquList.value} class="m-5px !ml-2px !mr-2px !mt-0"></profile>
           </div>
+          <div class="w-350px m-10px mb-0 ml-2px mr-2px flex justify-center">辟邪玉提升率(理论值仅供参考)</div>
         </div>
       )
     }
