@@ -6,8 +6,8 @@ from typing_extensions import Self
 
 
 class Store:
-    def __init__(self):
-        self.__states: Dict[str, Field] = {}
+    def __init__(self, initState: Dict[str, Field] = {}):
+        self.__states: Dict[str, Field] = initState.copy()
         self.last_state = None
         pass
 
@@ -108,7 +108,11 @@ class Store:
             self.set(prefix + str(key), pairs[key])
         return self
 
+    def copy(self) -> Self:
+        return Store(self.__states)
+
     # 只读属性
+
     def const(self, key: str, value: any):
         return self.compute(key, lambda: value)
 

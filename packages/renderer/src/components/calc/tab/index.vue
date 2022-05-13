@@ -12,21 +12,12 @@
   export default defineComponent({
     name: "calc-tab",
     props: {
-      ...itemProps,
-      width: { type: [Number, String], default: () => 120 }
+      ...itemProps
     },
     components: { NItem },
     setup(props, { slots }) {
       return () => {
-        const style = {
-          width: `${props.width ?? 120}px`
-        }
-
-        return (
-          <n-item {...props} style={style}>
-            {renderSlot(slots, "default")}
-          </n-item>
-        )
+        return <n-item {...props}>{renderSlot(slots, "default")}</n-item>
       }
     }
   })

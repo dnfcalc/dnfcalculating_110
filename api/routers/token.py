@@ -23,12 +23,10 @@ def createToken(alter: str, expire=86400):
     return token
 
 
-def readToken(token):
+def readToken(token) -> AlterState:
     return store.get(token)
 
 
 def authorize(access_token: Optional[str] = Header(None)):
     if access_token is not None:
-        state = readToken(access_token)
-        if state is not None:
-            return state.alter
+        return readToken(access_token)

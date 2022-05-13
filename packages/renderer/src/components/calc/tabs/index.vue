@@ -27,6 +27,7 @@
     },
     setup(props, { emit, slots }) {
       const router = useRouter()
+
       const modelValue = computed<BaseType>({
         get() {
           let val = props.modelValue
@@ -47,7 +48,7 @@
 
       return () => {
         return (
-          <n-selection v-model={modelValue.value} class={{ "i-tabs": true, vertical: !!props.vertical }} item-class="i-tab cursor-pointer">
+          <n-selection v-model={modelValue.value} class={{ "i-tabs": true, vertical: !!props.vertical }} item-class={["i-tab cursor-pointer"].concat(props.itemClass)}>
             {renderSlot(slots, "default")}
           </n-selection>
         )

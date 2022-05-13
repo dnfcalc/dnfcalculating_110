@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Body, Depends
-from .token import authorize, createToken
+from core.store import store
+
+from .token import AlterState, authorize, createToken
 from utils.apiTools import reponse, Return
 from fastapi import APIRouter, Depends
 from .response import characterInfo
@@ -8,8 +10,8 @@ calcRouter = APIRouter()
 
 
 @calcRouter.post(path="/calc")
-async def calc(setInfo=Body(None), setName=Body(None), alter: str = Depends(authorize)):
-    if(alter == None):
+async def calc(setInfo=Body(None), setName=Body(None), state: AlterState = Depends(authorize)):
+    if(state is None or state.alter is None):
         alter = "spitfire_female"
         # raise Exception("无效token")
         # 配置信息
