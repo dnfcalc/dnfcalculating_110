@@ -1,4 +1,5 @@
 from cgitb import text
+from pickle import TRUE
 from unittest import result
 from core.baseClass.skill import 技能
 from core.baseClass.equipment import equ
@@ -578,8 +579,10 @@ class Character:
     '''
 
     def 装备词条计算(self):
-        for i in equ.get_entry_list_by_namelist(self.装备栏):
-            print(i)
+        for func in equ.get_func_list_by_namelist(self.装备栏):
+            func(self)
+            #打印相关函数和效果
+            print('{}: {}'.format(func, func(self, text=TRUE)))
 
     def 被动倍率计算(self):
         if self.远古记忆 > 0:
@@ -766,6 +769,10 @@ class Character:
         # 设置相关参数
         self.skill_set(info['skill_set'])
         self.forge_set = info['forge_set']
+        
+        # 词条选择相关信息 {词条id：选择序号}
+        #print(equ.get_chose_set())
+        equ.set_func_chose({839: 0})
 
         self.计算伤害预处理()
 

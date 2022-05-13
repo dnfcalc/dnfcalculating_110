@@ -145,10 +145,7 @@ class equipment_list():
     def __init__(self):
         self.info = get_eq_info_data()
         self.load_equ()
-        self.load_entry()
-
-    def load_entry(self):
-        self.entry_list = entry_func_list
+        self.chose = {}
 
     def load_equ(self):
         self.equ_list = {}
@@ -179,7 +176,14 @@ class equipment_list():
     def get_equ_id_list(self):
         return self.equ_id_tuple
 
-    def get_entry_list_by_namelist(self, namelist):
+    def set_func_chose(self, choseinfo):
+        self.chose = choseinfo
+
+    def get_func_by_id(self, id):
+        func_list = entry_func_list.get(id, entry_func_list[0])
+        return func_list[self.chose.get(id, 0)]
+
+    def get_func_list_by_namelist(self, namelist):
         temp = []
         for name in namelist:
             i = self.get_equ_by_name(name)
@@ -189,8 +193,25 @@ class equipment_list():
         #temp.sort(key=(lambda x: priority.get(x, 100)))
         funclist = []
         for k in temp:
-            funclist.append(self.entry_list.get(k, entry_func_list[0]))
+            funclist.append(self.get_func_by_id(k))
         return funclist
+
+    def get_chose_set(self):
+        setinfo = {}
+        for i in entry_func_list.keys():
+            temp = entry_func_list[i]
+            if len(temp) > 1:
+                ctext = []
+                for k in temp:
+                    ctext.append(k(text=True))
+                setinfo[i] = ctext
+        return setinfo
+
+
+# 词条id 选择id 默认为0
+chose = {
+    0: 1,
+}
 
 
 equ = equipment_list()
