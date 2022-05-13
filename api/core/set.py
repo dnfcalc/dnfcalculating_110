@@ -13,7 +13,7 @@ def save(alter: str, setName: str, setInfo):
     if not os.path.exists(path):
         os.makedirs(path, exist_ok=True)
     with open(path + "/store.json", "w", encoding='utf-8') as fp:
-        json.dump(setInfo, fp, ensure_ascii=False, indent=4)
+        json.dump(setInfo, fp, ensure_ascii=False, indent=2)
     fp.close()
     return get_set_list(alter)
 
