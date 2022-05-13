@@ -5,10 +5,18 @@
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { IEquipmentInfo } from "@/api/info/type"
 
+  const EPIC_EQUIP = 0
+
+  const MYTHIC_EQUIP = 1
+
+  const WIDSDOM_EQUIP = 2
+
+  const WEAPON = 3
+
   export default defineComponent({
     components: { profile, EquipTips },
     setup() {
-      const type = ref("防具")
+      const type = ref(EPIC_EQUIP)
       const charStore = useCharacterStore()
       const basicStore = useBasicInfoStore()
       const chooseEquList = computed<IEquipmentInfo[]>({
@@ -25,31 +33,38 @@
       const myths = computed(() => basicStore.equipment_info?.myth ?? [])
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
 
-      const currentList = computed(() => {
-        if (type.value == "武器") return weapons.value
-        if (type.value == "神话") return myths.value
-        if (type.value == "智慧产物") return wisdom.value
-        let typeNames: string[] = []
-        if (type.value == "防具") typeNames = ["上衣", "下装", "头肩", "腰带", "鞋"]
-        if (type.value == "首饰") typeNames = ["手镯", "项链", "戒指"]
-        if (type.value == "特殊装备") typeNames = ["辅助装备", "魔法石", "耳环"]
-        return equips.value.filter(item => typeNames.indexOf(item.typeName) >= 0)
-      })
-
-      const showequ = computed(() => {
-        return (index: number) => {
-          if (["武器", "神话", "智慧产物"].indexOf(type.value) >= 0) return currentList.value[index] ?? undefined
-          let per = 4
-          if (type.value == "防具") per = 6
-          if ((index + 1) % per == 0) return undefined
-          let showIndex = Math.trunc(index / per) * (per - 1) + (index % per)
-          return currentList.value[showIndex] ?? undefined
+      const getEquip = (index: number) => {
+        switch (type.value) {
+          case WEAPON:
+            return weapons.value[index]
+          case MYTHIC_EQUIP:
+            return myths.value[index]
+          case WIDSDOM_EQUIP:
+            return wisdom.value[index]
         }
-      })
 
-      const chooseEqu = (equ: IEquipmentInfo | undefined) => {
+        if (type.value == EPIC_EQUIP) {
+          const per = 13
+          const mod = index % per
+          if ([5, 9].includes(mod)) {
+            return undefined
+          }
+
+          index -= Math.trunc(index / per) * 2
+
+          if (mod > 5) {
+            index--
+          }
+
+          if (mod > 9) {
+            index--
+          }
+          return equips.value[index]
+        }
+      }
+
+      const chooseEqu = (equ: IEquipmentInfo) => {
         return () => {
-          if (!equ) return
           const index = chooseEquList.value.findIndex(item => item.typeName == equ.typeName)
           if (index < 0) {
             chooseEquList.value.push(equ)
@@ -59,51 +74,73 @@
         }
       }
 
+      function selectSuit(index: number) {
+        return (e: Event) => {
+          e.stopPropagation()
+          if (type.value == EPIC_EQUIP) {
+            const per = 13
+            const mod = index % per
+
+            const line = Math.trunc(index / per)
+
+            let end = index
+
+            if (mod > 9) {
+              index = line * per + 8
+              end = index + 3
+            } else if (mod > 5) {
+              index = line * per + 5
+              end = index + 3
+            } else {
+              index = line * per
+              end = index + 5
+            }
+
+            index -= line * 2
+            end -= line * 2
+
+            const equip = equips.value.slice(index, end)
+
+            equip.map(chooseEqu).forEach(v => v?.())
+          }
+        }
+      }
+
       // const showequ = () => {}
 
       return () => (
         <div class="flex singleset">
-          <div class="w-445px m-7px mb-0 flex flex-col">
+          <div class="flex flex-col m-7px mb-0">
             <div class="h-25px">
-              <calc-tabs v-model:modelValue={type.value}>
-                <calc-tab value="防具" class="!w-60px !h-22px !leading-22px">
-                  防具
-                </calc-tab>
-                <calc-tab value="首饰" class="!w-60px !h-22px !leading-22px">
-                  首饰
-                </calc-tab>
-                <calc-tab value="特殊装备" class="!w-60px !h-22px !leading-22px">
-                  特殊装备
-                </calc-tab>
-
-                <calc-tab value="神话" class="!w-60px !h-22px !leading-22px">
-                  神话
-                </calc-tab>
-                <calc-tab value="智慧产物" class="!w-60px !h-22px !leading-22px">
-                  智慧产物
-                </calc-tab>
-                <calc-tab value="武器" class="!w-60px !h-22px !leading-22px">
-                  武器
-                </calc-tab>
+              <calc-tabs item-class="h-6 w-15" v-model={type.value}>
+                <calc-tab value={EPIC_EQUIP}>史诗</calc-tab>
+                <calc-tab value={MYTHIC_EQUIP}>神话</calc-tab>
+                <calc-tab value={WIDSDOM_EQUIP}>智慧产物</calc-tab>
+                <calc-tab value={WEAPON}>武器</calc-tab>
               </calc-tabs>
             </div>
-            <div class="h-570px equ">
-              {renderList(168, index => (
-                <div onClick={chooseEqu(showequ.value(index - 1))} class="equ-item">
-                  {showequ.value(index - 1) && <EquipTips eq={showequ.value(index - 1)} canClick={true} show-tips={false}></EquipTips>}
-                </div>
-              ))}
+            <div class="h-140 w-120 overflow-y-auto equ">
+              {renderList(350, (item, index) => {
+                const equ = getEquip(index)
+                return (
+                  <div class="equ-item">
+                    {equ && (
+                      <EquipTips onClick={chooseEqu(equ)} onDblclick={selectSuit(index)} active={chooseEquList.value.includes(equ)} eq={equ} key={equ.id} canClick={true} show-tips={false}></EquipTips>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           </div>
           <div>
-            <div class="flex !ml-8px !mr-8px mt-7px h-24px items-center justify-between">
+            <div class="flex h-24px mt-7px items-center justify-between !mr-8px !ml-8px">
               <calc-button>设为基准</calc-button>
               <calc-button>清空基准</calc-button>
               <calc-button>查看详情</calc-button>
             </div>
-            <profile equList={chooseEquList.value} class="m-5px !ml-2px !mr-2px !mt-0"></profile>
+            <profile equList={chooseEquList.value} class="m-5px !mt-0 !mr-2px !ml-2px"></profile>
           </div>
-          <div class="w-350px m-10px mb-0 ml-2px mr-2px flex justify-center">辟邪玉提升率(理论值仅供参考)</div>
+          <div class="flex m-10px mr-2px mb-0 ml-2px w-350px justify-center">辟邪玉提升率(理论值仅供参考)</div>
         </div>
       )
     }

@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
-from .token import authorize, createToken
+from .token import AlterState, authorize, createToken
 from utils.apiTools import reponse, Return
 from .response import sundryInfo, characterInfo, equipmentInfo
 
@@ -19,12 +19,12 @@ async def get_adventure_info():
     return reponse(data=sundryInfo.get_adventure_info())
 
 
-class noteice(BaseModel):
+class notice(BaseModel):
     time: str
     info: str
 
 
-@infoRouter.get(path='/notice', response_model=Return[noteice])
+@infoRouter.get(path='/notice', response_model=Return[notice])
 async def get_notice():
     return reponse(data=sundryInfo.get_notice())
 
@@ -44,13 +44,13 @@ class characterSkillInfo(BaseModel):
 
 
 @infoRouter.get(path='/character')
-async def get_character_info(alter: str = Depends(authorize)):
-    return reponse(data=characterInfo.get_character_info(alter))
+async def get_character_info(state: AlterState = Depends(authorize)):
+    return reponse(data=characterInfo.get_character_info(state.alter))
 
 
 @infoRouter.get(path='/equips')
-async def get_equipment_info(alter: str = Depends(authorize)):
-    return reponse(data=equipmentInfo.get_equipment_info(alter))
+async def get_equipment_info(state: AlterState = Depends(authorize)):
+    return reponse(data=equipmentInfo.get_equipment_info(state.alter))
 
 
 @infoRouter.get(path='/enchanting')
