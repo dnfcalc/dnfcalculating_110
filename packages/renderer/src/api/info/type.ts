@@ -49,6 +49,16 @@ export interface IJadeInfo {
   unit: string
 }
 
+export interface ITrigger {
+  id: number
+  selectList: string[]
+}
+
+export interface TriggerSet {
+  id: number
+  select: number
+}
+
 export interface KTV<T> {
   [key: number | string]: T
 }
@@ -74,6 +84,9 @@ export interface SkillSet {
 
   // 宠物次数
   pet: number | string
+
+  // 是否有伤害
+  damage: boolean
 }
 
 interface EquipSet {
@@ -92,6 +105,8 @@ export interface ICharacterSet {
 
   equips_set: EquipSet[]
 
+  equip_list: number[]
+
   clothes_set: Record<string, Map<string, any>>
 
   other_set: Record<string, Map<string, any>>
@@ -101,4 +116,6 @@ export interface ICharacterSet {
   carry_type: string
 
   attack_attribute: number
+
+  trigger_set: TriggerSet[]
 }

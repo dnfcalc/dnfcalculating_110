@@ -1,7 +1,7 @@
 import { useCharacterStore } from "./character"
 import { defineStore } from "pinia"
 import api from "@/api"
-import { IAdventureInfo, IEnchantingInfo, IEquipmentList, IJadeInfo } from "../api/info/type"
+import { IAdventureInfo, IEnchantingInfo, IEquipmentList, IJadeInfo, ITrigger } from "../api/info/type"
 
 interface BasicInfoState {
   // 冒险团信息
@@ -22,6 +22,8 @@ interface BasicInfoState {
   _emblemInfo: IEnchantingInfo[] | undefined
   // 辟邪玉信息
   _jadeInfo: IJadeInfo[] | undefined
+  // 触发词条选择
+  _triggerList: ITrigger[] | undefined
 }
 
 export const useBasicInfoStore = defineStore("basicInfo", {
@@ -35,7 +37,8 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       _equipmentInfo: undefined,
       _enchantingInfo: undefined,
       _emblemInfo: undefined,
-      _jadeInfo: undefined
+      _jadeInfo: undefined,
+      _triggerList: undefined
     }
   },
   getters: {
@@ -80,6 +83,12 @@ export const useBasicInfoStore = defineStore("basicInfo", {
         api.getJade().then(res => (state._jadeInfo = res.data))
       }
       return state._jadeInfo
+    },
+    trigger_list(state) {
+      if (!state._triggerList) {
+        api.getTriggerList().then(res => (state._triggerList = res.data))
+      }
+      return state._triggerList
     }
   },
   actions: {

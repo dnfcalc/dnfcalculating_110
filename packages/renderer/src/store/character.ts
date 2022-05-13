@@ -38,7 +38,9 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       clothes: [],
       clothes_bottom: [],
       talisman: [],
-      single_set: []
+      single_set: [],
+      equip_list: [],
+      trigger_set: []
     }
   },
   actions: {
@@ -72,7 +74,8 @@ export const useCharacterStore = defineStore("CharacterInfo", {
           direct: false,
           count: 0,
           pet: 0,
-          directNumber: 0
+          directNumber: 0,
+          damage: false
         }
         temp[key] = value
         this.skill_set.push(temp)
@@ -103,7 +106,8 @@ export const useCharacterStore = defineStore("CharacterInfo", {
           equips_set: this.equips_set,
           forge_set: RecordToObj(this.forge_set),
           other_set: RecordToObj(this.other_set),
-          clothes_set: RecordToObj(this.clothes_set)
+          clothes_set: RecordToObj(this.clothes_set),
+          equip_list: this.equip_list
         },
         setName: "set01"
       })

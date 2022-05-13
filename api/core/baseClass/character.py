@@ -153,7 +153,6 @@ class Character:
     # 装备触发选择
 
     def __init__(self) -> None:
-        print("初始化Char")
         self.skillInfo = []
         self.rune = []
         self.talisman = []
@@ -581,8 +580,8 @@ class Character:
     def 装备词条计算(self):
         for func in equ.get_func_list_by_namelist(self.装备栏):
             func(self)
-            #打印相关函数和效果
-            print('{}: {}'.format(func, func(self, text=TRUE)))
+            # 打印相关函数和效果
+            # print('{}: {}'.format(func, func(self, text=TRUE)))
 
     def 被动倍率计算(self):
         if self.远古记忆 > 0:
@@ -769,9 +768,9 @@ class Character:
         # 设置相关参数
         self.skill_set(info['skill_set'])
         self.forge_set = info['forge_set']
-        
+
         # 词条选择相关信息 {词条id：选择序号}
-        #print(equ.get_chose_set())
+        # print(equ.get_chose_set())
         equ.set_func_chose({839: 0})
 
         self.计算伤害预处理()
@@ -790,5 +789,5 @@ class Character:
             '伤害指数': self.伤害指数,
             'result': self.伤害计算(info['skill_set']),
         }
-        print(result)
+        # print(result)
         return info

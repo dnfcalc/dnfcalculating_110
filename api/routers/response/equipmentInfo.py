@@ -2,6 +2,7 @@ import json
 import sys
 import os
 from typing import Dict, List
+from core.baseClass.equipment import equ
 
 import requests
 
@@ -82,3 +83,7 @@ def get_jade_info():
     with open("./ResourceFiles/dataFiles/jade-data.json", encoding='utf-8') as fp:
         jade_info = json.load(fp)
     return jade_info
+
+
+def get_trigger_list():
+    return equ.get_chose_set()

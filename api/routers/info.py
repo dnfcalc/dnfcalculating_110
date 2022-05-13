@@ -77,3 +77,8 @@ async def get_emblem_info():
 @infoRouter.get(path="/jade")
 async def get_emblem_info():
     return reponse(data=equipmentInfo.get_jade_info())
+
+
+@infoRouter.get(path="/triggerlist")
+async def get_emblem_info():
+    return reponse(data=equipmentInfo.get_trigger_list())

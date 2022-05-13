@@ -1,7 +1,8 @@
 <script lang="tsx">
-  import { defineComponent, ref, renderList, computed, reactive } from "vue"
+  import { defineComponent, ref, renderList, computed, reactive, watch } from "vue"
   import { useBasicInfoStore, useCharacterStore } from "@/store"
   import featureList from "@/utils/featureList"
+  import { TriggerSet } from "@/api/info/type"
 
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import EquipList from "@/components/internal/equip/equip-list.vue"
@@ -33,7 +34,14 @@
 
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
 
-      const selected = ref<number[]>([])
+      const selected = computed({
+        get() {
+          return characterStore.equip_list
+        },
+        set(val: number[]) {
+          characterStore.equip_list = val
+        }
+      })
 
       // let equi_choose = computed<EquiChooseState[]>(() => {
       //   let list = [] as EquiChooseState[]
@@ -62,12 +70,26 @@
             }}
           </EquipList>
           <div class="equ-else">
-            <EquipList class="equ-else-sort" list={myths.value} title="神话装备" />
+            <EquipList v-model:selected={selected.value} class="equ-else-sort" list={myths.value} title="神话装备" />
             <EquipList class="equ-else-sort" list={wisdom.value} title="智慧产物" />
             <EquipList class="equ-else-sort" list={weapons.value} title="武器列表" />
             {
               //<EquipList class="equ-else-sort" list={weapons.value} title="称号" />
             }
+          </div>
+          <div>
+            {basicStore.trigger_list &&
+              renderList(basicStore.trigger_list, (trigger, index) => (
+                <>
+                  <calc-select class="!w-380px">
+                    {renderList(trigger.selectList, item => (
+                      <>
+                        <calc-option>{item}</calc-option>
+                      </>
+                    ))}
+                  </calc-select>
+                </>
+              ))}
           </div>
         </div>
       )

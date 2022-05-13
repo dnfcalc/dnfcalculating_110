@@ -52,7 +52,7 @@
         }
       })
 
-      console.log(equip.value)
+      // console.log(equip.value)
 
       function renderStatus(rowClass?: classNames, spanClass?: classNames) {
         return ({ id, label, num, isRate }: Status) => {

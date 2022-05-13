@@ -1,13 +1,13 @@
 <script lang="tsx">
   import { computed, defineComponent, onMounted, reactive, ref, renderList } from "vue"
   import { useCharacterStore } from "@/store"
-  import Profile from "./profile.vue"
   import cp from "./sub/cp.vue"
   import hotkey from "./sub/hotkey.vue"
   import skill from "./sub/skill.vue"
+  import skillqueue from "./sub/skillqueue.vue"
 
   export default defineComponent({
-    components: { cp, hotkey, skill },
+    components: { cp, hotkey, skill, skillqueue },
     setup() {
       return () => (
         <div class="character flex">
@@ -21,6 +21,9 @@
             <div class="skill-slots subitem mt-2%">
               <hotkey></hotkey>
             </div>
+          </div>
+          <div class="flex p-5px">
+            <skillqueue></skillqueue>
           </div>
         </div>
       )

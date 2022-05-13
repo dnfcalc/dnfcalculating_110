@@ -197,14 +197,17 @@ class equipment_list():
         return funclist
 
     def get_chose_set(self):
-        setinfo = {}
+        setinfo = []
         for i in entry_func_list.keys():
             temp = entry_func_list[i]
             if len(temp) > 1:
                 ctext = []
                 for k in temp:
                     ctext.append(k(text=True))
-                setinfo[i] = ctext
+                setinfo.append({
+                    "id": i,
+                    "selectList": ctext
+                })
         return setinfo
 
 
