@@ -11,6 +11,7 @@ calcRouter = APIRouter()
 
 @calcRouter.post(path="/calc")
 async def calc(setInfo=Body(None), setName=Body(None), state: AlterState = Depends(authorize)):
+    alter = "spitfire_female"
     if(state is None or state.alter is None):
         alter = "spitfire_female"
         # raise Exception("无效token")

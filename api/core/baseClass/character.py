@@ -1,3 +1,4 @@
+from cgitb import text
 from unittest import result
 from core.baseClass.skill import 技能
 from core.baseClass.equipment import equ
@@ -578,7 +579,7 @@ class Character:
 
     def 装备词条计算(self):
         for i in equ.get_entry_list_by_namelist(self.装备栏):
-            i(self)
+            print(i)
 
     def 被动倍率计算(self):
         if self.远古记忆 > 0:
