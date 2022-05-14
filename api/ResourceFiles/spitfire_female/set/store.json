@@ -242,12 +242,45 @@
     }
   ],
   "equips_set": [],
-  "forge_set": {},
+  "forge_set": {
+    "petequ": {},
+    "others": {},
+    "头肩": {
+      "cursed_number": 22,
+      "cursed_type": 2
+    },
+    "腰带": {
+      "cursed_number": 6
+    }
+  },
   "other_set": {},
   "clothes_set": {},
-  "equip_list": [
-    268,
-    308,
-    134
+  "single_set": [],
+  "equip_list": [],
+  "trigger_set": [
+    {
+      "id": 839,
+      "select": 0
+    },
+    {
+      "id": 841,
+      "select": 0
+    },
+    {
+      "id": 842,
+      "select": 0
+    },
+    {
+      "id": 843,
+      "select": 0
+    },
+    {
+      "id": 844,
+      "select": 0
+    },
+    {
+      "id": 845,
+      "select": 0
+    }
   ]
 }

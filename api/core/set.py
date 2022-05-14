@@ -30,7 +30,7 @@ def get_set_list(alter: str):
     setList = []
     setList = os.listdir('./ResourceFiles/{}'.format(alter))
     if len(setList) == 0:
-        setList.append("default")
+        setList.append("set")
     return setList
 
 
@@ -42,7 +42,7 @@ def get(alter: str, setName: str):
     if not os.path.exists('./ResourceFiles/{}/{}'.format(alter, setName)):
         module_name = "core.characters." + alter
         character = importlib.import_module(module_name)
-        skillInfo = character.classChange().skillInfo
+        skillInfo = character.classChange().getinfo()['skillInfo']
         skill_set = []
         for item in skillInfo:
             skill_set.append({
@@ -66,7 +66,8 @@ def get(alter: str, setName: str):
             "trigger_set": equ.get_chose_set(mode=1)
         }
     else:
-        with open('./ResourceFiles/{}/{}/store.json'.format(alter, setName) + "/store.json", "w", encoding='utf-8') as fp:
+        with open('./ResourceFiles/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
             set_info = json.load(fp)
+        fp.close()
     print(set_info)
     return set_info

@@ -52,6 +52,10 @@ export interface IJadeInfo {
 export interface ITrigger {
   id: number
   selectList: string[]
+}
+
+export interface TriggerSet {
+  id: number
   select: number
 }
 
@@ -113,5 +117,5 @@ export interface ICharacterSet {
 
   attack_attribute: number
 
-  trigger_set: ITrigger[]
+  trigger_set: TriggerSet[]
 }

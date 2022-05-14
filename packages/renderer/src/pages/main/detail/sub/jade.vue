@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { IJadeInfo } from "@/api/info/type"
-  import { useBasicInfoStore, useCharacterStore } from "@/store"
+  import { useBasicInfoStore, useConfigStore } from "@/store"
   import { getFloat } from "@/utils"
   import { computed, defineComponent, renderList } from "vue"
 
@@ -8,15 +8,15 @@
     name: "jade",
     setup(props, { emit, slots }) {
       const basicInfoStore = useBasicInfoStore()
-      const characterStore = useCharacterStore()
+      const configStore = useConfigStore()
 
       const currentInfo = function <T>(name: string, defaultValue?: T) {
         return computed<string | number>({
           get() {
-            return characterStore.getForge("jade", name) ?? defaultValue ?? 0
+            return configStore.getForge("jade", name) ?? defaultValue ?? 0
           },
           set(val) {
-            characterStore.setForge("jade", name, val)
+            configStore.setForge("jade", name, val)
           }
         })
       }

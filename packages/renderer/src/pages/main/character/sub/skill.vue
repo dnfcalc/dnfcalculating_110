@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { computed, defineComponent, reactive, ref, renderList, watch } from "vue"
-  import { useCharacterStore } from "@/store"
+  import { useCharacterStore, useConfigStore } from "@/store"
   import { ISkillInfo } from "@/api/character/type"
   import { SkillSet } from "@/api/info/type"
   import { skill_icon } from "./utils"
@@ -37,6 +37,7 @@
     components: {},
     setup(props, { emit, slots }) {
       const characterStore = useCharacterStore()
+      const configStore = useConfigStore()
 
       const buind_skill = ref("EMP磁暴")
 
@@ -44,14 +45,15 @@
 
       const skills = reactive<SkillSet[]>([])
       characterStore.skillInfo.forEach(item => {
-        const temp = characterStore.getSkill(item.name)
-        if (characterStore.getSkill(item.name)) {
+        const temp = configStore.getSkill(item.name)
+        console.log(temp)
+        if (configStore.getSkill(item.name)) {
           skills.push(temp as SkillSet)
         } else {
           skills.push({ name: item.name, tp: 0, count: 0, pet: 0, direct: false, level: item.current_LV, directNumber: 0, damage: item.type == 1 })
         }
       })
-      characterStore.skill_set = skills
+      configStore.data.skill_set = skills
 
       const highlight = computed(() => {
         return function (index: number) {
@@ -61,7 +63,7 @@
       })
 
       watch(skills, val => {
-        characterStore.skill_set = val
+        configStore.data.skill_set = val
       })
 
       const wakens = computed(() => characterStore.skillInfo.filter(item => item.need_level == 50 || item.need_level == 85))
