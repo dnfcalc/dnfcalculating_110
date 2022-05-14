@@ -71,7 +71,7 @@ export default defineComponent({
         const offset = props.offset
         switch (props.position) {
           case "bottom":
-            x = left
+            x = left + width / 2
             y = top + height + offset
             break
           case "top":
@@ -97,9 +97,9 @@ export default defineComponent({
     watch(isOpen, val => {
       if (val) {
         mounted.value = true
-        nextTick(resize)
       }
       emit("change", val)
+      nextTick(resize)
     })
 
     return () => {

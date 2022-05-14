@@ -33,7 +33,7 @@
       const myths = computed(() => basicStore.equipment_info?.myth ?? [])
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
 
-      const getEquip = (index: number) => {
+      function getEquip(index: number) {
         switch (type.value) {
           case WEAPON:
             return weapons.value[index]
@@ -41,29 +41,28 @@
             return myths.value[index]
           case WIDSDOM_EQUIP:
             return wisdom.value[index]
-        }
+          case EPIC_EQUIP: {
+            const per = 13
+            const mod = index % per
+            if ([5, 9].includes(mod)) {
+              return undefined
+            }
 
-        if (type.value == EPIC_EQUIP) {
-          const per = 13
-          const mod = index % per
-          if ([5, 9].includes(mod)) {
-            return undefined
+            index -= Math.trunc(index / per) * 2
+
+            if (mod > 5) {
+              index--
+            }
+
+            if (mod > 9) {
+              index--
+            }
+            return equips.value[index]
           }
-
-          index -= Math.trunc(index / per) * 2
-
-          if (mod > 5) {
-            index--
-          }
-
-          if (mod > 9) {
-            index--
-          }
-          return equips.value[index]
         }
       }
 
-      const chooseEqu = (equ: IEquipmentInfo) => {
+      function chooseEqu(equ: IEquipmentInfo) {
         return () => {
           const index = chooseEquList.value.findIndex(item => item.typeName == equ.typeName)
           if (index < 0) {

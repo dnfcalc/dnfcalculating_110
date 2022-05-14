@@ -120,8 +120,6 @@
         background: linear-gradient(#574d38, #25221d);
         border-image: url("./img/active_top.png") 1 fill stretch;
         // color: #ffb400;
-        height: 21px;
-        line-height: 21px;
       }
     }
   }
