@@ -128,14 +128,13 @@ class equipment_list():
         self.equ_id = {}
         self.equ_tuple = ()
         self.equ_id_tuple = ()
-        i = 0
         for k in self.info:
             temp = equipment(k)
+            i = k['id']
             self.equ_list[i] = temp
             self.equ_id[temp.名称] = i
             self.equ_tuple += (temp, )
             self.equ_id_tuple += (i, )
-            i += 1
 
     def get_equ_by_id(self, id):
         return self.equ_list.get(id, equipment())
@@ -159,10 +158,10 @@ class equipment_list():
         func_list = entry_func_list.get(id, entry_func_list[0])
         return func_list[self.chose.get(id, 0)]
 
-    def get_func_list_by_namelist(self, namelist):
+    def get_func_list_by_idlist(self, idlist):
         temp = []
-        for name in namelist:
-            i = self.get_equ_by_name(name)
+        for id in idlist:
+            i = self.get_equ_by_id(id)
             for k in i.属性信息:
                 temp.append(k[2])
         # 词条优先级排序
