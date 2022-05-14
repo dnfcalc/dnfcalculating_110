@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { computed, defineComponent, reactive, ref, renderList } from "vue"
-  import { useCharacterStore } from "@/store"
+  import { useCharacterStore, useConfigStore } from "@/store"
   import { skill_icon } from "./utils"
   import draggable from "vuedraggable"
 
@@ -11,7 +11,8 @@
     },
     setup(props, { emit, slots }) {
       const characterStore = useCharacterStore()
-      const canChooseSkill = computed(() => characterStore.skill_set.filter(item => item.level > 0 && item.damage))
+      const configStore = useConfigStore()
+      const canChooseSkill = computed(() => configStore.data.skill_set.filter(item => item.level > 0 && item.damage))
 
       const list2 = ref([])
 

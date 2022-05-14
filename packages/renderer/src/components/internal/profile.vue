@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
-  import { useCharacterStore, useDetailsStore } from "@/store"
+  import { useCharacterStore, useDetailsStore, useConfigStore } from "@/store"
   import { defineComponent, PropType, renderList } from "vue"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
 
@@ -91,12 +91,13 @@
       //   an: 999
       // }
 
+      const configStore = useConfigStore()
       const characterStore = useCharacterStore()
       const detailsStore = useDetailsStore()
       const display_parts = detailsStore.display_parts
 
       function currentInfo(part: string) {
-        let num = characterStore.getForge(part, "cursed_number")
+        let num = configStore.getForge(part, "cursed_number")
         return num ? "+" + num : ""
       }
 
@@ -104,7 +105,7 @@
         let x = 28
         let y = 5
         let index = display_parts.findIndex(p => p == part)
-        let type = characterStore.getForge(part, "cursed_type")
+        let type = configStore.getForge(part, "cursed_type")
 
         if (index == 13) index -= 7
         else if (index >= 5 && index <= 12) {

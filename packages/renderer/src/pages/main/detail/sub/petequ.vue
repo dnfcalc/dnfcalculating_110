@@ -1,18 +1,18 @@
 <script lang="tsx">
   import { computed, defineComponent, renderList } from "vue"
-  import { useCharacterStore } from "@/store"
+  import { useConfigStore } from "@/store"
 
   export default defineComponent({
     name: "petequ",
     setup(props, { emit, slots }) {
-      const characterStore = useCharacterStore()
+      const configStore = useConfigStore()
       const currentInfo = function <T>(name: string, defaultValue?: T) {
         return computed<string | number>({
           get() {
-            return characterStore.getForge("petequ", name) ?? defaultValue ?? 0
+            return configStore.getForge("petequ", name) ?? defaultValue ?? 0
           },
           set(val) {
-            characterStore.setForge("petequ", name, val)
+            configStore.setForge("petequ", name, val)
           }
         })
       }

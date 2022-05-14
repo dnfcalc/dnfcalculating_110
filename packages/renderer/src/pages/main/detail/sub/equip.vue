@@ -1,12 +1,12 @@
 <script lang="tsx">
-  import { useBasicInfoStore, useCharacterStore, useDetailsStore } from "@/store"
+  import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
   import { computed, defineComponent, renderList, PropType, ref } from "vue"
   import { IEnchantingInfo } from "@/api/info/type"
   export default defineComponent({
     name: "equip",
     setup(props, { emit, slots }) {
       const detailsStore = useDetailsStore()
-      const characterStore = useCharacterStore()
+      const configStore = useConfigStore()
       const can_upgrade = computed(() => {
         return !["称号", "宠物"].includes(detailsStore.part as string)
       })
@@ -28,7 +28,7 @@
       const currentInfo = function <T>(name: string, defaultValue?: T) {
         return computed<string | number>({
           get() {
-            return characterStore.getForge(detailsStore.part, name) ?? defaultValue ?? 0
+            return configStore.getForge(detailsStore.part, name) ?? defaultValue ?? 0
           },
           set(val) {
             if (val == undefined) return
@@ -52,11 +52,11 @@
                 parts = detailsStore.display_parts.filter(e => !["称号", "宠物"].includes(e))
               }
               if (parts.length) {
-                parts.forEach(e => characterStore.setForge(e, name, val))
-                if (appendName) parts.forEach(e => characterStore.setForge(e, appendName, val))
+                parts.forEach(e => configStore.setForge(e, name, val))
+                if (appendName) parts.forEach(e => configStore.setForge(e, appendName, val))
               }
             }
-            characterStore.setForge(detailsStore.part, name, val)
+            configStore.setForge(detailsStore.part, name, val)
           }
         })
       }
@@ -73,19 +73,26 @@
       // 增幅
       const cursed_type = currentInfo<string | number>("cursed_type", 1)
 
+      // 增幅数值
       const cursed_number = currentInfo<string | number>("cursed_number")
 
+      // 智慧产物等级
       const wisdom_number = currentInfo<string | number>("wisdom_number")
 
+      // 锻造数值
       const dz_number = currentInfo<string | number>("dz_number")
 
+      // 成长1
       const growth_First = currentInfo<string | number>("growth_First", 1)
 
+      // 成长2
       const growth_Second = currentInfo<string | number>("growth_Second", 1)
 
+      // 成长3
       const growth_Third = currentInfo<string | number>("growth_Third", 1)
 
-      const growth_Fourth = currentInfo<string | number>("dz_Fourth", 1)
+      // 成长4
+      const growth_Fourth = currentInfo<string | number>("growth_Fourth", 1)
 
       return () => {
         return (

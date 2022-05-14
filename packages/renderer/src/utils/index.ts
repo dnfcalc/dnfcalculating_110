@@ -132,12 +132,69 @@ Array.prototype.min = function <T>(callback: (t: T) => number): [number, T | und
   return rs
 }
 
+export function toObj(data: Object) {
+  let temp = {}
+  for (let key in data) {
+    try {
+      Object.defineProperty(temp, key, {
+        value: RecordToObj(data[key]),
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
+    } catch {
+      Object.defineProperty(temp, key, {
+        value: data[key],
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
+    }
+  }
+  return temp
+}
+
+export function toMap(data: Object) {
+  let temp = {}
+  for (let key in data) {
+    if (typeof data[key] === "object" && data[key].constructor != Array) {
+      // 需要转换部分,不能是Array,也会被转换
+      let sub = {}
+      for (let subkey in data[key]) {
+        console.log(subkey)
+        Object.defineProperty(sub, subkey, {
+          value: new Map(Object.entries(data[key][subkey])),
+          writable: true,
+          enumerable: true,
+          configurable: true
+        })
+      }
+      Object.defineProperty(temp, key, {
+        value: sub,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
+    } else {
+      Object.defineProperty(temp, key, {
+        value: data[key],
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
+    }
+  }
+  return temp
+}
+
 export function RecordToObj(todo: Record<string, Map<any, any>>) {
   let temp = {}
   for (let key in todo) {
     Object.defineProperty(temp, key, {
       value: Object.fromEntries(todo[key]),
-      enumerable: true
+      writable: true,
+      enumerable: true,
+      configurable: true
     })
   }
   return temp

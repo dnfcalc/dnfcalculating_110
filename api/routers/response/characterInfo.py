@@ -18,5 +18,9 @@ def get_set(alter: str, setName: str):
     return set.get(alter, setName)
 
 
+def get_set_list(alter: str):
+    return set.get_set_list(alter)
+
+
 def calc(alter: str, setName: str):
     return calc_set(alter, setName)

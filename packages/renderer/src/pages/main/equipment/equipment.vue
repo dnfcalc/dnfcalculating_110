@@ -1,8 +1,8 @@
 <script lang="tsx">
   import { defineComponent, ref, renderList, computed, reactive, watch, onMounted } from "vue"
-  import { useBasicInfoStore, useCharacterStore } from "@/store"
+  import { useBasicInfoStore, useCharacterStore, useConfigStore } from "@/store"
   import featureList from "@/utils/featureList"
-  import { ITrigger } from "@/api/info/type"
+  import { TriggerSet } from "@/api/info/type"
 
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import EquipList from "@/components/internal/equip/equip-list.vue"
@@ -25,6 +25,7 @@
       })
 
       const characterStore = useCharacterStore()
+      const configStore = useConfigStore()
 
       const equips = computed(() => basicStore.equipment_info?.lv110 ?? [])
 
@@ -36,26 +37,14 @@
 
       const selected = computed({
         get() {
-          return characterStore.equip_list
+          return configStore.data.equip_list
         },
         set(val: number[]) {
-          characterStore.equip_list = val
+          configStore.data.equip_list = val
         }
       })
 
       const trigger_list = computed(() => basicStore.trigger_list ?? [])
-      const triggers_set = reactive<ITrigger[]>([])
-
-      onMounted(() => {
-        if (basicStore.trigger_list)
-          basicStore.trigger_list.forEach(item => {
-            triggers_set.push({
-              id: item.id,
-              select: 0,
-              selectList: item.selectList
-            })
-          })
-      })
 
       // watch(triggers, val => {
       //   characterStore.trigger_set = val
@@ -100,8 +89,8 @@
             {trigger_list.value &&
               renderList(trigger_list.value, (trigger, index) => (
                 <>
-                  {triggers_set[index] && (
-                    <calc-select v-model={triggers_set[index].select} class="ownSelect-2">
+                  {configStore.data.trigger_set[index] && (
+                    <calc-select v-model={configStore.data.trigger_set[index].select} class="ownSelect-2">
                       {renderList(trigger.selectList, (item, index) => (
                         <>
                           <calc-option value={index}>{item}</calc-option>

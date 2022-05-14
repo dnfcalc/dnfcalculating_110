@@ -171,7 +171,7 @@ class equipment_list():
             funclist.append(self.get_func_by_id(k))
         return funclist
 
-    def get_chose_set(self):
+    def get_chose_set(self, mode=0):
         setinfo = []
         for i in entry_func_list.keys():
             temp = entry_func_list[i]
@@ -179,10 +179,16 @@ class equipment_list():
                 ctext = []
                 for k in temp:
                     ctext.append(k(text=True))
-                setinfo.append({
-                    "id": i,
-                    "selectList": ctext
-                })
+                if mode == 1:
+                    setinfo.append({
+                        "id": i,
+                        "select": 0
+                    })
+                else:
+                    setinfo.append({
+                        "id": i,
+                        "selectList": ctext
+                    })
         return setinfo
 
 

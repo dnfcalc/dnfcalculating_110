@@ -88,3 +88,8 @@ async def get_emblem_info():
 @infoRouter.get(path="/config/{name}")
 async def get_config(name, state: AlterState = Depends(authorize)):
     return reponse(data=characterInfo.get_set(state.alter, name))
+
+
+@infoRouter.get(path="/configs")
+async def get_config(state: AlterState = Depends(authorize)):
+    return reponse(data=characterInfo.get_set_list(state.alter))

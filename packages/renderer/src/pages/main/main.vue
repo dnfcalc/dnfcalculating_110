@@ -1,7 +1,7 @@
 <script lang="tsx">
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-  import { useCharacterStore } from "@/store"
+  import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
   import { defineComponent, ref, renderList } from "vue"
   import { useRoute } from "vue-router"
@@ -9,13 +9,14 @@
   export default defineComponent(() => {
     const char = useRoute().query.name as string
     const appStore = useAppStore()
+    const configStore = useConfigStore()
     const characterStore = useCharacterStore()
     characterStore.newCharacter(char).then(() => {
       appStore.$patch({ title: characterStore.name })
     })
 
     const cacl = () => {
-      characterStore.calc()
+      configStore.calc()
     }
 
     return () => {
@@ -39,6 +40,15 @@
                   ))}
                 </calc-select>
               </div>
+
+              <div class="flex col-4 justify-center">
+                <calc-select v-model={configStore.name} class="!h-22px">
+                  {renderList(configStore.config_list, item => (
+                    <calc-option value={item}>{item}</calc-option>
+                  ))}
+                </calc-select>
+              </div>
+
               <div class="flex col-4 justify-center">
                 <calc-select class="!h-22px">
                   <calc-option value={0}>攻击属性：自适应</calc-option>
@@ -48,6 +58,7 @@
                   <calc-option value={4}>攻击属性：暗</calc-option>
                 </calc-select>
               </div>
+
               <div class="flex col-4 justify-center">
                 <calc-select class="!h-22px">
                   <calc-option value={0}>计算模式：减枝</calc-option>
