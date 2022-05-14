@@ -1,8 +1,8 @@
 <script lang="tsx">
-  import { defineComponent, ref, renderList, computed, reactive, watch } from "vue"
+  import { defineComponent, ref, renderList, computed, reactive, watch, onMounted } from "vue"
   import { useBasicInfoStore, useCharacterStore } from "@/store"
   import featureList from "@/utils/featureList"
-  import { TriggerSet } from "@/api/info/type"
+  import { ITrigger } from "@/api/info/type"
 
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import EquipList from "@/components/internal/equip/equip-list.vue"
@@ -43,6 +43,25 @@
         }
       })
 
+      const trigger_list = computed(() => basicStore.trigger_list ?? [])
+      const triggers_set = reactive<ITrigger[]>([])
+
+      onMounted(() => {
+        if (basicStore.trigger_list)
+          basicStore.trigger_list.forEach(item => {
+            triggers_set.push({
+              id: item.id,
+              select: 0,
+              selectList: item.selectList
+            })
+          })
+      })
+
+      // watch(triggers, val => {
+      //   characterStore.trigger_set = val
+      //   console.log(characterStore.trigger_set)
+      // })
+
       // let equi_choose = computed<EquiChooseState[]>(() => {
       //   let list = [] as EquiChooseState[]
       //   basic_info.value?.public_110_equ?.forEach(item => {
@@ -77,17 +96,19 @@
               //<EquipList class="equ-else-sort" list={weapons.value} title="称号" />
             }
           </div>
-          <div>
-            {basicStore.trigger_list &&
-              renderList(basicStore.trigger_list, (trigger, index) => (
+          <div class="equ-trigger">
+            {trigger_list.value &&
+              renderList(trigger_list.value, (trigger, index) => (
                 <>
-                  <calc-select class="!w-380px">
-                    {renderList(trigger.selectList, item => (
-                      <>
-                        <calc-option>{item}</calc-option>
-                      </>
-                    ))}
-                  </calc-select>
+                  {triggers_set[index] && (
+                    <calc-select v-model={triggers_set[index].select} class="ownSelect-2">
+                      {renderList(trigger.selectList, (item, index) => (
+                        <>
+                          <calc-option value={index}>{item}</calc-option>
+                        </>
+                      ))}
+                    </calc-select>
+                  )}
                 </>
               ))}
           </div>
@@ -123,6 +144,12 @@
     margin-right: 3px;
   }
 
+  .ownSelect-2 {
+    height: 24px !important;
+    width: calc(50% - 10px) !important;
+    margin: 2px;
+  }
+
   .equ-else {
     display: flex;
     flex-direction: column;
@@ -144,6 +171,14 @@
         // }
       }
     }
+  }
+
+  .equ-trigger {
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin-top: 3px;
   }
 
   .imgcover::after {

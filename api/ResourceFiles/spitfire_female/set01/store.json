@@ -1,8 +1,253 @@
 {
-  "skill_set": [],
+  "skill_set": [
+    {
+      "name": "单兵推进器",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "兵器研究",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "手雷精通",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "弹药改良",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "M18阔剑地雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 50,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "G35感电手雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 48,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "交叉射击",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 48,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "爆裂弹",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "G18冰冻手雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 46,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "聚合弹",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 43,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "C4飞弹",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 43,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "凝固汽油弹",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 41,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "镭射狙击",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 38,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "弹药强化",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 20,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "EMP磁暴",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 15,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "G61重力手雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 30,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "轻火力速射",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 26,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "制空掌握",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 11,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "开火",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 23,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "G96热压手雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 21,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "决战之日",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 8,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "单兵推进器-02X",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 9,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "空袭战略",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "终解·制空霸权",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 5,
+      "directNumber": 0,
+      "damage": true
+    }
+  ],
   "equips_set": [],
   "forge_set": {},
   "other_set": {},
   "clothes_set": {},
-  "equip_list": []
+  "equip_list": [
+    268,
+    308,
+    134
+  ]
 }

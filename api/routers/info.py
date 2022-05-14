@@ -5,6 +5,7 @@ from .token import AlterState, authorize, createToken
 from utils.apiTools import reponse, Return
 from .response import sundryInfo, characterInfo, equipmentInfo
 
+
 infoRouter = APIRouter()
 
 
@@ -82,3 +83,8 @@ async def get_emblem_info():
 @infoRouter.get(path="/triggerlist")
 async def get_emblem_info():
     return reponse(data=equipmentInfo.get_trigger_list())
+
+
+@infoRouter.get(path="/config/{name}")
+async def get_config(name, state: AlterState = Depends(authorize)):
+    return reponse(data=characterInfo.get_set(state.alter, name))

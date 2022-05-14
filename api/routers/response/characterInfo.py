@@ -1,5 +1,5 @@
 import importlib
-from core.set import save
+import core.set as set
 from core.calc.calc import calc_set
 
 
@@ -11,7 +11,11 @@ def get_character_info(character: str):
 
 
 def save_set(alter: str, setName: str, setInfo):
-    return save(alter, setName, setInfo)
+    return set.save(alter, setName, setInfo)
+
+
+def get_set(alter: str, setName: str):
+    return set.get(alter, setName)
 
 
 def calc(alter: str, setName: str):
