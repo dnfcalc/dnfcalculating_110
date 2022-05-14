@@ -6,7 +6,7 @@ from core.calc.calc import calc_set
 def get_character_info(character: str):
     module_name = "core.characters." + character
     character = importlib.import_module(module_name)
-    classChangeInfo = character.classChange()
+    classChangeInfo = character.classChange().getinfo()
     return classChangeInfo
 
 

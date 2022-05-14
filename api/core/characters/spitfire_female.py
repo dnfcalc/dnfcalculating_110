@@ -571,42 +571,30 @@ while i >= 0:
 
 class classChange(Character):
     def __init__(self):
-        self.alter = 'spitfire_female'
-        # 实际名称
-        self.name = '重霄·弹药专家'
-        # 角色
-        self.character = '神枪手(女)'
-        # 输出/奶
-        self.characterType = '输出'
-        # 转职
-        self.classChange = '弹药专家'
-        # 武器类型
-        self.weaponType = ['手弩', '步枪']
-        # 输出类型选择，默认类型为第一个
-        self.carry_type_list = ['魔法固伤', '物理固伤']
-        # 防具类型
-        self.armor = '皮甲'
-        # 防具类型精通，智力、力量
-        self.armor_mastery = ['智力', '力量']
-        # buff倍率
-        self.buff_ratio = 1.84
-        # 技能列表、护石及符文信息
-        self.set_skill_info(skillClassList=技能列表, rune_except=[
-                            '爆裂弹'], clothes_bottom=["远古记忆"])
-        # 个性化设置，技能选项等
-        self.set_individuation()
-        # 药剂等相关信息设置
+        # 固定属性
+        self.实际名称 = 'spitfire_female'
+        self.名称 = '重霄·弹药专家'
+        self.角色 = '神枪手(女)'
+        self.职业类型 = '输出'
+        self.职业 = '弹药专家'
+        self.武器选项 = ['手弩', '步枪']
+        self.输出类型选项 = ['魔法固伤', '物理固伤']
+        self.防具类型 = '皮甲'
+        self.防具精通属性 = ['智力', '力量']
         self.技能栏 = 技能列表
         self.技能序号 = 技能序号
+        self.buff = 1.84
+
+        # 变化属性
         self.类型 = '魔法固伤'
         self.武器类型 = '手弩'
         self.防具类型 = '皮甲'
         self.装备栏 = ['沙漠隐者上衣', '沙漠隐者护肩', '沙漠隐者长裤', '沙漠隐者腰带', '沙漠隐者鞋子',
                     '碎光源力', '士兵荣耀', '移动堡垒', '时间的观点', '盲盒', '虚空中的伪造']  # ,'吞噬根源手弩']
-        self.防具精通属性 = ['智力', '力量']
+        
 
-    def set_individuation(self):
-        self.individuation = [
+    def set_individuation(self, info):
+        info['individuation'] = [
             {"type": "checkbox", "value": "测试checkbox",
                 "items": [], "row":0, "column":0, "key":0},
             {"type": "select", "value": "", "items": [
