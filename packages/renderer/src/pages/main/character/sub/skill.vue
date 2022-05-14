@@ -40,19 +40,19 @@
 
       const buind_skill = ref("EMP磁暴")
 
-      let set: SkillSet[] = []
       const test = ref("0")
 
+      const skills = reactive<SkillSet[]>([])
       characterStore.skillInfo.forEach(item => {
         const temp = characterStore.getSkill(item.name)
         if (characterStore.getSkill(item.name)) {
-          set.push(temp as SkillSet)
+          skills.push(temp as SkillSet)
         } else {
-          set.push({ name: item.name, tp: 0, count: 0, pet: 0, direct: false, level: item.current_LV, directNumber: 0, damage: item.type == 1 })
+          skills.push({ name: item.name, tp: 0, count: 0, pet: 0, direct: false, level: item.current_LV, directNumber: 0, damage: item.type == 1 })
         }
       })
+      characterStore.skill_set = skills
 
-      const skills = reactive<SkillSet[]>(set)
       const highlight = computed(() => {
         return function (index: number) {
           if (skills[index].level > characterStore.skillInfo[index].current_LV) return "warn"

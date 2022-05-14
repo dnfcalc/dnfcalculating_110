@@ -3,7 +3,7 @@ import { defineRequest } from "../common"
 export default defineRequest(req => {
   return {
     getConfig(alter: string, name: string) {
-      return req.get<Record<string, any>>(`/config/${alter}/${name}`).then(r => r.data)
+      return req.get<Record<string, any>>(`/config/${name}`).then(r => r.data)
     },
     switchConfig(alter: string, name: string) {
       return req.post("/config/switch", { alter, name }).then(r => r.data)

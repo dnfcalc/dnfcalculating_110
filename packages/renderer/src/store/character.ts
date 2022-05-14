@@ -3,6 +3,7 @@ import { defineStore } from "pinia"
 import api from "@/api"
 import { ICharacterInfo } from "@/api/character/type"
 import { useConfigStore } from "@/store/config"
+import { useBasicInfoStore } from "@/store/basicInfo"
 import { tryOnScopeDispose } from "@vueuse/core"
 import { RecordToObj } from "@/utils"
 
