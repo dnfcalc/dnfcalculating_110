@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { defineComponent, ref, renderList, computed, reactive, watch } from "vue"
   import profile from "@/components/internal/profile.vue"
-  import { useBasicInfoStore, useCharacterStore } from "@/store"
+  import { useBasicInfoStore, useConfigStore } from "@/store"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { IEquipmentInfo } from "@/api/info/type"
 
@@ -17,14 +17,14 @@
     components: { profile, EquipTips },
     setup() {
       const type = ref(EPIC_EQUIP)
-      const charStore = useCharacterStore()
+      const configStore = useConfigStore()
       const basicStore = useBasicInfoStore()
       const chooseEquList = computed<IEquipmentInfo[]>({
         get() {
-          return charStore.single_set
+          return configStore.data.single_set
         },
         set(val) {
-          charStore.single_set = val
+          configStore.data.single_set = val
         }
       })
 
