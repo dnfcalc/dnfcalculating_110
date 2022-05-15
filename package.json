@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "node scripts/watch.mjs",
+    "web": "vite ./packages/renderer",
     "prebuild": "pnpm -r build",
     "build": "electron-builder",
     "debug": "npm run prebuild && vite ./packages/renderer",
