@@ -4,6 +4,7 @@ import os
 from typing import Dict, List
 from core.baseClass.equipment import equ
 from core.baseClass.enchanting import get_enchanting_setinfo
+from core.baseClass.emblems import get_emblems_setinfo
 
 import requests
 
@@ -70,10 +71,7 @@ def get_enchanting_info():
 
 
 def get_emblems_info():
-    emblems_info = {}
-    with open("./ResourceFiles/dataFiles/emblems-info.json", encoding='utf-8') as fp:
-        emblems_info = json.load(fp)
-    return emblems_info
+    return get_emblems_setinfo()
 
 
 def get_jade_info():

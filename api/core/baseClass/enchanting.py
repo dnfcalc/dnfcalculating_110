@@ -95,7 +95,8 @@ def enchanting_20008(char={}, mode=0, text=False, rate=1.0):
         y = 40 * rate
         char.所有属性强化加成(x)
         char.三攻固定加成(y)
-        char.技能等级加成('主动', 1, 50, 1)
+        if rate == 1:
+            char.技能等级加成('主动', 1, 50, 1)
     if mode == 1:
         pass
 
@@ -110,7 +111,7 @@ def enchanting_20009(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-# 附魔效果列表
+# 附魔效果id范围 20001~24999
 for i in range(20000, 20010):
     try:
         if i not in enchanting_func_list.keys():
@@ -120,14 +121,14 @@ for i in range(20000, 20010):
 
 
 def get_encfunc_by_id(id):
-    return enchanting_func_list.get(int(id), enchanting_20000)
+    return enchanting_func_list.get(id, enchanting_20000)
 
 
 def get_enchanting_setinfo():
     infolist = []
     for i in enchanting_func_list.keys():
         data = {}
-        data['id'] = str(i)
+        data['id'] = i
         info = eval(enchanting_func_list[i](text=True))
         num = 0
         for k in index:
@@ -136,4 +137,4 @@ def get_enchanting_setinfo():
         infolist.append(data)
     return infolist
 
-# 附魔效果id范围 20001~20999
+

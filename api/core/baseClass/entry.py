@@ -10277,7 +10277,7 @@ def entry_10001(char={}, mode=0, text=False, bw=''):
     if mode == 0:
         x = sum(char.词条等级.get(bw, [0]))
         if x >= 240:  # 判断是否穿戴神话装备
-            char.技能攻击力加成(0.01 + 0.01 * int(x / 40))
+            char.技能攻击力加成(0.01 * int((x -200) / 40))
     if mode == 1:
         pass
 

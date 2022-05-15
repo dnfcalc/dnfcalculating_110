@@ -3,6 +3,7 @@ from core.baseClass.equipment import equ
 from core.store import store
 from core.equipment.基础函数 import 基础属性输入, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器强化计算, 锻造计算
 from core.baseClass.enchanting import get_encfunc_by_id
+from core.baseClass.emblems import get_embfunc_by_id
 
 
 class Character:
@@ -310,6 +311,10 @@ class Character:
     def 魔法暴击率增加(self, x):
         self.魔法暴击率 += x
 
+    def 暴击率增加(self, x):
+        self.物理暴击率增加(x)
+        self.魔法暴击率增加(x)
+
     def buff技能等级加成(self, LV, lv):
         # LV级 buff技能等级 + lv
         pass
@@ -524,7 +529,23 @@ class Character:
     def 装备属性计算(self):
         self.装备基础()
         self.附魔计算()
+        self.徽章计算()
         self.装备词条计算()
+
+    def 徽章计算(self):
+        idlist = []
+        for i in 部位列表: #('皮肤', '光环', '武器装扮', )
+            if i in self.打造详情.keys():
+                temp = self.打造详情[i]
+                for j in ['socket_left', 'socket_right']:
+                    id = temp.get(j, 0)
+                    if id != 0:
+                        idlist.append(id)
+        for i in idlist:
+            func = get_embfunc_by_id(i)
+            func(self)
+            # 打印相关函数和效果
+            #print('{}: {}'.format(func, func(self, text=TRUE)))
 
     def 附魔计算(self):
         for i in self.部位附魔.keys():
@@ -837,7 +858,6 @@ class Character:
 
         result = {
             '伤害量': self.伤害量,
-            '火属性强化': self.火属性强化,
             '站街力量': self.站街力量(),
             '站街智力': self.站街智力(),
             '面板力量': self.面板力量(),
