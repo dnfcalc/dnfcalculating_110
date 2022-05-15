@@ -241,7 +241,51 @@
       "damage": true
     }
   ],
-  "forge_set": {},
+  "forge_set": {
+    "头肩": {
+      "cursed_type": 1,
+      "cursed_number": 0,
+      "wisdom_number": 0,
+      "enchanting": 0,
+      "socket_left": 0,
+      "socket_right": 0,
+      "growth_First": 1,
+      "growth_Second": 1,
+      "growth_Third": 1,
+      "growth_Fourth": 1
+    },
+    "petequ": {
+      "red": "0",
+      "green": "0",
+      "blue": "0"
+    },
+    "jade": {
+      "jade_First": "2",
+      "jade_Second": 0,
+      "jade_Third": 0,
+      "jade_Fourth": 0,
+      "jade_First_type": "1",
+      "jade_Second_type": 0,
+      "jade_Third_type": 0,
+      "jade_Fourth_type": 0,
+      "jade_First_value": "5.0"
+    },
+    "others": {
+      "mxtLV": 28,
+      "gh": "2",
+      "gh_buff_SW": "0",
+      "gh_buff_GJ": "0",
+      "HF": "2",
+      "HJ": "4",
+      "JTQY": "1",
+      "SJX_TYPE": "0",
+      "SJX_XY": 0,
+      "SJX_SQ": 0,
+      "XZ_TYPE": "1",
+      "XZ_SHZ": "2",
+      "XZ_QH": 0
+    }
+  },
   "other_set": {},
   "clothes_set": {},
   "single_set": [],

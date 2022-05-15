@@ -2,7 +2,7 @@
   import { IJadeInfo } from "@/api/info/type"
   import { useBasicInfoStore, useConfigStore } from "@/store"
   import { getFloat } from "@/utils"
-  import { computed, defineComponent, renderList } from "vue"
+  import { computed, defineComponent, renderList, watch } from "vue"
 
   export default defineComponent({
     name: "jade",
@@ -53,70 +53,73 @@
       })
 
       // 辟邪玉
-      const jade_First = currentInfo("jade_First")
+      const jade_First_type = currentInfo("jade_First_type")
+      const jade_First_value = currentInfo("jade_First_value")
 
-      const jade_Second = currentInfo("jade_Second")
+      const jade_Second_type = currentInfo("jade_Second_type")
+      const jade_Second_value = currentInfo("jade_Second_type")
 
-      const jade_Third = currentInfo("jade_Third")
+      const jade_Third_type = currentInfo("jade_Third_type")
+      const jade_Third_value = currentInfo("jade_Third_value")
 
-      const jade_Fourth = currentInfo("jade_Fourth")
-
+      const jade_Fourth_type = currentInfo("jade_Fourth_type")
+      const jade_Fourth_value = currentInfo("jade_Fourth_value")
       return () => (
         <div>
           <div class="flex mt-5px">
-            <calc-select v-model={jade_First.value} class="!h-20px flex-1 !mr-10px">
+            <calc-select v-model={jade_First_type.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
               {renderList(basicInfoStore.jade_info ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
 
-            <calc-select class="!h-20px flex-1">
-              {renderList(valueList.value(Number(jade_First.value)) ?? [], item => (
+            <calc-select v-model={jade_First_value.value} class="!h-20px flex-1">
+              {renderList(valueList.value(Number(jade_First_type.value)) ?? [], item => (
                 <calc-option value={item.id}>{item.value}</calc-option>
               ))}
             </calc-select>
           </div>
           <div class="flex mt-5px">
-            <calc-select v-model={jade_Second.value} class="!h-20px flex-1 !mr-10px">
+            <calc-select v-model={jade_Second_type.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
               {renderList(basicInfoStore.jade_info ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
 
-            <calc-select class="!h-20px flex-1">
-              {renderList(valueList.value(Number(jade_Second.value)) ?? [], item => (
-                <calc-option value={item.id}>{item.value}</calc-option>
-              ))}
-            </calc-select>
-          </div>
-
-          <div class="flex mt-5px">
-            <calc-select v-model={jade_Third.value} class="!h-20px flex-1 !mr-10px">
-              <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.jade_info ?? [], item => (
-                <calc-option value={item.id}>{item.props}</calc-option>
-              ))}
-            </calc-select>
-
-            <calc-select class="!h-20px flex-1">
-              {renderList(valueList.value(Number(jade_Third.value)) ?? [], item => (
+            <calc-select v-model={jade_Second_value.value} class="!h-20px flex-1">
+              {renderList(valueList.value(Number(jade_Second_type.value)) ?? [], item => (
                 <calc-option value={item.id}>{item.value}</calc-option>
               ))}
             </calc-select>
           </div>
 
           <div class="flex mt-5px">
-            <calc-select v-model={jade_Fourth.value} class="!h-20px flex-1 !mr-10px">
+            <calc-select v-model={jade_Third_type.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
               {renderList(basicInfoStore.jade_info ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
 
-            <calc-select class="!h-20px flex-1">
-              {renderList(valueList.value(Number(jade_Fourth.value)) ?? [], item => (
+            <calc-select v-model={jade_Third_value.value} class="!h-20px flex-1">
+              {renderList(valueList.value(Number(jade_Third_type.value)) ?? [], item => (
+                <calc-option value={item.id}>{item.value}</calc-option>
+              ))}
+            </calc-select>
+          </div>
+
+          <div class="flex mt-5px">
+            <calc-select v-model={jade_Fourth_type.value} class="!h-20px flex-1 !mr-10px">
+              <calc-option value={0}>无</calc-option>
+              {renderList(basicInfoStore.jade_info ?? [], item => (
+                <calc-option value={item.id}>{item.props}</calc-option>
+              ))}
+            </calc-select>
+
+            <calc-select v-model={jade_Fourth_value.value} class="!h-20px flex-1">
+              {renderList(valueList.value(Number(jade_Fourth_type.value)) ?? [], item => (
                 <calc-option value={item.id}>{item.value}</calc-option>
               ))}
             </calc-select>
