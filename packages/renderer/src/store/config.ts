@@ -16,7 +16,22 @@ export const useConfigStore = defineStore("config", {
     return {
       name: "set",
       alter: "",
-      data: { carry_type: "", attack_attribute: 0, skill_set: [], equips_set: [], forge_set: {}, other_set: {}, clothes_set: {}, single_set: [], equip_list: [], trigger_set: [] },
+      data: {
+        carry_type: "",
+        attack_attribute: 0,
+        skill_set: [],
+        forge_set: {},
+        other_set: {},
+        clothes_set: {},
+        single_set: [],
+        equip_list: [],
+        wisdom_list: [],
+        myths_list: [],
+        lv110_list: [],
+        weapons_list: [],
+        trigger_set: [],
+        skill_que: []
+      },
       token: "",
       _configlist: undefined
     }
@@ -43,6 +58,7 @@ export const useConfigStore = defineStore("config", {
       await api.switchConfig(this.name)
     },
     async save() {
+      this.data.equip_list = [...this.data.wisdom_list, ...this.data.myths_list, ...this.data.weapons_list, ...this.data.lv110_list]
       toObj(this.data)
       // for (let key in this.data) {
       //   console.log(typeof this.data[key])
@@ -67,6 +83,7 @@ export const useConfigStore = defineStore("config", {
       this.data[name] = item
     },
     async calc() {
+      this.data.equip_list = [...this.data.wisdom_list, ...this.data.myths_list, ...this.data.weapons_list, ...this.data.lv110_list]
       api.calc({
         setInfo: toObj(this.data),
         setName: this.name

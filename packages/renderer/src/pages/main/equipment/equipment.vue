@@ -35,12 +35,39 @@
 
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
 
-      const selected = computed({
+      const selected_110 = computed({
         get() {
-          return configStore.data.equip_list
+          return configStore.data.lv110_list
         },
         set(val: number[]) {
-          configStore.data.equip_list = val
+          configStore.data.lv110_list = val
+        }
+      })
+
+      const selected_weapons = computed({
+        get() {
+          return configStore.data.weapons_list
+        },
+        set(val: number[]) {
+          configStore.data.weapons_list = val
+        }
+      })
+
+      const selected_myths = computed({
+        get() {
+          return configStore.data.myths_list
+        },
+        set(val: number[]) {
+          configStore.data.myths_list = val
+        }
+      })
+
+      const selected_wisdom = computed({
+        get() {
+          return configStore.data.wisdom_list
+        },
+        set(val: number[]) {
+          configStore.data.wisdom_list = val
         }
       })
 
@@ -65,7 +92,7 @@
 
       return () => (
         <div class="flex">
-          <EquipList v-model:selected={selected.value} class="equ-105" v-model:highlight={highlight.value} showHighlight={choose_feature.value > 0} list={equips.value} title="Lv110装备">
+          <EquipList v-model:selected={selected_110.value} class="equ-105" v-model:highlight={highlight.value} showHighlight={choose_feature.value > 0} list={equips.value} title="Lv110装备">
             {{
               header() {
                 return (
@@ -80,9 +107,9 @@
             }}
           </EquipList>
           <div class="equ-else">
-            <EquipList v-model:selected={selected.value} class="equ-else-sort" list={myths.value} title="神话装备" />
-            <EquipList v-model:selected={selected.value} class="equ-else-sort" list={wisdom.value} title="智慧产物" />
-            <EquipList v-model:selected={selected.value} class="equ-else-sort" list={weapons.value} title="武器列表" />
+            <EquipList v-model:selected={selected_myths.value} class="equ-else-sort" list={myths.value} title="神话装备" />
+            <EquipList v-model:selected={selected_wisdom.value} class="equ-else-sort" list={wisdom.value} title="智慧产物" />
+            <EquipList v-model:selected={selected_weapons.value} class="equ-else-sort" list={weapons.value} title="武器列表" />
             {
               //<EquipList class="equ-else-sort" list={weapons.value} title="称号" />
             }

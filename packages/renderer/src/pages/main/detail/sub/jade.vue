@@ -52,18 +52,19 @@
         }
       })
 
-      const jude_First = currentInfo("jude_First")
+      // 辟邪玉
+      const jade_First = currentInfo("jade_First")
 
-      const jude_Second = currentInfo("jude_Second")
+      const jade_Second = currentInfo("jade_Second")
 
-      const jude_Third = currentInfo("jude_Third")
+      const jade_Third = currentInfo("jade_Third")
 
-      const jude_Fourth = currentInfo("jude_Fourth")
+      const jade_Fourth = currentInfo("jade_Fourth")
 
       return () => (
         <div>
           <div class="flex mt-5px">
-            <calc-select v-model={jude_First.value} class="!h-20px flex-1 !mr-10px">
+            <calc-select v-model={jade_First.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
               {renderList(basicInfoStore.jade_info ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
@@ -71,13 +72,13 @@
             </calc-select>
 
             <calc-select class="!h-20px flex-1">
-              {renderList(valueList.value(Number(jude_First.value)) ?? [], item => (
+              {renderList(valueList.value(Number(jade_First.value)) ?? [], item => (
                 <calc-option value={item.id}>{item.value}</calc-option>
               ))}
             </calc-select>
           </div>
           <div class="flex mt-5px">
-            <calc-select v-model={jude_Second.value} class="!h-20px flex-1 !mr-10px">
+            <calc-select v-model={jade_Second.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
               {renderList(basicInfoStore.jade_info ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
@@ -85,29 +86,14 @@
             </calc-select>
 
             <calc-select class="!h-20px flex-1">
-              {renderList(valueList.value(Number(jude_Second.value)) ?? [], item => (
-                <calc-option value={item.id}>{item.value}</calc-option>
-              ))}
-            </calc-select>
-          </div>
-
-          <div class="flex mt-5px">
-            <calc-select v-model={jude_Third.value} class="!h-20px flex-1 !mr-10px">
-              <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.jade_info ?? [], item => (
-                <calc-option value={item.id}>{item.props}</calc-option>
-              ))}
-            </calc-select>
-
-            <calc-select class="!h-20px flex-1">
-              {renderList(valueList.value(Number(jude_Third.value)) ?? [], item => (
+              {renderList(valueList.value(Number(jade_Second.value)) ?? [], item => (
                 <calc-option value={item.id}>{item.value}</calc-option>
               ))}
             </calc-select>
           </div>
 
           <div class="flex mt-5px">
-            <calc-select v-model={jude_Fourth.value} class="!h-20px flex-1 !mr-10px">
+            <calc-select v-model={jade_Third.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
               {renderList(basicInfoStore.jade_info ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
@@ -115,7 +101,22 @@
             </calc-select>
 
             <calc-select class="!h-20px flex-1">
-              {renderList(valueList.value(Number(jude_Fourth.value)) ?? [], item => (
+              {renderList(valueList.value(Number(jade_Third.value)) ?? [], item => (
+                <calc-option value={item.id}>{item.value}</calc-option>
+              ))}
+            </calc-select>
+          </div>
+
+          <div class="flex mt-5px">
+            <calc-select v-model={jade_Fourth.value} class="!h-20px flex-1 !mr-10px">
+              <calc-option value={0}>无</calc-option>
+              {renderList(basicInfoStore.jade_info ?? [], item => (
+                <calc-option value={item.id}>{item.props}</calc-option>
+              ))}
+            </calc-select>
+
+            <calc-select class="!h-20px flex-1">
+              {renderList(valueList.value(Number(jade_Fourth.value)) ?? [], item => (
                 <calc-option value={item.id}>{item.value}</calc-option>
               ))}
             </calc-select>

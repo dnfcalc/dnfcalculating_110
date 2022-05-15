@@ -71,7 +71,7 @@
         <div class="flex">
           <div class="flex-column">
             <div class="flex items-center h-31px">
-              <div class="w-28px"></div>
+              <div class="w-28px">技能</div>
               <div class="w-50px !ml-10px text-center">Lv</div>
               <div class="w-50px !ml-5px text-center">TP</div>
               {
@@ -84,7 +84,7 @@
               characterStore.skillInfo,
               (skill, index) =>
                 skill.type == 1 && (
-                  <div class="flex items-center">
+                  <div class="flex items-center mb-3px mt-3px">
                     <div>
                       <calc-tooltip position="right" offset={5}>
                         {{
@@ -117,7 +117,7 @@
                     )}
                     {
                       <calc-select v-model={skills[index].count} class="!w-45px !min-w-45px !h-20px !ml-5px">
-                        {renderList(skill.level_max + 1, item => (
+                        {renderList(100, item => (
                           <calc-option value={item - 1}>
                             <span>{item - 1}</span>
                           </calc-option>

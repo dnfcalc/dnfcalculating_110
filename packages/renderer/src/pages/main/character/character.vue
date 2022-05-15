@@ -22,7 +22,7 @@
               <hotkey></hotkey>
             </div>
           </div>
-          <div class="flex p-5px">
+          <div class="flex p-5px pl-35px">
             <skillqueue></skillqueue>
           </div>
         </div>

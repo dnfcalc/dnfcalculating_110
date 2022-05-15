@@ -97,15 +97,23 @@ interface EquipSet {
 
   data: Map<string, any>
 }
+interface skillQue {
+  name: string
+  id: number
+}
 
 export interface ICharacterSet {
   skill_set: SkillSet[]
+  skill_que: skillQue[]
 
   forge_set: Record<string, Map<string, any>>
 
-  equips_set: EquipSet[]
-
   equip_list: number[]
+
+  wisdom_list: number[]
+  myths_list: number[]
+  weapons_list: number[]
+  lv110_list: number[]
 
   clothes_set: Record<string, Map<string, any>>
 

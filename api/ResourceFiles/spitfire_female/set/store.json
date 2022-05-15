@@ -6,7 +6,7 @@
       "count": 0,
       "pet": 0,
       "direct": false,
-      "level": 10,
+      "level": 0,
       "directNumber": 0,
       "damage": false
     },
@@ -46,7 +46,7 @@
       "count": 0,
       "pet": 0,
       "direct": false,
-      "level": 50,
+      "level": 0,
       "directNumber": 0,
       "damage": true
     },
@@ -241,30 +241,20 @@
       "damage": true
     }
   ],
-  "equips_set": [],
-  "forge_set": {
-    "petequ": {},
-    "others": {},
-    "头肩": {
-      "cursed_number": 22,
-      "cursed_type": 2
-    },
-    "腰带": {
-      "cursed_number": 6
-    }
-  },
+  "forge_set": {},
   "other_set": {},
   "clothes_set": {},
   "single_set": [],
-  "equip_list": [
-    347,
-    150,
-    149
-  ],
+  "equip_list": [],
+  "lv110_list": [],
+  "weapons_list": [],
+  "myths_list": [],
+  "wisdom_list": [],
   "trigger_set": [
     {
       "id": 840,
       "select": 0
     }
-  ]
+  ],
+  "skill_que": []
 }

@@ -7,9 +7,9 @@
     components: {},
     setup(props, { emit, slots }) {
       const characterStore = useCharacterStore()
-      const skillList = computed(() => {
-        return characterStore.skill_set.filter(item => item.direct)
-      })
+      // const skillList = computed(() => {
+      //   return characterStore.skill_set.filter(item => item.direct)
+      // })
       return () => (
         <div class="w-240px">
           <div class="skill-slots subitem mt-2%" style="height:120px">

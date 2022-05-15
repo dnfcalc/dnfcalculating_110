@@ -104,7 +104,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <div {...{ onMouseout, onMouseover }} ref={triggerRef}>
+        <div class="flex items-center" {...{ onMouseout, onMouseover }} ref={triggerRef}>
           {renderSlot(slots, "default")}
           <Teleport to="body">
             <Transition name="dropdown" mode="out-in">

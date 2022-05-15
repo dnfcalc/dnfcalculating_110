@@ -59,7 +59,7 @@
           ? []
           : props.list.map(item => item.id)
         selected.splice(0, selected.length, ...new_arr)
-        props.showHighlight ? emit("update:highlight", []) : console.log("=====")
+        props.showHighlight ?? emit("update:highlight", [])
         emit("update:selected", selected)
       }
 

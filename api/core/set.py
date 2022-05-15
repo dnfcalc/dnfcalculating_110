@@ -58,12 +58,12 @@ def get(alter: str, setName: str):
     if not os.path.exists('./ResourceFiles/{}/{}'.format(alter, setName)):
         set_info = {
             "skill_set": skill_set,
-            "equips_set": [],
             "forge_set": {},
             "other_set": {},
             "clothes_set": {},
             "single_set": [],
             "equip_list": [],
+            "lv110_list": [], "weapons_list": [], "myths_list": [], "wisdom_list": [],
             "trigger_set": trigger
         }
     else:
@@ -73,8 +73,8 @@ def get(alter: str, setName: str):
         # 先简化处理，后续优化
         # todo:比较skill的技能名称
         # todo:比较trigger的id
-        if not len(skillInfo) == set_info['skill_set']:
+        if not len(skillInfo) == len(set_info['skill_set']):
             set_info['skill_set'] = skill_set
-        if not len(trigger) == set_info['trigger_set']:
+        if not len(trigger) == len(set_info['trigger_set']):
             set_info['trigger_set'] = trigger
     return set_info
