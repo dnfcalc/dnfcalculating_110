@@ -46,7 +46,6 @@
       const skills = reactive<SkillSet[]>([])
       characterStore.skillInfo.forEach(item => {
         const temp = configStore.getSkill(item.name)
-        console.log(temp)
         if (configStore.getSkill(item.name)) {
           skills.push(temp as SkillSet)
         } else {

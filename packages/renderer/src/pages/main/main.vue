@@ -3,15 +3,16 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import { defineComponent, ref, renderList } from "vue"
+  import { defineComponent, onBeforeMount, ref, renderList } from "vue"
   import { useRoute } from "vue-router"
 
-  export default defineComponent(() => {
+  export default defineComponent(async () => {
     const char = useRoute().query.name as string
     const appStore = useAppStore()
     const configStore = useConfigStore()
     const characterStore = useCharacterStore()
-    characterStore.newCharacter(char).then(() => {
+
+    await characterStore.newCharacter(char).then(() => {
       appStore.$patch({ title: characterStore.name })
     })
 

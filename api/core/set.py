@@ -39,22 +39,23 @@ def get(alter: str, setName: str):
     取存档
     """
     set_info = {}
+    module_name = "core.characters." + alter
+    character = importlib.import_module(module_name)
+    skillInfo = character.classChange().getinfo()['skillInfo']
+    skill_set = []
+    trigger = equ.get_chose_set(mode=1)
+    for item in skillInfo:
+        skill_set.append({
+            "name": item["name"],
+            "tp": 0,
+            "count": 0,
+            "pet": 0,
+            "direct": False,
+            "level": item["current_LV"],
+            "directNumber": 0,
+            "damage": item["type"] == 1
+        })
     if not os.path.exists('./ResourceFiles/{}/{}'.format(alter, setName)):
-        module_name = "core.characters." + alter
-        character = importlib.import_module(module_name)
-        skillInfo = character.classChange().getinfo()['skillInfo']
-        skill_set = []
-        for item in skillInfo:
-            skill_set.append({
-                "name": item["name"],
-                "tp": 0,
-                "count": 0,
-                "pet": 0,
-                "direct": False,
-                "level": item["current_LV"],
-                "directNumber": 0,
-                "damage": item["type"] == 1
-            })
         set_info = {
             "skill_set": skill_set,
             "equips_set": [],
@@ -63,11 +64,17 @@ def get(alter: str, setName: str):
             "clothes_set": {},
             "single_set": [],
             "equip_list": [],
-            "trigger_set": equ.get_chose_set(mode=1)
+            "trigger_set": trigger
         }
     else:
         with open('./ResourceFiles/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
             set_info = json.load(fp)
         fp.close()
-    #print(set_info)
+        # 先简化处理，后续优化
+        # todo:比较skill的技能名称
+        # todo:比较trigger的id
+        if not len(skillInfo) == set_info['skill_set']:
+            set_info['skill_set'] = skill_set
+        if not len(trigger) == set_info['trigger_set']:
+            set_info['trigger_set'] = trigger
     return set_info

@@ -161,7 +161,6 @@ export function toMap(data: Object) {
       // 需要转换部分,不能是Array,也会被转换
       let sub = {}
       for (let subkey in data[key]) {
-        console.log(subkey)
         Object.defineProperty(sub, subkey, {
           value: new Map(Object.entries(data[key][subkey])),
           writable: true,

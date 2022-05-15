@@ -33,7 +33,7 @@ export const useConfigStore = defineStore("config", {
   actions: {
     async load() {
       // console.log(this.name)
-      api.getConfig(this.name).then(res => {
+      await api.getConfig(this.name).then(res => {
         this.data = toMap(res) as ICharacterSet
       })
     },

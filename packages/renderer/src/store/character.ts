@@ -5,7 +5,6 @@ import { ICharacterInfo } from "@/api/character/type"
 import { useConfigStore } from "@/store/config"
 import { useBasicInfoStore } from "@/store/basicInfo"
 
-
 export interface CharacterInfo extends ICharacterInfo {
   // 基础信息
 }
@@ -41,7 +40,7 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       const state = await api.getCharacter()
       this.$patch(state)
       configStore.$patch({ alter, name: "set" })
-      configStore.load()
+      await configStore.load()
     }
   }
 })

@@ -9,7 +9,7 @@
 
   export default defineComponent({
     components: { EquipTips, EquipList },
-    setup() {
+    async setup() {
       const basicStore = useBasicInfoStore()
       const choose_feature = ref(0)
 
@@ -46,6 +46,8 @@
 
       const trigger_list = computed(() => basicStore.trigger_list ?? [])
 
+      // 没有的就补，多的就删
+
       // watch(triggers, val => {
       //   characterStore.trigger_set = val
       //   console.log(characterStore.trigger_set)
@@ -79,8 +81,8 @@
           </EquipList>
           <div class="equ-else">
             <EquipList v-model:selected={selected.value} class="equ-else-sort" list={myths.value} title="神话装备" />
-            <EquipList class="equ-else-sort" list={wisdom.value} title="智慧产物" />
-            <EquipList class="equ-else-sort" list={weapons.value} title="武器列表" />
+            <EquipList v-model:selected={selected.value} class="equ-else-sort" list={wisdom.value} title="智慧产物" />
+            <EquipList v-model:selected={selected.value} class="equ-else-sort" list={weapons.value} title="武器列表" />
             {
               //<EquipList class="equ-else-sort" list={weapons.value} title="称号" />
             }
