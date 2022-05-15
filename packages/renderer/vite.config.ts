@@ -8,7 +8,7 @@ import pkg from "../../package.json"
 import unocss from "unocss/vite"
 import resolve from "vite-plugin-resolve"
 
-import { presetUno, presetIcons } from "unocss"
+import { presetUno } from "unocss"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -34,7 +34,7 @@ export default defineConfig({
         ]
       ],
 
-      presets: [presetUno(), presetIcons()]
+      presets: [presetUno()]
     }),
     uncomponents({
       dts: true,
@@ -79,9 +79,7 @@ export default defineConfig({
  * For usage of Electron and NodeJS APIs in the Renderer process
  * @see https://github.com/caoxiemeihao/electron-vue-vite/issues/52
  */
-export function resolveElectron(
-  resolves: Parameters<typeof resolve>[0] = {}
-): Plugin {
+export function resolveElectron(resolves: Parameters<typeof resolve>[0] = {}): Plugin {
   const builtins = builtinModules.filter(t => !t.startsWith("_"))
   /**
    * @see https://github.com/caoxiemeihao/vite-plugins/tree/main/packages/resolve#readme

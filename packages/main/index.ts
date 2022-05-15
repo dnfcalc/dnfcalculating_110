@@ -1,7 +1,7 @@
 import { app, BrowserWindow, shell, ipcMain } from "electron"
 import { release } from "os"
 import { join } from "path"
-import { startServer, stopServer } from "../preload/server"
+import { startServer, stopServer } from "./server"
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration()
@@ -92,7 +92,7 @@ app.on("activate", () => {
 })
 
 ipcMain.handle("open-win", (event, arg) => {
-  const ChildWin = new BrowserWindow({
+  const childWindow = new BrowserWindow({
     width: arg.width,
     height: arg.height,
     resizable: false,
@@ -106,18 +106,18 @@ ipcMain.handle("open-win", (event, arg) => {
   })
 
   if (app.isPackaged || process.env["DEBUG"]) {
-    ChildWin.loadFile(join(__dirname, `../renderer/index.html/#${arg.url}`))
+    childWindow.loadFile(join(__dirname, `../renderer/index.html/#${arg.url}`))
   } else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}/#${arg.url}`
 
     try {
-      ChildWin.loadURL(url)
+      childWindow.loadURL(url)
     } catch (ex) {
-      ChildWin.loadURL(`http://${process.env["VITE_DEV_SERVER_HOST"]}:233`)
+      childWindow.loadURL(`http://${process.env["VITE_DEV_SERVER_HOST"]}:233`)
     }
     console.log(url)
-    ChildWin.webContents.openDevTools({ mode: "undocked", activate: true })
+    childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 })
 

@@ -1,0 +1,44 @@
+{
+  "name": "dcalc-electron-renderer",
+  "version": "2022-01-01",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node scripts/watch.mjs",
+    "build": "vite build",
+    "debug": "npm run prebuild && vite ./packages/renderer"
+  },
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.1.0",
+    "@vitejs/plugin-vue-jsx": "^1.3.8",
+    "electron": "16.0.8",
+    "typescript": "^4.5.5",
+    "unocss": "^0.33.4",
+    "unplugin-vue-components": "^0.18.0",
+    "vite": "^2.9.9",
+    "vite-plugin-resolve": "^1.8.0",
+    "vue-tsc": "^0.31.1",
+    "sass": "^1.49.9"
+  },
+  "env": {
+    "//": "Used in build scripts",
+    "VITE_DEV_SERVER_HOST": "127.0.0.1",
+    "VITE_DEV_SERVER_PORT": 25252
+  },
+  "keywords": [
+    "vite",
+    "electron",
+    "vue3",
+    "rollup"
+  ],
+  "dependencies": {
+    "@vueuse/core": "^8.2.6",
+    "axios": "^0.26.0",
+    "pinia": "^2.0.11",
+    "vue": "^3.2.29",
+    "vue-router": "^4.0.13",
+    "vuedraggable": "^4.1.0"
+  }
+}

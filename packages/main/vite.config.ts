@@ -1,6 +1,6 @@
 import { builtinModules } from "module"
 import { defineConfig } from "vite"
-import pkg from "../../package.json"
+import pkg from "./package.json"
 
 export default defineConfig({
   root: __dirname,
@@ -14,11 +14,7 @@ export default defineConfig({
     minify: process.env./* from mode option */ NODE_ENV === "production",
     sourcemap: true,
     rollupOptions: {
-      external: [
-        "electron",
-        ...builtinModules,
-        ...Object.keys(pkg.dependencies || {})
-      ]
+      external: ["electron", ...builtinModules, ...Object.keys(pkg.devDependencies || {})]
     }
   }
 })
