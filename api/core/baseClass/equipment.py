@@ -41,7 +41,7 @@ class equipment:
     def __init__(self, info={}):
         # 读取json获取装备属性
         self.__dict__.update(info)
-        
+
         # 计算防具转甲基础
         if self.类型 in ['布甲', '皮甲', '轻甲', '重甲', '板甲']:
             设置防具基础(self)
@@ -136,7 +136,7 @@ class equipment_list():
         return self.entry_info.get(str(id), [0, 0])
 
     def get_damagelist_by_idlist(self, idlist):
-        damagelist = [] #(部位, 序号, 基础伤害)
+        damagelist = []  # (部位, 序号, 基础伤害)
         for id in idlist:
             i = self.get_equ_by_id(id)
             num = 0
@@ -160,13 +160,15 @@ class equipment_list():
         temp = []
         for id in idlist:
             i = self.get_equ_by_id(id)
-            for k in i.成长属性:
-                temp.append(k)
+            for k in i.成长属性 + i.固有属性:
+                temp.append((k, i.部位))
         # 词条优先级排序
-        #temp.sort(key=(lambda x: priority.get(x, 100)))
+        #temp.sort(key=(lambda x: priority.get(x[0], 100)))
         funclist = []
-        for k in temp:
-            funclist.append(self.get_func_by_id(k))
+        for k, buwei in temp:
+            funclist.append((
+                self.get_func_by_id(k),
+                buwei))
         return funclist
 
     def get_chose_set(self, mode=0):

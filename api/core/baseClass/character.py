@@ -1,7 +1,7 @@
 from pickle import TRUE
 from core.baseClass.equipment import equ
 from core.store import store
-from core.equipment.基础函数 import 基础属性输入, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算
+from core.equipment.基础函数 import 基础属性输入, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器计算, 锻造计算
 
 
 class Character:
@@ -24,7 +24,10 @@ class Character:
     暗抗输入 = 0
     状态 = 0  # 0站街 1图内
     打造详情 = {}
-    装备栏 = []
+    装备栏 = []  # [装备id]
+    部位装备 = {}  # {部位: 装备id}
+    部位附魔 = {}  # {部位: 附魔函数}
+    词条等级 = {}  # {部位: [等级1, 2, 3, 4]}
 
     # 需要职业自定义数据
     实际名称 = ''
@@ -90,6 +93,8 @@ class Character:
         self.加算冷却缩减 = 0.0
         self.百分比减防 = 0.0
         self.固定减防 = 0
+
+        # 其它词条
         self.攻击速度 = 0.00
         self.移动速度 = 0.00
         self.施放速度 = 0.00
@@ -97,6 +102,10 @@ class Character:
         self.回避率 = 0.0
         self.物理暴击率 = 0.00
         self.魔法暴击率 = 0.00
+        self.火属性抗性 = 0
+        self.冰属性抗性 = 0
+        self.光属性抗性 = 0
+        self.暗属性抗性 = 0
 
         # 新属性
         self.伤害量 = 0
@@ -255,6 +264,24 @@ class Character:
             temp = int(self.所有属性强化增加 * x)
         self.所有属性强化(temp)
 
+    def 火属性抗性加成(self, x):
+        self.火属性抗性 += x
+
+    def 冰属性抗性加成(self, x):
+        self.冰属性抗性 += x
+
+    def 光属性抗性加成(self, x):
+        self.光属性抗性 += x
+
+    def 暗属性抗性加成(self, x):
+        self.暗属性抗性 += x
+
+    def 所有属性抗性加成(self, x):
+        self.火属性抗性加成(x)
+        self.冰属性抗性加成(x)
+        self.光属性抗性加成(x)
+        self.暗属性抗性加成(x)
+
     def 攻击速度增加(self, x):
         self.攻击速度 += x
 
@@ -267,11 +294,18 @@ class Character:
     def 命中率增加(self, x):
         self.命中率 += x
 
+    def 回避率增加(self, x):
+        self.回避率 += x
+
     def 物理暴击率增加(self, x):
         self.物理暴击率 += x
 
     def 魔法暴击率增加(self, x):
         self.魔法暴击率 += x
+
+    def buff技能等级加成(self, LV, lv):
+        # LV级 buff技能等级 + lv
+        pass
 
     def 技能等级加成(self, 加成类型, minLv, maxLv, lv):
         lv = int(lv)
@@ -409,8 +443,18 @@ class Character:
         return 面板独立攻击 * self.站街独立攻击力倍率()
     # endregion
 
+    # region 其它函数
     def get_skill_by_name(self, name):
         return self.技能栏[self.技能序号.get(name, 0)]
+
+    def 已穿戴神话(self):
+        for i in self.装备栏:
+            temp = equ.get_equ_by_id(i)
+            if temp.品质 == '神话':
+                return True
+        return False
+
+    # endregion
 
     # 设置技能相关参数
     def skill_set(self, setinfo):
@@ -423,6 +467,16 @@ class Character:
     def equ_chose_set(self, setinfo):
         for i in setinfo:
             equ.set_func_chose({i['id']: i['select']})
+
+    # 设置穿戴的装备
+    def 穿戴装备(self, idlist):
+        self.装备栏 = []
+        self.部位装备 = {}
+        for i in idlist:
+            装备 = equ.get_equ_by_id(i)
+            self.部位装备.update({装备.部位: i})
+        for k in self.部位装备.keys():
+            self.装备栏.append(self.部位装备[k])
 
     # region 伤害计算相关函数
     def 计算伤害预处理(self):
@@ -464,8 +518,8 @@ class Character:
                 self.首饰计算(temp)
             elif temp.类型 == '特殊':
                 self.特殊计算(temp)
-            # else:
-            #    self.武器计算(temp)
+            elif temp.部位 == '武器':
+                self.武器计算(temp)
             self.增幅计算(temp)
         pass
 
@@ -528,8 +582,8 @@ class Character:
                 temp.部位, {}).get('cursed_number', 0))
             self.力量 += x
             self.智力 += x
-    '''
-    def 武器基础(self):
+
+    def 武器基础(self, temp):
         temp = equ.get_equ_by_id(self.装备栏[11])
 
         self.力量 += temp.力量
@@ -538,32 +592,30 @@ class Character:
         self.魔法攻击力 += temp.魔法攻击力
         self.独立攻击力 += temp.独立攻击力
 
-        if temp.所属套装 != '智慧产物':
-            self.物理攻击力 += 武器计算(temp.等级, temp.品质, self.强化等级[11], self.武器类型,
-                               '物理')
-            self.魔法攻击力 += 武器计算(temp.等级, temp.品质, self.强化等级[11], self.武器类型,
-                               '魔法')
-            self.独立攻击力 += 锻造计算(temp.等级, temp.品质, self.武器锻造等级)
-    '''
+        # if temp.所属套装 != '智慧产物':
+        self.物理攻击力 += 武器计算(temp.等级, temp.品质, self.打造详情.get(
+            temp.部位, {}).get('cursed_number', 0), temp.类型,
+            '物理')
+        self.魔法攻击力 += 武器计算(temp.等级, temp.品质, self.打造详情.get(
+            temp.部位, {}).get('cursed_number', 0), temp.类型,
+            '魔法')
+        #self.独立攻击力 += 锻造计算(temp.等级, temp.品质, self.武器锻造等级)
 
     def 装备词条计算(self):
         # 伤害量相关计算
-        词条等级 = {}  # {部位序号:等级}
         for i in 部位列表:
-            num = 0
+            temp = []
             for j in ["growth_First", "growth_Second", "growth_Third", "growth_Fourth"]:
-                key = '{}{}'.format(i, num)
-                词条等级[key] = self.打造详情.get(i, {}).get(j, 1)
-                num += 1
+                temp.append(self.打造详情.get(i, {}).get(j, 1))
+            self.词条等级[i] = temp
         for 部位, 序号, 基础 in equ.get_damagelist_by_idlist(self.装备栏):
-            key = '{}{}'.format(部位, 序号)
-            等级 = 词条等级.get(key, 1)
+            等级 = self.词条等级[部位][序号]
             self.伤害量加成(成长词条计算(基础, 等级))
         # 词条效果相关计算
-        for func in equ.get_func_list_by_idlist(self.装备栏):
-            func(self)
+        for func, buwei in equ.get_func_list_by_idlist(self.装备栏):
+            func(self, buwei)
             # 打印相关函数和效果
-            print('{}: {}'.format(func, func(self, text=TRUE)))
+            print('{}: {}: {}'.format(buwei, func, func(self, text=TRUE)))
 
     def 被动倍率计算(self):
         for i in self.技能栏:
@@ -750,18 +802,14 @@ class Character:
     def calc(self, setName):
         info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
 
-        # 获取技能数据
-        self.skill_set(info['skill_set'])
         # 获取打造数据
         self.打造详情 = info['forge_set']
         # 获取装备列表
-        self.装备栏 = info['equip_list']
+        self.穿戴装备(info['equip_list'])
+        # 获取技能数据
+        self.skill_set(info['skill_set'])
         # 获取装备选项数据
         self.equ_chose_set(info['trigger_set'])
-        print(info['trigger_set'])
-
-        # 词条选择相关信息 {词条id：选择序号}
-        # equ.set_func_chose({})
 
         self.计算伤害预处理()
 

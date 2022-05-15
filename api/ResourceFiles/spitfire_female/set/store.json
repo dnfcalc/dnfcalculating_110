@@ -256,30 +256,14 @@
   "other_set": {},
   "clothes_set": {},
   "single_set": [],
-  "equip_list": [],
+  "equip_list": [
+    347,
+    150,
+    149
+  ],
   "trigger_set": [
     {
-      "id": 839,
-      "select": 0
-    },
-    {
-      "id": 841,
-      "select": 0
-    },
-    {
-      "id": 842,
-      "select": 0
-    },
-    {
-      "id": 843,
-      "select": 0
-    },
-    {
-      "id": 844,
-      "select": 0
-    },
-    {
-      "id": 845,
+      "id": 840,
       "select": 0
     }
   ]
