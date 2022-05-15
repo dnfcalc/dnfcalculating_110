@@ -3,6 +3,7 @@ import sys
 import os
 from typing import Dict, List
 from core.baseClass.equipment import equ
+from core.baseClass.enchanting import get_enchanting_setinfo
 
 import requests
 
@@ -65,10 +66,7 @@ def get_equipment_detail_info(equID):
 
 
 def get_enchanting_info():
-    get_enchanting_info = {}
-    with open("./ResourceFiles/dataFiles/enchanting-info.json", encoding='utf-8') as fp:
-        get_enchanting_info = json.load(fp)
-    return get_enchanting_info
+    return get_enchanting_setinfo()
 
 
 def get_emblems_info():
