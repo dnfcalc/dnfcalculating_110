@@ -3,7 +3,7 @@
   "version": "2022-01-01",
   "license": "MIT",
   "scripts": {
-    "dev": "node scripts/watch.mjs",
+    "dev": "vite",
     "build": "vite build",
     "debug": "npm run prebuild && vite ./packages/renderer"
   },
