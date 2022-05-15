@@ -703,13 +703,13 @@ class Character:
         # 基础面板 不含百分比力智和百分比三攻
         if mode == 0:
             if self.类型 == '物理百分比':
-                return int((self.面板力量() / self.百分比力智 / 250 + 1) * self.面板物理攻击力() / self.百分比三攻)
+                return int((self.面板力量() / (1 + self.百分比力智) / 250 + 1) * self.面板物理攻击力() / (1 + self.百分比三攻))
             elif self.类型 == '魔法百分比':
-                return int((self.面板智力() / self.百分比力智 / 250 + 1) * self.面板魔法攻击力() / self.百分比三攻)
+                return int((self.面板智力() / (1 + self.百分比力智) / 250 + 1) * self.面板魔法攻击力() / (1 + self.百分比三攻))
             elif self.类型 == '物理固伤':
-                return int((self.面板力量() / self.百分比力智 / 250 + 1) * self.面板独立攻击力() / self.百分比三攻)
+                return int((self.面板力量() / (1 + self.百分比力智) / 250 + 1) * self.面板独立攻击力() / (1 + self.百分比三攻))
             elif self.类型 == '魔法固伤':
-                return int((self.面板智力() / self.百分比力智 / 250 + 1) * self.面板独立攻击力() / self.百分比三攻)
+                return int((self.面板智力() / (1 + self.百分比力智) / 250 + 1) * self.面板独立攻击力() / (1 + self.百分比三攻))
         else:
             if self.类型 == '物理百分比':
                 return int((self.面板力量() / 250 + 1) * self.面板物理攻击力())
@@ -758,6 +758,7 @@ class Character:
         self.装备栏 = info['equip_list']
         # 获取装备选项数据
         self.equ_chose_set(info['trigger_set'])
+        print(info['trigger_set'])
 
         # 词条选择相关信息 {词条id：选择序号}
         # equ.set_func_chose({})
