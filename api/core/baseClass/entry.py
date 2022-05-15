@@ -6401,24 +6401,6 @@ def entry_838(char={}, mode=0, text=False):
         pass
 
 
-def entry_839_1(char={}, mode=0, text=False):
-    if text:
-        return "839新效果测试1"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_839_2(char={}, mode=0, text=False):
-    if text:
-        return "839新效果测试2"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_839(char={}, mode=0, text=False):
     if text:
         return "暴击5次时，使300px范围内所有敌人进入灼伤状态(冷却时间10秒)"
@@ -6427,22 +6409,34 @@ def entry_839(char={}, mode=0, text=False):
     if mode == 1:
         pass
 
-
-entry_func_list[839] = [entry_839_1, entry_839_2]
-entry_func_list[841] = [entry_839_1, entry_839_2]
-entry_func_list[842] = [entry_839_1, entry_839_2]
-entry_func_list[843] = [entry_839_1, entry_839_2]
-entry_func_list[844] = [entry_839_1, entry_839_2]
-entry_func_list[845] = [entry_839_1, entry_839_2]
-
-
 def entry_840(char={}, mode=0, text=False):
     if text:
-        return "背包与仓库金币总和达到1亿以上时，物理、魔法暴击率 +10%, 背包与仓库金币总和达到4亿以上时，技能攻击力 +3%"
+        return "金币1亿以下(无效果)"
     if mode == 0:
         pass
     if mode == 1:
         pass
+
+def entry_840_1(char={}, mode=0, text=False):
+    if text:
+        return "金币1亿以上(10%暴击)"
+    if mode == 0:
+        char.物理暴击率增加(0.1)
+        char.魔法暴击率增加(0.1)
+    if mode == 1:
+        pass
+
+def entry_840_2(char={}, mode=0, text=False):
+    if text:
+        return "金币4亿以上(3%技攻)"
+    if mode == 0:
+        char.物理暴击率增加(0.1)
+        char.魔法暴击率增加(0.1)
+        char.技能攻击力增加(0.03)
+    if mode == 1:
+        pass
+
+entry_func_list[840] = [entry_840, entry_840_1, entry_840_2]
 
 
 def entry_841(char={}, mode=0, text=False):

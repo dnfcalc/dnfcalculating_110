@@ -1,7 +1,7 @@
 from pickle import TRUE
 from core.baseClass.equipment import equ
 from core.store import store
-from core.equipment.基础函数 import 基础属性输入, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算
+from core.equipment.基础函数 import 基础属性输入, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算
 
 
 class Character:
@@ -100,6 +100,7 @@ class Character:
 
         # 新属性
         self.伤害量 = 0
+        self.百分比伤害量 = 0.0
         self.buff量 = 0
 
         # 设置基础属性
@@ -128,7 +129,7 @@ class Character:
         talisman = []  # 护石
         platinum = []  # 白金
         clothes = []  # 时装
-        print(self.技能栏)
+        # print(self.技能栏)
         for skill in self.技能栏:
             skill.等级 = skill.基础等级
             skillInfo.append({
@@ -168,6 +169,11 @@ class Character:
     # endregion
 
     # region 词条属性
+    def 伤害量加成(self, x):
+        self.伤害量 += x
+
+    def buff量加成(self, x):
+        self.buff量 += x
 
     def 附加伤害加成(self, x, 辟邪玉加成=1):
         self.附加伤害 += self.附加伤害增加增幅 * x if 辟邪玉加成 == 1 else x
@@ -413,6 +419,11 @@ class Character:
             k.等级 = i['level']
             k.TP等级 = i['tp']
 
+    # 设置装备选项参数
+    def equ_chose_set(self, setinfo):
+        for i in setinfo:
+            equ.set_func_chose({i['id']: i['select']})
+
     # region 伤害计算相关函数
     def 计算伤害预处理(self):
         self.装备属性计算()
@@ -536,6 +547,19 @@ class Character:
     '''
 
     def 装备词条计算(self):
+        # 伤害量相关计算
+        词条等级 = {}  # {部位序号:等级}
+        for i in 部位列表:
+            num = 0
+            for j in ["growth_First", "growth_Second", "growth_Third", "growth_Fourth"]:
+                key = '{}{}'.format(i, num)
+                词条等级[key] = self.打造详情.get(i, {}).get(j, 1)
+                num += 1
+        for 部位, 序号, 基础 in equ.get_damagelist_by_idlist(self.装备栏):
+            key = '{}{}'.format(部位, 序号)
+            等级 = 词条等级.get(key, 1)
+            self.伤害量加成(成长词条计算(基础, 等级))
+        # 词条效果相关计算
         for func in equ.get_func_list_by_idlist(self.装备栏):
             func(self)
             # 打印相关函数和效果
@@ -675,19 +699,26 @@ class Character:
             self.属性倍率 = self.属性倍率组[3]
         '''
 
-    def 面板系数计算(self):
-        if self.类型 == '物理百分比':
-            return int((self.面板力量() / 250 + 1) * self.面板物理攻击力() *
-                       (1 + self.百分比三攻))
-        elif self.类型 == '魔法百分比':
-            return int((self.面板智力() / 250 + 1) * self.面板魔法攻击力() *
-                       (1 + self.百分比三攻))
-        elif self.类型 == '物理固伤':
-            return int((self.面板力量() / 250 + 1) * self.面板独立攻击力() *
-                       (1 + self.百分比三攻))
-        elif self.类型 == '魔法固伤':
-            return int((self.面板智力() / 250 + 1) * self.面板独立攻击力() *
-                       (1 + self.百分比三攻))
+    def 面板系数计算(self, mode=1):
+        # 基础面板 不含百分比力智和百分比三攻
+        if mode == 0:
+            if self.类型 == '物理百分比':
+                return int((self.面板力量() / self.百分比力智 / 250 + 1) * self.面板物理攻击力() / self.百分比三攻)
+            elif self.类型 == '魔法百分比':
+                return int((self.面板智力() / self.百分比力智 / 250 + 1) * self.面板魔法攻击力() / self.百分比三攻)
+            elif self.类型 == '物理固伤':
+                return int((self.面板力量() / self.百分比力智 / 250 + 1) * self.面板独立攻击力() / self.百分比三攻)
+            elif self.类型 == '魔法固伤':
+                return int((self.面板智力() / self.百分比力智 / 250 + 1) * self.面板独立攻击力() / self.百分比三攻)
+        else:
+            if self.类型 == '物理百分比':
+                return int((self.面板力量() / 250 + 1) * self.面板物理攻击力())
+            elif self.类型 == '魔法百分比':
+                return int((self.面板智力() / 250 + 1) * self.面板魔法攻击力())
+            elif self.类型 == '物理固伤':
+                return int((self.面板力量() / 250 + 1) * self.面板独立攻击力())
+            elif self.类型 == '魔法固伤':
+                return int((self.面板智力() / 250 + 1) * self.面板独立攻击力())
 
     def 伤害指数计算(self):
 
@@ -699,16 +730,18 @@ class Character:
 
         self.属性倍率计算()
 
-        面板 = self.面板系数计算()
+        # 基础面板 不含百分比力智和百分比三攻
+        基础面板 = self.面板系数计算(mode=0)
+        显示面板 = self.面板系数计算(mode=1)
 
-        增伤倍率 = 1 + int(self.伤害增加 * 100) / 100
-        增伤倍率 *= 1 + self.暴击伤害
-        增伤倍率 *= 1 + self.最终伤害
-        增伤倍率 *= self.技能攻击力
-        增伤倍率 *= 1 + self.持续伤害  # * self.持续伤害计算比例
-        增伤倍率 *= 1 + self.附加伤害 + self.属性附加 * self.属性倍率
+        新 = self.伤害量 * (1 + self.百分比伤害量) * 0.001
+        旧 = 1 + int(self.伤害增加 * 100) / 100
+        旧 *= 1 + self.暴击伤害
+        旧 *= 1 + self.最终伤害
+        旧 *= 1 + self.持续伤害
+        旧 *= 1 + self.附加伤害 + self.属性附加 * self.属性倍率
 
-        self.伤害指数 = 面板 * self.属性倍率 * 增伤倍率 * 基准倍率 / 100  # * self.队友增幅系数
+        self.伤害指数 = (新 * 基础面板 + 旧 * 显示面板) * self.技能攻击力 * self.属性倍率 * 基准倍率
 
         # 7.8日,伤害数据压缩
         self.伤害指数 /= 1000
@@ -723,6 +756,8 @@ class Character:
         self.打造详情 = info['forge_set']
         # 获取装备列表
         self.装备栏 = info['equip_list']
+        # 获取装备选项数据
+        self.equ_chose_set(info['trigger_set'])
 
         # 词条选择相关信息 {词条id：选择序号}
         # equ.set_func_chose({})
@@ -730,6 +765,7 @@ class Character:
         self.计算伤害预处理()
 
         result = {
+            '伤害量': self.伤害量,
             '站街力量': self.站街力量(),
             '站街智力': self.站街智力(),
             '面板力量': self.面板力量(),
@@ -743,5 +779,5 @@ class Character:
             '伤害指数': self.伤害指数,
             'result': self.伤害计算(info['skill_set']),
         }
-        #print(result)
+        print(result)
         return info

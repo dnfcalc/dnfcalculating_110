@@ -69,5 +69,5 @@ def get(alter: str, setName: str):
         with open('./ResourceFiles/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
             set_info = json.load(fp)
         fp.close()
-    print(set_info)
+    #print(set_info)
     return set_info
