@@ -3,7 +3,6 @@
   import { useCharacterStore, useConfigStore } from "@/store"
   import { skill_icon } from "./utils"
   import draggable from "vuedraggable"
-  import { isIfStatement } from "@babel/types"
 
   export default defineComponent({
     name: "skillqueue",
@@ -40,7 +39,7 @@
 
       const item = (item: any, index: number) => {
         return (
-          <div class="w-28px h-28px m-2px">
+          <div class="h-28px m-2px w-28px">
             <img src={skill_icon(characterStore.alter, item.element.name)} />
           </div>
         )
@@ -48,9 +47,9 @@
 
       return () => (
         <div class="w-300px">
-          <div class="skill-slots subitem h-100%">
+          <div class="h-100% skill-slots subitem">
             <div class="head-sec">技能队列设置</div>
-            <draggable class="body-sec flex flex-wrap" v-model:list={configStore.data.skill_que} group={{ name: "people", pull: "clone", put: false }} itemKey="id">
+            <draggable class="flex flex-wrap body-sec" v-model:list={configStore.data.skill_que} group={{ name: "people", pull: "clone", put: false }} itemKey="id">
               {{
                 item: item
               }}

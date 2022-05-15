@@ -103,7 +103,7 @@
       align-items: center;
       justify-content: end;
       z-index: 2;
-      height: 35px;
+      height: 48px;
     }
 
     .center {

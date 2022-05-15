@@ -12,7 +12,7 @@
           <div class="name">
             {skill.name} Lv {skill.current_LV}
           </div>
-          <div class="info text-right">冷却时间:{skill.CD}秒</div>
+          <div class="text-right info">冷却时间:{skill.CD}秒</div>
           <div class="info">学习等级:{+skill.need_level}</div>
           <div class="info">精通等级:{+skill.level_master}</div>
           <div class="info">上限等级:{+skill.level_max}</div>
@@ -54,12 +54,17 @@
       })
       configStore.data.skill_set = skills
 
-      const highlight = computed(() => {
-        return function (index: number) {
-          if (skills[index].level > characterStore.skillInfo[index].current_LV) return "warn"
-          if (skills[index].level < characterStore.skillInfo[index].current_LV) return "remind"
+      function highlight(index: number) {
+        if (skills[index].level > characterStore.skillInfo[index].current_LV) return "warn"
+        if (skills[index].level < characterStore.skillInfo[index].current_LV) return "remind"
+      }
+
+      function skillTips(index: number) {
+        const minus = skills[index].level - characterStore.skillInfo[index].current_LV
+        if (minus != 0) {
+          return `${minus > 0 ? "超出" : "低于"}标准Lv${Math.abs(minus)}`
         }
-      })
+      }
 
       watch(skills, val => {
         configStore.data.skill_set = val
@@ -70,21 +75,21 @@
       return () => (
         <div class="flex">
           <div class="flex-column">
-            <div class="flex items-center h-31px">
+            <div class="flex h-31px items-center">
               <div class="w-28px">技能</div>
-              <div class="w-50px !ml-10px text-center">Lv</div>
-              <div class="w-50px !ml-5px text-center">TP</div>
+              <div class="text-center w-50px !ml-10px">Lv</div>
+              <div class="text-center w-50px !ml-5px">TP</div>
               {
-                <div class="w-50px !ml-5px text-center">次数</div>
-                // <div class="w-50px !ml-5px text-center">宠物次数</div>
+                <div class="text-center w-50px !ml-5px">次数</div>
+                // <div class="text-center w-50px !ml-5px">宠物次数</div>
               }
-              <div class="w-68px !ml-10px text-center">手搓相关</div>
+              <div class="text-center w-68px !ml-10px">手搓相关</div>
             </div>
             {renderList(
               characterStore.skillInfo,
               (skill, index) =>
                 skill.type == 1 && (
-                  <div class="flex items-center mb-3px mt-3px">
+                  <div class="flex mt-3px mb-3px items-center">
                     <div>
                       <calc-tooltip position="right" offset={5}>
                         {{
@@ -97,7 +102,7 @@
                         }}
                       </calc-tooltip>
                     </div>
-                    <calc-select v-model={skills[index].level} highlight={highlight.value(index)} class="!w-45px !min-w-45px !h-20px !ml-10px">
+                    <calc-select v-model={skills[index].level} title={skillTips(index)} highlight={highlight(index)} class="!h-20px !ml-10px !min-w-45px !w-45px">
                       {renderList(skill.level_max + 1, item => (
                         <calc-option value={item - 1}>
                           <span>{item - 1}</span>
@@ -105,7 +110,7 @@
                       ))}
                     </calc-select>
                     {(skill.TP_max as number) > 0 ? (
-                      <calc-select v-model={skills[index].tp} class="!w-45px !min-w-45px !h-20px !ml-5px">
+                      <calc-select v-model={skills[index].tp} class="!h-20px !ml-5px !min-w-45px !w-45px">
                         {renderList((skill.TP_max as number) + 1, item => (
                           <calc-option value={item - 1}>
                             <span>{item - 1}</span>
@@ -113,10 +118,10 @@
                         ))}
                       </calc-select>
                     ) : (
-                      <div class="!w-50px !h-20px !ml-5px"></div>
+                      <div class="!h-20px !ml-5px !w-50px"></div>
                     )}
                     {
-                      <calc-select v-model={skills[index].count} class="!w-45px !min-w-45px !h-20px !ml-5px">
+                      <calc-select v-model={skills[index].count} class="!h-20px !ml-5px !min-w-45px !w-45px">
                         {renderList(100, item => (
                           <calc-option value={item - 1}>
                             <span>{item - 1}</span>
@@ -131,7 +136,7 @@
                       //   ))}
                       // </calc-select>
                     }
-                    <div class="w-20px !ml-5px justify-center">
+                    <div class="w-20px justify-center !ml-5px">
                       <calc-checkbox v-model={skills[index].direct}></calc-checkbox>
                     </div>
 
@@ -165,7 +170,7 @@
                         }}
                       </calc-tooltip>
                     </div>
-                    <calc-select v-model={skills[index].level} highlight={highlight.value(index)} class={"!w-45px !min-w-45px !h-20px !ml-10px"}>
+                    <calc-select v-model={skills[index].level} highlight={highlight(index)} class={"!w-45px !min-w-45px !h-20px !ml-10px"}>
                       {renderList(skill.level_max + 1, item => (
                         <calc-option value={item - 1}>
                           <span>{item - 1}</span>
@@ -175,23 +180,23 @@
                   </div>
                 )
             )}
-            <div class="flex items-center justify-center mt-20px">
+            <div class="flex mt-20px items-center justify-center">
               <img src={skill_icon(characterStore.alter, "BUFF")} />
-              <calc-autocomplete class="!w-50px !min-w-45px ml-10px" v-model={test.value}></calc-autocomplete>
+              <calc-autocomplete class="ml-10px !min-w-45px !w-50px" v-model={test.value}></calc-autocomplete>
             </div>
 
-            <div class="flex flex-column items-center justify-center mt-20px">
-              <div onClick={() => (buind_skill.value = wakens.value[0].name)} class="h-50px w-38px" style="background-image:url('./images/common/waken.png');position:relative">
+            <calc-selection v-model={buind_skill.value} class="flex flex-column mt-20px items-center justify-center">
+              <calc-item value={wakens.value[0].name} class="h-50px w-38px" style="background-image:url('./images/common/waken.png');position:relative">
                 {buind_skill.value == wakens.value[0].name ? <div></div> : <div class="waken"></div>}
-                <img class="ml-5px mt-3px" src={skill_icon(characterStore.alter, wakens.value[0].name)} />
-                <div class="w-100% text-center">1次</div>
-              </div>
-              <div onClick={() => (buind_skill.value = wakens.value[1].name)} class="h-50px w-38px ml-10px" style="background-image:url('./images/common/waken.png');position:relative">
+                <img class="mt-3px ml-5px" src={skill_icon(characterStore.alter, wakens.value[0].name)} />
+                <div class="text-center w-100%">1次</div>
+              </calc-item>
+              <calc-item value={wakens.value[1].name} class="h-50px ml-10px w-38px" style="background-image:url('./images/common/waken.png');position:relative">
                 {buind_skill.value == wakens.value[1].name ? <div></div> : <div class="waken"></div>}
-                <img class="ml-5px mt-3px" src={skill_icon(characterStore.alter, wakens.value[1].name)} />
-                <div class="w-100% text-center">2次</div>
-              </div>
-            </div>
+                <img class="mt-3px ml-5px" src={skill_icon(characterStore.alter, wakens.value[1].name)} />
+                <div class="text-center w-100%">2次</div>
+              </calc-item>
+            </calc-selection>
           </div>
         </div>
       )
