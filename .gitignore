@@ -22,4 +22,4 @@ build
 *.log
 components.d.ts
 packages/renderer/components.d.ts
-api/ResourceFiles/*/set
+api/ResourceFiles/**/set
