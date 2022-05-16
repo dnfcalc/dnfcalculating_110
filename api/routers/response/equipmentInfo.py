@@ -5,6 +5,7 @@ from typing import Dict, List
 from core.baseClass.equipment import equ
 from core.baseClass.enchanting import get_enchanting_setinfo
 from core.baseClass.emblems import get_emblems_setinfo
+from core.baseClass.jade import get_jade_setinfo
 
 import requests
 
@@ -75,10 +76,7 @@ def get_emblems_info():
 
 
 def get_jade_info():
-    jade_info = {}
-    with open("./ResourceFiles/dataFiles/jade-data.json", encoding='utf-8') as fp:
-        jade_info = json.load(fp)
-    return jade_info
+    return get_jade_setinfo()
 
 
 def get_trigger_list():

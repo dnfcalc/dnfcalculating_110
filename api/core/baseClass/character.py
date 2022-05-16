@@ -374,46 +374,53 @@ class Character:
     # endregion
 
     # region 面板相关函数
+
+    # 基础力量智力(站街力量智力)
     def 站街力量(self):
         return int(self.力量)
 
     def 站街智力(self):
         return int(self.智力)
 
-    def 面板力量(self):
+    # 新词条计算的力量智力
+
+    def 基础面板力量(self):
         return (self.力量 + int((self.力量 - self.基础力量) * self.系统奶系数 + self.系统奶基数)
-                + self.进图力量) * (1 + self.百分比力智)
+                + self.进图力量)
+
+    def 基础面板智力(self):
+        return (self.智力 + int((self.智力 - self.基础智力) * self.系统奶系数 + self.系统奶基数)
+                + self.进图智力)
+
+    # 旧词条计算的力量智力(图内力量智力)
+
+    def 面板力量(self):
+        return self.基础面板力量() * (1 + self.百分比力智)
 
     def 面板智力(self):
-        return (self.智力 + int((self.智力 - self.基础智力) * self.系统奶系数 + self.系统奶基数)
-                + self.进图智力) * (1 + self.百分比力智)
+        return self.基础面板智力() * (1 + self.百分比力智)
+
+    # 站街生效的技能三攻倍率
 
     def 站街物理攻击力倍率(self):
         站街物理攻击倍率 = 1.0
         for i in self.技能栏:
-            try:
-                站街物理攻击倍率 *= i.物理攻击力倍率(self.武器类型)
-            except:
-                pass
+            站街物理攻击倍率 *= i.物理攻击力倍率(self.武器类型)
         return 站街物理攻击倍率
 
     def 站街魔法攻击力倍率(self):
         站街魔法攻击倍率 = 1.0
         for i in self.技能栏:
-            try:
-                站街魔法攻击倍率 *= i.魔法攻击力倍率(self.武器类型)
-            except:
-                pass
+            站街魔法攻击倍率 *= i.魔法攻击力倍率(self.武器类型)
         return 站街魔法攻击倍率
 
     def 站街独立攻击力倍率(self):
         站街独立攻击倍率 = 1.0
         for i in self.技能栏:
-            try:
-                站街独立攻击倍率 *= i.独立攻击力倍率(self.武器类型)
-            except:
-                pass
+            站街独立攻击倍率 *= i.独立攻击力倍率(self.武器类型)
         return 站街独立攻击倍率
+
+    # 站街三攻
 
     def 站街物理攻击力(self):
         return self.物理攻击力 * self.站街物理攻击力倍率()
@@ -424,35 +431,41 @@ class Character:
     def 站街独立攻击力(self):
         return self.独立攻击力 * self.站街独立攻击力倍率()
 
-    def 面板物理攻击力(self):
-        面板物理攻击 = (self.物理攻击力 + self.进图物理攻击力) * (1 + self.百分比三攻) * (
-            1 + self.年宠技能 * 0.10 + self.斗神之吼秘药 * 0.12 + self.白兔子技能 * 0.20)
+
+    # 新词条计算的三攻(旧词条需要额外乘百分比三攻)
+    def 基础面板物理攻击力(self):
+        面板物理攻击 = self.物理攻击力 + self.进图物理攻击力
         for i in self.技能栏:
-            try:
-                面板物理攻击 *= i.物理攻击力倍率进图(self.武器类型)
-            except:
-                pass
+            面板物理攻击 *= i.物理攻击力倍率进图(self.武器类型)
         return 面板物理攻击 * self.站街物理攻击力倍率()
 
-    def 面板魔法攻击力(self):
-        面板魔法攻击 = (self.魔法攻击力 + self.进图魔法攻击力) * (1 + self.百分比三攻) * (
-            1 + self.年宠技能 * 0.10 + self.斗神之吼秘药 * 0.12 + self.白兔子技能 * 0.20)
+    def 基础面板魔法攻击力(self):
+        面板魔法攻击 = self.魔法攻击力 + self.进图魔法攻击力
         for i in self.技能栏:
-            try:
-                面板魔法攻击 *= i.魔法攻击力倍率进图(self.武器类型)
-            except:
-                pass
+            面板魔法攻击 *= i.魔法攻击力倍率进图(self.武器类型)
         return 面板魔法攻击 * self.站街魔法攻击力倍率()
 
-    def 面板独立攻击力(self):
-        面板独立攻击 = (self.独立攻击力 + self.进图独立攻击力) * \
-            (1 + self.百分比三攻)
+    def 基础面板独立攻击力(self):
+        面板独立攻击 = self.独立攻击力 + self.进图独立攻击力
         for i in self.技能栏:
-            try:
-                面板独立攻击 *= i.独立攻击力倍率进图(self.武器类型)
-            except:
-                pass
+            面板独立攻击 *= i.独立攻击力倍率进图(self.武器类型)
         return 面板独立攻击 * self.站街独立攻击力倍率()
+
+
+    # 图内显示的三攻(不参与伤害计算)
+    def 面板物理攻击力(self):
+        面板物理攻击 = self.基础面板物理攻击力() * (1 + self.百分比三攻) * (
+            1 + self.年宠技能 * 0.10 + self.斗神之吼秘药 * 0.12 + self.白兔子技能 * 0.20)
+        return 面板物理攻击
+
+    def 面板魔法攻击力(self):
+        面板魔法攻击 = self.基础面板魔法攻击力() * (1 + self.百分比三攻) * (
+            1 + self.年宠技能 * 0.10 + self.斗神之吼秘药 * 0.12 + self.白兔子技能 * 0.20)
+        return 面板魔法攻击
+
+    def 面板独立攻击力(self):
+        面板独立攻击 = self.基础面板独立攻击力() * (1 + self.百分比三攻)
+        return 面板独立攻击
     # endregion
 
     # region 其它函数
@@ -798,22 +811,23 @@ class Character:
         # 基础面板 不含百分比力智和百分比三攻
         if mode == 0:
             if self.类型 == '物理百分比':
-                return int((self.面板力量() / (1 + self.百分比力智) / 250 + 1) * self.面板物理攻击力() / (1 + self.百分比三攻))
+                return int((self.基础面板力量() / 250 + 1) * self.基础面板物理攻击力())
             elif self.类型 == '魔法百分比':
-                return int((self.面板智力() / (1 + self.百分比力智) / 250 + 1) * self.面板魔法攻击力() / (1 + self.百分比三攻))
+                return int((self.基础面板智力() / 250 + 1) * self.基础面板魔法攻击力())
             elif self.类型 == '物理固伤':
-                return int((self.面板力量() / (1 + self.百分比力智) / 250 + 1) * self.面板独立攻击力() / (1 + self.百分比三攻))
+                return int((self.基础面板力量() / 250 + 1) * self.基础面板独立攻击力())
             elif self.类型 == '魔法固伤':
-                return int((self.面板智力() / (1 + self.百分比力智) / 250 + 1) * self.面板独立攻击力() / (1 + self.百分比三攻))
+                return int((self.基础面板智力() / 250 + 1) * self.基础面板独立攻击力())
+        # 旧版算法 不含斗神、宠物技能等
         else:
             if self.类型 == '物理百分比':
-                return int((self.面板力量() / 250 + 1) * self.面板物理攻击力())
+                return int((self.面板力量() / 250 + 1) * self.基础面板物理攻击力() * (1 + self.百分比三攻))
             elif self.类型 == '魔法百分比':
-                return int((self.面板智力() / 250 + 1) * self.面板魔法攻击力())
+                return int((self.面板智力() / 250 + 1) * self.基础面板魔法攻击力() * (1 + self.百分比三攻))
             elif self.类型 == '物理固伤':
-                return int((self.面板力量() / 250 + 1) * self.面板独立攻击力())
+                return int((self.面板力量() / 250 + 1) * self.基础面板独立攻击力() * (1 + self.百分比三攻))
             elif self.类型 == '魔法固伤':
-                return int((self.面板智力() / 250 + 1) * self.面板独立攻击力())
+                return int((self.面板智力() / 250 + 1) * self.基础面板独立攻击力() * (1 + self.百分比三攻))
 
     def 伤害指数计算(self):
 
@@ -827,7 +841,7 @@ class Character:
 
         # 基础面板 不含百分比力智和百分比三攻
         基础面板 = self.面板系数计算(mode=0)
-        显示面板 = self.面板系数计算(mode=1)
+        旧版面板 = self.面板系数计算(mode=1)
 
         新 = self.伤害量 * (1 + self.百分比伤害量) * 0.001
         旧 = 1 + int(self.伤害增加 * 100) / 100
@@ -836,7 +850,7 @@ class Character:
         旧 *= 1 + self.持续伤害
         旧 *= 1 + self.附加伤害 + self.属性附加 * self.属性倍率
 
-        self.伤害指数 = (新 * 基础面板 + 旧 * 显示面板) * self.技能攻击力 * self.属性倍率 * 基准倍率
+        self.伤害指数 = (新 * 基础面板 + 旧 * 旧版面板) * self.技能攻击力 * self.属性倍率 * 基准倍率
 
         # 7.8日,伤害数据压缩
         self.伤害指数 /= 1000
