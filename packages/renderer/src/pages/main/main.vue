@@ -16,7 +16,7 @@
       appStore.$patch({ title: characterStore.name })
     })
 
-    const cacl = () => {
+    const calc = () => {
       configStore.calc()
     }
 
@@ -67,7 +67,7 @@
                 </calc-select>
               </div>
               <div class="flex col-4 justify-center">
-                <calc-button class="!h-28px" onClick={cacl}>
+                <calc-button class="!h-28px" onClick={calc}>
                   开始计算
                 </calc-button>
               </div>

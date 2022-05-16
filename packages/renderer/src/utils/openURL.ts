@@ -3,11 +3,15 @@ import type { Router } from "vue-router"
 export default function openURL(url: string, { width = 0, height = 0 } = {}, router?: Router) {
   try {
     if (width * height > 0) {
-      window.ipcRenderer.invoke("open-win", {
-        url: url,
-        width,
-        height
-      })
+      if (window.ipcRenderer) {
+        window.ipcRenderer.invoke("open-win", {
+          url: url,
+          width,
+          height
+        })
+      } else {
+        router?.push(url)
+      }
     } else {
       if (router) {
         url = router.resolve({

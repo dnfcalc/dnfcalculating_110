@@ -10,6 +10,7 @@ export interface IAlterInfo {
   default_value: string
   class: string[]
   options: string[]
+  open?: boolean
 }
 
 export interface IEquipmentInfo {

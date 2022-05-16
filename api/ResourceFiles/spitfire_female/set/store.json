@@ -288,7 +288,114 @@
   },
   "other_set": {},
   "clothes_set": {},
-  "single_set": [],
+  "single_set": [
+    {
+      "groupId": 26,
+      "id": 181,
+      "type": 4,
+      "typeName": "辅助装备",
+      "icon": "/specials/support/315.png",
+      "name": "虚拟现实眼镜"
+    },
+    {
+      "groupId": 13,
+      "id": 346,
+      "type": 3,
+      "typeName": "项链",
+      "icon": "/jewels/necklace/281.png",
+      "name": "士兵荣耀"
+    },
+    {
+      "groupId": 33,
+      "id": 142,
+      "type": 3,
+      "typeName": "手镯",
+      "icon": "/jewels/bracelet/292.png",
+      "name": "碎光源力"
+    },
+    {
+      "groupId": 24,
+      "id": 370,
+      "type": 3,
+      "typeName": "戒指",
+      "icon": "/jewels/ring/341.png",
+      "name": "移动堡垒"
+    },
+    {
+      "groupId": 26,
+      "id": 313,
+      "type": 2,
+      "typeName": "鞋",
+      "icon": "/armors/cloth_shoes/92.png",
+      "name": "沙漠隐者鞋子"
+    },
+    {
+      "groupId": 26,
+      "id": 247,
+      "type": 2,
+      "typeName": "上衣",
+      "icon": "/armors/cloth_coat/98.png",
+      "name": "沙漠隐者上衣",
+      "features": [
+        1,
+        5,
+        6,
+        9,
+        10
+      ],
+      "customize": [
+        600,
+        601
+      ]
+    },
+    {
+      "groupId": 13,
+      "id": 265,
+      "type": 2,
+      "typeName": "下装",
+      "icon": "/armors/cloth_pants/94.png",
+      "name": "沙漠隐者长裤"
+    },
+    {
+      "groupId": 26,
+      "id": 290,
+      "type": 2,
+      "typeName": "头肩",
+      "icon": "/armors/cloth_neck/90.png",
+      "name": "沙漠隐藏护肩"
+    },
+    {
+      "groupId": 13,
+      "id": 238,
+      "type": 2,
+      "typeName": "腰带",
+      "icon": "/armors/cloth_belt/88.png",
+      "name": "沙漠隐者腰带"
+    },
+    {
+      "groupId": 13,
+      "id": 200,
+      "type": 4,
+      "typeName": "魔法石",
+      "icon": "/specials/magicstone/299.png",
+      "name": "不败勋章"
+    },
+    {
+      "groupId": 13,
+      "id": 216,
+      "type": 4,
+      "typeName": "耳环",
+      "icon": "/specials/earrring/97.png",
+      "name": "操作指令"
+    },
+    {
+      "groupId": 2,
+      "id": 108,
+      "type": 1,
+      "typeName": "武器",
+      "icon": "/arms/gunner/bowgun/185.png"
+    }
+  ],
   "equip_list": [],
   "lv110_list": [],
   "weapons_list": [],
@@ -297,7 +404,7 @@
   "trigger_set": [
     {
       "id": 840,
-      "select": 0
+      "select": 1
     }
   ],
   "skill_que": []

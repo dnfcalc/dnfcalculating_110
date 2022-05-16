@@ -1,9 +1,7 @@
-import { ICharacterSet } from "@/api/info/type"
 import { defineStore } from "pinia"
-import api from "@/api"
 import { ICharacterInfo } from "@/api/character/type"
 import { useConfigStore } from "@/store/config"
-import { useBasicInfoStore } from "@/store/basicInfo"
+import api from "@/api"
 
 export interface CharacterInfo extends ICharacterInfo {
   // 基础信息

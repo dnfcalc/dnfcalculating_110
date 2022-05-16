@@ -1,5 +1,5 @@
 import { builtinModules } from "module"
-import { defineConfig, Plugin } from "vite"
+import { defineConfig, Plugin, PluginOption } from "vite"
 import path from "path"
 import vue from "@vitejs/plugin-vue"
 import jsx from "@vitejs/plugin-vue-jsx"

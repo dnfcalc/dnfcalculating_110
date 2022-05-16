@@ -534,7 +534,7 @@ class Character:
 
     def 徽章计算(self):
         idlist = []
-        for i in 部位列表: #('皮肤', '光环', '武器装扮', )
+        for i in 部位列表:  # ('皮肤', '光环', '武器装扮', )
             if i in self.打造详情.keys():
                 temp = self.打造详情[i]
                 for j in ['socket_left', 'socket_right']:
@@ -872,4 +872,4 @@ class Character:
             'result': self.伤害计算(info['skill_set']),
         }
         print(result)
-        return info
+        return result

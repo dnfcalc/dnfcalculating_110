@@ -16,12 +16,15 @@ export function startServer() {
     }
     if (process.platform == "win32") {
       // TODO 启动python api 待改进 后续添加端口占用判断等
-      instance = child_process.spawn(`python`, [`api/main.py`, `${port}`])
+      instance = child_process.spawn(`python`, [`${__dirname}/../../api/main.py`, `${port}`])
     } else {
       instance = child_process.spawn("python3", [`${__dirname}/../../api/main.py`, `${port}`])
     }
     if (instance) {
       console.log("server started.")
+      instance.stdout?.pipe(process.stdout)
+      instance.stderr?.pipe(process.stderr)
+      instance.stdin?.pipe(process.stdin)
     }
   })
 }

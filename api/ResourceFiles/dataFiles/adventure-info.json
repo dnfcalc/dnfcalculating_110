@@ -187,6 +187,7 @@
         "name": "spitfire_male",
         "title": "重霄·弹药专家",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
@@ -315,6 +316,7 @@
         "name": "enchantress",
         "title": "知源·小魔女",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       }

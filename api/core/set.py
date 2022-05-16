@@ -55,7 +55,7 @@ def get(alter: str, setName: str):
             "directNumber": 0,
             "damage": item["type"] == 1
         })
-    if not os.path.exists('./ResourceFiles/{}/{}'.format(alter, setName)):
+    if not os.path.exists('./ResourceFiles/{}/{}/store.json'.format(alter, setName)):
         set_info = {
             "skill_set": skill_set,
             "forge_set": {},

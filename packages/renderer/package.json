@@ -1,6 +1,6 @@
 {
   "name": "dcalc-electron-renderer",
-  "version": "2022-01-01",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "dev": "vite",

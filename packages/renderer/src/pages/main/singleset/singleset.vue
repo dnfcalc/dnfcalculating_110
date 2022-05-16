@@ -119,7 +119,7 @@
               </calc-tabs>
             </div>
             <div class="h-140 w-120 overflow-y-auto equ">
-              {renderList(350, (item, index) => {
+              {renderList(325, (item, index) => {
                 const equ = getEquip(index)
                 return (
                   <div class="equ-item">
