@@ -9,7 +9,7 @@ from core.baseClass.emblems import get_emblems_setinfo
 import requests
 
 
-os.chdir(sys.path[0])
+os.chdir(os.path.dirname(sys.argv[0]))
 equ_details = dict()
 
 

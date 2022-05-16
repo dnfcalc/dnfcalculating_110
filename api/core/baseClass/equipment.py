@@ -4,7 +4,7 @@ import json
 import sys
 import os
 
-os.chdir(sys.path[0])
+os.chdir(os.path.dirname(sys.argv[0]))
 
 
 def get_eq_info_data():

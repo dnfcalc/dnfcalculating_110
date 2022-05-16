@@ -3,7 +3,7 @@ import sys
 import requests
 import os
 
-os.chdir(sys.path[0])
+os.chdir(os.path.dirname(sys.argv[0]))
 
 
 def get_adventure_info():

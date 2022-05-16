@@ -36,6 +36,6 @@ if __name__ == '__main__':
         # 访问端口，默认 8080,后续需要做端口检测是否被占用
         port=port,
         # 热更新，有内容修改自动重启服务器
-        reload=True,
+        reload=sys.argv[0].endswith(".py"),
         # 同 reload
-        debug=True)
+        debug=sys.argv[0].endswith(".py"))
