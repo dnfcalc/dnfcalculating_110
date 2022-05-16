@@ -1,6 +1,7 @@
 {
   "appId": "dnfcalc",
-  "asar": true,
+  // 后续改成true
+  "asar": false,
   "directories": {
     "output": "release/${version}"
   },

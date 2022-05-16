@@ -32,7 +32,8 @@
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.5.5",
-    "vite": "^2.9.9"
+    "vite": "^2.9.9",
+    "app-builder-lib": "22.14.5"
   },
   "env": {
     "//": "Used in build scripts",
@@ -44,8 +45,5 @@
     "electron",
     "vue3",
     "rollup"
-  ],
-  "dependencies": {
-    "app-builder-lib": "22.14.5"
-  }
+  ]
 }

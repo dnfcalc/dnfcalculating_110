@@ -23,3 +23,4 @@ build
 components.d.ts
 packages/renderer/components.d.ts
 api/ResourceFiles/**/set
+ResourceFiles

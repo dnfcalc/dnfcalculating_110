@@ -1,5 +1,5 @@
 const port: number = 17173
-
+import { app } from "electron"
 import child_process from "child_process"
 
 let instance: child_process.ChildProcess
@@ -12,7 +12,10 @@ export function startServer() {
   judgeServerOpen(17173).then(res => {
     if (!res) {
       console.log("17173 is in used")
-      return
+      // return
+    }
+    if (app.isPackaged || process.env["DEBUG"]) {
+      instance = child_process.spawn(`main.exe`)
     }
     if (process.platform == "win32") {
       // TODO 启动python api 待改进 后续添加端口占用判断等
@@ -55,10 +58,11 @@ export function stopServer() {
   // TODO 关闭python api
   if (instance) {
     instance.kill(0) && console.log("server stoped.")
-    if (process.platform == "win32") {
-      child_process.exec("taskkill /f /im python.exe")
-    } else {
-      child_process.exec("killall Python")
-    }
+  }
+  if (process.platform == "win32") {
+    child_process.exec("taskkill /f /im python.exe")
+    child_process.exec("taskkill /f /im main.exe")
+  } else {
+    child_process.exec("killall Python")
   }
 }

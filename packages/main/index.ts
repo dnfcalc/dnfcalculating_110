@@ -59,9 +59,9 @@ async function createWindow() {
 
   win.setMenuBarVisibility(false)
 }
-
-app.whenReady().then(startServer).then(createWindow)
-// app.whenReady().then(createWindow)
+startServer()
+// app.whenReady().then(startServer).then(createWindow)
+app.whenReady().then(createWindow)
 
 app.on("window-all-closed", () => {
   win = null
@@ -106,7 +106,9 @@ ipcMain.handle("open-win", (event, arg) => {
   })
 
   if (app.isPackaged || process.env["DEBUG"]) {
-    childWindow.loadFile(join(__dirname, `../renderer/index.html/#${arg.url}`))
+    childWindow.loadFile(join(__dirname, `../renderer/index.html`), {
+      hash: `${arg.url}`
+    })
   } else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}/#${arg.url}`
