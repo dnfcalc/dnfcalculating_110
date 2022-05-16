@@ -10,7 +10,7 @@ let instance: child_process.ChildProcess
  */
 export function startServer() {
   judgeServerOpen(17173).then(res => {
-    if (res) {
+    if (!res) {
       console.log("17173 is in used")
       return
     }

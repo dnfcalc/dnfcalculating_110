@@ -228,6 +228,7 @@
         "name": "spitfire_female",
         "title": "重霄·弹药专家",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
@@ -236,6 +237,7 @@
         "url": "https://bbs.colg.cn",
         "title": "",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       }

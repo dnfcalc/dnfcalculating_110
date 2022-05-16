@@ -9,8 +9,9 @@
     ]
   },
   "scripts": {
-    "dev": "pnpm --filter=dcalc-electron-renderer dev",
     "dev-server": "python ./api/main.py",
+    "dev": "pnpm --filter=dcalc-electron-renderer dev",
+    "dev-elec": "node scripts/watch.mjs",
     "prebuild": "pnpm -r build",
     "build": "electron-builder",
     "debug": "npm run prebuild && vite ./packages/renderer",
