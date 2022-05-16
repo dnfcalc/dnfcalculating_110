@@ -4,12 +4,6 @@ from core.baseClass.character import Character
 from core.baseClass.skill import 主动技能, 被动技能
 
 
-class SkillFrame:
-    data: list[float]
-    hits: int
-    power: int
-
-
 class 职业主动技能(主动技能):
     技能施放时间 = 0.0
     脱手 = 1
