@@ -10,7 +10,10 @@ from core.baseClass.jade import get_jade_setinfo
 import requests
 
 
-os.chdir(os.path.dirname(sys.argv[0]))
+try:
+    os.chdir(os.path.dirname(sys.argv[0]))
+except:
+    pass
 equ_details = dict()
 
 

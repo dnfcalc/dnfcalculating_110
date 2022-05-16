@@ -53,17 +53,17 @@
       })
 
       // 辟邪玉
-      const jade_First_type = currentInfo("jade_First_type")
-      const jade_First_value = currentInfo("jade_First_value")
+      const jade_First_type = currentInfo("jade_First_type", 0)
+      const jade_First_value = currentInfo("jade_First_value", 0)
 
-      const jade_Second_type = currentInfo("jade_Second_type")
-      const jade_Second_value = currentInfo("jade_Second_type")
+      const jade_Second_type = currentInfo("jade_Second_type", 0)
+      const jade_Second_value = currentInfo("jade_Second_value", 0)
 
-      const jade_Third_type = currentInfo("jade_Third_type")
-      const jade_Third_value = currentInfo("jade_Third_value")
+      const jade_Third_type = currentInfo("jade_Third_type", 0)
+      const jade_Third_value = currentInfo("jade_Third_value", 0)
 
-      const jade_Fourth_type = currentInfo("jade_Fourth_type")
-      const jade_Fourth_value = currentInfo("jade_Fourth_value")
+      const jade_Fourth_type = currentInfo("jade_Fourth_type", 0)
+      const jade_Fourth_value = currentInfo("jade_Fourth_value", 0)
       return () => (
         <div>
           <div class="flex mt-5px">

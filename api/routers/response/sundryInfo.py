@@ -3,7 +3,10 @@ import sys
 import requests
 import os
 
-os.chdir(os.path.dirname(sys.argv[0]))
+try:
+    os.chdir(os.path.dirname(sys.argv[0]))
+except:
+    pass
 
 
 def get_adventure_info():

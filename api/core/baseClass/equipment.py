@@ -4,7 +4,10 @@ import json
 import sys
 import os
 
-os.chdir(os.path.dirname(sys.argv[0]))
+try:
+    os.chdir(os.path.dirname(sys.argv[0]))
+except:
+    pass
 
 
 def get_eq_info_data():
