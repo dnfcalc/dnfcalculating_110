@@ -1,9 +1,12 @@
+from multiprocessing.sharedctypes import Value
 from pickle import TRUE
+from sys import float_repr_style
 from core.baseClass.equipment import equ
 from core.store import store
 from core.equipment.基础函数 import 基础属性输入, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器强化计算, 锻造计算
 from core.baseClass.enchanting import get_encfunc_by_id
 from core.baseClass.emblems import get_embfunc_by_id
+from core.baseClass.jade import get_jadefunc_by_id
 
 
 class Character:
@@ -431,8 +434,8 @@ class Character:
     def 站街独立攻击力(self):
         return self.独立攻击力 * self.站街独立攻击力倍率()
 
-
     # 新词条计算的三攻(旧词条需要额外乘百分比三攻)
+
     def 基础面板物理攻击力(self):
         面板物理攻击 = self.物理攻击力 + self.进图物理攻击力
         for i in self.技能栏:
@@ -451,8 +454,8 @@ class Character:
             面板独立攻击 *= i.独立攻击力倍率进图(self.武器类型)
         return 面板独立攻击 * self.站街独立攻击力倍率()
 
-
     # 图内显示的三攻(不参与伤害计算)
+
     def 面板物理攻击力(self):
         面板物理攻击 = self.基础面板物理攻击力() * (1 + self.百分比三攻) * (
             1 + self.年宠技能 * 0.10 + self.斗神之吼秘药 * 0.12 + self.白兔子技能 * 0.20)
@@ -512,6 +515,7 @@ class Character:
 
     # region 伤害计算相关函数
     def 计算伤害预处理(self):
+        self.辟邪玉计算()
         self.装备属性计算()
         self.所有属性强化(self.进图属强)
         self.CD倍率计算()
@@ -544,6 +548,19 @@ class Character:
         self.附魔计算()
         self.徽章计算()
         self.装备词条计算()
+
+    def 辟邪玉计算(self):
+        if 'jade' not in self.打造详情.keys():
+            return
+        setinfo = self.打造详情['jade']
+        for i in ['jade_First', 'jade_Second', 'jade_Third', 'jade_Fourth']:
+            if i + '_type' in setinfo.keys():
+                id = setinfo[i + '_type']
+                value = float(setinfo[i + '_value'])
+                func = get_jadefunc_by_id(id)
+                func(self, value)
+                # 打印相关函数和效果
+                #print('{}: {}: {}'.format(func, value, func(self, text=TRUE)))
 
     def 徽章计算(self):
         idlist = []
@@ -668,8 +685,8 @@ class Character:
             self.伤害量加成(成长词条计算(基础, 等级))
         # 词条效果相关计算
         for func, buwei in equ.get_func_list_by_idlist(self.装备栏):
-            func(self, bw=buwei)  # 站街效果
-            func(self, mode=1, bw=buwei)  # 进图效果
+            func(self, part=buwei)  # 站街效果
+            func(self, mode=1, part=buwei)  # 进图效果
             # 打印相关函数和效果
             #print('{}: {}: {}'.format(buwei, func, func(self, text=TRUE)))
 
@@ -862,7 +879,7 @@ class Character:
         # 获取打造数据
         self.打造设置(info['forge_set'])
         # 获取装备列表
-        self.穿戴装备(info['equip_list'])
+        self.穿戴装备(info['lv110_list'])
         # 获取技能数据
         self.skill_set(info['skill_set'])
         # 获取装备选项数据
@@ -885,5 +902,5 @@ class Character:
             '伤害指数': self.伤害指数,
             'result': self.伤害计算(info['skill_set']),
         }
-        print(result)
+        #print(result)
         return result

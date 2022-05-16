@@ -168,10 +168,10 @@ class equipment_list():
         # 词条优先级排序
         #temp.sort(key=(lambda x: priority.get(x[0], 100)))
         funclist = []
-        for k, buwei in temp:
+        for k, part in temp:
             funclist.append((
                 self.get_func_by_id(k),
-                buwei))
+                part))
         return funclist
 
     def get_chose_set(self, mode=0):
