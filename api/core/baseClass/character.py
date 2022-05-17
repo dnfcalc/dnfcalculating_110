@@ -98,6 +98,15 @@ class Character:
         self.加算冷却缩减 = 0.0
         self.百分比减防 = 0.0
         self.固定减防 = 0
+        self.直接伤害 = 1.0
+        self.中毒伤害 = 0.0
+        self.灼烧伤害 = 0.0
+        self.感电伤害 = 0.0
+        self.出血伤害 = 0.0
+        self.中毒伤害系数 = 1.0
+        self.灼烧伤害系数 = 1.0
+        self.感电伤害系数 = 1.0
+        self.出血伤害系数 = 1.0
 
         # 其它词条
         self.攻击速度 = 0.00
@@ -183,6 +192,15 @@ class Character:
     # endregion
 
     # region 词条属性
+    def 伤害类型转化(self, 类型1, 类型2, x):
+        # 直接 中毒 灼烧 感电 出血
+        self.__dict__[类型1 + '伤害'] -= x
+        self.__dict__[类型2 + '伤害'] += x
+
+    def 异常增伤(self, 类型, x):
+        # 中毒 灼烧 感电 出血
+        self.__dict__[类型 + '伤害系数'] += x
+
     def 伤害量加成(self, x):
         self.伤害量 += x
 
