@@ -12,7 +12,7 @@
     setup(props, { emit, slots }) {
       const characterStore = useCharacterStore()
       const configStore = useConfigStore()
-      const canChooseSkill = ref(configStore.data.skill_que)
+      let canChooseSkill = ref(configStore.data.skill_que)
 
       watch(configStore.data.skill_set, val => {
         let tem: { name: string; id: number }[] = []
@@ -31,10 +31,14 @@
         configStore.data.skill_set.forEach(item => {
           if (item.count > 0 && item.level > 0 && item.damage) for (var i = 0; i < item.count; i++) tem.push({ name: item.name, id: 0 })
         })
-        configStore.data.skill_que = tem.map((item, index) => {
+        canChooseSkill.value = tem.map((item, index) => {
           item.id = index
           return item
         })
+      })
+
+      watch(canChooseSkill.value, val => {
+        configStore.data.skill_que = val
       })
 
       const item = (item: any, index: number) => {
@@ -42,6 +46,7 @@
           <div class="h-28px m-2px w-28px">
             <img src={skill_icon(characterStore.alter, item.element.name)} />
           </div>
+          // <div class="list-group-item">{item.element.name}</div>
         )
       }
 
@@ -49,7 +54,7 @@
         <div class="w-300px">
           <div class="h-100% skill-slots subitem">
             <div class="head-sec">技能队列设置</div>
-            <draggable class="flex flex-wrap body-sec" v-model:list={configStore.data.skill_que} group={{ name: "people", pull: "clone", put: false }} itemKey="id">
+            <draggable class="flex flex-wrap body-sec" v-model:list={canChooseSkill.value} group={{ name: "people", pull: "clone", put: false }} itemKey="id">
               {{
                 item: item
               }}

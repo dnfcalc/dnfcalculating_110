@@ -15,7 +15,7 @@
     "prebuild": "pnpm -r build",
     "build": "electron-builder",
     "debug": "npm run prebuild && vite ./packages/renderer",
-    "postinstall": "husky install && patch-package",
+    "postinstall": "husky install",
     "clean-pycache": "rimraf ./**/__pycache__",
     "clean-deps": "rimraf ./**/node_modules",
     "release": "bumpp"
@@ -45,5 +45,8 @@
     "electron",
     "vue3",
     "rollup"
-  ]
+  ],
+  "dependencies": {
+    "vuedraggable": "^4.1.0"
+  }
 }

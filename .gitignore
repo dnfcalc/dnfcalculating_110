@@ -18,7 +18,6 @@ dist-ssr
 tmp
 **/.tmp
 release
-build
 *.log
 components.d.ts
 packages/renderer/components.d.ts
