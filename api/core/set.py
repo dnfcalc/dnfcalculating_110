@@ -58,6 +58,7 @@ def get(alter: str, setName: str):
     if not os.path.exists('./ResourceFiles/{}/{}/store.json'.format(alter, setName)):
         set_info = {
             "skill_set": skill_set,
+            "skill_que": [],
             "forge_set": {},
             "other_set": {},
             "clothes_set": {},

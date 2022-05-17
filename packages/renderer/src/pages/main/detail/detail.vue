@@ -14,7 +14,7 @@
         <div class="detail">
           <div>
             <profile canChoose={true} showDetail={false} class="ml-auto mr-auto"></profile>
-            <calc-collapse class="w-510px" title="装备打造">
+            <calc-collapse class="w-510px" title="装备打造(点击人物部位切换)">
               <equip />
             </calc-collapse>
             <calc-collapse class="w-510px" title="装扮部分">

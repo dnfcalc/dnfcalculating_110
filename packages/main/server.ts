@@ -14,8 +14,11 @@ export function startServer() {
       console.log("17173 is in used")
       // return
     }
-    if (app.isPackaged || process.env["DEBUG"]) {
-      instance = child_process.spawn(`main.exe`)
+    if (app.isPackaged) {
+      // exec不会报错 spawn会抛错
+      child_process.exec(`"./resources/dnfcalc-api.exe"`)
+      console.log("server started.")
+      return
     }
     if (process.platform == "win32") {
       // TODO 启动python api 待改进 后续添加端口占用判断等
@@ -59,10 +62,11 @@ export function stopServer() {
   if (instance) {
     instance.kill(0) && console.log("server stoped.")
   }
-  if (process.platform == "win32") {
-    child_process.exec("taskkill /f /im python.exe")
-    child_process.exec("taskkill /f /im main.exe")
-  } else {
-    child_process.exec("killall Python")
+  if (app.isPackaged) {
+    if (process.platform == "win32") {
+      child_process.exec("taskkill /f /im dnfcalc-api.exe")
+    } else {
+      child_process.exec("killall Python")
+    }
   }
 }

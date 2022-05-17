@@ -14,11 +14,8 @@ export default function openURL(url: string, { width = 0, height = 0 } = {}, rou
       }
     } else {
       if (router) {
-        url = router.resolve({
-          path: url
-        }).href
+        url = router.resolve({ path: url }).href
       }
-      console.log(url)
       window.open(url, "_blank")
     }
   } catch (err) {

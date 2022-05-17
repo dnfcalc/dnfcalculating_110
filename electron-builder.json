@@ -1,7 +1,6 @@
 {
   "appId": "dnfcalc",
-  // 后续改成true
-  "asar": false,
+  "asar": true,
   "directories": {
     "output": "release/${version}"
   },
@@ -17,6 +16,7 @@
         "arch": ["x64"]
       }
     ],
+    "requestedExecutionLevel": "requireAdministrator",
     "artifactName": "${productName}_${version}.${ext}"
   },
   "nsis": {
@@ -24,5 +24,15 @@
     "perMachine": false,
     "allowToChangeInstallationDirectory": true,
     "deleteAppDataOnUninstall": false
-  }
+  },
+  "extraResources": [
+    {
+      "from": "api/main.exe",
+      "to": "dnfcalc-api.exe"
+    },
+    {
+      "from": "api/ResourceFiles",
+      "to": "ResourceFiles"
+    }
+  ]
 }
