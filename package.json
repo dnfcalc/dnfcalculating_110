@@ -12,9 +12,7 @@
     "dev-server": "python ./api/main.py",
     "dev": "pnpm --filter=dcalc-electron-renderer dev",
     "dev-elec": "node scripts/watch.mjs",
-    "prebuild": "pnpm -r build",
-    "build": "electron-builder",
-    "debug": "npm run prebuild && vite ./packages/renderer",
+    "build": "node internal/build.mjs",
     "postinstall": "husky install",
     "clean-pycache": "rimraf ./**/__pycache__",
     "clean-deps": "rimraf ./**/node_modules",
@@ -24,10 +22,8 @@
     "node": ">=14.17.0"
   },
   "devDependencies": {
-    "app-builder-lib": "22.14.5",
     "bumpp": "^7.1.1",
     "electron": "16.0.8",
-    "electron-builder": "^22.14.5",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.5",
     "prettier": "^2.5.1",
