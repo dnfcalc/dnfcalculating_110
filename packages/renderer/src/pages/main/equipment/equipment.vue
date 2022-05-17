@@ -37,37 +37,37 @@
 
       const selected_110 = computed({
         get() {
-          return configStore.data.lv110_list
+          return configStore.lv110_list
         },
         set(val: number[]) {
-          configStore.data.lv110_list = val
+          configStore.lv110_list = val
         }
       })
 
       const selected_weapons = computed({
         get() {
-          return configStore.data.weapons_list
+          return configStore.weapons_list
         },
         set(val: number[]) {
-          configStore.data.weapons_list = val
+          configStore.weapons_list = val
         }
       })
 
       const selected_myths = computed({
         get() {
-          return configStore.data.myths_list
+          return configStore.myths_list
         },
         set(val: number[]) {
-          configStore.data.myths_list = val
+          configStore.myths_list = val
         }
       })
 
       const selected_wisdom = computed({
         get() {
-          return configStore.data.wisdom_list
+          return configStore.wisdom_list
         },
         set(val: number[]) {
-          configStore.data.wisdom_list = val
+          configStore.wisdom_list = val
         }
       })
 
@@ -118,8 +118,8 @@
             {trigger_list.value &&
               renderList(trigger_list.value, (trigger, index) => (
                 <>
-                  {configStore.data.trigger_set[index] && (
-                    <calc-select v-model={configStore.data.trigger_set[index].select} class="ownSelect-2">
+                  {configStore.trigger_set[index] && (
+                    <calc-select v-model={configStore.trigger_set[index].select} class="ownSelect-2">
                       {renderList(trigger.selectList, (item, index) => (
                         <>
                           <calc-option value={index}>{item}</calc-option>

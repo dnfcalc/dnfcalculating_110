@@ -52,7 +52,11 @@ export const useConfigStore = defineStore("config", {
         clothes_set: state.clothes_set,
         single_set: state.single_set,
         trigger_set: state.trigger_set,
-        skill_que: state.skill_que
+        skill_que: state.skill_que,
+        wisdom_list: state.wisdom_list,
+        myths_list: state.myths_list,
+        weapons_list: state.weapons_list,
+        lv110_list: state.lv110_list
       }
     }
   },
@@ -94,6 +98,7 @@ export const useConfigStore = defineStore("config", {
       this[name] = item
     },
     async calc() {
+      console.log(this.data)
       await api.calc({
         setInfo: toObj(this.data),
         setName: this.name

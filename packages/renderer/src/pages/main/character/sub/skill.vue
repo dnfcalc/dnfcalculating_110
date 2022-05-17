@@ -52,7 +52,7 @@
           skills.push({ name: item.name, tp: 0, count: 0, pet: 0, direct: false, level: item.current_LV, directNumber: 0, damage: item.type == 1 })
         }
       })
-      configStore.data.skill_set = skills
+      configStore.skill_set = skills
 
       function highlight(index: number) {
         if (skills[index].level > characterStore.skillInfo[index].current_LV) return "warn"
@@ -67,7 +67,7 @@
       }
 
       watch(skills, val => {
-        configStore.data.skill_set = val
+        configStore.skill_set = val
       })
 
       const wakens = computed(() => characterStore.skillInfo.filter(item => item.need_level == 50 || item.need_level == 85))

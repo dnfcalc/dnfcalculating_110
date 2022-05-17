@@ -38,7 +38,7 @@
         }
         console.log(child)
         if (child.open) {
-          openURL("/character?name=" + child.name, { width: 1200, height: 720 }, router)
+          openURL("/character?name=" + child.name, { width: 1200, height: 865 }, router)
         } else {
           openURL("/show", { width: 800, height: 800 }, router)
         }

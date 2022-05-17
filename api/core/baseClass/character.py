@@ -555,8 +555,12 @@ class Character:
         setinfo = self.打造详情['jade']
         for i in ['jade_First', 'jade_Second', 'jade_Third', 'jade_Fourth']:
             if i + '_type' in setinfo.keys():
-                id = setinfo[i + '_type']
-                value = float(setinfo[i + '_value'])
+                try:
+                    id = setinfo[i + '_type']
+                    value = float(setinfo[i + '_value'])
+                except:
+                    id = 0
+                    value = 0
                 func = get_jadefunc_by_id(id)
                 func(self, value)
                 # 打印相关函数和效果
@@ -902,5 +906,5 @@ class Character:
             '伤害指数': self.伤害指数,
             'result': self.伤害计算(info['skill_set']),
         }
-        #print(result)
+        # print(result)
         return result

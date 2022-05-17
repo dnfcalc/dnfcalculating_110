@@ -21,10 +21,10 @@
       const basicStore = useBasicInfoStore()
       const chooseEquList = computed<IEquipmentInfo[]>({
         get() {
-          return configStore.data.single_set
+          return configStore.single_set
         },
         set(val) {
-          configStore.data.single_set = val
+          configStore.single_set = val
         }
       })
 
