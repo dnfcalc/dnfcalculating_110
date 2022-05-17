@@ -5,7 +5,7 @@ import pkg from "../../package.json"
 export default defineConfig({
   root: __dirname,
   build: {
-    outDir: "../../dist/preload",
+    outDir: "../../dist/web/preload",
     lib: {
       entry: "index.ts",
       formats: ["cjs"],
@@ -15,11 +15,7 @@ export default defineConfig({
     minify: process.env./* from mode option */ NODE_ENV === "production",
     // emptyOutDir: true,
     rollupOptions: {
-      external: [
-        "electron",
-        ...builtinModules,
-        ...Object.keys(pkg.dependencies || {})
-      ]
+      external: ["electron", ...builtinModules, ...Object.keys(pkg.dependencies || {})]
     }
   }
 })

@@ -1,7 +1,7 @@
 {
-  "name": "dcalc-electron",
-  "version": "0.0.1",
-  "main": "dist/main/index.cjs",
+  "name": "dcalc",
+  "version": "2022.5.17",
+  "main": "dist/web/main/index.cjs",
   "license": "MIT",
   "lint-staged": {
     "**.{js,tsx?,vue,css,scss,html}": [
