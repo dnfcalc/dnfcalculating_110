@@ -1,4 +1,5 @@
 entry_func_list = {}
+entry_id_bind = {}  # id: (id, chose) 用于互斥选项，参考37敌人类型选择
 
 
 def entry_0(char={}, mode=0, text=False, part=''):
@@ -352,7 +353,7 @@ def entry_36(char={}, mode=0, text=False, part=''):
 
 def entry_enemy_type(char={}, mode=0, text=False, part=''):
     if text:
-        return "非该类型敌人(无效果)"
+        return "选择敌人类型(无效果)"
     if mode == 0:
         pass
     if mode == 1:
@@ -368,9 +369,6 @@ def entry_37(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[37] = [entry_37, entry_enemy_type]
-
-
 def entry_38(char={}, mode=0, text=False, part=''):
     if text:
         return "攻击恶魔型敌人(7%技攻)"
@@ -378,9 +376,6 @@ def entry_38(char={}, mode=0, text=False, part=''):
         char.技能攻击力加成(0.07)
     if mode == 1:
         pass
-
-
-entry_func_list[38] = [entry_38, entry_enemy_type]
 
 
 def entry_39(char={}, mode=0, text=False, part=''):
@@ -392,9 +387,6 @@ def entry_39(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[39] = [entry_39, entry_enemy_type]
-
-
 def entry_40(char={}, mode=0, text=False, part=''):
     if text:
         return "攻击天使型敌人(7%技攻)"
@@ -402,9 +394,6 @@ def entry_40(char={}, mode=0, text=False, part=''):
         char.技能攻击力加成(0.07)
     if mode == 1:
         pass
-
-
-entry_func_list[40] = [entry_40, entry_enemy_type]
 
 
 def entry_41(char={}, mode=0, text=False, part=''):
@@ -416,14 +405,21 @@ def entry_41(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[41] = [entry_41, entry_enemy_type]
+entry_func_list[37] = [entry_enemy_type, entry_37,
+                       entry_38, entry_39, entry_40, entry_41]
+
+entry_id_bind[37] = (37, 1)
+entry_id_bind[38] = (37, 2)
+entry_id_bind[39] = (37, 3)
+entry_id_bind[40] = (37, 4)
+entry_id_bind[41] = (37, 5)
 
 # 敌人状态类型通用选项
 
 
-def entry_state_type(char={}, mode=0, text=False, part=''):
+def entry_state1_type(char={}, mode=0, text=False, part=''):
     if text:
-        return "非该状态敌人(无效果)"
+        return "选择伤害型异常状态(无效果)"
     if mode == 0:
         pass
     if mode == 1:
@@ -439,7 +435,7 @@ def entry_42(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[42] = [entry_42, entry_state_type]
+entry_func_list[42] = [entry_42, entry_state1_type]
 
 
 def entry_43(char={}, mode=0, text=False, part=''):
@@ -451,7 +447,7 @@ def entry_43(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[43] = [entry_43, entry_state_type]
+entry_func_list[43] = [entry_43, entry_state1_type]
 
 
 def entry_44(char={}, mode=0, text=False, part=''):
@@ -463,7 +459,7 @@ def entry_44(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[44] = [entry_44, entry_state_type]
+entry_func_list[44] = [entry_44, entry_state1_type]
 
 
 def entry_45(char={}, mode=0, text=False, part=''):
@@ -475,7 +471,16 @@ def entry_45(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[45] = [entry_45, entry_state_type]
+entry_func_list[45] = [entry_45, entry_state1_type]
+
+
+def entry_state2_type(char={}, mode=0, text=False, part=''):
+    if text:
+        return "选择强控型异常状态(无效果)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
 
 
 def entry_46(char={}, mode=0, text=False, part=''):
@@ -487,7 +492,13 @@ def entry_46(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[46] = [entry_46, entry_state_type]
+def entry_state3_type(char={}, mode=0, text=False, part=''):
+    if text:
+        return "选择其它型异常状态(无效果)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
 
 
 def entry_47(char={}, mode=0, text=False, part=''):
@@ -499,7 +510,7 @@ def entry_47(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[47] = [entry_47, entry_state_type]
+entry_func_list[47] = [entry_47, entry_state3_type]
 
 
 def entry_48(char={}, mode=0, text=False, part=''):
@@ -511,9 +522,6 @@ def entry_48(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[48] = [entry_48, entry_state_type]
-
-
 def entry_49(char={}, mode=0, text=False, part=''):
     if text:
         return "攻击束缚状态敌人(10%技攻)"
@@ -523,7 +531,7 @@ def entry_49(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[49] = [entry_49, entry_state_type]
+entry_func_list[49] = [entry_49, entry_state3_type]
 
 
 def entry_50(char={}, mode=0, text=False, part=''):
@@ -535,9 +543,6 @@ def entry_50(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[50] = [entry_50, entry_state_type]
-
-
 def entry_51(char={}, mode=0, text=False, part=''):
     if text:
         return "攻击减速状态敌人(10%技攻)"
@@ -547,7 +552,7 @@ def entry_51(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[51] = [entry_51, entry_state_type]
+entry_func_list[51] = [entry_51, entry_state3_type]
 
 
 def entry_52(char={}, mode=0, text=False, part=''):
@@ -559,7 +564,7 @@ def entry_52(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[52] = [entry_52, entry_state_type]
+entry_func_list[52] = [entry_52, entry_state3_type]
 
 
 def entry_53(char={}, mode=0, text=False, part=''):
@@ -571,7 +576,12 @@ def entry_53(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[53] = [entry_53, entry_state_type]
+entry_func_list[46] = [entry_state2_type,
+                       entry_46, entry_48, entry_50, entry_53]
+entry_id_bind[46] = (46, 1)
+entry_id_bind[48] = (46, 2)
+entry_id_bind[50] = (46, 3)
+entry_id_bind[53] = (46, 4)
 
 
 def entry_54(char={}, mode=0, text=False, part=''):
@@ -583,8 +593,7 @@ def entry_54(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[54] = [entry_54, entry_state_type]
-# done
+entry_func_list[54] = [entry_54, entry_state3_type]
 
 
 def entry_55(char={}, mode=0, text=False, part=''):

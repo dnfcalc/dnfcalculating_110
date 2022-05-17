@@ -1,5 +1,5 @@
 from decimal import Decimal
-from core.baseClass.entry import entry_func_list
+from core.baseClass.entry import entry_func_list, entry_id_bind
 import json
 import sys
 import os
@@ -151,12 +151,19 @@ class equipment_list():
                 num += 1
                 pass
         return damagelist
-
+        
     def set_func_chose(self, choseinfo):
         self.chose.update(choseinfo)
 
     def get_func_by_id(self, id):
-        func_list = entry_func_list.get(id, [entry_func_list[0]])
+        if id in entry_id_bind.keys():
+            bindinfo = entry_id_bind[id]  # (id, chose)
+            if self.chose.get(bindinfo[0], 0) == bindinfo[1]:
+                return entry_func_list[bindinfo[0]][bindinfo[1]]
+            else:
+                return entry_func_list[bindinfo[0]][0]
+        else:
+            func_list = entry_func_list.get(id, [entry_func_list[0]])
         return func_list[self.chose.get(id, 0)]
 
     def get_func_list_by_idlist(self, idlist):
