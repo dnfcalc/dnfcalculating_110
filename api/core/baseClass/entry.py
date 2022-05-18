@@ -405,15 +405,6 @@ def entry_41(char={}, mode=0, text=False, part=''):
         pass
 
 
-entry_func_list[37] = [entry_enemy_type, entry_37,
-                       entry_38, entry_39, entry_40, entry_41]
-
-entry_id_bind[37] = (37, 1)
-entry_id_bind[38] = (37, 2)
-entry_id_bind[39] = (37, 3)
-entry_id_bind[40] = (37, 4)
-entry_id_bind[41] = (37, 5)
-
 # 敌人状态类型通用选项
 
 
@@ -600,7 +591,7 @@ def entry_55(char={}, mode=0, text=False, part=''):
     if text:
         return "攻击无力化状态下的敌人时，出血伤害 +15%"
     if mode == 0:
-        pass
+        char.异常增伤('出血', 0.15)
     if mode == 1:
         pass
 
@@ -609,7 +600,7 @@ def entry_56(char={}, mode=0, text=False, part=''):
     if text:
         return "攻击无力化状态下的敌人时，中毒伤害 +15%"
     if mode == 0:
-        pass
+        char.异常增伤('中毒', 0.15)
     if mode == 1:
         pass
 
@@ -618,7 +609,7 @@ def entry_57(char={}, mode=0, text=False, part=''):
     if text:
         return "攻击无力化状态下的敌人时，灼伤伤害 +15%"
     if mode == 0:
-        pass
+        char.异常增伤('灼烧', 0.15)
     if mode == 1:
         pass
 
@@ -627,7 +618,7 @@ def entry_58(char={}, mode=0, text=False, part=''):
     if text:
         return "攻击无力化状态下的敌人时，感电伤害 +15%"
     if mode == 0:
-        pass
+        char.异常增伤('感电', 0.15)
     if mode == 1:
         pass
 
@@ -773,7 +764,7 @@ def entry_74(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暴击率增加(0.02 * 10)
 
 
 def entry_75(char={}, mode=0, text=False, part=''):
@@ -782,7 +773,7 @@ def entry_75(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.技能恢复加成(1, 100, 0.3)
 
 
 def entry_76(char={}, mode=0, text=False, part=''):
@@ -1023,7 +1014,7 @@ def entry_102(char={}, mode=0, text=False, part=''):
     if text:
         return "中毒伤害 +10%"
     if mode == 0:
-        pass
+        char.异常增伤('中毒', 0.1)
     if mode == 1:
         pass
 
@@ -1032,7 +1023,7 @@ def entry_103(char={}, mode=0, text=False, part=''):
     if text:
         return "灼伤伤害 +10%"
     if mode == 0:
-        pass
+        char.异常增伤('灼伤', 0.1)
     if mode == 1:
         pass
 
@@ -1041,7 +1032,7 @@ def entry_104(char={}, mode=0, text=False, part=''):
     if text:
         return "感电伤害 +10%"
     if mode == 0:
-        pass
+        char.异常增伤('感电', 0.1)
     if mode == 1:
         pass
 
@@ -1050,54 +1041,69 @@ def entry_105(char={}, mode=0, text=False, part=''):
     if text:
         return "出血伤害 +10%"
     if mode == 0:
-        pass
+        char.异常增伤('出血', 0.1)
     if mode == 1:
         pass
 
 
 def entry_106(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击人型敌人时，技能攻击力 +7%"
+        return "攻击人型敌人(7%技攻)"
     if mode == 0:
-        pass
+        char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_107(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击野兽型敌人时，技能攻击力 +7%"
+        return "攻击野兽型敌人(7%技攻)"
     if mode == 0:
-        pass
+        char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_108(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击植物型敌人时，技能攻击力 +7%"
+        return "攻击植物型敌人(7%技攻)"
     if mode == 0:
-        pass
+        char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_109(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击不死型敌人时，技能攻击力 +7%"
+        return "攻击不死型敌人(7%技攻)"
     if mode == 0:
-        pass
+        char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_110(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击昆虫型敌人时，技能攻击力 +7%"
+        return "攻击昆虫型敌人(7%技攻)"
     if mode == 0:
-        pass
+        char.技能攻击力加成(0.07)
     if mode == 1:
         pass
+
+
+entry_func_list[37] = [entry_enemy_type, entry_37,
+                       entry_38, entry_39, entry_40, entry_41, entry_106, entry_107, entry_108, entry_109, entry_110]
+
+entry_id_bind[37] = (37, 1)
+entry_id_bind[38] = (37, 2)
+entry_id_bind[39] = (37, 3)
+entry_id_bind[40] = (37, 4)
+entry_id_bind[41] = (37, 5)
+entry_id_bind[106] = (37, 6)
+entry_id_bind[107] = (37, 7)
+entry_id_bind[108] = (37, 8)
+entry_id_bind[109] = (37, 9)
+entry_id_bind[110] = (37, 10)
 
 
 def entry_111(char={}, mode=0, text=False, part=''):
@@ -1124,7 +1130,7 @@ def entry_113(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.光属性强化加成(4 * 10)
 
 
 def entry_114(char={}, mode=0, text=False, part=''):
@@ -1133,7 +1139,9 @@ def entry_114(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.攻击速度加成(0.4)
+        char.移动速度加成(0.4)
+        char.释放速度加成(0.6)
 
 
 def entry_115(char={}, mode=0, text=False, part=''):
@@ -1151,7 +1159,8 @@ def entry_116(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.攻击速度加成(0.03 * 10)
+        char.释放速度加成(0.045 * 10)
 
 
 def entry_117(char={}, mode=0, text=False, part=''):
@@ -1160,7 +1169,7 @@ def entry_117(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(416 * 10)
 
 
 def entry_118(char={}, mode=0, text=False, part=''):
@@ -1169,7 +1178,7 @@ def entry_118(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('灼烧', 0.1)
 
 
 def entry_119(char={}, mode=0, text=False, part=''):
@@ -1178,7 +1187,7 @@ def entry_119(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('出血', 0.1)
 
 
 def entry_120(char={}, mode=0, text=False, part=''):
@@ -1187,7 +1196,7 @@ def entry_120(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('感电', 0.1)
 
 
 def entry_121(char={}, mode=0, text=False, part=''):
@@ -1196,7 +1205,7 @@ def entry_121(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('中毒', 0.1)
 
 
 def entry_122(char={}, mode=0, text=False, part=''):
@@ -1205,7 +1214,7 @@ def entry_122(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.移动速度加成(0.03 * 10)
 
 
 def entry_123(char={}, mode=0, text=False, part=''):
@@ -1214,7 +1223,7 @@ def entry_123(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.火属性强化加成(25)
 
 
 def entry_124(char={}, mode=0, text=False, part=''):
@@ -1223,7 +1232,7 @@ def entry_124(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.冰属性强化加成(25)
 
 
 def entry_125(char={}, mode=0, text=False, part=''):
@@ -1232,7 +1241,7 @@ def entry_125(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.光属性强化加成(25)
 
 
 def entry_126(char={}, mode=0, text=False, part=''):
@@ -1241,7 +1250,7 @@ def entry_126(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暗属性强化加成(25)
 
 
 def entry_127(char={}, mode=0, text=False, part=''):
@@ -1250,7 +1259,9 @@ def entry_127(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.攻击速度加成(0.2)
+        char.移动速度加成(0.2)
+        char.释放速度加成(0.2)
 
 
 def entry_128(char={}, mode=0, text=False, part=''):
@@ -1358,7 +1369,7 @@ def entry_139(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(356 * 10)
 
 
 def entry_140(char={}, mode=0, text=False, part=''):
@@ -1367,7 +1378,7 @@ def entry_140(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(356 * 10)
 
 
 def entry_141(char={}, mode=0, text=False, part=''):
@@ -1376,7 +1387,7 @@ def entry_141(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(356 * 10)
 
 
 def entry_142(char={}, mode=0, text=False, part=''):
@@ -1385,7 +1396,7 @@ def entry_142(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(356 * 10)
 
 
 def entry_143(char={}, mode=0, text=False, part=''):
@@ -1394,7 +1405,7 @@ def entry_143(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(385 * 10)
 
 
 def entry_144(char={}, mode=0, text=False, part=''):
@@ -1403,7 +1414,7 @@ def entry_144(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(385 * 10)
 
 
 def entry_145(char={}, mode=0, text=False, part=''):
@@ -1412,7 +1423,7 @@ def entry_145(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(385 * 10)
 
 
 def entry_146(char={}, mode=0, text=False, part=''):
@@ -1421,7 +1432,7 @@ def entry_146(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(385 * 10)
 
 
 def entry_147(char={}, mode=0, text=False, part=''):
@@ -1430,7 +1441,7 @@ def entry_147(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(385 * 10)
 
 
 def entry_148(char={}, mode=0, text=False, part=''):
@@ -1439,7 +1450,7 @@ def entry_148(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(385 * 10)
 
 
 def entry_149(char={}, mode=0, text=False, part=''):
@@ -1448,7 +1459,7 @@ def entry_149(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(385 * 10)
 
 
 def entry_150(char={}, mode=0, text=False, part=''):
@@ -1457,7 +1468,7 @@ def entry_150(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(385 * 10)
 
 
 def entry_151(char={}, mode=0, text=False, part=''):
@@ -1466,7 +1477,7 @@ def entry_151(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(385 * 10)
 
 
 def entry_152(char={}, mode=0, text=False, part=''):
@@ -1475,7 +1486,7 @@ def entry_152(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.MP消耗量加成(-0.07)
 
 
 def entry_153(char={}, mode=0, text=False, part=''):

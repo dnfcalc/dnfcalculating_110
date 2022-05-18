@@ -98,15 +98,6 @@ class Character:
         self.加算冷却缩减 = 0.0
         self.百分比减防 = 0.0
         self.固定减防 = 0
-        self.直接伤害 = 1.0
-        self.中毒伤害 = 0.0
-        self.灼烧伤害 = 0.0
-        self.感电伤害 = 0.0
-        self.出血伤害 = 0.0
-        self.中毒伤害系数 = 1.0
-        self.灼烧伤害系数 = 1.0
-        self.感电伤害系数 = 1.0
-        self.出血伤害系数 = 1.0
 
         # 其它词条
         self.攻击速度 = 0.00
@@ -125,6 +116,16 @@ class Character:
         self.伤害量 = 0
         self.百分比伤害量 = 0.0
         self.buff量 = 0
+        self.直接伤害 = 1.0
+        self.中毒伤害 = 0.0
+        self.灼烧伤害 = 0.0
+        self.感电伤害 = 0.0
+        self.出血伤害 = 0.0
+        self.中毒伤害系数 = 1.0
+        self.灼烧伤害系数 = 1.0
+        self.感电伤害系数 = 1.0
+        self.出血伤害系数 = 1.0
+        self.MP消耗量 = 1.0
 
         # 设置基础属性
         基础属性输入(self)
@@ -200,6 +201,9 @@ class Character:
     def 异常增伤(self, 类型, x):
         # 中毒 灼烧 感电 出血
         self.__dict__[类型 + '伤害系数'] += x
+
+    def MP消耗量加成(self, x):
+        self.MP消耗量 += x
 
     def 伤害量加成(self, x):
         self.伤害量 += x
@@ -910,6 +914,7 @@ class Character:
         self.计算伤害预处理()
 
         result = {
+            'alter': self.实际名称,
             '伤害量': self.伤害量,
             '站街力量': self.站街力量(),
             '站街智力': self.站街智力(),
