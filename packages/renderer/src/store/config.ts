@@ -1,13 +1,19 @@
 import { defineStore } from "pinia"
 import api from "@/api"
 import { ICharacterSet } from "@/api/info/type"
-import { toObj, toMap } from "@/utils"
+import { toObj, toMap, getUuid, setSession } from "@/utils"
+import { useCharacterStore } from "."
 
 interface ConfigState extends ICharacterSet {
   name: string
   alter: string
   token: string
   _configlist: string[] | undefined
+}
+
+interface datawithuid {
+  UID?: string
+  type?: number
 }
 
 export const useConfigStore = defineStore("config", {
@@ -98,11 +104,16 @@ export const useConfigStore = defineStore("config", {
       this[name] = item
     },
     async calc() {
-      console.log(this.data)
-      await api.calc({
-        setInfo: toObj(this.data),
-        setName: this.name
-      })
+      let data: datawithuid = {}
+      await api
+        .calc({
+          setInfo: toObj(this.data),
+          setName: this.name
+        })
+        .then(res => {
+          data = res
+        })
+      return data as datawithuid
     },
     setSkill(skill: string, key: string, value: any) {
       const index = this.skill_set.findIndex(item => item.name == skill)

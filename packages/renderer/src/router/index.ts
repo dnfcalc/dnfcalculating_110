@@ -47,6 +47,11 @@ const routes: RouteRecordRaw[] = [
     path: "/panel/custom_selection",
     name: "custom_selection",
     component: () => import("@/pages/panel/custom_selection.vue")
+  },
+  {
+    path: "/result",
+    name: "result",
+    component: () => import("@/pages/result/result.vue")
   }
 ]
 

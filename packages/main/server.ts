@@ -10,9 +10,9 @@ let instance: child_process.ChildProcess
  */
 export function startServer() {
   judgeServerOpen(17173).then(res => {
-    if (!res) {
+    if (res) {
       console.log("17173 is in used")
-      // return
+      return
     }
     if (app.isPackaged) {
       // exec不会报错 spawn会抛错

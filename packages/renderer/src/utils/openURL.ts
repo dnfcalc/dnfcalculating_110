@@ -1,6 +1,6 @@
-import type { Router } from "vue-router"
+import { useRouter } from "vue-router"
 
-export default function openURL(url: string, { width = 0, height = 0 } = {}, router?: Router) {
+export default function openURL(url: string, { width = 0, height = 0 } = {}) {
   try {
     if (width * height > 0) {
       if (window.ipcRenderer) {
@@ -10,15 +10,11 @@ export default function openURL(url: string, { width = 0, height = 0 } = {}, rou
           height
         })
       } else {
-        router?.push(url)
+        window.open("#" + url, "_blank")
       }
-    } else {
-      if (router) {
-        url = router.resolve({ path: url }).href
-      }
-      window.open(url, "_blank")
     }
   } catch (err) {
+    const router = useRouter()
     // let routerURL = router?.resolve({
     //   path: url
     // })

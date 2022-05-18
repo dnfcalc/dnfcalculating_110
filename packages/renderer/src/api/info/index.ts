@@ -23,6 +23,9 @@ export default defineRequest(request => {
     },
     getTriggerList() {
       return request.get<ITrigger[]>("/triggerlist")
+    },
+    getTemp(uid: string) {
+      return request.get<any>(`/gettemp/${uid}`)
     }
   }
 })

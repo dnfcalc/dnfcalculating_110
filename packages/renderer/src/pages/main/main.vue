@@ -3,21 +3,31 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
+  import openURL from "@/utils/openURL"
   import { defineComponent, onBeforeMount, ref, renderList } from "vue"
-  import { useRoute } from "vue-router"
+  import { useRoute, useRouter } from "vue-router"
 
   export default defineComponent(async () => {
     const char = useRoute().query.name as string
     const appStore = useAppStore()
     const configStore = useConfigStore()
     const characterStore = useCharacterStore()
+    const router = useRouter()
 
     await characterStore.newCharacter(char).then(() => {
       appStore.$patch({ title: characterStore.name })
     })
 
-    const calc = () => {
-      configStore.calc()
+    const calc = async () => {
+      // 一堆前处理和判断，然后计算
+      const uid = await configStore.calc()
+      if (uid.type == 1) {
+        // 详情界面
+        openURL("/result?uid=" + uid.UID, { width: 800, height: 800 })
+      } else {
+        // 排行界面
+        openURL("/ranking?uid=" + uid.UID, { width: 800, height: 800 })
+      }
     }
 
     return () => {

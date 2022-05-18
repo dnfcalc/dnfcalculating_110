@@ -18,6 +18,8 @@ if (!app.requestSingleInstanceLock()) {
 
 let win: BrowserWindow | null = null
 
+let storage = {}
+
 async function createWindow() {
   win = new BrowserWindow({
     frame: false,
@@ -129,6 +131,22 @@ ipcMain.handle("close-win", event => {
   if (window) {
     window.close()
   }
+})
+
+ipcMain.handle("getStorage", (event, arg) => {
+  console.log(storage)
+  console.log(storage[arg] ?? undefined)
+  return storage[arg] ?? undefined
+})
+
+ipcMain.handle("setStorage", (event, arg) => {
+  Object.defineProperty(storage, arg.key, {
+    value: arg.value,
+    writable: true,
+    enumerable: true,
+    configurable: true
+  })
+  console.log(storage)
 })
 
 process.on("exit", () => {
