@@ -21,7 +21,7 @@
               <clothes />
             </calc-collapse>
           </div>
-          <div>
+          <div class="pl-20px">
             <calc-collapse class="w-510px" title="宠物装备">
               <petequ />
             </calc-collapse>
@@ -43,7 +43,8 @@
   .detail {
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    margin-left: 25px;
+    margin-right: 25px;
   }
 
   .equ-profile {

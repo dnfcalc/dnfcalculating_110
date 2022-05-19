@@ -3,6 +3,7 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
+  import { getUuid, setSession } from "@/utils"
   import openURL from "@/utils/openURL"
   import { defineComponent, onBeforeMount, ref, renderList } from "vue"
   import { useRoute, useRouter } from "vue-router"
@@ -20,13 +21,14 @@
 
     const calc = async () => {
       // 一堆前处理和判断，然后计算
-      const uid = await configStore.calc()
-      if (uid.type == 1) {
-        // 详情界面
-        openURL("/result?uid=" + uid.UID, { width: 800, height: 800 })
+      const saveData = await configStore.calc()
+      const uid = getUuid()
+      setSession(uid, saveData)
+      if (saveData instanceof Array) {
+        openURL("/ranking?uid=" + uid, { width: 800, height: 800 })
       } else {
         // 排行界面
-        openURL("/ranking?uid=" + uid.UID, { width: 800, height: 800 })
+        openURL("/result?uid=" + uid, { width: 800, height: 800 })
       }
     }
 
