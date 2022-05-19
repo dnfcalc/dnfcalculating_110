@@ -9,10 +9,10 @@
     ]
   },
   "scripts": {
-    "dev-server": "python ./api/main.py",
-    "dev": "pnpm --filter=dcalc-electron-renderer dev",
-    "dev-elec": "node scripts/watch.mjs",
-    "build": "node internal/build.mjs",
+    "dev-server": "chcp 65001 && python ./api/main.py",
+    "dev": "chcp 65001 && pnpm --filter=dcalc-electron-renderer dev",
+    "dev-elec": "chcp 65001 && node scripts/watch.mjs",
+    "build": "chcp 65001 && node internal/build.mjs",
     "postinstall": "husky install",
     "clean-pycache": "rimraf ./**/__pycache__",
     "clean-deps": "rimraf ./**/node_modules",

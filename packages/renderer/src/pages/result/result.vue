@@ -6,10 +6,10 @@
 
   export default defineComponent(async () => {
     const uid = (useRoute().query.uid as string) ?? ""
-    let data: any = await getSession(uid)
+    let saveData: any = await getSession(uid)
     return () => (
       <>
-        <div>{JSON.stringify(data)}</div>
+        <div>{JSON.stringify(saveData)}</div>
       </>
     )
   })
