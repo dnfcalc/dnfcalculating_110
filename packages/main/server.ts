@@ -1,6 +1,7 @@
 const port: number = 17173
 import { app } from "electron"
 import child_process from "child_process"
+import { join } from "path"
 
 let instance: child_process.ChildProcess
 
@@ -22,9 +23,9 @@ export function startServer() {
     }
     if (process.platform == "win32") {
       // TODO 启动python api 待改进 后续添加端口占用判断等
-      instance = child_process.spawn(`python`, [`${__dirname}/../../api/main.py`, `${port}`])
+      instance = child_process.spawn(`python`, [join(__dirname, "../../../api/main.py"), `${port}`])
     } else {
-      instance = child_process.spawn("python3", [`${__dirname}/../../api/main.py`, `${port}`])
+      instance = child_process.spawn("python3", [join(__dirname, "../../../api/main.py"), `${port}`])
     }
     if (instance) {
       console.log("server started.")

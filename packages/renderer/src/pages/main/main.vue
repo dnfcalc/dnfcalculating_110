@@ -3,7 +3,7 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import { getUuid, setSession } from "@/utils"
+  import { getUuid, setSession, toMap, toObj } from "@/utils"
   import openURL from "@/utils/openURL"
   import { defineComponent, onBeforeMount, ref, renderList } from "vue"
   import { useRoute, useRouter } from "vue-router"
@@ -13,7 +13,6 @@
     const appStore = useAppStore()
     const configStore = useConfigStore()
     const characterStore = useCharacterStore()
-    const router = useRouter()
 
     await characterStore.newCharacter(char).then(() => {
       appStore.$patch({ title: characterStore.name })
@@ -23,12 +22,29 @@
       // 一堆前处理和判断，然后计算
       const saveData = await configStore.calc()
       const uid = getUuid()
-      setSession(uid, saveData)
       if (saveData instanceof Array) {
+        // 排行界面
         openURL("/ranking?uid=" + uid, { width: 800, height: 800 })
       } else {
-        // 排行界面
-        openURL("/result?uid=" + uid, { width: 800, height: 800 })
+        console.log(
+          toObj({
+            res: saveData,
+            forge_set: configStore.forge_set,
+            alter: characterStore.alter,
+            name: characterStore.name
+          })
+        )
+        // 详情界面
+        setSession(
+          uid,
+          toObj({
+            res: saveData,
+            forge_set: configStore.forge_set,
+            alter: characterStore.alter,
+            name: characterStore.name
+          })
+        )
+        openURL("/result?uid=" + uid, { width: 780, height: 570 })
       }
     }
 

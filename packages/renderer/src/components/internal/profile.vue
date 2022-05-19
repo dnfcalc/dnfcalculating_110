@@ -76,6 +76,10 @@
         type: Boolean,
         default: true
       },
+      showMW: {
+        type: Boolean,
+        default: false
+      },
       equList: {
         type: Array as PropType<IEquipmentInfo[]>,
         default: []
@@ -196,13 +200,15 @@
             </div>
             {props.showDetail && (
               <>
-                <div class="mingwang">
-                  <img src="./images/common/mingwang.png" />
-                  <div class="text-hex-836832 ml-2px">冒险家名望</div>
-                  <div class="text-hex-3ea74e ml-8px" style="width:55px">
-                    {details?.mingwang}
+                {props.showMW && (
+                  <div class="mingwang">
+                    <img src="./images/common/mingwang.png" />
+                    <div class="text-hex-836832 ml-2px">冒险家名望</div>
+                    <div class="text-hex-3ea74e ml-8px" style="width:55px">
+                      {details?.mingwang}
+                    </div>
                   </div>
-                </div>
+                )}
                 <div class="details">
                   <div class="de-item">
                     <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />

@@ -53,15 +53,15 @@
     // }
 
     return () => (
-      <div class="bg-cover bg-no-repeat pt-8 pb-12 pl-4 home">
+      <div class="bg-cover bg-no-repeat pt-8 pb-12 pl-4 home" style="background-image: url('./images/adventure/bg.jpg')">
         {renderList(basicInfoStore.adventure_info, (job, index) => (
           <div class="flex flex-row">
-            <div class="bg-no-repeat bg-center flex flex-wrap h-25 w-30 job-icon-box justify-center items-center relative">
+            <div class="bg-no-repeat bg-center flex flex-wrap h-25 w-30 job-icon-box justify-center items-center relative" style="background-image: url('./images/adventure/flash.png')">
               <div class="bg-center bg-no-repeat h-22.5 w-30" style={sub_icon(index)}></div>
             </div>
             {renderList(job.children, (child, j) => (
               <div onClick={choose_job(child)} class="cursor-pointer h-22.5 m-1 w-30 duration-300 job-box box-border relative">
-                <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e"></div>
+                <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e" style="background-image: url('./images/adventure/border.png')"></div>
                 <div class="text-xs text-center w-full bottom-1 text-hex-bea347 absolute">{child.title}</div>
                 <div class="bg-no-repeat bg-auto bg-clip-content h-full w-full z-1 overflow-hidden" style={job_icon(child.name)}></div>
               </div>
@@ -75,17 +75,17 @@
 
 <style lang="scss">
   .home {
-    background-image: url(./images/adventure/bg.jpg);
+    // background-image: url($path + "bg.jpg");
     background-size: 100% 100%;
 
-    .job-icon-box {
-      background-image: url(./images/adventure/flash.png);
-    }
+    // .job-icon-box {
+    //   // background-image: url($path + "flash.png");
+    // }
 
-    .job-box {
-      .job-border {
-        background-image: url(./images/adventure/border.png);
-      }
-    }
+    // .job-box {
+    //   .job-border {
+    //     // background-image: url($path + "border.png");
+    //   }
+    // }
   }
 </style>

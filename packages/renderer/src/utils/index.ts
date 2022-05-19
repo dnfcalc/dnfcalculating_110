@@ -186,6 +186,7 @@ export function toMap(data: Object) {
   return temp
 }
 
+
 export function RecordToObj(todo: Record<string, Map<any, any>>) {
   let temp = {}
   for (let key in todo) {
