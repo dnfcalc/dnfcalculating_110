@@ -151,7 +151,7 @@ class equipment_list():
                 num += 1
                 pass
         return damagelist
-        
+
     def set_func_chose(self, choseinfo):
         self.chose.update(choseinfo)
 

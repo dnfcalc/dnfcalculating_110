@@ -173,6 +173,10 @@
 
       .i-select-label {
         padding-left: 5px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: calc(100% - 20px);
       }
 
       .i-select-down-icon {

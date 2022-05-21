@@ -30,6 +30,7 @@ export default defineComponent({
   props: tooltipProps,
   setup(props, { slots, emit }) {
     const isOpen = ref(false)
+    let timer: NodeJS.Timeout
 
     const triggerRef = ref<HTMLElement>()
     const popupRef = ref<HTMLElement>()
@@ -49,10 +50,16 @@ export default defineComponent({
     const mounted = ref(false)
 
     function onMouseover() {
-      isOpen.value = true
+      timer = setTimeout(
+        function () {
+          isOpen.value = true
+        },
+        props.lazy ? 800 : 100
+      )
     }
 
     function onMouseout() {
+      clearTimeout(timer)
       isOpen.value = false
     }
 

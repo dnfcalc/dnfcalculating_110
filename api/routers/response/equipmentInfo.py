@@ -1,4 +1,5 @@
 from ast import Lambda
+from cProfile import label
 import importlib
 import json
 import sys
@@ -103,18 +104,106 @@ def get_equipment_info(alter: str):
 
 def get_equipment_detail_info(equID):
     equipment_detail_info = {}
-    global equ_details
-    if len(equ_details) == 0:
-        with open("./ResourceFiles/dataFiles/eq-info-data.json", encoding='utf-8') as fp:
-            equ_details = dict()
-            for item in json.load(fp):
-                equ_details[str(item["id"])] = item
-    try:
-        equipment_detail_info = equ_details[str(equID)]
-    except:
-        equipment_detail_info = requests.get(
-            "https://www.skycity.top:8019/api/equipment/"+equID+"?simple=false",
-            timeout=2).json()["data"]
+    cur = equ.info[equID]
+    growths = equ.entry_info
+    # 基础属性
+    equipment_detail_info['position'] = '{}({})'.format(cur['类型'], cur['部位'])
+    equipment_detail_info['name'] = cur['名称']
+    equipment_detail_info['icon'] = cur['icon']
+    # 固有属性
+    base = []
+    base.append({
+        "id": 6,
+        "isRate": False,
+        "label": "力量",
+        "num": cur['力量'],
+    })
+    base.append({
+        "id": 7,
+        "isRate": False,
+        "label": "智力",
+        "num": cur['智力'],
+    })
+    base.append({
+        "id": 8,
+        "isRate": False,
+        "label": "体力",
+        "num": cur['体力'],
+    })
+    base.append({
+        "id": 9,
+        "isRate": False,
+        "label": "精神",
+        "num": cur['精神'],
+    })
+    bufferProps = []
+    # 移动、技攻
+    effect = []
+    for item in cur['固有属性']:
+        # if item == 10001:
+        #     effect.append({
+        #         "id": 10,
+        #         "label": "该装备的成长属性等级之和达到240，增加1%的技能攻击力\n该装备的成长属性等级之和每增加40级，额外增加1%的技能攻击力"
+        #     })
+        if item == 10006:
+            effect.append({
+                "id": 16,
+                "isRate": True,
+                "label": "移动速度",
+                "num": 0.04
+            })
+            effect.append({
+                "id": 22,
+                "isRate": True,
+                "label": "技能攻击力",
+                "num": 0.29
+            })
+        if item in [10002, 10003, 10005, 10007, 10008, 10009, 10010, 10011, 10012]:
+            effect.append({
+                "id": 22,
+                "isRate": True,
+                "label": "技能攻击力",
+                "num": 0.12
+            })
+        if item in [10004]:
+            effect.append({
+                "id": 22,
+                "isRate": True,
+                "label": "技能攻击力",
+                "num": 0.34
+            })
+        if item in [10013]:
+            effect.append({
+                "id": 22,
+                "isRate": True,
+                "label": "技能攻击力",
+                "num": 0.5
+            })
+        if item in [10014]:
+            effect.append({
+                "id": 22,
+                "isRate": True,
+                "label": "技能攻击力",
+                "num": 0.35
+            })
+    effect.sort(key=lambda x: x["id"])
+    # 成长属性
+    growthProps = []
+    for index in range(0, len(cur['成长属性'])):
+        growth = growths.get(str(cur['成长属性'][index]))
+        growthProps.append({
+            "id": cur['成长属性'][index],
+            "index": index,
+            "buffer": growth['buff'],
+            "attack": growth['attack'],
+            "props": growth['props']})
+        pass
+    equipment_detail_info["prop"] = {
+        "base": base,
+        "bufferProps": bufferProps,
+        "effect": effect,
+        "growthProps": growthProps
+    }
     return equipment_detail_info
 
 

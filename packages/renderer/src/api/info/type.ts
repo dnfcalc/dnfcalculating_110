@@ -57,7 +57,7 @@ export interface ITrigger {
 
 export interface TriggerSet {
   id: number
-  select: number
+  select: number | number[]
 }
 
 export interface KTV<T> {
