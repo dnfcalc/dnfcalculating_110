@@ -19,5 +19,4 @@ release
 components.d.ts
 packages/renderer/components.d.ts
 api/ResourceFiles/**/set
-ResourceFiles
 build
