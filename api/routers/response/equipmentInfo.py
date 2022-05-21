@@ -1,3 +1,5 @@
+from ast import Lambda
+import importlib
 import json
 import sys
 import os
@@ -34,22 +36,68 @@ class WeaponInfo:
 
 def get_equipment_info(alter: str):
     equipment_info = {
-        "lv110": {},
-        "myth": {},
+        "lv110": [],
+        "myth": [],
         "weapon": [],
-        "wisdom": {}
+        "wisdom": []
     }
-    with open("./ResourceFiles/dataFiles/eq-base-data.json", encoding='utf-8') as fp:
-        equipment_info["lv110"] = json.load(fp)
-    with open("./ResourceFiles/dataFiles/eq-myth-base-data.json", encoding='utf-8') as fp:
-        equipment_info["myth"] = json.load(fp)
-    with open("./ResourceFiles/dataFiles/arm-base-data.json", encoding='utf-8') as fp:
-        array: List[Dict] = json.load(fp)
-        for item in array:
-            if item.get("name") == alter:
-                equipment_info["weapon"] = item.get("eqs")
-    with open("./ResourceFiles/dataFiles/eq-wisdom-base-data.json", encoding='utf-8') as fp:
-        equipment_info["wisdom"] = json.load(fp)
+
+    module_name = "core.characters." + alter
+    character = importlib.import_module(module_name)
+    char = character.classChange()
+    weapons = char.武器选项
+    转职 = char.转职
+
+    for i in equ.info.keys():
+        temp = equ.info[i]
+        if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["部位"] != "武器":
+            equipment_info["lv110"].append(
+                {
+                    "id": i,
+                    "name": temp["名称"],
+                    "icon": temp["icon"],
+                    "order": temp["order"],
+                    "typeName": temp["部位"],
+                    "customize": temp["可选属性"],
+                    "stable": temp["固有属性"]
+                }
+            )
+        if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["类型"] in weapons and (转职 in temp["名称"] or not "胜负之役" in temp["名称"]):
+            equipment_info["weapon"].append(
+                {
+                    "id": i,
+                    "name": temp["名称"],
+                    "icon": temp["icon"],
+                    "typeName": temp["部位"],
+                    "customize": temp["可选属性"],
+                    "stable": temp["固有属性"]
+                }
+            )
+        if temp["品质"] == '神话':
+            equipment_info["myth"].append(
+                {
+                    "id": i,
+                    "name": temp["名称"],
+                    "icon": temp["icon"],
+                    "typeName": temp["部位"],
+                    "customize": temp["可选属性"],
+                    "stable": temp["固有属性"]
+                }
+            )
+        if temp["品质"] == '智慧产物':
+            equipment_info["wisdom"].append(
+                {
+                    "id": i,
+                    "name": temp["名称"],
+                    "icon": temp["icon"],
+                    "typeName": temp["部位"],
+                    "customize": temp["可选属性"],
+                    "stable": temp["固有属性"]
+                }
+            )
+
+    equipment_info["lv110"].sort(key=lambda x: x["order"])
+
     return equipment_info
 
 

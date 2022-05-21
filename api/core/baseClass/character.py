@@ -617,8 +617,8 @@ class Character:
                 self.防具计算(temp)
             elif temp.类型 == '首饰':
                 self.首饰计算(temp)
-            elif temp.类型 == '特殊':
-                self.特殊计算(temp)
+            elif temp.类型 == '特殊装备':
+                self.特殊装备计算(temp)
             elif temp.部位 == '武器':
                 self.武器计算(temp)
             self.增幅计算(temp)
@@ -660,7 +660,7 @@ class Character:
         self.魔法攻击力 += temp.魔法攻击力
         self.独立攻击力 += temp.独立攻击力
 
-    def 特殊计算(self, temp):
+    def 特殊装备计算(self, temp):
         self.力量 += temp.力量
         self.智力 += temp.智力
         self.物理攻击力 += temp.物理攻击力
