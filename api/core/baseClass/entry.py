@@ -1504,7 +1504,7 @@ def entry_154(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.火属性抗性加成(20)
 
 
 def entry_155(char={}, mode=0, text=False, part=''):
@@ -1513,7 +1513,7 @@ def entry_155(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.冰属性抗性加成(20)
 
 
 def entry_156(char={}, mode=0, text=False, part=''):
@@ -1522,8 +1522,7 @@ def entry_156(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
-
+        char.光属性抗性加成(20)
 
 def entry_157(char={}, mode=0, text=False, part=''):
     if text:
@@ -1531,7 +1530,7 @@ def entry_157(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暗属性抗性加成(20)
 
 
 def entry_158(char={}, mode=0, text=False, part=''):
@@ -1621,7 +1620,7 @@ def entry_167(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.攻击速度增加(0.3)
 
 
 def entry_168(char={}, mode=0, text=False, part=''):
@@ -1630,14 +1629,14 @@ def entry_168(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.释放速度增加(0.45)
 
 
 def entry_169(char={}, mode=0, text=False, part=''):
     if text:
         return "所有异常状态抗性 +20%, 所有属性强化 -15"
     if mode == 0:
-        pass
+        char.所有属性强化加成(-15)
     if mode == 1:
         pass
 
@@ -1646,7 +1645,7 @@ def entry_170(char={}, mode=0, text=False, part=''):
     if text:
         return "被击伤害 -25%, 移动速度 -20%"
     if mode == 0:
-        pass
+        char.移动速度增加(-0.2)
     if mode == 1:
         pass
 
@@ -1655,7 +1654,8 @@ def entry_171(char={}, mode=0, text=False, part=''):
     if text:
         return "HP MAX +1200, 攻击速度 -15%, 施放速度 -22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -1664,7 +1664,7 @@ def entry_172(char={}, mode=0, text=False, part=''):
     if text:
         return "HP MAX +1890, 移动速度 -20%"
     if mode == 0:
-        pass
+        char.移动速度增加(-0.2)
     if mode == 1:
         pass
 
@@ -1673,7 +1673,7 @@ def entry_173(char={}, mode=0, text=False, part=''):
     if text:
         return "火属性强化 +30, 所有异常状态抗性 -10%"
     if mode == 0:
-        pass
+        char.火属性强化加成(30)
     if mode == 1:
         pass
 
@@ -1682,7 +1682,7 @@ def entry_174(char={}, mode=0, text=False, part=''):
     if text:
         return "冰属性强化 +30, 所有异常状态抗性 -10%"
     if mode == 0:
-        pass
+        char.冰属性强化加成(30)
     if mode == 1:
         pass
 
@@ -1691,7 +1691,7 @@ def entry_175(char={}, mode=0, text=False, part=''):
     if text:
         return "光属性强化 +30, 所有异常状态抗性 -10%"
     if mode == 0:
-        pass
+        char.光属性强化加成(30)
     if mode == 1:
         pass
 
@@ -1700,7 +1700,7 @@ def entry_176(char={}, mode=0, text=False, part=''):
     if text:
         return "暗属性强化 +30, 所有异常状态抗性 -10%"
     if mode == 0:
-        pass
+        char.暗属性强化加成(30)
     if mode == 1:
         pass
 
@@ -1709,7 +1709,7 @@ def entry_177(char={}, mode=0, text=False, part=''):
     if text:
         return "角色伤害的10%转化为中毒伤害"
     if mode == 0:
-        pass
+        char.伤害类型转化('直接', '中毒', 0.1)
     if mode == 1:
         pass
 
@@ -1718,7 +1718,7 @@ def entry_178(char={}, mode=0, text=False, part=''):
     if text:
         return "角色伤害的10%转化为灼伤伤害"
     if mode == 0:
-        pass
+        char.伤害类型转化('直接', '灼烧', 0.1)
     if mode == 1:
         pass
 
@@ -1727,7 +1727,7 @@ def entry_179(char={}, mode=0, text=False, part=''):
     if text:
         return "角色伤害的10%转化为感电伤害"
     if mode == 0:
-        pass
+        char.伤害类型转化('直接', '感电', 0.1)
     if mode == 1:
         pass
 
@@ -1736,7 +1736,7 @@ def entry_180(char={}, mode=0, text=False, part=''):
     if text:
         return "角色伤害的10%转化为出血伤害"
     if mode == 0:
-        pass
+        char.伤害类型转化('直接', '出血', 0.1)
     if mode == 1:
         pass
 
@@ -1756,7 +1756,7 @@ def entry_182(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('中毒', 0.15)
 
 
 def entry_183(char={}, mode=0, text=False, part=''):
@@ -1765,7 +1765,7 @@ def entry_183(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.火属性强化加成(7 * 10)
 
 
 def entry_184(char={}, mode=0, text=False, part=''):
@@ -1774,7 +1774,7 @@ def entry_184(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.冰属性强化加成(7 * 10)
 
 
 def entry_185(char={}, mode=0, text=False, part=''):
@@ -1783,7 +1783,7 @@ def entry_185(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.光属性强化加成(7 * 10)
 
 
 def entry_186(char={}, mode=0, text=False, part=''):
@@ -1792,7 +1792,7 @@ def entry_186(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暗属性强化加成(7 * 10)
 
 
 def entry_187(char={}, mode=0, text=False, part=''):
@@ -1801,14 +1801,15 @@ def entry_187(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('中毒', 0.03 * 10)
 
 
 def entry_188(char={}, mode=0, text=False, part=''):
     if text:
         return "感电抗性 +20%, 攻击速度 -15%, 施放速度 -22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -1819,7 +1820,7 @@ def entry_189(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.技能攻击力加成(0.15)
 
 
 def entry_190(char={}, mode=0, text=False, part=''):
@@ -1837,7 +1838,7 @@ def entry_191(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('出血', 0.03 * 10)
 
 
 def entry_192(char={}, mode=0, text=False, part=''):
@@ -1846,7 +1847,7 @@ def entry_192(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.移动速度增加(0.4)
 
 
 def entry_193(char={}, mode=0, text=False, part=''):
