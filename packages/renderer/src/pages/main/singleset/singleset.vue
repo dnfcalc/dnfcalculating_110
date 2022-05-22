@@ -19,19 +19,15 @@
       const type = ref(EPIC_EQUIP)
       const configStore = useConfigStore()
       const basicStore = useBasicInfoStore()
-      const chooseEquList = computed<IEquipmentInfo[]>({
-        get() {
-          return configStore.single_set
-        },
-        set(val) {
-          configStore.single_set = val
-        }
-      })
 
       const equips = computed(() => basicStore.equipment_info?.lv110 ?? [])
       const weapons = computed(() => basicStore.equipment_info?.weapon ?? [])
       const myths = computed(() => basicStore.equipment_info?.myth ?? [])
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
+
+      function isActive(equ: IEquipmentInfo) {
+        return configStore.single_set.findIndex(e => e.id === equ.id) > -1
+      }
 
       function getEquip(index: number) {
         switch (type.value) {
@@ -64,11 +60,11 @@
 
       function chooseEqu(equ: IEquipmentInfo) {
         return () => {
-          const index = chooseEquList.value.findIndex(item => item.typeName == equ.typeName)
+          const index = configStore.single_set.findIndex(item => item.typeName == equ.typeName)
           if (index < 0) {
-            chooseEquList.value.push(equ)
+            configStore.single_set.push(equ)
           } else {
-            chooseEquList.value[index] = equ
+            configStore.single_set[index] = equ
           }
         }
       }
@@ -123,9 +119,7 @@
                 const equ = getEquip(index)
                 return (
                   <div class="equ-item">
-                    {equ && (
-                      <EquipTips onClick={chooseEqu(equ)} onDblclick={selectSuit(index)} active={chooseEquList.value.includes(equ)} eq={equ} key={equ.id} canClick={true} show-tips={false}></EquipTips>
-                    )}
+                    {equ && <EquipTips onClick={chooseEqu(equ)} onDblclick={selectSuit(index)} active={isActive(equ)} eq={equ} key={equ.id} canClick={true} show-tips={false}></EquipTips>}
                   </div>
                 )
               })}
@@ -137,7 +131,7 @@
               <calc-button>清空基准</calc-button>
               <calc-button>查看详情</calc-button>
             </div>
-            <profile equList={chooseEquList.value} class="m-5px !mt-0 !mr-2px !ml-2px"></profile>
+            <profile equ-list={configStore.single_set} class="m-5px !mt-0 !mr-2px !ml-2px"></profile>
           </div>
           <div class="flex m-10px mr-2px mb-0 ml-2px w-350px justify-center">辟邪玉提升率(理论值仅供参考)</div>
         </div>
