@@ -11,11 +11,31 @@
     })
 
     return () => (
-      <div>
-        {renderList(equs.value, item => (
-          <div>{item.name}</div>
+      <div class="flex flex-wrap mt-5px">
+        {renderList(equs.value, a => (
+          <div class="cus-item">
+            <img src={"./images/equipment/" + a.icon} />
+            {renderList(4, index => (
+              <calc-select class="w-100%">
+                {renderList(a.alternative, b => (
+                  <calc-option>{b}</calc-option>
+                ))}
+              </calc-select>
+            ))}
+          </div>
         ))}
       </div>
     )
   })
 </script>
+
+<scss lang="scss">
+.cus-item {
+  width: 180px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+}
+</scss>
