@@ -60,7 +60,8 @@ def get_equipment_info(alter: str):
                     "order": temp["order"],
                     "typeName": temp["部位"],
                     "customize": temp["可选属性"],
-                    "stable": temp["固有属性"]
+                    "stable": temp["固有属性"],
+                    "alternative": temp["可选属性"]
                 }
             )
         if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["类型"] in weapons and (转职 in temp["名称"] or not "胜负之役" in temp["名称"]):
@@ -71,7 +72,8 @@ def get_equipment_info(alter: str):
                     "icon": temp["icon"],
                     "typeName": temp["部位"],
                     "customize": temp["可选属性"],
-                    "stable": temp["固有属性"]
+                    "stable": temp["固有属性"],
+                    "alternative": temp["可选属性"]
                 }
             )
         if temp["品质"] == '神话':
@@ -82,7 +84,8 @@ def get_equipment_info(alter: str):
                     "icon": temp["icon"],
                     "typeName": temp["部位"],
                     "customize": temp["可选属性"],
-                    "stable": temp["固有属性"]
+                    "stable": temp["固有属性"],
+                    "alternative": temp["可选属性"]
                 }
             )
         if temp["品质"] == '智慧产物':
@@ -93,7 +96,8 @@ def get_equipment_info(alter: str):
                     "icon": temp["icon"],
                     "typeName": temp["部位"],
                     "customize": temp["可选属性"],
-                    "stable": temp["固有属性"]
+                    "stable": temp["固有属性"],
+                    "alternative": temp["可选属性"]
                 }
             )
 

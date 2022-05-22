@@ -48,6 +48,12 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       }
       return state._equipmentInfo
     },
+    equipment_list(state) {
+      if (!state._equipmentInfo) {
+        api.getEquipments().then(res => (state._equipmentInfo = res.data))
+      }
+      return [...(state._equipmentInfo?.lv110 ?? []), ...(state._equipmentInfo?.myth ?? []), ...(state._equipmentInfo?.weapon ?? []), ...(state._equipmentInfo?.wisdom ?? [])]
+    },
     adventure_info(state) {
       if (state._adventureInfo.length === 0) {
         api.getAdventure().then(res => (state._adventureInfo = res.data))

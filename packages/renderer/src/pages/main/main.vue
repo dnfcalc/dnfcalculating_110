@@ -57,6 +57,7 @@
                 <calc-tab value={"/character/equips?name=" + characterStore.alter}>装备</calc-tab>
                 <calc-tab value={"/character/skills?name=" + characterStore.alter}>技能</calc-tab>
                 <calc-tab value={"/character/profile?name=" + characterStore.alter}>打造</calc-tab>
+                <calc-tab value={"/character/customize?name=" + characterStore.alter}>自选属性</calc-tab>
                 <calc-tab value={"/character/singleset?name=" + characterStore.alter}>单套选择</calc-tab>
               </calc-tabs>
             </div>

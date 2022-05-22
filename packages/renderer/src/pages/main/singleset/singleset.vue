@@ -26,8 +26,12 @@
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
 
       function isActive(equ: IEquipmentInfo) {
-        return configStore.single_set.findIndex(e => e.id === equ.id) > -1
+        return configStore.single_set.findIndex(e => e === equ.id) > -1
       }
+
+      const curEquList = computed(() => {
+        return basicStore.equipment_list.filter(item => configStore.single_set.includes(item.id))
+      })
 
       function getEquip(index: number) {
         switch (type.value) {
@@ -60,11 +64,11 @@
 
       function chooseEqu(equ: IEquipmentInfo) {
         return () => {
-          const index = configStore.single_set.findIndex(item => item.typeName == equ.typeName)
+          const index = curEquList.value.findIndex(item => item.typeName == equ.typeName)
           if (index < 0) {
-            configStore.single_set.push(equ)
+            configStore.single_set.push(equ.id)
           } else {
-            configStore.single_set[index] = equ
+            configStore.single_set[index] = equ.id
           }
         }
       }
@@ -131,7 +135,7 @@
               <calc-button>清空基准</calc-button>
               <calc-button>查看详情</calc-button>
             </div>
-            <profile equ-list={configStore.single_set} class="m-5px !mt-0 !mr-2px !ml-2px"></profile>
+            <profile equ-list={curEquList.value} class="m-5px !mt-0 !mr-2px !ml-2px"></profile>
           </div>
           <div class="flex m-10px mr-2px mb-0 ml-2px w-350px justify-center">辟邪玉提升率(理论值仅供参考)</div>
         </div>

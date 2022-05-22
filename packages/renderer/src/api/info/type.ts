@@ -22,6 +22,7 @@ export interface IEquipmentInfo {
   icon: string
   state?: boolean
   features?: number[]
+  alternative: number[]
 }
 
 export interface IEquipmentList {
@@ -120,7 +121,7 @@ export interface ICharacterSet {
 
   other_set: Record<string, Map<string, any>>
 
-  single_set: IEquipmentInfo[]
+  single_set: number[]
 
   carry_type: string
 

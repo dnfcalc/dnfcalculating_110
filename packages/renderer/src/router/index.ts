@@ -37,16 +37,16 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/pages/main/detail/detail.vue")
       },
       {
+        path: "/character/customize",
+        name: "customize",
+        component: () => import("@/pages/main/customize/customize.vue")
+      },
+      {
         path: "/character/singleset",
         name: "singleset",
         component: () => import("@/pages/main/singleset/singleset.vue")
       }
     ]
-  },
-  {
-    path: "/panel/custom_selection",
-    name: "custom_selection",
-    component: () => import("@/pages/panel/custom_selection.vue")
   },
   {
     path: "/result",
@@ -64,6 +64,12 @@ if (import.meta.env.DEV) {
       title: "组件展示"
     },
     component: () => import("@/components/show.vue")
+  })
+
+  routes.push({
+    path: "/panel/custom_selection",
+    name: "custom_selection",
+    component: () => import("@/pages/panel/custom_selection.vue")
   })
 }
 
