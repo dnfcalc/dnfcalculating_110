@@ -443,7 +443,7 @@ entry_func_list[43] = [entry_43, entry_state1_type]
 
 def entry_44(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击灼伤状态敌人(5%技攻)"
+        return "攻击灼烧状态敌人(5%技攻)"
     if mode == 0:
         char.技能攻击力加成(0.05)
     if mode == 1:
@@ -607,7 +607,7 @@ def entry_56(char={}, mode=0, text=False, part=''):
 
 def entry_57(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击无力化状态下的敌人时，灼伤伤害 +15%"
+        return "攻击无力化状态下的敌人时，灼烧伤害 +15%"
     if mode == 0:
         char.异常增伤('灼烧', 0.15)
     if mode == 1:
@@ -625,7 +625,7 @@ def entry_58(char={}, mode=0, text=False, part=''):
 
 def entry_59(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击时，有50%的几率使敌人进入灼伤状态(冷却时间10秒)"
+        return "攻击时，有50%的几率使敌人进入灼烧状态(冷却时间10秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -796,7 +796,7 @@ def entry_77(char={}, mode=0, text=False, part=''):
 
 def entry_78(char={}, mode=0, text=False, part=''):
     if text:
-        return "灼伤抗性 +8%"
+        return "灼烧抗性 +8%"
     if mode == 0:
         pass
     if mode == 1:
@@ -913,7 +913,7 @@ def entry_90(char={}, mode=0, text=False, part=''):
 
 def entry_91(char={}, mode=0, text=False, part=''):
     if text:
-        return "自身触发的灼伤状态持续时间 -10%"
+        return "自身触发的灼烧状态持续时间 -10%"
     if mode == 0:
         pass
     if mode == 1:
@@ -1021,9 +1021,9 @@ def entry_102(char={}, mode=0, text=False, part=''):
 
 def entry_103(char={}, mode=0, text=False, part=''):
     if text:
-        return "灼伤伤害 +10%"
+        return "灼烧伤害 +10%"
     if mode == 0:
-        char.异常增伤('灼伤', 0.1)
+        char.异常增伤('灼烧', 0.1)
     if mode == 1:
         pass
 
@@ -1174,7 +1174,7 @@ def entry_117(char={}, mode=0, text=False, part=''):
 
 def entry_118(char={}, mode=0, text=False, part=''):
     if text:
-        return "施放冷却时间在20秒以下的技能时，灼伤伤害 +10%，效果持续3秒(冷却时间3秒，最多叠加1次)"
+        return "施放冷却时间在20秒以下的技能时，灼烧伤害 +10%，效果持续3秒(冷却时间3秒，最多叠加1次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -1383,7 +1383,7 @@ def entry_140(char={}, mode=0, text=False, part=''):
 
 def entry_141(char={}, mode=0, text=False, part=''):
     if text:
-        return "500px范围内，每存在1个灼伤状态的敌人，伤害增加 356(最多叠加10次)"
+        return "500px范围内，每存在1个灼烧状态的敌人，伤害增加 356(最多叠加10次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -1716,7 +1716,7 @@ def entry_177(char={}, mode=0, text=False, part=''):
 
 def entry_178(char={}, mode=0, text=False, part=''):
     if text:
-        return "角色伤害的10%转化为灼伤伤害"
+        return "角色伤害的10%转化为灼烧伤害"
     if mode == 0:
         char.伤害类型转化('直接', '灼烧', 0.1)
     if mode == 1:
@@ -1854,7 +1854,8 @@ def entry_193(char={}, mode=0, text=False, part=''):
     if text:
         return "中毒抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -1879,11 +1880,11 @@ def entry_195(char={}, mode=0, text=False, part=''):
 
 def entry_196(char={}, mode=0, text=False, part=''):
     if text:
-        return "每消灭一个敌人，获得1层强化(最多10层)，攻击领主敌人时消耗所有层数，每消耗1层，灼伤伤害 +3%，效果持续60秒"
+        return "每消灭一个敌人，获得1层强化(最多10层)，攻击领主敌人时消耗所有层数，每消耗1层，灼烧伤害 +3%，效果持续60秒"
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('灼烧', 0.3 * 10)
 
 
 def entry_197(char={}, mode=0, text=False, part=''):
@@ -1901,6 +1902,8 @@ def entry_198(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.攻击速度增加(0.2)
+        char.释放速度增加(0.3)
         pass
 
 
@@ -1908,7 +1911,8 @@ def entry_199(char={}, mode=0, text=False, part=''):
     if text:
         return "冰冻抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -1953,7 +1957,8 @@ def entry_204(char={}, mode=0, text=False, part=''):
     if text:
         return "减速抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -1964,16 +1969,16 @@ def entry_205(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('出血', 0.05 * 5)
 
 
 def entry_206(char={}, mode=0, text=False, part=''):
     if text:
-        return "根据敌人韧性破坏次数，灼伤伤害 +5%(最多叠加5次)"
+        return "根据敌人韧性破坏次数，灼烧伤害 +5%(最多叠加5次)"
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('灼烧', 0.05 * 5)
 
 
 def entry_207(char={}, mode=0, text=False, part=''):
@@ -1982,7 +1987,7 @@ def entry_207(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.技能攻击力加成(0.15)
 
 
 def entry_208(char={}, mode=0, text=False, part=''):
@@ -2077,11 +2082,14 @@ def entry_217(char={}, mode=0, text=False, part=''):
 
 def entry_218(char={}, mode=0, text=False, part=''):
     if text:
-        return "受基础精通影响攻击时，出血、中毒、灼伤、感电伤害 +20%，效果持续10秒(冷却时间15秒)"
+        return "受基础精通影响攻击时，出血、中毒、灼烧、感电伤害 +20%，效果持续10秒(冷却时间15秒)"
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('出血', 0.2)
+        char.异常增伤('中毒', 0.2)
+        char.异常增伤('灼烧', 0.2)
+        char.异常增伤('感电', 0.2)
 
 
 def entry_219(char={}, mode=0, text=False, part=''):
@@ -2108,7 +2116,7 @@ def entry_221(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暴击率增加(0.02 * 10)
 
 
 def entry_222(char={}, mode=0, text=False, part=''):
@@ -2117,7 +2125,8 @@ def entry_222(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.攻击速度增加(0.3)
+        char.释放速度增加(0.45)
 
 
 def entry_223(char={}, mode=0, text=False, part=''):
@@ -2126,7 +2135,9 @@ def entry_223(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.攻击速度增加(0.25)
+        char.释放速度增加(0.375)
+        char.移动速度增加(0.25)
 
 
 def entry_224(char={}, mode=0, text=False, part=''):
@@ -2144,7 +2155,7 @@ def entry_225(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.技能攻击力加成(0.15)
 
 
 def entry_226(char={}, mode=0, text=False, part=''):
@@ -2153,7 +2164,7 @@ def entry_226(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(267 * 10)
 
 
 def entry_227(char={}, mode=0, text=False, part=''):
@@ -2171,14 +2182,15 @@ def entry_228(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.所有属性强化加成(6 * 10)
 
 
 def entry_229(char={}, mode=0, text=False, part=''):
     if text:
         return "诅咒抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -2198,7 +2210,7 @@ def entry_231(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.冰属性强化加成(4 * 10)
 
 
 def entry_232(char={}, mode=0, text=False, part=''):
@@ -2207,7 +2219,7 @@ def entry_232(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.火属性强化加成(4 * 10)
 
 
 def entry_233(char={}, mode=0, text=False, part=''):
@@ -2216,7 +2228,7 @@ def entry_233(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.光属性强化加成(4 * 10)
 
 
 def entry_234(char={}, mode=0, text=False, part=''):
@@ -2225,7 +2237,7 @@ def entry_234(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暗属性强化加成(4 * 10)
 
 
 def entry_235(char={}, mode=0, text=False, part=''):
@@ -2234,14 +2246,17 @@ def entry_235(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.攻击速度增加(0.05 * 5)
+        char.释放速度增加(0.05 * 5)
+        char.移动速度增加(0.05 * 5)
 
 
 def entry_236(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv95所有技能冷却时间 +30%, Lv80所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(95, 95, -0.3)
+        char.技能倍率加成(80, 0.2)
     if mode == 1:
         pass
 
@@ -2250,7 +2265,8 @@ def entry_237(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv80所有技能冷却时间 +30%, Lv80所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(80, 80, -0.3)
+        char.技能倍率加成(95, 0.2)
     if mode == 1:
         pass
 
@@ -2261,7 +2277,7 @@ def entry_238(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暴击率增加(-0.08)
 
 
 def entry_239(char={}, mode=0, text=False, part=''):
@@ -2286,7 +2302,8 @@ def entry_241(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv35所有技能冷却时间 +30%, Lv35所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(35, 35, -0.3)
+        char.技能倍率加成(35, 0.2)
     if mode == 1:
         pass
 
@@ -2295,7 +2312,8 @@ def entry_242(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv40所有技能冷却时间 +30%, Lv35所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(40, 40, -0.3)
+        char.技能倍率加成(35, 0.2)
     if mode == 1:
         pass
 
@@ -2304,7 +2322,8 @@ def entry_243(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv40所有技能冷却时间 +30%, Lv40所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(40, 40, -0.3)
+        char.技能倍率加成(40, 0.2)
     if mode == 1:
         pass
 
@@ -2313,7 +2332,8 @@ def entry_244(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv45所有技能冷却时间 +30%, Lv40所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(45, 45, -0.3)
+        char.技能倍率加成(40, 0.2)
     if mode == 1:
         pass
 
@@ -2324,7 +2344,7 @@ def entry_245(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('出血', 0.20)
 
 
 def entry_246(char={}, mode=0, text=False, part=''):
@@ -2333,7 +2353,7 @@ def entry_246(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('感电', 0.20)
 
 
 def entry_247(char={}, mode=0, text=False, part=''):
@@ -2367,7 +2387,8 @@ def entry_250(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv45所有技能冷却时间 +30%, Lv45所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(45, 45, -0.3)
+        char.技能倍率加成(45, 0.2)
     if mode == 1:
         pass
 
@@ -2376,7 +2397,8 @@ def entry_251(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv60所有技能冷却时间 +30%, Lv45所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(60, 60, -0.3)
+        char.技能倍率加成(45, 0.2)
     if mode == 1:
         pass
 
@@ -2387,7 +2409,7 @@ def entry_252(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暴击率增加(0.15)
 
 
 def entry_253(char={}, mode=0, text=False, part=''):
@@ -2396,7 +2418,7 @@ def entry_253(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.技能攻击力加成(0.05)
 
 
 def entry_254(char={}, mode=0, text=False, part=''):
@@ -2405,14 +2427,15 @@ def entry_254(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.技能攻击力加成(0.05)
 
 
 def entry_255(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv60所有技能冷却时间 +30%, Lv60所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(60, 60, -0.3)
+        char.技能倍率加成(60, 0.2)
     if mode == 1:
         pass
 
@@ -2421,18 +2444,19 @@ def entry_256(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv70所有技能冷却时间 +30%, Lv60所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(70, 70, -0.3)
+        char.技能倍率加成(60, 0.2)
     if mode == 1:
         pass
 
 
 def entry_257(char={}, mode=0, text=False, part=''):
     if text:
-        return "施放冷却时间在25秒以上的技能时，灼伤伤害 +20%，效果持续10秒(冷却时间5秒，最多叠加1次)"
+        return "施放冷却时间在25秒以上的技能时，灼烧伤害 +20%，效果持续10秒(冷却时间5秒，最多叠加1次)"
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('灼烧', 0.2)
 
 
 def entry_258(char={}, mode=0, text=False, part=''):
@@ -2441,7 +2465,7 @@ def entry_258(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.异常增伤('中毒', 0.2)
 
 
 def entry_259(char={}, mode=0, text=False, part=''):
@@ -2450,14 +2474,15 @@ def entry_259(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.技能攻击力加成(0.12)
 
 
 def entry_260(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv70所有技能冷却时间 +30%, Lv70所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(70, 70, -0.3)
+        char.技能倍率加成(70, 0.2)
     if mode == 1:
         pass
 
@@ -2466,7 +2491,8 @@ def entry_261(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv75所有技能冷却时间 +30%, Lv70所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(75, 75, -0.3)
+        char.技能倍率加成(70, 0.2)
     if mode == 1:
         pass
 
@@ -2475,7 +2501,8 @@ def entry_262(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv75所有技能冷却时间 +30%, Lv75所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(75, 75, -0.3)
+        char.技能倍率加成(75, 0.2)
     if mode == 1:
         pass
 
@@ -2484,7 +2511,8 @@ def entry_263(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv80所有技能冷却时间 +30%, Lv75所有技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(80, 80, -0.3)
+        char.技能倍率加成(75, 0.2)
     if mode == 1:
         pass
 
@@ -2493,7 +2521,7 @@ def entry_264(char={}, mode=0, text=False, part=''):
     if text:
         return "移动速度 +30%, 物理防御力-20000, 魔法防御力-20000"
     if mode == 0:
-        pass
+        char.移动速度增加(0.3)
     if mode == 1:
         pass
 
@@ -2513,7 +2541,7 @@ def entry_266(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(44 * 60)
 
 
 def entry_267(char={}, mode=0, text=False, part=''):
@@ -2522,7 +2550,7 @@ def entry_267(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.火属性强化加成(25)
 
 
 def entry_268(char={}, mode=0, text=False, part=''):
@@ -2531,7 +2559,7 @@ def entry_268(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.冰属性强化加成(25)
 
 
 def entry_269(char={}, mode=0, text=False, part=''):
@@ -2540,7 +2568,7 @@ def entry_269(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.光属性强化加成(25)
 
 
 def entry_270(char={}, mode=0, text=False, part=''):
@@ -2549,14 +2577,14 @@ def entry_270(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暗属性强化加成(25)
 
 
 def entry_271(char={}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv45技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能倍率加成(45, 0.2)
     if mode == 1:
         pass
 
@@ -2565,7 +2593,7 @@ def entry_272(char={}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv35技能攻击力 +20%"
     if mode == 0:
-        pass
+        char.技能倍率加成(35, 0.2)
     if mode == 1:
         pass
 
@@ -2574,7 +2602,7 @@ def entry_273(char={}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv45技能冷却时间 -20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(45, 45, 0.2)
     if mode == 1:
         pass
 
@@ -2583,7 +2611,7 @@ def entry_274(char={}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv35技能冷却时间 -20%"
     if mode == 0:
-        pass
+        char.技能冷却缩减(35, 35, 0.2)
     if mode == 1:
         pass
 
@@ -2592,7 +2620,7 @@ def entry_275(char={}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv45技能Lv+1"
     if mode == 0:
-        pass
+        char.技能等级加成('所有', 45, 45, 1)
     if mode == 1:
         pass
 
@@ -2601,7 +2629,7 @@ def entry_276(char={}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv35技能Lv+1"
     if mode == 0:
-        pass
+        char.技能等级加成('所有', 35, 35, 1)
     if mode == 1:
         pass
 
@@ -2752,7 +2780,7 @@ def entry_292(char={}, mode=0, text=False, part=''):
 
 def entry_293(char={}, mode=0, text=False, part=''):
     if text:
-        return "灼伤抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
+        return "灼烧抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
         pass
     if mode == 1:
@@ -2797,7 +2825,7 @@ def entry_297(char={}, mode=0, text=False, part=''):
 
 def entry_298(char={}, mode=0, text=False, part=''):
     if text:
-        return "灼伤伤害 +30%, 所受伤害 +20%"
+        return "灼烧伤害 +30%, 所受伤害 +20%"
     if mode == 0:
         pass
     if mode == 1:
@@ -3265,7 +3293,7 @@ def entry_349(char={}, mode=0, text=False, part=''):
 
 def entry_350(char={}, mode=0, text=False, part=''):
     if text:
-        return "自身所有属性抗性之和超过250以上时，灼伤伤害 +15%"
+        return "自身所有属性抗性之和超过250以上时，灼烧伤害 +15%"
     if mode == 0:
         pass
     if mode == 1:
@@ -3310,7 +3338,7 @@ def entry_354(char={}, mode=0, text=False, part=''):
 
 def entry_355(char={}, mode=0, text=False, part=''):
     if text:
-        return "每12%的灼伤抗性，灼伤伤害 +5%(最多增加15%)"
+        return "每12%的灼烧抗性，灼烧伤害 +5%(最多增加15%)"
     if mode == 0:
         pass
     if mode == 1:
@@ -3553,7 +3581,7 @@ def entry_381(char={}, mode=0, text=False, part=''):
 
 def entry_382(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击领主敌人时，灼伤伤害 +20%，效果持续20秒, 20秒后，灼伤伤害 -10%，效果持续10秒"
+        return "攻击领主敌人时，灼烧伤害 +20%，效果持续20秒, 20秒后，灼烧伤害 -10%，效果持续10秒"
     if mode == 0:
         pass
     if mode == 1:
@@ -3724,7 +3752,7 @@ def entry_400(char={}, mode=0, text=False, part=''):
 
 def entry_401(char={}, mode=0, text=False, part=''):
     if text:
-        return "灼伤抗性 +5%, 灼伤伤害 +5%"
+        return "灼烧抗性 +5%, 灼烧伤害 +5%"
     if mode == 0:
         pass
     if mode == 1:
@@ -6118,7 +6146,7 @@ def entry_794(char={}, mode=0, text=False, part=''):
 
 def entry_795(char={}, mode=0, text=False, part=''):
     if text:
-        return "[装备操作键]输入后300秒内，施放无色技能时，消耗红色小晶块代替无色小晶块(冷却时间10秒), 消耗红色小晶块进行攻击时，使敌人进入灼伤状态(冷却时间10秒), 攻击灼伤状态敌人时，技能攻击力 +2%"
+        return "[装备操作键]输入后300秒内，施放无色技能时，消耗红色小晶块代替无色小晶块(冷却时间10秒), 消耗红色小晶块进行攻击时，使敌人进入灼烧状态(冷却时间10秒), 攻击灼烧状态敌人时，技能攻击力 +2%"
     if mode == 0:
         pass
     if mode == 1:
@@ -6244,7 +6272,7 @@ def entry_808(char={}, mode=0, text=False, part=''):
 
 def entry_809(char={}, mode=0, text=False, part=''):
     if text:
-        return "500px范围内每存在1名处于灼伤状态的敌人，所有速度 +3%、火属性抗性 +1(最多叠加10次), 绿名怪、领主进入灼伤状态时，所有速度、火属性抗性增加适用为最大叠加"
+        return "500px范围内每存在1名处于灼烧状态的敌人，所有速度 +3%、火属性抗性 +1(最多叠加10次), 绿名怪、领主进入灼烧状态时，所有速度、火属性抗性增加适用为最大叠加"
     if mode == 0:
         pass
     if mode == 1:
@@ -6514,7 +6542,7 @@ def entry_838(char={}, mode=0, text=False, part=''):
 
 def entry_839(char={}, mode=0, text=False, part=''):
     if text:
-        return "暴击5次时，使300px范围内所有敌人进入灼伤状态(冷却时间10秒)"
+        return "暴击5次时，使300px范围内所有敌人进入灼烧状态(冷却时间10秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -6574,7 +6602,7 @@ def entry_842(char={}, mode=0, text=False, part=''):
 
 def entry_843(char={}, mode=0, text=False, part=''):
     if text:
-        return "背击攻击时，使敌人随机进入出血、灼伤、中毒、感电状态中的1种，效果持续10秒(冷却时间10秒), 所有异常状态抗性 +10%"
+        return "背击攻击时，使敌人随机进入出血、灼烧、中毒、感电状态中的1种，效果持续10秒(冷却时间10秒), 所有异常状态抗性 +10%"
     if mode == 0:
         pass
     if mode == 1:
@@ -6835,7 +6863,7 @@ def entry_871(char={}, mode=0, text=False, part=''):
 
 def entry_872(char={}, mode=0, text=False, part=''):
     if text:
-        return "冰冻抗性 +3%, 灼伤抗性 -1.5%"
+        return "冰冻抗性 +3%, 灼烧抗性 -1.5%"
     if mode == 0:
         pass
     if mode == 1:
@@ -6853,7 +6881,7 @@ def entry_873(char={}, mode=0, text=False, part=''):
 
 def entry_874(char={}, mode=0, text=False, part=''):
     if text:
-        return "冰属性攻击灼伤敌人时，引发剧烈爆炸(冷却时间0.5秒)"
+        return "冰属性攻击灼烧敌人时，引发剧烈爆炸(冷却时间0.5秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7474,7 +7502,7 @@ def entry_942(char={}, mode=0, text=False, part=''):
 
 def entry_943(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击时，有5%的几率，消耗3个红色小晶块，使自身与300px范围内的敌人进入灼伤状态(冷却时间10秒), 灼伤伤害 +10%"
+        return "攻击时，有5%的几率，消耗3个红色小晶块，使自身与300px范围内的敌人进入灼烧状态(冷却时间10秒), 灼烧伤害 +10%"
     if mode == 0:
         pass
     if mode == 1:
@@ -7501,7 +7529,7 @@ def entry_945(char={}, mode=0, text=False, part=''):
 
 def entry_946(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击时，有50%的几率，根据火属性强化数值，发动火元素攻击(冷却时间5秒), - 火属性强化100~150：发动火爆, - 火属性强化150~250：发动火路, - 火属性强化250以上：发动陨石, - 被陨石命中的敌人进入灼伤状态，持续10秒(冷却时间15秒), - 发动陨石时，火属性抗性+20，效果持续30秒(最多叠加1次)"
+        return "攻击时，有50%的几率，根据火属性强化数值，发动火元素攻击(冷却时间5秒), - 火属性强化100~150：发动火爆, - 火属性强化150~250：发动火路, - 火属性强化250以上：发动陨石, - 被陨石命中的敌人进入灼烧状态，持续10秒(冷却时间15秒), - 发动陨石时，火属性抗性+20，效果持续30秒(最多叠加1次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7663,7 +7691,7 @@ def entry_963(char={}, mode=0, text=False, part=''):
 
 def entry_964(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击灼伤敌人时，5秒内，获得1个火种, 火种到达5个时，消耗所有火种，引发爆炸"
+        return "攻击灼烧敌人时，5秒内，获得1个火种, 火种到达5个时，消耗所有火种，引发爆炸"
     if mode == 0:
         pass
     if mode == 1:
@@ -7672,7 +7700,7 @@ def entry_964(char={}, mode=0, text=False, part=''):
 
 def entry_965(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击灼伤敌人时，除觉醒外所有技能剩余冷却时间 -0.5%(冷却时间0.5秒)"
+        return "攻击灼烧敌人时，除觉醒外所有技能剩余冷却时间 -0.5%(冷却时间0.5秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7681,7 +7709,7 @@ def entry_965(char={}, mode=0, text=False, part=''):
 
 def entry_966(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击灼伤敌人时，触发冰冻(冷却时间5秒)"
+        return "攻击灼烧敌人时，触发冰冻(冷却时间5秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7690,7 +7718,7 @@ def entry_966(char={}, mode=0, text=False, part=''):
 
 def entry_967(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击灼伤敌人时，火属性强化+5，火属性抗性 -10，效果持续5秒(冷却时间1秒，最多叠加5次)"
+        return "攻击灼烧敌人时，火属性强化+5，火属性抗性 -10，效果持续5秒(冷却时间1秒，最多叠加5次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7699,7 +7727,7 @@ def entry_967(char={}, mode=0, text=False, part=''):
 
 def entry_968(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击灼伤敌人时，使300px范围内所有敌人进入灼伤状态(冷却时间10秒)"
+        return "攻击灼烧敌人时，使300px范围内所有敌人进入灼烧状态(冷却时间10秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7708,7 +7736,7 @@ def entry_968(char={}, mode=0, text=False, part=''):
 
 def entry_969(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击灼伤敌人时，引发火焰爆炸(冷却时间0.5秒), 攻击灼伤状态敌人时，技能攻击力 +2%"
+        return "攻击灼烧敌人时，引发火焰爆炸(冷却时间0.5秒), 攻击灼烧状态敌人时，技能攻击力 +2%"
     if mode == 0:
         pass
     if mode == 1:
@@ -7717,7 +7745,7 @@ def entry_969(char={}, mode=0, text=False, part=''):
 
 def entry_970(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击灼伤敌人时，引发火属性爆炸(冷却时间1秒)"
+        return "攻击灼烧敌人时，引发火属性爆炸(冷却时间1秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7780,7 +7808,7 @@ def entry_976(char={}, mode=0, text=False, part=''):
 
 def entry_977(char={}, mode=0, text=False, part=''):
     if text:
-        return "火属性攻击时，使敌人进入灼伤状态(冷却时间10秒)"
+        return "火属性攻击时，使敌人进入灼烧状态(冷却时间10秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7915,7 +7943,7 @@ def entry_991(char={}, mode=0, text=False, part=''):
 
 def entry_992(char={}, mode=0, text=False, part=''):
     if text:
-        return "角色处于灼伤、中毒、出血、感电状态中至少一种时攻击敌人，有5%的几率使敌人进入与角色相同的异常状态(冷却时间10秒)"
+        return "角色处于灼烧、中毒、出血、感电状态中至少一种时攻击敌人，有5%的几率使敌人进入与角色相同的异常状态(冷却时间10秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7951,7 +7979,7 @@ def entry_995(char={}, mode=0, text=False, part=''):
 
 def entry_996(char={}, mode=0, text=False, part=''):
     if text:
-        return "角色所经之处留下火焰地带，持续3秒(冷却时间0.5秒，跳跃、技能的移动不会产生火焰地带), 接触火焰地带的敌人进入灼伤状态(冷却时间10秒)"
+        return "角色所经之处留下火焰地带，持续3秒(冷却时间0.5秒，跳跃、技能的移动不会产生火焰地带), 接触火焰地带的敌人进入灼烧状态(冷却时间10秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -8554,7 +8582,7 @@ def entry_1062(char={}, mode=0, text=False, part=''):
 
 def entry_1063(char={}, mode=0, text=False, part=''):
     if text:
-        return "普通攻击时，有15%的几率，使敌人随机进入灼伤、感电、出血、中毒状态中的1种(冷却时间10秒)"
+        return "普通攻击时，有15%的几率，使敌人随机进入灼烧、感电、出血、中毒状态中的1种(冷却时间10秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -8635,7 +8663,7 @@ def entry_1071(char={}, mode=0, text=False, part=''):
 
 def entry_1072(char={}, mode=0, text=False, part=''):
     if text:
-        return "伤害的50%转化为灼伤伤害, 灼伤伤害 +10%"
+        return "伤害的50%转化为灼烧伤害, 灼烧伤害 +10%"
     if mode == 0:
         pass
     if mode == 1:
@@ -9265,7 +9293,7 @@ def entry_1141(char={}, mode=0, text=False, part=''):
 
 def entry_1142(char={}, mode=0, text=False, part=''):
     if text:
-        return "所有被击伤害的50%转化为灼伤伤害, 攻击灼伤状态敌人时，技能攻击力 +2%"
+        return "所有被击伤害的50%转化为灼烧伤害, 攻击灼烧状态敌人时，技能攻击力 +2%"
     if mode == 0:
         pass
     if mode == 1:
@@ -9769,7 +9797,7 @@ def entry_1197(char={}, mode=0, text=False, part=''):
 
 def entry_1198(char={}, mode=0, text=False, part=''):
     if text:
-        return "灼伤伤害 +15%, 灼伤抗性 +10%"
+        return "灼烧伤害 +15%, 灼烧抗性 +10%"
     if mode == 0:
         pass
     if mode == 1:
@@ -9778,7 +9806,7 @@ def entry_1198(char={}, mode=0, text=False, part=''):
 
 def entry_1199(char={}, mode=0, text=False, part=''):
     if text:
-        return "灼伤伤害 +20%"
+        return "灼烧伤害 +20%"
     if mode == 0:
         pass
     if mode == 1:
@@ -9787,7 +9815,7 @@ def entry_1199(char={}, mode=0, text=False, part=''):
 
 def entry_1200(char={}, mode=0, text=False, part=''):
     if text:
-        return "灼伤抗性 +3%, 冰冻抗性 -1.5%"
+        return "灼烧抗性 +3%, 冰冻抗性 -1.5%"
     if mode == 0:
         pass
     if mode == 1:
@@ -9913,7 +9941,7 @@ def entry_1213(char={}, mode=0, text=False, part=''):
 
 def entry_1214(char={}, mode=0, text=False, part=''):
     if text:
-        return "自身处于灼伤状态时，物理、魔法暴击率 +10%，攻击速度 +5%、施放速度 +7.5%, 被击时，自身进入灼伤状态(冷却时间5秒)"
+        return "自身处于灼烧状态时，物理、魔法暴击率 +10%，攻击速度 +5%、施放速度 +7.5%, 被击时，自身进入灼烧状态(冷却时间5秒)"
     if mode == 0:
         pass
     if mode == 1:
@@ -9985,7 +10013,7 @@ def entry_1221(char={}, mode=0, text=False, part=''):
 
 def entry_1222(char={}, mode=0, text=False, part=''):
     if text:
-        return "自身每处于灼伤状态1秒，所有属性强化 +3，持续15秒(最多叠加10次)"
+        return "自身每处于灼烧状态1秒，所有属性强化 +3，持续15秒(最多叠加10次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -10003,7 +10031,7 @@ def entry_1223(char={}, mode=0, text=False, part=''):
 
 def entry_1224(char={}, mode=0, text=False, part=''):
     if text:
-        return "自身使敌人进入的冰冻状态无法被灼伤解除, 攻击冰冻状态敌人时，技能攻击力 +5%"
+        return "自身使敌人进入的冰冻状态无法被灼烧解除, 攻击冰冻状态敌人时，技能攻击力 +5%"
     if mode == 0:
         pass
     if mode == 1:
@@ -10012,7 +10040,7 @@ def entry_1224(char={}, mode=0, text=False, part=''):
 
 def entry_1225(char={}, mode=0, text=False, part=''):
     if text:
-        return "自身使敌人进入灼伤状态解除敌人冰冻状态时，敌人受到的灼伤伤害 +30%"
+        return "自身使敌人进入灼烧状态解除敌人冰冻状态时，敌人受到的灼烧伤害 +30%"
     if mode == 0:
         pass
     if mode == 1:
@@ -10075,7 +10103,7 @@ def entry_1231(char={}, mode=0, text=False, part=''):
 
 def entry_1232(char={}, mode=0, text=False, part=''):
     if text:
-        return "最后一次赋予敌人的无力化异常状态（不包括出血、感电、中毒、灼伤）作为敌人下一次无力化的弱点属性"
+        return "最后一次赋予敌人的无力化异常状态（不包括出血、感电、中毒、灼烧）作为敌人下一次无力化的弱点属性"
     if mode == 0:
         pass
     if mode == 1:
