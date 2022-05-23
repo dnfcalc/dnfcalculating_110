@@ -16,7 +16,8 @@
     "postinstall": "husky install",
     "clean-pycache": "rimraf ./**/__pycache__",
     "clean-deps": "rimraf ./**/node_modules",
-    "release": "bumpp"
+    "release": "bumpp",
+    "git": "git fetch --all && git reset --hard origin/master && git pull && git remote prune origin"
   },
   "engines": {
     "node": ">=14.17.0"
