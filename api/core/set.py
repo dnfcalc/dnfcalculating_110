@@ -12,7 +12,7 @@ def save(alter: str, setName: str, setInfo):
     """
     store.set('/{}/setinfo/{}'.format(alter, setName), setInfo)
     # 创建配置文件夹
-    path = './ResourceFiles/{}/{}'.format(alter, setName)
+    path = './Sets/{}/{}'.format(alter, setName)
     if not os.path.exists(path):
         os.makedirs(path, exist_ok=True)
     with open(path + "/store.json", "w", encoding='utf-8') as fp:
@@ -28,7 +28,7 @@ def get_set_list(alter: str):
     获取存档列表
     """
     setList = []
-    setList = os.listdir('./ResourceFiles/{}'.format(alter))
+    setList = os.listdir('./Sets/{}'.format(alter))
     if len(setList) == 0:
         setList.append("set")
     return setList
@@ -55,7 +55,7 @@ def get(alter: str, setName: str):
             "directNumber": 0,
             "damage": item["type"] == 1
         })
-    if not os.path.exists('./ResourceFiles/{}/{}/store.json'.format(alter, setName)):
+    if not os.path.exists('./Sets/{}/{}/store.json'.format(alter, setName)):
         set_info = {
             "skill_set": skill_set,
             "skill_que": [],
@@ -68,7 +68,7 @@ def get(alter: str, setName: str):
             "trigger_set": trigger
         }
     else:
-        with open('./ResourceFiles/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
+        with open('./Sets/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
             set_info = json.load(fp)
         fp.close()
         # 先简化处理，后续优化

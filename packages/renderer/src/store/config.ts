@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 import api from "@/api"
 import { ICharacterSet } from "@/api/info/type"
 import { toObj, toMap, getUuid, setSession } from "@/utils"
-import { useCharacterStore } from "."
+import { useCharacterStore, useBasicInfoStore } from "."
 
 interface ConfigState extends ICharacterSet {
   name: string
@@ -36,7 +36,8 @@ export const useConfigStore = defineStore("config", {
       trigger_set: [],
       skill_que: [],
       token: "",
-      _configlist: undefined
+      _configlist: undefined,
+      customize: {}
     }
   },
   getters: {
@@ -62,7 +63,8 @@ export const useConfigStore = defineStore("config", {
         wisdom_list: state.wisdom_list,
         myths_list: state.myths_list,
         weapons_list: state.weapons_list,
-        lv110_list: state.lv110_list
+        lv110_list: state.lv110_list,
+        customize: state.customize
       }
     }
   },
@@ -143,6 +145,18 @@ export const useConfigStore = defineStore("config", {
         let map = this.forge_set[part]
         return map.get(key)
       }
+    },
+    customizeInit() {
+      const temp =
+        useBasicInfoStore().equipment_list.filter(
+          item =>
+            [...this.wisdom_list, ...this.myths_list, ...this.weapons_list, ...this.lv110_list, ...this.single_set].findIndex(e => Number(e) == Number(item.id)) >= 0 && item.alternative.length > 0
+        ) ?? []
+      const list = temp.map(item => item.id)
+      const keys = Object.keys(this.customize)
+      ;(keys.filter(item => list.indexOf(Number(item)) < 0) ?? []).forEach(item => delete this.customize[item])
+      list.filter(item => keys.indexOf(item.toString()) < 0).forEach(item => (this.customize[item] = [0, 0, 0, 0]))
+      console.log(this.customize)
     }
   }
 })

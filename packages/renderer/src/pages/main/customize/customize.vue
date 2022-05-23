@@ -6,7 +6,16 @@
     const basicStore = useBasicInfoStore()
 
     const equs = computed(() => {
-      const list = [...configStore.wisdom_list, ...configStore.myths_list, ...configStore.weapons_list, ...configStore.lv110_list, ...configStore.single_set]
+      const temp =
+        basicStore.equipment_list.filter(
+          item =>
+            [...configStore.wisdom_list, ...configStore.myths_list, ...configStore.weapons_list, ...configStore.lv110_list, ...configStore.single_set].findIndex(e => Number(e) == Number(item.id)) >=
+              0 && item.alternative.length > 0
+        ) ?? []
+      const list = temp.map(item => item.id)
+      const keys = Object.keys(configStore.customize)
+      ;(keys.filter(item => list.indexOf(Number(item)) < 0) ?? []).forEach(item => delete configStore.customize[item])
+      list.filter(item => keys.indexOf(item.toString()) < 0).forEach(item => (configStore.customize[item] = [0, 0, 0, 0]))
       return basicStore.equipment_list.filter(item => list.findIndex(e => Number(e) == Number(item.id)) >= 0 && item.alternative.length > 0) ?? []
     })
 

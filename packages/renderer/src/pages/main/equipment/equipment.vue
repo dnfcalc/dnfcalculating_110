@@ -71,6 +71,22 @@
         }
       })
 
+      watch(configStore.wisdom_list, () => {
+        configStore.customizeInit()
+      })
+
+      watch(configStore.myths_list, () => {
+        configStore.customizeInit()
+      })
+
+      watch(configStore.weapons_list, () => {
+        configStore.customizeInit()
+      })
+
+      watch(configStore.lv110_list, () => {
+        configStore.customizeInit()
+      })
+
       const trigger_list = computed(() => basicStore.trigger_list ?? [])
 
       // 没有的就补，多的就删

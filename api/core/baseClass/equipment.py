@@ -12,14 +12,14 @@ except:
 
 def get_eq_info_data():
     equ_info = {}
-    with open("./ResourceFiles/dataFiles/equ-data.json", encoding='utf-8') as fp:
+    with open("./dataFiles/equ-data.json", encoding='utf-8') as fp:
         equ_info = json.load(fp)
     return equ_info
 
 
 def get_entry_info_data():
     entry_info = {}
-    with open("./ResourceFiles/dataFiles/entry-data.json", encoding='utf-8') as fp:
+    with open("./dataFiles/entry-data.json", encoding='utf-8') as fp:
         entry_info = json.load(fp)
     return entry_info
 

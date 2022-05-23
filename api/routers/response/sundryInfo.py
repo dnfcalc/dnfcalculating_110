@@ -11,7 +11,7 @@ except:
 
 def get_adventure_info():
     adventure_info = {}
-    with open("./ResourceFiles/dataFiles/adventure-info.json", encoding='utf-8') as fp:
+    with open("./dataFiles/adventure-info.json", encoding='utf-8') as fp:
         adventure_info = json.load(fp)
     return adventure_info
 
