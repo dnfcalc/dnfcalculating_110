@@ -151,14 +151,14 @@ class equipment_list():
                 num += 1
                 pass
         return damagelist
-
+        
     def set_func_chose(self, choseinfo):
         self.chose.update(choseinfo)
 
     def get_func_by_id(self, id):
         if id in entry_id_bind.keys():
             bindinfo = entry_id_bind[id]  # (id, chose)
-            if self.chose.get(bindinfo[0], 0) == bindinfo[1]:
+            if bindinfo[1] in self.chose.get(bindinfo[0], []):
                 return entry_func_list[bindinfo[0]][bindinfo[1]]
             else:
                 return entry_func_list[bindinfo[0]][0]
