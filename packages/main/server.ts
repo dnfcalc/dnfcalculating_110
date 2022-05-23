@@ -59,15 +59,15 @@ function judgeServerOpen(port: number): Promise<boolean> {
  * @returns
  */
 export function stopServer() {
-  // TODO 关闭python api
-  if (instance) {
-    instance.kill(0) && console.log("server stoped.")
-  }
   if (app.isPackaged) {
     if (process.platform == "win32") {
       child_process.exec("taskkill /f /im dnfcalc-api.exe")
     } else {
       child_process.exec("killall Python")
     }
+  }
+  // TODO 关闭python api
+  if (instance) {
+    instance.kill(0) && console.log("server stoped.")
   }
 }

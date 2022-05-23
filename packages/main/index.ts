@@ -38,6 +38,7 @@ async function createWindow() {
 
   if (app.isPackaged) {
     win.loadFile(join(__dirname, "../renderer/index.html"))
+    win.webContents.openDevTools({ mode: "undocked", activate: true })
   } else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}`
@@ -111,6 +112,7 @@ ipcMain.handle("open-win", (event, arg) => {
     childWindow.loadFile(join(__dirname, `../renderer/index.html`), {
       hash: `${arg.url}`
     })
+    childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
   } else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}/#${arg.url}`

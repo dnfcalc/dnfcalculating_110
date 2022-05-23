@@ -154,13 +154,13 @@
             <div class="row-name">下装</div>
             <calc-select class="!h-20px flex-1">
               {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item} Lv+1</calc-option>
+                <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
             <calc-select class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
               {renderList(down_skill.value, item => (
-                <calc-option value={item}>{item}</calc-option>
+                <calc-option value={item}>{item} Lv+1</calc-option>
               ))}
             </calc-select>
           </div>

@@ -1,5 +1,5 @@
 {
-  "name": "dcalc-electron-preload",
+  "name": "dcalc-preload",
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
