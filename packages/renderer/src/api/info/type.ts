@@ -127,7 +127,7 @@ export interface ICharacterSet {
 
   attack_attribute: number
 
-  trigger_set: TriggerSet[]
+  trigger_set: Record<string, number[] | number>
 
   customize: Record<string, number[]>
 }

@@ -134,8 +134,8 @@
             {trigger_list.value &&
               renderList(trigger_list.value, (trigger, index) => (
                 <>
-                  {configStore.trigger_set[index] && (
-                    <calc-select multiple v-model={configStore.trigger_set[index].select} class="ownSelect-2">
+                  {configStore.trigger_set[trigger.id] && (
+                    <calc-select multiple v-model={configStore.trigger_set[trigger.id]} class="ownSelect-2">
                       {renderList(trigger.selectList, (item, index) => (
                         <>
                           <calc-option value={index}>{item}</calc-option>

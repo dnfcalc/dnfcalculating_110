@@ -154,10 +154,11 @@ export function toObj(data: Object) {
   return temp
 }
 
-export function toMap(data: Object) {
+export function toMap(data: Object, except: string[] = []) {
   let temp = {}
   for (let key in data) {
-    if (typeof data[key] === "object" && data[key].constructor != Array) {
+    console.log(key, data[key].constructor)
+    if (typeof data[key] === "object" && data[key].constructor != Array && except.indexOf(key) < 0) {
       // 需要转换部分,不能是Array,也会被转换
       let sub = {}
       for (let subkey in data[key]) {
@@ -183,9 +184,9 @@ export function toMap(data: Object) {
       })
     }
   }
+  console.log(temp)
   return temp
 }
-
 
 export function RecordToObj(todo: Record<string, Map<any, any>>) {
   let temp = {}

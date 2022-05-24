@@ -6,7 +6,7 @@ from routers.info import infoRouter
 from routers.calc import calcRouter
 from utils.apiTools import register_exception, register_cors
 
-app = FastAPI()
+app = FastAPI(docs_url=None)
 
 # 全局的异常处理
 register_exception(app)

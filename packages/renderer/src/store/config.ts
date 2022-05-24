@@ -33,7 +33,7 @@ export const useConfigStore = defineStore("config", {
       myths_list: [],
       lv110_list: [],
       weapons_list: [],
-      trigger_set: [],
+      trigger_set: {},
       skill_que: [],
       token: "",
       _configlist: undefined,
@@ -72,7 +72,7 @@ export const useConfigStore = defineStore("config", {
     async load() {
       // console.log(this.name)
       await api.getConfig(this.name).then(res => {
-        const data = toMap(res) as ICharacterSet
+        const data = toMap(res, ["trigger_set"]) as ICharacterSet
         this.$patch(data)
       })
     },

@@ -151,7 +151,7 @@ class equipment_list():
                 num += 1
                 pass
         return damagelist
-        
+
     def set_func_chose(self, choseinfo):
         self.chose.update(choseinfo)
 
@@ -182,7 +182,10 @@ class equipment_list():
         return funclist
 
     def get_chose_set(self, mode=0):
-        setinfo = []
+        if mode == 1:
+            setinfo = {}
+        else:
+            setinfo = []
         for i in entry_func_list.keys():
             temp = entry_func_list[i]
             if len(temp) > 1:
@@ -190,10 +193,11 @@ class equipment_list():
                 for k in temp:
                     ctext.append(k(text=True))
                 if mode == 1:
-                    setinfo.append({
-                        "id": i,
-                        "select": 0
-                    })
+                    setinfo[i] = [0]
+                    # setinfo.append({
+                    #     "id": i,
+                    #     "select": 0
+                    # })
                 else:
                     setinfo.append({
                         "id": i,

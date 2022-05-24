@@ -10,13 +10,16 @@ let instance: child_process.ChildProcess
  * @returns
  */
 export function startServer() {
-  judgeServerOpen(17173).then(res => {
+  judgeServerOpen(17173).then(async res => {
     if (res) {
       console.log("17173 is in used")
+      await stopServer()
     }
     if (app.isPackaged) {
       // exec不会报错 spawn会抛错
-      instance = child_process.exec(`"./resources/dnfcalc-api.exe"`)
+      instance = child_process.exec(`"./resources/dnfcalc-api.exe"`, function (error: any, stdout: any, stderr: any) {
+        console.log(stdout)
+      })
       console.log("server started.")
       return
     }
@@ -57,16 +60,19 @@ function judgeServerOpen(port: number): Promise<boolean> {
  * 关闭python的api服务
  * @returns
  */
-export function stopServer() {
-  if (app.isPackaged) {
-    if (process.platform == "win32") {
-      child_process.exec("taskkill /f /im dnfcalc-api.exe")
-    } else {
-      child_process.exec("killall Python")
-    }
-  }
-  // TODO 关闭python api
-  if (instance) {
-    instance.kill(0) && console.log("server stoped.")
-  }
+export function stopServer(): Promise<string> {
+  let order = ""
+  if (process.platform == "win32" && app.isPackaged) order = "taskkill /f /im dnfcalc-api.exe"
+  // child_process.exec("killall Python")
+  else order = "taskkill /f /im python.exe"
+
+  return new Promise((resolve, reject) => {
+    child_process.exec(order, function (error: any, stdout: any, stderr: any) {
+      // TODO 关闭python api
+      if (instance) {
+        instance.kill(0) && console.log("server stoped.")
+      }
+      resolve(stdout)
+    })
+  })
 }
