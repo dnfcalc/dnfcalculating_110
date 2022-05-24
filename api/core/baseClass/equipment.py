@@ -135,8 +135,8 @@ class equipment_list():
     def get_equ_id_list(self):
         return self.equ_id_tuple
 
-    def get_entry_info_by_id(self, id):
-        return self.entry_info.get(str(id), [0, 0])
+    def get_entry_atk_by_id(self, id):
+        return self.entry_info.get(str(id), {}).get('attack', 0)
 
     def get_damagelist_by_idlist(self, idlist):
         damagelist = []  # (部位, 序号, 基础伤害)
@@ -147,7 +147,7 @@ class equipment_list():
                 damagelist.append((
                     i.部位,
                     num,
-                    self.get_entry_info_by_id(k)[0]))
+                    self.get_entry_atk_by_id(k)))
                 num += 1
                 pass
         return damagelist
@@ -164,7 +164,7 @@ class equipment_list():
                 return entry_func_list[bindinfo[0]][0]
         else:
             func_list = entry_func_list.get(id, [entry_func_list[0]])
-        return func_list[self.chose.get(id, 0)]
+        return func_list[self.chose.get(id, [0])[0]]
 
     def get_func_list_by_idlist(self, idlist):
         temp = []
@@ -181,28 +181,30 @@ class equipment_list():
                 part))
         return funclist
 
-    def get_chose_set(self, mode=0):
-        if mode == 1:
-            setinfo = {}
-        else:
-            setinfo = []
+    def get_chose_set_info(self):
+        info = []
         for i in entry_func_list.keys():
             temp = entry_func_list[i]
             if len(temp) > 1:
                 ctext = []
                 for k in temp:
                     ctext.append(k(text=True))
-                if mode == 1:
-                    setinfo[i] = [0]
-                    # setinfo.append({
-                    #     "id": i,
-                    #     "select": 0
-                    # })
-                else:
-                    setinfo.append({
-                        "id": i,
-                        "selectList": ctext
-                    })
+                info.append((i, ctext))
+        return info
+
+    def get_chose_set(self, mode=0):
+        if mode == 1:
+            setinfo = {}
+            for i in self.get_chose_set_info():
+                setinfo[i[0]] = [0]
+        else:
+            setinfo = []
+            for i in self.get_chose_set_info():
+                setinfo.append({
+                    "id": i[0],
+                    "selectList": i[1]
+
+                })
         return setinfo
 
 

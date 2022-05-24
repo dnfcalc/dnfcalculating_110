@@ -383,6 +383,12 @@ class Character:
                 if i.是否有伤害 == 1:
                     i.倍率 *= (1 + x * self.技能伤害增加增幅)
 
+    def 批量技能倍率加成(self, min, max, x, exc = []):
+        for i in self.技能栏:
+            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
+                if i.是否有伤害 == 1:
+                    i.倍率 *= (1 + x * self.技能伤害增加增幅)
+
     def 单技能修改(self, 名称, 倍率, CD):
         for i in self.技能栏:
             if i.是否有伤害 == 1:
@@ -522,8 +528,9 @@ class Character:
 
     # 设置装备选项参数
     def equ_chose_set(self, setinfo):
-        for i in setinfo:
-            equ.set_func_chose({i['id']: i['select']})
+        equ.set_func_chose(setinfo)
+        #for i in setinfo:
+        #    equ.set_func_chose({i['id']: i['select']})
 
     # 设置穿戴的装备
     def 穿戴装备(self, idlist):
