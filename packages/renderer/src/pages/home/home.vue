@@ -36,7 +36,6 @@
         if (ignores.includes(child.name)) {
           return
         }
-        console.log(child)
         if (child.open) {
           openURL("/character?name=" + child.name, { width: 1100, height: 750 })
         } else {

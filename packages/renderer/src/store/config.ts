@@ -72,7 +72,7 @@ export const useConfigStore = defineStore("config", {
     async load() {
       // console.log(this.name)
       await api.getConfig(this.name).then(res => {
-        const data = toMap(res, ["trigger_set"]) as ICharacterSet
+        const data = toMap(res, ["trigger_set", "customize"]) as ICharacterSet
         this.$patch(data)
       })
     },
@@ -156,7 +156,6 @@ export const useConfigStore = defineStore("config", {
       const keys = Object.keys(this.customize)
       ;(keys.filter(item => list.indexOf(Number(item)) < 0) ?? []).forEach(item => delete this.customize[item])
       list.filter(item => keys.indexOf(item.toString()) < 0).forEach(item => (this.customize[item] = [0, 0, 0, 0]))
-      console.log(this.customize)
     }
   }
 })

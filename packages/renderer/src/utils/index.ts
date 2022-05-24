@@ -157,7 +157,6 @@ export function toObj(data: Object) {
 export function toMap(data: Object, except: string[] = []) {
   let temp = {}
   for (let key in data) {
-    console.log(key, data[key].constructor)
     if (typeof data[key] === "object" && data[key].constructor != Array && except.indexOf(key) < 0) {
       // 需要转换部分,不能是Array,也会被转换
       let sub = {}
@@ -184,7 +183,6 @@ export function toMap(data: Object, except: string[] = []) {
       })
     }
   }
-  console.log(temp)
   return temp
 }
 

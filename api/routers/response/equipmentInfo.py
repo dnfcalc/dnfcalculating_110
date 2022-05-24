@@ -225,3 +225,7 @@ def get_jade_info():
 
 def get_trigger_list():
     return equ.get_chose_set()
+
+
+def get_entry_list():
+    return equ.entry_info

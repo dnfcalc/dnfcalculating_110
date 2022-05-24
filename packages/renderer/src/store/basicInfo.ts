@@ -24,6 +24,7 @@ interface BasicInfoState {
   _jadeInfo: IJadeInfo[] | undefined
   // 触发词条选择
   _triggerList: ITrigger[] | undefined
+  _entryList: Record<string, { attack: number; buff: number; props: string[] }> | undefined
 }
 
 export const useBasicInfoStore = defineStore("basicInfo", {
@@ -38,7 +39,8 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       _enchantingInfo: undefined,
       _emblemInfo: undefined,
       _jadeInfo: undefined,
-      _triggerList: undefined
+      _triggerList: undefined,
+      _entryList: undefined
     }
   },
   getters: {
@@ -95,6 +97,12 @@ export const useBasicInfoStore = defineStore("basicInfo", {
         api.getTriggerList().then(res => (state._triggerList = res.data))
       }
       return state._triggerList
+    },
+    entry_list(state) {
+      if (!state._entryList) {
+        api.getEntryList().then(res => (state._entryList = res.data))
+      }
+      return state._entryList
     }
   },
   actions: {

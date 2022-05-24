@@ -26,14 +26,6 @@
         // 排行界面
         openURL("/ranking?uid=" + uid, { width: 800, height: 800 })
       } else {
-        console.log(
-          toObj({
-            res: saveData,
-            forge_set: configStore.forge_set,
-            alter: characterStore.alter,
-            name: characterStore.name
-          })
-        )
         // 详情界面
         setSession(
           uid,

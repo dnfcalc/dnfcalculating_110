@@ -24,8 +24,8 @@ export default defineRequest(request => {
     getTriggerList() {
       return request.get<ITrigger[]>("/triggerlist")
     },
-    getTemp(uid: string) {
-      return request.get<any>(`/gettemp/${uid}`)
+    getEntryList() {
+      return request.get<Record<string, { attack: number; buff: number; props: string[] }>>("/entrylist")
     }
   }
 })

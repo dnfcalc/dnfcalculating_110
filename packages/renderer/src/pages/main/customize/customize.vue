@@ -19,20 +19,34 @@
       return basicStore.equipment_list.filter(item => list.findIndex(e => Number(e) == Number(item.id)) >= 0 && item.alternative.length > 0) ?? []
     })
 
+    const entry_list = computed(() => basicStore.entry_list ?? [])
+
+    const entry = computed(() => {
+      return (index: number) => {
+        return entry_list.value?.[index]?.props.join(",")
+      }
+    })
+
     return () => (
       <div class="flex flex-wrap mt-5px">
-        {renderList(equs.value, a => (
-          <div class="cus-item">
-            <img src={"./images/equipment/" + a.icon} />
-            {renderList(4, index => (
-              <calc-select class="w-100%">
-                {renderList(a.alternative, b => (
-                  <calc-option>{b}</calc-option>
-                ))}
-              </calc-select>
-            ))}
-          </div>
-        ))}
+        {equs.value.length > 0 &&
+          renderList(equs.value, a => (
+            <div class="cus-item">
+              <img src={"./images/equipment/" + a.icon} />
+              {renderList(4, index => (
+                <calc-select class="!w-240px" v-model={configStore.customize[a.id][index - 1]}>
+                  {console.log(configStore.customize)}
+                  <calc-option value={0}>无</calc-option>
+                  {renderList(
+                    a.alternative.filter(item => configStore.customize[a.id].filter((a, i) => index - 1 != i).indexOf(item) < 0),
+                    b => (
+                      <calc-option value={b}>{entry.value(b)}</calc-option>
+                    )
+                  )}
+                </calc-select>
+              ))}
+            </div>
+          ))}
       </div>
     )
   })
@@ -40,7 +54,7 @@
 
 <scss lang="scss">
 .cus-item {
-  width: 180px;
+  width: 275px;
   height: 120px;
   display: flex;
   align-items: center;

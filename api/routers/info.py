@@ -85,6 +85,11 @@ async def get_emblem_info():
     return reponse(data=equipmentInfo.get_trigger_list())
 
 
+@infoRouter.get(path="/entrylist")
+async def get_entry_info():
+    return reponse(data=equipmentInfo.get_entry_list())
+
+
 @infoRouter.get(path="/config/{name}")
 async def get_config(name, state: AlterState = Depends(authorize)):
     return reponse(data=characterInfo.get_set(state.alter, name))
