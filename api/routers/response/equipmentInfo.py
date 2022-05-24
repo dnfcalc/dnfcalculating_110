@@ -54,7 +54,7 @@ def get_equipment_info(alter: str):
         if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["部位"] != "武器":
             equipment_info["lv110"].append(
                 {
-                    "id": i,
+                    "id": int(i),
                     "name": temp["名称"],
                     "icon": temp["icon"],
                     "order": temp["order"],
@@ -67,7 +67,7 @@ def get_equipment_info(alter: str):
         if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["类型"] in weapons and (转职 in temp["名称"] or not "胜负之役" in temp["名称"]):
             equipment_info["weapon"].append(
                 {
-                    "id": i,
+                    "id": int(i),
                     "name": temp["名称"],
                     "icon": temp["icon"],
                     "typeName": temp["部位"],
@@ -79,7 +79,7 @@ def get_equipment_info(alter: str):
         if temp["品质"] == '神话':
             equipment_info["myth"].append(
                 {
-                    "id": i,
+                    "id": int(i),
                     "name": temp["名称"],
                     "icon": temp["icon"],
                     "typeName": temp["部位"],
@@ -91,7 +91,7 @@ def get_equipment_info(alter: str):
         if temp["品质"] == '智慧产物':
             equipment_info["wisdom"].append(
                 {
-                    "id": i,
+                    "id": int(i),
                     "name": temp["名称"],
                     "icon": temp["icon"],
                     "typeName": temp["部位"],

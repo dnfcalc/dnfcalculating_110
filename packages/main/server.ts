@@ -13,11 +13,10 @@ export function startServer() {
   judgeServerOpen(17173).then(res => {
     if (res) {
       console.log("17173 is in used")
-      return
     }
     if (app.isPackaged) {
       // exec不会报错 spawn会抛错
-      child_process.exec(`"./resources/dnfcalc-api.exe"`)
+      instance = child_process.exec(`"./resources/dnfcalc-api.exe"`)
       console.log("server started.")
       return
     }

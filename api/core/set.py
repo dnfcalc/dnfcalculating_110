@@ -28,6 +28,8 @@ def get_set_list(alter: str):
     获取存档列表
     """
     setList = []
+    if not os.path.exists('./Sets/{}'.format(alter)):
+        os.makedirs('./Sets/{}'.format(alter), exist_ok=True)
     setList = os.listdir('./Sets/{}'.format(alter))
     if len(setList) == 0:
         setList.append("set")
