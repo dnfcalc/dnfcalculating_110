@@ -1,5 +1,6 @@
 from decimal import Decimal
-from core.baseClass.entry import entry_func_list, entry_id_bind
+from webbrowser import get
+from core.baseClass.entry import entry_func_list, entry_id_bind, entry_chose, multi_select, variable_set
 import json
 import sys
 import os
@@ -153,7 +154,12 @@ class equipment_list():
         return damagelist
 
     def set_func_chose(self, choseinfo):
-        self.chose.update(choseinfo)
+        for i in choseinfo.keys():
+            id = int(i)
+            if id >= 19000:  # 额外选项，参数设置
+                variable_set[id](choseinfo[i])
+            else:
+                self.chose.update({id: choseinfo[i]})
 
     def get_func_by_id(self, id):
         if id in entry_id_bind.keys():
@@ -190,7 +196,7 @@ class equipment_list():
                 for k in temp:
                     ctext.append(k(text=True))
                 info.append((i, ctext))
-        return info
+        return info + entry_chose
 
     def get_chose_set(self, mode=0):
         if mode == 1:
@@ -202,8 +208,8 @@ class equipment_list():
             for i in self.get_chose_set_info():
                 setinfo.append({
                     "id": i[0],
-                    "selectList": i[1]
-
+                    "selectList": i[1],
+                    "multi-select": multi_select.get(i[0], True)
                 })
         return setinfo
 

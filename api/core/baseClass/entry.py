@@ -1,5 +1,8 @@
 entry_func_list = {}
 entry_id_bind = {}  # id: (id, chose) 用于互斥选项，参考37敌人类型选择
+entry_chose = []
+multi_select = {}
+variable_set = {}
 
 # region 无效果词条
 
@@ -1382,7 +1385,21 @@ def entry_151(char={}, mode=0, text=False, part=''):
 
 # endregion
 
+
 # region 消灭敌人词条
+# 额外选择设置 id范围 19000-19999 (id, [text1, 2, 3..])
+kill_num = 0
+
+
+def set_kill_num(x):
+    global kill_num
+    kill_num = x[0]
+
+
+entry_chose.append((19000, ['选择消灭敌人层数', '1层', '2层',
+                   '3层', '4层', '5层', '6层', '7层', '8层', '9层', '10层']))
+multi_select[19000] = False
+variable_set[19000] = set_kill_num
 
 
 def entry_74(char={}, mode=0, text=False, part=''):
@@ -1391,7 +1408,7 @@ def entry_74(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.暴击率增加(0.02 * 10)
+        char.暴击率增加(0.02 * kill_num)
 
 
 def entry_187(char={}, mode=0, text=False, part=''):
@@ -1400,7 +1417,7 @@ def entry_187(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.异常增伤('中毒', 0.03 * 10)
+        char.异常增伤('中毒', 0.03 * kill_num)
 
 
 def entry_191(char={}, mode=0, text=False, part=''):
@@ -1409,7 +1426,7 @@ def entry_191(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.异常增伤('出血', 0.03 * 10)
+        char.异常增伤('出血', 0.03 * kill_num)
 
 
 def entry_196(char={}, mode=0, text=False, part=''):
@@ -1418,7 +1435,7 @@ def entry_196(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.异常增伤('灼烧', 0.03 * 10)
+        char.异常增伤('灼烧', 0.03 * kill_num)
 
 
 def entry_231(char={}, mode=0, text=False, part=''):
@@ -1427,7 +1444,7 @@ def entry_231(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.冰属性强化加成(4 * 10)
+        char.冰属性强化加成(4 * kill_num)
 
 
 def entry_232(char={}, mode=0, text=False, part=''):
@@ -1436,7 +1453,7 @@ def entry_232(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.火属性强化加成(4 * 10)
+        char.火属性强化加成(4 * kill_num)
 
 
 def entry_233(char={}, mode=0, text=False, part=''):
@@ -1445,7 +1462,7 @@ def entry_233(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.光属性强化加成(4 * 10)
+        char.光属性强化加成(4 * kill_num)
 
 
 def entry_234(char={}, mode=0, text=False, part=''):
@@ -1454,7 +1471,7 @@ def entry_234(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.暗属性强化加成(4 * 10)
+        char.暗属性强化加成(4 * kill_num)
 
 
 def entry_295(char={}, mode=0, text=False, part=''):
@@ -1463,7 +1480,7 @@ def entry_295(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能等级加成('所有', 80, 95, 10)
+        char.技能等级加成('所有', 80, 95, kill_num)
 
 
 def entry_300(char={}, mode=0, text=False, part=''):
@@ -1472,7 +1489,7 @@ def entry_300(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能等级加成('所有', 70, 75, 10)
+        char.技能等级加成('所有', 70, 75, kill_num)
 
 
 def entry_308(char={}, mode=0, text=False, part=''):
@@ -1481,7 +1498,7 @@ def entry_308(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能等级加成('所有', 35, 40, 10)
+        char.技能等级加成('所有', 35, 40, kill_num)
 
 
 def entry_322(char={}, mode=0, text=False, part=''):
@@ -1490,7 +1507,7 @@ def entry_322(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能等级加成('所有', 45, 60, 10)
+        char.技能等级加成('所有', 45, 60, kill_num)
 
 
 def entry_329(char={}, mode=0, text=False, part=''):
@@ -1499,7 +1516,7 @@ def entry_329(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.批量技能倍率加成(1, 100, 0.02 * 10, [50, 85, 100])
+        char.批量技能倍率加成(1, 100, 0.02 * kill_num, [50, 85, 100])
 
 
 def entry_360(char={}, mode=0, text=False, part=''):
@@ -1508,7 +1525,8 @@ def entry_360(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.异常增伤('感电', 0.03 * 10)
+        char.异常增伤('感电', 0.03 * kill_num)
+
 # endregion
 
 # region 无色相关词条
@@ -6824,6 +6842,7 @@ def entry_840_2(char={}, mode=0, text=False, part=''):
 
 
 entry_func_list[840] = [entry_840, entry_840_1, entry_840_2]
+multi_select[840] = False
 
 
 def entry_841(char={}, mode=0, text=False, part=''):
@@ -10473,4 +10492,4 @@ for i in range(10001, 10015):
     except:
         pass
 
-# 词条效果id范围 0~19999
+# 词条效果id范围 0~18999
