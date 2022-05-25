@@ -33,10 +33,6 @@
         return basicStore.equipment_list.filter(item => configStore.single_set.includes(item.id))
       })
 
-      watch(configStore.single_set, () => {
-        configStore.customizeInit()
-      })
-
       function getEquip(index: number) {
         switch (type.value) {
           case WEAPON:

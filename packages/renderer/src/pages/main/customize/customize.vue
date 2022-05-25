@@ -19,7 +19,7 @@
       return basicStore.equipment_list.filter(item => list.findIndex(e => Number(e) == Number(item.id)) >= 0 && item.alternative.length > 0) ?? []
     })
 
-    const entry_list = computed(() => basicStore.entry_list ?? [])
+    const entry_list = computed(() => basicStore.entry_list)
 
     const entry = computed(() => {
       return (index: number) => {
@@ -34,8 +34,7 @@
             <div class="cus-item">
               <img src={"./images/equipment/" + a.icon} />
               {renderList(4, index => (
-                <calc-select class="!w-240px" v-model={configStore.customize[a.id][index - 1]}>
-                  {console.log(configStore.customize)}
+                <calc-select class="!w-340px" v-model={configStore.customize[a.id][index - 1]}>
                   <calc-option value={0}>无</calc-option>
                   {renderList(
                     a.alternative.filter(item => configStore.customize[a.id].filter((a, i) => index - 1 != i).indexOf(item) < 0),
@@ -54,7 +53,7 @@
 
 <scss lang="scss">
 .cus-item {
-  width: 275px;
+  width: 360px;
   height: 120px;
   display: flex;
   align-items: center;

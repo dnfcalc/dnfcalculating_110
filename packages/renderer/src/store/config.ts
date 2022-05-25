@@ -106,6 +106,7 @@ export const useConfigStore = defineStore("config", {
       this[name] = item
     },
     async calc() {
+      this.customizeInit()
       return await api.calc({
         setInfo: toObj(this.data),
         setName: this.name

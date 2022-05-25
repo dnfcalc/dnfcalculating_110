@@ -48,6 +48,7 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       if (!state._equipmentInfo) {
         api.getEquipments().then(res => (state._equipmentInfo = res.data))
       }
+      this.entry_list
       return state._equipmentInfo
     },
     equipment_list(state) {
