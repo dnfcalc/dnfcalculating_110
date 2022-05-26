@@ -608,6 +608,70 @@ def entry_138(char={}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
+
+
+def entry_158(char={}, mode=0, text=False, part=''):
+    if text:
+        return "受到正面攻击时，所受伤害 -20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_159(char={}, mode=0, text=False, part=''):
+    if text:
+        return "受到背面攻击时，所受伤害 -20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_160(char={}, mode=0, text=False, part=''):
+    if text:
+        return "受到破招攻击时，所受伤害 -20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_161(char={}, mode=0, text=False, part=''):
+    if text:
+        return "受到非破招攻击时，所受伤害 -20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_162(char={}, mode=0, text=False, part=''):
+    if text:
+        return "每次攻击，恢复2200的HP(冷却时间1秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_163(char={}, mode=0, text=False, part=''):
+    if text:
+        return "每次攻击，恢复3500的MP(冷却时间1秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_164(char={}, mode=0, text=False, part=''):
+    if text:
+        return "被攻击时，有50%的几率，进入霸体状态(冷却时间8秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
 # endregion
 
 # region 常规词条
@@ -944,6 +1008,187 @@ def entry_127(char={}, mode=0, text=False, part=''):
         char.攻击速度加成(0.2)
         char.移动速度加成(0.2)
         char.释放速度加成(0.2)
+
+
+def entry_152(char={}, mode=0, text=False, part=''):
+    if text:
+        return "技能MP消耗量 -7%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.MP消耗量加成(-0.07)
+
+
+def entry_154(char={}, mode=0, text=False, part=''):
+    if text:
+        return "受到火属性攻击时，火属性抗性 +20，效果持续10秒(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.火属性抗性加成(20)
+
+
+def entry_155(char={}, mode=0, text=False, part=''):
+    if text:
+        return "受到冰属性攻击时，冰属性抗性 +20，效果持续10秒(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.冰属性抗性加成(20)
+
+
+def entry_156(char={}, mode=0, text=False, part=''):
+    if text:
+        return "受到光属性攻击时，光属性抗性 +20，效果持续10秒(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.光属性抗性加成(20)
+
+
+def entry_157(char={}, mode=0, text=False, part=''):
+    if text:
+        return "受到暗属性攻击时，暗属性抗性 +20，效果持续10秒(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.暗属性抗性加成(20)
+
+
+def entry_167(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击速度 +30%, 物理防御力 -20000, 魔法防御力 -20000"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击速度增加(0.3)
+
+
+def entry_168(char={}, mode=0, text=False, part=''):
+    if text:
+        return "施放速度 +45%, 物理防御力 -20000, 魔法防御力 -20000"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.释放速度增加(0.45)
+
+
+def entry_170(char={}, mode=0, text=False, part=''):
+    if text:
+        return "被击伤害 -25%, 移动速度 -20%"
+    if mode == 0:
+        char.移动速度增加(-0.2)
+    if mode == 1:
+        pass
+
+
+def entry_171(char={}, mode=0, text=False, part=''):
+    if text:
+        return "HP MAX +1200, 攻击速度 -15%, 施放速度 -22.5%"
+    if mode == 0:
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
+    if mode == 1:
+        pass
+
+
+def entry_172(char={}, mode=0, text=False, part=''):
+    if text:
+        return "HP MAX +1890, 移动速度 -20%"
+    if mode == 0:
+        char.移动速度增加(-0.2)
+    if mode == 1:
+        pass
+
+
+def entry_173(char={}, mode=0, text=False, part=''):
+    if text:
+        return "火属性强化 +30, 所有异常状态抗性 -10%"
+    if mode == 0:
+        char.火属性强化加成(30)
+    if mode == 1:
+        pass
+
+
+def entry_174(char={}, mode=0, text=False, part=''):
+    if text:
+        return "冰属性强化 +30, 所有异常状态抗性 -10%"
+    if mode == 0:
+        char.冰属性强化加成(30)
+    if mode == 1:
+        pass
+
+
+def entry_175(char={}, mode=0, text=False, part=''):
+    if text:
+        return "光属性强化 +30, 所有异常状态抗性 -10%"
+    if mode == 0:
+        char.光属性强化加成(30)
+    if mode == 1:
+        pass
+
+
+def entry_176(char={}, mode=0, text=False, part=''):
+    if text:
+        return "暗属性强化 +30, 所有异常状态抗性 -10%"
+    if mode == 0:
+        char.暗属性强化加成(30)
+    if mode == 1:
+        pass
+
+
+def entry_177(char={}, mode=0, text=False, part=''):
+    if text:
+        return "角色伤害的10%转化为中毒伤害"
+    if mode == 0:
+        char.伤害类型转化('直接', '中毒', 0.1)
+    if mode == 1:
+        pass
+
+
+def entry_178(char={}, mode=0, text=False, part=''):
+    if text:
+        return "角色伤害的10%转化为灼烧伤害"
+    if mode == 0:
+        char.伤害类型转化('直接', '灼烧', 0.1)
+    if mode == 1:
+        pass
+
+
+def entry_179(char={}, mode=0, text=False, part=''):
+    if text:
+        return "角色伤害的10%转化为感电伤害"
+    if mode == 0:
+        char.伤害类型转化('直接', '感电', 0.1)
+    if mode == 1:
+        pass
+
+
+def entry_180(char={}, mode=0, text=False, part=''):
+    if text:
+        return "角色伤害的10%转化为出血伤害"
+    if mode == 0:
+        char.伤害类型转化('直接', '出血', 0.1)
+    if mode == 1:
+        pass
+
+
+def entry_181(char={}, mode=0, text=False, part=''):
+    if text:
+        return "剩余HP超过50%以上时，伤害增加 N"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_182(char={}, mode=0, text=False, part=''):
+    if text:
+        return "自身所有属性抗性之和超过250以上时，中毒伤害 +15%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.异常增伤('中毒', 0.15)
 # endregion
 
 # region 敌人类型词条
@@ -1383,23 +1628,23 @@ def entry_151(char={}, mode=0, text=False, part=''):
     if mode == 1:
         char.伤害量加成(385 * 10)
 
+
 # endregion
 
-
 # region 消灭敌人词条
-# 额外选择设置 id范围 19000-19999 (id, [text1, 2, 3..])
 kill_num = 0
+kill_num_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
 def set_kill_num(x):
     global kill_num
-    kill_num = x[0]
+    kill_num = kill_num_list[x[0]]
 
 
-entry_chose.append((19000, ['选择消灭敌人层数', '1层', '2层',
-                   '3层', '4层', '5层', '6层', '7层', '8层', '9层', '10层']))
-multi_select[19000] = False
-variable_set[19000] = set_kill_num
+entry_chose.append((20074, ['选择消灭敌人层数'] + ['{}层'.format(i)
+                   for i in kill_num_list[1:]]))
+multi_select[20074] = False
+variable_set[20074] = set_kill_num
 
 
 def entry_74(char={}, mode=0, text=False, part=''):
@@ -1729,9 +1974,25 @@ def entry_1238(char={}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
+
+
 # endregion
 
 # region 连击相关词条
+combo_num = 0
+combo_num_list = [0, 3, 6, 9, 12, 15, 18, 21,
+                  24, 27, 30, 50, 200, 400, 600, 800, 1000]
+
+
+def set_combo_num(x):
+    global combo_num
+    combo_num = combo_num_list[x[0]]
+
+
+entry_chose.append((20113, ['选择连击次数'] + ['{}连击'.format(i)
+                   for i in combo_num_list[1:]]))
+multi_select[20113] = False
+variable_set[20113] = set_combo_num
 
 
 def entry_113(char={}, mode=0, text=False, part=''):
@@ -1740,7 +2001,7 @@ def entry_113(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.光属性强化加成(4 * 10)
+        char.光属性强化加成(4 * min(10, int(combo_num / 3)))
 
 
 def entry_116(char={}, mode=0, text=False, part=''):
@@ -1749,8 +2010,8 @@ def entry_116(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击速度加成(0.03 * 10)
-        char.释放速度加成(0.045 * 10)
+        char.攻击速度加成(0.03 * min(10, int(combo_num / 3)))
+        char.释放速度加成(0.045 * min(10, int(combo_num / 3)))
 
 
 def entry_117(char={}, mode=0, text=False, part=''):
@@ -1759,7 +2020,7 @@ def entry_117(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害量加成(416 * 10)
+        char.伤害量加成(416 * min(10, int(combo_num / 3)))
 
 
 def entry_122(char={}, mode=0, text=False, part=''):
@@ -1768,7 +2029,16 @@ def entry_122(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.移动速度加成(0.03 * 10)
+        char.移动速度加成(0.03 * min(10, int(combo_num / 3)))
+
+
+def entry_153(char={}, mode=0, text=False, part=''):
+    if text:
+        return "每进行5次攻击，获得效果, - 伤害增加 N, - 物理防御力 -500"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
 
 
 def entry_219(char={}, mode=0, text=False, part=''):
@@ -1786,7 +2056,7 @@ def entry_220(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.回避率增加(0.03 * min(10, int(combo_num / 3)))
 
 
 def entry_221(char={}, mode=0, text=False, part=''):
@@ -1795,7 +2065,7 @@ def entry_221(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.暴击率增加(0.02 * 10)
+        char.暴击率增加(0.02 * min(10, int(combo_num / 3)))
 
 
 def entry_282(char={}, mode=0, text=False, part=''):
@@ -1822,7 +2092,7 @@ def entry_336(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.火属性强化加成(4 * min(10, int(combo_num / 3)))
 
 
 def entry_337(char={}, mode=0, text=False, part=''):
@@ -1831,7 +2101,7 @@ def entry_337(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.冰属性强化加成(4 * min(10, int(combo_num / 3)))
 
 
 def entry_338(char={}, mode=0, text=False, part=''):
@@ -1840,7 +2110,7 @@ def entry_338(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暗属性强化加成(4 * min(10, int(combo_num / 3)))
 
 
 def entry_891(char={}, mode=0, text=False, part=''):
@@ -1849,7 +2119,8 @@ def entry_891(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if combo_num >= 30:
+            char.伤害量加成(2223)
 
 
 def entry_892(char={}, mode=0, text=False, part=''):
@@ -1876,7 +2147,9 @@ def entry_911(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if combo_num >= 10:
+            char.伤害量加成(3705)
+            char.MP消耗量加成(1.75)
 
 
 def entry_912(char={}, mode=0, text=False, part=''):
@@ -1885,7 +2158,8 @@ def entry_912(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if combo_num >= 20:
+            char.百分比防御减少(0.08)
 
 
 def entry_1044(char={}, mode=0, text=False, part=''):
@@ -1894,7 +2168,7 @@ def entry_1044(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.技能恢复加成(1, 100, 0.1 * min(10, int(combo_num / 200)), [50, 85, 100])
 
 
 def entry_1242(char={}, mode=0, text=False, part=''):
@@ -1903,7 +2177,8 @@ def entry_1242(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.技能恢复加成(1, 100, 0.25 - 0.05 *
+                    min(5, int(combo_num / 6)), [50, 85, 100])
 # endregion
 
 # region 施放冷却时间词条
@@ -2119,7 +2394,8 @@ def entry_285(char={}, mode=0, text=False, part=''):
     if text:
         return "出血抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -2128,7 +2404,8 @@ def entry_293(char={}, mode=0, text=False, part=''):
     if text:
         return "灼烧抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -2137,7 +2414,8 @@ def entry_305(char={}, mode=0, text=False, part=''):
     if text:
         return "失明抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -2146,7 +2424,8 @@ def entry_309(char={}, mode=0, text=False, part=''):
     if text:
         return "混乱抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -2155,7 +2434,8 @@ def entry_323(char={}, mode=0, text=False, part=''):
     if text:
         return "束缚抗性 +20%, 攻击速度 -15%, 施放速度-22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -2164,7 +2444,8 @@ def entry_361(char={}, mode=0, text=False, part=''):
     if text:
         return "睡眠抗性 +20%, 攻击速度 -15%, 施放速度 -22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -2173,7 +2454,8 @@ def entry_366(char={}, mode=0, text=False, part=''):
     if text:
         return "眩晕抗性 +20%, 攻击速度 -15%, 施放速度 -22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
 
@@ -2182,132 +2464,33 @@ def entry_372(char={}, mode=0, text=False, part=''):
     if text:
         return "石化抗性 +20%, 攻击速度 -15%, 施放速度 -22.5%"
     if mode == 0:
-        pass
+        char.攻击速度增加(-0.15)
+        char.释放速度增加(-0.225)
     if mode == 1:
         pass
+
+
 # endregion
 
-
-def entry_152(char={}, mode=0, text=False, part=''):
-    if text:
-        return "技能MP消耗量 -7%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.MP消耗量加成(-0.07)
+# region 队友数量词条
+teammate_num = 0
+teammate_num_list = [0, 1, 2, 3, 4]
 
 
-def entry_153(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每进行5次攻击，获得效果, - 伤害增加 N, - 物理防御力 -500"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
+def set_teammate_num(x):
+    global teammate_num
+    teammate_num = teammate_num_list[x[0]]
 
 
-def entry_154(char={}, mode=0, text=False, part=''):
-    if text:
-        return "受到火属性攻击时，火属性抗性 +20，效果持续10秒(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.火属性抗性加成(20)
-
-
-def entry_155(char={}, mode=0, text=False, part=''):
-    if text:
-        return "受到冰属性攻击时，冰属性抗性 +20，效果持续10秒(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.冰属性抗性加成(20)
-
-
-def entry_156(char={}, mode=0, text=False, part=''):
-    if text:
-        return "受到光属性攻击时，光属性抗性 +20，效果持续10秒(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.光属性抗性加成(20)
-
-
-def entry_157(char={}, mode=0, text=False, part=''):
-    if text:
-        return "受到暗属性攻击时，暗属性抗性 +20，效果持续10秒(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.暗属性抗性加成(20)
-
-
-def entry_158(char={}, mode=0, text=False, part=''):
-    if text:
-        return "受到正面攻击时，所受伤害 -20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_159(char={}, mode=0, text=False, part=''):
-    if text:
-        return "受到背面攻击时，所受伤害 -20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_160(char={}, mode=0, text=False, part=''):
-    if text:
-        return "受到破招攻击时，所受伤害 -20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_161(char={}, mode=0, text=False, part=''):
-    if text:
-        return "受到非破招攻击时，所受伤害 -20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_162(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每次攻击，恢复2200的HP(冷却时间1秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_163(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每次攻击，恢复3500的MP(冷却时间1秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_164(char={}, mode=0, text=False, part=''):
-    if text:
-        return "被攻击时，有50%的几率，进入霸体状态(冷却时间8秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
+entry_chose.append((20165, ['选择队友数量'] + ['{}名'.format(i)
+                   for i in teammate_num_list[1:]]))
+multi_select[20165] = False
+variable_set[20165] = set_teammate_num
 
 
 def entry_165(char={}, mode=0, text=False, part=''):
     if text:
-        return "队伍去每存在一名获得该词条的队友(包括自己)，伤害增加 N"
+        return "队伍中每存在一名获得该词条的队友(包括自己)，伤害增加 N"
     if mode == 0:
         pass
     if mode == 1:
@@ -2316,147 +2499,56 @@ def entry_165(char={}, mode=0, text=False, part=''):
 
 def entry_166(char={}, mode=0, text=False, part=''):
     if text:
-        return "队伍去每存在一名获得该词条的队友(包括自己)，所受伤害 -7%"
+        return "队伍中每存在一名获得该词条的队友(包括自己)，所受伤害 -7%"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_167(char={}, mode=0, text=False, part=''):
+def entry_1018(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击速度 +30%, 物理防御力 -20000, 魔法防御力 -20000"
+        return "每1名包括自身在内的队友，伤害增加 371(最多叠加4次)"
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击速度增加(0.3)
+        char.伤害量加成(371 * teammate_num)
 
 
-def entry_168(char={}, mode=0, text=False, part=''):
+def entry_1019(char={}, mode=0, text=False, part=''):
     if text:
-        return "施放速度 +45%, 物理防御力 -20000, 魔法防御力 -20000"
+        return "每1名获得该装备词条的自身与队友，伤害增加 1112(最多叠加4次)"
     if mode == 0:
         pass
     if mode == 1:
-        char.释放速度增加(0.45)
+        char.伤害量加成(1112 * teammate_num)
 
 
-def entry_170(char={}, mode=0, text=False, part=''):
+def entry_1244(char={}, mode=0, text=False, part=''):
     if text:
-        return "被击伤害 -25%, 移动速度 -20%"
-    if mode == 0:
-        char.移动速度增加(-0.2)
-    if mode == 1:
-        pass
-
-
-def entry_171(char={}, mode=0, text=False, part=''):
-    if text:
-        return "HP MAX +1200, 攻击速度 -15%, 施放速度 -22.5%"
-    if mode == 0:
-        char.攻击速度增加(-0.15)
-        char.释放速度增加(-0.225)
-    if mode == 1:
-        pass
-
-
-def entry_172(char={}, mode=0, text=False, part=''):
-    if text:
-        return "HP MAX +1890, 移动速度 -20%"
-    if mode == 0:
-        char.移动速度增加(-0.2)
-    if mode == 1:
-        pass
-
-
-def entry_173(char={}, mode=0, text=False, part=''):
-    if text:
-        return "火属性强化 +30, 所有异常状态抗性 -10%"
-    if mode == 0:
-        char.火属性强化加成(30)
-    if mode == 1:
-        pass
-
-
-def entry_174(char={}, mode=0, text=False, part=''):
-    if text:
-        return "冰属性强化 +30, 所有异常状态抗性 -10%"
-    if mode == 0:
-        char.冰属性强化加成(30)
-    if mode == 1:
-        pass
-
-
-def entry_175(char={}, mode=0, text=False, part=''):
-    if text:
-        return "光属性强化 +30, 所有异常状态抗性 -10%"
-    if mode == 0:
-        char.光属性强化加成(30)
-    if mode == 1:
-        pass
-
-
-def entry_176(char={}, mode=0, text=False, part=''):
-    if text:
-        return "暗属性强化 +30, 所有异常状态抗性 -10%"
-    if mode == 0:
-        char.暗属性强化加成(30)
-    if mode == 1:
-        pass
-
-
-def entry_177(char={}, mode=0, text=False, part=''):
-    if text:
-        return "角色伤害的10%转化为中毒伤害"
-    if mode == 0:
-        char.伤害类型转化('直接', '中毒', 0.1)
-    if mode == 1:
-        pass
-
-
-def entry_178(char={}, mode=0, text=False, part=''):
-    if text:
-        return "角色伤害的10%转化为灼烧伤害"
-    if mode == 0:
-        char.伤害类型转化('直接', '灼烧', 0.1)
-    if mode == 1:
-        pass
-
-
-def entry_179(char={}, mode=0, text=False, part=''):
-    if text:
-        return "角色伤害的10%转化为感电伤害"
-    if mode == 0:
-        char.伤害类型转化('直接', '感电', 0.1)
-    if mode == 1:
-        pass
-
-
-def entry_180(char={}, mode=0, text=False, part=''):
-    if text:
-        return "角色伤害的10%转化为出血伤害"
-    if mode == 0:
-        char.伤害类型转化('直接', '出血', 0.1)
-    if mode == 1:
-        pass
-
-
-def entry_181(char={}, mode=0, text=False, part=''):
-    if text:
-        return "剩余HP超过50%以上时，伤害增加 N"
+        return "物理伤害减少率和魔法伤害减少率总和超过60%以上时，攻击强化 4001, 每存在1名队友，所有技能范围 +5%(最多叠加4次，觉醒技能除外)"
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害量加成(4001)
 
 
-def entry_182(char={}, mode=0, text=False, part=''):
-    if text:
-        return "自身所有属性抗性之和超过250以上时，中毒伤害 +15%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.异常增伤('中毒', 0.15)
+# endregion
+
+# region 选择敌人数量
+enemy_num = 0
+enemy_num_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60]
+
+
+def set_enemy_num(x):
+    global enemy_num
+    enemy_num = enemy_num_list[x[0]]
+
+
+entry_chose.append((20183, ['选择敌人数量'] + ['{}个敌人'.format(i)
+                   for i in enemy_num_list[1:]]))
+multi_select[20183] = False
+variable_set[20183] = set_enemy_num
 
 
 def entry_183(char={}, mode=0, text=False, part=''):
@@ -2465,7 +2557,7 @@ def entry_183(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.火属性强化加成(7 * 10)
+        char.火属性强化加成(7 * enemy_num)
 
 
 def entry_184(char={}, mode=0, text=False, part=''):
@@ -2474,7 +2566,7 @@ def entry_184(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.冰属性强化加成(7 * 10)
+        char.冰属性强化加成(7 * enemy_num)
 
 
 def entry_185(char={}, mode=0, text=False, part=''):
@@ -2483,7 +2575,7 @@ def entry_185(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.光属性强化加成(7 * 10)
+        char.光属性强化加成(7 * enemy_num)
 
 
 def entry_186(char={}, mode=0, text=False, part=''):
@@ -2492,16 +2584,120 @@ def entry_186(char={}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.暗属性强化加成(7 * 10)
+        char.暗属性强化加成(7 * enemy_num)
+
+
+def entry_266(char={}, mode=0, text=False, part=''):
+    if text:
+        return "地图每存在1个敌人，伤害增加 44(最多叠加60次), 受到总HP1%以上伤害时，攻击强化效果叠加次数 -12"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.伤害量加成(44 * enemy_num)
+
+
+def entry_283(char={}, mode=0, text=False, part=''):
+    if text:
+        return "500px范围内，每存在1个敌人，技能冷却时间 -4%(觉醒技能除外，最多叠加10次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能冷却缩减(1, 100, 0.04 * min(10, enemy_num), [50, 85, 100])
+
+
+def entry_289(char={}, mode=0, text=False, part=''):
+    if text:
+        return "500px范围内，每存在1个敌人，攻击速度+3%，施放速度+4.5%(最多叠加10次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击速度增加(0.03 * min(10, enemy_num))
+        char.释放速度增加(0.045 * min(10, enemy_num))
+
+
+def entry_290(char={}, mode=0, text=False, part=''):
+    if text:
+        return "500px范围内，每存在1个敌人，物理、魔法防御力 +1500(最多叠加10次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_291(char={}, mode=0, text=False, part=''):
+    if text:
+        return "500px范围内，每存在1个敌人，所有属性抗性 +3(最多叠加10次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.所有属性抗性加成(3 * min(10, enemy_num))
+
+
+def entry_292(char={}, mode=0, text=False, part=''):
+    if text:
+        return "500px范围内，每存在1个敌人，所有异常状态抗性 +3%(最多叠加10次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_409(char={}, mode=0, text=False, part=''):
+    if text:
+        return "500px范围内，每存在1个敌人，物理、魔法暴击率 +2%(最多增加20%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.暴击率增加(0.02 * min(10, enemy_num))
+
+
+# endregion
+
+# region 选择地下城类型
+def entry_dungeons_type(char={}, mode=0, text=False, part=''):
+    if text:
+        return "选择地下城类型"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
 
 
 def entry_189(char={}, mode=0, text=False, part=''):
     if text:
-        return "进入[贵族机要]地下城时，技能攻击力 +15%"
+        return "[贵族机要]15%技攻"
     if mode == 0:
         pass
     if mode == 1:
         char.技能攻击力加成(0.15)
+
+
+def entry_207(char={}, mode=0, text=False, part=''):
+    if text:
+        return "[毁坏的寂静城(高级)]15%技攻"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.15)
+
+
+def entry_225(char={}, mode=0, text=False, part=''):
+    if text:
+        return "[机械战神试验场]15%技攻"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.15)
+
+
+entry_func_list[187] = [entry_dungeons_type,
+                        entry_189,
+                        entry_207,
+                        entry_225]
+entry_id_bind[189] = (189, 1)
+entry_id_bind[207] = (189, 2)
+entry_id_bind[225] = (189, 3)
+# endregion
 
 
 def entry_190(char={}, mode=0, text=False, part=''):
@@ -2612,15 +2808,6 @@ def entry_206(char={}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         char.异常增伤('灼烧', 0.05 * 5)
-
-
-def entry_207(char={}, mode=0, text=False, part=''):
-    if text:
-        return "进入[毁坏的寂静城(高级)]地下城时，技能攻击力 +15%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.技能攻击力加成(0.15)
 
 
 def entry_208(char={}, mode=0, text=False, part=''):
@@ -2743,15 +2930,6 @@ def entry_224(char={}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
-
-
-def entry_225(char={}, mode=0, text=False, part=''):
-    if text:
-        return "进入[机械战神试验场]地下城时，技能攻击力 +15%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.技能攻击力加成(0.15)
 
 
 def entry_226(char={}, mode=0, text=False, part=''):
@@ -3040,15 +3218,6 @@ def entry_265(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_266(char={}, mode=0, text=False, part=''):
-    if text:
-        return "地图每存在1个敌人，伤害增加 44(最多叠加60次), 受到总HP1%以上伤害时，攻击强化效果叠加次数 -12"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.伤害量加成(44 * 60)
-
-
 def entry_271(char={}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv45技能攻击力 +20%"
@@ -3148,15 +3317,6 @@ def entry_281(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_283(char={}, mode=0, text=False, part=''):
-    if text:
-        return "500px范围内，每存在1个敌人，技能冷却时间 -4%(觉醒技能除外，最多叠加10次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_286(char={}, mode=0, text=False, part=''):
     if text:
         return "敌人韧性每减少10%，Lv95技能冷却时间恢复速度 +3%(最多增加30%)"
@@ -3178,42 +3338,6 @@ def entry_287(char={}, mode=0, text=False, part=''):
 def entry_288(char={}, mode=0, text=False, part=''):
     if text:
         return "施放Lv15技能时，进入2秒霸体状态，霸体解除时，攻击速度+15%，施放速度+22.5%(冷却时间10秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_289(char={}, mode=0, text=False, part=''):
-    if text:
-        return "500px范围内，每存在1个敌人，攻击速度+3%，施放速度+4.5%(最多叠加10次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_290(char={}, mode=0, text=False, part=''):
-    if text:
-        return "500px范围内，每存在1个敌人，物理、魔法防御力 +1500(最多叠加10次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_291(char={}, mode=0, text=False, part=''):
-    if text:
-        return "500px范围内，每存在1个敌人，所有属性抗性 +3(最多叠加10次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_292(char={}, mode=0, text=False, part=''):
-    if text:
-        return "500px范围内，每存在1个敌人，所有异常状态抗性 +3%(最多叠加10次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -4078,15 +4202,6 @@ def entry_407(char={}, mode=0, text=False, part=''):
 def entry_408(char={}, mode=0, text=False, part=''):
     if text:
         return "敌人韧性减少量 +10%, 自身触发的混乱状态持续时间 +1秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_409(char={}, mode=0, text=False, part=''):
-    if text:
-        return "500px范围内，每存在1个敌人，物理、魔法暴击率 +2%(最多增加20%)"
     if mode == 0:
         pass
     if mode == 1:
@@ -8375,24 +8490,6 @@ def entry_1017(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_1018(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每1名包括自身在内的队友，伤害增加 371(最多叠加4次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1019(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每1名获得该装备词条的自身与队友，伤害增加 1112(最多叠加4次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_1020(char={}, mode=0, text=False, part=''):
     if text:
         return "每1名异常敌人，伤害增加 326(最多叠加10次)"
@@ -10196,15 +10293,6 @@ def entry_1241(char={}, mode=0, text=False, part=''):
 def entry_1243(char={}, mode=0, text=False, part=''):
     if text:
         return "地下城入场时，攻击强化 2223, 连击维持时间 -0.5秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1244(char={}, mode=0, text=False, part=''):
-    if text:
-        return "物理伤害减少率和魔法伤害减少率总和超过60%以上时，攻击强化 4001, 每存在1名队友，所有技能范围 +5%(最多叠加4次，觉醒技能除外)"
     if mode == 0:
         pass
     if mode == 1:

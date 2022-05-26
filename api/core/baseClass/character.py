@@ -193,6 +193,9 @@ class Character:
     # endregion
 
     # region 词条属性
+    def 百分比防御减少(self, x):
+        self.百分比减防 += x
+
     def 伤害类型转化(self, 类型1, 类型2, x):
         # 直接 中毒 灼烧 感电 出血
         self.__dict__[类型1 + '伤害'] -= x
@@ -362,15 +365,15 @@ class Character:
             ]:
                 i.等级加成(lv)
 
-    def 技能冷却缩减(self, min, max, x):
+    def 技能冷却缩减(self, min, max, x, exc = []):
         for i in self.技能栏:
-            if i.所在等级 >= min and i.所在等级 <= max:
+            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
                 if i.是否有伤害 == 1:
                     i.CD *= (1 - x)
 
-    def 技能恢复加成(self, min, max, x):
+    def 技能恢复加成(self, min, max, x, exc = []):
         for i in self.技能栏:
-            if i.所在等级 >= min and i.所在等级 <= max:
+            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
                 if i.是否有伤害 == 1:
                     i.恢复 += x
 

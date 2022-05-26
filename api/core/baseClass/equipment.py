@@ -156,7 +156,7 @@ class equipment_list():
     def set_func_chose(self, choseinfo):
         for i in choseinfo.keys():
             id = int(i)
-            if id >= 19000:  # 额外选项，参数设置
+            if id >= 20000:  # 额外选项，参数设置
                 variable_set[id](choseinfo[i])
             else:
                 self.chose.update({id: choseinfo[i]})
