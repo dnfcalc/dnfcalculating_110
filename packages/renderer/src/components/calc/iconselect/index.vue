@@ -69,7 +69,7 @@
           const { width, height, left, top } = triggerRef.value.getBoundingClientRect()
           dropdownPosition.value = {
             w: width,
-            x: left,
+            x: left - 2,
             y: top + height + 2
           }
         }

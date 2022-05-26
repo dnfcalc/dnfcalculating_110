@@ -40,7 +40,8 @@ export const useConfigStore = defineStore("config", {
       customize: {},
       rune_set: [],
       talisman_set: [],
-      buff_ratio: 0
+      buff_ratio: 0,
+      hotkey_set: []
     }
   },
   getters: {

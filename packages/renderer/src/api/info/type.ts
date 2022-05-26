@@ -140,4 +140,6 @@ export interface ICharacterSet {
   talisman_set: string[]
 
   buff_ratio: number
+
+  hotkey_set: string[]
 }

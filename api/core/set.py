@@ -75,7 +75,8 @@ def get(alter: str, setName: str):
             "trigger_set": trigger,
             "talisman_set": ['']*3,
             "rune_set": ['']*9,
-            "buff_ratio": round((buff-1)*100, 1)
+            "buff_ratio": round((buff-1)*100, 1),
+            "hotkey_set": ['']*14
         }
     else:
         with open('./Sets/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
