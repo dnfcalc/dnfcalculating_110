@@ -37,7 +37,9 @@ export const useConfigStore = defineStore("config", {
       skill_que: [],
       token: "",
       _configlist: undefined,
-      customize: {}
+      customize: {},
+      rune_set: [],
+      talisman_set: []
     }
   },
   getters: {

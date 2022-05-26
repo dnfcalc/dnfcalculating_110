@@ -66,8 +66,12 @@ def get(alter: str, setName: str):
             "clothes_set": {},
             "single_set": [],
             "equip_list": [],
-            "lv110_list": [], "weapons_list": [], "myths_list": [], "wisdom_list": [],
-            "trigger_set": trigger
+            "lv110_list": [],
+            "weapons_list": [],
+            "myths_list": [],
+            "wisdom_list": [],
+            "trigger_set": trigger,
+            "rune_set": ['', '', '']
         }
     else:
         with open('./Sets/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:

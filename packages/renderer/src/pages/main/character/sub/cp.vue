@@ -15,7 +15,7 @@
         <div>
           <div class="head-sec">护石设置</div>
           <div class="body-sec">
-            {renderList([...Array(3).keys()], item => (
+            {renderList(3, item => (
               <div>
                 <div class="cp">
                   <calc-iconselect class="talisman" emptyLabel="点击" columnNum={1}>
@@ -31,10 +31,10 @@
                     <calc-iconselect emptyLabel="点击" columnNum={4} class="rune">
                       {renderList(characterStore.rune, (rune, index) => (
                         <>
-                          {renderList([...Array(runeColor.length).keys()], colorindex => (
+                          {renderList(runeColor.length, colorindex => (
                             <>
-                              <calc-option value={index * 4 + colorindex}>
-                                <div style={"background-color: " + runeColor[colorindex] + "; width:28px;height:28px"}>
+                              <calc-option value={index * 4 + colorindex - 1}>
+                                <div style={"background-color: " + runeColor[colorindex - 1] + "; width:28px;height:28px"}>
                                   <img style="mix-blend-mode: luminosity;" src={skill_icon(characterStore.alter, rune)} />
                                 </div>
                               </calc-option>

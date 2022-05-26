@@ -130,4 +130,8 @@ export interface ICharacterSet {
   trigger_set: Record<string, number[] | number>
 
   customize: Record<string, number[]>
+
+  rune_set: number[]
+
+  talisman_set: string[]
 }

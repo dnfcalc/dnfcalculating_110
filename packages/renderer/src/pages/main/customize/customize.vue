@@ -28,21 +28,23 @@
     })
 
     return () => (
-      <div class="flex flex-wrap mt-5px">
+      <div class="flex flex-wrap mt-5px justify-evenly">
         {equs.value.length > 0 &&
           renderList(equs.value, a => (
             <div class="cus-item">
               <img src={"./images/equipment/" + a.icon} />
               {renderList(4, index => (
-                <calc-select class="!w-340px" v-model={configStore.customize[a.id][index - 1]}>
-                  <calc-option value={0}>无</calc-option>
-                  {renderList(
-                    a.alternative.filter(item => configStore.customize[a.id].filter((a, i) => index - 1 != i).indexOf(item) < 0),
-                    b => (
-                      <calc-option value={b}>{entry.value(b)}</calc-option>
-                    )
-                  )}
-                </calc-select>
+                <div class="mt-5px">
+                  <calc-select class="!w-530px !h-20px" v-model={configStore.customize[a.id][index - 1]}>
+                    <calc-option value={0}>无</calc-option>
+                    {renderList(
+                      a.alternative.filter(item => configStore.customize[a.id].filter((a, i) => index - 1 != i).indexOf(item) < 0),
+                      b => (
+                        <calc-option value={b}>{entry.value(b)}</calc-option>
+                      )
+                    )}
+                  </calc-select>
+                </div>
               ))}
             </div>
           ))}
@@ -53,11 +55,10 @@
 
 <scss lang="scss">
 .cus-item {
-  width: 360px;
-  height: 120px;
+  width: 540px;
+  margin-top: 5px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-around;
 }
 </scss>
