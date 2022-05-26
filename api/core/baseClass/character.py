@@ -365,13 +365,13 @@ class Character:
             ]:
                 i.等级加成(lv)
 
-    def 技能冷却缩减(self, min, max, x, exc = []):
+    def 技能冷却缩减(self, min, max, x, exc=[]):
         for i in self.技能栏:
             if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
                 if i.是否有伤害 == 1:
                     i.CD *= (1 - x)
 
-    def 技能恢复加成(self, min, max, x, exc = []):
+    def 技能恢复加成(self, min, max, x, exc=[]):
         for i in self.技能栏:
             if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
                 if i.是否有伤害 == 1:
@@ -386,7 +386,7 @@ class Character:
                 if i.是否有伤害 == 1:
                     i.倍率 *= (1 + x * self.技能伤害增加增幅)
 
-    def 批量技能倍率加成(self, min, max, x, exc = []):
+    def 批量技能倍率加成(self, min, max, x, exc=[]):
         for i in self.技能栏:
             if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
                 if i.是否有伤害 == 1:
@@ -525,6 +525,7 @@ class Character:
     # 设置技能相关参数
     def skill_set(self, setinfo):
         for i in setinfo:
+            print(i)
             k = self.get_skill_by_name(i['name'])
             k.等级 = i['level']
             k.TP等级 = i['tp']
@@ -532,7 +533,7 @@ class Character:
     # 设置装备选项参数
     def equ_chose_set(self, setinfo):
         equ.set_func_chose(setinfo)
-        #for i in setinfo:
+        # for i in setinfo:
         #    equ.set_func_chose({i['id']: i['select']})
 
     # 设置穿戴的装备

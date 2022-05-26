@@ -136,12 +136,21 @@ export function toObj(data: Object) {
   let temp = {}
   for (let key in data) {
     try {
-      Object.defineProperty(temp, key, {
-        value: RecordToObj(data[key]),
-        writable: true,
-        enumerable: true,
-        configurable: true
-      })
+      if (typeof data[key] === "number" || typeof data[key] === "string") {
+        Object.defineProperty(temp, key, {
+          value: data[key],
+          writable: true,
+          enumerable: true,
+          configurable: true
+        })
+      } else {
+        Object.defineProperty(temp, key, {
+          value: RecordToObj(data[key]),
+          writable: true,
+          enumerable: true,
+          configurable: true
+        })
+      }
     } catch {
       Object.defineProperty(temp, key, {
         value: data[key],

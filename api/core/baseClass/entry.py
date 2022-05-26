@@ -1641,8 +1641,8 @@ def set_kill_num(x):
     kill_num = kill_num_list[x[0]]
 
 
-entry_chose.append((20074, ['选择消灭敌人层数'] + ['{}层'.format(i)
-                   for i in kill_num_list[1:]]))
+entry_chose.append((20074, ['选择消灭敌人层数'] + ['消灭敌人：{}个'.format(i)
+                                           for i in kill_num_list[1:]]))
 multi_select[20074] = False
 variable_set[20074] = set_kill_num
 
@@ -1990,7 +1990,7 @@ def set_combo_num(x):
 
 
 entry_chose.append((20113, ['选择连击次数'] + ['{}连击'.format(i)
-                   for i in combo_num_list[1:]]))
+                                         for i in combo_num_list[1:]]))
 multi_select[20113] = False
 variable_set[20113] = set_combo_num
 
@@ -2482,8 +2482,8 @@ def set_teammate_num(x):
     teammate_num = teammate_num_list[x[0]]
 
 
-entry_chose.append((20165, ['选择队友数量'] + ['{}名'.format(i)
-                   for i in teammate_num_list[1:]]))
+entry_chose.append((20165, ['选择队员数量'] + ['队员：{}名'.format(i)
+                                         for i in teammate_num_list[1:]]))
 multi_select[20165] = False
 variable_set[20165] = set_teammate_num
 
@@ -2546,7 +2546,7 @@ def set_enemy_num(x):
 
 
 entry_chose.append((20183, ['选择敌人数量'] + ['{}个敌人'.format(i)
-                   for i in enemy_num_list[1:]]))
+                                         for i in enemy_num_list[1:]]))
 multi_select[20183] = False
 variable_set[20183] = set_enemy_num
 

@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { computed, defineComponent, reactive, ref, renderList } from "vue"
-  import { useCharacterStore } from "@/store"
+  import { useCharacterStore, useConfigStore } from "@/store"
 
   import { skill_icon } from "./utils"
   export default defineComponent({
@@ -8,9 +8,16 @@
     components: {},
 
     setup(props, { emit, slots }) {
-      // 红 绿
+      //紫 红 绿 蓝
       const runeColor = ["#a128f4", "#a3240c", "#20f948", "#3aa8ff"]
       const characterStore = useCharacterStore()
+      const configStore = useConfigStore()
+
+      const talismanList = computed(() => {
+        return (index: number) => {
+          return characterStore.talisman?.filter(a => configStore.talisman_set.filter((b, c) => c != index).indexOf(a) < 0)
+        }
+      })
       return () => (
         <div>
           <div class="head-sec">护石设置</div>
@@ -18,8 +25,8 @@
             {renderList(3, item => (
               <div>
                 <div class="cp">
-                  <calc-iconselect class="talisman" emptyLabel="点击" columnNum={1}>
-                    {renderList(characterStore.talisman, (talisman, index) => (
+                  <calc-iconselect class="talisman" emptyLabel="点击" columnNum={1} v-model={configStore.talisman_set[item - 1]}>
+                    {renderList(talismanList.value(item - 1), (talisman, index) => (
                       <calc-option value={talisman}>
                         <div>
                           <img src={skill_icon(characterStore.alter, talisman)} />
@@ -27,13 +34,13 @@
                       </calc-option>
                     ))}
                   </calc-iconselect>
-                  {renderList([...Array(3).keys()], index => (
-                    <calc-iconselect emptyLabel="点击" columnNum={4} class="rune">
+                  {renderList(3, runeItem => (
+                    <calc-iconselect emptyLabel="点击" columnNum={4} class="rune" v-model={configStore.rune_set[(item - 1) * 3 + runeItem - 1]}>
                       {renderList(characterStore.rune, (rune, index) => (
                         <>
                           {renderList(runeColor.length, colorindex => (
                             <>
-                              <calc-option value={index * 4 + colorindex - 1}>
+                              <calc-option value={rune + colorindex}>
                                 <div style={"background-color: " + runeColor[colorindex - 1] + "; width:28px;height:28px"}>
                                   <img style="mix-blend-mode: luminosity;" src={skill_icon(characterStore.alter, rune)} />
                                 </div>

@@ -39,7 +39,8 @@ export const useConfigStore = defineStore("config", {
       _configlist: undefined,
       customize: {},
       rune_set: [],
-      talisman_set: []
+      talisman_set: [],
+      buff_ratio: 0
     }
   },
   getters: {
@@ -66,7 +67,10 @@ export const useConfigStore = defineStore("config", {
         myths_list: state.myths_list,
         weapons_list: state.weapons_list,
         lv110_list: state.lv110_list,
-        customize: state.customize
+        customize: state.customize,
+        rune_set: state.rune_set,
+        talisman_set: state.talisman_set,
+        buff_ratio: Number(state.buff_ratio)
       }
     }
   },
@@ -74,7 +78,7 @@ export const useConfigStore = defineStore("config", {
     async load() {
       // console.log(this.name)
       await api.getConfig(this.name).then(res => {
-        const data = toMap(res, ["trigger_set", "customize"]) as ICharacterSet
+        const data = toMap(res, ["trigger_set", "customize", "buff_ratio"]) as ICharacterSet
         this.$patch(data)
       })
     },

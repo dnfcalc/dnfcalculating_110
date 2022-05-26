@@ -130,7 +130,7 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
 
   function render() {
     const children = options.filter(e => isActive(e.value.value)).map(e => e.value.render())
-    return props.multiple ? children : children[0]
+    return props.multiple && children.length > 0 ? children : children[0]
   }
 
   return {

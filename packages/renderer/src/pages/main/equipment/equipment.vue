@@ -118,12 +118,16 @@
             {trigger_list.value &&
               renderList(trigger_list.value, (trigger, index) => (
                 <>
-                  {configStore.trigger_set[trigger.id] && (
-                    <calc-select multiple v-model={configStore.trigger_set[trigger.id]} class="ownSelect-2">
+                  {configStore.trigger_set[trigger.id] && trigger["multi-select"] ? (
+                    <calc-select emptyLabel={trigger.selectList[0]} multiple={trigger["multi-select"]} v-model={configStore.trigger_set[trigger.id]} class="ownSelect-2">
                       {renderList(trigger.selectList, (item, index) => (
-                        <>
-                          <calc-option value={index}>{item}</calc-option>
-                        </>
+                        <>{index > 0 && <calc-option value={index}>{item}</calc-option>}</>
+                      ))}
+                    </calc-select>
+                  ) : (
+                    <calc-select emptyLabel={trigger.selectList[0]} v-model={configStore.trigger_set[trigger.id][0]} class="ownSelect-2">
+                      {renderList(trigger.selectList, (item, index) => (
+                        <calc-option value={index}>{item}</calc-option>
                       ))}
                     </calc-select>
                   )}

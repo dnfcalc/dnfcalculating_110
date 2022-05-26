@@ -43,7 +43,9 @@ def get(alter: str, setName: str):
     set_info = {}
     module_name = "core.characters." + alter
     character = importlib.import_module(module_name)
-    skillInfo = character.classChange().getinfo()['skillInfo']
+    info = character.classChange().getinfo()
+    skillInfo = info['skillInfo']
+    buff = info['buff_ratio']
     skill_set = []
     trigger = equ.get_chose_set(mode=1)
     for item in skillInfo:
@@ -71,7 +73,9 @@ def get(alter: str, setName: str):
             "myths_list": [],
             "wisdom_list": [],
             "trigger_set": trigger,
-            "rune_set": ['', '', '']
+            "talisman_set": ['']*3,
+            "rune_set": ['']*9,
+            "buff_ratio": round((buff-1)*100, 1)
         }
     else:
         with open('./Sets/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:

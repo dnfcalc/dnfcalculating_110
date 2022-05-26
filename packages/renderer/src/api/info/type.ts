@@ -54,6 +54,7 @@ export interface IJadeInfo {
 export interface ITrigger {
   id: number
   selectList: string[]
+  "multi-select": boolean
 }
 
 export interface TriggerSet {
@@ -113,8 +114,11 @@ export interface ICharacterSet {
   equip_list: number[]
 
   wisdom_list: number[]
+
   myths_list: number[]
+
   weapons_list: number[]
+
   lv110_list: number[]
 
   clothes_set: Record<string, Map<string, any>>
@@ -134,4 +138,6 @@ export interface ICharacterSet {
   rune_set: number[]
 
   talisman_set: string[]
+
+  buff_ratio: number
 }

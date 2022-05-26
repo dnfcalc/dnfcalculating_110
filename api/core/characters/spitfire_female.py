@@ -593,3 +593,7 @@ class classChange(Character):
             {"type": "label", "value": "测试label",
              "items": [], "row":2, "column":0, "key":2}
         ]
+
+    def set_skill_info(self, info, rune_except=[], clothes_bottom=[]):
+        super().set_skill_info(info, rune_except=[
+            '爆裂弹'], clothes_bottom=['远古记忆'])
