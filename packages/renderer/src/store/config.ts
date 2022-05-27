@@ -71,7 +71,8 @@ export const useConfigStore = defineStore("config", {
         customize: state.customize,
         rune_set: state.rune_set,
         talisman_set: state.talisman_set,
-        buff_ratio: Number(state.buff_ratio)
+        buff_ratio: Number(state.buff_ratio),
+        hotkey_set: state.hotkey_set
       }
     }
   },

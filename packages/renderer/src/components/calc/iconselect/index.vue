@@ -167,7 +167,7 @@
     position: fixed;
     overflow-y: hidden;
     overflow-x: hidden;
-    background: black;
+    // background: rgba(255, 255, 255, 0.1);
     font-size: 12px;
     z-index: 888;
     min-height: 28px;
