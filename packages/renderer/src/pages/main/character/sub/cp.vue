@@ -24,7 +24,7 @@
           <div class="body-sec">
             {renderList(3, item => (
               <div>
-                <div class="cp">
+                <div class="cp" style="background-image: url('./images/common/talisman.png')">
                   <calc-iconselect class="talisman" emptyLabel="点击" columnNum={1} v-model={configStore.talisman_set[item - 1]}>
                     {renderList(talismanList.value(item - 1), (talisman, index) => (
                       <calc-option value={talisman}>
@@ -63,7 +63,6 @@
 
 <style lang="scss">
   .cp {
-    background-image: url(./images/common/talisman.png);
     height: 52px;
     width: 168px;
     margin: 0 auto;

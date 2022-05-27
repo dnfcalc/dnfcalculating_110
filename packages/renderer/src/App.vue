@@ -20,7 +20,7 @@
             class="bg-hex bg-gradient-to-t flex from-hex-273e69 to-hex-335793 h-6 px-2 top-0 right-0 left-0  leading-6 z-9999 app-title layout-title items-center justify-between fixed"
             style="-webkit-app-region: drag"
           >
-            <img src="/favicon.ico" class="h-4 leading-4 w-4" />
+            <div class="h-4 leading-4 w-4" style="background-image:url('./favicon.ico');background-size: 100% 100%;"></div>
             <div class="header text-xs">{title.value}</div>
             <div class="flex items-center">
               <div onClick={appStore.minimize} class="cursor-pointer min-icon h-4  text-center mr-4 text-hex-f0d070 text-opacity-72 w-4 hover:text-opacity-100"></div>

@@ -12,6 +12,8 @@ export default function openURL(url: string, { width = 0, height = 0 } = {}) {
       } else {
         window.open("#" + url, "_blank")
       }
+    } else {
+      window.open(url, "_blank")
     }
   } catch (err) {
     const router = useRouter()

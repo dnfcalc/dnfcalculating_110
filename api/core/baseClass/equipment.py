@@ -1,6 +1,6 @@
 from decimal import Decimal
 from webbrowser import get
-from core.baseClass.entry import entry_func_list, entry_id_bind, entry_chose, multi_select, variable_set, priority
+
 import json
 import sys
 import os
@@ -95,6 +95,11 @@ def 设置防具基础(装备):
         装备.体力.update({i: round((b[2]) * Decimal(1.0))})
         装备.精神.update({i: round((b[3]) * Decimal(1.0))})
 
+# 词条计算优先级，默认为100，特殊需求手动设置优先级
+# priority = {
+#    1: 150,
+# }
+
 
 class equipment_list():
     def __init__(self):
@@ -149,6 +154,7 @@ class equipment_list():
         return damagelist
 
     def set_func_chose(self, choseinfo):
+        from core.baseClass.entry import variable_set
         for i in choseinfo.keys():
             id = int(i)
             if id >= 20000:  # 额外选项，参数设置
@@ -157,6 +163,7 @@ class equipment_list():
                 self.chose.update({id: choseinfo[i]})
 
     def get_func_by_id(self, id):
+        from core.baseClass.entry import entry_func_list, entry_id_bind
         if id in entry_id_bind.keys():
             bindinfo = entry_id_bind[id]  # (id, chose)
             if bindinfo[1] in self.chose.get(bindinfo[0], []):
@@ -174,7 +181,7 @@ class equipment_list():
             for k in i.成长属性 + i.固有属性:
                 temp.append((k, i.部位))
         # 词条优先级排序
-        temp.sort(key=(lambda x: priority.get(x[0], 100)))
+        #temp.sort(key=(lambda x: priority.get(x[0], 100)))
         funclist = []
         for k, part in temp:
             funclist.append((
@@ -183,6 +190,7 @@ class equipment_list():
         return funclist
 
     def get_chose_set_info(self):
+        from core.baseClass.entry import entry_func_list, entry_chose
         info = []
         for i in entry_func_list.keys():
             temp = entry_func_list[i]
@@ -194,6 +202,7 @@ class equipment_list():
         return info + entry_chose
 
     def get_chose_set(self, mode=0):
+        from core.baseClass.entry import multi_select
         if mode == 1:
             setinfo = {}
             for i in self.get_chose_set_info():

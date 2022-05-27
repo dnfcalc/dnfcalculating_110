@@ -1,10 +1,11 @@
+from core.baseClass.character import Character
 enchanting_func_list = {}
 
 # 名望 部位 描述
 index = ("maxFrame", "position", "props")
 
 
-def enchanting_20000(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20000(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '', '无附魔')"
     if mode == 0:
@@ -13,7 +14,7 @@ def enchanting_20000(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_20001(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20001(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(130, '武器', '火、光属性强化 +15')"
     if mode == 0:
@@ -24,7 +25,7 @@ def enchanting_20001(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_20002(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20002(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(130, '武器，上衣，下装', '三攻 +70 力智 +40')"
     if mode == 0:
@@ -36,7 +37,7 @@ def enchanting_20002(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_20003(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20003(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(147, '头肩，腰带，鞋', '力智 +100')"
     if mode == 0:
@@ -46,7 +47,7 @@ def enchanting_20003(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_20004(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20004(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(130, '项链，手镯，戒指', '全属强 +28')"
     if mode == 0:
@@ -56,7 +57,7 @@ def enchanting_20004(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_20005(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20005(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(138, '辅助装备', '三攻 +110')"
     if mode == 0:
@@ -66,7 +67,7 @@ def enchanting_20005(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_20006(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20006(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(138, '魔法石', '全属强 +25')"
     if mode == 0:
@@ -76,7 +77,7 @@ def enchanting_20006(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_20007(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20007(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(130, '耳环', '四维 +150')"
     if mode == 0:
@@ -87,7 +88,7 @@ def enchanting_20007(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_20008(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20008(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(185, '称号', '三攻+40 全属强 +15 Lv1-50主动 +1')"
     if mode == 0:
@@ -101,7 +102,7 @@ def enchanting_20008(char={}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_20009(char={}, mode=0, text=False, rate=1.0):
+def enchanting_20009(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(185, '宠物', '火强 +16')"
     if mode == 0:
@@ -136,5 +137,3 @@ def get_enchanting_setinfo():
             num += 1
         infolist.append(data)
     return infolist
-
-

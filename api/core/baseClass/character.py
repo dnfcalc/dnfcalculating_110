@@ -4,9 +4,9 @@ from sys import float_repr_style
 from core.baseClass.equipment import equ
 from core.store import store
 from core.equipment.基础函数 import 基础属性输入, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器强化计算, 锻造计算
-from core.baseClass.enchanting import get_encfunc_by_id
-from core.baseClass.emblems import get_embfunc_by_id
-from core.baseClass.jade import get_jadefunc_by_id
+# from core.baseClass.enchanting import get_encfunc_by_id
+# from core.baseClass.emblems import get_embfunc_by_id
+# from core.baseClass.jade import get_jadefunc_by_id
 
 
 class Character:
@@ -113,8 +113,8 @@ class Character:
         self.暗属性抗性 = 0
 
         # 新属性
-        self.伤害量 = 0
-        self.百分比伤害量 = 0.0
+        self.攻击强化 = 0
+        self.百分比攻击强化 = 0.0
         self.buff量 = 0
         self.直接伤害 = 1.0
         self.中毒伤害 = 0.0
@@ -208,8 +208,11 @@ class Character:
     def MP消耗量加成(self, x):
         self.MP消耗量 += x
 
-    def 伤害量加成(self, x):
-        self.伤害量 += x
+    def 攻击强化加成(self, x):
+        self.攻击强化 += x
+
+    def 百分比攻击强化加成(self, x):
+        self.百分比攻击强化 += x
 
     def buff量加成(self, x):
         self.buff量 += x
@@ -519,6 +522,7 @@ class Character:
     def 打造设置(self, setinfo):
         self.打造详情 = setinfo
         for i in 部位列表 + ('称号', '宠物', ):
+            from core.baseClass.enchanting import get_encfunc_by_id
             id = setinfo.get(i, {}).get('enchanting', 0)
             self.部位附魔[i] = get_encfunc_by_id(id)
 
@@ -594,6 +598,7 @@ class Character:
                 except:
                     id = 0
                     value = 0
+                from core.baseClass.enchanting import get_jadefunc_by_id
                 func = get_jadefunc_by_id(id)
                 func(self, value)
                 # 打印相关函数和效果
@@ -609,6 +614,7 @@ class Character:
                     if id != 0:
                         idlist.append(id)
         for i in idlist:
+            from core.baseClass.enchanting import get_embfunc_by_id
             func = get_embfunc_by_id(i)
             func(self)
             # 打印相关函数和效果
@@ -711,7 +717,7 @@ class Character:
         self.独立攻击力 += 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
 
     def 装备词条计算(self):
-        # 伤害量相关计算
+        # 攻击强化相关计算
         for i in 部位列表:
             temp = []
             for j in ["growth_First", "growth_Second", "growth_Third", "growth_Fourth"]:
@@ -719,7 +725,7 @@ class Character:
             self.词条等级[i] = temp
         for 部位, 序号, 基础 in equ.get_damagelist_by_idlist(self.装备栏):
             等级 = self.词条等级[部位][序号]
-            self.伤害量加成(成长词条计算(基础, 等级))
+            self.攻击强化加成(成长词条计算(基础, 等级))
         # 词条效果相关计算
         for func, buwei in equ.get_func_list_by_idlist(self.装备栏):
             func(self, part=buwei)  # 站街效果
@@ -897,7 +903,7 @@ class Character:
         基础面板 = self.面板系数计算(mode=0)
         旧版面板 = self.面板系数计算(mode=1)
 
-        新 = self.伤害量 * (1 + self.百分比伤害量) * 0.001
+        新 = self.攻击强化 * (1 + self.百分比攻击强化) * 0.001
         旧 = 1 + int(self.伤害增加 * 100) / 100
         旧 *= 1 + self.暴击伤害
         旧 *= 1 + self.最终伤害
@@ -926,7 +932,7 @@ class Character:
 
         result = {
             'alter': self.实际名称,
-            '伤害量': self.伤害量,
+            '攻击强化': self.攻击强化,
             '站街力量': self.站街力量(),
             '站街智力': self.站街智力(),
             '面板力量': self.面板力量(),
