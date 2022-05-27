@@ -1,8 +1,9 @@
-entry_func_list = {}
-entry_id_bind = {}  # id: (id, chose) 用于互斥选项，参考37敌人类型选择
-entry_chose = []
-multi_select = {}
-variable_set = {}
+entry_func_list = {}  # id : [enteyfunc] 词条函数(数组)列表
+entry_id_bind = {}  # id: (id, chose) 关联选项，参考37敌人类型选择
+entry_chose = []  # (20000 + id, [chose1, 2, 3...]) 额外选项设置，参考20074消灭敌人词条
+multi_select = {}  # id : True/False 设置选项是否支持多选
+variable_set = {}  # id : setfunc  参数返回设置函数
+priority = {}  # id : num  词条计算优先级，默认为100
 
 # region 无效果词条
 
@@ -672,6 +673,14 @@ def entry_164(char={}, mode=0, text=False, part=''):
     if mode == 1:
         pass
 
+
+def entry_190(char={}, mode=0, text=False, part=''):
+    if text:
+        return "自身与敌人的所有异常状态持续时间 +20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
 # endregion
 
 # region 常规词条
@@ -1189,6 +1198,40 @@ def entry_182(char={}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         char.异常增伤('中毒', 0.15)
+
+
+priority[192] = 200
+
+
+def entry_192(char={}, mode=0, text=False, part=''):
+    if text:
+        return "自身所有属性强化之和超过850以上时，移动速度 +40%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        # 判断暂未实现
+        char.移动速度增加(0.4)
+
+
+def entry_197(char={}, mode=0, text=False, part=''):
+    if text:
+        return "自身所有属性强化之和超过850以上时，所有异常状态抗性 +30%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_198(char={}, mode=0, text=False, part=''):
+    if text:
+        return "自身所有异常状态抗性之和超过50%以上时，攻击速度 +20%，施放速度 +30%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击速度增加(0.2)
+        char.释放速度增加(0.3)
+        pass
+
 # endregion
 
 # region 敌人类型词条
@@ -1631,6 +1674,107 @@ def entry_151(char={}, mode=0, text=False, part=''):
 
 # endregion
 
+# region 攻击领主相关
+def entry_216(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，中毒伤害 +20%，效果持续20秒, 20秒后，中毒伤害 -10%，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_217(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，暗属性强化 +35，效果持续20秒, 20秒后，暗属性强化 -10，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_376(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，伤害增加 N，效果持续20秒, 20秒后，攻击强化 -N，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_377(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，攻击速度 +25%，施放速度 +37.5%，效果持续20秒, 20秒后，攻击速度 -10%，施放速度 -15%，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_378(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，出血伤害 +20%，效果持续20秒, 20秒后，出血伤害 -10%，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_379(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，冰属性强化 +35，效果持续20秒, 20秒后，冰属性强化 -10，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_382(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，灼烧伤害 +20%，效果持续20秒, 20秒后，灼烧伤害 -10%，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_383(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，火属性强化 +35，效果持续20秒, 20秒后，火属性强化 -10，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_389(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，感电伤害 +20%，效果持续20秒, 20秒后，感电伤害 -10%，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_390(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，光属性强化 +35，效果持续20秒, 20秒后，光属性强化 -10，效果持续10秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_405(char={}, mode=0, text=False, part=''):
+    if text:
+        return "攻击领主敌人时，技能攻击力 +6%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+# endregion
+
+
 # region 消灭敌人词条
 kill_num = 0
 kill_num_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -1772,6 +1916,43 @@ def entry_360(char={}, mode=0, text=False, part=''):
     if mode == 1:
         char.异常增伤('感电', 0.03 * kill_num)
 
+
+def entry_235(char={}, mode=0, text=False, part=''):
+    if text:
+        return "消灭敌人时，所有速度 +5%，效果持续10秒(最多叠加5次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击速度增加(0.05 * 5)
+        char.释放速度增加(0.05 * 5)
+        char.移动速度增加(0.05 * 5)
+
+
+def entry_239(char={}, mode=0, text=False, part=''):
+    if text:
+        return "消灭敌人时，恢复5%的已消耗HP"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_240(char={}, mode=0, text=False, part=''):
+    if text:
+        return "消灭敌人时，恢复5%的已消耗MP"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1175(char={}, mode=0, text=False, part=''):
+    if text:
+        return "消灭敌人时，Lv1~80所有技能范围 +5%(觉醒除外，最多叠加5次), 施放技能时，技能攻击力 -4%，持续10秒(最多叠加1次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
 # endregion
 
 # region 无色相关词条
@@ -1817,15 +1998,6 @@ def entry_878(char={}, mode=0, text=False, part=''):
 def entry_899(char={}, mode=0, text=False, part=''):
     if text:
         return "当施放不消耗无色小晶块的技能时，附加一个相当于HP MAX数值10%的保护罩，持续1.5秒(冷却时间0.5秒，最大叠加1次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1060(char={}, mode=0, text=False, part=''):
-    if text:
-        return "普通攻击时，不消耗无色小晶块的技能剩余冷却时间 -1%(冷却时间0.1秒),  施放消耗无色小晶块的技能时，不消耗无色小晶块的技能冷却时间+2%，持续30秒(最多叠加10次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -2699,23 +2871,7 @@ entry_id_bind[207] = (189, 2)
 entry_id_bind[225] = (189, 3)
 # endregion
 
-
-def entry_190(char={}, mode=0, text=False, part=''):
-    if text:
-        return "自身与敌人的所有异常状态持续时间 +20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_192(char={}, mode=0, text=False, part=''):
-    if text:
-        return "自身所有属性强化之和超过850以上时，移动速度 +40%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.移动速度增加(0.4)
+# region 敌人韧性相关
 
 
 def entry_194(char={}, mode=0, text=False, part=''):
@@ -2736,26 +2892,6 @@ def entry_195(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_197(char={}, mode=0, text=False, part=''):
-    if text:
-        return "自身所有属性强化之和超过850以上时，所有异常状态抗性 +30%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_198(char={}, mode=0, text=False, part=''):
-    if text:
-        return "自身所有异常状态抗性之和超过50%以上时，攻击速度 +20%，施放速度 +30%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.攻击速度增加(0.2)
-        char.释放速度增加(0.3)
-        pass
-
-
 def entry_200(char={}, mode=0, text=False, part=''):
     if text:
         return "每减少敌人10%的韧性，Lv75技能冷却时间恢复速度 +3%(最多增加30%)"
@@ -2763,6 +2899,198 @@ def entry_200(char={}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
+
+
+def entry_205(char={}, mode=0, text=False, part=''):
+    if text:
+        return "根据敌人韧性破坏次数，出血伤害 +5%(最多叠加5次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.异常增伤('出血', 0.05 * 5)
+
+
+def entry_206(char={}, mode=0, text=False, part=''):
+    if text:
+        return "根据敌人韧性破坏次数，灼烧伤害 +5%(最多叠加5次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.异常增伤('灼烧', 0.05 * 5)
+
+
+def entry_213(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_286(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性每减少10%，Lv95技能冷却时间恢复速度 +3%(最多增加30%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_287(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性每减少10%，Lv60技能冷却时间恢复速度 +3%(最多增加30%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_310(char={}, mode=0, text=False, part=''):
+    if text:
+        return "根据敌人韧性破坏次数，中毒伤害 +5%(最多叠加5次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_311(char={}, mode=0, text=False, part=''):
+    if text:
+        return "根据敌人韧性破坏次数，感电伤害 +5%(最多叠加5次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_362(char={}, mode=0, text=False, part=''):
+    if text:
+        return "每减少敌人10%的韧性，Lv80技能冷却时间恢复速度 +3%(最多增加30%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_367(char={}, mode=0, text=False, part=''):
+    if text:
+        return "每减少敌人10%的韧性，Lv70技能冷却时间恢复速度 +3%(最多增加30%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_373(char={}, mode=0, text=False, part=''):
+    if text:
+        return "每减少敌人10%的韧性，Lv35技能冷却时间恢复速度 +3%(最多增加30%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_374(char={}, mode=0, text=False, part=''):
+    if text:
+        return "每减少敌人10%的韧性，Lv40技能冷却时间恢复速度 +3%(最多增加30%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_396(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +10%, 自身触发的眩晕状态持续时间 +1秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_397(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +10%, 自身触发的诅咒状态持续时间 +1秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_398(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +10%, 自身触发的石化状态持续时间 +1秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_403(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +10%, 自身触发的冰冻状态持续时间 +1秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_404(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +10%, 自身触发的失明状态持续时间 +1秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_406(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +10%, 自身触发的睡眠状态持续时间 +1秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_407(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +10%, 自身触发的减速状态持续时间 +1秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_408(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +10%, 自身触发的混乱状态持续时间 +1秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1258(char={}, mode=0, text=False, part=''):
+    if text:
+        return "敌人韧性减少量 +25%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1259(char={}, mode=0, text=False, part=''):
+    if text:
+        return "每减少敌人10%的韧性，技能攻击力 +2%(最多叠加10次), - 无力化效果消失时，技能攻击力增加效果重置"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+# endregion
+
+# region 异常状态解除相关
 
 
 def entry_201(char={}, mode=0, text=False, part=''):
@@ -2792,24 +3120,6 @@ def entry_203(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_205(char={}, mode=0, text=False, part=''):
-    if text:
-        return "根据敌人韧性破坏次数，出血伤害 +5%(最多叠加5次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.异常增伤('出血', 0.05 * 5)
-
-
-def entry_206(char={}, mode=0, text=False, part=''):
-    if text:
-        return "根据敌人韧性破坏次数，灼烧伤害 +5%(最多叠加5次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.异常增伤('灼烧', 0.05 * 5)
-
-
 def entry_208(char={}, mode=0, text=False, part=''):
     if text:
         return "自身异常状态解除时，Lv40技能技能冷却时间恢复速度 +30%，效果持续5秒(冷却时间10秒)"
@@ -2837,6 +3147,27 @@ def entry_210(char={}, mode=0, text=False, part=''):
         pass
 
 
+def entry_214(char={}, mode=0, text=False, part=''):
+    if text:
+        return "自身异常状态解除时，Lv80技能技能冷却时间恢复速度 +30%，效果持续5秒(冷却时间10秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_215(char={}, mode=0, text=False, part=''):
+    if text:
+        return "自身异常状态解除时，Lv95技能技能冷却时间恢复速度 +30%，效果持续5秒(冷却时间10秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+# endregion
+
+# region 普攻相关
+
+
 def entry_211(char={}, mode=0, text=False, part=''):
     if text:
         return "施放普通攻击最后一击时，冷却时间最长的技能剩余冷却时间 -3%(冷却时间1秒，觉醒技能除外)"
@@ -2855,61 +3186,127 @@ def entry_212(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_213(char={}, mode=0, text=False, part=''):
+def entry_1060(char={}, mode=0, text=False, part=''):
     if text:
-        return "敌人韧性减少量 +20%"
+        return "普通攻击时，不消耗无色小晶块的技能剩余冷却时间 -1%(冷却时间0.1秒),  施放消耗无色小晶块的技能时，不消耗无色小晶块的技能冷却时间+2%，持续30秒(最多叠加10次)"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_214(char={}, mode=0, text=False, part=''):
+def entry_380(char={}, mode=0, text=False, part=''):
     if text:
-        return "自身异常状态解除时，Lv80技能技能冷却时间恢复速度 +30%，效果持续5秒(冷却时间10秒)"
+        return "施放普通攻击最后一击时，伤害增加 N，效果持续10秒"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_215(char={}, mode=0, text=False, part=''):
+def entry_391(char={}, mode=0, text=False, part=''):
     if text:
-        return "自身异常状态解除时，Lv95技能技能冷却时间恢复速度 +30%，效果持续5秒(冷却时间10秒)"
+        return "施放普通攻击最后一击时，攻击速度 +20%，施放速度 +30%，效果持续10秒"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_216(char={}, mode=0, text=False, part=''):
+def entry_1056(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击领主敌人时，中毒伤害 +20%，效果持续20秒, 20秒后，中毒伤害 -10%，效果持续10秒"
+        return "普通攻击时，Lv15~35主动技能攻击力 +3%，效果持续10秒(最多叠加10次), 施放Lv45以上技能时，技能攻击力增加效果叠加次数 -1"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_217(char={}, mode=0, text=False, part=''):
+def entry_1057(char={}, mode=0, text=False, part=''):
     if text:
-        return "攻击领主敌人时，暗属性强化 +35，效果持续20秒, 20秒后，暗属性强化 -10，效果持续10秒"
+        return "普通攻击时，Lv15~35主动技能冷却时间恢复速度 +1%，效果持续10秒(最多叠加10次), 施放Lv45以上技能时，技能冷却时间恢复速度增加效果叠加次数 -1"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_218(char={}, mode=0, text=False, part=''):
+def entry_1059(char={}, mode=0, text=False, part=''):
     if text:
-        return "受基础精通影响攻击时，出血、中毒、灼烧、感电伤害 +20%，效果持续10秒(冷却时间15秒)"
+        return "普通攻击、跳跃攻击、前冲攻击时，有10%的几率使适用攻击力 +300%"
     if mode == 0:
         pass
     if mode == 1:
-        char.异常增伤('出血', 0.2)
-        char.异常增伤('中毒', 0.2)
-        char.异常增伤('灼烧', 0.2)
-        char.异常增伤('感电', 0.2)
+        pass
+
+
+def entry_1061(char={}, mode=0, text=False, part=''):
+    if text:
+        return "普通攻击时，攻击速度 +10%，施放速度 +10%，效果持续2秒(最多叠加3次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1062(char={}, mode=0, text=False, part=''):
+    if text:
+        return "普通攻击时，基础精通攻击力 +15%，持续5秒(冷却时间0.1秒，最多叠加3次),  施放技能时，消耗所有基础精通重叠次数，根据消耗率比例，技能攻击力 +5%，技能冷却时间 +8%，效果持续5秒(只在没有该Buff时发动)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1063(char={}, mode=0, text=False, part=''):
+    if text:
+        return "普通攻击时，有15%的几率，使敌人随机进入灼烧、感电、出血、中毒状态中的1种(冷却时间10秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1064(char={}, mode=0, text=False, part=''):
+    if text:
+        return "普通攻击时，攻击速度 +10%，施放速度 +10%，效果持续5秒(冷却时间0.1秒，最多叠加3次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+# endregion
+
+# region 敌人距离相关
+
+
+def entry_253(char={}, mode=0, text=False, part=''):
+    if text:
+        return "越靠近敌人时，技能攻击力 +1%(与敌人距离50px以内时，最多增加5%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.05)
+
+
+def entry_254(char={}, mode=0, text=False, part=''):
+    if text:
+        return "越远离敌人时，技能攻击力 +1%(与敌人距离300px以外时，最多增加5%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.05)
+
+
+def entry_1181(char={}, mode=0, text=False, part=''):
+    if text:
+        return "与敌人距离在100px以内，伤害增加 2964"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+# endregion
+
+# region 进入地下城时相关
 
 
 def entry_223(char={}, mode=0, text=False, part=''):
@@ -2930,6 +3327,46 @@ def entry_224(char={}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
+
+
+def entry_997(char={}, mode=0, text=False, part=''):
+    if text:
+        return "进入地下城时，伤害增加 2223, 技能MP消耗量 +100%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_998(char={}, mode=0, text=False, part=''):
+    if text:
+        return "进入地下城时，制造一个草莓极光，被击5次后被销毁(冷却时间30秒), - 草莓极光状态下，所受伤害 -15%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1103(char={}, mode=0, text=False, part=''):
+    if text:
+        return "施放技能时，攻击速度+5%，施放速度+8%，效果持续10秒(最多叠加5次), 进入地下城时，技能冷却时间 -5%(觉醒技能除外)，技能攻击力 -2%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+# endregion
+
+
+def entry_218(char={}, mode=0, text=False, part=''):
+    if text:
+        return "受基础精通影响攻击时，出血、中毒、灼烧、感电伤害 +20%，效果持续10秒(冷却时间15秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.异常增伤('出血', 0.2)
+        char.异常增伤('中毒', 0.2)
+        char.异常增伤('灼烧', 0.2)
+        char.异常增伤('感电', 0.2)
 
 
 def entry_226(char={}, mode=0, text=False, part=''):
@@ -2968,17 +3405,6 @@ def entry_230(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_235(char={}, mode=0, text=False, part=''):
-    if text:
-        return "消灭敌人时，所有速度 +5%，效果持续10秒(最多叠加5次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.攻击速度增加(0.05 * 5)
-        char.释放速度增加(0.05 * 5)
-        char.移动速度增加(0.05 * 5)
-
-
 def entry_236(char={}, mode=0, text=False, part=''):
     if text:
         return "Lv95所有技能冷却时间 +30%, Lv80所有技能攻击力 +20%"
@@ -3006,24 +3432,6 @@ def entry_238(char={}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         char.暴击率增加(-0.08)
-
-
-def entry_239(char={}, mode=0, text=False, part=''):
-    if text:
-        return "消灭敌人时，恢复5%的已消耗HP"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_240(char={}, mode=0, text=False, part=''):
-    if text:
-        return "消灭敌人时，恢复5%的已消耗MP"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
 
 
 def entry_241(char={}, mode=0, text=False, part=''):
@@ -3111,24 +3519,6 @@ def entry_252(char={}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         char.暴击率增加(0.15)
-
-
-def entry_253(char={}, mode=0, text=False, part=''):
-    if text:
-        return "越靠近敌人时，技能攻击力 +1%(与敌人距离50px以内时，最多增加5%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.技能攻击力加成(0.05)
-
-
-def entry_254(char={}, mode=0, text=False, part=''):
-    if text:
-        return "越远离敌人时，技能攻击力 +1%(与敌人距离300px以外时，最多增加5%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.技能攻击力加成(0.05)
 
 
 def entry_255(char={}, mode=0, text=False, part=''):
@@ -3317,24 +3707,6 @@ def entry_281(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_286(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性每减少10%，Lv95技能冷却时间恢复速度 +3%(最多增加30%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_287(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性每减少10%，Lv60技能冷却时间恢复速度 +3%(最多增加30%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_288(char={}, mode=0, text=False, part=''):
     if text:
         return "施放Lv15技能时，进入2秒霸体状态，霸体解除时，攻击速度+15%，施放速度+22.5%(冷却时间10秒)"
@@ -3437,24 +3809,6 @@ def entry_306(char={}, mode=0, text=False, part=''):
 def entry_307(char={}, mode=0, text=False, part=''):
     if text:
         return "消耗品的持续时间 +20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_310(char={}, mode=0, text=False, part=''):
-    if text:
-        return "根据敌人韧性破坏次数，中毒伤害 +5%(最多叠加5次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_311(char={}, mode=0, text=False, part=''):
-    if text:
-        return "根据敌人韧性破坏次数，感电伤害 +5%(最多叠加5次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -3803,15 +4157,6 @@ def entry_359(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_362(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每减少敌人10%的韧性，Lv80技能冷却时间恢复速度 +3%(最多增加30%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_363(char={}, mode=0, text=False, part=''):
     if text:
         return "施放Lv35~60技能时，Lv70技能剩余冷却时间 -10%(冷却时间10秒)"
@@ -3833,15 +4178,6 @@ def entry_364(char={}, mode=0, text=False, part=''):
 def entry_365(char={}, mode=0, text=False, part=''):
     if text:
         return "施放Lv20~35技能时，Lv40技能剩余冷却时间 -10%(冷却时间10秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_367(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每减少敌人10%的韧性，Lv70技能冷却时间恢复速度 +3%(最多增加30%)"
     if mode == 0:
         pass
     if mode == 1:
@@ -3884,24 +4220,6 @@ def entry_371(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_373(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每减少敌人10%的韧性，Lv35技能冷却时间恢复速度 +3%(最多增加30%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_374(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每减少敌人10%的韧性，Lv40技能冷却时间恢复速度 +3%(最多增加30%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_375(char={}, mode=0, text=False, part=''):
     if text:
         return "剩余MP在30%以下时，消耗10个无色小晶块，恢复30%的MP(冷却时间10秒)"
@@ -3911,72 +4229,9 @@ def entry_375(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_376(char={}, mode=0, text=False, part=''):
-    if text:
-        return "攻击领主敌人时，伤害增加 N，效果持续20秒, 20秒后，攻击强化 -N，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_377(char={}, mode=0, text=False, part=''):
-    if text:
-        return "攻击领主敌人时，攻击速度 +25%，施放速度 +37.5%，效果持续20秒, 20秒后，攻击速度 -10%，施放速度 -15%，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_378(char={}, mode=0, text=False, part=''):
-    if text:
-        return "攻击领主敌人时，出血伤害 +20%，效果持续20秒, 20秒后，出血伤害 -10%，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_379(char={}, mode=0, text=False, part=''):
-    if text:
-        return "攻击领主敌人时，冰属性强化 +35，效果持续20秒, 20秒后，冰属性强化 -10，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_380(char={}, mode=0, text=False, part=''):
-    if text:
-        return "施放普通攻击最后一击时，伤害增加 N，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_381(char={}, mode=0, text=False, part=''):
     if text:
         return "受到领主敌人攻击时，所受伤害 -20%，效果持续20秒, 20秒后，所受伤害 +10%，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_382(char={}, mode=0, text=False, part=''):
-    if text:
-        return "攻击领主敌人时，灼烧伤害 +20%，效果持续20秒, 20秒后，灼烧伤害 -10%，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_383(char={}, mode=0, text=False, part=''):
-    if text:
-        return "攻击领主敌人时，火属性强化 +35，效果持续20秒, 20秒后，火属性强化 -10，效果持续10秒"
     if mode == 0:
         pass
     if mode == 1:
@@ -4028,33 +4283,6 @@ def entry_388(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_389(char={}, mode=0, text=False, part=''):
-    if text:
-        return "攻击领主敌人时，感电伤害 +20%，效果持续20秒, 20秒后，感电伤害 -10%，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_390(char={}, mode=0, text=False, part=''):
-    if text:
-        return "攻击领主敌人时，光属性强化 +35，效果持续20秒, 20秒后，光属性强化 -10，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_391(char={}, mode=0, text=False, part=''):
-    if text:
-        return "施放普通攻击最后一击时，攻击速度 +20%，施放速度 +30%，效果持续10秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_392(char={}, mode=0, text=False, part=''):
     if text:
         return "受基础精通影响攻击时，所有属性强化 +35，效果持续10秒(冷却时间15秒)"
@@ -4091,33 +4319,6 @@ def entry_395(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_396(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性减少量 +10%, 自身触发的眩晕状态持续时间 +1秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_397(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性减少量 +10%, 自身触发的诅咒状态持续时间 +1秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_398(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性减少量 +10%, 自身触发的石化状态持续时间 +1秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_399(char={}, mode=0, text=False, part=''):
     if text:
         return "破招攻击时，技能攻击力 +8%"
@@ -4148,60 +4349,6 @@ def entry_401(char={}, mode=0, text=False, part=''):
 def entry_402(char={}, mode=0, text=False, part=''):
     if text:
         return "感电抗性 +5%, 感电伤害 +5%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_403(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性减少量 +10%, 自身触发的冰冻状态持续时间 +1秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_404(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性减少量 +10%, 自身触发的失明状态持续时间 +1秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_405(char={}, mode=0, text=False, part=''):
-    if text:
-        return "攻击领主敌人时，技能攻击力 +6%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_406(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性减少量 +10%, 自身触发的睡眠状态持续时间 +1秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_407(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性减少量 +10%, 自身触发的减速状态持续时间 +1秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_408(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性减少量 +10%, 自身触发的混乱状态持续时间 +1秒"
     if mode == 0:
         pass
     if mode == 1:
@@ -8301,24 +8448,6 @@ def entry_996(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_997(char={}, mode=0, text=False, part=''):
-    if text:
-        return "进入地下城时，伤害增加 2223, 技能MP消耗量 +100%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_998(char={}, mode=0, text=False, part=''):
-    if text:
-        return "进入地下城时，制造一个草莓极光，被击5次后被销毁(冷却时间30秒), - 草莓极光状态下，所受伤害 -15%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_999(char={}, mode=0, text=False, part=''):
     if text:
         return "觉醒技能攻击力-25%, 非觉醒技能攻击力+20%"
@@ -8805,72 +8934,9 @@ def entry_1055(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_1056(char={}, mode=0, text=False, part=''):
-    if text:
-        return "普通攻击时，Lv15~35主动技能攻击力 +3%，效果持续10秒(最多叠加10次), 施放Lv45以上技能时，技能攻击力增加效果叠加次数 -1"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1057(char={}, mode=0, text=False, part=''):
-    if text:
-        return "普通攻击时，Lv15~35主动技能冷却时间恢复速度 +1%，效果持续10秒(最多叠加10次), 施放Lv45以上技能时，技能冷却时间恢复速度增加效果叠加次数 -1"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_1058(char={}, mode=0, text=False, part=''):
     if text:
         return "基础精通技能攻击力 +30%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1059(char={}, mode=0, text=False, part=''):
-    if text:
-        return "普通攻击、跳跃攻击、前冲攻击时，有10%的几率使适用攻击力 +300%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1061(char={}, mode=0, text=False, part=''):
-    if text:
-        return "普通攻击时，攻击速度 +10%，施放速度 +10%，效果持续2秒(最多叠加3次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1062(char={}, mode=0, text=False, part=''):
-    if text:
-        return "普通攻击时，基础精通攻击力 +15%，持续5秒(冷却时间0.1秒，最多叠加3次),  施放技能时，消耗所有基础精通重叠次数，根据消耗率比例，技能攻击力 +5%，技能冷却时间 +8%，效果持续5秒(只在没有该Buff时发动)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1063(char={}, mode=0, text=False, part=''):
-    if text:
-        return "普通攻击时，有15%的几率，使敌人随机进入灼烧、感电、出血、中毒状态中的1种(冷却时间10秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1064(char={}, mode=0, text=False, part=''):
-    if text:
-        return "普通攻击时，攻击速度 +10%，施放速度 +10%，效果持续5秒(冷却时间0.1秒，最多叠加3次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -9204,15 +9270,6 @@ def entry_1101(char={}, mode=0, text=False, part=''):
 def entry_1102(char={}, mode=0, text=False, part=''):
     if text:
         return "施放技能时，根据技能消耗的无色小晶块数量增加该技能的攻击力, - 消耗1个以上时，技能攻击力+2%, - 消耗15个以上时，技能攻击力+10%, - 消耗30个以上时，技能攻击力+20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1103(char={}, mode=0, text=False, part=''):
-    if text:
-        return "施放技能时，攻击速度+5%，施放速度+8%，效果持续10秒(最多叠加5次), 进入地下城时，技能冷却时间 -5%(觉醒技能除外)，技能攻击力 -2%"
     if mode == 0:
         pass
     if mode == 1:
@@ -9732,15 +9789,6 @@ def entry_1174(char={}, mode=0, text=False, part=''):
         pass
 
 
-def entry_1175(char={}, mode=0, text=False, part=''):
-    if text:
-        return "消灭敌人时，Lv1~80所有技能范围 +5%(觉醒除外，最多叠加5次), 施放技能时，技能攻击力 -4%，持续10秒(最多叠加1次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 def entry_1176(char={}, mode=0, text=False, part=''):
     if text:
         return "眩晕解除时，伤害增加 3853，效果持续30秒(最多叠加1次)"
@@ -9780,15 +9828,6 @@ def entry_1179(char={}, mode=0, text=False, part=''):
 def entry_1180(char={}, mode=0, text=False, part=''):
     if text:
         return "渔夫的祝福激活时，所有异常状态抗性 +20%，回避率 +5%，效果持续30秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1181(char={}, mode=0, text=False, part=''):
-    if text:
-        return "与敌人距离在100px以内，伤害增加 2964"
     if mode == 0:
         pass
     if mode == 1:
@@ -10410,24 +10449,6 @@ def entry_1256(char={}, mode=0, text=False, part=''):
 def entry_1257(char={}, mode=0, text=False, part=''):
     if text:
         return "攻击时，使用的属性攻击对应的属性抗性 +10(最多叠加1次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1258(char={}, mode=0, text=False, part=''):
-    if text:
-        return "敌人韧性减少量 +25%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1259(char={}, mode=0, text=False, part=''):
-    if text:
-        return "每减少敌人10%的韧性，技能攻击力 +2%(最多叠加10次), - 无力化效果消失时，技能攻击力增加效果重置"
     if mode == 0:
         pass
     if mode == 1:

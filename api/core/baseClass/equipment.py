@@ -1,6 +1,6 @@
 from decimal import Decimal
 from webbrowser import get
-from core.baseClass.entry import entry_func_list, entry_id_bind, entry_chose, multi_select, variable_set
+from core.baseClass.entry import entry_func_list, entry_id_bind, entry_chose, multi_select, variable_set, priority
 import json
 import sys
 import os
@@ -95,11 +95,6 @@ def 设置防具基础(装备):
         装备.体力.update({i: round((b[2]) * Decimal(1.0))})
         装备.精神.update({i: round((b[3]) * Decimal(1.0))})
 
-# 词条计算优先级，默认为100，特殊需求手动设置优先级
-# priority = {
-#    1: 150,
-# }
-
 
 class equipment_list():
     def __init__(self):
@@ -179,7 +174,7 @@ class equipment_list():
             for k in i.成长属性 + i.固有属性:
                 temp.append((k, i.部位))
         # 词条优先级排序
-        #temp.sort(key=(lambda x: priority.get(x[0], 100)))
+        temp.sort(key=(lambda x: priority.get(x[0], 100)))
         funclist = []
         for k, part in temp:
             funclist.append((
