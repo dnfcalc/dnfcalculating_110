@@ -34,6 +34,14 @@
       const wqzb_enchat = equipInfo<string | number>("武器装扮", "enchanting")
       const wqzb_left = equipInfo<string | number>("武器装扮", "socket_left")
       const wqzb_right = equipInfo<string | number>("武器装扮", "socket_right")
+      // 皮肤
+      const pf_enchat = equipInfo<string | number>("皮肤", "enchanting")
+      const pf_left = equipInfo<string | number>("皮肤", "socket_left")
+      const pf_right = equipInfo<string | number>("皮肤", "socket_right")
+      // 光环
+      const gh_enchat = equipInfo<string | number>("光环", "enchanting")
+      const gh_left = equipInfo<string | number>("光环", "socket_left")
+      const gh_right = equipInfo<string | number>("光环", "socket_right")
 
       return () => (
         <div class="flex flex-wrap equ-profile">
@@ -45,7 +53,7 @@
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select v-model={wqzb_left.value} class="!h-20px flex-1">
               <calc-option v-model={wqzb_left.value} value={0}>
                 无
               </calc-option>
@@ -53,7 +61,7 @@
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select v-model={wqzb_right.value} class="!h-20px flex-1">
               <calc-option v-model={wqzb_right.value} value={0}>
                 无
               </calc-option>
@@ -64,19 +72,19 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">皮肤</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select v-model={pf_enchat.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "皮肤") ?? [], item => (
+              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "皮肤") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select v-model={pf_left.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select v-model={pf_right.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
@@ -85,19 +93,19 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">光环</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select v-model={gh_enchat.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "光环") ?? [], item => (
+              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "光环") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select v-model={gh_left.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select v-model={gh_right.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>

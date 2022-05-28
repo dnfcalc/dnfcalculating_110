@@ -20,10 +20,8 @@
 
       return () => (
         <>
-          <div class="m-0 flex h-100%">
-            <div class="h-100% w-280px flex justify-center" style="background-color:black">
-              {<profile class="!m-0 !p-0"></profile>}
-            </div>
+          <div class="m-0 flex h-100%" style="background: url('./images/common/bg.png') no-repeat;background-size:100% 100%">
+            <div class="h-100% w-280px flex justify-center">{<profile class="!m-0 !p-0"></profile>}</div>
             <div class="w-500px">{JSON.stringify(res)}</div>
           </div>
         </>
@@ -31,3 +29,5 @@
     }
   })
 </script>
+
+<style lang="scss"></style>

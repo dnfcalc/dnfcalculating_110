@@ -2,7 +2,7 @@ from multiprocessing.sharedctypes import Value
 from pickle import TRUE
 from pyclbr import Function
 from sys import float_repr_style
-from typing import Dict, List
+from typing import Dict, List, Union
 from core.baseClass.equipment import equipment
 from core.baseClass.equipment import equ
 from core.store import store
@@ -49,8 +49,10 @@ class Character():
     类型 = ''
     武器类型 = ''
     防具类型 = ''
-    技能栏: List[技能 | 主动技能 | 被动技能] = []
-    技能序号: Dict[int, 技能 | 主动技能 | 被动技能] = {}
+    # 技能栏: List[技能 | 主动技能 | 被动技能] = []
+    # 技能序号: Dict[int, 技能 | 主动技能 | 被动技能] = {}
+    技能栏: List[Union[技能, 主动技能, 被动技能]] = []
+    技能序号: Dict[int, Union[技能, 主动技能, 被动技能]] = {}
     buff: float = 1.00
 
     def __init__(self) -> None:
@@ -486,7 +488,8 @@ class Character():
     # endregion
 
     # region 其它函数
-    def get_skill_by_name(self, name) -> 技能 | 主动技能 | 被动技能:
+    #     def get_skill_by_name(self, name) -> 技能 | 主动技能 | 被动技能:
+    def get_skill_by_name(self, name) -> Union[技能, 主动技能, 被动技能]:
         return self.技能栏[self.技能序号.get(name, 0)]
 
     def 已穿戴神话(self):

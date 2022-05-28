@@ -7,23 +7,24 @@
     setup(props, { emit, slots }) {
       const configStore = useConfigStore()
       const basicInfoStore = useBasicInfoStore()
-      const currentInfo = function <T>(name: string, defaultValue?: T) {
+      const equipInfo = function <T>(part: string, name: string, defaultValue?: T) {
         return computed<string | number>({
           get() {
-            return configStore.getForge("petequ", name) ?? defaultValue ?? 0
+            return configStore.getForge(part, name) ?? defaultValue ?? 0
           },
           set(val) {
-            configStore.setForge("petequ", name, val)
+            if (val == undefined) return
+            configStore.setForge(part, name, val)
           }
         })
       }
 
       // 红
-      const red = currentInfo("red", 0)
+      const red = equipInfo("宠物装备-红", "enchanting")
       // 绿
-      const green = currentInfo("green", 0)
+      const green = equipInfo("宠物装备-绿", "enchanting")
       // 蓝
-      const blue = currentInfo("blue", 0)
+      const blue = equipInfo("宠物装备-蓝", "enchanting")
 
       return () => (
         <div class="flex flex-wrap equ-profile">
@@ -31,7 +32,7 @@
             <div class="row-name">红色</div>
             <calc-select v-model={red.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "宠物装备-红") ?? [], item => (
+              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "宠物装备-红") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -40,7 +41,7 @@
             <div class="row-name">绿色</div>
             <calc-select v-model={green.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "宠物装备-绿") ?? [], item => (
+              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "宠物装备-绿") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -49,7 +50,7 @@
             <div class="row-name">蓝色</div>
             <calc-select v-model={blue.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "宠物装备-蓝") ?? [], item => (
+              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "宠物装备-蓝") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>

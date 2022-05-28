@@ -17,20 +17,32 @@
           }
         })
       }
+
+      const equipInfo = function <T>(part: string, name: string, defaultValue?: T) {
+        return computed<string | number>({
+          get() {
+            return configStore.getForge(part, name) ?? defaultValue ?? 0
+          },
+          set(val) {
+            if (val == undefined) return
+            configStore.setForge(part, name, val)
+          }
+        })
+      }
       const basicInfoStore = useBasicInfoStore()
 
       // 冒险团等级
-      const mxtLV = currentInfo("mxtLV", 0)
+      const mxtLV = currentInfo("mxtLV")
       // 工会属性
-      const gh = currentInfo("gh", 0)
+      const gh = currentInfo("gh")
       // 工会BUFF-四维
       const gh_buff_SW = currentInfo("gh_buff_SW")
       // 工会BUFF-攻击力
       const gh_buff_GJ = currentInfo("gh_buff_GJ")
       // 婚房
-      const HF = currentInfo("HF", 2)
+      const HF = currentInfo("HF")
       // 婚戒
-      const HJ = currentInfo("HJ", 4)
+      const HJ = currentInfo("HJ")
       // 收集箱种类
       const SJX_TYPE = currentInfo("SJX_TYPE")
       // 晶体契约
@@ -40,15 +52,15 @@
       // 收集箱神器
       const SJX_SQ = currentInfo("SJX_SQ")
       // 勋章种类
-      const XZ_TYPE = currentInfo("XZ_TYPE", 0)
+      const XZ_TYPE = currentInfo("XZ_TYPE")
       // 勋章守护珠
-      const XZ_SHZ = currentInfo("XZ_SHZ", 0)
+      const XZ_SHZ = currentInfo("XZ_SHZ")
       // 勋章强化
       const XZ_QH = currentInfo("XZ_QH")
       // 名称装扮卡
       const MCZBK = currentInfo("MCZBK")
       // 快捷装备
-      const KJZB = currentInfo("KJZB")
+      const KJZB = equipInfo("快捷装备", "enchanting")
 
       const SJX_disabled = computed(() => {
         return SJX_TYPE.value == 0
@@ -176,7 +188,7 @@
             <div class="row-name">快捷装备</div>
             <calc-select v-model={KJZB.value} class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "快捷装备") ?? [], item => (
+              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "快捷装备") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
