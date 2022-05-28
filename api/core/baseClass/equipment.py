@@ -1,4 +1,6 @@
 from decimal import Decimal
+from pyclbr import Function
+from typing import Dict, List
 from webbrowser import get
 
 import json
@@ -102,13 +104,13 @@ def 设置防具基础(装备):
 
 
 class equipment_list():
-    def __init__(self):
+    def __init__(self) -> None:
         self.info = get_eq_info_data()
         self.entry_info = get_entry_info_data()
         self.load_equ()
         self.chose = {}
 
-    def load_equ(self):
+    def load_equ(self) -> None:
         self.equ_list = {}
         self.equ_id = {}
         self.equ_tuple = ()
@@ -121,25 +123,25 @@ class equipment_list():
             self.equ_tuple += (temp, )
             self.equ_id_tuple += (i, )
 
-    def get_equ_by_id(self, id):
+    def get_equ_by_id(self, id) -> equipment:
         return self.equ_list.get(id, equipment())
 
-    def get_equ_by_name(self, name):
+    def get_equ_by_name(self, name) -> equipment:
         return self.get_equ_by_id(self.equ_id.get(name, 0))
 
-    def get_id_by_name(self, name):
+    def get_id_by_name(self, name) -> int:
         return self.equ_id.get(name, 0)
 
-    def get_equ_list(self):
+    def get_equ_list(self) -> List[equipment]:
         return self.equ_tuple
 
-    def get_equ_id_list(self):
+    def get_equ_id_list(self) -> List[int]:
         return self.equ_id_tuple
 
-    def get_entry_atk_by_id(self, id):
+    def get_entry_atk_by_id(self, id) -> int:
         return self.entry_info.get(str(id), {}).get('attack', 0)
 
-    def get_damagelist_by_idlist(self, idlist):
+    def get_damagelist_by_idlist(self, idlist) -> List[tuple]:
         damagelist = []  # (部位, 序号, 基础伤害)
         for id in idlist:
             i = self.get_equ_by_id(id)
@@ -153,7 +155,7 @@ class equipment_list():
                 pass
         return damagelist
 
-    def set_func_chose(self, choseinfo):
+    def set_func_chose(self, choseinfo) -> None:
         from core.baseClass.entry import variable_set
         for i in choseinfo.keys():
             id = int(i)
@@ -162,7 +164,7 @@ class equipment_list():
             else:
                 self.chose.update({id: choseinfo[i]})
 
-    def get_func_by_id(self, id):
+    def get_func_by_id(self, id) -> Function:
         from core.baseClass.entry import entry_func_list, entry_id_bind
         if id in entry_id_bind.keys():
             bindinfo = entry_id_bind[id]  # (id, chose)
@@ -174,7 +176,7 @@ class equipment_list():
             func_list = entry_func_list.get(id, [entry_func_list[0]])
         return func_list[self.chose.get(id, [0])[0]]
 
-    def get_func_list_by_idlist(self, idlist):
+    def get_func_list_by_idlist(self, idlist) -> List[Function]:
         temp = []
         for id in idlist:
             i = self.get_equ_by_id(id)
@@ -189,7 +191,7 @@ class equipment_list():
                 part))
         return funclist
 
-    def get_chose_set_info(self):
+    def get_chose_set_info(self) -> List[tuple]:
         from core.baseClass.entry import entry_func_list, entry_chose
         info = []
         for i in entry_func_list.keys():
@@ -201,7 +203,7 @@ class equipment_list():
                 info.append((i, ctext))
         return info + entry_chose
 
-    def get_chose_set(self, mode=0):
+    def get_chose_set(self, mode=0) -> List[Dict]:
         from core.baseClass.entry import multi_select
         if mode == 1:
             setinfo = {}

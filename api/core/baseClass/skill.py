@@ -1,6 +1,7 @@
-from core.equipment.基础函数 import 武器冷却惩罚,当前等级
+from core.equipment.基础函数 import 武器冷却惩罚, 当前等级
 
 等级 = 当前等级 + 5
+
 
 class 技能:
     名称 = ''
@@ -56,7 +57,7 @@ class 技能:
 
     def 独立攻击力倍率进图(self, 武器类型):
         return 1.0
-    
+
 
 class 主动技能(技能):
     # 只扩展了技能的三条属性，第一条技能hit默认1,2、3条hit默认为0，需要手动赋值
@@ -115,3 +116,21 @@ class 被动技能(技能):
             # 契约等级+5
             self.基础等级 = min(int((等级 + 5 - self.所在等级) / self.学习间隔 + 1),
                             self.等级精通)
+
+    def 加成倍率(self, 武器类型):
+        return 1.0
+
+    def 加成倍率2(self, 武器类型):
+        return 1.0
+
+    def 加成倍率3(self, 武器类型):
+        return 1.0
+
+    def CD缩减倍率(self, 武器类型):
+        return 1.0
+
+    def CD缩减倍率2(self, 武器类型):
+        return 1.0
+
+    def CD缩减倍率3(self, 武器类型):
+        return 1.0
