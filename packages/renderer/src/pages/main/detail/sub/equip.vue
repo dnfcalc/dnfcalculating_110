@@ -44,7 +44,7 @@
               if (name === "socket_left" || name === "socket_right") {
                 const enchant = basicInfoStore.emblem_info?.find(item => item.id.toString() == val.toString()) as IEnchantingInfo | undefined
                 if (enchant?.position) {
-                  parts = enchant.position.split("，").filter(item => !["皮肤", "武器装扮"].includes(item))
+                  parts = enchant.position.split("，").filter(item => !["皮肤", "武器装扮", "光环"].includes(item))
                 }
                 appendName = ["socket_left", "socket_right"].filter(item => item !== name)[0]
               }

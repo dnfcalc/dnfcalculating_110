@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { IEnchantingInfo } from "@/api/info/type"
   import { compile, computed, defineComponent, renderList } from "vue"
-  import { useBasicInfoStore, useCharacterStore, useDetailsStore } from "@/store"
+  import { useBasicInfoStore, useCharacterStore, useConfigStore } from "@/store"
 
   export default defineComponent({
     name: "clothes",
@@ -10,32 +10,53 @@
 
       const basicInfoStore = useBasicInfoStore()
       const characterStore = useCharacterStore()
+      const configStore = useConfigStore()
 
       const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {
-        return basicInfoStore.emblem_info?.filter(item => item.rarity != "白金")
+        return basicInfoStore.emblem_info?.filter(item => item.rarity != "白金").sort((a, b) => (b.maxFrame ?? 0) - (a.maxFrame ?? 0))
       })
+
+      const equipInfo = function <T>(part: string, name: string, defaultValue?: T) {
+        return computed<string | number>({
+          get() {
+            return configStore.getForge(part, name) ?? defaultValue ?? 0
+          },
+          set(val) {
+            if (val == undefined) return
+            configStore.setForge(part, name, val)
+          }
+        })
+      }
 
       const up_skill = computed(() => characterStore.clothes)
       const down_skill = computed(() => characterStore.clothes_bottom)
+      // 武器装扮
+      const wqzb_enchat = equipInfo<string | number>("武器装扮", "enchanting")
+      const wqzb_left = equipInfo<string | number>("武器装扮", "socket_left")
+      const wqzb_right = equipInfo<string | number>("武器装扮", "socket_right")
 
       return () => (
         <div class="flex flex-wrap equ-profile">
           <div class="equ-profile-item">
             <div class="row-name">武器装扮</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select v-model={wqzb_enchat.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "武器装扮") ?? [], item => (
+              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "武器装扮") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
             <calc-select class="!h-20px flex-1">
-              <calc-option value={0}>无</calc-option>
+              <calc-option v-model={wqzb_left.value} value={0}>
+                无
+              </calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}
             </calc-select>
             <calc-select class="!h-20px flex-1">
-              <calc-option value={0}>无</calc-option>
+              <calc-option v-model={wqzb_right.value} value={0}>
+                无
+              </calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}

@@ -1,9 +1,11 @@
 from multiprocessing.sharedctypes import Value
 from pickle import TRUE
 from sys import float_repr_style
+from typing import List
 from core.baseClass.equipment import equ
 from core.store import store
 from core.equipment.基础函数 import 基础属性输入, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器强化计算, 锻造计算
+from core.baseClass.skill import 技能
 # from core.baseClass.enchanting import get_encfunc_by_id
 # from core.baseClass.emblems import get_embfunc_by_id
 # from core.baseClass.jade import get_jadefunc_by_id
@@ -46,7 +48,7 @@ class Character:
     类型 = ''
     武器类型 = ''
     防具类型 = ''
-    技能栏 = []
+    技能栏: List[技能] = []
     技能序号 = {}
     buff = 1.00
 
@@ -519,7 +521,7 @@ class Character:
     # endregion
 
     # region 其它函数
-    def get_skill_by_name(self, name):
+    def get_skill_by_name(self, name) -> 技能:
         return self.技能栏[self.技能序号.get(name, 0)]
 
     def 已穿戴神话(self):
@@ -624,8 +626,14 @@ class Character:
                 temp = self.打造详情[i]
                 for j in ['socket_left', 'socket_right']:
                     id = temp.get(j, 0)
-                    if id != 0:
+                    if id == 0:
+                        pass
+                    elif id.isdigit():
                         idlist.append(id)
+                    else:
+                        # 白金技能等级加成处理 id:技能名称
+                        self.get_skill_by_name(id).等级 += 1
+                        pass
         for i in idlist:
             from core.baseClass.emblems import get_embfunc_by_id
             func = get_embfunc_by_id(i)

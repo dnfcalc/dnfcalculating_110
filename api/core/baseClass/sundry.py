@@ -15,124 +15,11 @@ def sundry_27000(char: Character = {}, mode=0, text=False):
     if mode == 1:
         pass
 
-# region 武器装扮 27001~27100
-
-
-def sundry_27001(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '武器装扮', '40级技能 Lv+1')"
-    if mode == 0:
-        char.武器装扮等级加成(40, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
-    if mode == 1:
-        pass
-
-
-def sundry_27002(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '武器装扮', '45级技能 Lv+1')"
-    if mode == 0:
-        char.武器装扮等级加成(45, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
-    if mode == 1:
-        pass
-
-
-def sundry_27003(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '武器装扮', '60级技能 Lv+1')"
-    if mode == 0:
-        char.武器装扮等级加成(60, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
-    if mode == 1:
-        pass
-
-
-def sundry_27004(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '武器装扮', '70级技能 Lv+1')"
-    if mode == 0:
-        char.武器装扮等级加成(70, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
-    if mode == 1:
-        pass
-
-
-def sundry_27005(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '武器装扮', '75级技能 Lv+1')"
-    if mode == 0:
-        char.武器装扮等级加成(75, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
-    if mode == 1:
-        pass
-
-
-def sundry_27005(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '武器装扮', '80级技能 Lv+1')"
-    if mode == 0:
-        char.武器装扮等级加成(80, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
-    if mode == 1:
-        pass
-
-
-def sundry_27006(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '武器装扮', '80级技能 Lv+1')"
-    if mode == 0:
-        char.武器装扮等级加成(80, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
-    if mode == 1:
-        pass
+# region 暂时空 27001~27100
 
 # endregion
 
-# region 光环 27101~27300
-
-
-def sundry_27101(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '光环', 'Lv1~80+1 5%三攻')"
-    if mode == 0:
-        char.技能等级加成('所有', 1, 80, 1)
-        char.百分比三攻加成(0.05)
-        char.百分比攻击强化加成(0.05)
-        pass
-    if mode == 1:
-        pass
-
-
-def sundry_27102(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '光环', 'Lv1~80+1 5%黄字')"
-    if mode == 0:
-        char.技能等级加成('所有', 1, 80, 1)
-        char.伤害增加加成(0.05)
-        char.百分比攻击强化加成(0.05)
-        pass
-    if mode == 1:
-        pass
-
-
-def sundry_27103(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '光环', 'Lv1~80+1 5%暴伤')"
-    if mode == 0:
-        char.技能等级加成('所有', 1, 80, 1)
-        char.暴击伤害加成(0.05)
-        char.百分比攻击强化加成(0.05)
-        pass
-    if mode == 1:
-        pass
+# region 暂空 27101~27300
 
 # endregion
 
@@ -148,7 +35,7 @@ def sundry_27103(char: Character = {}, mode=0, text=False):
 
 # endregion
 
-# region 冒险团 工会属性 训练官-攻击力 训练官-四维 婚房 婚戒 晶体契约 勋章 守护珠 勋章强化 名称装扮卡 快捷装备 皮肤 27401~
+# region 冒险团 工会属性 训练官-攻击力 训练官-四维 婚房 婚戒 晶体契约 勋章 守护珠 勋章强化 名称装扮卡 快捷装备 27401~
 
 
 def sundry_27401(char: Character = {}, mode=0, text=False):
@@ -847,26 +734,6 @@ def sundry_27462(char: Character = {}, mode=0, text=False):
 
 def sundry_27463(char: Character = {}, mode=0, text=False):
     if text:
-        return "(0, '皮肤', '全属强 +5')"
-    if mode == 0:
-        char.所有属性强化加成(5)
-        pass
-    if mode == 1:
-        pass
-
-
-def sundry_27464(char: Character = {}, mode=0, text=False):
-    if text:
-        return "(0, '皮肤', '全属强 +6')"
-    if mode == 0:
-        char.所有属性强化加成(6)
-        pass
-    if mode == 1:
-        pass
-
-
-def sundry_27465(char: Character = {}, mode=0, text=False):
-    if text:
         return "(0, '快捷装备', '三攻 +30 附加伤害 +8% 攻击强化 +8%')"
     if mode == 0:
         pass
@@ -877,7 +744,7 @@ def sundry_27465(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_27466(char: Character = {}, mode=0, text=False):
+def sundry_27464(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '快捷装备', '四维 +8 附加伤害 +8% 攻击强化 +8%')"
     if mode == 0:
