@@ -611,7 +611,7 @@ class Character:
                 except:
                     id = 0
                     value = 0
-                from core.baseClass.enchanting import get_jadefunc_by_id
+                from core.baseClass.jade import get_jadefunc_by_id
                 func = get_jadefunc_by_id(id)
                 func(self, value)
                 # 打印相关函数和效果
@@ -627,7 +627,7 @@ class Character:
                     if id != 0:
                         idlist.append(id)
         for i in idlist:
-            from core.baseClass.enchanting import get_embfunc_by_id
+            from core.baseClass.emblems import get_embfunc_by_id
             func = get_embfunc_by_id(i)
             func(self)
             # 打印相关函数和效果

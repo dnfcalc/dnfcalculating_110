@@ -22,6 +22,8 @@ interface BasicInfoState {
   _emblemInfo: IEnchantingInfo[] | undefined
   // 辟邪玉信息
   _jadeInfo: IJadeInfo[] | undefined
+  // 杂项信息
+  _sundryInfo: IEnchantingInfo[] | undefined
   // 触发词条选择
   _triggerList: ITrigger[] | undefined
   _entryList: Record<string, { attack: number; buff: number; props: string[] }> | undefined
@@ -40,7 +42,8 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       _emblemInfo: undefined,
       _jadeInfo: undefined,
       _triggerList: undefined,
-      _entryList: undefined
+      _entryList: undefined,
+      _sundryInfo: undefined
     }
   },
   getters: {
@@ -92,6 +95,12 @@ export const useBasicInfoStore = defineStore("basicInfo", {
         api.getJade().then(res => (state._jadeInfo = res.data))
       }
       return state._jadeInfo
+    },
+    sundry_info(state) {
+      if (!state._sundryInfo) {
+        api.getSundry().then(res => (state._sundryInfo = res.data))
+      }
+      return state._sundryInfo
     },
     trigger_list(state) {
       if (!state._triggerList) {

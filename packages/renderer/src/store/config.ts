@@ -155,6 +155,20 @@ export const useConfigStore = defineStore("config", {
         return map.get(key)
       }
     },
+    seClothes(part: string, key: string, value: any) {
+      if (!this.clothes_set[part]) {
+        this.clothes_set[part] = new Map<string, any>()
+      }
+      let map = this.clothes_set[part]
+      map.set(key, value)
+    },
+    getClothes(part: string, key: string) {
+      if (this.clothes_set[part]) {
+        let map = this.clothes_set[part]
+        return map.get(key)
+      }
+    },
+
     customizeInit() {
       const temp =
         useBasicInfoStore().equipment_list.filter(

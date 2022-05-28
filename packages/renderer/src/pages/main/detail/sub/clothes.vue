@@ -24,8 +24,8 @@
             <div class="row-name">武器装扮</div>
             <calc-select class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList([40, 45, 60, 70, 75, 80], item => (
-                <calc-option value={item}>{item + "技能 Lv+1"}</calc-option>
+              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "武器装扮") ?? [], item => (
+                <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
             <calc-select class="!h-20px flex-1">
@@ -44,7 +44,10 @@
           <div class="equ-profile-item">
             <div class="row-name">皮肤</div>
             <calc-select class="!h-20px flex-1">
-              <calc-option></calc-option>
+              <calc-option value={0}>无</calc-option>
+              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "皮肤") ?? [], item => (
+                <calc-option value={item.id}>{item.props}</calc-option>
+              ))}
             </calc-select>
             <calc-select class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
@@ -61,7 +64,12 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">光环</div>
-            <calc-select class="!h-20px flex-1"></calc-select>
+            <calc-select class="!h-20px flex-1">
+              <calc-option value={0}>无</calc-option>
+              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "光环") ?? [], item => (
+                <calc-option value={item.id}>{item.props}</calc-option>
+              ))}
+            </calc-select>
             <calc-select class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (

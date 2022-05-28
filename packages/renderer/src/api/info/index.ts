@@ -21,6 +21,9 @@ export default defineRequest(request => {
     getJade() {
       return request.get<IJadeInfo[]>("/jade")
     },
+    getSundry() {
+      return request.get<IEnchantingInfo[]>("/sundry")
+    },
     getTriggerList() {
       return request.get<ITrigger[]>("/triggerlist")
     },
