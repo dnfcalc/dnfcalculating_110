@@ -31,11 +31,11 @@ class Character():
     冰抗输入: int = 0
     光抗输入: int = 0
     暗抗输入: int = 0
-    打造详情: Dict[str:Dict[str:int]] = {}
+    打造详情: Dict[str, Dict[str, int]] = {}
     装备栏: List[int] = []  # [装备id]
-    部位装备: Dict[str:int] = {}  # {部位: 装备id}
-    部位附魔: Dict[str:Function] = {}  # {部位: 附魔函数}
-    词条等级: Dict[str:List[int]] = {}  # {部位: [等级1, 2, 3, 4]}
+    部位装备: Dict[str, int] = {}  # {部位: 装备id}
+    部位附魔: Dict[str, Function] = {}  # {部位: 附魔函数}
+    词条等级: Dict[str, List[int]] = {}  # {部位: [等级1, 2, 3, 4]}
 
     # 需要职业自定义数据
     实际名称 = ''
@@ -50,7 +50,7 @@ class Character():
     武器类型 = ''
     防具类型 = ''
     技能栏: List[技能 | 主动技能 | 被动技能] = []
-    技能序号: Dict[int:技能 | 主动技能 | 被动技能] = {}
+    技能序号: Dict[int, 技能 | 主动技能 | 被动技能] = {}
     buff: float = 1.00
 
     def __init__(self) -> None:
@@ -126,7 +126,7 @@ class Character():
         基础属性输入(self)
 
     # region 返回前端信息
-    def getinfo(self) -> dict:
+    def getinfo(self) -> Dict:
         info = {}
         info["alter"] = self.实际名称
         info["name"] = self.名称
