@@ -80,6 +80,11 @@ async def get_emblem_info():
     return reponse(data=equipmentInfo.get_jade_info())
 
 
+@infoRouter.get(path="/sundry")
+async def get_sundry_info():
+    return reponse(data=equipmentInfo.get_sundry_info())
+
+
 @infoRouter.get(path="/triggerlist")
 async def get_emblem_info():
     return reponse(data=equipmentInfo.get_trigger_list())

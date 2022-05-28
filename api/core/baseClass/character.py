@@ -224,21 +224,34 @@ class Character:
         if y == 0 or z == 0:
             y = x
             z = x
-        self.物理攻击力 += x
-        self.魔法攻击力 += y
-        self.独立攻击力 += z
+        if self.状态 == 0:
+            self.物理攻击力 += x
+            self.魔法攻击力 += y
+            self.独立攻击力 += z
+        else:
+            self.进图物理攻击力 += x
+            self.进图魔法攻击力 += y
+            self.进图独立攻击力 += z
 
-    def 力智固定加成(self, x=0, y=0):
+    def 力智固定加成(self, x=0, y=0, mode=0):
         if y == 0:
             y = x
-        self.力量 += x
-        self.智力 += y
+        if self.状态 == 0:
+            self.力量 += x
+            self.智力 += y
+        else:
+            self.进图力量 += x
+            self.进图智力 += y
 
-    def 体精固定加成(self, x=0, y=0):
+    def 体精固定加成(self, x=0, y=0, mode=0):
         if y == 0:
             y = x
-        self.体力 += x
-        self.精神 += y
+        if self.状态 == 0:
+            self.体力 += x
+            self.精神 += y
+        else:
+            self.进图体力 += x
+            self.进图精神 += y
 
     def 持续伤害加成(self, x):
         self.持续伤害 += x
@@ -602,7 +615,7 @@ class Character:
                 func = get_jadefunc_by_id(id)
                 func(self, value)
                 # 打印相关函数和效果
-                #print('{}: {}: {}'.format(func, value, func(self, text=TRUE)))
+                # print('{}: {}: {}'.format(func, value, func(self, text=TRUE)))
 
     def 徽章计算(self):
         idlist = []
@@ -618,14 +631,14 @@ class Character:
             func = get_embfunc_by_id(i)
             func(self)
             # 打印相关函数和效果
-            #print('{}: {}'.format(func, func(self, text=TRUE)))
+            # print('{}: {}'.format(func, func(self, text=TRUE)))
 
     def 附魔计算(self):
         for i in self.部位附魔.keys():
             func = self.部位附魔[i]
             func(self)
             # 打印相关函数和效果
-            #print('{}: {}: {}'.format(i, func, func(self, text=TRUE)))
+            # print('{}: {}: {}'.format(i, func, func(self, text=TRUE)))
 
     def 装备基础(self):
         for id in self.装备栏:
@@ -731,7 +744,7 @@ class Character:
             func(self, part=buwei)  # 站街效果
             func(self, mode=1, part=buwei)  # 进图效果
             # 打印相关函数和效果
-            #print('{}: {}: {}'.format(buwei, func, func(self, text=TRUE)))
+            # print('{}: {}: {}'.format(buwei, func, func(self, text=TRUE)))
 
     def 被动倍率计算(self):
         for i in self.技能栏:

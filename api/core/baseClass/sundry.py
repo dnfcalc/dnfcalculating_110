@@ -195,7 +195,7 @@ def sundry_27404(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_27405(char: Character = {}, mode=0, text=False):
+def sundry_2745(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '5')"
     if mode == 0:
@@ -206,7 +206,7 @@ def sundry_27405(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_27406(char: Character = {}, mode=0, text=False):
+def sundry_2746(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '6')"
     if mode == 0:
@@ -250,7 +250,7 @@ def sundry_27409(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274010(char: Character = {}, mode=0, text=False):
+def sundry_27410(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '10')"
     if mode == 0:
@@ -261,7 +261,7 @@ def sundry_274010(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274011(char: Character = {}, mode=0, text=False):
+def sundry_27411(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '11')"
     if mode == 0:
@@ -272,7 +272,7 @@ def sundry_274011(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274012(char: Character = {}, mode=0, text=False):
+def sundry_27412(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '12')"
     if mode == 0:
@@ -283,7 +283,7 @@ def sundry_274012(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274013(char: Character = {}, mode=0, text=False):
+def sundry_27413(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '13')"
     if mode == 0:
@@ -294,7 +294,7 @@ def sundry_274013(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274014(char: Character = {}, mode=0, text=False):
+def sundry_27414(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '14')"
     if mode == 0:
@@ -305,7 +305,7 @@ def sundry_274014(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274015(char: Character = {}, mode=0, text=False):
+def sundry_27415(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '15')"
     if mode == 0:
@@ -316,7 +316,7 @@ def sundry_274015(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274016(char: Character = {}, mode=0, text=False):
+def sundry_27416(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '16')"
     if mode == 0:
@@ -327,7 +327,7 @@ def sundry_274016(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274017(char: Character = {}, mode=0, text=False):
+def sundry_27417(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '17')"
     if mode == 0:
@@ -338,7 +338,7 @@ def sundry_274017(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274018(char: Character = {}, mode=0, text=False):
+def sundry_27418(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '18')"
     if mode == 0:
@@ -349,7 +349,7 @@ def sundry_274018(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274019(char: Character = {}, mode=0, text=False):
+def sundry_27419(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '19')"
     if mode == 0:
@@ -360,7 +360,7 @@ def sundry_274019(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274020(char: Character = {}, mode=0, text=False):
+def sundry_27420(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '20')"
     if mode == 0:
@@ -371,7 +371,7 @@ def sundry_274020(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274021(char: Character = {}, mode=0, text=False):
+def sundry_27421(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '21')"
     if mode == 0:
@@ -382,7 +382,7 @@ def sundry_274021(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274022(char: Character = {}, mode=0, text=False):
+def sundry_27422(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '22')"
     if mode == 0:
@@ -393,7 +393,7 @@ def sundry_274022(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274023(char: Character = {}, mode=0, text=False):
+def sundry_27423(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '23')"
     if mode == 0:
@@ -404,7 +404,7 @@ def sundry_274023(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274024(char: Character = {}, mode=0, text=False):
+def sundry_27424(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '24')"
     if mode == 0:
@@ -415,7 +415,7 @@ def sundry_274024(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274025(char: Character = {}, mode=0, text=False):
+def sundry_27425(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '25')"
     if mode == 0:
@@ -426,7 +426,7 @@ def sundry_274025(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274026(char: Character = {}, mode=0, text=False):
+def sundry_27426(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '26')"
     if mode == 0:
@@ -437,7 +437,7 @@ def sundry_274026(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274027(char: Character = {}, mode=0, text=False):
+def sundry_27427(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '27')"
     if mode == 0:
@@ -448,7 +448,7 @@ def sundry_274027(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274028(char: Character = {}, mode=0, text=False):
+def sundry_27428(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '28')"
     if mode == 0:
@@ -459,7 +459,7 @@ def sundry_274028(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274029(char: Character = {}, mode=0, text=False):
+def sundry_27429(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '29')"
     if mode == 0:
@@ -470,7 +470,7 @@ def sundry_274029(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274030(char: Character = {}, mode=0, text=False):
+def sundry_27430(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '30')"
     if mode == 0:
@@ -481,7 +481,7 @@ def sundry_274030(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274031(char: Character = {}, mode=0, text=False):
+def sundry_27431(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '31')"
     if mode == 0:
@@ -492,7 +492,7 @@ def sundry_274031(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274032(char: Character = {}, mode=0, text=False):
+def sundry_27432(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '32')"
     if mode == 0:
@@ -503,7 +503,7 @@ def sundry_274032(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274033(char: Character = {}, mode=0, text=False):
+def sundry_27433(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '33')"
     if mode == 0:
@@ -514,7 +514,7 @@ def sundry_274033(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274034(char: Character = {}, mode=0, text=False):
+def sundry_27434(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '34')"
     if mode == 0:
@@ -525,7 +525,7 @@ def sundry_274034(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274035(char: Character = {}, mode=0, text=False):
+def sundry_27435(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '35')"
     if mode == 0:
@@ -536,7 +536,7 @@ def sundry_274035(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274036(char: Character = {}, mode=0, text=False):
+def sundry_27436(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '36')"
     if mode == 0:
@@ -547,7 +547,7 @@ def sundry_274036(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274037(char: Character = {}, mode=0, text=False):
+def sundry_27437(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '37')"
     if mode == 0:
@@ -558,7 +558,7 @@ def sundry_274037(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274038(char: Character = {}, mode=0, text=False):
+def sundry_27438(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '38')"
     if mode == 0:
@@ -569,7 +569,7 @@ def sundry_274038(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274039(char: Character = {}, mode=0, text=False):
+def sundry_27439(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '39')"
     if mode == 0:
@@ -580,7 +580,7 @@ def sundry_274039(char: Character = {}, mode=0, text=False):
         pass
 
 
-def sundry_274040(char: Character = {}, mode=0, text=False):
+def sundry_27440(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '冒险团', '40')"
     if mode == 0:
@@ -590,6 +590,304 @@ def sundry_274040(char: Character = {}, mode=0, text=False):
     if mode == 1:
         pass
 
+
+def sundry_27441(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会属性', '四维 +60')"
+    if mode == 0:
+        char.力智固定加成(60)
+        char.体精固定加成(60)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27442(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会属性', '四维 +120')"
+    if mode == 0:
+        char.力智固定加成(60)
+        char.体精固定加成(60)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27443(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会buff-攻击力', '攻击力Lv1：25')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.三攻固定加成(25)
+        pass
+
+
+def sundry_27444(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会buff-攻击力', '攻击力Lv2：30')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.三攻固定加成(30)
+        pass
+
+
+def sundry_27445(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会buff-攻击力', '攻击力Lv3：35')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.三攻固定加成(35)
+        pass
+
+
+def sundry_27446(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会buff-攻击力', '攻击力Lv4：50')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.三攻固定加成(50)
+        pass
+
+
+def sundry_27447(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会buff-四维强化', '四维强化Lv1：40')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.力智固定加成(40)
+        char.体精固定加成(40)
+        pass
+
+
+def sundry_27448(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会buff-四维强化', '四维强化Lv2：50')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.力智固定加成(50)
+        char.体精固定加成(50)
+        pass
+
+
+def sundry_27449(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会buff-四维强化', '四维强化Lv3：60')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.力智固定加成(60)
+        char.体精固定加成(60)
+        pass
+
+
+def sundry_27450(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '工会buff-四维强化', '四维强化Lv4：80')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.力智固定加成(80)
+        char.体精固定加成(80)
+        pass
+
+
+def sundry_27451(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '婚戒', '体精 +8')"
+    if mode == 0:
+        char.体精固定加成(8)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27452(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '婚戒', '体精 +10 力智 +15')"
+    if mode == 0:
+        char.力智固定加成(15)
+        char.体精固定加成(10)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27453(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '婚房', '全属强 +1')"
+    if mode == 0:
+        char.所有属性强化加成(1, 0)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27454(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '婚房', '全属强 +3')"
+    if mode == 0:
+        char.所有属性强化加成(3, 0)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27455(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '婚房', '全属强 +5 三攻 +5')"
+    if mode == 0:
+        char.所有属性强化加成(5, 0)
+        char.三攻固定加成(5)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27456(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '婚房', '全属强 +8 物魔攻 +10 独立 +20')"
+    if mode == 0:
+        char.所有属性强化加成(8, 0)
+        char.三攻固定加成(10, 10, 20)
+        pass
+    if mode == 1:
+        pass
+
+# 调用的时候前面的参数一个都不能少
+# sundry_27455({}, 0, False, 0, 2)
+
+
+def sundry_27457(char: Character = {}, mode=0, text=False, *args):
+    if text:
+        return "(0, '收集箱', '春节套')"
+    if mode == 0:
+        # 可变参数
+        xy = 0
+        sq = 0
+        try:
+            xy = args[0]
+        except:
+            pass
+        try:
+            sq = args[1]
+        except:
+            pass
+        char.三攻固定加成(xy*10)
+        char.力智固定加成(sq*10)
+        char.体精固定加成(sq*10)
+        char.所有属性强化加成(sq*2)
+    if mode == 1:
+        pass
+
+
+def sundry_27458(char: Character = {}, mode=0, text=False, *args):
+    if text:
+        return "(0, '收集箱', '夏日套')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27459(char: Character = {}, mode=0, text=False, *args):
+    if text:
+        return "(0, '收集箱', '五一套')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+# 勋章属强 勋章强化
+
+
+def sundry_27460(char: Character = {}, mode=0, text=False, *args):
+    if text:
+        return "(0, '勋章', '力智+48 攻击力+30')"
+    if mode == 0:
+        char.力智固定加成(48)
+        char.三攻固定加成(30)
+        try:
+            char.所有属性强化加成(args[0])
+        except:
+            pass
+        try:
+            from core.equipment.基础函数 import 勋章计算
+            char.力智固定加成(勋章计算(50, '传说', args[1]))
+        except:
+            pass
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27461(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '晶体契约', '无色契约 三攻+40')"
+    if mode == 0:
+        char.三攻固定加成(40)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27462(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '名称装扮卡', '四维 +3 三速 +1%')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27463(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '皮肤', '全属强 +5')"
+    if mode == 0:
+        char.所有属性强化加成(5)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27464(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '皮肤', '全属强 +6')"
+    if mode == 0:
+        char.所有属性强化加成(6)
+        pass
+    if mode == 1:
+        pass
+
+
+def sundry_27465(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '快捷装备', '三攻 +30 附加伤害 +8% 攻击强化 +8%')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.三攻固定加成(30)
+        char.附加伤害加成(0.08)
+        char.百分比攻击强化加成(0.08)
+        pass
+
+
+def sundry_27466(char: Character = {}, mode=0, text=False):
+    if text:
+        return "(0, '快捷装备', '四维 +8 附加伤害 +8% 攻击强化 +8%')"
+    if mode == 0:
+        char.力智固定加成(8)
+        char.体精固定加成(8)
+        pass
+    if mode == 1:
+        char.附加伤害加成(0.08)
+        char.百分比攻击强化加成(0.08)
+        pass
 
 # endregion
 
@@ -607,7 +905,7 @@ def get_jadefunc_by_id(id):
     return sundry_list.get(id, sundry_27000)
 
 
-def get_jade_setinfo():
+def get_sundry_setinfo():
     infolist = []
     for i in sundry_list.keys():
         data = {}
