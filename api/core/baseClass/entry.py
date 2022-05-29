@@ -3271,6 +3271,68 @@ def entry_151(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         char.攻击强化加成(385 * min(10, enemy_num))
 
+
+def entry_804(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "150px内存在敌人时，每秒增加2%的技能攻击力(最多叠加5次，150px内没有敌人时，每秒减少1次叠加次数)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        if enemy_num > 0:
+            char.技能攻击力加成(0.02 * 5)
+
+
+def entry_805(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "150px内有敌人时，所有速度 +10%，效果持续10秒(最多叠加1次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        if enemy_num > 0:
+            char.所有速度增加(0.1)
+
+
+def entry_806(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "450px范围内每存在1名处于出血状态的敌人，技能、消耗品、装备的HP恢复效果 +5%(最多增加50%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_807(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "450px范围内每存在1名处于出血状态的敌人，技能冷却时间恢复速度 +10%(最多增加30%，觉醒技能除外), 攻击出血状态敌人时，技能攻击力 +2%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能恢复加成(1, 100, 0.1*min(3, enemy_num), [50, 85, 100])
+        if enemy_num > 0:
+            char.技能攻击力加成(0.02)
+
+
+def entry_808(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "500px范围内存在出血状态的敌人时，出血抗性 +20%, 攻击出血状态敌人时，技能攻击力 +2%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        if enemy_num > 0:
+            char.异常抗性加成('出血', 0.2)
+            char.技能攻击力加成(0.02)
+
+
+def entry_809(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "500px范围内每存在1名处于灼烧状态的敌人，所有速度 +3%、火属性抗性 +1(最多叠加10次), 绿名怪、领主进入灼烧状态时，所有速度、火属性抗性增加适用为最大叠加"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.所有速度增加(0.03 * 10)
+        char.火属性抗性加成(1 * 10)
+
+
 # endregion
 
 # region 选择地下城类型
@@ -4477,97 +4539,305 @@ def entry_371(char: Character = {}, mode=0, text=False, part=''):
 
 # endregion
 
-
-def entry_343(char: Character = {}, mode=0, text=False, part=''):
+# region HP范围 (未实现)
+def entry_814(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "自身移动速度超过100%以上时，HP、MP MAX +2000"
+        return "HP为0时，5秒内，进入狂暴化，不会死亡, - 狂暴化状态下，被击时伤害无效化, - 狂暴化状态下，伤害增加 4466, - 施放技能时，每消耗1个无色，狂暴化持续时间+0.1秒(增加的持续时间不超过5秒), - 角色在狂暴状态结束时死亡"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_345(char: Character = {}, mode=0, text=False, part=''):
+def entry_815(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "命中率 +20%, HP、MP MAX -1200"
+        return "HP为0时，5秒内适用不死Buff(冷却时间300秒), - 恢复10%的HP, - 所有HP恢复效果无效, - 被击时伤害无效, - 不死Buff结束后，HP MAX -30%(最多叠加1次)"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_368(char: Character = {}, mode=0, text=False, part=''):
+def entry_816(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "装备保护罩效果 +20%"
+        return "HP为0时，获得英雄气魄Buff, 所有HP恢复效果无效, 被击时，代替HP消耗MP，MP为0时死亡, 英雄气魄Buff期间，每秒减少2%的MP"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_375(char: Character = {}, mode=0, text=False, part=''):
+def entry_817(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "剩余MP在30%以下时，消耗10个无色小晶块，恢复30%的MP(冷却时间10秒)"
+        return "HP为0时，自身进入睡眠状态(冷却时间300秒)"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_384(char: Character = {}, mode=0, text=False, part=''):
+def entry_818(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "施放Lv20技能时，进入2秒霸体状态，霸体解除时，攻击速度+15%，施放速度+22.5%(冷却时间10秒)"
+        return "HP在10%以下：15秒内，恢复50%的HP(冷却时间60秒), 技能、消耗品、装备的HP恢复效果 -20%"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_385(char: Character = {}, mode=0, text=False, part=''):
+def entry_819(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "施放Lv25技能时，进入2秒霸体状态，霸体解除时，攻击速度+15%，施放速度+22.5%(冷却时间10秒)"
+        return "HP在20%以下：被击时，消耗所有MP，根据消耗的MP恢复HP(冷却时间60秒)"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_386(char: Character = {}, mode=0, text=False, part=''):
+def entry_820(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "施放Lv30技能时，进入2秒霸体状态，霸体解除时，攻击速度+15%，施放速度+22.5%(冷却时间10秒)"
+        return "HP在30%以下：攻击领主时，恢复1%的HP(冷却时间1秒)"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_392(char: Character = {}, mode=0, text=False, part=''):
+def entry_821(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "受基础精通影响攻击时，所有属性强化 +35，效果持续10秒(冷却时间15秒)"
+        return "HP在50%以下时，所有速度+20%"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_393(char: Character = {}, mode=0, text=False, part=''):
+def entry_822(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "破招攻击时，Lv1~30技能剩余冷却时间 -10%(冷却时间5秒)"
+        return "HP在50%以下时，物理/魔法暴击率 +20%, HP在10%以上时，每次攻击会减少5%的HP (该效果不会将HP减少到5%以下，冷却时间10秒)"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
-def entry_538(char: Character = {}, mode=0, text=False, part=''):
+def entry_823(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "Lv30 buff技能Lv+1, Lv50 主动技能Lv+2"
+        return "HP在70%以上：技能冷却时间 -10%(觉醒技能除外), HP在50%~70%：技能冷却时间 -12%(觉醒技能除外), HP在50%以下：技能冷却时间 -15%(觉醒技能除外)"
     if mode == 0:
         pass
     if mode == 1:
         pass
 
 
+def entry_824(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "HP在90%以上：每2秒，20秒内，物理、魔法暴击率 +2%(最多叠加5次), HP在90%以下：每3秒，物理、魔法暴击重叠次数解除1次"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_825(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "HP在90%以上时，技能冷却时间恢复速度 +10%(觉醒除外), 被击伤害 +30%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_826(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "HP在90%以下时，进行攻击可恢复2%的HP(冷却时间10秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+# endregion
+
+# region MP范围 (未实现)
+def entry_813(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "HP MAX +4196, 每20000点剩余的MP，伤害增加 267(最多叠加10次), 剩余MP在60%以下时，技能攻击力 -4%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+
+
+def entry_827(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "MP MAX+2000, 技能MP消耗量+100%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_828(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "MP MAX+4196, 技能MP消耗量+50%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_829(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "MP低于50%时，发动农夫的祝福，恢复20%的MP(冷却时间40)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_830(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "MP在10%以下的状态持续10秒以上：10秒内，伤害增加 3557"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_831(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "MP在20%以下时，伤害增加 2223"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_832(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "MP在50%以下：HP/MP每分钟恢复量 +5000%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_833(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "MP在90%以上：每2秒，20秒内，伤害增加 711(最多叠加5次), MP在90%以下：每3秒减少1次伤害增加效果叠加次数"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+# endregion
+
+
+# region 装备指令相关
+def entry_793(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备操作键]输入后300秒内，施放无色技能时，消耗白色小晶块代替无色小晶块(冷却时间10秒), 消耗白色小晶块进行攻击时，使敌人进入感电状态(冷却时间15秒), 攻击感电状态敌人时，技能攻击力 +2%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.02)
+
+
+def entry_794(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备操作键]输入后300秒内，施放无色技能时，消耗黑色小晶块代替无色小晶块(冷却时间10秒), 消耗黑色小晶块进行攻击时，使敌人进入失明状态(冷却时间25秒), 攻击失明状态敌人时，技能攻击力 +10%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.1)
+
+
+def entry_795(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备操作键]输入后300秒内，施放无色技能时，消耗红色小晶块代替无色小晶块(冷却时间10秒), 消耗红色小晶块进行攻击时，使敌人进入灼烧状态(冷却时间10秒), 攻击灼烧状态敌人时，技能攻击力 +2%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.02)
+
+
+def entry_796(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备操作键]输入后300秒内，施放无色技能时，消耗金色小晶块代替无色小晶块(冷却时间10秒), 消耗金色小晶块进行攻击时，使使敌人进入眩晕状态(冷却时间20秒), 攻击眩晕状态敌人时，技能攻击力 +5%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.05)
+
+
+def entry_797(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备操作键]输入后300秒内，施放无色技能时，消耗蓝色小晶块代替无色小晶块(冷却时间10秒), 消耗蓝色小晶块进行攻击时，使使敌人进入冰冻状态(冷却时间25秒), 攻击冰冻状态敌人时，技能攻击力 +5%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.05)
+
+
+def entry_798(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备操作键]输入时，地图所有道具移动至角色脚下(冷却时间30秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_799(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备操作键]输入时，武器属性按火、冰、光、暗的顺序变更, 当该装备赋予属性时，对应属性强化 -10，对应属性抗性 -10"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_800(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备操作键]输入时，消耗15%的HP，5秒内召唤神圣盾牌(冷却时间45秒，词条不会使HP减少至1%以下), - 神圣盾牌的HP以自身HP最大值30%为准, - 神圣盾牌存在于地图上时，物理、魔法防御力 +20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_801(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备操作键]输入时，选择1名队友带到自己位置(冷却时间50秒，队友无敌时无法选择), 带到自己位置的队友获得20秒移速+20%的Buff"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_802(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备属性操作键]输入时，召唤稻草人，周围500px范围内敌人进入诅咒(持续30秒，冷却时间30秒), 自身处于受诅咒的稻草人范围内时，技能冷却时间恢复速度 +20%(觉醒技能除外)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_803(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "[装备属性操作键]输入时，召唤异空间(持续2秒，冷却时间60秒), - 异空间周围按跳跃键，可进入异空间, - 异空间只能发动者进入, - 异空间内部无敌, - 异空间结束时，10秒内，所有速度 +30%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+# endregion
+
+# region 职业词条
+# region 鬼剑士
 def entry_539(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "[嗜血]蕃力功能删除, [嗜血]可以在施放技能时发动"
@@ -4928,6 +5198,10 @@ def entry_578(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 
+# endregion
+
+# region 格斗家
+
 def entry_579(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "二重解放更变为持续10秒的buff, - 强化1次技能效果删除, - 强化特定技能限制删除, - 强化攻击力效果删除, - 持续时间内，技能攻击力+45%(觉醒技能除外)"
@@ -5214,6 +5488,10 @@ def entry_610(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
+
+# endregion
+
+# region 神枪手
 
 
 def entry_611(char: Character = {}, mode=0, text=False, part=''):
@@ -5502,6 +5780,10 @@ def entry_642(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
+
+# endregion
+
+# region 魔法师
 
 
 def entry_643(char: Character = {}, mode=0, text=False, part=''):
@@ -5863,6 +6145,10 @@ def entry_682(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         pass
 
+# endregion
+
+# region 圣职者
+
 
 def entry_683(char: Character = {}, mode=0, text=False, part=''):
     if text:
@@ -6151,6 +6437,10 @@ def entry_714(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         pass
 
+# endregion
+
+# region 暗夜使者
+
 
 def entry_715(char: Character = {}, mode=0, text=False, part=''):
     if text:
@@ -6294,6 +6584,10 @@ def entry_730(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
+
+# endregion
+
+# region 守护者
 
 
 def entry_731(char: Character = {}, mode=0, text=False, part=''):
@@ -6439,6 +6733,10 @@ def entry_746(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         pass
 
+# endregion
+
+# region 魔枪士
+
 
 def entry_747(char: Character = {}, mode=0, text=False, part=''):
     if text:
@@ -6573,6 +6871,10 @@ def entry_761(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
+
+# endregion
+
+# region 枪剑士
 
 
 def entry_762(char: Character = {}, mode=0, text=False, part=''):
@@ -6727,6 +7029,10 @@ def entry_778(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         pass
 
+# endregion
+
+# region 外传
+
 
 def entry_779(char: Character = {}, mode=0, text=False, part=''):
     if text:
@@ -6799,6 +7105,10 @@ def entry_786(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         pass
 
+# endregion
+
+# region 合金战士
+
 
 def entry_787(char: Character = {}, mode=0, text=False, part=''):
     if text:
@@ -6834,13 +7144,106 @@ def entry_790(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
+# endregion
+# endregion
+
+
+def entry_343(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身移动速度超过100%以上时，HP、MP MAX +2000"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_345(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "命中率 +20%, HP、MP MAX -1200"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_368(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "装备保护罩效果 +20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_375(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "剩余MP在30%以下时，消耗10个无色小晶块，恢复30%的MP(冷却时间10秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_384(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "施放Lv20技能时，进入2秒霸体状态，霸体解除时，攻击速度+15%，施放速度+22.5%(冷却时间10秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_385(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "施放Lv25技能时，进入2秒霸体状态，霸体解除时，攻击速度+15%，施放速度+22.5%(冷却时间10秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_386(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "施放Lv30技能时，进入2秒霸体状态，霸体解除时，攻击速度+15%，施放速度+22.5%(冷却时间10秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_392(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "受基础精通影响攻击时，所有属性强化 +35，效果持续10秒(冷却时间15秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_393(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "破招攻击时，Lv1~30技能剩余冷却时间 -10%(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_538(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "Lv30 buff技能Lv+1, Lv50 主动技能Lv+2"
+    if mode == 0:
+        char.buff技能等级加成(30, 1)
+        char.技能等级加成('主动', 50, 50, 2)
+    if mode == 1:
+        pass
 
 
 def entry_791(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv1-100技能攻击力+10%"
     if mode == 0:
-        pass
+        char.技能倍率加成(1, 100, 0.1)
     if mode == 1:
         pass
 
@@ -6849,162 +7252,12 @@ def entry_792(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv1-100技能Lv+1(觉醒技能除外)"
     if mode == 0:
-        pass
+        char.技能等级加成('所有', 1, 100, 1, [50, 85, 100])
     if mode == 1:
         pass
 
 
-def entry_793(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备操作键]输入后300秒内，施放无色技能时，消耗白色小晶块代替无色小晶块(冷却时间10秒), 消耗白色小晶块进行攻击时，使敌人进入感电状态(冷却时间15秒), 攻击感电状态敌人时，技能攻击力 +2%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
 
-
-def entry_794(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备操作键]输入后300秒内，施放无色技能时，消耗黑色小晶块代替无色小晶块(冷却时间10秒), 消耗黑色小晶块进行攻击时，使敌人进入失明状态(冷却时间25秒), 攻击失明状态敌人时，技能攻击力 +10%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_795(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备操作键]输入后300秒内，施放无色技能时，消耗红色小晶块代替无色小晶块(冷却时间10秒), 消耗红色小晶块进行攻击时，使敌人进入灼烧状态(冷却时间10秒), 攻击灼烧状态敌人时，技能攻击力 +2%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_796(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备操作键]输入后300秒内，施放无色技能时，消耗金色小晶块代替无色小晶块(冷却时间10秒), 消耗金色小晶块进行攻击时，使使敌人进入眩晕状态(冷却时间20秒), 攻击眩晕状态敌人时，技能攻击力 +5%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_797(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备操作键]输入后300秒内，施放无色技能时，消耗蓝色小晶块代替无色小晶块(冷却时间10秒), 消耗蓝色小晶块进行攻击时，使使敌人进入冰冻状态(冷却时间25秒), 攻击冰冻状态敌人时，技能攻击力 +5%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_798(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备操作键]输入时，地图所有道具移动至角色脚下(冷却时间30秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_799(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备操作键]输入时，武器属性按火、冰、光、暗的顺序变更, 当该装备赋予属性时，对应属性强化 -10，对应属性抗性 -10"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_800(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备操作键]输入时，消耗15%的HP，5秒内召唤神圣盾牌(冷却时间45秒，词条不会使HP减少至1%以下), - 神圣盾牌的HP以自身HP最大值30%为准, - 神圣盾牌存在于地图上时，物理、魔法防御力 +20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_801(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备操作键]输入时，选择1名队友带到自己位置(冷却时间50秒，队友无敌时无法选择), 带到自己位置的队友获得20秒移速+20%的Buff"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_802(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备属性操作键]输入时，召唤稻草人，周围500px范围内敌人进入诅咒(持续30秒，冷却时间30秒), 自身处于受诅咒的稻草人范围内时，技能冷却时间恢复速度 +20%(觉醒技能除外)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_803(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "[装备属性操作键]输入时，召唤异空间(持续2秒，冷却时间60秒), - 异空间周围按跳跃键，可进入异空间, - 异空间只能发动者进入, - 异空间内部无敌, - 异空间结束时，10秒内，所有速度 +30%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_804(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "150px内存在敌人时，每秒增加2%的技能攻击力(最多叠加5次，150px内没有敌人时，每秒减少1次叠加次数)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_805(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "150px内有敌人时，所有速度 +10%，效果持续10秒(最多叠加1次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_806(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "450px范围内每存在1名处于出血状态的敌人，技能、消耗品、装备的HP恢复效果 +5%(最多增加50%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_807(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "450px范围内每存在1名处于出血状态的敌人，技能冷却时间恢复速度 +10%(最多增加30%，觉醒技能除外), 攻击出血状态敌人时，技能攻击力 +2%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_808(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "500px范围内存在出血状态的敌人时，出血抗性 +20%, 攻击出血状态敌人时，技能攻击力 +2%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_809(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "500px范围内每存在1名处于灼烧状态的敌人，所有速度 +3%、火属性抗性 +1(最多叠加10次), 绿名怪、领主进入灼烧状态时，所有速度、火属性抗性增加适用为最大叠加"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
 
 
 def entry_810(char: Character = {}, mode=0, text=False, part=''):
@@ -7034,193 +7287,7 @@ def entry_812(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 
-def entry_813(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP MAX +4196, 每20000点剩余的MP，伤害增加 267(最多叠加10次), 剩余MP在60%以下时，技能攻击力 -4%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
 
-
-def entry_814(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP为0时，5秒内，进入狂暴化，不会死亡, - 狂暴化状态下，被击时伤害无效化, - 狂暴化状态下，伤害增加 4466, - 施放技能时，每消耗1个无色，狂暴化持续时间+0.1秒(增加的持续时间不超过5秒), - 角色在狂暴状态结束时死亡"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_815(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP为0时，5秒内适用不死Buff(冷却时间300秒), - 恢复10%的HP, - 所有HP恢复效果无效, - 被击时伤害无效, - 不死Buff结束后，HP MAX -30%(最多叠加1次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_816(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP为0时，获得英雄气魄Buff, 所有HP恢复效果无效, 被击时，代替HP消耗MP，MP为0时死亡, 英雄气魄Buff期间，每秒减少2%的MP"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_817(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP为0时，自身进入睡眠状态(冷却时间300秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_818(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在10%以下：15秒内，恢复50%的HP(冷却时间60秒), 技能、消耗品、装备的HP恢复效果 -20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_819(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在20%以下：被击时，消耗所有MP，根据消耗的MP恢复HP(冷却时间60秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_820(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在30%以下：攻击领主时，恢复1%的HP(冷却时间1秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_821(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在50%以下时，所有速度+20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_822(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在50%以下时，物理/魔法暴击率 +20%, HP在10%以上时，每次攻击会减少5%的HP (该效果不会将HP减少到5%以下，冷却时间10秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_823(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在70%以上：技能冷却时间 -10%(觉醒技能除外), HP在50%~70%：技能冷却时间 -12%(觉醒技能除外), HP在50%以下：技能冷却时间 -15%(觉醒技能除外)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_824(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在90%以上：每2秒，20秒内，物理、魔法暴击率 +2%(最多叠加5次), HP在90%以下：每3秒，物理、魔法暴击重叠次数解除1次"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_825(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在90%以上时，技能冷却时间恢复速度 +10%(觉醒除外), 被击伤害 +30%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_826(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在90%以下时，进行攻击可恢复2%的HP(冷却时间10秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_827(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "MP MAX+2000, 技能MP消耗量+100%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_828(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "MP MAX+4196, 技能MP消耗量+50%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_829(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "MP低于50%时，发动农夫的祝福，恢复20%的MP(冷却时间40)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_830(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "MP在10%以下的状态持续10秒以上：10秒内，伤害增加 3557"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_831(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "MP在20%以下时，伤害增加 2223"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_832(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "MP在50%以下：HP/MP每分钟恢复量 +5000%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_833(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "MP在90%以上：每2秒，20秒内，伤害增加 711(最多叠加5次), MP在90%以下：每3秒减少1次伤害增加效果叠加次数"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
 
 
 def entry_834(char: Character = {}, mode=0, text=False, part=''):
