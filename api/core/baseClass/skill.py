@@ -28,6 +28,12 @@ class 技能:
     非冷却关联技能2 = ['无']
     非冷却关联技能3 = ['无']
 
+    MP = 0
+    手搓 = False
+    手搓指令数 = 0
+    无色消耗 = 0
+    技能栏位置 = -1
+
     def 等级加成(self, x):
         if self.等级 != 0:
             if self.等级 + x > self.等级上限:
@@ -97,7 +103,17 @@ class 主动技能(技能):
                 (1 + self.TP成长 * self.TP等级) * self.倍率)
 
     def 等效CD(self, 武器类型, 输出类型):
-        return round(self.CD / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), 1)
+        cdr = 1
+        if self.手搓:
+            if self.所在等级 >= 15 and self.所在等级 <= 30:
+                cdr = 0.99
+            if self.所在等级 >= 35 and self.所在等级 <= 70:
+                cdr = 0.98
+            if self.所在等级 >= 75 and self.所在等级 <= 100:
+                cdr = 0.95
+            if self.所在等级 in [50, 100]:
+                cdr = 0.95
+        return round(self.CD * cdr / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), 1)
 
     def 基础等级计算(self):
         if self.基础等级 == 0:

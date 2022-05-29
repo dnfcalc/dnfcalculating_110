@@ -1,11 +1,12 @@
 
 from copy import deepcopy
+from typing import List
 from core.baseClass.character import Character
 from core.baseClass.buffer.property import *
 
 
 class SkillFrame:
-    data: list[float]
+    data: List[float]
     hits: int
     power: int
 
