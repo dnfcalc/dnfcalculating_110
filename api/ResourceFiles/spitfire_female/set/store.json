@@ -1,0 +1,437 @@
+{
+  "equip_list": [],
+  "carry_type": {},
+  "attack_attribute": {},
+  "skill_set": [
+    {
+      "name": "单兵推进器",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "兵器研究",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "手雷精通",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "弹药改良",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "M18阔剑地雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 50,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "G35感电手雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 48,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "交叉射击",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 48,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "爆裂弹",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "G18冰冻手雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 46,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "聚合弹",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 43,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "C4飞弹",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 43,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "凝固汽油弹",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 41,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "镭射狙击",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 38,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "弹药强化",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 20,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "EMP磁暴",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 15,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "G61重力手雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 30,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "轻火力速射",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 26,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "制空掌握",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 11,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "开火",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 23,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "G96热压手雷",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 21,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "决战之日",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 8,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "单兵推进器-02X",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 9,
+      "directNumber": 0,
+      "damage": false
+    },
+    {
+      "name": "空袭战略",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 10,
+      "directNumber": 0,
+      "damage": true
+    },
+    {
+      "name": "终解·制空霸权",
+      "tp": 0,
+      "count": 0,
+      "pet": 0,
+      "direct": false,
+      "level": 5,
+      "directNumber": 0,
+      "damage": true
+    }
+  ],
+  "forge_set": {},
+  "other_set": {},
+  "clothes_set": {},
+  "single_set": [
+    {
+      "id": "221",
+      "name": "传达心意的声音",
+      "icon": "/specials/earrring/103.png",
+      "order": 6010,
+      "typeName": "耳环",
+      "customize": [],
+      "stable": [
+        10001,
+        10012,
+        28
+      ]
+    },
+    {
+      "id": "182",
+      "name": "梦一般的呼唤声",
+      "icon": "/specials/support/321.png",
+      "order": 6008,
+      "typeName": "辅助装备",
+      "customize": [],
+      "stable": [
+        10001,
+        10010
+      ]
+    },
+    {
+      "id": "203",
+      "name": "澎湃的热情",
+      "icon": "/specials/magicstone/305.png",
+      "order": 6009,
+      "typeName": "魔法石",
+      "customize": [],
+      "stable": [
+        10001,
+        10011
+      ]
+    },
+    {
+      "id": "349",
+      "name": "生命的脉动",
+      "icon": "/jewels/necklace/288.png",
+      "order": 5006,
+      "typeName": "项链",
+      "customize": [],
+      "stable": [
+        10001,
+        10008
+      ]
+    },
+    {
+      "id": "334",
+      "name": "收获的玉手",
+      "icon": "/jewels/bracelet/295.png",
+      "order": 5005,
+      "typeName": "手镯",
+      "customize": [],
+      "stable": [
+        10001,
+        10007,
+        28
+      ]
+    },
+    {
+      "id": "362",
+      "name": "闪耀的生命",
+      "icon": "/jewels/ring/327.png",
+      "order": 5007,
+      "typeName": "戒指",
+      "customize": [],
+      "stable": [
+        10001,
+        10009
+      ]
+    },
+    {
+      "id": "255",
+      "name": "防电靴",
+      "icon": "/armors/leather_shoes/95.png",
+      "order": 5004,
+      "typeName": "鞋",
+      "customize": [],
+      "stable": [
+        10001,
+        10006
+      ]
+    },
+    {
+      "id": "6",
+      "name": "战无不胜上衣",
+      "icon": "/equipmyth/104.gif",
+      "typeName": "上衣",
+      "customize": [],
+      "stable": []
+    },
+    {
+      "id": "248",
+      "name": "轻型装置长裤",
+      "icon": "/armors/leather_pants/94.png",
+      "order": 5001,
+      "typeName": "下装",
+      "customize": [],
+      "stable": [
+        10001,
+        10003
+      ]
+    },
+    {
+      "id": "307",
+      "name": "玉化亡灵肩甲",
+      "icon": "/armors/leather_neck/89.png",
+      "order": 5002,
+      "typeName": "头肩",
+      "customize": [],
+      "stable": [
+        10001,
+        10004
+      ]
+    },
+    {
+      "id": "253",
+      "name": "防雷腰带",
+      "icon": "/armors/leather_belt/91.png",
+      "order": 5003,
+      "typeName": "腰带",
+      "customize": [],
+      "stable": [
+        10001,
+        10005
+      ]
+    }
+  ],
+  "trigger_set": [
+    {
+      "id": 42,
+      "select": 0
+    },
+    {
+      "id": 43,
+      "select": 0
+    },
+    {
+      "id": 44,
+      "select": 0
+    },
+    {
+      "id": 45,
+      "select": 0
+    },
+    {
+      "id": 47,
+      "select": 0
+    },
+    {
+      "id": 49,
+      "select": 0
+    },
+    {
+      "id": 51,
+      "select": 0
+    },
+    {
+      "id": 52,
+      "select": 0
+    },
+    {
+      "id": 46,
+      "select": 0
+    },
+    {
+      "id": 54,
+      "select": 0
+    },
+    {
+      "id": 37,
+      "select": 0
+    },
+    {
+      "id": 840,
+      "select": 0
+    }
+  ],
+  "skill_que": [],
+  "wisdom_list": [],
+  "myths_list": [],
+  "weapons_list": [],
+  "lv110_list": []
+}

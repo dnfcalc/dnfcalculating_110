@@ -3,11 +3,14 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { computed, defineComponent, Suspense } from "vue"
   import { useRoute } from "vue-router"
+  import { useContainer } from "./components/hooks/container/container"
   import { useAppStore } from "./store/app"
 
   export default defineComponent({
     setup() {
       const appStore = useAppStore()
+
+      const { render } = useContainer()
 
       const title = computed(() => {
         const route = useRoute()
@@ -21,17 +24,18 @@
             style="-webkit-app-region: drag"
           >
             <div class="h-4 leading-4 w-4" style="background-image:url('./favicon.ico');background-size: 100% 100%;"></div>
-            <div class="header text-xs">{title.value}</div>
+            <div class="text-xs header">{title.value}</div>
             <div class="flex items-center">
               <div onClick={appStore.minimize} class="cursor-pointer min-icon h-4  text-center mr-4 text-hex-f0d070 text-opacity-72 w-4 hover:text-opacity-100"></div>
               <div onClick={appStore.close} class="cursor-pointer h-4 text-center  text-hex-f0d070 text-opacity-72  w-4 close-icon hover:text-opacity-100"></div>
             </div>
           </div>
-          <div class="w-full mt-6 overflow-y-auto" style="height:calc(100% - 24px);">
+          <div class="mt-6 w-full overflow-y-auto" style="height:calc(100% - 24px);">
             <Suspense>
               <router-view></router-view>
             </Suspense>
           </div>
+          {render()}
         </>
       )
     }
