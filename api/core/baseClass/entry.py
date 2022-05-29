@@ -4668,8 +4668,6 @@ def entry_813(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 
-
-
 def entry_827(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "MP MAX+2000, 技能MP消耗量+100%"
@@ -4731,8 +4729,9 @@ def entry_833(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
-# endregion
 
+
+# endregion
 
 # region 装备指令相关
 def entry_793(char: Character = {}, mode=0, text=False, part=''):
