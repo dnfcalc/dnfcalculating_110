@@ -1,13 +1,6 @@
 <script lang="tsx">
-  import { onClickOutside, useVModel } from "@vueuse/core"
-  import {
-    defineComponent,
-    h,
-    ref,
-    renderSlot,
-    Teleport,
-    Transition
-  } from "vue"
+  import { onClickOutside, syncRef, useVModel } from "@vueuse/core"
+  import { defineComponent, h, ref, renderSlot, Teleport, Transition } from "vue"
 
   import IButton from "@/components/calc/button/index.vue"
 
@@ -59,12 +52,13 @@
     setup(props, { emit, slots }) {
       const dialogRef = ref<HTMLElement>()
 
-      const visible = useVModel(props, "visible", emit)
+      const model = useVModel(props, "visible")
 
-      onClickOutside(
-        dialogRef,
-        () => !props.modal && emit("update:visible", false)
-      )
+      const visible = ref(props.visible)
+
+      syncRef(model, visible, { direction: "both" })
+
+      onClickOutside(dialogRef, () => !props.modal && emit("update:visible", false))
 
       function onYesClick() {
         emit("yes")
@@ -84,9 +78,7 @@
         if (props.yesButton || props.cancelButton) {
           const buttons: JSX.Element[] = []
           if (props.cancelButton) {
-            buttons.push(
-              <i-button onClick={onCancelClick}>{props.cancelButton}</i-button>
-            )
+            buttons.push(<i-button onClick={onCancelClick}>{props.cancelButton}</i-button>)
           }
           if (props.yesButton) {
             buttons.push(
@@ -104,19 +96,8 @@
           <Teleport to="body">
             <Transition name="dialog" mode="out-in">
               {(props.cache || visible.value) && (
-                <div
-                  v-show={visible.value}
-                  class={[
-                    "dialog-mask bg-#00000066 w-full h-full fixed top-0 left-0 z-999 flex justify-center items-center "
-                  ]}
-                >
-                  <div
-                    ref={dialogRef}
-                    class={[
-                      "bg-light h-auto shadow-sm round-1 p-4 dialog",
-                      props.class
-                    ]}
-                  >
+                <div v-show={visible.value} class={["dialog-mask bg-#00000066 w-full h-full fixed top-0 left-0 z-999 flex justify-center items-center "]}>
+                  <div ref={dialogRef} class={["bg-light h-auto shadow-sm round-1 p-4 dialog", props.class]}>
                     <div class="w-full">
                       <div class="h-auto"> {renderSlot(slots, "default")}</div>
                       {renderAction()}
