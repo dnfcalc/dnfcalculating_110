@@ -6,7 +6,7 @@ from typing import Dict, List, Union
 from core.baseClass.equipment import equipment
 from core.baseClass.equipment import equ
 from core.store import store
-from core.equipment.基础函数 import 基础属性输入, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器强化计算, 锻造计算
+from core.equipment.基础函数 import 获取基础属性, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器强化计算, 锻造计算
 from core.baseClass.skill import 技能, 主动技能, 被动技能
 # from core.baseClass.enchanting import get_encfunc_by_id
 # from core.baseClass.emblems import get_embfunc_by_id
@@ -57,15 +57,15 @@ class Character():
 
     def __init__(self) -> None:
         # 计算变量 ##########
-        self.基础力量: int = 0
-        self.基础智力: int = 0
-        self.基础体力: int = 0
-        self.基础精神: int = 0
+        self.__基础力量: int = 0
+        self.__基础智力: int = 0
+        self.__基础体力: int = 0
+        self.__基础精神: int = 0
 
-        self.力量: float = 0.0
-        self.智力: float = 0.0
-        self.体力: float = 0.0
-        self.精神: float = 0.0
+        self.__力量: float = 0.0
+        self.__智力: float = 0.0
+        self.__体力: float = 0.0
+        self.__精神: float = 0.0
 
         self.系统奶系数: float = 0.0
         self.系统奶基数: float = 0.0
@@ -73,59 +73,70 @@ class Character():
         self.白兔子技能 = False
         self.斗神之吼秘药 = False
 
-        self.物理攻击力: float = 65
-        self.魔法攻击力: float = 65
-        self.独立攻击力: float = 1045
-        self.火属性强化: float = 13
-        self.冰属性强化: float = 13
-        self.光属性强化: float = 13
-        self.暗属性强化: float = 13
+        self.__物理攻击力: float = 65
+        self.__魔法攻击力: float = 65
+        self.__独立攻击力: float = 1045
+        self.__火属性强化: float = 13
+        self.__冰属性强化: float = 13
+        self.__光属性强化: float = 13
+        self.__暗属性强化: float = 13
 
         # 旧词条
-        self.百分比力智: float = 0.0
-        self.百分比三攻: float = 0.0
-        self.伤害增加: float = 0.0
-        self.附加伤害: float = 0.0
-        self.属性附加: float = 0.0
-        self.暴击伤害: float = 0.0
-        self.最终伤害: float = 0.0
-        self.技能攻击力: float = 1.0
-        self.技能攻击力累加: float = 0.0
-        self.持续伤害: float = 0.0
-        self.加算冷却缩减: float = 0.0
-        self.百分比减防: float = 0.0
-        self.固定减防: int = 0
+        self.__百分比力智: float = 0.0
+        self.__百分比三攻: float = 0.0
+        self.__伤害增加: float = 0.0
+        self.__附加伤害: float = 0.0
+        self.__属性附加: float = 0.0
+        self.__暴击伤害: float = 0.0
+        self.__最终伤害: float = 0.0
+        self.__技能攻击力: float = 1.0
+        self.__技能攻击力累加: float = 0.0
+        self.__持续伤害: float = 0.0
+        self.__加算冷却缩减: float = 0.0
+        self.__百分比减防: float = 0.0
+        self.__固定减防: int = 0
 
         # 其它词条
-        self.攻击速度: float = 0.00
-        self.移动速度: float = 0.00
-        self.施放速度: float = 0.00
-        self.命中率: float = 0.0
-        self.回避率: float = 0.0
-        self.物理暴击率: float = 0.00
-        self.魔法暴击率: float = 0.00
-        self.火属性抗性: int = 0
-        self.冰属性抗性: int = 0
-        self.光属性抗性: int = 0
-        self.暗属性抗性: int = 0
+        self.__攻击速度: float = 0.00
+        self.__移动速度: float = 0.00
+        self.__施放速度: float = 0.00
+        self.__命中率: float = 0.0
+        self.__回避率: float = 0.0
+        self.__物理暴击率: float = 0.00
+        self.__魔法暴击率: float = 0.00
+        self.__火属性抗性: int = 0
+        self.__冰属性抗性: int = 0
+        self.__光属性抗性: int = 0
+        self.__暗属性抗性: int = 0
 
         # 新属性
-        self.攻击强化: int = 0
-        self.百分比攻击强化: float = 0.0
-        self.buff量: int = 0
-        self.直接伤害: float = 1.0
-        self.中毒伤害: float = 0.0
-        self.灼烧伤害: float = 0.0
-        self.感电伤害: float = 0.0
-        self.出血伤害: float = 0.0
-        self.中毒伤害系数: float = 1.0
-        self.灼烧伤害系数: float = 1.0
-        self.感电伤害系数: float = 1.0
-        self.出血伤害系数: float = 1.0
-        self.MP消耗量: float = 1.0
+        self.__攻击强化: int = 0
+        self.__百分比攻击强化: float = 0.0
+        self.__buff量: int = 0
+        self.__伤害比例: Dict[str, float] = {'直伤': 1.0}
+        self.__伤害系数: Dict[str, float] = {
+            '中毒': 1.0, '灼烧': 1.0, '感电': 1.0, '出血': 1.0}
+        self.__异常抗性: Dict[str, float] = {}
+        self.__条件技攻: Dict[str, float] = {}
+        self.__条件冷却: Dict[str, float] = {}
+        self.__指令效果: Dict[str, float] = {}
+        self.__消耗品效果: float = 1.0
+        self.__MP消耗量: float = 1.0
 
         # 设置基础属性
-        基础属性输入(self)
+        self.__设置基础属性()
+
+    def __设置基础属性(self):
+        temp = 获取基础属性(self.角色, self.职业)
+        self.__基础力量 = temp[0]
+        self.__基础智力 = temp[1]
+        self.__基础体力 = temp[2]
+        self.__基础精神 = temp[3]
+
+        self.__力量 = self.__基础力量
+        self.__智力 = self.__基础智力
+        self.__体力 = self.__基础体力
+        self.__精神 = self.__基础精神
 
     # region 返回前端信息
     def getinfo(self) -> Dict:
@@ -140,11 +151,11 @@ class Character():
         info["armor"] = self.防具类型
         info["armor_mastery"] = self.防具精通属性
         info["buff_ratio"] = self.buff
-        self.set_skill_info(info)
-        self.set_individuation(info)
+        self.__set_skill_info(info)
+        self.__set_individuation(info)
         return info
 
-    def set_skill_info(self, info, rune_except=[], clothes_bottom=[]) -> None:
+    def __set_skill_info(self, info, rune_except=[], clothes_bottom=[]) -> None:
         skillInfo = []  # 技能
         rune = []  # 符文
         talisman = []  # 护石
@@ -184,114 +195,151 @@ class Character():
         info['clothes'] = clothes
         info['clothes_bottom'] = clothes_bottom
 
-    def set_individuation(self, info) -> None:
+    def __set_individuation(self, info) -> None:
         pass
 
     # endregion
 
     # region 词条属性
     def 百分比防御减少(self, x: float) -> None:
-        self.百分比减防 += x
+        self.__百分比减防 += x
 
     def 伤害类型转化(self, 类型1: str, 类型2: str, x: float) -> None:
         # 直接 中毒 灼烧 感电 出血
-        self.__dict__[类型1 + '伤害'] -= x
-        self.__dict__[类型2 + '伤害'] += x
+        self.__伤害比例[类型1] = self.__伤害比例.get(类型1, 0.0) - x
+        self.__伤害比例[类型2] = self.__伤害比例.get(类型2, 0.0) + x
 
     def 异常增伤(self, 类型: str, x: float) -> None:
         # 中毒 灼烧 感电 出血
-        self.__dict__[类型 + '伤害系数'] += x
+        self.__伤害系数[类型] = self.__伤害系数.get(类型, 1.0) + x
+
+    def 异常抗性加成(self, 类型: str, x: float) -> None:
+        # 中毒 灼烧 感电 出血 冰冻 减速 眩晕 诅咒 失明 石化 睡眠 混乱 束缚
+        self.__异常抗性[类型] = self.__异常抗性.get(类型, 0.0) + x
+
+    def 所有异常抗性加成(self, x: float) -> None:
+        for 类型 in ['中毒', '灼烧', ' 感电 ', '出血 ', '冰冻 ', '减速 ', '眩晕 ', '诅咒 ', '失明 ', '石化 ', '睡眠 ', '混乱 ', '束缚']:
+            self.__异常抗性[类型] = self.__异常抗性.get(类型, 0.0) + x
+
+    def 条件技攻加成(self, 类型: str, x: float) -> None:
+        # 消耗无色 不消耗无色
+        self.__条件技攻[类型] = self.__条件技攻.get(类型, 1.0) * (1 + x)
+
+    def 条件冷却加成(self, 类型: str, x: float) -> None:
+        # 消耗无色 不消耗无色
+        self.__条件冷却[类型] = self.__条件冷却.get(类型, 1.0) * (1 - x)
+
+    def 指令效果加成(self, 类型: str, x: float) -> None:
+        # 所有 消耗无色 不消耗无色  (觉醒技能默认除外)
+        self.__指令效果[类型] = self.__指令效果.get(类型, 1.0) * (1 + x)
+
+    def 指令技攻加成(self, x: float, min=1, max=100, exc=[50, 85, 100]) -> None:
+        # 暂未判断是否指令
+        for i in self.技能栏:
+            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
+                if i.是否有伤害 == 1:
+                    i.倍率 *= (1 + x * self.技能伤害增加增幅)
+
+    def 指令冷却缩减(self, x: float, min=1, max=100, exc=[50, 85, 100]) -> None:
+        # 暂未判断是否指令
+        for i in self.技能栏:
+            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
+                if i.是否有伤害 == 1:
+                    i.CD *= (1 - x)
+
+    def 消耗品加成(self, x: float) -> None:
+        self.__消耗品效果 += x
 
     def MP消耗量加成(self, x: float) -> None:
-        self.MP消耗量 += x
+        self.__MP消耗量 += x
 
     def 攻击强化加成(self, x: float) -> None:
-        self.攻击强化 += x
+        self.__攻击强化 += x
 
     def 百分比攻击强化加成(self, x: float) -> None:
-        self.百分比攻击强化 += x
+        self.__百分比攻击强化 += x
 
     def buff量加成(self, x: float) -> None:
-        self.buff量 += x
+        self.__buff量 += x
 
     def 附加伤害加成(self, x: float, 辟邪玉加成=1) -> None:
-        self.附加伤害 += self.附加伤害增加增幅 * x if 辟邪玉加成 == 1 else x
+        self.__附加伤害 += self.附加伤害增加增幅 * x if 辟邪玉加成 == 1 else x
 
     def 三攻固定加成(self, x=0, y=0, z=0) -> None:
         if y == 0 or z == 0:
             y = x
             z = x
-        self.物理攻击力 += x
-        self.魔法攻击力 += y
-        self.独立攻击力 += z
+        self.__物理攻击力 += x
+        self.__魔法攻击力 += y
+        self.__独立攻击力 += z
 
     def 力智固定加成(self, x=0, y=0) -> None:
         if y == 0:
             y = x
-        self.力量 += x
-        self.智力 += y
+        self.__力量 += x
+        self.__智力 += y
 
     def 体精固定加成(self, x=0, y=0) -> None:
         if y == 0:
             y = x
-        self.体力 += x
-        self.精神 += y
+        self.__体力 += x
+        self.__精神 += y
 
     def 持续伤害加成(self, x: float) -> None:
-        self.持续伤害 += x
+        self.__持续伤害 += x
 
     def 属性附加加成(self, x: float) -> None:
-        self.属性附加 += self.属性附加伤害增加增幅 * x
+        self.__属性附加 += self.属性附加伤害增加增幅 * x
 
     def 技能攻击力加成(self, x: float, 辟邪玉加成=1, 适用累加=1) -> None:
         if 适用累加 == 0:
-            self.技能攻击力 *= 1 + self.技能伤害增加增幅 * x if 辟邪玉加成 == 1 else x
+            self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * x if 辟邪玉加成 == 1 else x
         else:
-            self.技能攻击力累加 += x
-            if self.技能攻击力累加 <= 2:
-                self.技能攻击力 *= 1 + self.技能伤害增加增幅 * x if 辟邪玉加成 == 1 else x
+            self.__技能攻击力累加 += x
+            if self.__技能攻击力累加 <= 2:
+                self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * x if 辟邪玉加成 == 1 else x
             else:
-                self.技能攻击力 *= 1 + (self.技能伤害增加增幅*(2+x-self.技能攻击力累加) +
-                                   self.技能攻击力累加-2) if self.技能攻击力累加 - x < 2 or 辟邪玉加成 == 1 else x
+                self.__技能攻击力 *= 1 + (self.技能伤害增加增幅*(2+x-self.__技能攻击力累加) +
+                                     self.__技能攻击力累加-2) if self.__技能攻击力累加 - x < 2 or 辟邪玉加成 == 1 else x
 
     def 暴击伤害加成(self, x: float, 辟邪玉加成=1) -> None:
-        self.暴击伤害 += self.暴击伤害增加增幅 * x if 辟邪玉加成 == 1 else x
+        self.__暴击伤害 += self.暴击伤害增加增幅 * x if 辟邪玉加成 == 1 else x
 
     def 伤害增加加成(self, x: float, 辟邪玉加成=1) -> None:
-        self.伤害增加 += self.伤害增加增幅 * x if 辟邪玉加成 == 1 else x
+        self.__伤害增加 += self.伤害增加增幅 * x if 辟邪玉加成 == 1 else x
 
     def 最终伤害加成(self, x: float, 辟邪玉加成=1) -> None:
-        self.最终伤害 += self.最终伤害增加增幅 * x if 辟邪玉加成 == 1 else x
+        self.__最终伤害 += self.最终伤害增加增幅 * x if 辟邪玉加成 == 1 else x
 
     def 百分比力智加成(self, x: float, 辟邪玉加成=1) -> None:
-        self.百分比力智 += self.力量智力增加增幅 * x if 辟邪玉加成 == 1 else x
+        self.__百分比力智 += self.力量智力增加增幅 * x if 辟邪玉加成 == 1 else x
 
     def 百分比三攻加成(self, x: float, 辟邪玉加成=1) -> None:
-        self.百分比三攻 += self.物理魔法攻击力增加增幅 * x if 辟邪玉加成 == 1 else x
+        self.__百分比三攻 += self.物理魔法攻击力增加增幅 * x if 辟邪玉加成 == 1 else x
 
     def 火属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
-            self.火属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
+            self.__火属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
         else:
-            self.火属性强化 += int(self.所有属性强化增加 * x)
+            self.__火属性强化 += int(self.所有属性强化增加 * x)
 
     def 冰属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
-            self.冰属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
+            self.__冰属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
         else:
-            self.冰属性强化 += int(self.所有属性强化增加 * x)
+            self.__冰属性强化 += int(self.所有属性强化增加 * x)
 
     def 光属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
-            self.光属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
+            self.__光属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
         else:
-            self.光属性强化 += int(self.所有属性强化增加 * x)
+            self.__光属性强化 += int(self.所有属性强化增加 * x)
 
     def 暗属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
-            self.暗属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
+            self.__暗属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
         else:
-            self.暗属性强化 += int(self.所有属性强化增加 * x)
+            self.__暗属性强化 += int(self.所有属性强化增加 * x)
 
     def 所有属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
@@ -301,16 +349,16 @@ class Character():
         self.所有属性强化(temp)
 
     def 火属性抗性加成(self, x: int) -> None:
-        self.火属性抗性 += x
+        self.__火属性抗性 += x
 
     def 冰属性抗性加成(self, x: int) -> None:
-        self.冰属性抗性 += x
+        self.__冰属性抗性 += x
 
     def 光属性抗性加成(self, x: int) -> None:
-        self.光属性抗性 += x
+        self.__光属性抗性 += x
 
     def 暗属性抗性加成(self, x: int) -> None:
-        self.暗属性抗性 += x
+        self.__暗属性抗性 += x
 
     def 所有属性抗性加成(self, x: int) -> None:
         self.火属性抗性加成(x)
@@ -319,25 +367,30 @@ class Character():
         self.暗属性抗性加成(x)
 
     def 攻击速度增加(self, x: float) -> None:
-        self.攻击速度 += x
+        self.__攻击速度 += x
 
     def 移动速度增加(self, x: float) -> None:
-        self.移动速度 += x
+        self.__移动速度 += x
 
     def 施放速度增加(self, x: float) -> None:
-        self.施放速度 += x
+        self.__施放速度 += x
+
+    def 所有速度增加(self, x: float) -> None:
+        self.__攻击速度 += x
+        self.__移动速度 += x
+        self.__施放速度 += x
 
     def 命中率增加(self, x: float) -> None:
-        self.命中率 += x
+        self.__命中率 += x
 
     def 回避率增加(self, x: float) -> None:
-        self.回避率 += x
+        self.__回避率 += x
 
     def 物理暴击率增加(self, x: float) -> None:
-        self.物理暴击率 += x
+        self.__物理暴击率 += x
 
     def 魔法暴击率增加(self, x: float) -> None:
-        self.魔法暴击率 += x
+        self.__魔法暴击率 += x
 
     def 暴击率增加(self, x: float) -> None:
         self.物理暴击率增加(x)
@@ -387,10 +440,10 @@ class Character():
             i.CD *= CD
 
     def 所有属性强化(self, x: float) -> None:
-        self.火属性强化 += x
-        self.冰属性强化 += x
-        self.光属性强化 += x
-        self.暗属性强化 += x
+        self.__火属性强化 += x
+        self.__冰属性强化 += x
+        self.__光属性强化 += x
+        self.__暗属性强化 += x
 
     # endregion
 
@@ -398,42 +451,42 @@ class Character():
 
     # 基础力量智力(站街力量智力)
     def 站街力量(self) -> int:
-        return int(self.力量)
+        return int(self.__力量)
 
     def 站街智力(self) -> int:
-        return int(self.智力)
+        return int(self.__智力)
 
     # 新词条计算的力量智力
 
-    def 基础面板力量(self) -> float:
-        return (self.力量 + int((self.力量 - self.基础力量) * self.系统奶系数 + self.系统奶基数))
+    def __基础面板力量(self) -> float:
+        return (self.__力量 + int((self.__力量 - self.__基础力量) * self.系统奶系数 + self.系统奶基数))
 
-    def 基础面板智力(self) -> float:
-        return (self.智力 + int((self.智力 - self.基础智力) * self.系统奶系数 + self.系统奶基数))
+    def __基础面板智力(self) -> float:
+        return (self.__智力 + int((self.__智力 - self.__基础智力) * self.系统奶系数 + self.系统奶基数))
 
     # 旧词条计算的力量智力(图内力量智力)
 
     def 面板力量(self) -> float:
-        return self.基础面板力量() * (1 + self.百分比力智)
+        return self.__基础面板力量() * (1 + self.__百分比力智)
 
     def 面板智力(self) -> float:
-        return self.基础面板智力() * (1 + self.百分比力智)
+        return self.__基础面板智力() * (1 + self.__百分比力智)
 
     # 站街生效的技能三攻倍率
 
-    def 站街物理攻击力倍率(self) -> float:
+    def __站街物理攻击力倍率(self) -> float:
         站街物理攻击倍率 = 1.0
         for i in self.技能栏:
             站街物理攻击倍率 *= i.物理攻击力倍率(self.武器类型)
         return 站街物理攻击倍率
 
-    def 站街魔法攻击力倍率(self) -> float:
+    def __站街魔法攻击力倍率(self) -> float:
         站街魔法攻击倍率 = 1.0
         for i in self.技能栏:
             站街魔法攻击倍率 *= i.魔法攻击力倍率(self.武器类型)
         return 站街魔法攻击倍率
 
-    def 站街独立攻击力倍率(self) -> float:
+    def __站街独立攻击力倍率(self) -> float:
         站街独立攻击倍率 = 1.0
         for i in self.技能栏:
             站街独立攻击倍率 *= i.独立攻击力倍率(self.武器类型)
@@ -442,48 +495,48 @@ class Character():
     # 站街三攻
 
     def 站街物理攻击力(self) -> float:
-        return self.物理攻击力 * self.站街物理攻击力倍率()
+        return self.__物理攻击力 * self.__站街物理攻击力倍率()
 
     def 站街魔法攻击力(self) -> float:
-        return self.魔法攻击力 * self.站街魔法攻击力倍率()
+        return self.__魔法攻击力 * self.__站街魔法攻击力倍率()
 
     def 站街独立攻击力(self) -> float:
-        return self.独立攻击力 * self.站街独立攻击力倍率()
+        return self.__独立攻击力 * self.__站街独立攻击力倍率()
 
     # 新词条计算的三攻(旧词条需要额外乘百分比三攻)
 
-    def 基础面板物理攻击力(self) -> float:
-        面板物理攻击 = self.物理攻击力
+    def __基础面板物理攻击力(self) -> float:
+        面板物理攻击 = self.__物理攻击力
         for i in self.技能栏:
             面板物理攻击 *= i.物理攻击力倍率进图(self.武器类型)
-        return 面板物理攻击 * self.站街物理攻击力倍率()
+        return 面板物理攻击 * self.__站街物理攻击力倍率()
 
-    def 基础面板魔法攻击力(self) -> float:
-        面板魔法攻击 = self.魔法攻击力
+    def __基础面板魔法攻击力(self) -> float:
+        面板魔法攻击 = self.__魔法攻击力
         for i in self.技能栏:
             面板魔法攻击 *= i.魔法攻击力倍率进图(self.武器类型)
-        return 面板魔法攻击 * self.站街魔法攻击力倍率()
+        return 面板魔法攻击 * self.__站街魔法攻击力倍率()
 
-    def 基础面板独立攻击力(self) -> float:
-        面板独立攻击 = self.独立攻击力
+    def __基础面板独立攻击力(self) -> float:
+        面板独立攻击 = self.__独立攻击力
         for i in self.技能栏:
             面板独立攻击 *= i.独立攻击力倍率进图(self.武器类型)
-        return 面板独立攻击 * self.站街独立攻击力倍率()
+        return 面板独立攻击 * self.__站街独立攻击力倍率()
 
     # 图内显示的三攻(不参与伤害计算)
 
     def 面板物理攻击力(self) -> float:
-        面板物理攻击 = self.基础面板物理攻击力() * (1 + self.百分比三攻) * (
+        面板物理攻击 = self.__基础面板物理攻击力() * (1 + self.__百分比三攻) * (
             1 + self.年宠技能 * 0.10 + self.斗神之吼秘药 * 0.12 + self.白兔子技能 * 0.20)
         return 面板物理攻击
 
     def 面板魔法攻击力(self) -> float:
-        面板魔法攻击 = self.基础面板魔法攻击力() * (1 + self.百分比三攻) * (
+        面板魔法攻击 = self.__基础面板魔法攻击力() * (1 + self.__百分比三攻) * (
             1 + self.年宠技能 * 0.10 + self.斗神之吼秘药 * 0.12 + self.白兔子技能 * 0.20)
         return 面板魔法攻击
 
     def 面板独立攻击力(self) -> float:
-        面板独立攻击 = self.基础面板独立攻击力() * (1 + self.百分比三攻)
+        面板独立攻击 = self.__基础面板独立攻击力() * (1 + self.__百分比三攻)
         return 面板独立攻击
     # endregion
 
@@ -502,7 +555,7 @@ class Character():
     # endregion
 
     # 打造设置
-    def 打造设置(self, setinfo):
+    def __打造设置(self, setinfo):
         self.打造详情 = setinfo
         for i in 部位列表 + ('称号', '宠物', ):
             from core.baseClass.enchanting import get_encfunc_by_id
@@ -510,7 +563,7 @@ class Character():
             self.部位附魔[i] = get_encfunc_by_id(id)
 
     # 设置技能相关参数
-    def skill_set(self, setinfo):
+    def __skill_set(self, setinfo):
         for i in setinfo:
             print(i)
             k = self.get_skill_by_name(i['name'])
@@ -518,13 +571,13 @@ class Character():
             k.TP等级 = i['tp']
 
     # 设置装备选项参数
-    def equ_chose_set(self, setinfo):
+    def __equ_chose_set(self, setinfo):
         equ.set_func_chose(setinfo)
         # for i in setinfo:
         #    equ.set_func_chose({i['id']: i['select']})
 
     # 设置穿戴的装备
-    def 穿戴装备(self, idlist):
+    def __穿戴装备(self, idlist):
         self.装备栏 = []
         self.部位装备 = {}
         for i in idlist:
@@ -534,13 +587,13 @@ class Character():
             self.装备栏.append(self.部位装备[k])
 
     # region 伤害计算相关函数
-    def 计算伤害预处理(self):
-        self.辟邪玉计算()
-        self.装备属性计算()
-        self.CD倍率计算()
-        self.加算冷却计算()
-        self.被动倍率计算()
-        self.伤害指数计算()
+    def __计算伤害预处理(self):
+        self.__辟邪玉计算()
+        self.__装备属性计算()
+        self.__CD倍率计算()
+        self.__加算冷却计算()
+        self.__被动倍率计算()
+        self.__伤害指数计算()
 
     def 伤害计算(self, skill_set_list):
         data = {}
@@ -562,13 +615,13 @@ class Character():
         data['sumdamage'] = sumdamage
         return data
 
-    def 装备属性计算(self):
-        self.装备基础()
-        self.附魔计算()
-        self.徽章计算()
-        self.装备词条计算()
+    def __装备属性计算(self):
+        self.__装备基础()
+        self.__附魔计算()
+        self.__徽章计算()
+        self.__装备词条计算()
 
-    def 辟邪玉计算(self):
+    def __辟邪玉计算(self):
         if 'jade' not in self.打造详情.keys():
             return
         setinfo = self.打造详情['jade']
@@ -586,7 +639,7 @@ class Character():
                 # 打印相关函数和效果
                 # print('{}: {}: {}'.format(func, value, func(self, text=TRUE)))
 
-    def 徽章计算(self):
+    def __徽章计算(self):
         idlist = []
         for i in 部位列表:  # ('皮肤', '光环', '武器装扮', )
             if i in self.打造详情.keys():
@@ -608,28 +661,28 @@ class Character():
             # 打印相关函数和效果
             # print('{}: {}'.format(func, func(self, text=TRUE)))
 
-    def 附魔计算(self):
+    def __附魔计算(self):
         for i in self.部位附魔.keys():
             func = self.部位附魔[i]
             func(self)
             # 打印相关函数和效果
             # print('{}: {}: {}'.format(i, func, func(self, text=TRUE)))
 
-    def 装备基础(self):
+    def __装备基础(self):
         for id in self.装备栏:
             temp = equ.get_equ_by_id(id)
             if '甲' in temp.类型:
-                self.防具计算(temp)
+                self.__防具计算(temp)
             elif temp.类型 == '首饰':
-                self.首饰计算(temp)
+                self.__首饰计算(temp)
             elif temp.类型 == '特殊装备':
-                self.特殊装备计算(temp)
+                self.__特殊装备计算(temp)
             elif temp.部位 == '武器':
-                self.武器计算(temp)
-            self.增幅计算(temp)
+                self.__武器计算(temp)
+            self.__增幅计算(temp)
         pass
 
-    def 防具精通计算(self, temp: equipment) -> float:
+    def __防具精通计算(self, temp: equipment) -> float:
         部位 = temp.部位
         return 精通计算(temp.等级, temp.品质, self.打造详情.get(部位, {}).get('cursed_number', 0), 部位)
         # if temp.所属套装 != '智慧产物':
@@ -637,74 +690,74 @@ class Character():
         # else:
         #    return 精通计算(temp.等级, temp.品质, self.打造详情.get(部位, {}).get('wisdom_number', 0), 部位)
 
-    def 防具计算(self, temp: equipment) -> None:
-        self.力量 += temp.力量[self.防具类型]
-        self.智力 += temp.智力[self.防具类型]
+    def __防具计算(self, temp: equipment) -> None:
+        self.__力量 += temp.力量[self.防具类型]
+        self.__智力 += temp.智力[self.防具类型]
 
-        精通数值 = self.防具精通计算(temp)
+        精通数值 = self.__防具精通计算(temp)
         if '力量' in self.防具精通属性:
-            self.力量 += 精通数值
+            self.__力量 += 精通数值
         if '智力' in self.防具精通属性:
-            self.智力 += 精通数值
+            self.__智力 += 精通数值
 
-    def 增幅计算(self, temp: equipment) -> None:
+    def __增幅计算(self, temp: equipment) -> None:
         if self.打造详情.get(temp.部位, {}).get('cursed_type', 0) == 1:
             x = 增幅计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
             if '物理' in self.类型 or '力量' in self.类型:
-                self.力量 += x
+                self.__力量 += x
             else:
-                self.智力 += x
+                self.__智力 += x
         # if self.是否增幅[i] and temp.所属套装 != '智慧产物':
         #    x = 增幅计算(temp.等级, temp.品质, self.强化等级[i])
 
-    def 首饰计算(self, temp: equipment) -> None:
-        self.力量 += temp.力量
-        self.智力 += temp.智力
-        self.物理攻击力 += temp.物理攻击力
-        self.魔法攻击力 += temp.魔法攻击力
-        self.独立攻击力 += temp.独立攻击力
+    def __首饰计算(self, temp: equipment) -> None:
+        self.__力量 += temp.力量
+        self.__智力 += temp.智力
+        self.__物理攻击力 += temp.物理攻击力
+        self.__魔法攻击力 += temp.魔法攻击力
+        self.__独立攻击力 += temp.独立攻击力
 
-    def 特殊装备计算(self, temp: equipment) -> None:
-        self.力量 += temp.力量
-        self.智力 += temp.智力
-        self.物理攻击力 += temp.物理攻击力
-        self.魔法攻击力 += temp.魔法攻击力
-        self.独立攻击力 += temp.独立攻击力
+    def __特殊装备计算(self, temp: equipment) -> None:
+        self.__力量 += temp.力量
+        self.__智力 += temp.智力
+        self.__物理攻击力 += temp.物理攻击力
+        self.__魔法攻击力 += temp.魔法攻击力
+        self.__独立攻击力 += temp.独立攻击力
 
         # 耳环
         if temp.部位 == '耳环':
             # if temp.所属套装 != '智慧产物':
             x = 耳环计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
-            self.物理攻击力 += x
-            self.魔法攻击力 += x
-            self.独立攻击力 += x
+            self.__物理攻击力 += x
+            self.__魔法攻击力 += x
+            self.__独立攻击力 += x
 
         # 辅助装备、魔法石
         else:
             # if temp.所属套装 != '智慧产物':
             x = 左右计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
-            self.力量 += x
-            self.智力 += x
+            self.__力量 += x
+            self.__智力 += x
 
-    def 武器计算(self, temp: equipment) -> None:
-        self.力量 += temp.力量
-        self.智力 += temp.智力
-        self.物理攻击力 += temp.物理攻击力
-        self.魔法攻击力 += temp.魔法攻击力
-        self.独立攻击力 += temp.独立攻击力
+    def __武器计算(self, temp: equipment) -> None:
+        self.__力量 += temp.力量
+        self.__智力 += temp.智力
+        self.__物理攻击力 += temp.物理攻击力
+        self.__魔法攻击力 += temp.魔法攻击力
+        self.__独立攻击力 += temp.独立攻击力
 
         # if temp.所属套装 != '智慧产物':
         info = self.打造详情.get(temp.部位, {})
-        self.物理攻击力 += 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
-                             '物理')
-        self.魔法攻击力 += 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
-                             '魔法')
-        self.独立攻击力 += 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
+        self.__物理攻击力 += 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
+                               '物理')
+        self.__魔法攻击力 += 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
+                               '魔法')
+        self.__独立攻击力 += 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
 
-    def 装备词条计算(self):
+    def __装备词条计算(self):
         # 攻击强化相关计算
         for i in 部位列表:
             temp = []
@@ -721,7 +774,7 @@ class Character():
             # 打印相关函数和效果
             # print('{}: {}: {}'.format(buwei, func, func(self, text=TRUE)))
 
-    def 被动倍率计算(self):
+    def __被动倍率计算(self):
         for i in self.技能栏:
             i.被动倍率 = 1
         for i in self.技能栏:
@@ -778,12 +831,12 @@ class Character():
                     for k in i.非关联技能3:
                         self.技能栏[self.技能序号[k]].被动倍率 /= i.加成倍率3(self.武器类型)
 
-    def 加算冷却计算(self):
+    def __加算冷却计算(self):
         for i in self.技能栏:
             if i.是否有伤害 == 1:
-                i.CD *= (1 - self.加算冷却缩减)
+                i.CD *= (1 - self.__加算冷却缩减)
 
-    def CD倍率计算(self):
+    def __CD倍率计算(self):
         for i in self.技能栏:
             if i.冷却关联技能 != ['无']:
                 if i.冷却关联技能 == ['所有']:
@@ -834,13 +887,13 @@ class Character():
                     for k in i.非冷却关联技能3:
                         self.技能栏[self.技能序号[k]].CD /= i.CD缩减倍率3(self.武器类型)
 
-    def 属性倍率计算(self):
+    def __属性倍率计算(self):
         # 火、冰、光、暗
         self.属性倍率组 = []
-        self.属性倍率组.append(1.05 + 0.0045 * int(self.火属性强化 - self.火抗输入))
-        self.属性倍率组.append(1.05 + 0.0045 * int(self.冰属性强化 - self.冰抗输入))
-        self.属性倍率组.append(1.05 + 0.0045 * int(self.光属性强化 - self.光抗输入))
-        self.属性倍率组.append(1.05 + 0.0045 * int(self.暗属性强化 - self.暗抗输入))
+        self.属性倍率组.append(1.05 + 0.0045 * int(self.__火属性强化 - self.火抗输入))
+        self.属性倍率组.append(1.05 + 0.0045 * int(self.__冰属性强化 - self.冰抗输入))
+        self.属性倍率组.append(1.05 + 0.0045 * int(self.__光属性强化 - self.光抗输入))
+        self.属性倍率组.append(1.05 + 0.0045 * int(self.__暗属性强化 - self.暗抗输入))
         self.属性倍率 = max(self.属性倍率组)
         '''
         if self.攻击属性 == 0:
@@ -855,50 +908,50 @@ class Character():
             self.属性倍率 = self.属性倍率组[3]
         '''
 
-    def 面板系数计算(self, mode=1):
+    def __面板系数计算(self, mode=1):
         # 基础面板 不含百分比力智和百分比三攻
         if mode == 0:
             if self.类型 == '物理百分比':
-                return int((self.基础面板力量() / 250 + 1) * self.基础面板物理攻击力())
+                return int((self.__基础面板力量() / 250 + 1) * self.__基础面板物理攻击力())
             elif self.类型 == '魔法百分比':
-                return int((self.基础面板智力() / 250 + 1) * self.基础面板魔法攻击力())
+                return int((self.__基础面板智力() / 250 + 1) * self.__基础面板魔法攻击力())
             elif self.类型 == '物理固伤':
-                return int((self.基础面板力量() / 250 + 1) * self.基础面板独立攻击力())
+                return int((self.__基础面板力量() / 250 + 1) * self.__基础面板独立攻击力())
             elif self.类型 == '魔法固伤':
-                return int((self.基础面板智力() / 250 + 1) * self.基础面板独立攻击力())
+                return int((self.__基础面板智力() / 250 + 1) * self.__基础面板独立攻击力())
         # 旧版算法 不含斗神、宠物技能等
         else:
             if self.类型 == '物理百分比':
-                return int((self.面板力量() / 250 + 1) * self.基础面板物理攻击力() * (1 + self.百分比三攻))
+                return int((self.面板力量() / 250 + 1) * self.__基础面板物理攻击力() * (1 + self.__百分比三攻))
             elif self.类型 == '魔法百分比':
-                return int((self.面板智力() / 250 + 1) * self.基础面板魔法攻击力() * (1 + self.百分比三攻))
+                return int((self.面板智力() / 250 + 1) * self.__基础面板魔法攻击力() * (1 + self.__百分比三攻))
             elif self.类型 == '物理固伤':
-                return int((self.面板力量() / 250 + 1) * self.基础面板独立攻击力() * (1 + self.百分比三攻))
+                return int((self.面板力量() / 250 + 1) * self.__基础面板独立攻击力() * (1 + self.__百分比三攻))
             elif self.类型 == '魔法固伤':
-                return int((self.面板智力() / 250 + 1) * self.基础面板独立攻击力() * (1 + self.百分比三攻))
+                return int((self.面板智力() / 250 + 1) * self.__基础面板独立攻击力() * (1 + self.__百分比三攻))
 
-    def 伤害指数计算(self):
+    def __伤害指数计算(self):
 
-        防御 = max(self.防御输入 - self.固定减防, 0) * (1 - self.百分比减防)
+        防御 = max(self.防御输入 - self.__固定减防, 0) * (1 - self.__百分比减防)
         基准倍率 = 1.5 * self.buff * (1 - 防御 / (防御 + 200 * self.等级))
 
         # 避免出现浮点数取整BUG
-        self.伤害增加 += 0.00000001
+        self.__伤害增加 += 0.00000001
 
-        self.属性倍率计算()
+        self.__属性倍率计算()
 
         # 基础面板 不含百分比力智和百分比三攻
-        基础面板 = self.面板系数计算(mode=0)
-        旧版面板 = self.面板系数计算(mode=1)
+        基础面板 = self.__面板系数计算(mode=0)
+        旧版面板 = self.__面板系数计算(mode=1)
 
-        新 = self.攻击强化 * (1 + self.百分比攻击强化) * 0.001
-        旧 = 1 + int(self.伤害增加 * 100) / 100
-        旧 *= 1 + self.暴击伤害
-        旧 *= 1 + self.最终伤害
-        旧 *= 1 + self.持续伤害
-        旧 *= 1 + self.附加伤害 + self.属性附加 * self.属性倍率
+        新 = self.__攻击强化 * (1 + self.__百分比攻击强化) * 0.001
+        旧 = 1 + int(self.__伤害增加 * 100) / 100
+        旧 *= 1 + self.__暴击伤害
+        旧 *= 1 + self.__最终伤害
+        旧 *= 1 + self.__持续伤害
+        旧 *= 1 + self.__附加伤害 + self.__属性附加 * self.属性倍率
 
-        self.伤害指数 = (新 * 基础面板 + 旧 * 旧版面板) * self.技能攻击力 * self.属性倍率 * 基准倍率
+        self.伤害指数 = (新 * 基础面板 + 旧 * 旧版面板) * self.__技能攻击力 * self.属性倍率 * 基准倍率
 
         # 7.8日,伤害数据压缩
         self.伤害指数 /= 1000
@@ -908,19 +961,19 @@ class Character():
         info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
 
         # 获取打造数据
-        self.打造设置(info['forge_set'])
+        self.__打造设置(info['forge_set'])
         # 获取装备列表
-        self.穿戴装备(info['lv110_list'])
+        self.__穿戴装备(info['lv110_list'])
         # 获取技能数据
-        self.skill_set(info['skill_set'])
+        self.__skill_set(info['skill_set'])
         # 获取装备选项数据
-        self.equ_chose_set(info['trigger_set'])
+        self.__equ_chose_set(info['trigger_set'])
 
-        self.计算伤害预处理()
+        self.__计算伤害预处理()
 
         result = {
             'alter': self.实际名称,
-            '攻击强化': self.攻击强化,
+            '攻击强化': self.__攻击强化,
             '站街力量': self.站街力量(),
             '站街智力': self.站街智力(),
             '面板力量': self.面板力量(),

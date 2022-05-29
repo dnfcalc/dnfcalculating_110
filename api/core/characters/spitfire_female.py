@@ -584,7 +584,7 @@ class classChange(Character):
 
         super().__init__()
 
-    def set_individuation(self, info):
+    def __set_individuation(self, info):
         info['individuation'] = [
             {"type": "checkbox", "value": "测试checkbox",
                 "items": [], "row":0, "column":0, "key":0},
@@ -594,6 +594,6 @@ class classChange(Character):
              "items": [], "row":2, "column":0, "key":2}
         ]
 
-    def set_skill_info(self, info, rune_except=[], clothes_bottom=[]):
-        super().set_skill_info(info, rune_except=[
+    def __set_skill_info(self, info, rune_except=[], clothes_bottom=[]):
+        super().__set_skill_info(info, rune_except=[
             '爆裂弹'], clothes_bottom=['远古记忆'])

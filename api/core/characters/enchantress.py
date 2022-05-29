@@ -251,7 +251,7 @@ class classChange(Character):
 
         super().__init__()
 
-    def set_individuation(self, info):
+    def __set_individuation(self, info):
         info['individuation'] = [
             {"type": "checkbox", "value": "测试checkbox",
                 "items": [], "row":0, "column":0, "key":0},
