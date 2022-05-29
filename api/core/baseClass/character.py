@@ -598,6 +598,7 @@ class Character():
     def 伤害计算(self, skill_set_list):
         data = {}
         sumdamage = 0
+        data['skills'] = {}
         for i in skill_set_list:
             if i['count'] == 0:
                 continue
@@ -611,7 +612,7 @@ class Character():
                 sumdamage += damage
                 temp['count'] = temp.get('count', 0) + i['count']
                 temp['damage'] = temp.get('damage', 0) + damage
-                data[k.名称] = temp
+                data['skills'][k.名称] = temp
         data['sumdamage'] = sumdamage
         return data
 
@@ -971,21 +972,48 @@ class Character():
 
         self.__计算伤害预处理()
 
+        temp = self.伤害计算(info['skill_set'])
+
         result = {
-            'alter': self.实际名称,
-            '攻击强化': self.__攻击强化,
-            '站街力量': self.站街力量(),
-            '站街智力': self.站街智力(),
-            '面板力量': self.面板力量(),
-            '面板智力': self.面板智力(),
-            '站街物理攻击力': self.站街物理攻击力(),
-            '站街魔法攻击力': self.站街魔法攻击力(),
-            '站街独立攻击力': self.站街独立攻击力(),
-            '面板物理攻击力': self.面板物理攻击力(),
-            '面板魔法攻击力': self.面板魔法攻击力(),
-            '面板独立攻击力': self.面板独立攻击力(),
-            '伤害指数': self.伤害指数,
-            'result': self.伤害计算(info['skill_set']),
+            'info': {
+                # 站街
+                'zhanjie': {
+                    'liliang': self.站街力量(),
+                    'zhili': self.站街智力(),
+                    'wuligongji': self.站街物理攻击力(),
+                    'mofagongji': self.站街魔法攻击力(),
+                    'duligongji': self.站街独立攻击力(),
+                    'huo': 0,
+                    'bing': 0,
+                    'guang': 0,
+                    'an': 0
+                },
+                # 进图
+                'jintu': {
+                    'liliang': self.站街力量(),
+                    'zhili': self.站街智力(),
+                    'wuligongji': self.站街物理攻击力(),
+                    'mofagongji': self.站街魔法攻击力(),
+                    'duligongji': self.站街独立攻击力(),
+                    'huo': 0,
+                    'bing': 0,
+                    'guang': 0,
+                    'an': 0
+                },
+                # 词条
+                'citiao': {
+                    # 攻击强化
+                    'gongjiqianghua': self.__攻击强化
+                    # 其他老词条·····
+                }
+            },
+            # '面板力量': self.面板力量(),
+            # '面板智力': self.面板智力(),
+            # '面板物理攻击力': self.面板物理攻击力(),
+            # '面板魔法攻击力': self.面板魔法攻击力(),
+            # '面板独立攻击力': self.面板独立攻击力(),
+            'sumdamage': temp["sumdamage"],
+            "skills": temp["skills"]
         }
         # print(result)
         return result
