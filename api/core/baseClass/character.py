@@ -161,7 +161,6 @@ class Character():
         talisman = []  # 护石
         platinum = []  # 白金
         clothes = []  # 时装
-        # print(self.技能栏)
         for skill in self.技能栏:
             skill.等级 = skill.基础等级
             skillInfo.append({
@@ -565,7 +564,6 @@ class Character():
     # 设置技能相关参数
     def __skill_set(self, setinfo):
         for i in setinfo:
-            print(i)
             k = self.get_skill_by_name(i['name'])
             k.等级 = i['level']
             k.TP等级 = i['tp']
@@ -1015,5 +1013,4 @@ class Character():
             'sumdamage': temp["sumdamage"],
             "skills": temp["skills"]
         }
-        # print(result)
         return result

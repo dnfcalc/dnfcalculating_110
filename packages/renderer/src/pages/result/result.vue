@@ -21,8 +21,8 @@
       return () => (
         <>
           <div class="m-0 flex h-100%" style="background: url('./images/common/bg.png') no-repeat;background-size:100% 100%">
-            <div class="h-100% w-280px flex justify-center">{<profile class="!m-0 !p-0"></profile>}</div>
-            <div class="w-500px">{JSON.stringify(res)}</div>
+            <div class="h-100% w-280px flex justify-center">{<profile class="!m-0 !p-0" details={res.info}></profile>}</div>
+            <div class="w-500px"></div>
           </div>
         </>
       )
