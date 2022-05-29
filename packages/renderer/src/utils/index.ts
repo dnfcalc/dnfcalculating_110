@@ -132,6 +132,15 @@ Array.prototype.min = function <T>(callback: (t: T) => number): [number, T | und
   return rs
 }
 
+Number.prototype.multiply = function (value: number) {
+  return Number(this) * value
+}
+
+Number.prototype.round = function (digit?: number) {
+  let m = Math.pow(10, digit ?? 0)
+  return Math.round(Number(this) * m) / m
+}
+
 export function toObj(data: Object) {
   let temp = {}
   for (let key in data) {

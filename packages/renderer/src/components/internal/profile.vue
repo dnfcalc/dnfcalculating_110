@@ -268,7 +268,7 @@
     // background-image: url("./img/60.png");
 
     .char-back {
-      background-color: rgba(0, 0, 0, 0.85);
+      background-color: rgba(0, 0, 0, 0.75);
       border-left: 1px solid rgba(255, 255, 255, 0.1);
       border-right: 1px solid rgba(255, 255, 255, 0.1);
       .head {

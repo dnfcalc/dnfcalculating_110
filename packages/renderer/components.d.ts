@@ -20,7 +20,6 @@ declare module 'vue' {
     CalcTooltip: typeof import('./src/components/calc/tooltip/index.vue')['default']
     CalcTree: typeof import('./src/components/calc/tree/index.vue')['default']
     CalcTreeNode: typeof import('./src/components/calc/tree/node.vue')['default']
-    InternalCharinfo: typeof import('./src/components/internal/charinfo/index.vue')['default']
     InternalEquipEqIcon: typeof import('./src/components/internal/equip/eq-icon.vue')['default']
     InternalEquipEqIconTips: typeof import('./src/components/internal/equip/eq-icon-tips.vue')['default']
     InternalEquipEqInfo: typeof import('./src/components/internal/equip/eq-info.vue')['default']

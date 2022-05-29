@@ -28,7 +28,7 @@
     })
 
     return () => (
-      <div class="flex flex-wrap mt-5px justify-evenly">
+      <div class="flex flex-wrap mt-5px">
         {equs.value.length > 0 &&
           renderList(equs.value, a => (
             <div class="cus-item">
@@ -57,6 +57,7 @@
 .cus-item {
   width: 540px;
   margin-top: 5px;
+  margin-left: 6px;
   display: flex;
   align-items: center;
   flex-direction: column;

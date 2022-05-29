@@ -135,8 +135,6 @@ ipcMain.handle("close-win", event => {
 })
 
 ipcMain.handle("getStorage", (event, arg) => {
-  console.log(storage)
-  console.log(storage[arg] ?? undefined)
   return storage[arg] ?? undefined
 })
 
@@ -147,7 +145,6 @@ ipcMain.handle("setStorage", (event, arg) => {
     enumerable: true,
     configurable: true
   })
-  console.log(storage)
 })
 
 process.on("exit", () => {

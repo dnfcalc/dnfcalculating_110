@@ -271,14 +271,10 @@ def enchanting_22002(char: Character = {}, mode=0, text=False, rate=1.0):
 
 # endregion
 
-# region 宠物装备-蓝 23501~24000
-
-# endregion
-
-# region 快捷装备 24001~24500
+# region 快捷装备 23501~24000
 
 
-def enchanting_24001(char: Character = {}, mode=0, text=False, rate=1.0):
+def enchanting_23501(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '快捷装备', '三攻 +30 附加伤害 +8% 攻击强化 +8%')"
     if mode == 0:
@@ -290,7 +286,7 @@ def enchanting_24001(char: Character = {}, mode=0, text=False, rate=1.0):
         pass
 
 
-def enchanting_24002(char: Character = {}, mode=0, text=False, rate=1.0):
+def enchanting_23502(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '快捷装备', '四维 +8 附加伤害 +8% 攻击强化 +8%')"
     if mode == 0:
