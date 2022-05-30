@@ -32,16 +32,27 @@ web:vue3+TS+electron+vite<br> 参考项目：https://github.com/caoxiemeihao/ele
 
 ## 项目进展
 
-### api
+### Done
 
-- [x] 基础结构
-- [x] 全局异常处理
-- [x] 跨域
-- [x] 交互 api 定义
-- [ ] 主体逻辑
-- [x] 打包
+#### api
 
-### web
+- [x] 基础类定义实现
+- [x] 基础交互 api
 
-- [x] vue3 集成 electron
-- [x] 其他核心部分
+#### web
+
+- [x] 基础组件
+- [x] 整体页面设计实现
+
+### Doing
+
+#### api
+
+- [ ] 所有词条实现
+
+#### web
+
+- [ ] 称号
+- [ ] 宠物
+- [ ] 时装
+- [ ] 药剂
