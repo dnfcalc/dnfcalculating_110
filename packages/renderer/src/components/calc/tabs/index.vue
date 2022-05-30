@@ -36,10 +36,10 @@
           }
           return val
         },
-        async set(val) {
+        set(val) {
           if (props.route && val) {
             val = decodeURIComponent(val.toString())
-            await router.push(val as string)
+            router.push(val as string)
           }
           emit("update:modelValue", val)
           emit("change", val)

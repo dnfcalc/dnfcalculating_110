@@ -2,12 +2,12 @@
   import { debouncedWatch, onClickOutside, useVModel } from "@vueuse/core"
   import { computed, CSSProperties, defineComponent, onDeactivated, PropType, ref, renderList, Teleport, Transition, watch } from "vue"
 
-  type HandleChangeFunction = (value: string) => string[] | Promise<string[]>
+  type HandleChangeFunction = (value: string | number) => string[] | Promise<string[]>
 
   export default defineComponent({
     props: {
       modelValue: {
-        type: [String] as PropType<string>,
+        type: [String, Number] as PropType<string | number>,
         default: () => ""
       },
       placeholder: {
