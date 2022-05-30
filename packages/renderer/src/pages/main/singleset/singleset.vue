@@ -30,7 +30,7 @@
       }
 
       const curEquList = computed(() => {
-        return basicStore.equipment_list.filter(item => configStore.single_set.includes(item.id))
+        return basicStore.equipment_list.filter(item => configStore.single_set.includes(item.id)).sort((a, b) => a.id - b.id)
       })
 
       function getEquip(index: number) {
@@ -64,6 +64,7 @@
 
       function chooseEqu(equ: IEquipmentInfo) {
         return () => {
+          configStore.single_set = configStore.single_set.sort((a, b) => a - b)
           const index = curEquList.value.findIndex(item => item.typeName == equ.typeName)
           if (index < 0) {
             configStore.single_set.push(equ.id)
