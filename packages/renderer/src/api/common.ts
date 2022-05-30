@@ -47,17 +47,14 @@ export function defineRequest<T>(fn: (ax: AxiosInstance) => T) {
     instance.defaults.headers.post["Content-Type"] = "application/json;charset=UTF-8"
     // add response interceptors
     instance.interceptors.response.use(
-      (response: AxiosResponse<HttpResponse>) => {
-        if (response.data.code == 500) {
-          throw new Error(response.data.message)
+      async (response: AxiosResponse<HttpResponse>) => {
+        if (response.data.code === 500) {
+          const { alert } = useContainerStore()
+          await alert({ content: response.data.message })
         }
         return response.data
       },
-      async error => {
-        if (error) {
-          const { alert } = useContainerStore()
-          await alert({ content: error })
-        }
+      async (error: Error) => {
         return Promise.reject(error)
       }
     )

@@ -4,6 +4,7 @@ import uvicorn
 import sys
 from routers.info import infoRouter
 from routers.calc import calcRouter
+from routers.app import appRouter
 from utils.apiTools import register_exception, register_cors
 
 app = FastAPI(docs_url=None)
@@ -17,6 +18,7 @@ register_cors(app)
 app.include_router(infoRouter, prefix="/api", tags=['杂项信息接口'])
 
 app.include_router(calcRouter, prefix="/api", tags=['杂项信息接口'])
+app.include_router(appRouter, prefix="/api", tags=['杂项信息接口'])
 
 if __name__ == '__main__':
     if sys.argv[0].endswith(".py"):

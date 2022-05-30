@@ -1,10 +1,11 @@
 <script lang="tsx">
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-  import { computed, defineComponent, Suspense } from "vue"
+  import { computed, defineComponent, onUnmounted, Suspense } from "vue"
   import { useRoute } from "vue-router"
   import { useContainerStore } from "@/store/container"
   import { useAppStore } from "./store/app"
+  import api from "./api"
 
   export default defineComponent({
     setup() {
@@ -15,6 +16,21 @@
       const title = computed(() => {
         const route = useRoute()
         return route.meta.title ?? appStore.title
+      })
+
+      const timer = setInterval(async () => {
+        try {
+          await api.heartbeat()
+        } catch (e) {
+          clearInterval(timer)
+          await container.alert({
+            content: <div class="text-center w-full">网络连接中断(-1)</div>
+          })
+        }
+      }, 5000)
+
+      onUnmounted(() => {
+        clearInterval(timer)
       })
 
       return () => (
