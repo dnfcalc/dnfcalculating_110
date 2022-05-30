@@ -4539,7 +4539,29 @@ def entry_371(char: Character = {}, mode=0, text=False, part=''):
 
 # endregion
 
-# region HP范围 (未实现)
+# region HP范围
+hp_rate_num = 0
+hp_rate_num_list = [0, 0, 10, 20, 30, 50, 70, 90]
+
+
+def set_hp_rate_num(x):
+    global hp_rate_num
+    hp_rate_num = hp_rate_num_list[x[0]]
+
+
+entry_chose.append((20814, ['选择HP范围'] +
+                    ['10%以下',
+                     '10%~20%',
+                     '20%~30%',
+                     '30%~50%',
+                     '50%~70%',
+                     '70%~90%',
+                     '90%以上',
+                     ]))
+multi_select[20814] = False
+variable_set[20814] = set_hp_rate_num
+
+
 def entry_814(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "HP为0时，5秒内，进入狂暴化，不会死亡, - 狂暴化状态下，被击时伤害无效化, - 狂暴化状态下，伤害增加 4466, - 施放技能时，每消耗1个无色，狂暴化持续时间+0.1秒(增加的持续时间不超过5秒), - 角色在狂暴状态结束时死亡"
@@ -4609,7 +4631,8 @@ def entry_821(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if hp_rate_num < 50:
+            char.所有速度增加(0.2)
 
 
 def entry_822(char: Character = {}, mode=0, text=False, part=''):
@@ -4618,7 +4641,8 @@ def entry_822(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if hp_rate_num < 50:
+            char.暴击率增加(0.2)
 
 
 def entry_823(char: Character = {}, mode=0, text=False, part=''):
@@ -4627,7 +4651,12 @@ def entry_823(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if hp_rate_num >= 70:
+            char.技能冷却缩减(1, 100, 0.10, [50, 85, 100])
+        elif hp_rate_num >= 50:
+            char.技能冷却缩减(1, 100, 0.12, [50, 85, 100])
+        else:
+            char.技能冷却缩减(1, 100, 0.15, [50, 85, 100])
 
 
 def entry_824(char: Character = {}, mode=0, text=False, part=''):
@@ -4636,8 +4665,8 @@ def entry_824(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
-
+        if hp_rate_num >= 90:
+            char.暴击率增加(0.02 * 5)
 
 def entry_825(char: Character = {}, mode=0, text=False, part=''):
     if text:
@@ -4645,7 +4674,8 @@ def entry_825(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if hp_rate_num >= 90:
+            char.技能恢复加成(1, 100, 0.10, [50, 85, 100])
 
 
 def entry_826(char: Character = {}, mode=0, text=False, part=''):
@@ -4658,14 +4688,38 @@ def entry_826(char: Character = {}, mode=0, text=False, part=''):
 
 # endregion
 
-# region MP范围 (未实现)
+# region MP范围
+mp_rate_num = 0
+mp_rate_num_list = [0, 0, 10, 20, 30, 50, 60, 70, 90]
+
+
+def set_mp_rate_num(x):
+    global mp_rate_num
+    mp_rate_num = mp_rate_num_list[x[0]]
+
+
+entry_chose.append((20813, ['选择MP范围'] +
+                    ['10%以下',
+                     '10%~20%',
+                     '20%~30%',
+                     '30%~50%',
+                     '50%~60%',
+                     '60%~70%',
+                     '70%~90%',
+                     '90%以上',
+                     ]))
+multi_select[20813] = False
+variable_set[20813] = set_mp_rate_num
+
 def entry_813(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "HP MAX +4196, 每20000点剩余的MP，伤害增加 267(最多叠加10次), 剩余MP在60%以下时，技能攻击力 -4%"
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.伤害增加加成(267 * 10)
+        if mp_rate_num < 60:
+            char.技能攻击力加成(-0.04)
 
 
 def entry_827(char: Character = {}, mode=0, text=False, part=''):
@@ -4701,7 +4755,8 @@ def entry_830(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if mp_rate_num < 10:
+            char.伤害增加加成(3557)
 
 
 def entry_831(char: Character = {}, mode=0, text=False, part=''):
@@ -4710,7 +4765,8 @@ def entry_831(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if mp_rate_num < 20:
+            char.伤害增加加成(2223)
 
 
 def entry_832(char: Character = {}, mode=0, text=False, part=''):
@@ -4728,7 +4784,8 @@ def entry_833(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if mp_rate_num < 90:
+            char.伤害增加加成(711 * 5)
 
 
 # endregion
@@ -7256,9 +7313,6 @@ def entry_792(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 
-
-
-
 def entry_810(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "5秒没有攻击时，所受伤害 -50%(最多叠加1次，攻击与施放技能时取消Buff), 被破招攻击时所受伤害 +30%"
@@ -7284,9 +7338,6 @@ def entry_812(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         pass
-
-
-
 
 
 def entry_834(char: Character = {}, mode=0, text=False, part=''):
@@ -7368,7 +7419,7 @@ def entry_840_2(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         char.物理暴击率增加(0.1)
         char.魔法暴击率增加(0.1)
-        char.技能攻击力增加(0.03)
+        char.技能攻击力加成(0.03)
     if mode == 1:
         pass
 
