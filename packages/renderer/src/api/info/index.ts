@@ -9,8 +9,8 @@ export default defineRequest(request => {
     getEquipments() {
       return request.get<IEquipmentList>(`/equips`)
     },
-    getEquipmentDetail(euqID: ID) {
-      return request.get<any>(`/equip/${euqID}`)
+    getEquipmentDetail(equipId: ID) {
+      return request.get<any>(`/equip/${String(equipId)}`)
     },
     getEnchanting() {
       return request.get<IEnchantingInfo[]>("/enchanting")

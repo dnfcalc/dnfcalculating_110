@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios"
 import { useConfigStore } from "@/store"
+import { useContainerStore } from "@/store/container"
 
 export interface HttpResponse<T = unknown> {
   code?: number
@@ -48,11 +49,15 @@ export function defineRequest<T>(fn: (ax: AxiosInstance) => T) {
     instance.interceptors.response.use(
       (response: AxiosResponse<HttpResponse>) => {
         if (response.data.code == 500) {
-          alert(response.data.message)
+          throw new Error(response.data.message)
         }
         return response.data
       },
-      error => {
+      async error => {
+        if (error) {
+          const { alert } = useContainerStore()
+          await alert({ content: error })
+        }
         return Promise.reject(error)
       }
     )

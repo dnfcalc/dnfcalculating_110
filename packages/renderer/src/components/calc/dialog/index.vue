@@ -92,14 +92,14 @@
           if (props.okButton) {
             buttons.push(
               <CalcButton class="mx-2px" type="primary" onClick={onOkClick}>
-                {props.okButton}
+                {props.okButton === true ? "确定" : props.okButton}
               </CalcButton>
             )
           }
           if (props.cancelButton) {
             buttons.push(
               <CalcButton class="mx-2px" onClick={onCancelClick}>
-                {props.cancelButton}
+                {props.cancelButton === true ? "取消" : props.cancelButton}
               </CalcButton>
             )
           }
@@ -114,7 +114,7 @@
             <Transition name="dialog" mode="out-in">
               {(props.cache || visible.value) && (
                 <div v-show={visible.value} class={["dialog-mask w-full h-full fixed top-0 left-0 z-999 flex justify-center items-center "].concat(props.mask ? "bg-hex-000 bg-opacity-66" : "")}>
-                  <div ref={dialogRef} class={["h-auto shadow-sm round-1 dialog min-w-40", props.class]}>
+                  <div ref={dialogRef} class={["h-auto shadow-sm round-1 dialog min-w-48", props.class]}>
                     <div class="bg-gradient-to-t flex from-hex-273e69 to-hex-335793 h-4 px-1 leading-4  z-9999 justify-center app-title layout-title relative" style="-webkit-app-region: drag">
                       <div class="text-xs header">{props.title}</div>
                       <div class="flex top-0 right-0 bottom-0 items-center absolute">

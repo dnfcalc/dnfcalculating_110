@@ -3,14 +3,14 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { computed, defineComponent, Suspense } from "vue"
   import { useRoute } from "vue-router"
-  import { useContainer } from "./components/hooks/container/container"
+  import { useContainerStore } from "@/store/container"
   import { useAppStore } from "./store/app"
 
   export default defineComponent({
     setup() {
       const appStore = useAppStore()
 
-      const { render } = useContainer()
+      const container = useContainerStore()
 
       const title = computed(() => {
         const route = useRoute()
@@ -35,7 +35,7 @@
               <router-view></router-view>
             </Suspense>
           </div>
-          {render()}
+          {container.render()}
         </>
       )
     }

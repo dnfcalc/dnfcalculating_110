@@ -1,10 +1,9 @@
 <script lang="tsx">
   import { useBasicInfoStore } from "@/store"
-  import { defineComponent, onMounted, ref, renderList } from "vue"
-  import { useRouter } from "vue-router"
+  import { defineComponent, renderList } from "vue"
   import openURL from "@/utils/openURL"
   import { IAlterInfo } from "@/api/info/type"
-  import { useDialog } from "@/components/hooks/container/dialog"
+  import { useContainerStore } from "@/store/container"
 
   function sub_icon(sub: number) {
     return {
@@ -25,10 +24,9 @@
   }
 
   export default defineComponent(() => {
-    const router = useRouter()
     const basicInfoStore = useBasicInfoStore()
 
-    const { alert, confirm } = useDialog()
+    const { alert, confirm } = useContainerStore()
 
     // 获取角色相关信息，判定是否开放
     function choose_job(child: IAlterInfo) {

@@ -1,7 +1,7 @@
 export {}
 
 declare global {
-  type ID = string | number
+  type ID = string | number | symbol
   interface Window {
     // Expose some Api through preload script
     ipcRenderer: import("electron").IpcRenderer
