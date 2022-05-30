@@ -27,13 +27,18 @@
     const router = useRouter()
     const basicInfoStore = useBasicInfoStore()
 
-    const { alert } = useDialog()
+    const { alert, confirm } = useDialog()
 
     // 获取角色相关信息，判定是否开放
     function choose_job(child: IAlterInfo) {
       return async () => {
         if (child.url) {
-          openURL(child.url)
+          const result = await confirm({
+            content: <div>是否从新页面打开?</div>
+          })
+          if (result.status == "ok") {
+            openURL(child.url)
+          }
           return
         }
         if (ignores.includes(child.name)) {
@@ -43,7 +48,6 @@
           openURL("/character?name=" + child.name, { width: 1100, height: 750 })
         } else {
           const result = await alert({
-            title: "未开放的角色",
             content: <div>未开放的角色!</div>
           })
           console.log(result)

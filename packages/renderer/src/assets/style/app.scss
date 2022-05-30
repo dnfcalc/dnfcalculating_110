@@ -172,3 +172,24 @@ body,
     padding-top: 8px;
   }
 }
+
+.app-title {
+  -webkit-app-region: drag;
+  background-image: url("@/assets/img/title.png");
+  background-size: 100% 100%;
+}
+
+.min-icon {
+  -webkit-app-region: no-drag;
+  background: url("@/assets/img/min.png") no-repeat;
+
+  background-size: 8px 8px;
+  background-position: center;
+}
+
+.close-icon {
+  -webkit-app-region: no-drag;
+  background: url("@/assets/img/exit.png") no-repeat;
+  background-size: 8px 8px;
+  background-position: center;
+}

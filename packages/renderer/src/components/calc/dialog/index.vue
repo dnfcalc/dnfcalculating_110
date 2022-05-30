@@ -2,7 +2,7 @@
   import { onClickOutside, syncRef, useVModel } from "@vueuse/core"
   import { defineComponent, h, ref, renderSlot, Teleport, Transition } from "vue"
 
-  import IButton from "@/components/calc/button/index.vue"
+  import CalcButton from "@/components/calc/button/index.vue"
 
   function renderTeleport(to = "body", children: JSX.Element[]) {
     return h(Teleport, { to }, children)
@@ -10,9 +10,6 @@
 
   export default defineComponent({
     name: "i-dialog",
-    components: {
-      IButton
-    },
     props: {
       visible: {
         type: Boolean,
@@ -21,12 +18,20 @@
       class: {
         type: String
       },
+      mask: {
+        type: Boolean,
+        default: () => false
+      },
       //模态框
       modal: {
         type: Boolean,
         default: () => false
       },
-      yesButton: {
+      title: {
+        type: String,
+        default: () => "提示"
+      },
+      okButton: {
         type: [String, Boolean],
         default: "确定"
       },
@@ -48,7 +53,7 @@
         default: () => true
       }
     },
-    emits: ["close", "yes", "cancel", "update:visible"],
+    emits: ["close", "ok", "cancel", "update:visible"],
     setup(props, { emit, slots }) {
       const dialogRef = ref<HTMLElement>()
 
@@ -60,8 +65,8 @@
 
       onClickOutside(dialogRef, () => !props.modal && emit("update:visible", false))
 
-      function onYesClick() {
-        emit("yes")
+      function onOkClick() {
+        emit("ok")
         if (props.closeOnYes) {
           visible.value = false
         }
@@ -74,20 +79,32 @@
         }
       }
 
+      function onCloseClick() {
+        emit("close")
+        if (props.cache) {
+          visible.value = false
+        }
+      }
+
       function renderAction() {
-        if (props.yesButton || props.cancelButton) {
+        if (props.okButton || props.cancelButton) {
           const buttons: JSX.Element[] = []
-          if (props.cancelButton) {
-            buttons.push(<i-button onClick={onCancelClick}>{props.cancelButton}</i-button>)
-          }
-          if (props.yesButton) {
+          if (props.okButton) {
             buttons.push(
-              <i-button type="primary" onClick={onYesClick}>
-                {props.yesButton}
-              </i-button>
+              <CalcButton class="mx-2px" type="primary" onClick={onOkClick}>
+                {props.okButton}
+              </CalcButton>
             )
           }
-          return <div class="flex mt-8 justify-end">{buttons}</div>
+          if (props.cancelButton) {
+            buttons.push(
+              <CalcButton class="mx-2px" onClick={onCancelClick}>
+                {props.cancelButton}
+              </CalcButton>
+            )
+          }
+
+          return <div class="flex items-center justify-center">{buttons}</div>
         }
       }
 
@@ -96,10 +113,16 @@
           <Teleport to="body">
             <Transition name="dialog" mode="out-in">
               {(props.cache || visible.value) && (
-                <div v-show={visible.value} class={["dialog-mask bg-#00000066 w-full h-full fixed top-0 left-0 z-999 flex justify-center items-center "]}>
-                  <div ref={dialogRef} class={["bg-light h-auto shadow-sm round-1 p-4 dialog", props.class]}>
-                    <div class="w-full">
-                      <div class="h-auto"> {renderSlot(slots, "default")}</div>
+                <div v-show={visible.value} class={["dialog-mask w-full h-full fixed top-0 left-0 z-999 flex justify-center items-center "].concat(props.mask ? "bg-hex-000 bg-opacity-66" : "")}>
+                  <div ref={dialogRef} class={["h-auto shadow-sm round-1 dialog min-w-40", props.class]}>
+                    <div class="bg-gradient-to-t flex from-hex-273e69 to-hex-335793 h-4 px-1 leading-4  z-9999 justify-center app-title layout-title relative" style="-webkit-app-region: drag">
+                      <div class="text-xs header">{props.title}</div>
+                      <div class="flex top-0 right-0 bottom-0 items-center absolute">
+                        <div onClick={onCloseClick} class="cursor-pointer flex  h-4 text-center text-hex-f0d070  text-opacity-72 w-4  items-center close-icon hover:text-opacity-100"></div>
+                      </div>
+                    </div>
+                    <div class="bg-hex-000 bg-opacity-92 text-white text-xs py-2  px-4">
+                      <div class="flex mt-2 mb-4 items-center"> {renderSlot(slots, "default")}</div>
                       {renderAction()}
                     </div>
                   </div>

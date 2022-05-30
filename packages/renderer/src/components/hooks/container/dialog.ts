@@ -1,4 +1,4 @@
-import { inject, onUnmounted, h, ref } from "vue"
+import { inject, onUnmounted, h, ref, nextTick } from "vue"
 import { REGISTER_DILOAG } from "./constants"
 import { ElementLike, RegisterFunction } from "./types"
 
@@ -13,43 +13,15 @@ export function useDialog(id?: string) {
   const register = inject(REGISTER_DILOAG) as RegisterFunction
   const { unmount, open, close } = register(id)
 
-  async function confirm(option: DialogOption = {}) {
-    return new Promise<DialogResult>((resolve, reject) => {
-      const dialog = h(
-        DialogComponent,
-        {
-          onClose() {
-            resolve({
-              status: "close"
-            })
-          },
-          onCancel() {
-            resolve({
-              status: "cancel"
-            })
-          },
-          onYes() {
-            resolve({
-              status: "ok"
-            })
-          }
-        },
-        option.content ?? []
-      )
-
-      open(randomId(), dialog)
-
-      if (option.timeout) {
-        setTimeout(() => {
-          resolve({
-            status: "close"
-          })
-        }, option.timeout)
-      }
+  async function confirm(option: ShowDialogOption = {}) {
+    return show({
+      ...option,
+      okButton: "确定",
+      cancelButton: "取消"
     })
   }
 
-  async function show(option: DialogOption = {}) {
+  async function show(option: ShowDialogOption = {}) {
     return new Promise<DialogResult>((resolve, reject) => {
       const id = randomId()
 
@@ -63,22 +35,23 @@ export function useDialog(id?: string) {
       const dialog = h(
         DialogComponent,
         {
+          title: option.title,
           visible: true,
-          cancelButton: false,
+          okButton: option.okButton ?? false,
+          cancelButton: option.cancelButton ?? false,
           onClose() {
             returnResult()
           },
           onCancel() {
             returnResult("cancel")
           },
-          onYes() {
+          onOk() {
             returnResult("ok")
           }
         },
         {
-          default() {
-            return option.content ?? []
-          }
+          default: typeof option.content == "function" ? option.content : () => option.content,
+          action: typeof option.content == "function" ? option.action : () => option.action
         }
       )
 
@@ -90,44 +63,11 @@ export function useDialog(id?: string) {
     })
   }
 
-  async function alert(option: DialogOption = {}) {
-    return new Promise<DialogResult>((resolve, reject) => {
-      const id = randomId()
-
-      function returnResult(status: DialogResult["status"] = "close") {
-        close(id)
-        resolve({
-          status
-        })
-      }
-
-      const dialog = h(
-        DialogComponent,
-        {
-          visible: true,
-          cancelButton: false,
-          onClose() {
-            returnResult()
-          },
-          onCancel() {
-            returnResult("cancel")
-          },
-          onYes() {
-            returnResult("ok")
-          }
-        },
-        {
-          default() {
-            return option.content ?? []
-          }
-        }
-      )
-
-      open(id, dialog)
-
-      if (option.timeout) {
-        setTimeout(returnResult, option.timeout)
-      }
+  async function alert(option: ShowDialogOption = {}) {
+    return show({
+      ...option,
+      okButton: "确定",
+      cancelButton: false
     })
   }
 
@@ -142,14 +82,17 @@ export function useDialog(id?: string) {
 
 export interface DialogHook {
   confirm(title: string, content: ElementLike): Promise<DialogResult>
-  confirm(option: DialogOption): Promise<DialogResult>
+  confirm(option: ShowDialogOption): Promise<DialogResult>
 }
 
-interface DialogOption {
+interface ShowDialogOption {
   title?: string
-  content?: ElementLike
+  content?: (() => ElementLike) | ElementLike
+  action?: (() => ElementLike) | ElementLike
   cache?: boolean
   timeout?: number
+  cancelButton?: string | false
+  okButton?: string | false
 }
 
 interface DialogResult {
