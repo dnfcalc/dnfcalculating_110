@@ -47,7 +47,7 @@
           openURL("/character?name=" + child.name, { width: 1100, height: 750 })
         } else {
           const result = await alert({
-            content: <div>未开放的角色!</div>
+            content: "未开放的角色!"
           })
         }
       }

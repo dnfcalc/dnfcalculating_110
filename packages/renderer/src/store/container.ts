@@ -53,6 +53,7 @@ export const useContainerStore = defineStore("container", {
     async show(option: ShowDialogOption = {}) {
       return new Promise<DialogResult>((resolve, reject) => {
         const id = randomId()
+        const { content, action } = option
 
         const returnResult = (status: DialogResult["status"] = "close") => {
           this.close(id)
@@ -79,8 +80,18 @@ export const useContainerStore = defineStore("container", {
               }
             },
             {
-              default: typeof option.content == "function" ? option.content : () => option.content,
-              action: typeof option.action == "function" ? option.action : () => option.action
+              default() {
+                const type = typeof content
+                switch (typeof content) {
+                  case "function":
+                    return content()
+                  case "string":
+                    return h("div", { class: "w-full justify-center text-center" }, option.content)
+                  default:
+                    return content
+                }
+              },
+              action: typeof action == "function" ? action : () => action
             }
           )
 

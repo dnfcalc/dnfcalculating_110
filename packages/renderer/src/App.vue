@@ -11,7 +11,7 @@
     setup() {
       const appStore = useAppStore()
 
-      const container = useContainerStore()
+      const { alert, render } = useContainerStore()
 
       const title = computed(() => {
         const route = useRoute()
@@ -23,8 +23,8 @@
           await api.heartbeat()
         } catch (e) {
           clearInterval(timer)
-          await container.alert({
-            content: <div class="text-center w-full">网络连接中断(-1)</div>
+          await alert({
+            content: "网络连接中断(-1)"
           })
         }
       }, 5000)
@@ -51,7 +51,7 @@
               <router-view></router-view>
             </Suspense>
           </div>
-          {container.render()}
+          {render()}
         </>
       )
     }
