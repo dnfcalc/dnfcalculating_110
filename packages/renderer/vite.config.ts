@@ -71,13 +71,7 @@ export default defineConfig({
   },
   server: {
     host: pkg.env.VITE_DEV_SERVER_HOST,
-    port: pkg.env.VITE_DEV_SERVER_PORT,
-    proxy: {
-      "/api": {
-        target: "http://127.0.0.1:17173/",
-        changeOrigin: false
-      }
-    }
+    port: pkg.env.VITE_DEV_SERVER_PORT
   }
 })
 

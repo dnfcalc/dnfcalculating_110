@@ -49,6 +49,7 @@ class Character():
     类型 = ''
     武器类型 = ''
     防具类型 = ''
+    转职 = ''
     # 技能栏: List[技能 | 主动技能 | 被动技能] = []
     # 技能序号: Dict[int, 技能 | 主动技能 | 被动技能] = {}
     技能栏: List[Union[技能, 主动技能, 被动技能]] = []
@@ -122,6 +123,9 @@ class Character():
         self.__指令效果: Dict[str, float] = {}
         self.__消耗品效果: float = 1.0
         self.__MP消耗量: float = 1.0
+
+        if self.转职 == '':
+            self.转职 = self.职业
 
         # 设置基础属性
         self.__设置基础属性()

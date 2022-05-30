@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev-server": "python ./api/main.py",
-    "dev": "vite ./packages/renderer",
+    "dev-web": "vite ./packages/renderer",
     "dev-elec": "node scripts/watch.mjs",
     "build": "node internal/build.mjs",
     "postinstall": "husky install",

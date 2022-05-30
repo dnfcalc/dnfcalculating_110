@@ -13,7 +13,7 @@ let instance: AxiosInstance
 
 function getBaseUrl() {
   if (process.env.NODE_ENV === "development") {
-    return "/api"
+    return "http://127.0.0.1:17173/api"
   } else if (process.env.NODE_ENV === "production") {
     return "http://127.0.0.1:17173/api"
   } else {

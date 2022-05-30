@@ -110,29 +110,31 @@
             <EquipList v-model:selected={selected_myths.value} class="equ-else-sort" list={myths.value} title="神话装备" />
             <EquipList v-model:selected={selected_wisdom.value} class="equ-else-sort" list={wisdom.value} title="智慧产物" />
             <EquipList v-model:selected={selected_weapons.value} class="equ-else-sort" list={weapons.value} title="武器列表" />
-            {
-              //<EquipList class="equ-else-sort" list={weapons.value} title="称号" />
-            }
+            <EquipList class="equ-else-sort" title="称号" />
+            <EquipList class="equ-else-sort" title="宠物" />
           </div>
-          <div class="equ-trigger">
-            {trigger_list.value &&
-              renderList(trigger_list.value, (trigger, index) => (
-                <>
-                  {configStore.trigger_set[trigger.id] && trigger["multi-select"] ? (
-                    <calc-select emptyLabel={trigger.selectList[0]} multiple={trigger["multi-select"]} v-model={configStore.trigger_set[trigger.id]} class="ownSelect-2">
-                      {renderList(trigger.selectList, (item, index) => (
-                        <>{index > 0 && <calc-option value={index}>{item}</calc-option>}</>
-                      ))}
-                    </calc-select>
-                  ) : (
-                    <calc-select emptyLabel={trigger.selectList[0]} v-model={configStore.trigger_set[trigger.id][0]} class="ownSelect-2">
-                      {renderList(trigger.selectList, (item, index) => (
-                        <calc-option value={index}>{item}</calc-option>
-                      ))}
-                    </calc-select>
-                  )}
-                </>
-              ))}
+          <div class="w-390px ml-5px flex flex-col">
+            <EquipList class="equ-else-sort" title="药剂" />
+            <div class="equ-trigger">
+              {trigger_list.value &&
+                renderList(trigger_list.value, (trigger, index) => (
+                  <>
+                    {configStore.trigger_set[trigger.id] && trigger["multi-select"] ? (
+                      <calc-select emptyLabel={trigger.selectList[0]} multiple={trigger["multi-select"]} v-model={configStore.trigger_set[trigger.id]} class="ownSelect-2">
+                        {renderList(trigger.selectList, (item, index) => (
+                          <>{index > 0 && <calc-option value={index}>{item}</calc-option>}</>
+                        ))}
+                      </calc-select>
+                    ) : (
+                      <calc-select emptyLabel={trigger.selectList[0]} v-model={configStore.trigger_set[trigger.id][0]} class="ownSelect-2">
+                        {renderList(trigger.selectList, (item, index) => (
+                          <calc-option value={index}>{item}</calc-option>
+                        ))}
+                      </calc-select>
+                    )}
+                  </>
+                ))}
+            </div>
           </div>
         </div>
       )
@@ -177,21 +179,21 @@
     flex-direction: column;
     width: 260px;
     margin-bottom: 5px;
-    .equ-else-sort {
-      margin-top: 5px;
+  }
+  .equ-else-sort {
+    margin-top: 5px;
 
-      display: flex;
-      flex-wrap: wrap;
-      align-content: flex-start;
-      background-color: rgba(255, 255, 255, 0.1);
-      .item {
-        width: 30px;
-        height: 34px;
-        margin-left: 6px;
-        // &:nth-child(7n + 1) {
-        //   margin-left: 0px;
-        // }
-      }
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    background-color: rgba(255, 255, 255, 0.1);
+    .item {
+      width: 30px;
+      height: 34px;
+      margin-left: 6px;
+      // &:nth-child(7n + 1) {
+      //   margin-left: 0px;
+      // }
     }
   }
 

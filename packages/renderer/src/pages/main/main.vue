@@ -88,7 +88,7 @@
                 </calc-select>
               </div>
               <div class="flex col-4 justify-center">
-                <calc-button class="!h-28px" onClick={calc}>
+                <calc-button class="!h-28px w-80%" onClick={calc}>
                   开始计算
                 </calc-button>
               </div>

@@ -29,12 +29,17 @@ def register_exception(app: FastAPI):
     # 捕获全部异常
     @app.exception_handler(Exception)
     async def all_exception_handler(request: Request, ex: Exception):
+        api = str(request.url).split("api/")[1]
         return JSONResponse(
             status_code=status.HTTP_200_OK,
+            # 一定要加
+            headers={
+                "Access-Control-Allow-Origin": "*"
+            },
             content={
                 "code": 500,
                 "message":
-                f"{str(request.url).replace('http://127.0.0.1:17173/','')}:{str(ex)}",
+                f"{api}:{str(ex)}",
                 "data": []
             })
 

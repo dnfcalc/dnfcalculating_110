@@ -1,7 +1,12 @@
+@mixin outline() {
+  text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
+}
+
 :root {
   font-size: 16px;
   --cursor-pointer: url("@/assets/cursor/basic.cur"), url("@/assets/cursor/cursor.png"), pointer;
   --cursor-active: url("@/assets/cursor/basic_press.cur"), url("@/assets/cursor/cursor.png"), pointer;
+  @include outline();
 }
 
 html,
@@ -22,10 +27,6 @@ body,
   &:active {
     cursor: var(--cursor-active);
   }
-}
-
-@mixin outline() {
-  text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
 }
 
 * {
@@ -101,6 +102,10 @@ body,
   // text-shadow: -1px -1px 0 rgba(0, 0, 0, 1), 1px -1px 0 rgba(0, 0, 0, 1),
   //   -1px 1px 0 rgba(0, 0, 0, 1), 1px 1px 0 rgba(0, 0, 0, 1),
   //   0px 1px 1px rgba(0, 0, 0, 1);
+  @include outline();
+}
+
+.text-outline {
   @include outline();
 }
 

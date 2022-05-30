@@ -88,6 +88,7 @@
     background-image: linear-gradient(#e66465, #000);
     position: relative;
     display: inline-block;
+    border-radius: 3px;
 
     &.gray {
       -webkit-filter: grayscale(100%);
