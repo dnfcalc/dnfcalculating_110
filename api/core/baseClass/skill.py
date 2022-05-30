@@ -28,7 +28,9 @@ class 技能:
     非冷却关联技能2 = ['无']
     非冷却关联技能3 = ['无']
 
-    MP = 0
+    MP_basic = 0
+    MP_growth = 0
+    MP消耗倍率 = 1
     手搓 = False
     手搓指令数 = 0
     无色消耗 = 0
@@ -63,6 +65,9 @@ class 技能:
 
     def 独立攻击力倍率进图(self, 武器类型):
         return 1.0
+
+    def MP消耗(self):
+        pass
 
 
 class 主动技能(技能):
@@ -114,6 +119,9 @@ class 主动技能(技能):
             if self.所在等级 in [50, 100]:
                 cdr = 0.95
         return round(self.CD * cdr / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), 1)
+
+    def MP消耗(self):
+        return ((self.等级 - 1)*self.MP_growth + self.MP_basic)*self.MP消耗倍率
 
     def 基础等级计算(self):
         if self.基础等级 == 0:
