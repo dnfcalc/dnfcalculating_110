@@ -12,7 +12,7 @@ let instance: AxiosInstance
 
 function getBaseUrl() {
   if (process.env.NODE_ENV === "development") {
-    return "http://127.0.0.1:17173/api"
+    return "/api"
   } else if (process.env.NODE_ENV === "production") {
     return "http://127.0.0.1:17173/api"
   } else {
@@ -47,6 +47,9 @@ export function defineRequest<T>(fn: (ax: AxiosInstance) => T) {
     // add response interceptors
     instance.interceptors.response.use(
       (response: AxiosResponse<HttpResponse>) => {
+        if (response.data.code == 500) {
+          alert(response.data.message)
+        }
         return response.data
       },
       error => {

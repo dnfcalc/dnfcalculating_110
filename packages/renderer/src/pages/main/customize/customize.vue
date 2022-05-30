@@ -57,7 +57,7 @@
 .cus-item {
   width: 540px;
   margin-top: 5px;
-  margin-left: 6px;
+  margin-left: 3px;
   display: flex;
   align-items: center;
   flex-direction: column;

@@ -12,9 +12,10 @@
     }
   }
 
-  function job_icon(job: string) {
+  function job_icon(child: IAlterInfo) {
     return {
-      backgroundImage: `url(./images/adventure/jobs/${job}.png)`
+      filter: !child.open ? `grayscale(100%)` : ``,
+      backgroundImage: `url(./images/adventure/jobs/${child.name}.png)`
     }
   }
 
@@ -50,7 +51,6 @@
           const result = await alert({
             content: <div>未开放的角色!</div>
           })
-          console.log(result)
         }
       }
       // router.push("/character/" + alter)
@@ -71,9 +71,9 @@
             </div>
             {renderList(job.children, (child, j) => (
               <div onClick={choose_job(child)} class="cursor-pointer h-22.5 m-1 w-30 duration-300 job-box box-border relative">
-                <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e" style="background-image: url('./images/adventure/border.png')"></div>
+                {child.open && <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e" style="background-image: url('./images/adventure/border.png')"></div>}
                 <div class="text-xs text-center w-full bottom-1 text-hex-bea347 absolute">{child.title}</div>
-                <div class="bg-no-repeat bg-auto bg-clip-content h-full w-full z-1 overflow-hidden" style={job_icon(child.name)}></div>
+                <div class="bg-no-repeat bg-auto bg-clip-content h-full w-full z-1 overflow-hidden" style={job_icon(child)}></div>
               </div>
             ))}
           </div>

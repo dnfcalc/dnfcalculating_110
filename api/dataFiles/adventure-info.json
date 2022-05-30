@@ -123,28 +123,28 @@
     "name": "fighter_female",
     "children": [
       {
-        "name": "nenmaster_male",
+        "name": "nenmaster_female",
         "title": "归元·气功师",
         "default_name": "国服",
         "class": [],
         "options": []
       },
       {
-        "name": "striker_male",
+        "name": "striker_female",
         "title": "归元·散打",
         "default_name": "国服",
         "class": [],
         "options": []
       },
       {
-        "name": "street_fighter_male",
+        "name": "street_fighter_female",
         "title": "极诣·散打",
         "default_name": "国服",
         "class": [],
         "options": []
       },
       {
-        "name": "grappler_male",
+        "name": "grappler_female",
         "title": "归元·柔道家",
         "default_name": "国服",
         "class": [],
@@ -187,7 +187,7 @@
         "name": "spitfire_male",
         "title": "重霄·弹药专家",
         "default_name": "国服",
-        "open": true,
+        "open": false,
         "class": [],
         "options": []
       },
