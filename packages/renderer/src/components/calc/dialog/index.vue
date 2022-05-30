@@ -56,6 +56,7 @@
     emits: ["close", "ok", "cancel", "update:visible"],
     setup(props, { emit, slots }) {
       const dialogRef = ref<HTMLElement | null>(null)
+      const titleRef = ref<HTMLElement | null>(null)
 
       const model = useVModel(props, "visible")
 
@@ -108,7 +109,7 @@
         }
       }
 
-      const { x, y, style } = useDraggable(dialogRef, {
+      const { x, y, style } = useDraggable(titleRef, {
         initialValue: { x: 0, y: 0 }
       })
 
@@ -121,7 +122,7 @@
               {(props.cache || visible.value) && (
                 <div v-show={visible.value} class={["dialog-mask w-full h-full fixed top-0 left-0 z-999 flex justify-center items-center "].concat(props.mask ? "bg-hex-000 bg-opacity-66" : "")}>
                   <div ref={dialogRef} class={["h-auto shadow-sm round-1 dialog min-w-48", isFixed.value ? "fixed" : "", props.class]} style={style.value}>
-                    <div class="bg-gradient-to-t flex from-hex-273e69 to-hex-335793 h-4 px-1 leading-4  z-9999 justify-center app-title layout-title relative">
+                    <div ref={titleRef} class="bg-gradient-to-t flex from-hex-273e69 to-hex-335793 h-4 px-1 leading-4  z-9999 justify-center app-title layout-title relative">
                       <div class="text-xs header">{props.title}</div>
                       <div class="flex top-0 right-0 bottom-0 items-center absolute">
                         <div onClick={onCloseClick} class="cursor-pointer flex  h-4 text-center text-hex-f0d070  text-opacity-72 w-4  items-center close-icon hover:text-opacity-100"></div>
