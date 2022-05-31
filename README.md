@@ -9,7 +9,7 @@ web:vue3+TS+electron+vite<br> 参考项目：https://github.com/caoxiemeihao/ele
 ```
   git clone https://gitee.com/i_melon/dnfcalculating_110
   cd api
-  pip install fastapi requests uvicorn[standard]
+  pip install -i https://pypi.mirrors.ustc.edu.cn/simple/ -r ./api/requirements.txt
 
   cd ..
   npm install -g pnpm
