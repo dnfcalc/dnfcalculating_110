@@ -2,6 +2,7 @@
 # pip install -i https://pypi.mirrors.ustc.edu.cn/simple/ -r requirements.txt
 # pyinstaller
 chardet
-fastapi 
-requests 
+fastapi
+requests
 uvicorn[standard]
+lanzou-api

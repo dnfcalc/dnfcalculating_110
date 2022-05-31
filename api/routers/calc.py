@@ -4,7 +4,7 @@ from core.store import store
 from .token import AlterState, authorize, createToken
 from utils.apiTools import reponse, Return
 from fastapi import APIRouter, Depends
-from .response import characterInfo
+from .response import characterInfo, update
 
 calcRouter = APIRouter()
 
@@ -21,3 +21,14 @@ async def calc(setInfo=Body(None), setName=Body(None), state: AlterState = Depen
     # 先存档配置信息，再进行计算
     # 职业
     return reponse(data=info)
+
+
+@calcRouter.post(path="/checkUpdate")
+async def checkupdate(version=Body(None)):
+    return reponse(data=update.check_update(version))
+
+
+@calcRouter.post(path="/autoUpdate")
+def checkupdate():
+    update.auto_update()
+    return reponse(data=None)

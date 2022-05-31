@@ -1,6 +1,6 @@
 {
   "name": "dcalc",
-  "version": "2022.5.30",
+  "version": "2022.5.31",
   "main": "dist/web/main/index.cjs",
   "license": "MIT",
   "lint-staged": {

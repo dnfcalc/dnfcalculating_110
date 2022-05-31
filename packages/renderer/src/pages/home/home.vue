@@ -1,9 +1,10 @@
 <script lang="tsx">
   import { useBasicInfoStore } from "@/store"
-  import { defineComponent, renderList } from "vue"
+  import { defineComponent, onMounted, renderList } from "vue"
   import openURL from "@/utils/openURL"
   import { IAlterInfo } from "@/api/info/type"
   import { useDialog } from "@/components/hooks/dialog"
+  import { checkUpdate } from "@/utils/update"
 
   function sub_icon(sub: number) {
     return {
@@ -59,6 +60,10 @@
     // function getName(name: string) {
     //   return ignores.includes(name) ? "" : name
     // }
+
+    onMounted(() => {
+      checkUpdate()
+    })
 
     return () => (
       <div class="bg-cover bg-no-repeat pt-8 pb-12 pl-4 home" style="background-image: url('./images/adventure/bg.jpg')">

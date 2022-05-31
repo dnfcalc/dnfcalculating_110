@@ -98,7 +98,7 @@
       }
 
       function onRejectClick() {
-        result.value = "ok"
+        result.value = "reject"
         if (props.closeOnReject) {
           close()
         }

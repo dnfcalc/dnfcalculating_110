@@ -138,6 +138,10 @@ ipcMain.handle("getStorage", (event, arg) => {
   return storage[arg] ?? undefined
 })
 
+ipcMain.handle("getVersion", (event, arg) => {
+  return app.getVersion()
+})
+
 ipcMain.handle("setStorage", (event, arg) => {
   Object.defineProperty(storage, arg.key, {
     value: arg.value,

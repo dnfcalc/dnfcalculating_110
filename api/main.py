@@ -1,4 +1,5 @@
 # api docs:https://fastapi.tiangolo.com/zh/tutorial/first-steps/
+import os
 from fastapi import FastAPI
 import uvicorn
 import sys
