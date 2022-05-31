@@ -2,10 +2,16 @@
   text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
 }
 
+@font-face {
+  font-family: "ArkPixel";
+  src: url("@/assets/fonts/ark-pixel.woff2");
+}
+
 :root {
   font-size: 16px;
   --cursor-pointer: url("@/assets/cursor/basic.cur"), url("@/assets/cursor/cursor.png"), pointer;
   --cursor-active: url("@/assets/cursor/basic_press.cur"), url("@/assets/cursor/cursor.png"), pointer;
+
   @include outline();
 }
 
@@ -18,7 +24,11 @@ body,
   height: 100%;
   overflow-y: hidden;
   overflow-x: hidden;
-  font-family: SimSun;
+  font-family: "ArkPixel", "Consola", sans-serif;
+}
+
+* {
+  font-family: "ArkPixel", "Consola", sans-serif;
 }
 
 @mixin pointer() {
