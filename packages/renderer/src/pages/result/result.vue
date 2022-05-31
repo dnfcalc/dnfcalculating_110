@@ -25,7 +25,7 @@
             <div class="h-100% w-266px flex justify-center">{<profile class="!m-0 !p-0" details={res.info}></profile>}</div>
             <div class="flex-1 bg-hex-000000/60 ml-1px pl-15px pr-15px pt-10px pb-10px" style="border:1px solid rgba(255,255,255,0.15)">
               <div class="w-100% h-100% bg-hex-000000/40 text-hex-FFFFFF flex flex-col" style="border:1px solid rgba(255,255,255,0.15)">
-                <div class="h-15px bg-black flex justify-between !text-hex-9f8d5c">
+                <div class="h-15px bg-black flex justify-between !text-hex-B2966B">
                   <div class="item-head w-12%">技能</div>
                   <div class="item-head w-12%">CD</div>
                   <div class="item-head w-12%">次数</div>
@@ -63,11 +63,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(#362e15, #171209);
+      background: linear-gradient(#2b2817, #171407);
       // font-size: 12px;
       height: 14px;
-      // border-top: 1px solid white;
-      // border-bottom: 1px solid white;
+      border-top: 1px solid #423d2c;
+      border-bottom: 1px solid #211d15;
     }
 
     .skills {
