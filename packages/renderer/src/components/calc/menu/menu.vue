@@ -24,9 +24,7 @@
               </div>
               <div class="i-menu-label" v-trans={props.label}></div>
             </div>
-            <div class={{ "i-menu-items": true, expand: expand.value }}>
-              {renderSlot(slots, "default")}
-            </div>
+            <div class={{ "i-menu-items": true, expand: expand.value }}>{renderSlot(slots, "default")}</div>
           </div>
         )
       }
@@ -56,7 +54,7 @@
 
       .i-menu-label {
         width: auto;
-        font-size: 12px;
+        // font-size: 12px;
       }
     }
 

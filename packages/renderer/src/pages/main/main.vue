@@ -110,7 +110,7 @@
     background-size: cover;
 
     color: #e9c558;
-    font-size: 12px;
+    // font-size: 12px;
 
     .header {
       display: flex;

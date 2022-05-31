@@ -57,7 +57,7 @@
     height: 24px;
     line-height: 20px;
 
-    font-size: 12px;
+    // font-size: 12px;
     color: #e9c556;
     background: linear-gradient(#223768, #122438);
     border: 1px solid #755f44;

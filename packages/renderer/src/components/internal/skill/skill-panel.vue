@@ -219,7 +219,7 @@
 <style scoped lang="scss">
   .skill-panel {
     position: relative;
-    font-size: 12px;
+    // font-size: 12px;
 
     .skill-types {
       display: flex;

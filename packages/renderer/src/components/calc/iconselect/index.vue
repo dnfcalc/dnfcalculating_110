@@ -132,7 +132,7 @@
     outline: none;
     height: 28px;
     line-height: 100%;
-    font-size: 12px;
+    // font-size: 12px;
     color: $text-color;
     background-color: rgba(0, 0, 0, 1);
     border: 1px solid #5b472a;
@@ -168,7 +168,7 @@
     overflow-y: hidden;
     overflow-x: hidden;
     // background: rgba(255, 255, 255, 0.1);
-    font-size: 12px;
+    // font-size: 12px;
     z-index: 888;
     min-height: 28px;
 
@@ -177,7 +177,7 @@
     color: $text-color;
 
     .i-option {
-      font-size: 12px;
+      // font-size: 12px;
       height: 28px;
       line-height: 28px;
       margin: 1px;

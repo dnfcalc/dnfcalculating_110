@@ -172,7 +172,7 @@
       margin: 0 5px;
       background-color: #000;
       text-align: center;
-      font-size: 12px;
+      // font-size: 12px;
       height: 18px;
       line-height: 18px;
       width: calc(100% - 4px);

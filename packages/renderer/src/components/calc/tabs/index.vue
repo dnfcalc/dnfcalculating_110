@@ -93,7 +93,7 @@
     }
 
     .i-tab {
-      font-size: 12px;
+      // font-size: 12px;
       margin-left: 1px;
 
       width: 120px;

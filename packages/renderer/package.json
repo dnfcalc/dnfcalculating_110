@@ -39,6 +39,6 @@
     "pinia": "^2.0.11",
     "vue": "^3.2.29",
     "vue-router": "^4.0.13",
-    "vuedraggable": "^4.1.0"
+    "sortablejs": "1.14.0"
   }
 }

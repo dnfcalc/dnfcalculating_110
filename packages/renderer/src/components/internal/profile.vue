@@ -261,7 +261,7 @@
     position: relative;
     padding: 5px;
     // margin: 5px;
-    font-size: 12px;
+    // font-size: 12px;
     // background-color: rgba(0, 0, 0, 0.8);
 
     // background-color: rgba(255, 255, 255, 0.5);

@@ -64,7 +64,7 @@
       justify-content: center;
       align-items: center;
       background: linear-gradient(#362e15, #171209);
-      font-size: 12px;
+      // font-size: 12px;
       height: 14px;
       // border-top: 1px solid white;
       // border-bottom: 1px solid white;
@@ -76,7 +76,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 12px;
+        // font-size: 12px;
         height: 35px;
         // border-top: 1px solid white;
         // border-bottom: 1px solid white;

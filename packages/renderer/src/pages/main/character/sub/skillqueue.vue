@@ -2,7 +2,7 @@
   import { computed, defineComponent, reactive, ref, renderList, watch } from "vue"
   import { useCharacterStore, useConfigStore } from "@/store"
   import { skill_icon } from "./utils"
-  import draggable from "vuedraggable"
+  import draggable from "@/components/vuedraggable/vuedraggable"
 
   export default defineComponent({
     name: "skillqueue",

@@ -1,6 +1,6 @@
 ## 简介
 
-web:vue3+TS+electron+vite<br> 参考项目：https://github.com/caoxiemeihao/electron-vue-vite<br> 备选参考：https://github.com/umbrella22/electron-vite-template<br> api:python+FastAPI
+web:vue3+TS+electron+vite<br> 参考项目：https://github.com/caoxiemeihao/electron-vue-vite <br>使用拖拽组件：https://github.com/SortableJS/vue.draggable.next <br> api:python+FastAPI
 
 ## 项目依赖安装
 

@@ -152,7 +152,7 @@
     height: 16px;
     min-height: 16px;
     line-height: 100%;
-    font-size: 12px;
+    // font-size: 12px;
     color: $text-color;
     background-color: rgba(0, 0, 0, 1);
     border: 1px solid #5b472a;
@@ -228,7 +228,7 @@
     max-height: 160px;
     overflow-y: auto;
     background: black;
-    font-size: 12px;
+    // font-size: 12px;
     z-index: 888;
 
     $hoverColor: #002947;
@@ -236,7 +236,7 @@
     color: $text-color;
 
     .i-select-dropdown-item {
-      font-size: 12px;
+      // font-size: 12px;
       height: 20px;
       line-height: 20px;
       margin: 0;
@@ -253,7 +253,7 @@
       }
 
       &:hover:not(.active) {
-        font-size: 12px;
+        // font-size: 12px;
         background-color: $hoverColor;
       }
     }
