@@ -4,11 +4,13 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CalcActionDialog: typeof import('./src/components/calc/action-dialog/index.vue')['default']
     CalcAutocomplete: typeof import('./src/components/calc/autocomplete/index.vue')['default']
     CalcButton: typeof import('./src/components/calc/button/index.vue')['default']
     CalcCheckbox: typeof import('./src/components/calc/checkbox/index.vue')['default']
     CalcCollapse: typeof import('./src/components/calc/collapse/index.vue')['default']
     CalcDialog: typeof import('./src/components/calc/dialog/index.vue')['default']
+    CalcDialogActionDialog: typeof import('./src/components/calc/dialog/action-dialog.vue')['default']
     CalcIconselect: typeof import('./src/components/calc/iconselect/index.vue')['default']
     CalcItem: typeof import('./src/components/calc/item/index.vue')['default']
     CalcMenuMenu: typeof import('./src/components/calc/menu/menu.vue')['default']

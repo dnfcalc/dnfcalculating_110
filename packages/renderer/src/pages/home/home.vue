@@ -3,7 +3,7 @@
   import { defineComponent, renderList } from "vue"
   import openURL from "@/utils/openURL"
   import { IAlterInfo } from "@/api/info/type"
-  import { useContainerStore } from "@/store/container"
+  import { useDialog } from "@/components/hooks/dialog"
 
   function sub_icon(sub: number) {
     return {
@@ -26,7 +26,7 @@
   export default defineComponent(() => {
     const basicInfoStore = useBasicInfoStore()
 
-    const { alert, confirm } = useContainerStore()
+    const { alert, confirm } = useDialog()
 
     // 获取角色相关信息，判定是否开放
     function choose_job(child: IAlterInfo) {

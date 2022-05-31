@@ -3,15 +3,15 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { computed, defineComponent, onUnmounted, Suspense } from "vue"
   import { useRoute } from "vue-router"
-  import { useContainerStore } from "@/store/container"
   import { useAppStore } from "./store/app"
   import api from "./api"
+  import { useDialog } from "./components/hooks/dialog"
 
   export default defineComponent({
     setup() {
       const appStore = useAppStore()
 
-      const { alert, render } = useContainerStore()
+      const { alert, render } = useDialog()
 
       const title = computed(() => {
         const route = useRoute()

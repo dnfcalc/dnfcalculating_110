@@ -1,6 +1,6 @@
+import { useDialog } from "@/components/hooks/dialog"
 import axios, { AxiosInstance, AxiosResponse } from "axios"
 import { useConfigStore } from "@/store"
-import { useContainerStore } from "@/store/container"
 
 export interface HttpResponse<T = unknown> {
   code?: number
@@ -9,7 +9,7 @@ export interface HttpResponse<T = unknown> {
   state?: number
 }
 
-let instance: AxiosInstance
+let instance: AxiosInstance | null = null
 
 function getBaseUrl() {
   if (process.env.NODE_ENV === "development") {
@@ -49,7 +49,7 @@ export function defineRequest<T>(fn: (ax: AxiosInstance) => T) {
     instance.interceptors.response.use(
       async (response: AxiosResponse<HttpResponse>) => {
         if (response.data.code === 500) {
-          const { alert } = useContainerStore()
+          const { alert } = useDialog()
           await alert({ content: response.data.message })
         }
         return response.data

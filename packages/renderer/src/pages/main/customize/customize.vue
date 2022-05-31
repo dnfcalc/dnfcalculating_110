@@ -21,11 +21,9 @@
 
     const entry_list = computed(() => basicStore.entry_list)
 
-    const entry = computed(() => {
-      return (index: number) => {
-        return entry_list.value?.[index]?.props.join(",")
-      }
-    })
+    const entry = (index: number) => {
+      return entry_list.value?.[index]?.props.join(",")
+    }
 
     return () => (
       <div class="flex flex-wrap mt-5px">
@@ -35,12 +33,12 @@
               <img src={"./images/equipment/" + a.icon} />
               {renderList(4, index => (
                 <div class="mt-5px">
-                  <calc-select class="!w-530px !h-20px" v-model={configStore.customize[a.id][index - 1]}>
+                  <calc-select class="!h-20px !w-530px" v-model={configStore.customize[a.id][index - 1]}>
                     <calc-option value={0}>无</calc-option>
                     {renderList(
                       a.alternative.filter(item => configStore.customize[a.id].filter((a, i) => index - 1 != i).indexOf(item) < 0),
                       b => (
-                        <calc-option value={b}>{entry.value(b)}</calc-option>
+                        <calc-option value={b}>{entry(b)}</calc-option>
                       )
                     )}
                   </calc-select>
