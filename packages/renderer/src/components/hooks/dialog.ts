@@ -97,7 +97,7 @@ export const useDialog = createSharedComposable(() => {
                   case "function":
                     return content()
                   case "string":
-                    return h("div", { class: "w-full justify-center text-center" }, option.content)
+                    return h("div", { class: "w-full justify-center text-hex-d4d6b6 text-center" }, option.content)
                   default:
                     return content
                 }

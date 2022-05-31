@@ -36,7 +36,7 @@
       return () => (
         <>
           <div
-            class="bg-hex bg-gradient-to-t flex from-hex-273e69 to-hex-335793 h-6 px-2 top-0 right-0 left-0  leading-6 z-9999 app-title layout-title items-center justify-between fixed"
+            class="bg-hex bg-gradient-to-t flex from-hex-273e69 to-hex-335793 h-6 px-2 top-0 right-0 left-0  leading-6 z-9999 app-header layout-title items-center justify-between fixed"
             style="-webkit-app-region: drag"
           >
             <div class="h-4 leading-4 w-4" style="background-image:url('./favicon.ico');background-size: 100% 100%;"></div>
@@ -61,26 +61,5 @@
 <style scoped>
   .app {
     height: 100%;
-  }
-
-  .app-title {
-    -webkit-app-region: drag;
-    background-image: url("@/assets/img/title.png");
-    background-size: 100% 100%;
-  }
-
-  .min-icon {
-    -webkit-app-region: no-drag;
-    background: url("@/assets/img/min.png") no-repeat;
-
-    background-size: 10px 9px;
-    background-position: center;
-  }
-
-  .close-icon {
-    -webkit-app-region: no-drag;
-    background: url("@/assets/img/exit.png") no-repeat;
-    background-size: 10px 9px;
-    background-position: center;
   }
 </style>

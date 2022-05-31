@@ -148,8 +148,10 @@
       return () => {
         return (
           <CalcDialog onClose={onCloseClick} v-model:visible={visible.value} drag={props.drag} mask={props.mask} modal={props.modal} title={props.title}>
-            <div class="flex mt-2 mb-4 items-center"> {renderSlot(slots, "default")}</div>
-            {renderAction()}
+            <div class="pt-2 pb-2">
+              <div class="flex mt-2 mb-3 items-center"> {renderSlot(slots, "default")}</div>
+              {renderAction()}
+            </div>
           </CalcDialog>
         )
       }

@@ -27,9 +27,8 @@ body,
 
 * {
   // font-family: "ArkPixel", "Consola", sans-serif;
-  font-family: SimSun;
+  font-family: "SimSun";
   font-size: 12px;
-  text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
 }
 
 @mixin pointer() {
@@ -108,11 +107,8 @@ body,
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.header {
-  color: #9f8d5c;
-  // text-shadow: -1px -1px 0 rgba(0, 0, 0, 1), 1px -1px 0 rgba(0, 0, 0, 1),
-  //   -1px 1px 0 rgba(0, 0, 0, 1), 1px 1px 0 rgba(0, 0, 0, 1),
-  //   0px 1px 1px rgba(0, 0, 0, 1);
+.text-outline {
+  @include outline();
 }
 
 @import url(./animation.scss);
@@ -182,23 +178,28 @@ body,
   }
 }
 
-.app-title {
+.app-header {
   // -webkit-app-region: drag;
   background-image: url("@/assets/img/title.png");
   background-size: 100% 100%;
+  color: #9d8c5b;
+  border-top: 1px solid #6c81a7;
+  border-bottom: 1px solid #232d41;
+
+  @include outline();
 }
 
 .min-icon {
   -webkit-app-region: no-drag;
   background: url("@/assets/img/min.png") no-repeat;
 
-  background-size: 8px 8px;
+  background-size: 10px 10px;
   background-position: center;
 }
 
 .close-icon {
   -webkit-app-region: no-drag;
   background: url("@/assets/img/exit.png") no-repeat;
-  background-size: 8px 8px;
+  background-size: 10px 10px;
   background-position: center;
 }
