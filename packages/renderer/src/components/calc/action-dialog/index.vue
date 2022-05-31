@@ -158,4 +158,30 @@
     }
   })
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .i-button {
+    text-shadow: none;
+
+    color: #a89679;
+    background: linear-gradient(#12396b, #081f3c);
+    border: 1px solid #554a3d;
+
+    &:hover {
+      color: #fee97d;
+      background: linear-gradient(#2d4e9f, #153051);
+      //  border: 1px solid #e3c18a;
+      color: #d4d4b6;
+      background: linear-gradient(#195cab, #0b3260);
+      border: 1px solid #867760;
+    }
+
+    &:active {
+      color: #e9c556;
+      background: linear-gradient(#2d4e9f, #122438);
+      border: 1px solid #e3c18a;
+      color: #d4d4b6;
+      background: linear-gradient(#195cab, #0b3260);
+      border: 1px solid #918168;
+    }
+  }
+</style>

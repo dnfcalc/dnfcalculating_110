@@ -102,7 +102,7 @@
                         <div onClick={onCloseClick} class="cursor-pointer flex  h-4 text-center w-4  items-center close-icon"></div>
                       </div>
                     </div>
-                    <div class="bg-hex-000 bg-opacity-50 text-white text-xs">{renderSlot(slots, "default")}</div>
+                    <div class="bg-hex-000 bg-opacity-80 text-white text-xs">{renderSlot(slots, "default")}</div>
                   </div>
                 </div>
               )}
