@@ -39,11 +39,19 @@ function watchMain(server) {
       if (electronProcess) {
         electronProcess.removeAllListeners()
         electronProcess.kill()
-        electronProcess = null
       }
 
-      electronProcess = spawn(electron, ['.'], { stdio: 'inherit', env })
-      electronProcess.on('exit', process.exit)
+      electronProcess = spawn(electron, ['.'], { env })
+      electronProcess.once('exit', process.exit)
+      // https://github.com/electron-vite/electron-vite-vue/pull/129
+      electronProcess.stdout.on('data', (data) => {
+        const str = data.toString().trim()
+        str && console.log(str)
+      })
+      electronProcess.stderr.on('data', (data) => {
+        const str = data.toString().trim()
+        str && console.error(str)
+      })
     },
   }
 
