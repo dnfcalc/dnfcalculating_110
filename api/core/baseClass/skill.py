@@ -84,6 +84,7 @@ class 主动技能(技能):
     成长3 = 0.0
     攻击次数3 = 0.0
     CD = 0.0
+    CDR = 1.0
     TP成长 = 0.0
     TP上限 = 0
     TP等级 = 0
@@ -118,7 +119,7 @@ class 主动技能(技能):
                 cdr = 0.95
             if self.所在等级 in [50, 100]:
                 cdr = 0.95
-        return round(self.CD * cdr / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), 1)
+        return round(max(self.CD * cdr * self.CDR / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1))
 
     def MP消耗(self):
         return ((self.等级 - 1)*self.MP_growth + self.MP_basic)*self.MP消耗倍率

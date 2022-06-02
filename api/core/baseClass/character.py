@@ -123,6 +123,7 @@ class Character():
         self.__指令效果: Dict[str, float] = {}
         self.__消耗品效果: float = 1.0
         self.__MP消耗量: float = 1.0
+        self.__hotkey: List[str] = [""]*14
 
         if self.转职 == '':
             self.转职 = self.职业
@@ -237,18 +238,17 @@ class Character():
         self.__指令效果[类型] = self.__指令效果.get(类型, 1.0) * (1 + x)
 
     def 指令技攻加成(self, x: float, min=1, max=100, exc=[50, 85, 100]) -> None:
-        # 暂未判断是否指令
         for i in self.技能栏:
-            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
+            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc and i.手搓 == True:
                 if i.是否有伤害 == 1:
                     i.倍率 *= (1 + x * self.技能伤害增加增幅)
 
-    def 指令冷却缩减(self, x: float, min=1, max=100, exc=[50, 85, 100]) -> None:
-        # 暂未判断是否指令
-        for i in self.技能栏:
-            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
-                if i.是否有伤害 == 1:
-                    i.CD *= (1 - x)
+    # def 指令冷却缩减(self, x: float, min=1, max=100, exc=[50, 85, 100]) -> None:
+    #     # 暂未判断是否指令
+    #     for i in self.技能栏:
+    #         if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
+    #             if i.是否有伤害 == 1:
+    #                 i.CDR *= (1 - x)
 
     def 消耗品加成(self, x: float) -> None:
         self.__消耗品效果 += x
@@ -421,7 +421,7 @@ class Character():
         for i in self.技能栏:
             if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
                 if i.是否有伤害 == 1:
-                    i.CD *= (1 - x)
+                    i.CDR *= (1 - x)
 
     def 技能恢复加成(self, min: int, max: int, x: float, exc=[int]) -> None:
         for i in self.技能栏:
@@ -440,7 +440,7 @@ class Character():
         i.等级加成(lv)
         if i.是否有伤害 == 1:
             i.倍率 *= 倍率
-            i.CD *= CD
+            i.CDR *= CD
 
     def 所有属性强化(self, x: float) -> None:
         self.__火属性强化 += x
@@ -571,6 +571,8 @@ class Character():
             k = self.get_skill_by_name(i['name'])
             k.等级 = i['level']
             k.TP等级 = i['tp']
+            k.手搓 = i['direct']
+            k.手搓指令数 = i['directNumber']
 
     # 设置装备选项参数
     def __equ_chose_set(self, setinfo):
@@ -578,7 +580,11 @@ class Character():
         # for i in setinfo:
         #    equ.set_func_chose({i['id']: i['select']})
 
-    # 设置穿戴的装备
+    def __hotkey_set(self, setinfo):
+        self.__hotkey = setinfo
+
+        # 设置穿戴的装备
+
     def __穿戴装备(self, idlist):
         self.装备栏 = []
         self.部位装备 = {}
@@ -837,7 +843,7 @@ class Character():
     def __加算冷却计算(self):
         for i in self.技能栏:
             if i.是否有伤害 == 1:
-                i.CD *= (1 - self.__加算冷却缩减)
+                i.CDR *= (1 - self.__加算冷却缩减)
 
     def __CD倍率计算(self):
         for i in self.技能栏:
@@ -845,50 +851,50 @@ class Character():
                 if i.冷却关联技能 == ['所有']:
                     for j in self.技能栏:
                         if j.是否有伤害 == 1:
-                            j.CD *= i.CD缩减倍率(self.武器类型)
+                            j.CDR *= i.CD缩减倍率(self.武器类型)
                 else:
                     for k in i.冷却关联技能:
-                        self.技能栏[self.技能序号[k]].CD *= i.CD缩减倍率(self.武器类型)
+                        self.技能栏[self.技能序号[k]].CDR *= i.CD缩减倍率(self.武器类型)
             if i.非冷却关联技能 != ['无']:
                 if i.非冷却关联技能 == ['所有']:
                     for j in self.技能栏:
                         if j.是否有伤害 == 1:
-                            j.CD /= i.CD缩减倍率(self.武器类型)
+                            j.CDR /= i.CD缩减倍率(self.武器类型)
                 else:
                     for k in i.非冷却关联技能:
-                        self.技能栏[self.技能序号[k]].CD /= i.CD缩减倍率(self.武器类型)
+                        self.技能栏[self.技能序号[k]].CDR /= i.CD缩减倍率(self.武器类型)
             if i.冷却关联技能2 != ['无']:
                 if i.冷却关联技能2 == ['所有']:
                     for j in self.技能栏:
                         if j.是否有伤害 == 1:
-                            j.CD *= i.CD缩减倍率2(self.武器类型)
+                            j.CDR *= i.CD缩减倍率2(self.武器类型)
                 else:
                     for k in i.冷却关联技能2:
-                        self.技能栏[self.技能序号[k]].CD *= i.CD缩减倍率2(self.武器类型)
+                        self.技能栏[self.技能序号[k]].CDR *= i.CD缩减倍率2(self.武器类型)
             if i.非冷却关联技能2 != ['无']:
                 if i.非冷却关联技能2 == ['所有']:
                     for j in self.技能栏:
                         if j.是否有伤害 == 1:
-                            j.CD /= i.CD缩减倍率2(self.武器类型)
+                            j.CDR /= i.CD缩减倍率2(self.武器类型)
                 else:
                     for k in i.非冷却关联技能2:
-                        self.技能栏[self.技能序号[k]].CD /= i.CD缩减倍率2(self.武器类型)
+                        self.技能栏[self.技能序号[k]].CDR /= i.CD缩减倍率2(self.武器类型)
             if i.冷却关联技能3 != ['无']:
                 if i.冷却关联技能3 == ['所有']:
                     for j in self.技能栏:
                         if j.是否有伤害 == 1:
-                            j.CD *= i.CD缩减倍率3(self.武器类型)
+                            j.CDR *= i.CD缩减倍率3(self.武器类型)
                 else:
                     for k in i.冷却关联技能3:
-                        self.技能栏[self.技能序号[k]].CD *= i.CD缩减倍率3(self.武器类型)
+                        self.技能栏[self.技能序号[k]].CDR *= i.CD缩减倍率3(self.武器类型)
             if i.非冷却关联技能3 != ['无']:
                 if i.非冷却关联技能3 == ['所有']:
                     for j in self.技能栏:
                         if j.是否有伤害 == 1:
-                            j.CD /= i.CD缩减倍率3(self.武器类型)
+                            j.CDR /= i.CD缩减倍率3(self.武器类型)
                 else:
                     for k in i.非冷却关联技能3:
-                        self.技能栏[self.技能序号[k]].CD /= i.CD缩减倍率3(self.武器类型)
+                        self.技能栏[self.技能序号[k]].CDR /= i.CD缩减倍率3(self.武器类型)
 
     def __属性倍率计算(self):
         # 火、冰、光、暗
@@ -966,11 +972,13 @@ class Character():
         # 获取打造数据
         self.__打造设置(info['forge_set'])
         # 获取装备列表
-        self.__穿戴装备(info['lv110_list'])
+        self.__穿戴装备(info['equip_list'])
         # 获取技能数据
         self.__skill_set(info['skill_set'])
         # 获取装备选项数据
         self.__equ_chose_set(info['trigger_set'])
+
+        self.__hotkey_set(info['hotkey_set'])
 
         self.__计算伤害预处理()
 

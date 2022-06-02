@@ -313,11 +313,11 @@ class 技能11(职业主动技能):
         if 类型 == 0:
             self.data0 = [x * 1.31 for x in self.data0]
             self.hit1 = 0
-            self.CD *= 0.94
+            self.CDR *= 0.94
         elif 类型 == 1:
             self.data0 = [x * 1.40 for x in self.data0]
             self.hit1 = 0
-            self.CD *= 0.94
+            self.CDR *= 0.94
 
 
 class 技能12(职业主动技能):
@@ -454,12 +454,12 @@ class 技能16(职业主动技能):
             self.data1 = [x * 0.6 for x in self.data0]
             self.技能施放时间 = 1.5
             self.hit1 = 6
-            self.CD *= 0.95
+            self.CDR *= 0.95
         elif 类型 == 1:
             self.data1 = [x * 0.82 for x in self.data0]
             self.技能施放时间 = 1.5
             self.hit1 = 6
-            self.CD *= 0.95
+            self.CDR *= 0.95
 
 
 class 技能17(被动技能):
@@ -524,7 +524,7 @@ class 技能19(职业主动技能):
     def 装备护石(self, 类型):
         if 类型 == 0:
             self.data0 = [x * 1.29 for x in self.data0]
-            self.CD *= 0.9
+            self.CDR *= 0.9
 
 
 class 技能20(职业主动技能):

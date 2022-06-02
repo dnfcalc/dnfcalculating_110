@@ -4080,7 +4080,12 @@ def entry_1121(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.指令冷却缩减(0.15)
+        # char.指令冷却缩减(0.15)
+        # 暂未判断是否指令
+        for i in char.技能栏:
+            if i.所在等级 not in [50, 85, 100] and i.手搓 == True and i.name not in char.__hotkey:
+                if i.是否有伤害 == 1:
+                    i.CDR *= (1 - 0.15)
 
 
 def entry_1122(char: Character = {}, mode=0, text=False, part=''):
@@ -4089,7 +4094,11 @@ def entry_1122(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.指令技攻加成(0.10, exc=[])
+        # char.指令技攻加成(0.10, exc=[])
+        for i in char.技能栏:
+            if i.手搓 == True and i.name in char.__hotkey:
+                if i.是否有伤害 == 1:
+                    i.倍率 *= 1.1
 
 
 def entry_1135(char: Character = {}, mode=0, text=False, part=''):
@@ -4098,7 +4107,10 @@ def entry_1135(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.指令技攻加成(0.15)
+        for i in char.技能栏:
+            if i.手搓 == True:
+                if i.是否有伤害 == 1:
+                    i.倍率 *= 1.05
 
 
 def entry_1136(char: Character = {}, mode=0, text=False, part=''):
@@ -4116,12 +4128,22 @@ def entry_1137(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.指令技攻加成(0.15)
-
-
+        for i in char.技能栏:
+            if i.手搓 == True:
+                if i.是否有伤害 == 1:
+                    if i.手搓指令数 == 1:
+                        i.倍率 *= 1.07
+                    if i.手搓指令数 == 2:
+                        i.倍率 *= 1.09
+                    if i.手搓指令数 == 3:
+                        i.倍率 *= 1.11
+                    if i.手搓指令数 == 4:
+                        i.倍率 *= 1.15
 # endregion
 
 # region 等级技能加等级、加攻、减CD
+
+
 def entry_271(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "所有职业Lv45技能攻击力 +20%"
@@ -4668,6 +4690,7 @@ def entry_824(char: Character = {}, mode=0, text=False, part=''):
         if hp_rate_num >= 90:
             char.暴击率增加(0.02 * 5)
 
+
 def entry_825(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "HP在90%以上时，技能冷却时间恢复速度 +10%(觉醒除外), 被击伤害 +30%"
@@ -4687,6 +4710,7 @@ def entry_826(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # endregion
+
 
 # region MP范围
 mp_rate_num = 0
@@ -4710,6 +4734,7 @@ entry_chose.append((20813, ['选择MP范围'] +
                      ]))
 multi_select[20813] = False
 variable_set[20813] = set_mp_rate_num
+
 
 def entry_813(char: Character = {}, mode=0, text=False, part=''):
     if text:
@@ -5815,6 +5840,8 @@ def entry_640(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "G-14手雷、G-35L感电手雷、G-18C冰冻手雷最大装载数+2"
     if mode == 0:
+        char.get_skill_by_name("G35感电手雷").基础释放次数 += 2
+        char.get_skill_by_name("G18冰冻手雷").基础释放次数 += 2
         pass
     if mode == 1:
         pass
@@ -5826,6 +5853,7 @@ def entry_641(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name("G96热压手雷").倍率 *= 1.3
         pass
 
 
@@ -7273,6 +7301,8 @@ def entry_392(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        # 期望/全程
+        char.所有属性强化加成(35)
         pass
 
 
