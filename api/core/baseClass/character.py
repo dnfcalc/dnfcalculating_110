@@ -23,7 +23,7 @@ class Character():
     最终伤害增加增幅: float = 1.0
     力量智力增加增幅: float = 1.0
     物理魔法攻击力增加增幅: float = 1.0
-    所有属性强化增加: float = 1.0
+    所有属性强化增幅: float = 1.0
 
     等级: int = 110
     防御输入: int = 506109
@@ -114,6 +114,7 @@ class Character():
         self.__攻击强化: int = 0
         self.__百分比攻击强化: float = 0.0
         self.__buff量: int = 0
+        self.__基础精通倍率: float = 1.0
         self.__伤害比例: Dict[str, float] = {'直伤': 1.0}
         self.__伤害系数: Dict[str, float] = {
             '中毒': 1.0, '灼烧': 1.0, '感电': 1.0, '出血': 1.0}
@@ -205,6 +206,9 @@ class Character():
     # endregion
 
     # region 词条属性
+    def 基础精通加成(self, x: float) -> None:
+        self.__基础精通倍率 += x
+
     def 百分比防御减少(self, x: float) -> None:
         self.__百分比减防 += x
 
@@ -322,34 +326,34 @@ class Character():
 
     def 火属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
-            self.__火属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
+            self.__火属性强化 += self.所有属性强化增幅 * x if 辟邪玉加成 == 1 else x
         else:
-            self.__火属性强化 += int(self.所有属性强化增加 * x)
+            self.__火属性强化 += int(self.所有属性强化增幅 * x)
 
     def 冰属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
-            self.__冰属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
+            self.__冰属性强化 += self.所有属性强化增幅 * x if 辟邪玉加成 == 1 else x
         else:
-            self.__冰属性强化 += int(self.所有属性强化增加 * x)
+            self.__冰属性强化 += int(self.所有属性强化增幅 * x)
 
     def 光属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
-            self.__光属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
+            self.__光属性强化 += self.所有属性强化增幅 * x if 辟邪玉加成 == 1 else x
         else:
-            self.__光属性强化 += int(self.所有属性强化增加 * x)
+            self.__光属性强化 += int(self.所有属性强化增幅 * x)
 
     def 暗属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
-            self.__暗属性强化 += self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
+            self.__暗属性强化 += self.所有属性强化增幅 * x if 辟邪玉加成 == 1 else x
         else:
-            self.__暗属性强化 += int(self.所有属性强化增加 * x)
+            self.__暗属性强化 += int(self.所有属性强化增幅 * x)
 
     def 所有属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
-            temp = self.所有属性强化增加 * x if 辟邪玉加成 == 1 else x
+            temp = self.所有属性强化增幅 * x if 辟邪玉加成 == 1 else x
         else:
-            temp = int(self.所有属性强化增加 * x)
-        self.所有属性强化(temp)
+            temp = int(self.所有属性强化增幅 * x)
+        self.__所有属性强化(temp)
 
     def 火属性抗性加成(self, x: int) -> None:
         self.__火属性抗性 += x
@@ -442,7 +446,7 @@ class Character():
             i.倍率 *= 倍率
             i.CDR *= CD
 
-    def 所有属性强化(self, x: float) -> None:
+    def __所有属性强化(self, x: float) -> None:
         self.__火属性强化 += x
         self.__冰属性强化 += x
         self.__光属性强化 += x

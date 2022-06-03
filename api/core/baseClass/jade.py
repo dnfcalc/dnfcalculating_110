@@ -68,7 +68,7 @@ def jade_26008(char={}, text=False, value=0):
 def jade_26009(char={}, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, '[装备属性强化增加]增幅')"
-    char.所有属性强化增加 += value
+    char.所有属性强化增幅 += value
 
 
 def jade_26010(char={}, text=False, value=0):
