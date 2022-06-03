@@ -1,4 +1,4 @@
-from core.equipment.基础函数 import 武器冷却惩罚, 当前等级
+from core.equipment.基础函数 import 武器冷却惩罚, 当前等级, MP消耗惩罚
 
 等级 = 当前等级 + 5
 
@@ -121,8 +121,8 @@ class 主动技能(技能):
                 cdr = 0.95
         return round(max(self.CD * cdr * self.CDR / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1))
 
-    def MP消耗(self):
-        return ((self.等级 - 1)*self.MP_growth + self.MP_basic)*self.MP消耗倍率
+    def MP消耗(self, 武器类型, 输出类型):
+        return ((self.等级 - 1)*self.MP_growth + self.MP_basic)*self.MP消耗倍率 * MP消耗惩罚(武器类型, 输出类型)
 
     def 基础等级计算(self):
         if self.基础等级 == 0:

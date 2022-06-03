@@ -616,6 +616,9 @@ class Character():
                     temp = {}
                     temp['rate'] = k.被动倍率
                     temp['cd'] = k.等效CD(self.武器类型, self.类型)
+                    temp['mp'] = k.MP消耗(self.武器类型, self.类型)
+                    temp['无色'] = k.无色消耗
+                    temp['lv'] = k.等级
                 damage = k.等效百分比(self.武器类型) * self.伤害指数 * k.被动倍率 * i['count']
                 sumdamage += damage
                 temp['count'] = temp.get('count', 0) + i['count']

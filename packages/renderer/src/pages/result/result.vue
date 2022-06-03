@@ -19,6 +19,16 @@
       characterStore.name = data.name
       useAppStore().title = "详细数据"
 
+      function skill_tooltip(skill: any) {
+        return (
+          <div class="tooltip-skill">
+            <div class="info">MP消耗:{skill.mp}</div>
+            <div class="info">无色消耗:{skill.无色}</div>
+            <div class="info">等级:{+skill.lv}</div>
+          </div>
+        )
+      }
+
       return () => (
         <>
           <div class="m-0 flex h-100% detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:100% 100%">
@@ -37,7 +47,18 @@
                   {renderList(Object.keys(res.skills) ?? [], item => (
                     <div class="flex justify-between">
                       <div class="item w-12%">
-                        <img src={skill_icon(characterStore.alter, item)} />
+                        <div>
+                          <calc-tooltip position="right">
+                            {{
+                              default() {
+                                return <img src={skill_icon(characterStore.alter, item)} />
+                              },
+                              popper() {
+                                return skill_tooltip(res.skills[item])
+                              }
+                            }}
+                          </calc-tooltip>
+                        </div>
                       </div>
                       <div class="item w-12%">{res.skills[item].cd}</div>
                       <div class="item w-12%">{res.skills[item].count}</div>
