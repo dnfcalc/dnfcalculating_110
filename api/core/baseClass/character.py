@@ -617,6 +617,7 @@ class Character():
                     temp['rate'] = k.被动倍率
                     temp['cd'] = k.等效CD(self.武器类型, self.类型)
                     temp['mp'] = k.MP消耗(self.武器类型, self.类型)
+                    temp['百分比'] = k.等效百分比(self.武器类型)
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
                 damage = k.等效百分比(self.武器类型) * self.伤害指数 * k.被动倍率 * i['count']
@@ -630,6 +631,7 @@ class Character():
     def __装备属性计算(self):
         self.__装备基础()
         self.__附魔计算()
+        self.__杂项计算()
         self.__徽章计算()
         self.__装备词条计算()
 
@@ -650,6 +652,40 @@ class Character():
                 func(self, value)
                 # 打印相关函数和效果
                 # print('{}: {}: {}'.format(func, value, func(self, text=TRUE)))
+
+    def __杂项计算(self, mode=0):
+        if 'others' not in self.打造详情.keys():
+            return
+        setinfo = self.打造详情['others']
+        # 收集箱
+        try:
+            from core.baseClass.sundry import get_sundryfunc_by_id
+            func = get_sundryfunc_by_id(setinfo['SJX_TYPE'])
+            print(func)
+            func(self, 0, False, setinfo['SJX_XY'], setinfo['SJX_SQ'])
+        except:
+            pass
+        # 勋章
+        try:
+            from core.baseClass.sundry import get_sundryfunc_by_id
+            func = get_sundryfunc_by_id(setinfo['XZ_TYPE'])
+            func(self, 0, False, setinfo['XZ_SHZ'], setinfo['XZ_QH'])
+        except:
+            pass
+        for i in setinfo.keys():
+            if i.startswith('SJX') or i.startswith('XZ'):
+                pass
+            else:
+                try:
+                    id = setinfo[i]
+                    from core.baseClass.sundry import get_sundryfunc_by_id
+                    func = get_sundryfunc_by_id(id)
+                    # 站街
+                    func(self)
+                    # 进图
+                    func(self, mode=1)
+                except:
+                    pass
 
     def __徽章计算(self):
         idlist = []
@@ -996,10 +1032,10 @@ class Character():
                     'wuligongji': self.站街物理攻击力(),
                     'mofagongji': self.站街魔法攻击力(),
                     'duligongji': self.站街独立攻击力(),
-                    'huo': 0,
-                    'bing': 0,
-                    'guang': 0,
-                    'an': 0
+                    'huo': self.__火属性强化,
+                    'bing': self.__冰属性强化,
+                    'guang': self.__光属性强化,
+                    'an': self.__暗属性强化
                 },
                 # 进图
                 'jintu': {

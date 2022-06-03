@@ -36,7 +36,7 @@
             name: characterStore.name
           })
         )
-        openURL("/result?uid=" + uid, { width: 780, height: 570 })
+        openURL("/result?uid=" + uid, { width: 890, height: 600 })
       }
     }
 

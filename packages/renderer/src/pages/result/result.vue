@@ -21,10 +21,11 @@
 
       function skill_tooltip(skill: any) {
         return (
-          <div class="tooltip-skill">
-            <div class="info">MP消耗:{skill.mp}</div>
-            <div class="info">无色消耗:{skill.无色}</div>
+          <div class="tooltip-skill !w-120px !p-5px">
             <div class="info">等级:{+skill.lv}</div>
+            <div class="info">MP消耗:{skill.mp.toFixed(0)}</div>
+            <div class="info">无色消耗:{skill.无色}</div>
+            <div class="info">百分比:{skill.百分比.toFixed(0) + "%"}</div>
           </div>
         )
       }

@@ -724,7 +724,7 @@ for i in range(27001, 27100):
         pass
 
 
-def get_jadefunc_by_id(id):
+def get_sundryfunc_by_id(id):
     return sundry_list.get(id, sundry_27000)
 
 
