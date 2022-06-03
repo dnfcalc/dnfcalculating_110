@@ -4709,8 +4709,8 @@ def entry_826(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         pass
 
-# endregion
 
+# endregion
 
 # region MP范围
 mp_rate_num = 0
@@ -4915,6 +4915,87 @@ def entry_803(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 
+# endregion
+
+# region 金币相关词条
+gold_num = 0
+gold_num_list = [i for i in range(21)] + [40]
+
+
+def set_gold_num(x):
+    global gold_num
+    gold_num = gold_num_list[x[0]]
+
+
+entry_chose.append((20840, ['选择金币数量'] + ['{}千万'.format(i) for i in gold_num_list[1:]]))
+multi_select[20840] = False
+variable_set[20840] = set_gold_num
+
+
+def entry_840(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "背包与仓库金币总和达到1亿以上时，物理、魔法暴击率 +10%<br>背包与仓库金币总和达到4亿以上时，技能攻击力 +3%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        if gold_num >= 10:
+            char.物理暴击率增加(0.1)
+            char.魔法暴击率增加(0.1)
+
+
+def entry_841(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "背包与仓库金币总和每达到1千万金币，伤害增加 222(最多叠加20次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+# endregion
+
+# region 条件技能等级 (未实现)
+def entry_884(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "除Buff技能外所有职业Lv40主动技能Lv +10, - 如下技能除外：猫拳、爱之急救、生命源泉、复苏之光、六道, 施放Lv40技能时，该技能Lv -1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_885(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "除Buff技能外所有职业Lv45主动技能Lv +10, - 如下技能除外：圣愈之风、新生圣歌, 施放Lv45技能时，该技能Lv -1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_886(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "除Buff技能外所有职业Lv35主动技能Lv +10, - 如下技能除外：嗜血、暗影蓄能, 、挑衅、幻影化身、忍法 : 残影术, 施放Lv35技能时，该技能Lv-1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_887(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "除Buff技能外所有职业Lv60主动技能Lv +10, 施放Lv60技能时，该技能Lv-1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_888(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "除Buff技能外所有职业Lv70主动技能Lv +10, - 如下技能除外 : 永恒的占有、圣洁之翼,  施放Lv70技能时，该技能Lv-1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
 # endregion
 
 # region 职业词条
@@ -7229,6 +7310,8 @@ def entry_790(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         pass
 # endregion
+
+
 # endregion
 
 
@@ -7356,7 +7439,7 @@ def entry_811(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "HP MAX +10%, 所有异常状态抗性 +10%"
     if mode == 0:
-        pass
+        char.所有异常抗性加成(0.1)
     if mode == 1:
         pass
 
@@ -7392,7 +7475,7 @@ def entry_836(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "暗属性抗性 +20"
     if mode == 0:
-        pass
+        char.暗属性抗性加成(20)
     if mode == 1:
         pass
 
@@ -7401,7 +7484,10 @@ def entry_837(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "暗属性抗性 +50, 火属性抗性、冰属性抗性、光属性抗性 -20"
     if mode == 0:
-        pass
+        char.暗属性抗性加成(50)
+        char.火属性抗性加成(-20)
+        char.冰属性抗性加成(-20)
+        char.光属性抗性加成(-20)
     if mode == 1:
         pass
 
@@ -7412,55 +7498,12 @@ def entry_838(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暴击率增加(0.15)
 
 
 def entry_839(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "暴击5次时，使300px范围内所有敌人进入灼烧状态(冷却时间10秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_840(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "金币1亿以下(无效果)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_840_1(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "金币1亿以上(10%暴击)"
-    if mode == 0:
-        char.物理暴击率增加(0.1)
-        char.魔法暴击率增加(0.1)
-    if mode == 1:
-        pass
-
-
-def entry_840_2(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "金币4亿以上(3%技攻)"
-    if mode == 0:
-        char.物理暴击率增加(0.1)
-        char.魔法暴击率增加(0.1)
-        char.技能攻击力加成(0.03)
-    if mode == 1:
-        pass
-
-
-entry_func_list[840] = [entry_840, entry_840_1, entry_840_2]
-multi_select[840] = False
-
-
-def entry_841(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "背包与仓库金币总和每达到1千万金币，伤害增加 222(最多叠加20次)"
     if mode == 0:
         pass
     if mode == 1:
@@ -7482,7 +7525,7 @@ def entry_843(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.所有异常抗性加成(0.1)
 
 
 def entry_844(char: Character = {}, mode=0, text=False, part=''):
@@ -7500,7 +7543,7 @@ def entry_845(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暗属性强化加成(30)
 
 
 def entry_846(char: Character = {}, mode=0, text=False, part=''):
@@ -7518,7 +7561,7 @@ def entry_847(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.冰属性强化加成(30)
 
 
 def entry_848(char: Character = {}, mode=0, text=False, part=''):
@@ -7545,7 +7588,7 @@ def entry_850(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.光属性强化加成(30)
 
 
 def entry_851(char: Character = {}, mode=0, text=False, part=''):
@@ -7563,7 +7606,7 @@ def entry_852(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.火属性强化加成(30)
 
 
 def entry_853(char: Character = {}, mode=0, text=False, part=''):
@@ -7581,7 +7624,7 @@ def entry_854(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暴击率增加(0.05)
 
 
 def entry_855(char: Character = {}, mode=0, text=False, part=''):
@@ -7590,7 +7633,7 @@ def entry_855(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.冰属性强化加成(20)
 
 
 def entry_856(char: Character = {}, mode=0, text=False, part=''):
@@ -7599,7 +7642,7 @@ def entry_856(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暗属性强化加成(20)
 
 
 def entry_857(char: Character = {}, mode=0, text=False, part=''):
@@ -7608,7 +7651,7 @@ def entry_857(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.光属性强化加成(20)
 
 
 def entry_858(char: Character = {}, mode=0, text=False, part=''):
@@ -7626,7 +7669,7 @@ def entry_859(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.火属性强化加成(20)
 
 
 def entry_860(char: Character = {}, mode=0, text=False, part=''):
@@ -7644,7 +7687,9 @@ def entry_861(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.攻击速度增加(0.15)
+        char.移动速度增加(0.15)
+        char.施放速度增加(0.15)
 
 
 def entry_862(char: Character = {}, mode=0, text=False, part=''):
@@ -7671,7 +7716,7 @@ def entry_864(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.冰属性抗性加成(5 * 5)
 
 
 def entry_865(char: Character = {}, mode=0, text=False, part=''):
@@ -7680,7 +7725,7 @@ def entry_865(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.光属性抗性加成(5 * 5)
 
 
 def entry_866(char: Character = {}, mode=0, text=False, part=''):
@@ -7689,7 +7734,7 @@ def entry_866(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.火属性抗性加成(5 * 5)
 
 
 def entry_867(char: Character = {}, mode=0, text=False, part=''):
@@ -7698,7 +7743,7 @@ def entry_867(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暗属性抗性加成(5 * 5)
 
 
 def entry_868(char: Character = {}, mode=0, text=False, part=''):
@@ -7741,7 +7786,8 @@ def entry_872(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "冰冻抗性 +3%, 灼烧抗性 -1.5%"
     if mode == 0:
-        pass
+        char.异常抗性加成('冰冻', 0.03)
+        char.异常抗性加成('灼烧', -0.015)
     if mode == 1:
         pass
 
@@ -7750,7 +7796,7 @@ def entry_873(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "冰冻抗性 -3% 聊天窗输入含“冰”时，自身进入10秒冰冻(冷却时间30秒), 该装备词条的冰冻在聊天窗输入含“砰”时解除"
     if mode == 0:
-        pass
+        char.异常抗性加成('冰冻', -0.03)
     if mode == 1:
         pass
 
@@ -7768,7 +7814,10 @@ def entry_875(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "冰属性抗性 +50,  火属性抗性、光属性抗性、暗属性抗性 -20"
     if mode == 0:
-        pass
+        char.冰属性抗性加成(50)
+        char.火属性抗性加成(-20)
+        char.光属性抗性加成(-20)
+        char.暗属性抗性加成(-20)
     if mode == 1:
         pass
 
@@ -7779,14 +7828,15 @@ def entry_876(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        char.暴击率增加(0.15)
 
 
 def entry_879(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "不消耗无色小晶块的技能冷却时间-30%, 消耗无色小晶块的技能冷却时间+15%"
     if mode == 0:
-        pass
+        char.条件冷却加成('消耗无色', -0.15)
+        char.条件冷却加成('不消耗无色', 0.3)
     if mode == 1:
         pass
 
@@ -7804,7 +7854,7 @@ def entry_881(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "出血抗性 +1%, 物理防御力 +500"
     if mode == 0:
-        pass
+        char.异常抗性加成('出血', 0.01)
     if mode == 1:
         pass
 
@@ -7813,7 +7863,8 @@ def entry_882(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "出血伤害 +15%, 出血抗性 +10%"
     if mode == 0:
-        pass
+        char.异常增伤('出血', 0.15)
+        char.异常抗性加成('出血', 0.1)
     if mode == 1:
         pass
 
@@ -7822,54 +7873,12 @@ def entry_883(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "出血伤害 +20%"
     if mode == 0:
-        pass
+        char.异常增伤('出血', 0.2)
     if mode == 1:
         pass
 
 
-def entry_884(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "除Buff技能外所有职业Lv40主动技能Lv +10, - 如下技能除外：猫拳、爱之急救、生命源泉、复苏之光、六道, 施放Lv40技能时，该技能Lv -1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
 
-
-def entry_885(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "除Buff技能外所有职业Lv45主动技能Lv +10, - 如下技能除外：圣愈之风、新生圣歌, 施放Lv45技能时，该技能Lv -1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_886(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "除Buff技能外所有职业Lv35主动技能Lv +10, - 如下技能除外：嗜血、暗影蓄能, 、挑衅、幻影化身、忍法 : 残影术, 施放Lv35技能时，该技能Lv-1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_887(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "除Buff技能外所有职业Lv60主动技能Lv +10, 施放Lv60技能时，该技能Lv-1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_888(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "除Buff技能外所有职业Lv70主动技能Lv +10, - 如下技能除外 : 永恒的占有、圣洁之翼,  施放Lv70技能时，该技能Lv-1(最多减少Lv10，该效果适用至通关前), 剩余HP在70%以下的状态持续120秒时，恢复减少的技能Lv(冷却时间120秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
 
 
 def entry_889(char: Character = {}, mode=0, text=False, part=''):
