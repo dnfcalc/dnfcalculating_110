@@ -1,12 +1,182 @@
 from core.baseClass.character import Character
-entry_func_list = {}  # id : [enteyfunc] 词条函数(数组)列表
-entry_id_bind = {}  # id: (id, chose) 关联选项，参考37敌人类型选择
+entry_func_list = {}  # id : enteyfunc 词条函数(数组)列表
 entry_chose = []  # (20000 + id, [chose1, 2, 3...]) 额外选项设置，参考20074消灭敌人词条
 multi_select = {}  # id : True/False 设置选项是否支持多选
 variable_set = {}  # id : setfunc  参数返回设置函数
 priority = {}  # id : num  词条计算优先级，默认为100
 
 # region 无效果词条
+
+
+def entry_1247(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "技能MP消耗量 -50%, 被击时，所受伤害 +15%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1248(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "生成最大HP45%的自动充能保护罩，保护罩存在状态下10秒不被攻击时充能到最大值, 装备时，适用55%的HP(装备解除前，当前HP无法超过HP最大值的55%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1232(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "最后一次赋予敌人的无力化异常状态（不包括出血、感电、中毒、灼烧）作为敌人下一次无力化的弱点属性"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1226(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身受到的非破招攻击伤害 +20%, 自身受到的破招攻击伤害 -15%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1227(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身睡眠时，无法使用消耗品，10秒内获得无敌Buff(冷却时间30秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1228(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身受到超过最大HP15%以上的伤害时，使500px范围内的所有敌人进入石化状态(冷却时间30秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1221(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身每处于一种异常状态，被击伤害 -5%(最多减少30%)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1213(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于中毒状态时进行攻击，使敌人进入中毒状态(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1210(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于石化状态时被击，使500px范围内所有敌人进入石化状态(冷却时间30秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1211(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于睡眠状态时被击，不会解除睡眠状态, 自身处于睡眠状态时被击，恢复15%的HP(冷却时间1秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1206(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于出血状态时进行10次攻击，10秒内恢复15%的HP(冷却时间10秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1207(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于出血状态时进行攻击，使敌人进入出血状态(冷却时间8秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1209(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于石化状态时，被击伤害-30%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1201(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于冰冻状态时，被击伤害 -30%，5秒内恢复20%的HP(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1192(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "装备的HP恢复效果 +10%, 被击时所受伤害 +20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1193(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "装备的HP恢复效果 +20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1194(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "装备的MP恢复效果 +30%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1195(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "装备时，每20秒，使250px范围内的敌人进入诅咒状态, 前冲期间，诅咒使用范围逐渐增加，每秒减少0.5%的HP(该效果不会使HP减少到1%以下), 非前冲时，诅咒范围逐渐缩小"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_1196(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "装备时，生成火属性Buff，持续20秒, - 火属性Buff持续期间，赋予火属性攻击, - 被冰属性攻击时，火属性Buff解除，持续20秒"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
 
 
 def entry_1189(char: Character = {}, mode=0, text=False, part=''):
@@ -703,7 +873,7 @@ def entry_963(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(3409)
+        char.攻击强化加成(3409)
 
 
 def entry_967(char: Character = {}, mode=0, text=False, part=''):
@@ -2166,6 +2336,412 @@ def entry_325(char: Character = {}, mode=0, text=False, part=''):
 # region 常规词条 (部分未实现)
 
 
+def entry_1223(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身命中率超过50%以上时，Lv1~25技能Lv+1"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能等级加成('所有', 1, 25, 1)
+
+
+def entry_1224(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身使敌人进入的冰冻状态无法被灼烧解除, 攻击冰冻状态敌人时，技能攻击力 +5%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.05)
+
+
+def entry_1225(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身使敌人进入灼烧状态解除敌人冰冻状态时，敌人受到的灼烧伤害 +30%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.异常增伤('灼烧', 0.3)
+
+
+def entry_1229(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身所受睡眠状态持续时间 -50%, 睡眠抗性 -20%"
+    if mode == 0:
+        char.异常抗性加成('睡眠', -0.2)
+    if mode == 1:
+        pass
+
+
+def entry_1230(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身移动速度超过80%以上时，Lv1~25技能Lv+1"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能等级加成('所有', 1, 25, 1)
+
+
+def entry_1231(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "诅咒抗性 +25%, 所有异常状态抗性 -5%"
+    if mode == 0:
+        char.异常抗性加成('诅咒', 0.25)
+        char.所有异常抗性加成(-0.05)
+    if mode == 1:
+        pass
+
+
+def entry_1237(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ", 该装备的成长属性等级之和达到240，增加1%的技能攻击力,  - 该装备的成长属性等级之和每增加40级，额外增加1%的技能攻击力,  - 穿戴100级以下装备时不适用该效果"
+    if mode == 0:
+        x = sum(char.词条等级.get(part, [0]))
+        if x >= 240:
+            char.技能攻击力加成(0.01 * int((x - 200) / 40))
+    if mode == 1:
+        pass
+
+
+def entry_1239(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "装备提供的异常状态抗性总和超过5%以上时，增加相同数值的异常伤害(最多增加10%，适用于所有场景)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.异常增伤('中毒', 0.1)
+        char.异常增伤('灼烧', 0.1)
+        char.异常增伤('感电', 0.1)
+        char.异常增伤('出血', 0.1)
+
+
+def entry_1240(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "穿戴装备的强化/增幅数值总和每增加6，攻击强化 272(最多叠加24次)"
+    if mode == 0:
+        x = char.获取强化等级()
+        char.攻击强化加成(272 * min(24, int(x / 6)))
+    if mode == 1:
+        pass
+
+
+def entry_1241(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "穿戴装备的强化/增幅数值总和每增加1，所有速度 +2%(最多叠加12次)"
+    if mode == 0:
+        x = char.获取强化等级()
+        char.所有速度增加(0.02 * min(12, x))
+    if mode == 1:
+        pass
+
+
+def entry_1243(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "地下城入场时，攻击强化 2223, 连击维持时间 -0.5秒"
+    if mode == 0:
+        char.攻击强化加成(2223)
+    if mode == 1:
+        pass
+
+
+def entry_1245(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "物理伤害减少率和魔法伤害减少率总和超过60%以上时，技能冷却时间恢复速度 +15%(觉醒技能除外)"
+    if mode == 0:
+        char.技能恢复加成(1, 100, 0.15, [50, 85, 100])
+    if mode == 1:
+        pass
+
+
+def entry_1246(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "物品提供的攻击速度增加量总和超过140%以上时，技能攻击力 +30%, 被击时，所受伤害 +15%"
+    if mode == 0:
+        char.技能攻击力加成(0.3)
+    if mode == 1:
+        pass
+
+
+def entry_1249(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "HP在40%以下时，物理、魔法防御力 +14000，攻击强化 2816"
+    if mode == 0:
+        char.攻击强化加成(2816)
+    if mode == 1:
+        pass
+
+
+def entry_1250(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "最高属性强化每增加50，技能冷却时间恢复速度 +4%(最多叠加6次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能恢复加成(1, 100, 0.04 * 6)
+
+
+def entry_1251(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "最高属性强化每增加50，所有速度 +3%(最多叠加5次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.所有速度增加(0.03 * 5)
+
+
+def entry_1252(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "根据最高属性强化数值适用以下效果：, - 200~249: 攻击强化 1037, - 250~299: 攻击强化 1927, - 300~： 攻击强化 2816，技能攻击力 +7%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击强化加成(2816)
+        char.技能攻击力加成(0.07)
+
+
+def entry_1253(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "最高属性抗性超过75以上时，攻击强化 700"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击强化加成(700)
+
+
+def entry_1254(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "根据穿戴的所有装备的品级百分比总和适用以下效果：, - 800%以上：移动速度 +10%, - 900%以上：攻击速度 +10%，施放速度 +15%, - 1000%以上：物理、魔法暴击率 +10%, - 1150%以上：技能攻击力 +5%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能攻击力加成(0.05)
+
+
+def entry_1255(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "根据装备的品级百分比适用以下效果：, - 90%以下: 攻击强化 445, - 90%~95%: 攻击强化 1186, - 95%以上: 攻击强化 3557"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击强化加成(3557)
+
+
+def entry_1256(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "攻击时，适用的属性攻击对应的属性抗性每增加10，相应的属性强化 +10，效果持续30秒(最多增加40，冷却时间1秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.所有属性强化加成(10 * 4)
+
+
+def entry_1257(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "攻击时，使用的属性攻击对应的属性抗性 +10(最多叠加1次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.所有属性抗性加成(10)
+
+
+def entry_1190(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "周围有草坪时，所有属性抗性 +20，所有异常状态抗性 +10%，命中率 +10%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.所有属性抗性加成(20)
+        char.所有异常抗性加成(0.1)
+        char.命中率增加(0.1)
+
+
+def entry_1191(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "装扮背包中的装扮个数在120个以上：触发聚光灯，进入霸体状态，技能冷却时间 -8%(觉醒除外)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能冷却缩减(1, 100, 0.08, [50, 85, 100])
+
+
+def entry_1197(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "装备时，自身进入消耗品无法解除的出血状态, 出血状态每减少1100点HP，伤害增加 326(最多叠加10次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击强化加成(326 * 10)
+
+
+def entry_1198(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "灼烧伤害 +15%, 灼烧抗性 +10%"
+    if mode == 0:
+        char.异常增伤('灼烧', 0.15)
+        char.异常抗性加成('灼烧', 0.10)
+    if mode == 1:
+        pass
+
+
+def entry_1199(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "灼烧伤害 +20%"
+    if mode == 0:
+        char.异常增伤('灼烧', 0.20)
+    if mode == 1:
+        pass
+
+
+def entry_1200(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "灼烧抗性 +3%, 冰冻抗性 -1.5%"
+    if mode == 0:
+        char.异常抗性加成('灼烧', 0.03)
+        char.异常抗性加成('冰冻', -0.015)
+    if mode == 1:
+        pass
+
+
+def entry_1202(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于出血状态时，出血伤害 +10%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.异常增伤('出血', 0.10)
+
+
+def entry_1203(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于出血状态时，攻击速度、移动速度 +20%，施放速度 +30%,  出血抗性 -20%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击速度增加(0.2)
+        char.移动速度增加(0.2)
+        char.施放速度增加(0.3)
+        char.异常抗性加成('出血', -0.2)
+
+
+def entry_1204(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于出血状态时，伤害增加 2223, 自身处于出血状态时，每1秒，减少3%的攻击速度、移动速度、施放速度(最多叠加5次，解除出血状态时效果解除), 出血伤害 +5%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击强化加成(2223)
+        char.异常增伤('出血', 0.05)
+
+
+def entry_1205(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于出血状态时，物理、魔法暴击率 +10%，攻击速度 +5%，施放速度 +7.5%, 被击时，自身进入出血状态(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.暴击率增加(0.1)
+        char.攻击速度增加(0.05)
+        char.施放速度增加(0.075)
+
+
+def entry_1208(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于感电状态时，物理、魔法暴击率 +10%，攻击速度 +5%，施放速度 +7.5%, 被击时，自身进入感电状态(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.暴击率增加(0.1)
+        char.攻击速度增加(0.05)
+        char.施放速度增加(0.075)
+
+
+def entry_1212(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于中毒状态时，物理、魔法暴击率 +10%，攻击速度 +5%，施放速度 +7.5%, 被击时，自身进入中毒状态(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.暴击率增加(0.1)
+        char.攻击速度增加(0.05)
+        char.施放速度增加(0.075)
+
+
+def entry_1214(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身处于灼烧状态时，物理、魔法暴击率 +10%，攻击速度 +5%、施放速度 +7.5%, 被击时，自身进入灼烧状态(冷却时间5秒)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.暴击率增加(0.1)
+        char.攻击速度增加(0.05)
+        char.施放速度增加(0.075)
+
+
+def entry_1215(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身的异常个数达到1个以上时，Lv45以下技能冷却时间恢复速度 +50%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能恢复加成(1, 45, 0.5)
+
+
+def entry_1216(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身的异常个数达到3个以上时，Lv60以上技能冷却时间恢复速度 +50%(觉醒除外)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能恢复加成(60, 100, 0.5, [50, 85, 100])
+
+
+def entry_1217(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身感电时，攻击、移动速度 +20%，施放速度 +30%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击速度增加(0.2)
+        char.施放速度增加(0.3)
+
+
+def entry_1218(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身攻击每次对领主造成HP10%的伤害时，伤害增加 593，物理、魔法防御力 -10%(最多叠加5次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击强化加成(593 * 5)
+
+
+def entry_1219(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身获得2个以上消耗品效果时，自身进入出血状态，效果持续10秒(冷却时间10秒), 自身处于出血状态时，技能冷却时间恢复速度 +10%(觉醒技能除外)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能恢复加成(1, 100, 0.1, [50, 85, 100])
+
+
+def entry_1220(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身仅中毒异常状态时，每10秒随机适用下列效果中1个, - 所有速度 +30%, - 技能攻击力 +10%, - 技能冷却时间恢复速度 +30%(觉醒技能除外)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        # char.所有速度增加(0.3)
+        char.技能攻击力加成(0.1)
+        #char.技能恢复加成(1, 100, 0.3, [50, 85, 100])
+
+
+def entry_1222(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return "自身每处于灼烧状态1秒，所有属性强化 +3，持续15秒(最多叠加10次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.所有属性强化加成(3 * 10)
+
+
 def entry_1166(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "物理防御力 -21000, 魔法防御力 -21000, 技能冷却时间 -10%(觉醒技能除外)"
@@ -2190,7 +2766,7 @@ def entry_1173(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(2519)
+        char.攻击强化加成(2519)
 
 
 def entry_1174(char: Character = {}, mode=0, text=False, part=''):
@@ -2208,7 +2784,7 @@ def entry_1176(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(3853)
+        char.攻击强化加成(3853)
 
 
 def entry_1180(char: Character = {}, mode=0, text=False, part=''):
@@ -2274,7 +2850,7 @@ def entry_1105(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(504)
+        char.攻击强化加成(504)
         char.MP消耗量加成(0.2)
 
 
@@ -2284,7 +2860,7 @@ def entry_1106(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(2223)
+        char.攻击强化加成(2223)
         char.技能攻击力加成(0.06)
 
 
@@ -2314,7 +2890,7 @@ def entry_1133(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(2519)
+        char.攻击强化加成(2519)
 
 
 def entry_1139(char: Character = {}, mode=0, text=False, part=''):
@@ -2416,7 +2992,7 @@ def entry_1162(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(445 * 10)
+        char.攻击强化加成(445 * 10)
 
 
 def entry_1164(char: Character = {}, mode=0, text=False, part=''):
@@ -2639,7 +3215,7 @@ def entry_1004(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(2223)
+        char.攻击强化加成(2223)
 
 
 def entry_1011(char: Character = {}, mode=0, text=False, part=''):
@@ -2716,7 +3292,7 @@ def entry_1020(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(326 * 10)
+        char.攻击强化加成(326 * 10)
 
 
 def entry_1021(char: Character = {}, mode=0, text=False, part=''):
@@ -2752,7 +3328,7 @@ def entry_1025(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(2371 + 1186)
+        char.攻击强化加成(2371 + 1186)
 
 
 def entry_1026(char: Character = {}, mode=0, text=False, part=''):
@@ -2910,7 +3486,7 @@ def entry_1040(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(165 * 9)
+        char.攻击强化加成(165 * 9)
 
 
 def entry_1041(char: Character = {}, mode=0, text=False, part=''):
@@ -2919,7 +3495,7 @@ def entry_1041(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(362 * 9)
+        char.攻击强化加成(362 * 9)
 
 
 def entry_1042(char: Character = {}, mode=0, text=False, part=''):
@@ -2928,7 +3504,7 @@ def entry_1042(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(156 * 19)
+        char.攻击强化加成(156 * 19)
 
 
 def entry_1045(char: Character = {}, mode=0, text=False, part=''):
@@ -2986,7 +3562,7 @@ def entry_1050(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(889 * 5)
+        char.攻击强化加成(889 * 5)
 
 
 def entry_1052(char: Character = {}, mode=0, text=False, part=''):
@@ -3095,7 +3671,7 @@ def entry_1002(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(593)
+        char.攻击强化加成(593)
 
 
 def entry_902(char: Character = {}, mode=0, text=False, part=''):
@@ -3104,7 +3680,7 @@ def entry_902(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(400 * 10)
+        char.攻击强化加成(400 * 10)
 
 
 def entry_903(char: Character = {}, mode=0, text=False, part=''):
@@ -3113,7 +3689,7 @@ def entry_903(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(3260)
+        char.攻击强化加成(3260)
 
 
 def entry_905(char: Character = {}, mode=0, text=False, part=''):
@@ -3132,7 +3708,7 @@ def entry_910(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(2075)
+        char.攻击强化加成(2075)
 
 
 def entry_907(char: Character = {}, mode=0, text=False, part=''):
@@ -3171,7 +3747,7 @@ def entry_914(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(2668)
+        char.攻击强化加成(2668)
 
 
 def entry_917(char: Character = {}, mode=0, text=False, part=''):
@@ -3216,7 +3792,7 @@ def entry_930(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(889 * 3)
+        char.攻击强化加成(889 * 3)
 
 
 def entry_932(char: Character = {}, mode=0, text=False, part=''):
@@ -3243,7 +3819,7 @@ def entry_937(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(356 * 10)
+        char.攻击强化加成(356 * 10)
 
 
 def entry_938(char: Character = {}, mode=0, text=False, part=''):
@@ -4348,291 +4924,276 @@ def entry_299(char: Character = {}, mode=0, text=False, part=''):
         char.异常增伤('中毒', 0.3)
     if mode == 1:
         pass
+
+
 # endregion
 
 # region 敌人类型词条
+enemy_type = []
+enemy_type_list = ['', '机械', '恶魔', '精灵',
+                   '天使', '龙族', '人型', '野兽', '植物', '不死', '昆虫']
 
 
-def entry_enemy_type(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "选择敌人类型"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
+def set_enemy_type(x):
+    global enemy_type
+    enemy_type = []
+    for i in x:
+        enemy_type.append(enemy_type_list[i])
+
+
+entry_chose.append((20037, ['选择敌人类型'] + ['攻击{}敌人'.format(i)
+                                         for i in enemy_type_list[1:]]))
+variable_set[20037] = set_enemy_type
 
 
 def entry_37(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "机械(7%技攻)"
+        return "攻击机械型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '机械' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_38(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "恶魔(7%技攻)"
+        return "攻击恶魔型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '恶魔' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_39(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "精灵(7%技攻)"
+        return "攻击精灵型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '精灵' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_40(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "天使(7%技攻)"
+        return "攻击天使型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '天使' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_41(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "龙族(7%技攻)"
+        return "攻击龙族型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '龙族' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_106(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "人型(7%技攻)"
+        return "攻击人型型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '人型' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_107(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "野兽(7%技攻)"
+        return "攻击野兽型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '野兽' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_108(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "植物(7%技攻)"
+        return "攻击植物型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '植物' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_109(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "不死(7%技攻)"
+        return "攻击不死型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '不死' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
 def entry_110(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "昆虫(7%技攻)"
+        return "攻击昆虫型敌人时，技能攻击力 +7%"
     if mode == 0:
-        char.技能攻击力加成(0.07)
+        if '昆虫' in enemy_type:
+            char.技能攻击力加成(0.07)
     if mode == 1:
         pass
 
 
-entry_func_list[37] = [entry_enemy_type,
-                       entry_37,
-                       entry_38,
-                       entry_39,
-                       entry_40,
-                       entry_41,
-                       entry_106,
-                       entry_107,
-                       entry_108,
-                       entry_109,
-                       entry_110]
-
-entry_id_bind[37] = (37, 1)
-entry_id_bind[38] = (37, 2)
-entry_id_bind[39] = (37, 3)
-entry_id_bind[40] = (37, 4)
-entry_id_bind[41] = (37, 5)
-entry_id_bind[106] = (37, 6)
-entry_id_bind[107] = (37, 7)
-entry_id_bind[108] = (37, 8)
-entry_id_bind[109] = (37, 9)
-entry_id_bind[110] = (37, 10)
 # endregion
 
 # region 敌人状态词条
+state_type = []
+state_type_list = ['', '出血', '中毒', '灼烧', '感电', '眩晕',
+                   '诅咒', '睡眠', '束缚', '冰冻', '减速', '石化', '失明', '混乱']
 
 
-def entry_state_type(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "选择敌人状态"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
+def set_state_type(x):
+    global state_type
+    state_type = []
+    for i in x:
+        state_type.append(state_type_list[i])
+
+
+entry_chose.append((20042, ['选择敌人状态'] + ['攻击{}敌人'.format(i)
+                                         for i in state_type_list[1:]]))
+variable_set[20042] = set_state_type
 
 
 def entry_42(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "出血(5%技攻)"
+        return "攻击出血状态敌人时，技能攻击力 + 5%"
     if mode == 0:
-        char.技能攻击力加成(0.05)
+        if '出血' in state_type:
+            char.技能攻击力加成(0.05)
     if mode == 1:
         pass
 
 
 def entry_43(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "中毒(5%技攻)"
+        return "攻击中毒状态敌人时，技能攻击力 + 5%"
     if mode == 0:
-        char.技能攻击力加成(0.05)
+        if '中毒' in state_type:
+            char.技能攻击力加成(0.05)
     if mode == 1:
         pass
 
 
 def entry_44(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "灼烧(5%技攻)"
+        return "攻击灼烧状态敌人时，技能攻击力 + 5%"
     if mode == 0:
-        char.技能攻击力加成(0.05)
+        if '灼烧' in state_type:
+            char.技能攻击力加成(0.05)
     if mode == 1:
         pass
 
 
 def entry_45(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "感电(5%技攻)"
+        return "攻击感电状态敌人时，技能攻击力 + 5%"
     if mode == 0:
-        char.技能攻击力加成(0.05)
+        if '感电' in state_type:
+            char.技能攻击力加成(0.05)
     if mode == 1:
         pass
 
 
 def entry_46(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "眩晕(15%技攻)"
+        return "攻击眩晕状态敌人时，技能攻击力 + 15%"
     if mode == 0:
-        char.技能攻击力加成(0.15)
+        if '眩晕' in state_type:
+            char.技能攻击力加成(0.15)
     if mode == 1:
         pass
 
 
 def entry_47(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "诅咒(10%技攻)"
+        return "攻击诅咒状态敌人时，技能攻击力 + 10%"
     if mode == 0:
-        char.技能攻击力加成(0.10)
+        if '诅咒' in state_type:
+            char.技能攻击力加成(0.10)
     if mode == 1:
         pass
 
 
 def entry_48(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "睡眠(15%技攻)"
+        return "攻击睡眠状态敌人时，技能攻击力 + 15%"
     if mode == 0:
-        char.技能攻击力加成(0.15)
+        if '睡眠' in state_type:
+            char.技能攻击力加成(0.15)
     if mode == 1:
         pass
 
 
 def entry_49(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "束缚(10%技攻)"
+        return "攻击束缚状态敌人时，技能攻击力 + 10%"
     if mode == 0:
-        char.技能攻击力加成(0.10)
+        if '束缚' in state_type:
+            char.技能攻击力加成(0.10)
     if mode == 1:
         pass
 
 
 def entry_50(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "冰冻(15%技攻)"
+        return "攻击冰冻状态敌人时，技能攻击力 + 15%"
     if mode == 0:
-        char.技能攻击力加成(0.15)
+        if '冰冻' in state_type:
+            char.技能攻击力加成(0.15)
     if mode == 1:
         pass
 
 
 def entry_51(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "减速(10%技攻)"
+        return "攻击减速状态敌人时，技能攻击力 + 10%"
     if mode == 0:
-        char.技能攻击力加成(0.10)
+        if '减速' in state_type:
+            char.技能攻击力加成(0.10)
     if mode == 1:
         pass
 
 
 def entry_52(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "失明(10%技攻)"
+        return "攻击失明状态敌人时，技能攻击力 + 10%"
     if mode == 0:
-        char.技能攻击力加成(0.10)
+        if '失明' in state_type:
+            char.技能攻击力加成(0.10)
     if mode == 1:
         pass
 
 
 def entry_53(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "石化(15%技攻)"
+        return "攻击石化状态敌人时，技能攻击力 + 15%"
     if mode == 0:
-        char.技能攻击力加成(0.15)
+        if '石化' in state_type:
+            char.技能攻击力加成(0.15)
     if mode == 1:
         pass
 
 
 def entry_54(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "混乱(10%技攻)"
+        return "攻击混乱状态敌人时，技能攻击力 + 10%"
     if mode == 0:
-        char.技能攻击力加成(0.10)
+        if '混乱' in state_type:
+            char.技能攻击力加成(0.10)
     if mode == 1:
         pass
-
-
-entry_func_list[42] = [entry_state_type,
-                       entry_42,
-                       entry_43,
-                       entry_44,
-                       entry_45,
-                       entry_46,
-                       entry_47,
-                       entry_48,
-                       entry_49,
-                       entry_50,
-                       entry_51,
-                       entry_52,
-                       entry_53,
-                       entry_54]
-
-entry_id_bind[42] = (42, 1)
-entry_id_bind[43] = (43, 2)
-entry_id_bind[44] = (44, 3)
-entry_id_bind[45] = (45, 4)
-entry_id_bind[46] = (46, 5)
-entry_id_bind[47] = (47, 6)
-entry_id_bind[48] = (48, 7)
-entry_id_bind[49] = (49, 8)
-entry_id_bind[50] = (50, 9)
-entry_id_bind[51] = (51, 10)
-entry_id_bind[52] = (52, 11)
-entry_id_bind[53] = (53, 12)
-entry_id_bind[54] = (54, 13)
 
 
 def entry_55(char: Character = {}, mode=0, text=False, part=''):
@@ -4719,9 +5280,9 @@ def entry_376(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         if boss_time == 1:
-            char.伤害增加加成(0)
+            char.攻击强化加成(0)
         elif boss_time == 2:
-            char.伤害增加加成(-0)
+            char.攻击强化加成(-0)
 
 
 def entry_377(char: Character = {}, mode=0, text=False, part=''):
@@ -4822,94 +5383,91 @@ def entry_381(char: Character = {}, mode=0, text=False, part=''):
 # endregion
 
 # region 攻击类型选择
-def entry_attack_type(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "攻击类型选择"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
+attack_type = []
+attack_type_list = ['', '普通敌人', '稀有敌人', '领主敌人', '正面攻击', '背面攻击', '破招攻击',
+                    '非破招攻击']
+
+
+def set_attack_type(x):
+    global attack_type
+    attack_type = []
+    for i in x:
+        attack_type.append(attack_type_list[i])
+
+
+entry_chose.append((20351, ['选择攻击类型'] + ['{}'.format(i)
+                                         for i in attack_type_list[1:]]))
+variable_set[20351] = set_attack_type
 
 
 def entry_351(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "攻击普通敌人(15%技攻)"
+        return "攻击普通敌人时，技能攻击力 + 15%"
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.15)
+        if '普通敌人' in attack_type:
+            char.技能攻击力加成(0.15)
 
 
 def entry_369(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "攻击绿名/稀有敌人(8%技攻)"
+        return "攻击绿名/稀有敌人时，技能攻击力 + 8%"
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.08)
+        if '稀有敌人' in attack_type:
+            char.技能攻击力加成(0.08)
 
 
 def entry_387(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "正面攻击敌人(8%技攻)"
+        return "正面攻击敌人时，技能攻击力 + 8%"
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.08)
+        if '正面攻击' in attack_type:
+            char.技能攻击力加成(0.08)
 
 
 def entry_388(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "背击攻击敌人(8%技攻)"
+        return "背击攻击敌人时，技能攻击力 + 8%"
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.08)
+        if '背面攻击' in attack_type:
+            char.技能攻击力加成(0.08)
 
 
 def entry_399(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "破招攻击(8%技攻)"
+        return "破招攻击时，技能攻击力 + 8%"
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.08)
+        if '破招攻击' in attack_type:
+            char.技能攻击力加成(0.08)
 
 
 def entry_400(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "非破招攻击(8%技攻)"
+        return "非破招攻击时，技能攻击力 + 8%"
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.08)
+        if '非破招攻击' in attack_type:
+            char.技能攻击力加成(0.08)
 
 
 def entry_405(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "攻击领主敌人(6%技攻)"
+        return "攻击领主敌人时，技能攻击力 + 6%"
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.06)
-
-
-entry_func_list[351] = [entry_attack_type,
-                        entry_351,
-                        entry_369,
-                        entry_387,
-                        entry_388,
-                        entry_399,
-                        entry_400,
-                        entry_405]
-
-entry_id_bind[351] = (351, 1)
-entry_id_bind[369] = (351, 2)
-entry_id_bind[387] = (351, 3)
-entry_id_bind[388] = (351, 4)
-entry_id_bind[399] = (351, 5)
-entry_id_bind[400] = (351, 6)
-entry_id_bind[405] = (351, 7)
+        if '领主敌人' in attack_type:
+            char.技能攻击力加成(0.06)
 
 
 # endregion
@@ -6262,20 +6820,25 @@ def entry_809(char: Character = {}, mode=0, text=False, part=''):
 # endregion
 
 # region 选择地下城类型
+dungeons_type = []
+dungeons_type_list = ['', '[贵族机要]', '[毁坏的寂静城(高级)]', '[机械战神试验场]']
 
 
-def entry_dungeons_type(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "选择地下城类型"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
+def set_dungeons_type(x):
+    global dungeons_type
+    dungeons_type = []
+    for i in x:
+        dungeons_type.append(dungeons_type_list[i])
+
+
+entry_chose.append((20189, ['选择地下城类型'] + ['{}'.format(i)
+                                         for i in dungeons_type_list[1:]]))
+variable_set[20189] = set_dungeons_type
 
 
 def entry_189(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "[贵族机要]15%技攻"
+        return "进入[贵族机要]地下城时，技能攻击力 + 15%"
     if mode == 0:
         pass
     if mode == 1:
@@ -6284,7 +6847,7 @@ def entry_189(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_207(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "[毁坏的寂静城(高级)]15%技攻"
+        return "进入[毁坏的寂静城(高级)]地下城时，技能攻击力 + 15%"
     if mode == 0:
         pass
     if mode == 1:
@@ -6293,20 +6856,13 @@ def entry_207(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_225(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "[机械战神试验场]15%技攻"
+        return "进入[机械战神试验场]地下城时，技能攻击力 + 15%"
     if mode == 0:
         pass
     if mode == 1:
         char.技能攻击力加成(0.15)
 
 
-entry_func_list[187] = [entry_dungeons_type,
-                        entry_189,
-                        entry_207,
-                        entry_225]
-entry_id_bind[189] = (189, 1)
-entry_id_bind[207] = (189, 2)
-entry_id_bind[225] = (189, 3)
 # endregion
 
 # region 敌人韧性相关
@@ -7642,7 +8198,7 @@ def entry_1077(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(2223)
+        char.攻击强化加成(2223)
         char.技能攻击力加成(0.05)
 
 
@@ -7652,11 +8208,12 @@ def entry_1078(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(2668)
+        char.攻击强化加成(2668)
         char.技能攻击力加成(0.05)
 
 
 # endregion
+
 # region MP范围
 mp_rate_num = 0
 mp_rate_num_list = [0, 0, 10, 20, 30, 50, 60, 70, 90]
@@ -7687,7 +8244,7 @@ def entry_813(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(267 * 10)
+        char.攻击强化加成(267 * 10)
         if mp_rate_num < 60:
             char.技能攻击力加成(-0.04)
 
@@ -7726,7 +8283,7 @@ def entry_830(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         if mp_rate_num < 10:
-            char.伤害增加加成(3557)
+            char.攻击强化加成(3557)
 
 
 def entry_831(char: Character = {}, mode=0, text=False, part=''):
@@ -7736,7 +8293,7 @@ def entry_831(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         if mp_rate_num < 20:
-            char.伤害增加加成(2223)
+            char.攻击强化加成(2223)
 
 
 def entry_832(char: Character = {}, mode=0, text=False, part=''):
@@ -7755,7 +8312,7 @@ def entry_833(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         if mp_rate_num < 90:
-            char.伤害增加加成(711 * 5)
+            char.攻击强化加成(711 * 5)
 
 
 def entry_1079(char: Character = {}, mode=0, text=False, part=''):
@@ -7764,7 +8321,7 @@ def entry_1079(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(4298)
+        char.攻击强化加成(4298)
 
 # endregion
 
@@ -7907,7 +8464,7 @@ def entry_841(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.伤害增加加成(222 * min(20, gold_num))
+        char.攻击强化加成(222 * min(20, gold_num))
 # endregion
 
 # region 条件技能等级 (未实现)
@@ -10316,560 +10873,11 @@ def entry_790(char: Character = {}, mode=0, text=False, part=''):
 # endregion
 
 
-def entry_1190(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "周围有草坪时，所有属性抗性 +20，所有异常状态抗性 +10%，命中率 +10%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1191(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "装扮背包中的装扮个数在120个以上：触发聚光灯，进入霸体状态，技能冷却时间 -8%(觉醒除外)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1192(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "装备的HP恢复效果 +10%, 被击时所受伤害 +20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1193(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "装备的HP恢复效果 +20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1194(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "装备的MP恢复效果 +30%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1195(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "装备时，每20秒，使250px范围内的敌人进入诅咒状态, 前冲期间，诅咒使用范围逐渐增加，每秒减少0.5%的HP(该效果不会使HP减少到1%以下), 非前冲时，诅咒范围逐渐缩小"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1196(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "装备时，生成火属性Buff，持续20秒, - 火属性Buff持续期间，赋予火属性攻击, - 被冰属性攻击时，火属性Buff解除，持续20秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1197(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "装备时，自身进入消耗品无法解除的出血状态, 出血状态每减少1100点HP，伤害增加 326(最多叠加10次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1198(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "灼烧伤害 +15%, 灼烧抗性 +10%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1199(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "灼烧伤害 +20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1200(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "灼烧抗性 +3%, 冰冻抗性 -1.5%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1201(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于冰冻状态时，被击伤害 -30%，5秒内恢复20%的HP(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1202(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于出血状态时，出血伤害 +10%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1203(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于出血状态时，攻击速度、移动速度 +20%，施放速度 +30%,  出血抗性 -20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1204(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于出血状态时，伤害增加 2223, 自身处于出血状态时，每1秒，减少3%的攻击速度、移动速度、施放速度(最多叠加5次，解除出血状态时效果解除), 出血伤害 +5%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1205(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于出血状态时，物理、魔法暴击率 +10%，攻击速度 +5%，施放速度 +7.5%, 被击时，自身进入出血状态(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1206(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于出血状态时进行10次攻击，10秒内恢复15%的HP(冷却时间10秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1207(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于出血状态时进行攻击，使敌人进入出血状态(冷却时间8秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1208(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于感电状态时，物理、魔法暴击率 +10%，攻击速度 +5%，施放速度 +7.5%, 被击时，自身进入感电状态(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1209(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于石化状态时，被击伤害-30%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1210(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于石化状态时被击，使500px范围内所有敌人进入石化状态(冷却时间30秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1211(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于睡眠状态时被击，不会解除睡眠状态, 自身处于睡眠状态时被击，恢复15%的HP(冷却时间1秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1212(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于中毒状态时，物理、魔法暴击率 +10%，攻击速度 +5%，施放速度 +7.5%, 被击时，自身进入中毒状态(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1213(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于中毒状态时进行攻击，使敌人进入中毒状态(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1214(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身处于灼烧状态时，物理、魔法暴击率 +10%，攻击速度 +5%、施放速度 +7.5%, 被击时，自身进入灼烧状态(冷却时间5秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1215(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身的异常个数达到1个以上时，Lv45以下技能冷却时间恢复速度 +50%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1216(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身的异常个数达到3个以上时，Lv60以上技能冷却时间恢复速度 +50%(觉醒除外)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1217(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身感电时，攻击、移动速度 +20%，施放速度 +30%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1218(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身攻击每次对领主造成HP10%的伤害时，伤害增加 593，物理、魔法防御力 -10%(最多叠加5次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1219(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身获得2个以上消耗品效果时，自身进入出血状态，效果持续10秒(冷却时间10秒), 自身处于出血状态时，技能冷却时间恢复速度 +10%(觉醒技能除外)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1220(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身仅中毒异常状态时，每10秒随机适用下列效果中1个, - 所有速度 +30%, - 技能攻击力 +10%, - 技能冷却时间恢复速度 +30%(觉醒技能除外)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1221(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身每处于一种异常状态，被击伤害 -5%(最多减少30%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1222(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身每处于灼烧状态1秒，所有属性强化 +3，持续15秒(最多叠加10次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1223(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身命中率超过50%以上时，Lv1~25技能Lv+1"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1224(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身使敌人进入的冰冻状态无法被灼烧解除, 攻击冰冻状态敌人时，技能攻击力 +5%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1225(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身使敌人进入灼烧状态解除敌人冰冻状态时，敌人受到的灼烧伤害 +30%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1226(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身受到的非破招攻击伤害 +20%, 自身受到的破招攻击伤害 -15%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1227(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身睡眠时，无法使用消耗品，10秒内获得无敌Buff(冷却时间30秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1228(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身受到超过最大HP15%以上的伤害时，使500px范围内的所有敌人进入石化状态(冷却时间30秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1229(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身所受睡眠状态持续时间 -50%, 睡眠抗性 -20%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1230(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "自身移动速度超过80%以上时，Lv1~25技能Lv+1"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1231(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "诅咒抗性 +25%, 所有异常状态抗性 -5%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1232(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "最后一次赋予敌人的无力化异常状态（不包括出血、感电、中毒、灼烧）作为敌人下一次无力化的弱点属性"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1237(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return ", 该装备的成长属性等级之和达到240，增加1%的技能攻击力,  - 该装备的成长属性等级之和每增加40级，额外增加1%的技能攻击力,  - 穿戴100级以下装备时不适用该效果"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1239(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "装备提供的异常状态抗性总和超过5%以上时，增加相同数值的异常伤害(最多增加10%，适用于所有场景)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1240(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "穿戴装备的强化/增幅数值总和每增加6，攻击强化 272(最多叠加24次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1241(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "穿戴装备的强化/增幅数值总和每增加1，所有速度 +2%(最多叠加12次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1243(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "地下城入场时，攻击强化 2223, 连击维持时间 -0.5秒"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1245(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "物理伤害减少率和魔法伤害减少率总和超过60%以上时，技能冷却时间恢复速度 +15%(觉醒技能除外)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1246(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "物品提供的攻击速度增加量总和超过140%以上时，技能攻击力 +30%, 被击时，所受伤害 +15%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1247(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "技能MP消耗量 -50%, 被击时，所受伤害 +15%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1248(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "生成最大HP45%的自动充能保护罩，保护罩存在状态下10秒不被攻击时充能到最大值, 装备时，适用55%的HP(装备解除前，当前HP无法超过HP最大值的55%)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1249(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "HP在40%以下时，物理、魔法防御力 +14000，攻击强化 2816"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1250(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "最高属性强化每增加50，技能冷却时间恢复速度 +4%(最多叠加6次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1251(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "最高属性强化每增加50，所有速度 +3%(最多叠加5次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1252(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "根据最高属性强化数值适用以下效果：, - 200~249: 攻击强化 1037, - 250~299: 攻击强化 1927, - 300~： 攻击强化 2816，技能攻击力 +7%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1253(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "最高属性抗性超过75以上时，攻击强化 700"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1254(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "根据穿戴的所有装备的品级百分比总和适用以下效果：, - 800%以上：移动速度 +10%, - 900%以上：攻击速度 +10%，施放速度 +15%, - 1000%以上：物理、魔法暴击率 +10%, - 1150%以上：技能攻击力 +5%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1255(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "根据装备的品级百分比适用以下效果：, - 90%以下: 攻击强化 445, - 90%~95%: 攻击强化 1186, - 95%以上: 攻击强化 3557"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1256(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "攻击时，适用的属性攻击对应的属性抗性每增加10，相应的属性强化 +10，效果持续30秒(最多增加40，冷却时间1秒)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_1257(char: Character = {}, mode=0, text=False, part=''):
-    if text:
-        return "攻击时，使用的属性攻击对应的属性抗性 +10(最多叠加1次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
 # 目前成长词条范围
 for i in range(1260):
     try:
         if i not in entry_func_list.keys():
-            entry_func_list[i] = [eval('entry_{}'.format(i))]
+            entry_func_list[i] = eval('entry_{}'.format(i))
     except:
         pass
 
@@ -10881,7 +10889,7 @@ def entry_10001(char: Character = {}, mode=0, text=False, part=''):
         return "成长属性240级以上时增加1%技能攻击，每40级增加1%"
     if mode == 0:
         x = sum(char.词条等级.get(part, [0]))
-        if x >= 240:  # 判断是否穿戴神话装备
+        if x >= 240:
             char.技能攻击力加成(0.01 * int((x - 200) / 40))
     if mode == 1:
         pass
@@ -11009,7 +11017,7 @@ def entry_10014(char: Character = {}, mode=0, text=False, part=''):
 for i in range(10001, 10015):
     try:
         if i not in entry_func_list.keys():
-            entry_func_list[i] = [eval('entry_{}'.format(i))]
+            entry_func_list[i] = eval('entry_{}'.format(i))
     except:
         pass
 # endregion 部位固有属性

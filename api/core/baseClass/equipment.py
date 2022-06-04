@@ -108,7 +108,6 @@ class equipment_list():
         self.info = get_eq_info_data()
         self.entry_info = get_entry_info_data()
         self.load_equ()
-        self.chose = {}
 
     def load_equ(self) -> None:
         self.equ_list = {}
@@ -161,20 +160,13 @@ class equipment_list():
             id = int(i)
             if id >= 20000:  # 额外选项，参数设置
                 variable_set[id](choseinfo[i])
-            else:
-                self.chose.update({id: choseinfo[i]})
+            #else:
+            #    id 错误
 
     def get_func_by_id(self, id) -> Function:
-        from core.baseClass.entry import entry_func_list, entry_id_bind
-        if id in entry_id_bind.keys():
-            bindinfo = entry_id_bind[id]  # (id, chose)
-            if bindinfo[1] in self.chose.get(bindinfo[0], []):
-                return entry_func_list[bindinfo[0]][bindinfo[1]]
-            else:
-                return entry_func_list[bindinfo[0]][0]
-        else:
-            func_list = entry_func_list.get(id, [entry_func_list[0]])
-        return func_list[self.chose.get(id, [0])[0]]
+        from core.baseClass.entry import entry_func_list
+        func_list = entry_func_list.get(id, entry_func_list[0])
+        return func_list
 
     def get_func_list_by_idlist(self, idlist) -> List[Function]:
         temp = []

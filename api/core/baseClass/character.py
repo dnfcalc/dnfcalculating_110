@@ -559,6 +559,16 @@ class Character():
                 return True
         return False
 
+    def 获取强化等级(self, part=[]):
+        num = 0
+        temp = part
+        if len(temp) == 0:
+            temp += 部位列表
+        for i in temp:
+            num += self.打造详情.get(i, {}).get('cursed_number', 0)
+        return num    
+
+
     # endregion
 
     # 打造设置
