@@ -10876,8 +10876,7 @@ def entry_790(char: Character = {}, mode=0, text=False, part=''):
 # 目前成长词条范围
 for i in range(1260):
     try:
-        if i not in entry_func_list.keys():
-            entry_func_list[i] = eval('entry_{}'.format(i))
+        entry_func_list[i] = eval('entry_{}'.format(i))
     except:
         pass
 
@@ -11016,8 +11015,7 @@ def entry_10014(char: Character = {}, mode=0, text=False, part=''):
 # 部位固有属性
 for i in range(10001, 10015):
     try:
-        if i not in entry_func_list.keys():
-            entry_func_list[i] = eval('entry_{}'.format(i))
+        entry_func_list[i] = eval('entry_{}'.format(i))
     except:
         pass
 # endregion 部位固有属性

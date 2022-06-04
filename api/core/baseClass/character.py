@@ -675,7 +675,7 @@ class Character():
         try:
             from core.baseClass.sundry import get_sundryfunc_by_id
             func = get_sundryfunc_by_id(setinfo['SJX_TYPE'])
-            print(func)
+            #print(func)
             func(self, 0, False, setinfo['SJX_XY'], setinfo['SJX_SQ'])
         except:
             pass
