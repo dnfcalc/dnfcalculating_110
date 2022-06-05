@@ -42,3 +42,13 @@ export interface IIndividuation {
   column?: number
   key?: number
 }
+
+export interface IResultInfo {
+  skills: any
+  info: {
+    citiao: any
+    jintu: any
+    zhanjie: any
+  }
+  sumdamage: number
+}

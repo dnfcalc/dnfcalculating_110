@@ -1,38 +1,38 @@
 <script lang="tsx">
   import { defineComponent, ref, watch } from "vue"
-  import profile from "@/components/internal/profile.vue"
-  import equip from "./sub/equip.vue"
-  import jade from "./sub/jade.vue"
-  import clothes from "./sub/clothes.vue"
-  import others from "./sub/others.vue"
-  import petequ from "./sub/petequ.vue"
+  import Profile from "@/components/internal/profile.vue"
+  import Equip from "./sub/equip.vue"
+  import Jade from "./sub/jade.vue"
+  import Clothes from "./sub/clothes.vue"
+  import Others from "./sub/others.vue"
+  import Petequ from "./sub/petequ.vue"
 
   export default defineComponent({
-    components: { profile, equip, jade, clothes, others, petequ },
+    components: { Profile, Equip, Jade, Clothes, Others, Petequ },
     setup() {
       return () => (
         <div class="detail">
           <div>
             <div class="w-510px bg-hex-00000078">
-              <profile canChoose={true} showDetail={false} class="ml-auto mr-auto"></profile>
+              <Profile canChoose={true} showDetail={false} class="ml-auto mr-auto"></Profile>
             </div>
             <calc-collapse class="w-510px" title="装备打造(点击人物部位切换)">
-              <equip />
+              <Equip />
             </calc-collapse>
             <calc-collapse class="w-510px" title="装扮部分">
-              <clothes />
+              <Clothes />
             </calc-collapse>
           </div>
           <div class="pl-20px">
             <calc-collapse class="w-510px" title="宠物装备">
-              <petequ />
+              <Petequ />
             </calc-collapse>
             <calc-collapse class="w-510px" title="辟邪玉">
-              <jade />
+              <Jade />
             </calc-collapse>
 
             <calc-collapse class="w-510px" title="其它">
-              <others />
+              <Others />
             </calc-collapse>
           </div>
         </div>

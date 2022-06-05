@@ -1,9 +1,11 @@
 <script lang="tsx">
-  import { defineComponent, ref, renderList, computed, reactive, watch } from "vue"
-  import profile from "@/components/internal/profile.vue"
-  import { useBasicInfoStore, useConfigStore } from "@/store"
+  import { defineComponent, ref, renderList, computed, reactive, watch, onMounted } from "vue"
+  import Profile from "@/components/internal/profile.vue"
+  import { useBasicInfoStore, useConfigStore, useCharacterStore } from "@/store"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { IEquipmentInfo } from "@/api/info/type"
+  import { getUuid, setSession, toObj } from "@/utils"
+  import openURL from "@/utils/openURL"
 
   const EPIC_EQUIP = 0
 
@@ -14,16 +16,17 @@
   const WEAPON = 3
 
   export default defineComponent({
-    components: { profile, EquipTips },
-    setup() {
+    async setup() {
       const type = ref(EPIC_EQUIP)
       const configStore = useConfigStore()
       const basicStore = useBasicInfoStore()
+      const characterStore = useCharacterStore()
 
       const equips = computed(() => basicStore.equipment_info?.lv110 ?? [])
       const weapons = computed(() => basicStore.equipment_info?.weapon ?? [])
       const myths = computed(() => basicStore.equipment_info?.myth ?? [])
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
+      let result = reactive(await configStore.calc(true))
 
       function isActive(equ: IEquipmentInfo) {
         return configStore.single_set.findIndex(e => e === equ.id) > -1
@@ -106,6 +109,32 @@
         }
       }
 
+      watch(curEquList, async val => {
+        if (val.map(item => item.typeName).length < 12) return
+        result = await configStore.calc(true)
+      })
+
+      function detail() {
+        const saveData = result
+        const uid = getUuid()
+        // 详情界面
+        setSession(
+          uid,
+          toObj({
+            res: saveData,
+            forge_set: configStore.forge_set,
+            alter: characterStore.alter,
+            name: characterStore.name
+          })
+        )
+        openURL("/result?uid=" + uid, { width: 890, height: 600 })
+      }
+
+      // onMounted(async () => {
+      //   if (curEquList.value.map(item => item.typeName).length < 12) return
+      //   result.value = await configStore.calc(true)
+      // })
+
       // const showequ = () => {}
 
       return () => (
@@ -132,11 +161,13 @@
           </div>
           <div>
             <div class="flex h-24px mt-7px items-center justify-between !mr-8px !ml-8px">
-              <calc-button>设为基准</calc-button>
-              <calc-button>清空基准</calc-button>
-              <calc-button>查看详情</calc-button>
+              <calc-button class="!w-30%">设为基准</calc-button>
+              <calc-button class="!w-30%">清空基准</calc-button>
+              <calc-button class="!w-30%" onClick={detail}>
+                查看详情
+              </calc-button>
             </div>
-            <profile equ-list={curEquList.value} class="m-5px !mt-0 !mr-2px !ml-2px"></profile>
+            <Profile details={result.info} sumdamage={result.sumdamage} equ-list={curEquList.value} class="m-5px !mt-0 !mr-2px !ml-2px"></Profile>
           </div>
           <div class="flex m-10px mr-2px mb-0 ml-2px w-350px justify-center">辟邪玉提升率(理论值仅供参考)</div>
         </div>

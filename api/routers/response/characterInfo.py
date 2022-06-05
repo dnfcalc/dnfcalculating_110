@@ -1,6 +1,7 @@
 import importlib
+from typing import List
 import core.set as set
-from core.calc.calc import calc_set
+from core.calc.calc import calc_set, calc_single_set
 
 
 def get_character_info(character: str):
@@ -24,3 +25,7 @@ def get_set_list(alter: str):
 
 def calc(alter: str, setName: str):
     return calc_set(alter, setName)
+
+
+def calc_single(alter: str, setName: str, equipList: List[int]):
+    return calc_single_set(alter, setName, equipList)

@@ -18,20 +18,22 @@
         return route.meta.title ?? appStore.title
       })
 
-      const timer = setInterval(async () => {
-        try {
-          await api.heartbeat()
-        } catch (e) {
-          clearInterval(timer)
-          await alert({
-            content: "网络连接中断(-1)"
-          })
-        }
-      }, 5000)
+      if (process.env.NODE_ENV !== "development") {
+        const timer = setInterval(async () => {
+          try {
+            await api.heartbeat()
+          } catch (e) {
+            clearInterval(timer)
+            await alert({
+              content: "网络连接中断(-1)"
+            })
+          }
+        }, 5000)
 
-      onUnmounted(() => {
-        clearInterval(timer)
-      })
+        onUnmounted(() => {
+          clearInterval(timer)
+        })
+      }
 
       return () => (
         <>

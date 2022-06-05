@@ -113,12 +113,15 @@ export const useConfigStore = defineStore("config", {
     async set(name: string, item: Record<string, any>) {
       this[name] = item
     },
-    async calc() {
+    async calc(single: boolean = false) {
       this.customizeInit()
-      return await api.calc({
-        setInfo: toObj(this.data),
-        setName: this.name
-      })
+      return await api.calc(
+        {
+          setInfo: toObj(this.data),
+          setName: this.name
+        },
+        single
+      )
     },
     setSkill(skill: string, key: string, value: any) {
       const index = this.skill_set.findIndex(item => item.name == skill)

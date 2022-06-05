@@ -160,7 +160,7 @@ class equipment_list():
             id = int(i)
             if id >= 20000:  # 额外选项，参数设置
                 variable_set[id](choseinfo[i])
-            #else:
+            # else:
             #    id 错误
 
     def get_func_by_id(self, id) -> Function:
@@ -186,13 +186,13 @@ class equipment_list():
     def get_chose_set_info(self) -> List[tuple]:
         from core.baseClass.entry import entry_func_list, entry_chose
         info = []
-        for i in entry_func_list.keys():
-            temp = entry_func_list[i]
-            if len(temp) > 1:
-                ctext = []
-                for k in temp:
-                    ctext.append(k(text=True))
-                info.append((i, ctext))
+        # for i in entry_func_list.keys():
+        #     temp = entry_func_list[i]
+        # if len(temp) > 1:
+        #     ctext = []
+        #     for k in temp:
+        #         ctext.append(k(text=True))
+        #     info.append((i, ctext))
         return info + entry_chose
 
     def get_chose_set(self, mode=0) -> List[Dict]:

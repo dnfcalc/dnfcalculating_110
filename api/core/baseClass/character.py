@@ -566,12 +566,12 @@ class Character():
             temp += 部位列表
         for i in temp:
             num += self.打造详情.get(i, {}).get('cursed_number', 0)
-        return num    
-
+        return num
 
     # endregion
 
     # 打造设置
+
     def __打造设置(self, setinfo):
         self.打造详情 = setinfo
         for i in 部位列表 + ('称号', '宠物', ):
@@ -675,7 +675,7 @@ class Character():
         try:
             from core.baseClass.sundry import get_sundryfunc_by_id
             func = get_sundryfunc_by_id(setinfo['SJX_TYPE'])
-            #print(func)
+            # print(func)
             func(self, 0, False, setinfo['SJX_XY'], setinfo['SJX_SQ'])
         except:
             pass
@@ -1019,13 +1019,13 @@ class Character():
         self.伤害指数 /= 1000
     # endregion
 
-    def calc(self, setName):
+    def calc(self, setName: str = 'set', equipList: List[int] = []):
         info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
 
         # 获取打造数据
         self.__打造设置(info['forge_set'])
         # 获取装备列表
-        self.__穿戴装备(info['equip_list'])
+        self.__穿戴装备(equipList)
         # 获取技能数据
         self.__skill_set(info['skill_set'])
         # 获取装备选项数据

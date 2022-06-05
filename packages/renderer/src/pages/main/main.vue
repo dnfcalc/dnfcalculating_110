@@ -7,6 +7,8 @@
   import openURL from "@/utils/openURL"
   import { defineComponent, onBeforeMount, ref, renderList } from "vue"
   import { useRoute, useRouter } from "vue-router"
+  import { useDialog } from "@/components/hooks/dialog"
+  const { alert } = useDialog()
 
   export default defineComponent(async () => {
     const char = useRoute().query.name as string
@@ -19,6 +21,10 @@
     })
 
     const calc = async () => {
+      alert({
+        content: () => <>暂不支持多套计算</>
+      })
+      return
       // 一堆前处理和判断，然后计算
       const saveData = await configStore.calc()
       const uid = getUuid()

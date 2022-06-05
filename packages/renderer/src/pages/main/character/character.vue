@@ -1,29 +1,28 @@
 <script lang="tsx">
   import { computed, defineComponent, onMounted, reactive, ref, renderList } from "vue"
   import { useCharacterStore } from "@/store"
-  import cp from "./sub/cp.vue"
-  import hotkey from "./sub/hotkey.vue"
-  import skill from "./sub/skill.vue"
-  import skillqueue from "./sub/skillqueue.vue"
+  import Cp from "./sub/cp.vue"
+  import Hotkey from "./sub/hotkey.vue"
+  import Skill from "./sub/skill.vue"
+  import Skillqueue from "./sub/skillqueue.vue"
 
   export default defineComponent({
-    components: { cp, hotkey, skill, skillqueue },
     setup() {
       return () => (
         <div class="character flex">
           <div class="flex p-5px">
-            <skill></skill>
+            <Skill></Skill>
           </div>
           <div>
             <div class="h-220px subitem mt-2%">
-              <cp></cp>
+              <Cp></Cp>
             </div>
             <div class="skill-slots subitem mt-2%">
-              <hotkey></hotkey>
+              <Hotkey></Hotkey>
             </div>
           </div>
           <div class="flex p-5px pl-35px">
-            <skillqueue></skillqueue>
+            <Skillqueue></Skillqueue>
           </div>
         </div>
       )

@@ -5,8 +5,8 @@
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
 
   interface IDetail {
-    mingwang: number
-    zhanjie: {
+    mingwang?: number
+    zhanjie?: {
       zhili?: number
       liliang?: number
       wuligongji?: number
@@ -17,7 +17,7 @@
       guang?: number
       an?: number
     }
-    jintu: {
+    jintu?: {
       zhili?: number
       liliang?: number
       wuligongji?: number
@@ -83,6 +83,9 @@
       equList: {
         type: Array as PropType<IEquipmentInfo[]>,
         default: []
+      },
+      sumdamage: {
+        type: Number
       }
     },
     components: { EquipTips },
@@ -214,40 +217,43 @@
                     <div class="de-item">
                       <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
                       <div class="text-hex-836832 name">力量</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie.liliang}</div>
+                      <div class="text-hex-3ea74e">{details?.zhanjie?.liliang?.toFixed(0)}</div>
                     </div>
                     <div class="de-item">
                       <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
                       <div class="text-hex-836832 name">智力</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie.zhili}</div>
+                      <div class="text-hex-3ea74e">{details?.zhanjie?.zhili?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
                       <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
                       <div class="text-hex-836832 name">物理攻击</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie.wuligongji}</div>
+                      <div class="text-hex-3ea74e">{details?.zhanjie?.wuligongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
                       <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
                       <div class="text-hex-836832 name">魔法攻击</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie.mofagongji}</div>
+                      <div class="text-hex-3ea74e">{details?.zhanjie?.mofagongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
                       <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
                       <div class="text-hex-836832 name">独立攻击</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie.duligongji}</div>
+                      <div class="text-hex-3ea74e">{details?.zhanjie?.duligongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
                       <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
                       <div class="text-hex-836832 name">攻击属性</div>
-                      <div class="text-hex-3ea74e">{`火(${details?.zhanjie.huo})/冰(${details?.zhanjie.bing})/光(${details?.zhanjie.guang})/暗(${details?.zhanjie.an})`}</div>
+                      <div class="text-hex-3ea74e">{`火(${details?.zhanjie?.huo?.toFixed(0)})/冰(${details?.zhanjie?.bing?.toFixed(0)})/光(${details?.zhanjie?.guang?.toFixed(
+                        0
+                      )})/暗(${details?.zhanjie?.an?.toFixed(0)})`}</div>
                     </div>
                   </div>
                 </>
               )}
+              {props.sumdamage && <div class="sum">{props.sumdamage.round(0).toLocaleString()}</div>}
             </div>
           </div>
         )
@@ -299,7 +305,11 @@
       }
 
       .details {
-        height: 160px;
+        max-height: 160px;
+        overflow-y: auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
         -webkit-font-smoothing: none;
         // background-color: rgba(0, 0, 0, 0.8);
         margin-top: 2px;
@@ -320,6 +330,22 @@
             width: 50px;
           }
         }
+      }
+
+      .sum {
+        height: 50px;
+        // border-top: 1px solid rgba(255, 255, 255, 0.1);
+        // border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid;
+        border-image-source: linear-gradient(to right, #644f23, #d8b04f, #644f23);
+        margin-left: 5px;
+        margin-right: 5px;
+        border-image-slice: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 25px;
       }
     }
   }

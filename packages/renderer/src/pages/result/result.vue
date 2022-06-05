@@ -3,17 +3,17 @@
   import { defineComponent, ref, renderList } from "vue"
   import { useRoute } from "vue-router"
   import { useCharacterStore, useConfigStore, useAppStore } from "@/store"
-  import profile from "@/components/internal/profile.vue"
+  import Profile from "@/components/internal/profile.vue"
   import { skill_icon } from "@/pages/main/character/sub/utils"
+  import { IResultInfo } from "@/api/character/type"
 
   export default defineComponent({
-    components: { profile },
     async setup() {
       const uid = (useRoute().query.uid as string) ?? ""
       const configStore = useConfigStore()
       const characterStore = useCharacterStore()
       let data: any = await getSession(uid)
-      const res = data.res
+      const res: IResultInfo = data.res
       configStore.forge_set = (toMap({ forge_set: data.forge_set }) as { forge_set: any }).forge_set
       characterStore.alter = data.alter
       characterStore.name = data.name
@@ -33,7 +33,7 @@
       return () => (
         <>
           <div class="m-0 flex h-100% detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:100% 100%">
-            <div class="h-100% w-266px flex justify-center">{<profile class="!m-0 !p-0" details={res.info}></profile>}</div>
+            <div class="h-100% w-266px flex justify-center">{<Profile class="!m-0 !p-0" details={res.info}></Profile>}</div>
             <div class="flex-1 bg-hex-000000/60 ml-1px pl-15px pr-15px pt-10px pb-10px" style="border:1px solid rgba(255,255,255,0.15)">
               <div class="w-100% h-100% bg-hex-000000/40 text-hex-FFFFFF flex flex-col" style="border:1px solid rgba(255,255,255,0.15)">
                 <div class="h-15px bg-black flex justify-between !text-hex-B2966B">

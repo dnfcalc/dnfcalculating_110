@@ -4276,7 +4276,7 @@ def entry_26(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "所有属性强化 +15, 所有属性抗性 -10"
     if mode == 0:
-        char.__所有属性强化(15)
+        char.所有属性强化加成(15)
         char.所有属性抗性加成(-10)
     if mode == 1:
         pass
@@ -6832,7 +6832,7 @@ def set_dungeons_type(x):
 
 
 entry_chose.append((20189, ['选择地下城类型'] + ['{}'.format(i)
-                                         for i in dungeons_type_list[1:]]))
+                                          for i in dungeons_type_list[1:]]))
 variable_set[20189] = set_dungeons_type
 
 
@@ -8440,7 +8440,7 @@ def set_gold_num(x):
 
 
 entry_chose.append((20840, ['选择金币数量'] + ['{}千万'.format(i)
-                   for i in gold_num_list[1:]]))
+                                         for i in gold_num_list[1:]]))
 multi_select[20840] = False
 variable_set[20840] = set_gold_num
 
