@@ -11,20 +11,12 @@ export interface HttpResponse<T = unknown> {
 
 let instance: AxiosInstance | null = null
 
-function getBaseUrl() {
-  if (process.env.NODE_ENV === "development") {
-    return "http://127.0.0.1:17173/api"
-  } else if (process.env.NODE_ENV === "production") {
-    return "http://127.0.0.1:17173/api"
-  } else {
-    return "http://127.0.0.1:17173/api"
-  }
-}
+const baseURL = "http://127.0.0.1:17173/api"
 
 export function defineRequest<T>(fn: (ax: AxiosInstance) => T) {
   if (!instance) {
     instance = axios.create({
-      baseURL: getBaseUrl()
+      baseURL
     })
 
     instance.interceptors.request.use(

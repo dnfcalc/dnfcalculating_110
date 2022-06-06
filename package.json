@@ -9,14 +9,14 @@
     ]
   },
   "scripts": {
-    "dev-server": "python ./api/main.py",
-    "dev-web": "vite ./packages/renderer",
-    "dev-elec": "node scripts/watch.mjs",
-    "build": "node internal/build.mjs",
+    "dev:server": "python ./api/main.py",
+    "dev:web": "vite ./packages/renderer",
+    "dev:elec": "node scripts/watch.mjs",
+    "build": "pnpm -r build",
     "postinstall": "husky install",
-    "clean-pycache": "rimraf ./**/__pycache__",
-    "clean-deps": "rimraf ./**/node_modules",
-    "release": "bumpp",
+    "clean:pycache": "rimraf ./**/__pycache__",
+    "clean:deps": "rimraf ./**/node_modules",
+    "release": "bumpp package.json packages/*/package.json",
     "git": "git fetch --all && git reset --hard origin/master && git pull && git remote prune origin"
   },
   "engines": {
@@ -24,14 +24,15 @@
   },
   "devDependencies": {
     "bumpp": "^7.1.1",
+    "dayjs": "^1.11.2",
     "electron": "16.0.8",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.5",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
+    "sortablejs": "1.14.0",
     "typescript": "^4.5.5",
-    "vite": "^2.9.9",
-    "sortablejs": "1.14.0"
+    "vite": "^2.9.9"
   },
   "env": {
     "//": "Used in build scripts",

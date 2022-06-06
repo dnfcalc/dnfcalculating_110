@@ -1,11 +1,11 @@
 import { createApp } from "vue"
-import App from "./App.vue"
+import App from "@/pages/index.vue"
 import { pinia } from "./store"
 import router from "./router"
 
 import "uno.css"
 
-import "./assets/style/app.scss"
+import "./app.scss"
 
 createApp(App).use(pinia).use(router).mount("#app").$nextTick(window.removeLoading)
 

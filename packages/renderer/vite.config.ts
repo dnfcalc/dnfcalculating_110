@@ -19,6 +19,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src")
     }
   },
+  define: {
+    APP_VERSION: `"${pkg.version}"`
+  },
   plugins: [
     unocss({
       rules: [

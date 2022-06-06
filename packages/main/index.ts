@@ -26,7 +26,7 @@ async function createWindow() {
     width: 861,
     height: 680,
     resizable: false,
-    icon: join(__dirname, "./logo.ico"),
+    icon: join(__dirname, "./favicon.ico"),
     webPreferences: {
       preload: join(__dirname, "../preload/index.cjs"),
       nodeIntegration: true,
@@ -99,7 +99,7 @@ ipcMain.handle("open-win", (event, arg) => {
     height: arg.height,
     resizable: false,
     frame: false,
-    icon: join(__dirname, "./logo.ico"),
+    icon: join(__dirname, "./favicon.ico"),
     webPreferences: {
       preload: join(__dirname, "../preload/index.cjs"),
       webSecurity: false,

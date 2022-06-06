@@ -1,7 +1,9 @@
 export {}
 
 declare global {
-  type ID = string | number | symbol
+  type Num = string | number
+
+  type ID = Num | symbol
   interface Window {
     // Expose some Api through preload script
     ipcRenderer: import("electron").IpcRenderer
@@ -30,4 +32,6 @@ declare global {
     min(callback: (t: T) => number): [number, T | undefined]
     max(callback: (t: T) => number): [number, T | undefined]
   }
+
+  const APP_VERSION: string
 }
