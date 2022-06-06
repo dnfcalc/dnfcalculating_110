@@ -16,7 +16,7 @@ class Return(GenericModel, Generic[T]):
     data: Union[T, dict, str] = None
 
 
-def reponse(*, code=200, data: Union[list, dict, str], message="Success"):
+def response(*, code=200, data: Union[list, dict, str], message="Success"):
     return Return(code=code, message=message, data=data)
 
 

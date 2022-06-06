@@ -21,28 +21,19 @@
     })
 
     const calc = async () => {
-      alert({
-        content: () => <>暂不支持多套计算</>
-      })
-      return
+      // alert({
+      //   content: () => <>暂不支持多套计算</>
+      // })
+      // return
       // 一堆前处理和判断，然后计算
       const saveData = await configStore.calc()
-      const uid = getUuid()
       if (saveData instanceof Array) {
         // 排行界面
-        openURL("/ranking?uid=" + uid, { width: 800, height: 800 })
+        openURL("/ranking?uid=" + saveData.id, { width: 800, height: 800 })
       } else {
         // 详情界面
-        setSession(
-          uid,
-          toObj({
-            res: saveData,
-            forge_set: configStore.forge_set,
-            alter: characterStore.alter,
-            name: characterStore.name
-          })
-        )
-        openURL("/result?uid=" + uid, { width: 890, height: 600 })
+
+        openURL("/result?uid=" + saveData.id, { width: 890, height: 600 })
       }
     }
 
@@ -94,7 +85,7 @@
                 </calc-select>
               </div>
               <div class="flex col-4 justify-center">
-                <calc-button class="!h-28px w-80%" onClick={calc}>
+                <calc-button class="w-80% !h-28px" onClick={calc}>
                   开始计算
                 </calc-button>
               </div>

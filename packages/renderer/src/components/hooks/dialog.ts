@@ -10,6 +10,8 @@ function randomId() {
   return Symbol(Math.random().toString(36).slice(2, 9))
 }
 
+type DialogID = string | number | symbol
+
 export interface ShowDialogOption {
   title?: string
   content?: (() => ElementLike) | ElementLike
@@ -25,7 +27,7 @@ export interface ShowDialogOption {
 }
 
 export interface DialogInstance {
-  id?: ID
+  id?: DialogID
   render: () => ElementLike
 }
 
@@ -38,7 +40,7 @@ export interface DialogResult {
 }
 
 export const useDialog = createSharedComposable(() => {
-  const dialogs = reactive(new Map<ID, DialogInstance>())
+  const dialogs = reactive(new Map<DialogID, DialogInstance>())
 
   //注册窗口
   function open(dialog: DialogInstance) {
@@ -47,7 +49,7 @@ export const useDialog = createSharedComposable(() => {
     return id
   }
 
-  function close(id: ID) {
+  function close(id: DialogID) {
     return dialogs.delete(id)
   }
 

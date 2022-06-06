@@ -5,6 +5,9 @@
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
 
   interface IDetail {
+    name?: string
+    alter?: string
+
     mingwang?: number
     zhanjie?: {
       zhili?: number
@@ -185,8 +188,8 @@
             <div class="char-back">
               <div class="head" style="background-image:url(images/common/head.png)">
                 <div
-                  class="w-266px h-170px bg-bottom flex char"
-                  style={"background-image:url(images/characters/" + characterStore.alter + "/人物.png);background-repeat: no-repeat; position: absolute;"}
+                  class="bg-bottom flex h-170px w-266px char"
+                  style={"background-image:url(images/characters/" + characterStore.alter + "/profile.png);background-repeat: no-repeat; position: absolute;"}
                 >
                   [{characterStore.name}]
                   {renderList(display_parts, (item, index) => (
@@ -194,7 +197,7 @@
                       <div onClick={setPart(item)} class="absolute" style={infoStyle(item)}>
                         {currentInfo(item)}
                       </div>
-                      <div onClick={setPart(item)} class="absolute w-7 h-7" style={partIconStyle(item)}>
+                      <div onClick={setPart(item)} class="h-7 w-7 absolute" style={partIconStyle(item)}>
                         {getEqu(item) && <EquipTips eq={getEqu(item)} canClick={false} show-tips></EquipTips>}
                       </div>
                     </>
@@ -207,44 +210,44 @@
                   {props.showMW && (
                     <div class="mingwang">
                       <img src="./images/common/mingwang.png" />
-                      <div class="text-hex-836832 ml-2px">冒险家名望</div>
-                      <div class="text-hex-3ea74e ml-8px" style="width:55px">
+                      <div class="ml-2px text-hex-836832">冒险家名望</div>
+                      <div class="ml-8px text-hex-3ea74e" style="width:55px">
                         {details?.mingwang}
                       </div>
                     </div>
                   )}
                   <div class="details">
                     <div class="de-item">
-                      <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
                       <div class="text-hex-836832 name">力量</div>
                       <div class="text-hex-3ea74e">{details?.zhanjie?.liliang?.toFixed(0)}</div>
                     </div>
                     <div class="de-item">
-                      <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
                       <div class="text-hex-836832 name">智力</div>
                       <div class="text-hex-3ea74e">{details?.zhanjie?.zhili?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
-                      <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
                       <div class="text-hex-836832 name">物理攻击</div>
                       <div class="text-hex-3ea74e">{details?.zhanjie?.wuligongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
-                      <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
                       <div class="text-hex-836832 name">魔法攻击</div>
                       <div class="text-hex-3ea74e">{details?.zhanjie?.mofagongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
-                      <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
                       <div class="text-hex-836832 name">独立攻击</div>
                       <div class="text-hex-3ea74e">{details?.zhanjie?.duligongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
-                      <img class="w-15px h-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
                       <div class="text-hex-836832 name">攻击属性</div>
                       <div class="text-hex-3ea74e">{`火(${details?.zhanjie?.huo?.toFixed(0)})/冰(${details?.zhanjie?.bing?.toFixed(0)})/光(${details?.zhanjie?.guang?.toFixed(
                         0
