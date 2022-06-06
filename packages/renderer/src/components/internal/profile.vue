@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
   import { useCharacterStore, useDetailsStore, useConfigStore } from "@/store"
-  import { defineComponent, PropType, renderList } from "vue"
+  import { computed, defineComponent, PropType, renderList } from "vue"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
 
   interface IDetail {
@@ -93,7 +93,9 @@
     },
     components: { EquipTips },
     setup(props, { emit }) {
-      let details = props.details as IDetail
+      // let details = props.details as IDetail
+
+      const details = computed(() => (props.details as IDetail) ?? undefined)
       // details.zhanjie = {
       //   huo: 999,
       //   bing: 999,
@@ -212,7 +214,7 @@
                       <img src="./images/common/mingwang.png" />
                       <div class="ml-2px text-hex-836832">冒险家名望</div>
                       <div class="ml-8px text-hex-3ea74e" style="width:55px">
-                        {details?.mingwang}
+                        {details.value?.mingwang}
                       </div>
                     </div>
                   )}
@@ -220,38 +222,38 @@
                     <div class="de-item">
                       <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
                       <div class="text-hex-836832 name">力量</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie?.liliang?.toFixed(0)}</div>
+                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.liliang?.toFixed(0)}</div>
                     </div>
                     <div class="de-item">
                       <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
                       <div class="text-hex-836832 name">智力</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie?.zhili?.toFixed(0)}</div>
+                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.zhili?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
                       <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
                       <div class="text-hex-836832 name">物理攻击</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie?.wuligongji?.toFixed(0)}</div>
+                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.wuligongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
                       <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
                       <div class="text-hex-836832 name">魔法攻击</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie?.mofagongji?.toFixed(0)}</div>
+                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.mofagongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
                       <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
                       <div class="text-hex-836832 name">独立攻击</div>
-                      <div class="text-hex-3ea74e">{details?.zhanjie?.duligongji?.toFixed(0)}</div>
+                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.duligongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
                       <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
                       <div class="text-hex-836832 name">攻击属性</div>
-                      <div class="text-hex-3ea74e">{`火(${details?.zhanjie?.huo?.toFixed(0)})/冰(${details?.zhanjie?.bing?.toFixed(0)})/光(${details?.zhanjie?.guang?.toFixed(
+                      <div class="text-hex-3ea74e">{`火(${details.value?.zhanjie?.huo?.toFixed(0)})/冰(${details.value?.zhanjie?.bing?.toFixed(0)})/光(${details.value?.zhanjie?.guang?.toFixed(
                         0
-                      )})/暗(${details?.zhanjie?.an?.toFixed(0)})`}</div>
+                      )})/暗(${details.value?.zhanjie?.an?.toFixed(0)})`}</div>
                     </div>
                   </div>
                 </>
