@@ -1,6 +1,6 @@
 {
   "name": "dcalc-main",
-  "version": "2022.6.1",
+  "version": "2022.6.6",
   "license": "MIT",
   "scripts": {
     "build": "vite build"

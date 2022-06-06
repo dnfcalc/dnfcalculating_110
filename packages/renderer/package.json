@@ -1,6 +1,6 @@
 {
   "name": "dcalc-renderer",
-  "version": "2022.6.1",
+  "version": "2022.6.6",
   "license": "MIT",
   "scripts": {
     "dev": "vite",

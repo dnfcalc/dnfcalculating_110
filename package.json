@@ -1,6 +1,6 @@
 {
   "name": "dcalc",
-  "version": "2022.6.1",
+  "version": "2022.6.6",
   "main": "dist/web/main/index.cjs",
   "license": "MIT",
   "lint-staged": {
@@ -16,7 +16,7 @@
     "postinstall": "husky install",
     "clean:pycache": "rimraf ./**/__pycache__",
     "clean:deps": "rimraf ./**/node_modules",
-    "release": "bumpp package.json packages/*/package.json",
+    "release": "bumpp package.json packages/*/package.json --commit \"release: v\" --push --tag",
     "git": "git fetch --all && git reset --hard origin/master && git pull && git remote prune origin"
   },
   "engines": {
