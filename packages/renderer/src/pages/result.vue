@@ -16,7 +16,7 @@
       const appStore = useAppStore()
       const res: IResultInfo = await api.getResult(uid)
       appStore.title = "详细数据"
-      configStore.$patch({ name: res.name, alter: res.alter })
+      characterStore.$patch({ alter: res.alter, name: res.name })
 
       function skill_tooltip(skill: any) {
         return (

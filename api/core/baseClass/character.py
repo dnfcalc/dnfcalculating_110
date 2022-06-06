@@ -1039,7 +1039,7 @@ class Character():
 
         result = {
             'id': uuid1().hex,
-            'alter': self.转职,
+            'alter': self.实际名称,
             'name': self.职业,
             'forget_set': info['forge_set'],
             'info': {

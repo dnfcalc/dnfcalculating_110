@@ -10,27 +10,28 @@
   import { useDialog } from "@/components/hooks/dialog"
   const { alert } = useDialog()
 
-  export default defineComponent(async () => {
-    const char = useRoute().query.name as string
+  export default defineComponent(() => {
+    const route = useRoute()
+    const char = route.query.name as string
     const appStore = useAppStore()
     const configStore = useConfigStore()
     const characterStore = useCharacterStore()
 
-    await characterStore.newCharacter(char).then(() => {
+    characterStore.newCharacter(char).then(() => {
       appStore.$patch({ title: characterStore.name })
     })
 
-    const calc = async () => {
+    async function calc() {
       // alert({
       //   content: () => <>暂不支持多套计算</>
       // })
       // return
       // 一堆前处理和判断，然后计算
-      const saveData = await configStore.calc()
+      const saveData = await configStore.calc(route.path.endsWith("/singleset"))
       if (saveData instanceof Array) {
         // 排行界面
         openURL("/ranking?uid=" + saveData.id, { width: 800, height: 800 })
-      } else {
+      } else if (saveData) {
         // 详情界面
 
         openURL("/result?uid=" + saveData.id, { width: 890, height: 600 })
