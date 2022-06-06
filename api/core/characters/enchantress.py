@@ -210,29 +210,6 @@ class 知源·小魔女技能9(三觉技能):
     pass
 
 
-技能表 = {}
-技能栏 = []
-i = 0
-while i >= 0:
-    try:
-        skill: 技能 = eval("知源·小魔女技能"+str(i)+"()")
-        skill.技能序号 = i
-        名称 = skill.名称
-        if skill.所在等级 == 30:
-            名称 = 'BUFF'
-        elif skill.所在等级 == 50:
-            名称 = '一次觉醒'
-        elif skill.所在等级 == 85:
-            名称 = '二次觉醒'
-        elif skill.所在等级 == 100:
-            名称 = '三次觉醒'
-        技能表[名称] = skill
-        技能栏.append(skill)
-        i += 1
-    except:
-        i = -1
-
-
 class classChange(Character):
     def __init__(self):
         self.实际名称 = 'enchantress'
@@ -246,6 +223,27 @@ class classChange(Character):
         self.类型 = '魔法固伤'
         self.武器类型 = '扫把'
         self.防具类型 = '板甲'
+        技能表 = {}
+        技能栏 = []
+        i = 0
+        while i >= 0:
+            try:
+                skill: 技能 = eval("知源·小魔女技能"+str(i)+"()")
+                skill.技能序号 = i
+                名称 = skill.名称
+                if skill.所在等级 == 30:
+                    名称 = 'BUFF'
+                elif skill.所在等级 == 50:
+                    名称 = '一次觉醒'
+                elif skill.所在等级 == 85:
+                    名称 = '二次觉醒'
+                elif skill.所在等级 == 100:
+                    名称 = '三次觉醒'
+                技能表[名称] = skill
+                技能栏.append(skill)
+                i += 1
+            except:
+                i = -1
         self.技能表 = deepcopy(技能表)
         self.技能栏 = 技能栏
         self.buff = 1.70
