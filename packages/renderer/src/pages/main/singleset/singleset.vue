@@ -1,10 +1,9 @@
 <script lang="tsx">
   import { defineComponent, ref, renderList, computed, reactive, watch, onMounted } from "vue"
   import Profile from "@/components/internal/profile.vue"
-  import { useBasicInfoStore, useConfigStore, useCharacterStore } from "@/store"
+  import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { IEquipmentInfo } from "@/api/info/type"
-  import { getUuid, setSession, toObj } from "@/utils"
   import openURL from "@/utils/openURL"
   import { useAsyncState } from "@vueuse/core"
 
@@ -21,13 +20,14 @@
       const type = ref(EPIC_EQUIP)
       const configStore = useConfigStore()
       const basicStore = useBasicInfoStore()
+      const detailsStore = useDetailsStore()
 
       const equips = computed(() => basicStore.equipment_info?.lv110 ?? [])
       const weapons = computed(() => basicStore.equipment_info?.weapon ?? [])
       const myths = computed(() => basicStore.equipment_info?.myth ?? [])
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
 
-      const result = useAsyncState(() => configStore.calc(true), { id: 0, equips: [], name: "", alter: "", skills: [], sumdamage: 0 }, {})
+      const result = useAsyncState(() => configStore.calc(true), { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0 }, {})
 
       function isActive(equ: IEquipmentInfo) {
         return configStore.single_set.findIndex(e => e === equ.id) > -1
@@ -119,7 +119,12 @@
 
       function detail() {
         const saveData = result.state.value
-        openURL(`/result?uid=${saveData.id}`, { width: 890, height: 600 })
+        openURL(`/result?res=${saveData.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : ""), { width: 890, height: 600 })
+      }
+
+      function standard() {
+        console.log(result.state.value)
+        if (result.state.value.sumdamage > 0) detailsStore.setStandard(result.state.value.id)
       }
 
       // onMounted(async () => {
@@ -153,13 +158,23 @@
           </div>
           <div>
             <div class="flex h-24px mt-7px items-center justify-between !mr-8px !ml-8px">
-              <calc-button class="!w-30%">设为基准</calc-button>
-              <calc-button class="!w-30%">清空基准</calc-button>
+              <calc-button class="!w-30%" onClick={standard}>
+                设为基准
+              </calc-button>
+              <calc-button class="!w-30%" onClick={() => detailsStore.setStandard(undefined)}>
+                清空基准
+              </calc-button>
               <calc-button class="!w-30%" onClick={detail}>
                 查看详情
               </calc-button>
             </div>
-            <Profile details={result.state.value.info} sumdamage={result.state.value.sumdamage} equ-list={curEquList.value} class="m-5px !mt-0 !mr-2px !ml-2px"></Profile>
+            <Profile
+              standardSum={detailsStore.standard?.sumdamage}
+              details={result.state.value.info}
+              sumdamage={result.state.value.sumdamage}
+              equ-list={curEquList.value}
+              class="m-5px !mt-0 !mr-2px !ml-2px"
+            ></Profile>
           </div>
           <div class="flex m-10px mr-2px mb-0 ml-2px w-350px justify-center">辟邪玉提升率(理论值仅供参考)</div>
         </div>

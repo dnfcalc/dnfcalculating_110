@@ -2,7 +2,7 @@
   import { getSession, toMap, to_percent } from "@/utils"
   import { defineComponent, ref, renderList } from "vue"
   import { useRoute } from "vue-router"
-  import { useCharacterStore, useConfigStore, useAppStore } from "@/store"
+  import { useCharacterStore, useDetailsStore, useAppStore } from "@/store"
   import Profile from "@/components/internal/profile.vue"
   import { skill_icon } from "@/pages/main/character/sub/utils"
   import { IResultInfo } from "@/api/character/type"
@@ -10,9 +10,11 @@
 
   export default defineComponent({
     async setup() {
-      const uid = (useRoute().query.uid as string) ?? ""
+      const uid = (useRoute().query.res as string) ?? ""
+      const standard = useRoute().query.standard
       const characterStore = useCharacterStore()
       const appStore = useAppStore()
+      useDetailsStore().setStandard((useRoute().query.standard as string) ?? undefined)
       appStore.title = "详细数据"
 
       const res: IResultInfo = await api.getResult(uid)

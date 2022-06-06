@@ -30,8 +30,7 @@
         openURL("/ranking?uid=" + saveData.id, { width: 800, height: 800 })
       } else if (saveData) {
         // 详情界面
-
-        openURL("/result?uid=" + saveData.id, { width: 890, height: 600 })
+        openURL(`/result?res=${saveData.id}`, { width: 890, height: 600 })
       }
     }
 

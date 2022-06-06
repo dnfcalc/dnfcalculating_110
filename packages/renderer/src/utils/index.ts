@@ -8,9 +8,9 @@ export function in_range(num: number, start: number, end: number) {
   return start <= num && num <= end
 }
 
-export function to_percent(num?: number, defaultValue: number = 0, suffix = "") {
+export function to_percent(num?: number, defaultValue: number = 0, suffix = "", withPlus = false) {
   num = num ?? defaultValue
-  return num?.multiply(100).round(2).toString().concat(suffix)
+  return (num > 0 && withPlus ? "+" : "") + num?.multiply(100).round(2).toString().concat(suffix)
 }
 
 export function get_num(num?: number, defaultValue: number = 0) {

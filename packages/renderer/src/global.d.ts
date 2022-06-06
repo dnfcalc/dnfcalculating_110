@@ -3,7 +3,7 @@ export {}
 declare global {
   type Num = string | number
 
-  type ID = Num
+  type ID = Num | undefined
   interface Window {
     // Expose some Api through preload script
     ipcRenderer: import("electron").IpcRenderer

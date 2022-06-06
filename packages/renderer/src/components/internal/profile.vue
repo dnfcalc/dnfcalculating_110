@@ -1,8 +1,9 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
-  import { useCharacterStore, useDetailsStore, useConfigStore } from "@/store"
+  import { useCharacterStore, useDetailsStore, useConfigStore, useBasicInfoStore } from "@/store"
   import { computed, defineComponent, PropType, renderList } from "vue"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
+  import { to_percent } from "@/utils"
 
   interface IDetail {
     name?: string
@@ -89,6 +90,9 @@
       },
       sumdamage: {
         type: Number
+      },
+      standardSum: {
+        type: Number
       }
     },
     components: { EquipTips },
@@ -105,14 +109,19 @@
 
       const result = computed(() => {
         if (props.sumdamage) {
+          if (props.standardSum) {
+            if (props.sumdamage == props.standardSum) return "无变化"
+            else return to_percent(props.sumdamage / props.standardSum - 1, 2, "%", true)
+          }
           return props.sumdamage.round(0).toLocaleString()
         }
-        return " - "
+        return " -- "
       })
 
       const configStore = useConfigStore()
       const characterStore = useCharacterStore()
       const detailsStore = useDetailsStore()
+      // const basicStore = useBasicInfoStore()
       const display_parts = detailsStore.display_parts
 
       function currentInfo(part: string) {
@@ -263,9 +272,9 @@
                       )})/暗(${details.value?.zhanjie?.an?.toFixed(0)})`}</div>
                     </div>
                   </div>
+                  {<div class="sum">{result.value}</div>}
                 </>
               )}
-              {<div class="sum">{result.value}</div>}
             </div>
           </div>
         )
