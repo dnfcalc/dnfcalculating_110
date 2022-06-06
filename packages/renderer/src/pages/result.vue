@@ -6,22 +6,21 @@
   import Profile from "@/components/internal/profile.vue"
   import { skill_icon } from "@/pages/main/character/sub/utils"
   import { IResultInfo } from "@/api/character/type"
+  import api from "@/api"
 
   export default defineComponent({
     async setup() {
       const uid = (useRoute().query.uid as string) ?? ""
       const configStore = useConfigStore()
       const characterStore = useCharacterStore()
-      let data: any = await getSession(uid)
-      const res: IResultInfo = data.res
-      configStore.forge_set = (toMap({ forge_set: data.forge_set }) as { forge_set: any }).forge_set
-      characterStore.alter = data.alter
-      characterStore.name = data.name
-      useAppStore().title = "详细数据"
+      const appStore = useAppStore()
+      const res: IResultInfo = await api.getResult(uid)
+      appStore.title = "详细数据"
+      characterStore.$patch({ alter: res.alter, name: res.name })
 
       function skill_tooltip(skill: any) {
         return (
-          <div class="tooltip-skill !w-120px !p-5px">
+          <div class="tooltip-skill !p-5px !w-120px">
             <div class="info">等级:{+skill.lv}</div>
             <div class="info">MP消耗:{skill.mp.toFixed(0)}</div>
             <div class="info">无色消耗:{skill.无色}</div>
@@ -32,22 +31,24 @@
 
       return () => (
         <>
-          <div class="m-0 flex h-100% detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:100% 100%">
-            <div class="h-100% w-266px flex justify-center">{<Profile class="!m-0 !p-0" details={res.info}></Profile>}</div>
-            <div class="flex-1 bg-hex-000000/60 ml-1px pl-15px pr-15px pt-10px pb-10px" style="border:1px solid rgba(255,255,255,0.15)">
-              <div class="w-100% h-100% bg-hex-000000/40 text-hex-FFFFFF flex flex-col" style="border:1px solid rgba(255,255,255,0.15)">
-                <div class="h-15px bg-black flex justify-between !text-hex-B2966B">
-                  <div class="item-head w-12%">技能</div>
-                  <div class="item-head w-12%">CD</div>
-                  <div class="item-head w-12%">次数</div>
-                  <div class="item-head w-25%">总伤害</div>
-                  <div class="item-head w-25%">平均伤害</div>
-                  <div class="item-head w-12%">占比</div>
+          <div class="flex h-100% m-0 detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:100% 100%">
+            <div class="flex h-100% w-266px justify-center">
+              <Profile class="!m-0 !p-0" details={res.info}></Profile>
+            </div>
+            <div class="bg-hex-000000/60 flex-1 ml-1px pt-10px pr-15px pb-10px pl-15px" style="border:1px solid rgba(255,255,255,0.15)">
+              <div class="flex flex-col bg-hex-000000/40 h-100% text-hex-FFFFFF w-100%" style="border:1px solid rgba(255,255,255,0.15)">
+                <div class="bg-black flex h-15px justify-between !text-hex-B2966B">
+                  <div class="w-12% item-head">技能</div>
+                  <div class="w-12% item-head">CD</div>
+                  <div class="w-12% item-head">次数</div>
+                  <div class="w-25% item-head">总伤害</div>
+                  <div class="w-25% item-head">平均伤害</div>
+                  <div class="w-12% item-head">占比</div>
                 </div>
-                <div class="skills flex flex-col flex-1">
+                <div class="flex flex-col flex-1 skills">
                   {renderList(Object.keys(res.skills) ?? [], item => (
                     <div class="flex justify-between">
-                      <div class="item w-12%">
+                      <div class="w-12% item">
                         <div>
                           <calc-tooltip position="right">
                             {{
@@ -61,11 +62,11 @@
                           </calc-tooltip>
                         </div>
                       </div>
-                      <div class="item w-12%">{res.skills[item].cd}</div>
-                      <div class="item w-12%">{res.skills[item].count}</div>
-                      <div class="item w-25%">{Math.round(res.skills[item].damage).toLocaleString()}</div>
-                      <div class="item w-25%">{Math.round(res.skills[item].damage / res.skills[item].count).toLocaleString()}</div>
-                      <div class="item w-12%">{to_percent(res.skills[item].damage / res.sumdamage, 0, "%")}</div>
+                      <div class="w-12% item">{res.skills[item].cd}</div>
+                      <div class="w-12% item">{res.skills[item].count}</div>
+                      <div class="w-25% item">{Math.round(res.skills[item].damage).toLocaleString()}</div>
+                      <div class="w-25% item">{Math.round(res.skills[item].damage / res.skills[item].count).toLocaleString()}</div>
+                      <div class="w-12% item">{to_percent(res.skills[item].damage / res.sumdamage, 0, "%")}</div>
                     </div>
                   ))}
                 </div>

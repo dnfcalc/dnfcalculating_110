@@ -1,8 +1,8 @@
 from multiprocessing.sharedctypes import Value
 from pickle import TRUE
 from pyclbr import Function
-from sys import float_repr_style
 from typing import Dict, List, Union
+from uuid import uuid1
 from core.baseClass.equipment import equipment
 from core.baseClass.equipment import equ
 from core.store import store
@@ -1038,6 +1038,10 @@ class Character():
         temp = self.伤害计算(info['skill_set'])
 
         result = {
+            'id': uuid1().hex,
+            'alter': self.实际名称,
+            'name': self.职业,
+            'forget_set': info['forge_set'],
             'info': {
                 # 站街
                 'zhanjie': {

@@ -44,8 +44,12 @@ export interface IIndividuation {
 }
 
 export interface IResultInfo {
+  id: ID
+  name: string
+  alter: string
+  forget_set?: Record<string, Map<string, any>>
   skills: any
-  info: {
+  info?: {
     citiao: any
     jintu: any
     zhanjie: any

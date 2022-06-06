@@ -291,7 +291,8 @@
         "title": "知源·元素师",
         "default_name": "国服",
         "class": [],
-        "options": []
+        "options": [],
+        "open": true
       },
       {
         "name": "summoner",
