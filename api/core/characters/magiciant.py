@@ -1,8 +1,8 @@
 
 from copy import deepcopy
-from typing import List
 from core.baseClass.character import Character
-from core.baseClass.buffer.property import *
+from core.baseClass.character import Character
+from core.baseClass.skill import 主动技能, 被动技能
 
 
 class 职业主动技能(主动技能):
@@ -528,19 +528,18 @@ class 技能21(职业主动技能):
 
 
 技能列表 = []
+技能序号 = {}
 i = 0
 while i >= 0:
     try:
         tem = eval('技能'+str(i)+'()')
         tem.基础等级计算()
+        技能序号[tem.名称] = i
         技能列表.append(tem)
         i += 1
     except:
         i = -1
 
-技能序号 = dict()
-for i in range(len(技能列表)):
-    技能序号[技能列表[i].名称] = i
 
 知源·元素师一觉序号 = 0
 知源·元素师二觉序号 = 0
