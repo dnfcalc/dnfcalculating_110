@@ -2,7 +2,7 @@
   "name": "dcalc",
   "version": "2022.6.6",
   "main": "dist/web/main/index.cjs",
-  "license": "MIT",
+  "license": "GNU",
   "lint-staged": {
     "**.{js,tsx?,vue,css,scss,html}": [
       "prettier --write "
@@ -42,7 +42,8 @@
   "keywords": [
     "vite",
     "electron",
-    "vue3",
-    "rollup"
+    "vue",
+    "dnf",
+    "dcalc"
   ]
 }

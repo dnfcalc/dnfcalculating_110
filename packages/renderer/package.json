@@ -1,7 +1,7 @@
 {
   "name": "dcalc-renderer",
   "version": "2022.6.6",
-  "license": "MIT",
+  "license": "GNU",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -27,12 +27,6 @@
     "VITE_DEV_SERVER_HOST": "127.0.0.1",
     "VITE_DEV_SERVER_PORT": 25252
   },
-  "keywords": [
-    "vite",
-    "electron",
-    "vue3",
-    "rollup"
-  ],
   "dependencies": {
     "@vueuse/core": "^8.2.6",
     "axios": "^0.26.0",

@@ -1,7 +1,7 @@
 {
   "name": "dcalc-main",
   "version": "2022.6.6",
-  "license": "MIT",
+  "license": "GNU",
   "scripts": {
     "build": "vite build"
   },
@@ -16,11 +16,5 @@
     "//": "Used in build scripts",
     "VITE_DEV_SERVER_HOST": "127.0.0.1",
     "VITE_DEV_SERVER_PORT": 25252
-  },
-  "keywords": [
-    "vite",
-    "electron",
-    "vue3",
-    "rollup"
-  ]
+  }
 }
