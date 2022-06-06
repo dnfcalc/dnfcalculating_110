@@ -110,12 +110,12 @@
       const result = computed(() => {
         if (props.sumdamage) {
           if (props.standardSum) {
-            if (props.sumdamage == props.standardSum) return "无变化"
-            else return to_percent(props.sumdamage / props.standardSum - 1, 2, "%", true)
+            if (props.sumdamage == props.standardSum) return ["无变化", "white"]
+            else return [to_percent(props.sumdamage / props.standardSum - 1, 0, "%", true), props.sumdamage > props.standardSum ? "#3ea74e" : "red"]
           }
-          return props.sumdamage.round(0).toLocaleString()
+          return [props.sumdamage.round(0).toLocaleString(), "white"]
         }
-        return " -- "
+        return [" -- ", "white"]
       })
 
       const configStore = useConfigStore()
@@ -272,7 +272,11 @@
                       )})/暗(${details.value?.zhanjie?.an?.toFixed(0)})`}</div>
                     </div>
                   </div>
-                  {<div class="sum">{result.value}</div>}
+                  {
+                    <div class="sum" style={"color:" + result.value[1]}>
+                      {result.value[0]}
+                    </div>
+                  }
                 </>
               )}
             </div>
@@ -365,7 +369,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color: white;
         font-size: 25px;
       }
     }
