@@ -619,20 +619,6 @@ class 技能23(职业主动技能):
         return 0.0
 
 
-技能列表 = []
-技能序号 = {}
-i = 0
-while i >= 0:
-    try:
-        tem = eval('技能'+str(i)+'()')
-        tem.基础等级计算()
-        技能序号[tem.名称] = i
-        技能列表.append(tem)
-        i += 1
-    except:
-        i = -1
-
-
 class classChange(Character):
     def __init__(self):
         self.实际名称 = 'spitfire_female'
@@ -648,6 +634,18 @@ class classChange(Character):
         self.类型 = '魔法固伤'
         self.武器类型 = '手弩'
         self.防具类型 = '皮甲'
+        技能列表 = []
+        技能序号 = {}
+        i = 0
+        while i >= 0:
+            try:
+                tem = eval('技能'+str(i)+'()')
+                tem.基础等级计算()
+                技能序号[tem.名称] = i
+                技能列表.append(tem)
+                i += 1
+            except:
+                i = -1
         self.技能栏 = 技能列表
         self.技能序号 = 技能序号
         self.buff = 1.84

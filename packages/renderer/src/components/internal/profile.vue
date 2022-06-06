@@ -258,7 +258,7 @@
                   </div>
                 </>
               )}
-              {props.sumdamage && <div class="sum">{props.sumdamage.round(0).toLocaleString()}</div>}
+              {<div class="sum">{props.sumdamage != undefined ? props.sumdamage.round(0).toLocaleString() : "- -"}</div>}
             </div>
           </div>
         )
