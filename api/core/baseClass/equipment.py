@@ -122,6 +122,19 @@ class equipment_list():
             self.equ_tuple += (temp, )
             self.equ_id_tuple += (i, )
 
+    def get_json(self, i):
+        temp = self.info[str(i)]
+        return {
+            "id": int(i),
+            "name": temp["名称"],
+            "icon": temp["icon"],
+            "typeName": temp["部位"],
+            "stable": temp["固有属性"],
+            "alternative": temp["可选属性"],
+            "order":  temp["order"] if "order" in temp else 0,
+            "features": temp["特性"]
+        }
+
     def get_equ_by_id(self, id) -> equipment:
         return self.equ_list.get(id, equipment())
 
@@ -175,7 +188,7 @@ class equipment_list():
             for k in i.成长属性 + i.固有属性:
                 temp.append((k, i.部位))
         # 词条优先级排序
-        #temp.sort(key=(lambda x: priority.get(x[0], 100)))
+        # temp.sort(key=(lambda x: priority.get(x[0], 100)))
         funclist = []
         for k, part in temp:
             funclist.append((

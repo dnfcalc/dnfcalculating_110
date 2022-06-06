@@ -207,27 +207,3 @@ def get_equipment_detail_info(equID):
         "growthProps": growthProps
     }
     return equipment_detail_info
-
-
-def get_enchanting_info():
-    return get_enchanting_setinfo()
-
-
-def get_emblems_info():
-    return get_emblems_setinfo()
-
-
-def get_jade_info():
-    return get_jade_setinfo()
-
-
-def get_sundry_info():
-    return get_sundry_setinfo()
-
-
-def get_trigger_list():
-    return equ.get_chose_set()
-
-
-def get_entry_list():
-    return equ.entry_info

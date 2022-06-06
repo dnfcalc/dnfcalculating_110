@@ -1042,6 +1042,7 @@ class Character():
             'alter': self.实际名称,
             'name': self.职业,
             'forget_set': info['forge_set'],
+            'equips': list(map(lambda x: equ.get_json(x), self.装备栏)),
             'info': {
                 # 站街
                 'zhanjie': {

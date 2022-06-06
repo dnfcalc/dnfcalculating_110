@@ -1,10 +1,17 @@
 from typing import List
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
+
+from core.baseClass.equipment import equ
 from .token import AlterState, authorize, createToken
 from utils.apiTools import response, Return
-from .response import sundryInfo, characterInfo, equipmentInfo
-
+from .response import characterInfo, equipmentInfo
+from core.baseClass.enchanting import get_enchanting_setinfo
+from core.baseClass.emblems import get_emblems_setinfo
+from core.baseClass.jade import get_jade_setinfo
+from core.baseClass.sundry import get_sundry_setinfo
+import core.set as set
+import json
 
 infoRouter = APIRouter()
 
@@ -16,23 +23,15 @@ class adventureinfo(BaseModel):
 
 @infoRouter.get(path='/adventure')
 async def get_adventure_info():
-    # print(sundryInfo.get_adventure_info())
-    return response(data=sundryInfo.get_adventure_info())
+    adventure_info = {}
+    with open("./dataFiles/adventure-info.json", encoding='utf-8') as fp:
+        adventure_info = json.load(fp)
+    return response(data=adventure_info)
 
 
 class notice(BaseModel):
     time: str
     info: str
-
-
-@infoRouter.get(path='/notice', response_model=Return[notice])
-async def get_notice():
-    return response(data=sundryInfo.get_notice())
-
-
-@infoRouter.get(path='/blacklist', response_model=Return[dict])
-async def get_blacklistlist():
-    return response(data=sundryInfo.get_blacklistlist())
 
 
 class characterSkillInfo(BaseModel):
@@ -50,13 +49,13 @@ async def get_character_info(state: AlterState = Depends(authorize)):
 
 
 @infoRouter.get(path='/equips')
-async def get_equipment_info(state: AlterState = Depends(authorize)):
+async def get_equipment(state: AlterState = Depends(authorize)):
     return response(data=equipmentInfo.get_equipment_info(state.alter))
 
 
 @infoRouter.get(path='/enchanting')
-async def get_enchanting_info():
-    return response(data=equipmentInfo.get_enchanting_info())
+async def get_enchanting():
+    return response(data=get_enchanting_setinfo())
 
 
 @infoRouter.get(path='/equip/{equID}')
@@ -71,35 +70,35 @@ async def getToken(alter: str):
 
 
 @infoRouter.get(path="/emblem")
-async def get_emblem_info():
-    return response(data=equipmentInfo.get_emblems_info())
+async def get_emblem():
+    return response(data=get_emblems_setinfo())
 
 
 @infoRouter.get(path="/jade")
-async def get_emblem_info():
-    return response(data=equipmentInfo.get_jade_info())
+async def get_jade():
+    return response(data=get_jade_setinfo())
 
 
 @infoRouter.get(path="/sundry")
-async def get_sundry_info():
-    return response(data=equipmentInfo.get_sundry_info())
+async def get_sundry():
+    return response(data=get_sundry_setinfo())
 
 
 @infoRouter.get(path="/triggerlist")
-async def get_emblem_info():
-    return response(data=equipmentInfo.get_trigger_list())
+async def get_triggerlist():
+    return response(data=equ.get_chose_set())
 
 
 @infoRouter.get(path="/entrylist")
 async def get_entry_info():
-    return response(data=equipmentInfo.get_entry_list())
+    return response(data=equ.entry_info)
 
 
 @infoRouter.get(path="/config/{name}")
 async def get_config(name, state: AlterState = Depends(authorize)):
-    return response(data=characterInfo.get_set(state.alter, name))
+    return response(data=set.get(state.alter, name))
 
 
 @infoRouter.get(path="/configs")
 async def get_config(state: AlterState = Depends(authorize)):
-    return response(data=characterInfo.get_set_list(state.alter))
+    return response(data=set.get_set_list(state.alter))

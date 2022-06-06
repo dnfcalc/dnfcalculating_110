@@ -3,12 +3,9 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import { getUuid, setSession, toMap, toObj } from "@/utils"
   import openURL from "@/utils/openURL"
-  import { defineComponent, onBeforeMount, ref, renderList } from "vue"
-  import { useRoute, useRouter } from "vue-router"
-  import { useDialog } from "@/components/hooks/dialog"
-  const { alert } = useDialog()
+  import { defineComponent, renderList } from "vue"
+  import { useRoute } from "vue-router"
 
   export default defineComponent(() => {
     const route = useRoute()

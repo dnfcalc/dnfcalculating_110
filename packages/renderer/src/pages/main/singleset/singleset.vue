@@ -27,7 +27,7 @@
       const myths = computed(() => basicStore.equipment_info?.myth ?? [])
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
 
-      const result = useAsyncState(() => configStore.calc(true), { id: 0, name: "", alter: "", skills: [], sumdamage: 0 }, {})
+      const result = useAsyncState(() => configStore.calc(true), { id: 0, equips: [], name: "", alter: "", skills: [], sumdamage: 0 }, {})
 
       function isActive(equ: IEquipmentInfo) {
         return configStore.single_set.findIndex(e => e === equ.id) > -1

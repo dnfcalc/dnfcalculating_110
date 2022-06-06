@@ -11,11 +11,11 @@
   export default defineComponent({
     async setup() {
       const uid = (useRoute().query.uid as string) ?? ""
-      const configStore = useConfigStore()
       const characterStore = useCharacterStore()
       const appStore = useAppStore()
-      const res: IResultInfo = await api.getResult(uid)
       appStore.title = "详细数据"
+
+      const res: IResultInfo = await api.getResult(uid)
       characterStore.$patch({ alter: res.alter, name: res.name })
 
       function skill_tooltip(skill: any) {
@@ -33,7 +33,7 @@
         <>
           <div class="flex h-100% m-0 detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:100% 100%">
             <div class="flex h-100% w-266px justify-center">
-              <Profile class="!m-0 !p-0" details={res.info}></Profile>
+              <Profile sumdamage={res.sumdamage} equList={res.equips} class="!m-0 !p-0" details={res.info}></Profile>
             </div>
             <div class="bg-hex-000000/60 flex-1 ml-1px pt-10px pr-15px pb-10px pl-15px" style="border:1px solid rgba(255,255,255,0.15)">
               <div class="flex flex-col bg-hex-000000/40 h-100% text-hex-FFFFFF w-100%" style="border:1px solid rgba(255,255,255,0.15)">

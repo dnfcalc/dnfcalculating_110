@@ -8,8 +8,9 @@ from core.store import store
 
 
 class AlterState:
-    def __init__(self, alter: str):
+    def __init__(self, alter: str, token: str):
         self.alter = alter
+        self.token = token
 
 
 def createToken(alter: str, expire=86400):
@@ -19,7 +20,7 @@ def createToken(alter: str, expire=86400):
         "utf-8"), ts_byte, 'sha1').hexdigest()
     token = ts_str+':'+sha1_tshex_str
     token = base64.urlsafe_b64encode(token.encode("utf-8")).decode("utf-8")
-    store.set(token, AlterState(alter))
+    store.set(token, AlterState(alter, token))
     return token
 
 

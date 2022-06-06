@@ -1,4 +1,4 @@
-import { IEnchantingInfo } from "../info/type"
+import { IEquipmentInfo } from "../info/type"
 
 export interface ICharacterInfo {
   name: string
@@ -47,8 +47,10 @@ export interface IResultInfo {
   id: ID
   name: string
   alter: string
+  token?: string
   forget_set?: Record<string, Map<string, any>>
   skills: any
+  equips: IEquipmentInfo[]
   info?: {
     citiao: any
     jintu: any

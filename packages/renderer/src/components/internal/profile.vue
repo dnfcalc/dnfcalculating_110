@@ -103,6 +103,13 @@
       //   an: 999
       // }
 
+      const result = computed(() => {
+        if (props.sumdamage) {
+          return props.sumdamage.round(0).toLocaleString()
+        }
+        return " - "
+      })
+
       const configStore = useConfigStore()
       const characterStore = useCharacterStore()
       const detailsStore = useDetailsStore()
@@ -258,7 +265,7 @@
                   </div>
                 </>
               )}
-              {<div class="sum">{props.sumdamage != undefined ? props.sumdamage.round(0).toLocaleString() : "- -"}</div>}
+              {<div class="sum">{result.value}</div>}
             </div>
           </div>
         )
