@@ -1,9 +1,10 @@
 import { useDialog } from "@/components/hooks/dialog"
 import { MaybeRef } from "@vueuse/core"
-import { computed, h, isRef, ref } from "vue"
+import { h, isRef } from "vue"
 import { useRouter } from "vue-router"
 
 interface UseOpenOption {
+  url?: MaybeRef<string> | (() => string)
   /*
   
   */
@@ -14,19 +15,23 @@ interface UseOpenOption {
    * 是否打开新页面
    */
   target?: "_blank" | "_self" | false
-
-  /**
-   * 立即打开
-   */
-  immediate?: boolean
 }
 
-export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0, height = 0, immediate = false, target = "_self" }: UseOpenOption = {}) {
+export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
   const { show, close, randomId } = useDialog()
   const router = useRouter()
 
-  const fn = async () => {
+  const fn = async ({ width, height, target, url: maybeUrl }: UseOpenOption = {}) => {
+    width = width ?? opt?.width ?? 0
+    height = height ?? opt?.height ?? 0
+    target = target ?? opt?.target ?? "_self"
+    maybeUrl = maybeUrl ?? opt?.url
+
     let url = isRef(maybeUrl) ? maybeUrl.value : typeof maybeUrl === "function" ? maybeUrl() : maybeUrl
+    if (!url) {
+      console.log(opt, width, height, maybeUrl)
+      return
+    }
 
     if (url.startsWith("/") || url.startsWith("#")) {
       url = `${location.origin}${router.resolve(url).href}`
@@ -47,6 +52,8 @@ export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0
           _target = "_blank"
         }
       }
+
+      console.log(target)
 
       if (_target == "_blank" || width * height < 1) {
         window.open(url, "_blank")
@@ -94,10 +101,11 @@ export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0
       // router.push(url)
       // 网页端打开
       router?.push(url)
+      console.error(err)
     }
   }
 
-  if (immediate) {
+  if (opt?.immediate) {
     fn()
   }
 

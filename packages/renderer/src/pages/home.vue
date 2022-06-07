@@ -4,7 +4,7 @@
   import { IAlterInfo } from "@/api/info/type"
   import { useDialog } from "@/components/hooks/dialog"
   import api from "@/api"
-  import { useOpen } from "@/hooks/open"
+  import { useOpenWindow } from "@/hooks/open"
 
   function sub_icon(sub: number) {
     return {
@@ -26,7 +26,7 @@
 
     // 获取角色相关信息，判定是否开放
     function choose_job(child: IAlterInfo) {
-      const openUrl = child.url ? useOpen(child.url, { target: "_blank" }) : useOpen(`/character?name=${child.name}`, { width: 1100, height: 750 })
+      const openUrl = child.url ? useOpenWindow({ url: child.url, target: "_blank" }) : useOpenWindow({ url: `/character?name=${child.name}`, width: 1100, height: 750 })
       return async () => {
         if (ignores.includes(child.name)) {
           return
@@ -49,6 +49,8 @@
     //   return ignores.includes(name) ? "" : name
     // }
 
+    const openLanzou = useOpenWindow({ url: "https://wwn.lanzout.com/s/dcalc" })
+
     onMounted(async () => {
       if (window.ipcRenderer && process.env.NODE_ENV !== "development") {
         try {
@@ -67,9 +69,10 @@
           })
 
           if (res.status == "reject") {
-            useOpen("https://wwn.lanzout.com/s/dcalc")
+            openLanzou()
           } else if (res.status == "ok") {
             await api.autoUpdate()
+          } else {
           }
         } catch {
           await alert({

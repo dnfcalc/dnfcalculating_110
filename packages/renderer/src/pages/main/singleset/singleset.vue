@@ -1,10 +1,10 @@
-useOpen<script lang="tsx">
+<script lang="tsx">
   import { defineComponent, ref, renderList, computed, reactive, watch, onMounted } from "vue"
   import Profile from "@/components/internal/profile.vue"
   import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { IEquipmentInfo } from "@/api/info/type"
-  import { useOpen } from "@/hooks/open"
+  import { useOpenWindow } from "@/hooks/open"
   import { useAsyncState } from "@vueuse/core"
 
   const EPIC_EQUIP = 0
@@ -117,12 +117,11 @@ useOpen<script lang="tsx">
         await result.execute()
       })
 
-      const resultHref = computed(() => {
-        const saveData = result.state.value
-        return `/result?res=${saveData.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : "")
+      const openDetail = useOpenWindow({
+        url: () => `/result?res=${result.state.value.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : ""),
+        width: 890,
+        height: 600
       })
-
-      const openDetail = useOpen(resultHref, { width: 890, height: 600 })
 
       function setStandard() {
         if (result.state.value.sumdamage > 0) {
@@ -167,7 +166,7 @@ useOpen<script lang="tsx">
               <calc-button class="!w-30%" onClick={() => detailsStore.setStandard(undefined)}>
                 清空基准
               </calc-button>
-              <calc-button class="!w-30%" onClick={openDetail}>
+              <calc-button class="!w-30%" onClick={() => openDetail()}>
                 查看详情
               </calc-button>
             </div>

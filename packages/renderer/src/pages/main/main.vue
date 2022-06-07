@@ -3,7 +3,7 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import { useOpen } from "@/hooks/open"
+  import { useOpenWindow } from "@/hooks/open"
   import { defineComponent, renderList } from "vue"
   import { useRoute } from "vue-router"
 
@@ -18,6 +18,8 @@
       appStore.$patch({ title: characterStore.name })
     })
 
+    const openResult = useOpenWindow()
+
     async function calc() {
       // alert({
       //   content: () => <>暂不支持多套计算</>
@@ -27,10 +29,10 @@
       const saveData = await configStore.calc(route.path.endsWith("/singleset"))
       if (saveData instanceof Array) {
         // 排行界面
-        useOpen("/ranking?uid=" + saveData.id, { width: 800, height: 800, immediate: true })
+        openResult({ url: "/ranking?uid=" + saveData.id, width: 800, height: 800 })
       } else if (saveData) {
         // 详情界面
-        useOpen(`/result?res=${saveData.id}`, { width: 890, height: 600, immediate: true })
+        openResult({ url: `/result?res=${saveData.id}`, width: 890, height: 600 })
       }
     }
 
