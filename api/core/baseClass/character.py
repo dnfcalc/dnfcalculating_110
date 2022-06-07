@@ -663,9 +663,8 @@ class Character():
                     value = 0
                 from core.baseClass.jade import get_jadefunc_by_id
                 func = get_jadefunc_by_id(id)
-                func(self, value)
+                func(self, value=value)
                 # 打印相关函数和效果
-                # print('{}: {}: {}'.format(func, value, func(self, text=TRUE)))
 
     def __杂项计算(self, mode=0):
         if 'others' not in self.打造详情.keys():
@@ -1069,9 +1068,11 @@ class Character():
                     'an': 0
                 },
                 # 词条
-                'citiao': {
+                '词条': {
                     # 攻击强化
-                    'gongjiqianghua': self.__攻击强化
+                    '攻击强化': self.__攻击强化,
+                    '技能攻击力': self.__技能攻击力,
+                    '百分比攻击强化': self.__百分比攻击强化
                     # 其他老词条·····
                 }
             },

@@ -19,63 +19,62 @@ def jade_26001(char={}, text=False, value=0):
 def jade_26002(char={}, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, '[附加伤害增加]增幅')"
-    char.附加伤害增加增幅 += value
-    char.百分比攻击强化加成(value)
+    char.附加伤害增加增幅 += value/100
+    char.百分比攻击强化加成(value/100)
 
 
 def jade_26003(char={}, text=False, value=0):
     if text:
         return "(76, -3, 3, '%', 0.1, '[技能伤害增加]增幅')"
-    char.技能伤害增加增幅 += value
-    char.百分比攻击强化加成(value)
+    char.技能伤害增加增幅 += value/100
 
 
 def jade_26004(char={}, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, '[暴击伤害增加]增幅')"
-    char.暴击伤害增加增幅 += value
-    char.百分比攻击强化加成(value)
+    char.暴击伤害增加增幅 += value/100
+    char.百分比攻击强化加成(value/100)
 
 
 def jade_26005(char={}, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, '[伤害增加]增幅')"
-    char.伤害增加增幅 += value
-    char.百分比攻击强化加成(value)
+    char.伤害增加增幅 += value/100
+    char.百分比攻击强化加成(value/100)
 
 
 def jade_26006(char={}, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, '[最终伤害增加]增幅')"
-    char.最终伤害增加增幅 += value
-    char.百分比攻击强化加成(value)
+    char.最终伤害增加增幅 += value/100
+    char.百分比攻击强化加成(value/100)
 
 
 def jade_26007(char={}, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, '[物理/魔法/独立攻击力增加]增幅')"
-    char.物理魔法攻击力增加增幅 += value
-    char.百分比攻击强化加成(value)
+    char.物理魔法攻击力增加增幅 += value/100
+    char.百分比攻击强化加成(value/100)
 
 
 def jade_26008(char={}, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, '[力量智力增加]增幅')"
-    char.力量智力增加增幅 += value
-    char.百分比攻击强化加成(value)
+    char.力量智力增加增幅 += value/100
+    char.百分比攻击强化加成(value/100)
 
 
 def jade_26009(char={}, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, '[装备属性强化增加]增幅')"
-    char.所有属性强化增幅 += value
+    char.所有属性强化增幅 += value/100
 
 
 def jade_26010(char={}, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, '[属性附加伤害增加]增幅')"
-    char.属性附加伤害增加增幅 += value
-    char.百分比攻击强化加成(value)
+    char.属性附加伤害增加增幅 += value/100
+    char.百分比攻击强化加成(value/100)
 
 
 def jade_26011(char={}, text=False, value=0):
