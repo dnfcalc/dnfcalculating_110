@@ -47,7 +47,7 @@
                     // eq.value.active ? '' : 'gray'
                   ])}
                 >
-                  <img src={"./images/equipment/" + props.eq.icon} />
+                  <img src={"/images/equipment/" + props.eq.icon} />
                 </div>
               ) : (
                 <span class="icon"></span>

@@ -3,7 +3,7 @@
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import openURL from "@/utils/openURL"
+  import { useOpen } from "@/hooks/open"
   import { defineComponent, renderList } from "vue"
   import { useRoute } from "vue-router"
 
@@ -27,17 +27,17 @@
       const saveData = await configStore.calc(route.path.endsWith("/singleset"))
       if (saveData instanceof Array) {
         // 排行界面
-        openURL("/ranking?uid=" + saveData.id, { width: 800, height: 800 })
+        useOpen("/ranking?uid=" + saveData.id, { width: 800, height: 800 })
       } else if (saveData) {
         // 详情界面
-        openURL(`/result?res=${saveData.id}`, { width: 890, height: 600 })
+        useOpen(`/result?res=${saveData.id}`, { width: 890, height: 600 })
       }
     }
 
     return () => {
       if (characterStore.alter) {
         return (
-          <div class="main" style={"background-image:url(./images/characters/" + characterStore.alter + "/bg.jpg)"}>
+          <div class="main" style={"background-image:url(/images/characters/" + characterStore.alter + "/bg.jpg)"}>
             <div class="header">
               <calc-tabs route>
                 <calc-tab value={"/character/equips?name=" + characterStore.alter}>装备</calc-tab>

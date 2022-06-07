@@ -91,11 +91,11 @@
           <div>{test}</div>
           <calc-iconselect emptyLabel="点击" modelValue={test.value}>
             <calc-option value={0}>
-              <img src="./images/characters/重霄·弹药专家·女/skill/单兵推进器.png" />
+              <img src="/images/characters/重霄·弹药专家·女/skill/单兵推进器.png" />
             </calc-option>
 
             <calc-option value={1}>
-              <img src="./images/characters/重霄·弹药专家·女/skill/兵器研究.png" />
+              <img src="/images/characters/重霄·弹药专家·女/skill/兵器研究.png" />
             </calc-option>
           </calc-iconselect>
           <calc-selection onChange={(val: any) => console.log(val)} v-model={model.value} item-class="border-1  " unactive-class="text-red bg-white" active-class="bg-hex-f00 text-white" multiple>

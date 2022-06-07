@@ -38,7 +38,7 @@
       return () => (
         <>
           <div
-            class="bg-hex bg-gradient-to-t flex from-hex-273e69 to-hex-335793 h-6 px-2 top-0 right-0 left-0  leading-6 z-9999 app-header layout-title items-center justify-between fixed"
+            class="bg-hex bg-gradient-to-t flex from-hex-273e69 to-hex-335793 h-6 px-2 top-0 right-0 left-0 leading-6  z-999 app-header layout-title items-center justify-between fixed"
             style="-webkit-app-region: drag"
           >
             <div class="h-4 leading-4 w-4" style="background-image:url('./favicon.ico');background-size: 100% 100%;"></div>
@@ -50,7 +50,7 @@
               <div onClick={appStore.close} class="cursor-pointer h-4 text-center  text-hex-f0d070 text-opacity-72  w-4 close-icon hover:text-opacity-100"></div>
             </div>
           </div>
-          <div class="mt-6 w-full overflow-y-auto" style="height:calc(100% - 24px);">
+          <div class="w-full pt-6 overflow-y-auto" style="height:calc(100% - 24px);">
             <Suspense>
               <router-view></router-view>
             </Suspense>

@@ -26,9 +26,9 @@
         type: Boolean,
         default: () => false
       },
-      title: {
-        type: String,
-        default: () => "提示"
+      header: {
+        type: [String, Boolean] as PropType<string | boolean>,
+        default: () => true
       },
       drag: {
         type: String as PropType<"header" | "all" | "none">,
@@ -74,11 +74,9 @@
     },
     emits: ["close", "ok", "cancel", "action", "update:visible"],
     setup(props, { emit, slots }) {
-      const modelValue = useVModel(props, "visible")
-
       const visible = ref(props.visible)
 
-      syncRef(modelValue, visible, { direction: "both" })
+      syncRef(useVModel(props, "visible"), visible, { direction: "both" })
 
       const result = ref<ActionDialogResult>(props.defaultStatus)
 
@@ -144,18 +142,16 @@
             )
           }
 
-          return <div class="flex items-center justify-center">{buttons}</div>
+          return <div class="flex pb-2 items-center justify-center">{buttons}</div>
         }
         return renderSlot(slots, "action")
       }
 
       return () => {
         return (
-          <CalcDialog onClose={onCloseClick} v-model:visible={visible.value} drag={props.drag} mask={props.mask} modal={props.modal} title={props.title}>
-            <div class="pt-2 pb-2">
-              <div class="flex mt-2 mb-3 items-center justify-center"> {renderSlot(slots, "default")}</div>
-              {renderAction()}
-            </div>
+          <CalcDialog onClose={onCloseClick} v-model:visible={visible.value} drag={props.drag} mask={props.mask} modal={props.modal} header={props.header == true ? "提示" : props.header}>
+            <div class={["flex items-center justify-center"].concat(props.header ? "py-3" : "pb-3")}> {renderSlot(slots, "default")}</div>
+            {renderAction()}
           </CalcDialog>
         )
       }

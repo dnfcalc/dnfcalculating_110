@@ -30,7 +30,7 @@
         {equs.value.length > 0 &&
           renderList(equs.value, a => (
             <div class="cus-item">
-              <img src={"./images/equipment/" + a.icon} />
+              <img src={"/images/equipment/" + a.icon} />
               {renderList(4, index => (
                 <div class="mt-5px">
                   <calc-select class="!h-20px !w-530px" v-model={configStore.customize[a.id][index - 1]}>

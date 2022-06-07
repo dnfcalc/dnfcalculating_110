@@ -21,8 +21,8 @@
         type: Boolean,
         default: () => false
       },
-      title: {
-        type: String,
+      header: {
+        type: [String, Boolean],
         default: () => "提示"
       },
       closeOnEsc: {
@@ -42,7 +42,7 @@
     emits: ["close", "update:visible"],
     setup(props, { emit, slots }) {
       const dialogRef = ref<HTMLElement | null>(null)
-      const titleRef = ref<HTMLElement | null>(null)
+      const headerRef = ref<HTMLElement | null>(null)
 
       const visible = ref(props.visible)
 
@@ -69,7 +69,7 @@
         computed(() => {
           switch (props.drag) {
             case "header":
-              return titleRef.value
+              return headerRef.value
             case "all":
               return dialogRef.value
             case "none":
@@ -91,12 +91,14 @@
               {(props.cache || visible.value) && (
                 <div v-show={visible.value} class={["dialog-mask w-full h-full fixed top-0 left-0 z-999 flex justify-center items-center "].concat(props.mask ? "bg-hex-000 bg-opacity-66" : "")}>
                   <div ref={dialogRef} class={["h-auto border-1 border-hex-2b2b2b border-solid  shadow-sm round-1 dialog min-w-48", isFixed.value ? "fixed" : "", props.class]} style={style.value}>
-                    <div ref={titleRef} class="flex h-4 px-1 leading-4 z-9999 justify-center app-header relative">
-                      <div class="text-xs text-shadow ">{props.title}</div>
-                      <div class="flex top-0 right-0 bottom-0 items-center absolute">
-                        <div onClick={close} class="cursor-pointer flex  h-4 text-center w-4  items-center close-icon"></div>
+                    {props.header && (
+                      <div ref={headerRef} class="flex h-4 px-1 leading-4 z-9999 justify-center relative app-header">
+                        <div class="text-xs text-shadow ">{props.header}</div>
+                        <div class="flex top-0 right-0 bottom-0 items-center absolute">
+                          <div onClick={close} class="cursor-pointer flex  h-4 text-center w-4  items-center close-icon"></div>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     <div class="bg-hex-000 bg-opacity-80 text-white text-xs">{renderSlot(slots, "default")}</div>
                   </div>
                 </div>

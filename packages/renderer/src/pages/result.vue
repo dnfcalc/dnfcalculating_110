@@ -33,7 +33,7 @@
 
       return () => (
         <>
-          <div class="flex h-100% m-0 detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:100% 100%">
+          <div class="flex h-100% m-0 detail" style="background: url('/images/common/bg.jpg') no-repeat;background-size:100% 100%">
             <div class="flex h-100% w-266px justify-center">
               <Profile sumdamage={res.sumdamage} equList={res.equips} class="!m-0 !p-0" details={res.info}></Profile>
             </div>

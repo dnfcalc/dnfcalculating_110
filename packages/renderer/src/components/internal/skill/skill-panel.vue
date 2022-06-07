@@ -42,7 +42,7 @@
               item.max = tk.level_max
               item.learnMax = tk.current_LV
               item.skillInfo = tk
-              item.icon = `./images/characters/${props.character}/skill/${item.name}.png`
+              item.icon = `/images/characters/${props.character}/skill/${item.name}.png`
             } else {
               // 这里需要修改成一个默认图标
               item.icon = `https://101.43.64.95/dnfstatic/images/equipment/title/484.png`

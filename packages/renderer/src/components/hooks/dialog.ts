@@ -13,10 +13,11 @@ function randomId() {
 type DialogID = string | number | symbol
 
 export interface ShowDialogOption {
+  id?: DialogID
   /**
    * 标题
    */
-  title?: string
+  header?: string | boolean
   /**
    * 内容插槽
    */
@@ -61,6 +62,7 @@ export interface DialogInstance {
 }
 
 export interface DialogResult {
+  id: DialogID
   status: "ok" | "reject" | "cancel" | "none"
   data?: any
   readonly isOk: boolean
@@ -88,14 +90,14 @@ export const useDialog = createSharedComposable(() => {
 
   async function show(option: ShowDialogOption = {}) {
     return new Promise<DialogResult>(resolve => {
-      const id = randomId()
-      const { title, content, action, timeout, okButton = false, cancelButton = false, rejectButton = false, defaultStatus = "none", duration = 5000 } = option
+      const { id = randomId(), header = true, content, action, timeout, okButton = false, cancelButton = false, rejectButton = false, defaultStatus = "none", duration = 5000 } = option
 
       const onClose = (status: DialogResult["status"] = defaultStatus) => {
         if (duration) {
           setTimeout(() => close(id), duration)
         }
         resolve({
+          id,
           status,
           get isOk() {
             return status == "ok"
@@ -115,7 +117,7 @@ export const useDialog = createSharedComposable(() => {
           return h(
             ActionDialog,
             {
-              title,
+              header,
               okButton,
               cancelButton,
               rejectButton,
@@ -166,6 +168,8 @@ export const useDialog = createSharedComposable(() => {
     confirm,
     alert,
     render,
-    show
+    show,
+    close,
+    randomId
   }
 })

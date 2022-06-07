@@ -1,10 +1,10 @@
-<script lang="tsx">
+useOpen<script lang="tsx">
   import { defineComponent, ref, renderList, computed, reactive, watch, onMounted } from "vue"
   import Profile from "@/components/internal/profile.vue"
   import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { IEquipmentInfo } from "@/api/info/type"
-  import openURL from "@/utils/openURL"
+  import { useOpen } from "@/hooks/open"
   import { useAsyncState } from "@vueuse/core"
 
   const EPIC_EQUIP = 0
@@ -117,14 +117,17 @@
         await result.execute()
       })
 
-      function detail() {
+      const resultHref = computed(() => {
         const saveData = result.state.value
-        openURL(`/result?res=${saveData.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : ""), { width: 890, height: 600 })
-      }
+        return `/result?res=${saveData.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : "")
+      })
 
-      function standard() {
-        console.log(result.state.value)
-        if (result.state.value.sumdamage > 0) detailsStore.setStandard(result.state.value.id)
+      const openDetail = useOpen(resultHref, { width: 890, height: 600, immediate: false })
+
+      function setStandard() {
+        if (result.state.value.sumdamage > 0) {
+          detailsStore.setStandard(result.state.value.id)
+        }
       }
 
       // onMounted(async () => {
@@ -158,13 +161,13 @@
           </div>
           <div>
             <div class="flex h-24px mt-7px items-center justify-between !mr-8px !ml-8px">
-              <calc-button class="!w-30%" onClick={standard}>
+              <calc-button class="!w-30%" onClick={setStandard}>
                 设为基准
               </calc-button>
               <calc-button class="!w-30%" onClick={() => detailsStore.setStandard(undefined)}>
                 清空基准
               </calc-button>
-              <calc-button class="!w-30%" onClick={detail}>
+              <calc-button class="!w-30%" onClick={openDetail}>
                 查看详情
               </calc-button>
             </div>

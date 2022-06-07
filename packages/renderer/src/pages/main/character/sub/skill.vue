@@ -187,12 +187,12 @@
             {
               // 由于技能队列的存在 暂时取消显示
               // <calc-selection v-model={buind_skill.value} class="flex flex-column mt-20px items-center justify-center">
-              //   <calc-item value={wakens.value[0].name} class="h-50px w-38px" style="background-image:url('./images/common/waken.png');position:relative">
+              //   <calc-item value={wakens.value[0].name} class="h-50px w-38px" style="background-image:url('/images/common/waken.png');position:relative">
               //     {buind_skill.value == wakens.value[0].name ? <div></div> : <div class="waken"></div>}
               //     <img class="mt-3px ml-5px" src={skill_icon(characterStore.alter, wakens.value[0].name)} />
               //     <div class="text-center w-100%">1次</div>
               //   </calc-item>
-              //   <calc-item value={wakens.value[1].name} class="h-50px ml-10px w-38px" style="background-image:url('./images/common/waken.png');position:relative">
+              //   <calc-item value={wakens.value[1].name} class="h-50px ml-10px w-38px" style="background-image:url('/images/common/waken.png');position:relative">
               //     {buind_skill.value == wakens.value[1].name ? <div></div> : <div class="waken"></div>}
               //     <img class="mt-3px ml-5px" src={skill_icon(characterStore.alter, wakens.value[1].name)} />
               //     <div class="text-center w-100%">2次</div>
