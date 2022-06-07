@@ -122,7 +122,7 @@ useOpen<script lang="tsx">
         return `/result?res=${saveData.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : "")
       })
 
-      const openDetail = useOpen(resultHref, { width: 890, height: 600, immediate: false })
+      const openDetail = useOpen(resultHref, { width: 890, height: 600 })
 
       function setStandard() {
         if (result.state.value.sumdamage > 0) {

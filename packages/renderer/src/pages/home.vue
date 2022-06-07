@@ -26,7 +26,7 @@
 
     // 获取角色相关信息，判定是否开放
     function choose_job(child: IAlterInfo) {
-      const openUrl = child.url ? useOpen(child.url, { immediate: false, target: "_blank" }) : useOpen(`/character?name=${child.name}`, { width: 1100, height: 750, immediate: false })
+      const openUrl = child.url ? useOpen(child.url, { target: "_blank" }) : useOpen(`/character?name=${child.name}`, { width: 1100, height: 750 })
       return async () => {
         if (ignores.includes(child.name)) {
           return

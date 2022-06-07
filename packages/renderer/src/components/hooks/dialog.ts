@@ -90,25 +90,30 @@ export const useDialog = createSharedComposable(() => {
 
   async function show(option: ShowDialogOption = {}) {
     return new Promise<DialogResult>(resolve => {
-      const { id = randomId(), header = true, content, action, timeout, okButton = false, cancelButton = false, rejectButton = false, defaultStatus = "none", duration = 5000 } = option
+      const { id = randomId(), header = true, content, action, timeout, okButton = false, cancelButton = false, rejectButton = false, defaultStatus = "none", duration = 400 } = option
 
       const onClose = (status: DialogResult["status"] = defaultStatus) => {
-        if (duration) {
-          setTimeout(() => close(id), duration)
+        const fn = () => {
+          close(id)
+          resolve({
+            id,
+            status,
+            get isOk() {
+              return status == "ok"
+            },
+            get isCancel() {
+              return status == "cancel"
+            },
+            get isReject() {
+              return status == "reject"
+            }
+          })
         }
-        resolve({
-          id,
-          status,
-          get isOk() {
-            return status == "ok"
-          },
-          get isCancel() {
-            return status == "cancel"
-          },
-          get isReject() {
-            return status == "reject"
-          }
-        })
+        if (duration) {
+          setTimeout(fn, duration)
+        } else {
+          fn()
+        }
       }
 
       open({

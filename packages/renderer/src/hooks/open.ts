@@ -21,8 +21,8 @@ interface UseOpenOption {
   immediate?: boolean
 }
 
-export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0, height = 0, immediate = true, target }: UseOpenOption = {}) {
-  const { show, confirm, close, randomId } = useDialog()
+export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0, height = 0, immediate = false, target }: UseOpenOption = {}) {
+  const { show, close, randomId } = useDialog()
   const router = useRouter()
 
   const fn = async () => {
@@ -41,6 +41,8 @@ export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0
         return
       }
 
+      let _target = target
+
       if (!target) {
         const rs = await show({
           content: "请确认打开新页面的方式",
@@ -50,18 +52,17 @@ export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0
           defaultStatus: "cancel"
         })
         if (rs.isOk) {
-          target = "_blank"
+          _target = "_blank"
         } else if (rs.isReject) {
-          target = "_self"
+          _target = "_self"
         }
       }
 
-      if (target == "_blank") {
+      if (_target == "_blank") {
         window.open(url, "_blank")
-      } else if (target == "_self") {
+      } else if (_target == "_self") {
         const id = randomId()
         const onClose = (e: MessageEvent) => {
-          console.log(e)
           if (e.data == "close") {
             close(id)
           }

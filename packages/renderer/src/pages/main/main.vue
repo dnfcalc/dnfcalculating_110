@@ -27,10 +27,10 @@
       const saveData = await configStore.calc(route.path.endsWith("/singleset"))
       if (saveData instanceof Array) {
         // 排行界面
-        useOpen("/ranking?uid=" + saveData.id, { width: 800, height: 800 })
+        useOpen("/ranking?uid=" + saveData.id, { width: 800, height: 800, immediate: true })
       } else if (saveData) {
         // 详情界面
-        useOpen(`/result?res=${saveData.id}`, { width: 890, height: 600 })
+        useOpen(`/result?res=${saveData.id}`, { width: 890, height: 600, immediate: true })
       }
     }
 
