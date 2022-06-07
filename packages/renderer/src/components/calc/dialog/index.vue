@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { onClickOutside, onKeyStroke, syncRef, useDraggable, useVModel } from "@vueuse/core"
+  import { onClickOutside, onKeyDown, onKeyPressed, onKeyStroke, onKeyUp, syncRef, useDraggable, useVModel } from "@vueuse/core"
   import { computed, defineComponent, PropType, ref, renderSlot, Teleport, Transition } from "vue"
 
   export default defineComponent({
@@ -59,16 +59,11 @@
         emit("close")
       }
 
-      onKeyStroke("ESC", (e: Event) => {
+      onKeyDown("Escape", () => {
         if (visible.value && props.closeOnEsc) {
-          e.preventDefault()
           close()
         }
       })
-
-      function onCloseClick() {
-        close()
-      }
 
       const { x, y, style } = useDraggable(
         computed(() => {
@@ -96,10 +91,10 @@
               {(props.cache || visible.value) && (
                 <div v-show={visible.value} class={["dialog-mask w-full h-full fixed top-0 left-0 z-999 flex justify-center items-center "].concat(props.mask ? "bg-hex-000 bg-opacity-66" : "")}>
                   <div ref={dialogRef} class={["h-auto border-1 border-hex-2b2b2b border-solid  shadow-sm round-1 dialog min-w-48", isFixed.value ? "fixed" : "", props.class]} style={style.value}>
-                    <div ref={titleRef} class="flex h-4 px-1  leading-4 z-9999 justify-center app-header relative">
-                      <div class="text-xs">{props.title}</div>
+                    <div ref={titleRef} class="flex h-4 px-1 leading-4 z-9999 justify-center app-header relative">
+                      <div class="text-xs text-shadow ">{props.title}</div>
                       <div class="flex top-0 right-0 bottom-0 items-center absolute">
-                        <div onClick={onCloseClick} class="cursor-pointer flex  h-4 text-center w-4  items-center close-icon"></div>
+                        <div onClick={close} class="cursor-pointer flex  h-4 text-center w-4  items-center close-icon"></div>
                       </div>
                     </div>
                     <div class="bg-hex-000 bg-opacity-80 text-white text-xs">{renderSlot(slots, "default")}</div>
@@ -116,15 +111,14 @@
 <style lang="scss" scoped>
   .dialog-enter-active {
     animation: fade-in 400ms;
+    .dialog {
+      animation: zoom-in 400ms;
+    }
   }
   .dialog-leave-active {
     animation: fade-in reverse 400ms;
-  }
-
-  .dialog-enter-active > .dialog {
-    animation: zoom-in 400ms;
-  }
-  .dialog-leave-active > .dialog {
-    animation: zoom-out 400ms;
+    .dialog {
+      animation: zoom-out 400ms;
+    }
   }
 </style>

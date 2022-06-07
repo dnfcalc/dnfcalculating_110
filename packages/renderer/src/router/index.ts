@@ -63,7 +63,7 @@ if (import.meta.env.DEV) {
     meta: {
       title: "组件展示"
     },
-    component: () => import("@/components/show.vue")
+    component: () => import("@/pages/show.vue")
   })
 
   routes.push({

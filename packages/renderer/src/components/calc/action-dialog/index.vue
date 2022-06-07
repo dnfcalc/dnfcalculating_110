@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { onKeyStroke, useVModel } from "@vueuse/core"
+  import { onKeyStroke, syncRef, useVModel } from "@vueuse/core"
   import { defineComponent, PropType, ref, renderSlot } from "vue"
 
   import CalcDialog from "@/components/calc/dialog/index.vue"
@@ -74,7 +74,11 @@
     },
     emits: ["close", "ok", "cancel", "action", "update:visible"],
     setup(props, { emit, slots }) {
-      const visible = useVModel(props, "visible")
+      const modelValue = useVModel(props, "visible")
+
+      const visible = ref(props.visible)
+
+      syncRef(modelValue, visible, { direction: "both" })
 
       const result = ref<ActionDialogResult>(props.defaultStatus)
 

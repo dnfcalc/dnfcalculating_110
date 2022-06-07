@@ -8,7 +8,7 @@
   import { defineComponent, ref, computed, watch, Teleport, onDeactivated, renderSlot, CSSProperties, Transition, render, Fragment, reactive } from "vue"
   import { listProps, useSelectionList } from "@/components/hooks/selection/list"
 
-  import { onClickOutside } from "@vueuse/core"
+  import { onClickOutside, useVModel } from "@vueuse/core"
 
   export default defineComponent({
     name: "i-select",
@@ -29,10 +29,6 @@
         type: String,
         // warn remind
         default: ""
-      },
-      editeable: {
-        type: Boolean,
-        default: false
       }
     },
 
@@ -43,6 +39,8 @@
           itemClass: "i-select-dropdown-item"
         }
       }, context)
+
+      const modelValue = useVModel(props, "modelValue")
 
       const isOpen = ref(false)
       const triggerRef = ref<HTMLElement>()
@@ -110,7 +108,7 @@
 
       return () => {
         return (
-          <div class={"min-w-20 w-40 i-select " + props.highlight} onClick={collapse} ref={selectRef}>
+          <div class={["min-w-20 w-40 i-select "].concat(props.highlight)} onClick={collapse} ref={selectRef}>
             <div
               class={{
                 "i-select-trigger": true,
@@ -118,9 +116,7 @@
               }}
               ref={triggerRef}
             >
-              <span class="i-select-label" contenteditable={props.editeable}>
-                {render() ?? props.emptyLabel}
-              </span>
+              <span class="i-select-label">{render() ?? props.emptyLabel}</span>
               <span class="cursor-pointer i-select-down-icon"></span>
             </div>
             <Teleport to="body">

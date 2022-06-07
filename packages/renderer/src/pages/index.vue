@@ -42,7 +42,7 @@
             style="-webkit-app-region: drag"
           >
             <div class="h-4 leading-4 w-4" style="background-image:url('./favicon.ico');background-size: 100% 100%;"></div>
-            <div class="text-xs header">
+            <div class="text-xs text-shadow header">
               {title.value} {`(${APP_VERSION})`}
             </div>
             <div class="flex items-center">

@@ -1,14 +1,23 @@
 <script lang="tsx">
-  import { defineComponent, ref } from "vue"
+  import { defineComponent, ref, VNode } from "vue"
   import SkillPanel from "@/components/internal/skill/skill-panel.vue"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
-  import { TreeNode } from "./calc/tree/types"
+  import { TreeNode } from "@/components/calc/tree/types"
+  import { useDialog } from "@/components/hooks/dialog"
 
   export default defineComponent({
     components: { SkillPanel, EquipTips },
     setup() {
       const visible = ref(false)
-      const showDialog = () => (visible.value = true)
+      const { alert } = useDialog()
+      const showDialog = async () => {
+        const result = await alert({ content: "测试" })
+        if (result.isOk) {
+          console.log("点击了确定")
+        } else {
+          console.log("点击了取消")
+        }
+      }
       const test = ref(-1)
       const node: TreeNode[] = [
         {
@@ -37,31 +46,50 @@
 
       const model = ref(["1", "2"])
 
+      function wrapper(title: string, element: JSX.Element | string | VNode) {
+        return (
+          <div class="py-2 px-4">
+            <div class="font-bold h-8 text-lg text-hex-c6b083 leading-8">{title}</div>
+            {element}
+          </div>
+        )
+      }
+
       return () => (
         <div>
-          <calc-tabs>
-            <calc-tab value="1">套装</calc-tab>
-            <calc-tab value="2">自选</calc-tab>
-          </calc-tabs>
-          <calc-button onClick={showDialog}>点击展开窗口</calc-button>
-          <calc-button disabled>禁用</calc-button>
+          {wrapper(
+            "Tab 页签",
+            <calc-tabs>
+              <calc-tab value="1">套装</calc-tab>
+              <calc-tab value="2">自选</calc-tab>
+            </calc-tabs>
+          )}
 
-          <calc-checkbox modelValue={visible.value}>DYSB</calc-checkbox>
-          <div class="w-20 flex">
-            <calc-select modelValue={test}>
+          {wrapper(
+            "Button 按钮",
+            <div class="flex  space-x-4 items-center">
+              <calc-button onClick={showDialog}>点击展开窗口</calc-button>
+              <calc-button disabled>禁用</calc-button>
+            </div>
+          )}
+
+          <calc-checkbox v-model={visible.value}>DYSB</calc-checkbox>
+          <div class="flex w-20">
+            <calc-select modelValue={test.value}>
               <calc-option value={0}>123</calc-option>
 
               <calc-option value={1}>467</calc-option>
             </calc-select>
           </div>
+
           <calc-tree data={node} depth="1" />
 
-          <calc-select multiple modelValue={test}>
-            <calc-option>123</calc-option>
-
-            <calc-option>467</calc-option>
+          <calc-select editable multiple v-model={test.value}>
+            <calc-option value={0}>123</calc-option>
+            <calc-option value={1}>467</calc-option>
           </calc-select>
-          <calc-iconselect emptyLabel="点击" modelValue={test}>
+          <div>{test}</div>
+          <calc-iconselect emptyLabel="点击" modelValue={test.value}>
             <calc-option value={0}>
               <img src="./images/characters/重霄·弹药专家·女/skill/单兵推进器.png" />
             </calc-option>
@@ -70,10 +98,6 @@
               <img src="./images/characters/重霄·弹药专家·女/skill/兵器研究.png" />
             </calc-option>
           </calc-iconselect>
-          <calc-dialog modal v-model:visible={visible.value}>
-            测试
-          </calc-dialog>
-
           <calc-selection onChange={(val: any) => console.log(val)} v-model={model.value} item-class="border-1  " unactive-class="text-red bg-white" active-class="bg-hex-f00 text-white" multiple>
             <calc-option>123</calc-option>
 

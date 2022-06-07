@@ -1,6 +1,6 @@
 @import "./animation.scss";
 
-@mixin outline() {
+.text-shadow {
   text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
 }
 
@@ -31,7 +31,6 @@ body,
   // font-family: "ArkPixel", "Consola", sans-serif;
   font-family: "SimSun";
   font-size: 12px;
-  @include outline();
 }
 
 @mixin pointer() {

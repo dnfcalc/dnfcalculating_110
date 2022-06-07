@@ -1,4 +1,4 @@
-import { renderList, h, reactive, readonly } from "vue"
+import { renderList, h, reactive, readonly, ref } from "vue"
 
 export type ConfirmDialogOption = Omit<ShowDialogOption, "okButton" | "cancelButton">
 export type AlertDialogOption = Omit<ShowDialogOption, "okButton" | "cancelButton">
@@ -13,13 +13,42 @@ function randomId() {
 type DialogID = string | number | symbol
 
 export interface ShowDialogOption {
+  /**
+   * 标题
+   */
   title?: string
+  /**
+   * 内容插槽
+   */
   content?: (() => ElementLike) | ElementLike
+  /**
+   * 操作区插槽
+   */
   action?: (() => ElementLike) | ElementLike
+
   cache?: boolean
+
+  /**
+   * 超时自动关闭
+   */
   timeout?: number
-  cancelButton?: string | boolean
+
+  /**
+   * 关闭时的延迟动画
+   */
+  duration?: number
+
+  /**
+   * 确定按钮文本 为false时不显示
+   */
   okButton?: string | boolean
+  /**
+   * 取消按钮文本 为false时不显示
+   */
+  cancelButton?: string | boolean
+  /**
+   * 拒绝按钮文本 为false时不显示
+   */
   rejectButton?: string | boolean
 
   // 默认状态
@@ -33,10 +62,10 @@ export interface DialogInstance {
 
 export interface DialogResult {
   status: "ok" | "reject" | "cancel" | "none"
+  data?: any
   readonly isOk: boolean
   readonly isCancel: boolean
   readonly isReject: boolean
-  data?: any
 }
 
 export const useDialog = createSharedComposable(() => {
@@ -54,18 +83,18 @@ export const useDialog = createSharedComposable(() => {
   }
 
   function render() {
-    return renderList(Array.from(dialogs.values()), e => e.render())
+    return renderList(dialogs.values(), e => e.render())
   }
 
   async function show(option: ShowDialogOption = {}) {
-    return new Promise<DialogResult>((resolve, reject) => {
+    return new Promise<DialogResult>(resolve => {
       const id = randomId()
-      const { content, action, defaultStatus = "none" } = option
-
-      console.log(action)
+      const { title, content, action, timeout, okButton = false, cancelButton = false, rejectButton = false, defaultStatus = "none", duration = 5000 } = option
 
       const onClose = (status: DialogResult["status"] = defaultStatus) => {
-        close(id)
+        if (duration) {
+          setTimeout(() => close(id), duration)
+        }
         resolve({
           status,
           get isOk() {
@@ -86,11 +115,11 @@ export const useDialog = createSharedComposable(() => {
           return h(
             ActionDialog,
             {
-              title: option.title,
+              title,
+              okButton,
+              cancelButton,
+              rejectButton,
               visible: true,
-              okButton: option.okButton ?? false,
-              cancelButton: option.cancelButton ?? false,
-              rejectButton: option.rejectButton ?? false,
               onClose
             },
             {
@@ -99,7 +128,7 @@ export const useDialog = createSharedComposable(() => {
                   case "function":
                     return content()
                   case "string":
-                    return h("div", { class: "w-full justify-center text-hex-d4d6b6 text-center" }, option.content)
+                    return h("div", { class: "w-full justify-center text-hex-d4d6b6 text-center" }, content)
                   default:
                     return content
                 }
@@ -110,8 +139,8 @@ export const useDialog = createSharedComposable(() => {
         }
       })
 
-      if (option.timeout) {
-        setTimeout(onClose, option.timeout)
+      if (timeout) {
+        setTimeout(onClose, timeout)
       }
     })
   }
