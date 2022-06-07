@@ -59,11 +59,15 @@
         emit("close")
       }
 
-      onKeyDown("Escape", () => {
-        if (visible.value && props.closeOnEsc) {
-          close()
-        }
-      })
+      onKeyDown(
+        "Escape",
+        () => {
+          if (visible.value && props.closeOnEsc) {
+            close()
+          }
+        },
+        { target: document }
+      )
 
       const { x, y, style } = useDraggable(
         computed(() => {
