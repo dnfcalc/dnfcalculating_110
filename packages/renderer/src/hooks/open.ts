@@ -32,17 +32,7 @@ export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0
       url = `${location.origin}${router.resolve(url).href}`
     }
     try {
-      if (window.ipcRenderer) {
-        window.ipcRenderer.invoke("open-win", {
-          url,
-          width,
-          height
-        })
-        return
-      }
-
       let _target = target
-
       if (!target) {
         const rs = await show({
           content: "请确认打开新页面的方式",
@@ -58,9 +48,18 @@ export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0
         }
       }
 
-      if (_target == "_blank") {
+      if (_target == "_blank" || width * height < 1) {
         window.open(url, "_blank")
       } else if (_target == "_self") {
+        if (window.ipcRenderer) {
+          window.ipcRenderer.invoke("open-win", {
+            url,
+            width,
+            height
+          })
+          return
+        }
+
         const id = randomId()
         const onClose = (e: MessageEvent) => {
           if (e.data == "close") {
