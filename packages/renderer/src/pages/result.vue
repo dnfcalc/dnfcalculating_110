@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { getSession, toMap, to_percent } from "@/utils"
-  import { defineComponent, ref, renderList } from "vue"
+  import { computed, defineComponent, ref, renderList } from "vue"
   import { useRoute } from "vue-router"
   import { useCharacterStore, useDetailsStore, useAppStore } from "@/store"
   import Profile from "@/components/internal/profile.vue"
@@ -13,8 +13,11 @@
       const uid = (useRoute().query.res as string) ?? ""
       const standard = useRoute().query.standard
       const characterStore = useCharacterStore()
+      const store = useDetailsStore()
       const appStore = useAppStore()
-      useDetailsStore().setStandard((useRoute().query.standard as string) ?? undefined)
+      console.log((useRoute().query.standard as string) ?? undefined)
+      store.setStandard((useRoute().query.standard as string) ?? undefined)
+
       appStore.title = "详细数据"
 
       const res: IResultInfo = await api.getResult(uid)
@@ -31,11 +34,47 @@
         )
       }
 
+      const skillInfo = computed(() => {
+        return (skill: string) => {
+          let damage = ["", "white"]
+          let avg = []
+          if (store.standard?.skills[skill]?.damage ?? undefined) {
+            if (store.standard?.skills[skill].damage == res.skills[skill].damage) damage = ["无变化", "white"]
+            else
+              damage = [
+                to_percent(res.skills[skill].damage / store.standard?.skills[skill].damage - 1, 0, "%", true),
+                res.skills[skill].damage > store.standard?.skills[skill].damage ? "#3ea74e" : "red"
+              ]
+          } else {
+            damage = [Math.round(res.skills[skill].damage).toLocaleString(), "white"]
+          }
+
+          if (store.standard?.skills[skill]?.damage ?? undefined) {
+            if (store.standard?.skills[skill].damage / store.standard?.skills[skill].count == res.skills[skill].damage / res.skills[skill].count) avg = ["无变化", "white"]
+            else
+              avg = [
+                to_percent(res.skills[skill].damage / res.skills[skill].count / (store.standard?.skills[skill].damage / store.standard?.skills[skill].count) - 1, 0, "%", true),
+                res.skills[skill].damage / res.skills[skill].count > store.standard?.skills[skill].damage / store.standard?.skills[skill].count ? "#3ea74e" : "red"
+              ]
+          } else {
+            avg = [Math.round(res.skills[skill].damage / res.skills[skill].count).toLocaleString(), "white"]
+          }
+
+          return {
+            cd: res.skills[skill].cd,
+            count: res.skills[skill].count,
+            damage: damage,
+            avg: avg,
+            mix: to_percent(res.skills[skill].damage / res.sumdamage, 0, "%")
+          }
+        }
+      })
+
       return () => (
         <>
           <div class="flex h-100% m-0 detail" style="background: url('/images/common/bg.jpg') no-repeat;background-size:100% 100%">
             <div class="flex h-100% w-266px justify-center">
-              <Profile sumdamage={res.sumdamage} equList={res.equips} class="!m-0 !p-0" details={res.info}></Profile>
+              <Profile sumdamage={res.sumdamage} equList={res.equips} class="!m-0 !p-0" details={res.info} standardSum={store.standard?.sumdamage}></Profile>
             </div>
             <div class="bg-hex-000000/60 flex-1 ml-1px pt-10px pr-15px pb-10px pl-15px" style="border:1px solid rgba(255,255,255,0.15)">
               <div class="flex flex-col bg-hex-000000/40 h-100% text-hex-FFFFFF w-100%" style="border:1px solid rgba(255,255,255,0.15)">
@@ -64,10 +103,14 @@
                           </calc-tooltip>
                         </div>
                       </div>
-                      <div class="w-12% item">{res.skills[item].cd}</div>
-                      <div class="w-12% item">{res.skills[item].count}</div>
-                      <div class="w-25% item">{Math.round(res.skills[item].damage).toLocaleString()}</div>
-                      <div class="w-25% item">{Math.round(res.skills[item].damage / res.skills[item].count).toLocaleString()}</div>
+                      <div class="w-12% item">{skillInfo.value(item).cd}</div>
+                      <div class="w-12% item">{skillInfo.value(item).count}</div>
+                      <div class="w-25% item" style={"color:" + skillInfo.value(item).damage[1]}>
+                        {skillInfo.value(item).damage[0]}
+                      </div>
+                      <div class="w-25% item" style={"color:" + skillInfo.value(item).avg[1]}>
+                        {skillInfo.value(item).avg[0]}
+                      </div>
                       <div class="w-12% item">{to_percent(res.skills[item].damage / res.sumdamage, 0, "%")}</div>
                     </div>
                   ))}

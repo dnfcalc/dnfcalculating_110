@@ -29,7 +29,6 @@ export const useDetailsStore = defineStore("details", {
   },
   getters: {
     standard(state) {
-      console.log(!state._standard, !state._standard, !state._standard && !state.standard_uuid)
       if (!state._standard && state.standard_uuid) {
         api.getResult(state.standard_uuid as string).then(res => (state._standard = res))
       }

@@ -4859,7 +4859,8 @@ def entry_259(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.12)
+        char.技能攻击力加成(
+            min(0.12, len(list(filter(lambda i: i == "", char.hotkey)))*0.02))
 
 
 def entry_264(char: Character = {}, mode=0, text=False, part=''):
@@ -7541,9 +7542,11 @@ def entry_1138(char: Character = {}, mode=0, text=False, part=''):
 def entry_247(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "使用技能指令施放技能时，该技能攻击力 +12%(觉醒技能除外)"
+    print("~~~")
     if mode == 0:
         pass
     if mode == 1:
+        print("~~~")
         char.指令技攻加成(0.12)
 
 
@@ -7565,7 +7568,7 @@ def entry_1121(char: Character = {}, mode=0, text=False, part=''):
         # char.指令冷却缩减(0.15)
         # 暂未判断是否指令
         for i in char.技能栏:
-            if i.所在等级 not in [50, 85, 100] and i.手搓 == True and i.name not in char.__hotkey:
+            if i.所在等级 not in [50, 85, 100] and i.手搓 == True and i.名称 not in char.hotkey:
                 if i.是否有伤害 == 1:
                     i.CDR *= (1 - 0.15)
 
@@ -7578,7 +7581,7 @@ def entry_1122(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         # char.指令技攻加成(0.10, exc=[])
         for i in char.技能栏:
-            if i.手搓 == True and i.name in char.__hotkey:
+            if i.手搓 == True and i.名称 in char.hotkey:
                 if i.是否有伤害 == 1:
                     i.倍率 *= 1.1
 

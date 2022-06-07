@@ -153,12 +153,13 @@ class equipment_list():
     def get_entry_atk_by_id(self, id) -> int:
         return self.entry_info.get(str(id), {}).get('attack', 0)
 
-    def get_damagelist_by_idlist(self, idlist) -> List[tuple]:
+    def get_damagelist_by_idlist(self, idlist, customize: Dict[str, List[int]] = {}) -> List[tuple]:
         damagelist = []  # (部位, 序号, 基础伤害)
         for id in idlist:
             i = self.get_equ_by_id(id)
+            temp = customize.get(str(id), [])
             num = 0
-            for k in i.成长属性:
+            for k in i.成长属性 + temp:
                 damagelist.append((
                     i.部位,
                     num,
@@ -181,11 +182,12 @@ class equipment_list():
         func_list = entry_func_list.get(id, entry_func_list[0])
         return func_list
 
-    def get_func_list_by_idlist(self, idlist) -> List[Function]:
+    def get_func_list_by_idlist(self, idlist, customize={}) -> List[Function]:
         temp = []
         for id in idlist:
+            cus = customize.get(str(id), [])
             i = self.get_equ_by_id(id)
-            for k in i.成长属性 + i.固有属性:
+            for k in i.成长属性 + i.固有属性 + cus:
                 temp.append((k, i.部位))
         # 词条优先级排序
         # temp.sort(key=(lambda x: priority.get(x[0], 100)))
@@ -223,6 +225,11 @@ class equipment_list():
                     "multi-select": multi_select.get(i[0], True)
                 })
         return setinfo
+
+    # def set_equ_customize(self, customize):
+    #     for key in customize.keys():
+    #         self.get_equ_by_id(key).成长属性 = customize[key]
+    #         print(self.get_equ_by_id(key).成长属性,customize[key])
 
 
 equ = equipment_list()

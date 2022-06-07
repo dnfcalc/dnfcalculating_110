@@ -54,7 +54,9 @@ class Character():
     # 技能序号: Dict[int, 技能 | 主动技能 | 被动技能] = {}
     技能栏: List[Union[技能, 主动技能, 被动技能]] = []
     技能序号: Dict[int, Union[技能, 主动技能, 被动技能]] = {}
+    自定义词条: Dict[int, List[int]] = {}
     buff: float = 1.00
+    hotkey: List[str] = [""]*14
 
     def __init__(self) -> None:
         # 计算变量 ##########
@@ -124,7 +126,6 @@ class Character():
         self.__指令效果: Dict[str, float] = {}
         self.__消耗品效果: float = 1.0
         self.__MP消耗量: float = 1.0
-        self.__hotkey: List[str] = [""]*14
 
         if self.转职 == '':
             self.转职 = self.职业
@@ -595,7 +596,7 @@ class Character():
         #    equ.set_func_chose({i['id']: i['select']})
 
     def __hotkey_set(self, setinfo):
-        self.__hotkey = setinfo
+        self.hotkey = setinfo
 
         # 设置穿戴的装备
 
@@ -825,11 +826,11 @@ class Character():
             for j in ["growth_First", "growth_Second", "growth_Third", "growth_Fourth"]:
                 temp.append(self.打造详情.get(i, {}).get(j, 1))
             self.词条等级[i] = temp
-        for 部位, 序号, 基础 in equ.get_damagelist_by_idlist(self.装备栏):
+        for 部位, 序号, 基础 in equ.get_damagelist_by_idlist(self.装备栏, self.自定义词条):
             等级 = self.词条等级[部位][序号]
             self.攻击强化加成(成长词条计算(基础, 等级))
         # 词条效果相关计算
-        for func, buwei in equ.get_func_list_by_idlist(self.装备栏):
+        for func, buwei in equ.get_func_list_by_idlist(self.装备栏, self.自定义词条):
             func(self, part=buwei)  # 站街效果
             func(self, mode=1, part=buwei)  # 进图效果
             # 打印相关函数和效果
@@ -1023,6 +1024,8 @@ class Character():
 
         # 获取打造数据
         self.__打造设置(info['forge_set'])
+        # 自定义词条部分
+        self.自定义词条 = info['customize']
         # 获取装备列表
         self.__穿戴装备(equipList)
         # 获取技能数据
@@ -1039,7 +1042,7 @@ class Character():
         result = {
             'id': uuid1().hex,
             'alter': self.实际名称,
-            'name': self.职业,
+            'name': self.名称,
             'forget_set': info['forge_set'],
             'equips': list(map(lambda x: equ.get_json(x), self.装备栏)),
             'info': {
