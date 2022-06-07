@@ -13,7 +13,7 @@ interface UseOpenOption {
   /**
    * 是否打开新页面
    */
-  target?: "_blank" | "_self"
+  target?: "_blank" | "_self" | false
 
   /**
    * 立即打开
@@ -21,7 +21,7 @@ interface UseOpenOption {
   immediate?: boolean
 }
 
-export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0, height = 0, immediate = false, target }: UseOpenOption = {}) {
+export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0, height = 0, immediate = false, target = "_self" }: UseOpenOption = {}) {
   const { show, close, randomId } = useDialog()
   const router = useRouter()
 
@@ -46,15 +46,15 @@ export function useOpen(maybeUrl: MaybeRef<string> | (() => string), { width = 0
       if (!target) {
         const rs = await show({
           content: "请确认打开新页面的方式",
-          okButton: "新窗口",
-          rejectButton: "当前窗口",
+          okButton: "当前窗口",
+          rejectButton: "新窗口",
           cancelButton: true,
           defaultStatus: "cancel"
         })
         if (rs.isOk) {
-          _target = "_blank"
-        } else if (rs.isReject) {
           _target = "_self"
+        } else if (rs.isReject) {
+          _target = "_blank"
         }
       }
 
