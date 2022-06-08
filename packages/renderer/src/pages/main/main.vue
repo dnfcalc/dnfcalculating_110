@@ -52,9 +52,9 @@
             <div class="center">{characterStore.alter && <router-view></router-view>}</div>
             <div class="footer">
               <div class="flex col-4 justify-center">
-                <calc-select class="!h-22px">
+                <calc-select v-model={configStore.carry_type} class="!h-22px">
                   {renderList(characterStore.carry_type_list, (item, index) => (
-                    <calc-option value={index}>{item}</calc-option>
+                    <calc-option value={item}>{item}</calc-option>
                   ))}
                 </calc-select>
               </div>

@@ -3281,7 +3281,14 @@ def entry_1017(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "每1个扩展技能栏中的技能，未放置扩展技能栏的技能攻击力 +2%(最多增加14%), 扩展技能栏的技能攻击力 -20%"
     if mode == 0:
-        pass  # 暂未实现
+        num = len(list(filter(lambda i: i != "", char.hotkey[:7])))*0.02
+        print(char.hotkey[:7])
+        for i in char.技能栏:
+            if i.是否有伤害 == 1:
+                if i in char.hotkey[:7]:
+                    i.倍率 *= 0.8
+                else:
+                    i.倍率 *= (num+1)
     if mode == 1:
         pass
 

@@ -274,13 +274,8 @@ class 技能10(职业主动技能):
     MP_basic = 150
     MP_growth = 18.34
 
-    护石选项 = ['魔界', '圣痕']
-
-    def 装备护石(self, 类型):
-        if 类型 == 0:
-            self.data0 = [i * 1.16 for i in self.data0]
-        elif 类型 == 1:
-            self.data0 = [i * 1.25 for i in self.data0]
+    def 装备护石(self):
+        self.data0 = [i * 1.25 for i in self.data0]
 
 
 class 技能11(职业主动技能):
@@ -307,17 +302,10 @@ class 技能11(职业主动技能):
 
     无色消耗 = 1
 
-    护石选项 = ['魔界', '圣痕']
-
-    def 装备护石(self, 类型):
-        if 类型 == 0:
-            self.data0 = [x * 1.31 for x in self.data0]
-            self.hit1 = 0
-            self.CDR *= 0.94
-        elif 类型 == 1:
-            self.data0 = [x * 1.40 for x in self.data0]
-            self.hit1 = 0
-            self.CDR *= 0.94
+    def 装备护石(self):
+        self.data0 = [x * 1.40 for x in self.data0]
+        self.hit1 = 0
+        self.CDR *= 0.94
 
 
 class 技能12(职业主动技能):
@@ -341,17 +329,10 @@ class 技能12(职业主动技能):
 
     无色消耗 = 2
 
-    护石选项 = ['魔界', '圣痕']
-
-    def 装备护石(self, 类型):
-        if 类型 == 0:
-            self.data0 = [x * 0.26 for x in self.data0]
-            self.hit0 = 24
-            self.技能施放时间 = 3.0
-        elif 类型 == 1:
-            self.data0 = [x * 0.28 for x in self.data0]
-            self.hit0 = 24
-            self.技能施放时间 = 3.0
+    def 装备护石(self):
+        self.data0 = [x * 0.28 for x in self.data0]
+        self.hit0 = 24
+        self.技能施放时间 = 3.0
 
 
 class 技能13(被动技能):
@@ -411,17 +392,10 @@ class 技能15(职业主动技能):
 
     无色消耗 = 2
 
-    护石选项 = ['魔界', '圣痕']
-
-    def 装备护石(self, 类型):
-        if 类型 == 0:
-            self.data0 = [x * 2.16 for x in self.data0]
-            self.技能施放时间 = 0.5
-            self.hit1 = 5
-        elif 类型 == 1:
-            self.data0 = [x * 2.34 for x in self.data0]
-            self.技能施放时间 = 0.5
-            self.hit1 = 5
+    def 装备护石(self):
+        self.data0 = [x * 2.34 for x in self.data0]
+        self.技能施放时间 = 0.5
+        self.hit1 = 5
 
 
 class 技能16(职业主动技能):
@@ -447,19 +421,11 @@ class 技能16(职业主动技能):
 
     无色消耗 = 3
 
-    护石选项 = ['魔界', '圣痕']
-
-    def 装备护石(self, 类型):
-        if 类型 == 0:
-            self.data1 = [x * 0.6 for x in self.data0]
-            self.技能施放时间 = 1.5
-            self.hit1 = 6
-            self.CDR *= 0.95
-        elif 类型 == 1:
-            self.data1 = [x * 0.82 for x in self.data0]
-            self.技能施放时间 = 1.5
-            self.hit1 = 6
-            self.CDR *= 0.95
+    def 装备护石(self):
+        self.data1 = [x * 0.82 for x in self.data0]
+        self.技能施放时间 = 1.5
+        self.hit1 = 6
+        self.CDR *= 0.95
 
 
 class 技能17(被动技能):
@@ -497,9 +463,8 @@ class 技能18(职业主动技能):
 
     无色消耗 = 5
 
-    def 装备护石(self, 类型):
-        if 类型 == 0:
-            self.data0 = [x * 1.35 for x in self.data0]
+    def 装备护石(self):
+        self.data0 = [x * 1.35 for x in self.data0]
 
 
 class 技能19(职业主动技能):
@@ -521,10 +486,9 @@ class 技能19(职业主动技能):
 
     无色消耗 = 5
 
-    def 装备护石(self, 类型):
-        if 类型 == 0:
-            self.data0 = [x * 1.29 for x in self.data0]
-            self.CDR *= 0.9
+    def 装备护石(self):
+        self.data0 = [x * 1.29 for x in self.data0]
+        self.CDR *= 0.9
 
 
 class 技能20(职业主动技能):

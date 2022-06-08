@@ -598,7 +598,14 @@ class Character():
     def __hotkey_set(self, setinfo):
         self.hotkey = setinfo
 
-        # 设置穿戴的装备
+    def __set_char(self, info):
+        self.类型 = info['carry_type']
+        self.buff = info['buff_ratio'] / 100 + 1
+        self.护石 = info['rune_set']
+        self.符文 = info['talisman_set']
+        pass
+
+    # 设置穿戴的装备
 
     def __穿戴装备(self, idlist):
         self.装备栏 = []
@@ -1024,6 +1031,8 @@ class Character():
 
         # 获取打造数据
         self.__打造设置(info['forge_set'])
+        # 设置职业信息
+        self.__set_char(info)
         # 自定义词条部分
         self.自定义词条 = info['customize']
         # 获取装备列表

@@ -29,6 +29,9 @@
                       <calc-option class="w-28px h-28px bg-hex-000000 !flex items-center justify-center" value="">
                         无
                       </calc-option>
+                      <calc-option class="w-28px h-28px bg-hex-000000 !flex items-center justify-center" value="其它">
+                        其它
+                      </calc-option>
                       {renderList(skillList.value(item - 1), skill => (
                         <calc-option value={skill.name}>
                           <div>
