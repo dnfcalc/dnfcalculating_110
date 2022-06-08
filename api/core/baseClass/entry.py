@@ -2773,7 +2773,10 @@ def entry_1174(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "消耗无色小晶块的技能攻击力 +8%, 消耗无色小晶块的技能无色小晶块消耗量 +2"
     if mode == 0:
-        char.条件技攻加成('消耗无色', 0.08)
+        for skill in char.技能队列:
+            if skill["无色消耗"] > 0:
+                skill["无色消耗"] += 2
+                skill["额外倍率"] *= 1.08
     if mode == 1:
         pass
 
@@ -2963,6 +2966,9 @@ def entry_1147(char: Character = {}, mode=0, text=False, part=''):
         return "所有职业Lv1-30技能攻击力 +12%, 不消耗无色小晶块的技能变为消耗2个无色小晶块"
     if mode == 0:
         char.技能倍率加成(1, 30, 0.12)
+        for skill in char.技能队列:
+            if skill["无色消耗"] == 0:
+                skill["无色消耗"] = 2
     if mode == 1:
         pass
 
@@ -3204,7 +3210,13 @@ def entry_1102(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "施放技能时，根据技能消耗的无色小晶块数量增加该技能的攻击力, - 消耗1个以上时，技能攻击力+2%, - 消耗15个以上时，技能攻击力+10%, - 消耗30个以上时，技能攻击力+20%"
     if mode == 0:
-        pass  # 暂未实现
+        for skill in char.技能队列:
+            if skill["无色消耗"] >= 30:
+                skill["额外倍率"] *= 1.2
+            elif skill["无色消耗"] >= 15:
+                skill["额外倍率"] *= 1.1
+            elif skill["无色消耗"] >= 1:
+                skill["额外倍率"] *= 1.02
     if mode == 1:
         pass
 
@@ -3282,7 +3294,6 @@ def entry_1017(char: Character = {}, mode=0, text=False, part=''):
         return "每1个扩展技能栏中的技能，未放置扩展技能栏的技能攻击力 +2%(最多增加14%), 扩展技能栏的技能攻击力 -20%"
     if mode == 0:
         num = len(list(filter(lambda i: i != "", char.hotkey[:7])))*0.02
-        print(char.hotkey[:7])
         for i in char.技能栏:
             if i.是否有伤害 == 1:
                 if i in char.hotkey[:7]:
@@ -3597,7 +3608,9 @@ def entry_983(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         char.基础精通加成(0.3)
         char.技能倍率加成(15, 30, 0.1)
-        char.条件技攻加成('消耗无色', -0.15)
+        for skill in char.技能队列:
+            if skill["无色消耗"] > 0:
+                skill["额外倍率"] *= 0.75
     if mode == 1:
         pass
 
@@ -3608,7 +3621,9 @@ def entry_984(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         char.基础精通加成(0.3)
         char.技能倍率加成(15, 30, 0.1)
-        char.条件冷却加成('消耗无色', -0.1)
+        for skill in char.技能队列:
+            if skill["无色消耗"] > 0:
+                skill["CDR"] *= 1.1
     if mode == 1:
         pass
 
@@ -3874,8 +3889,14 @@ def entry_879(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "不消耗无色小晶块的技能冷却时间-30%, 消耗无色小晶块的技能冷却时间+15%"
     if mode == 0:
-        char.条件冷却加成('消耗无色', -0.15)
-        char.条件冷却加成('不消耗无色', 0.3)
+        # char.条件冷却加成('消耗无色', -0.15)
+        # char.条件冷却加成('不消耗无色', 0.3)
+        for skill in char.技能队列:
+            if skill["无色消耗"] == 0:
+                skill["CDR"] *= 0.7
+        for skill in char.技能队列:
+            if skill["无色消耗"] > 0:
+                skill["CDR"] *= 1.15
     if mode == 1:
         pass
 
@@ -5689,7 +5710,9 @@ def entry_249(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.条件技攻加成('不消耗无色', 0.15)
+        for skill in char.技能队列:
+            if skill["无色消耗"] == 0:
+                skill["额外倍率"] *= 1.15
 
 
 def entry_878(char: Character = {}, mode=0, text=False, part=''):
@@ -5698,8 +5721,16 @@ def entry_878(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.条件技攻加成('不消耗无色', -0.05)
-        char.条件技攻加成('消耗无色', 0.10)
+        for index in range(0, len(char.技能队列)):
+            skill = char.技能队列[index]
+            if skill["无色消耗"] == 0:
+                skill["额外倍率"] *= 0.95
+            if skill["无色消耗"] > 0:
+                skill["额外倍率"] *= 1.1
+                skill["无色消耗"] *= 2**len(list(filter(lambda i: i['名称'] ==
+                                                    skill['名称'], char.技能队列[0:index])))
+            char.技能队列[index] = skill
+        # todo 释放一次翻倍
 
 
 def entry_877(char: Character = {}, mode=0, text=False, part=''):
@@ -7549,11 +7580,9 @@ def entry_1138(char: Character = {}, mode=0, text=False, part=''):
 def entry_247(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "使用技能指令施放技能时，该技能攻击力 +12%(觉醒技能除外)"
-    print("~~~")
     if mode == 0:
         pass
     if mode == 1:
-        print("~~~")
         char.指令技攻加成(0.12)
 
 

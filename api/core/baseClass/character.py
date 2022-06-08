@@ -57,6 +57,7 @@ class Character():
     自定义词条: Dict[int, List[int]] = {}
     buff: float = 1.00
     hotkey: List[str] = [""]*14
+    技能队列 = []
 
     def __init__(self) -> None:
         # 计算变量 ##########
@@ -180,7 +181,7 @@ class Character():
                 "current_LV": skill.基础等级,
                 "data": 0 if not skill.是否有伤害 else skill.等效百分比(''),
                 "TP_max": skill.TP上限 if skill.是否有伤害 else None,
-                "TP_Lv": skill.TP等级 if skill.是否有伤害 else None
+                "TP_Lv": skill.TP等级 if skill.是否有伤害 else None,
             })
             # 护石
             if skill.是否有伤害 == 1 and skill.是否有护石 == 1:
@@ -580,6 +581,17 @@ class Character():
             id = setinfo.get(i, {}).get('enchanting', 0)
             self.部位附魔[i] = get_encfunc_by_id(id)
 
+    def __技能队列设置(self, setinfo):
+        self.技能队列 = []
+        for item in setinfo:
+            self.技能队列.append({
+                '名称': item['name'],
+                '无色消耗': self.get_skill_by_name(item['name']).无色消耗,
+                '额外倍率': 1.0,
+                '等级变化': 0,
+                'CDR': 1.0
+            })
+
     # 设置技能相关参数
     def __skill_set(self, setinfo):
         for i in setinfo:
@@ -601,8 +613,8 @@ class Character():
     def __set_char(self, info):
         self.类型 = info['carry_type']
         self.buff = info['buff_ratio'] / 100 + 1
-        self.护石 = info['rune_set']
-        self.符文 = info['talisman_set']
+        self.护石 = info['talisman_set']
+        self.符文 = info['rune_set']
         pass
 
     # 设置穿戴的装备
@@ -619,6 +631,8 @@ class Character():
     # region 伤害计算相关函数
     def __计算伤害预处理(self):
         self.__辟邪玉计算()
+        self.__护石计算()
+        self.__符文计算()
         self.__装备属性计算()
         self.__CD倍率计算()
         self.__加算冷却计算()
@@ -673,6 +687,35 @@ class Character():
                 func = get_jadefunc_by_id(id)
                 func(self, value=value)
                 # 打印相关函数和效果
+
+    def __护石计算(self):
+        for item in self.护石:
+            try:
+                if item != '' and item != '无':
+                    self.get_skill_by_name(item).装备护石()
+            except:
+                pass
+
+    def __符文计算(self):
+        for item in self.符文:
+            if item != "":
+                skill = item[0:-1]
+                type = item[-1]
+                # 紫
+                if type == "0":
+                    self.get_skill_by_name(skill).倍率 *= 1.04
+                    # 红
+                if type == "1":
+                    self.get_skill_by_name(skill).倍率 *= 1.06
+                    self.get_skill_by_name(skill).CDR *= 1.04
+                    # 绿
+                if type == "3":
+                    self.get_skill_by_name(skill).倍率 *= 0.96
+                    self.get_skill_by_name(skill).CDR *= 0.97
+                    # 蓝
+                if type == "4":
+                    self.get_skill_by_name(skill).CDR *= 0.95
+            pass
 
     def __杂项计算(self, mode=0):
         if 'others' not in self.打造详情.keys():
@@ -1031,6 +1074,8 @@ class Character():
 
         # 获取打造数据
         self.__打造设置(info['forge_set'])
+
+        self.__技能队列设置(info['skill_que'])
         # 设置职业信息
         self.__set_char(info)
         # 自定义词条部分
