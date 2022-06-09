@@ -98,17 +98,48 @@ class 主动技能(技能):
     是否有护石 = 0
     护石选项 = ['魔界']
 
-    def 等效百分比(self, 武器类型):
-        if self.等级 == 0:
-            return 0
-        else:
-            return int(
-                (self.攻击次数 * (self.基础 + self.成长 * self.等级) + self.攻击次数2 *
-                 (self.基础2 + self.成长2 * self.等级) + self.攻击次数3 *
-                 (self.基础3 + self.成长3 * self.等级)) *
-                (1 + self.TP成长 * self.TP等级) * self.倍率)
+    data0 = []
+    hit0 = 1
+    power0 = 1
 
-    def 等效CD(self, 武器类型, 输出类型):
+    data1 = []
+    hit1 = 0
+    power1 = 1
+
+    data2 = []
+    hit2 = 0
+    power2 = 1
+
+    data3 = []
+    hit3 = 0
+    power3 = 1
+
+    data4 = []
+    hit4 = 0
+    power4 = 1
+
+    data5 = []
+    hit5 = 0
+    power5 = 1
+
+    data6 = []
+    hit6 = 0
+    power6 = 1
+
+    def 等效百分比(self, 武器类型="", 额外等级=0, 额外倍率=1):
+        datas = [self.data0, self.data1, self.data2,
+                 self.data3, self.data4, self.data5, self.data6]
+        hits = [self.hit0, self.hit1, self.hit2,
+                self.hit3, self.hit4, self.hit5, self.hit6]
+        powers = [self.power0, self.power1, self.power2,
+                  self.power3, self.power4, self.power5, self.power6]
+        等效倍率 = 0.0
+        for item in range(0, 7):
+            if hits[item] > 0 and self.等级+额外等级 < len(datas[item]):
+                等效倍率 += datas[item][self.等级+额外等级] * hits[item] * powers[item]
+        return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
+
+    def 等效CD(self, 武器类型="", 输出类型="", 额外CDR=1.0, 手搓收益=1.0):
         cdr = 1
         if self.手搓:
             if self.所在等级 >= 15 and self.所在等级 <= 30:
@@ -119,7 +150,7 @@ class 主动技能(技能):
                 cdr = 0.95
             if self.所在等级 in [50, 100]:
                 cdr = 0.95
-        return round(max(self.CD * cdr * self.CDR / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1))
+        return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1))
 
     def MP消耗(self, 武器类型, 输出类型):
         return ((self.等级 - 1)*self.MP_growth + self.MP_basic)*self.MP消耗倍率 * MP消耗惩罚(武器类型, 输出类型)

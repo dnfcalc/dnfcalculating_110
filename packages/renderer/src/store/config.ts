@@ -115,6 +115,7 @@ export const useConfigStore = defineStore("config", {
     },
     async calc(single: boolean = false) {
       this.customizeInit()
+      if (single && this.data.single_set.length < 12) return { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0 }
       return await api.calc(
         {
           setInfo: toObj(this.data),

@@ -2776,7 +2776,7 @@ def entry_1174(char: Character = {}, mode=0, text=False, part=''):
         for skill in char.技能队列:
             if skill["无色消耗"] > 0:
                 skill["无色消耗"] += 2
-                skill["额外倍率"] *= 1.08
+                skill["倍率"] *= 1.08
     if mode == 1:
         pass
 
@@ -3212,11 +3212,11 @@ def entry_1102(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         for skill in char.技能队列:
             if skill["无色消耗"] >= 30:
-                skill["额外倍率"] *= 1.2
+                skill["倍率"] *= 1.2
             elif skill["无色消耗"] >= 15:
-                skill["额外倍率"] *= 1.1
+                skill["倍率"] *= 1.1
             elif skill["无色消耗"] >= 1:
-                skill["额外倍率"] *= 1.02
+                skill["倍率"] *= 1.02
     if mode == 1:
         pass
 
@@ -3610,7 +3610,7 @@ def entry_983(char: Character = {}, mode=0, text=False, part=''):
         char.技能倍率加成(15, 30, 0.1)
         for skill in char.技能队列:
             if skill["无色消耗"] > 0:
-                skill["额外倍率"] *= 0.75
+                skill["倍率"] *= 0.75
     if mode == 1:
         pass
 
@@ -5712,7 +5712,7 @@ def entry_249(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         for skill in char.技能队列:
             if skill["无色消耗"] == 0:
-                skill["额外倍率"] *= 1.15
+                skill["倍率"] *= 1.15
 
 
 def entry_878(char: Character = {}, mode=0, text=False, part=''):
@@ -5724,12 +5724,11 @@ def entry_878(char: Character = {}, mode=0, text=False, part=''):
         for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
             if skill["无色消耗"] == 0:
-                skill["额外倍率"] *= 0.95
+                skill["倍率"] *= 0.95
             if skill["无色消耗"] > 0:
-                skill["额外倍率"] *= 1.1
-                skill["无色消耗"] *= 2**len(list(filter(lambda i: i['名称'] ==
-                                                    skill['名称'], char.技能队列[0:index])))
-            char.技能队列[index] = skill
+                skill["倍率"] *= 1.1
+                skill["无色消耗"] *= 2**min(len(list(filter(lambda i: i['名称'] ==
+                                                        skill['名称'], char.技能队列[0:index]))), 3)
         # todo 释放一次翻倍
 
 
@@ -5739,8 +5738,11 @@ def entry_877(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.条件技攻加成('不消耗无色', 0.2)
-        char.条件技攻加成('消耗无色', -0.10)
+        for skill in char.技能队列:
+            if skill["无色消耗"] == 0:
+                skill["倍率"] *= 1.2
+            if skill["无色消耗"] > 0:
+                skill["倍率"] *= 0.9
 
 
 def entry_899(char: Character = {}, mode=0, text=False, part=''):
@@ -5832,7 +5834,9 @@ def entry_1115(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         char.攻击速度增加(0.10)
         char.施放速度增加(0.15)
-        char.条件冷却加成('不消化无色', -0.2)
+        for skill in char.技能队列:
+            if skill["无色消耗"] == 0:
+                skill["CDR"] *= 1.2
 
 
 def entry_1116(char: Character = {}, mode=0, text=False, part=''):
@@ -7574,7 +7578,8 @@ def entry_1138(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.指令效果加成('消耗无色', 4.0)
+        # 暂未实现
+        pass
 
 
 def entry_247(char: Character = {}, mode=0, text=False, part=''):
@@ -7592,7 +7597,9 @@ def entry_248(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.指令效果加成('所有', 1.0)
+        # 暂未实现
+        # char.指令效果加成('所有', 1.0)
+        pass
 
 
 def entry_1121(char: Character = {}, mode=0, text=False, part=''):
@@ -8515,6 +8522,12 @@ def entry_884(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        skills = char.技能获取(40, 40, ['猫拳', '爱之急救', '生命源泉', '复苏之光', '六道'])
+        for (skill, index) in range(0, len(char.技能队列)):
+            skill = char.技能队列[index]
+            if skill["名称"] in skills:
+                skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
+                                                        skill['名称'], char.技能队列[0:index-1]))), 10)
         pass
 
 
@@ -8524,7 +8537,12 @@ def entry_885(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        skills = char.技能获取(45, 45)
+        for (skill, index) in range(0, len(char.技能队列)):
+            skill = char.技能队列[index]
+            if skill["名称"] in skills:
+                skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
+                                                        skill['名称'], char.技能队列[0:index-1]))), 10)
 
 
 def entry_886(char: Character = {}, mode=0, text=False, part=''):
@@ -8533,7 +8551,12 @@ def entry_886(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        skills = char.技能获取(35, 35)
+        for index in range(0, len(char.技能队列)):
+            skill = char.技能队列[index]
+            if skill["名称"] in skills:
+                skill["等级变化"] += 10-min(len(list(filter(lambda i: i['名称'] ==
+                                                        skill['名称'], char.技能队列[0:index]))), 10)
 
 
 def entry_887(char: Character = {}, mode=0, text=False, part=''):
@@ -8542,7 +8565,12 @@ def entry_887(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        skills = char.技能获取(60, 60)
+        for (skill, index) in range(0, len(char.技能队列)):
+            skill = char.技能队列[index]
+            if skill["名称"] in skills:
+                skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
+                                                        skill['名称'], char.技能队列[0:index-1]))), 10)
 
 
 def entry_888(char: Character = {}, mode=0, text=False, part=''):
@@ -8551,7 +8579,12 @@ def entry_888(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        skills = char.技能获取(70, 70)
+        for (skill, index) in range(0, len(char.技能队列)):
+            skill = char.技能队列[index]
+            if skill["名称"] in skills:
+                skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
+                                                        skill['名称'], char.技能队列[0:index-1]))), 10)
 # endregion
 
 # region 破招相关词条 (未实现)

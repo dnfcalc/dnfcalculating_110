@@ -97,10 +97,14 @@ def 设置防具基础(装备):
         装备.体力.update({i: round((b[2]) * Decimal(1.0))})
         装备.精神.update({i: round((b[3]) * Decimal(1.0))})
 
+
 # 词条计算优先级，默认为100，特殊需求手动设置优先级
-# priority = {
-#    1: 150,
-# }
+priority = {
+    # 无色结算顺序
+    1147: 1,
+    878: 998,
+    1102: 999
+}
 
 
 class equipment_list():
@@ -190,7 +194,7 @@ class equipment_list():
             for k in i.成长属性 + i.固有属性 + cus:
                 temp.append((k, i.部位))
         # 词条优先级排序
-        # temp.sort(key=(lambda x: priority.get(x[0], 100)))
+        temp.sort(key=(lambda x: priority.get(x[0], 100)))
         funclist = []
         for k, part in temp:
             funclist.append((

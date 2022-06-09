@@ -414,6 +414,13 @@ class Character():
             if i.所在等级 == Lv and i.是否主动 == 1 and i.名称 not in ["念兽龙虎啸", "风雷啸", "圣灵符文", "神圣之光"]:
                 i.等级加成(lv)
 
+    def 技能获取(self, min: int, max: int, exc=[]) -> None:
+        temp = []
+        for i in self.技能栏:
+            if i.所在等级 >= min and i.所在等级 <= max and i.是否主动 == 1 and i.名称 not in exc:
+                temp.append(i.名称)
+        return temp
+
     def 技能等级加成(self, 加成类型: str, min: int, max: int, lv: int, exc=[int]) -> None:
         for i in self.技能栏:
             if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
@@ -587,7 +594,7 @@ class Character():
             self.技能队列.append({
                 '名称': item['name'],
                 '无色消耗': self.get_skill_by_name(item['name']).无色消耗,
-                '额外倍率': 1.0,
+                '倍率': 1.0,
                 '等级变化': 0,
                 'CDR': 1.0
             })
@@ -639,14 +646,12 @@ class Character():
         self.__被动倍率计算()
         self.__伤害指数计算()
 
-    def 伤害计算(self, skill_set_list):
+    def 伤害计算(self):
         data = {}
         sumdamage = 0
         data['skills'] = {}
-        for i in skill_set_list:
-            if i['count'] == 0:
-                continue
-            k = self.get_skill_by_name(i['name'])
+        for i in self.技能队列:
+            k = self.get_skill_by_name(i['名称'])
             if k.是否有伤害 == 1:
                 if k.名称 not in data.keys():
                     temp = {}
@@ -656,9 +661,12 @@ class Character():
                     temp['百分比'] = k.等效百分比(self.武器类型)
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
-                damage = k.等效百分比(self.武器类型) * self.伤害指数 * k.被动倍率 * i['count']
+                print(i['名称'], k.等效百分比(
+                    self.武器类型, i['等级变化'], i['倍率']))
+                damage = k.等效百分比(
+                    self.武器类型, i['等级变化'], i['倍率']) * self.伤害指数 * k.被动倍率
                 sumdamage += damage
-                temp['count'] = temp.get('count', 0) + i['count']
+                temp['count'] = temp.get('count', 0) + 1
                 temp['damage'] = temp.get('damage', 0) + damage
                 data['skills'][k.名称] = temp
         data['sumdamage'] = sumdamage
@@ -691,14 +699,14 @@ class Character():
     def __护石计算(self):
         for item in self.护石:
             try:
-                if item != '' and item != '无':
+                if not item is None and item != '' and item != '无':
                     self.get_skill_by_name(item).装备护石()
             except:
                 pass
 
     def __符文计算(self):
         for item in self.符文:
-            if item != "":
+            if not item is None and item != '':
                 skill = item[0:-1]
                 type = item[-1]
                 # 紫
@@ -1091,7 +1099,7 @@ class Character():
 
         self.__计算伤害预处理()
 
-        temp = self.伤害计算(info['skill_set'])
+        temp = self.伤害计算()
 
         result = {
             'id': uuid1().hex,

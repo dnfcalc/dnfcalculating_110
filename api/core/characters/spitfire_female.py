@@ -7,46 +7,6 @@ from core.baseClass.skill import 主动技能, 被动技能
 class 职业主动技能(主动技能):
     技能施放时间 = 0.0
     脱手 = 1
-    data0 = []
-    hit0 = 1
-    power0 = 1
-
-    data1 = []
-    hit1 = 0
-    power1 = 1
-
-    data2 = []
-    hit2 = 0
-    power2 = 1
-
-    data3 = []
-    hit3 = 0
-    power3 = 1
-
-    data4 = []
-    hit4 = 0
-    power4 = 1
-
-    data5 = []
-    hit5 = 0
-    power5 = 1
-
-    data6 = []
-    hit6 = 0
-    power6 = 1
-
-    def 等效百分比(self, 武器类型):
-        datas = [self.data0, self.data1, self.data2,
-                 self.data3, self.data4, self.data5, self.data6]
-        hits = [self.hit0, self.hit1, self.hit2,
-                self.hit3, self.hit4, self.hit5, self.hit6]
-        powers = [self.power0, self.power1, self.power2,
-                  self.power3, self.power4, self.power5, self.power6]
-        等效倍率 = 0.0
-        for item in range(0, 7):
-            if hits[item] > 0 and self.等级 < len(datas[item]):
-                等效倍率 += datas[item][self.等级] * hits[item] * powers[item]
-        return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率
 
 
 class 技能0(被动技能):
