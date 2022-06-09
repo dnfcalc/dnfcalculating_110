@@ -46,7 +46,7 @@
     return () => {
       if (characterStore.alter) {
         return (
-          <div class="main" style={"background-image:url(/images/characters/" + characterStore.alter + "/bg.jpg)"}>
+          <div class="main" style={"background-image:url(./images/characters/" + characterStore.alter + "/bg.jpg)"}>
             <div class="header">
               <calc-tabs route>
                 <calc-tab value={"/character/equips?name=" + characterStore.alter}>装备</calc-tab>

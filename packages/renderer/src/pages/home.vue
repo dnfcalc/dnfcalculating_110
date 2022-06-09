@@ -8,14 +8,14 @@
 
   function sub_icon(sub: number) {
     return {
-      backgroundImage: `url(/images/adventure/sub/${sub}.png)`
+      backgroundImage: `url(./images/adventure/sub/${sub}.png)`
     }
   }
 
   function job_icon(child: IAlterInfo) {
     return {
       filter: !child.open ? `grayscale(100%)` : ``,
-      backgroundImage: `url(/images/adventure/jobs/${child.name}.png)`
+      backgroundImage: `url(./images/adventure/jobs/${child.name}.png)`
     }
   }
 

@@ -32,7 +32,7 @@
 
 <style lang="scss">
   .cp {
-    background-image: url(/images/common/talisman.png);
+    background-image: url(./images/common/talisman.png);
     height: 52px;
     width: 168px;
     margin: 0 auto;

@@ -204,10 +204,10 @@
         return (
           <div class="char-info">
             <div class="char-back">
-              <div class="head" style="background-image:url(/images/common/head.png)">
+              <div class="head" style="background-image:url(./images/common/head.png)">
                 <div
                   class="bg-bottom flex h-170px w-266px char"
-                  style={"background-image:url(/images/characters/" + characterStore.alter + "/profile.png);background-repeat: no-repeat; position: absolute;"}
+                  style={"background-image:url(./images/characters/" + characterStore.alter + "/profile.png);background-repeat: no-repeat; position: absolute;"}
                 >
                   [{characterStore.name}]
                   {renderList(display_parts, (item, index) => (
@@ -221,13 +221,13 @@
                     </>
                   ))}
                 </div>
-                <div class="h-150px w-266px" style="background-image:url(/images/common/equ-back.png)"></div>
+                <div class="h-150px w-266px" style="background-image:url(./images/common/equ-back.png)"></div>
               </div>
               {props.showDetail && (
                 <>
                   {props.showMW && (
                     <div class="mingwang">
-                      <img src="/images/common/mingwang.png" />
+                      <img src="./images/common/mingwang.png" />
                       <div class="ml-2px text-hex-836832">冒险家名望</div>
                       <div class="ml-8px text-hex-3ea74e" style="width:55px">
                         {details.value?.mingwang}
@@ -236,36 +236,36 @@
                   )}
                   <div class="details">
                     <div class="de-item">
-                      <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.力量 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
                       <div class="text-hex-836832 name">力量</div>
                       <div class="text-hex-3ea74e">{details.value?.zhanjie?.liliang?.toFixed(0)}</div>
                     </div>
                     <div class="de-item">
-                      <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.智力 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
                       <div class="text-hex-836832 name">智力</div>
                       <div class="text-hex-3ea74e">{details.value?.zhanjie?.zhili?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
-                      <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.物理攻击 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
                       <div class="text-hex-836832 name">物理攻击</div>
                       <div class="text-hex-3ea74e">{details.value?.zhanjie?.wuligongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
-                      <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.魔法攻击 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
                       <div class="text-hex-836832 name">魔法攻击</div>
                       <div class="text-hex-3ea74e">{details.value?.zhanjie?.mofagongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
-                      <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.独立攻击 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
                       <div class="text-hex-836832 name">独立攻击</div>
                       <div class="text-hex-3ea74e">{details.value?.zhanjie?.duligongji?.toFixed(0)}</div>
                     </div>
 
                     <div class="de-item">
-                      <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.攻击属性 + ".png"} />
+                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
                       <div class="text-hex-836832 name">攻击属性</div>
                       <div class="text-hex-3ea74e">{`火(${details.value?.zhanjie?.huo?.toFixed(0)})/冰(${details.value?.zhanjie?.bing?.toFixed(0)})/光(${details.value?.zhanjie?.guang?.toFixed(
                         0
