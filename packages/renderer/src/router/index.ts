@@ -90,7 +90,8 @@ if (import.meta.env.DEV) {
 
 const router = createRouter({
   routes,
-  history: createWebHistory()
+  history: createWebHashHistory()
+  // history: createWebHistory()
 })
 
 export default router

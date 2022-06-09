@@ -6,7 +6,7 @@ import { useRouter } from "vue-router"
 interface UseOpenOption {
   url?: MaybeRef<string> | (() => string)
   /*
-  
+
   */
   width?: number
   height?: number
@@ -24,7 +24,8 @@ export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
   const fn = async ({ width, height, target, url: maybeUrl }: UseOpenOption = {}) => {
     width = width ?? opt?.width ?? 0
     height = height ?? opt?.height ?? 0
-    target = target ?? opt?.target ?? "_self"
+    // _self
+    target = target ?? opt?.target ?? "_blank"
     maybeUrl = maybeUrl ?? opt?.url
 
     let url = isRef(maybeUrl) ? maybeUrl.value : typeof maybeUrl === "function" ? maybeUrl() : maybeUrl
@@ -33,8 +34,12 @@ export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
       return
     }
 
+    console.log(location)
+
+    let tempURL = "#" + url
+
     if (url.startsWith("/") || url.startsWith("#")) {
-      url = `${location.origin}${router.resolve(url).href}`
+      url = `${location.origin}${location.pathname}${router.resolve(url).href}`
     }
     try {
       let _target = target
@@ -53,14 +58,14 @@ export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
         }
       }
 
-      console.log(target)
+      console.log(tempURL)
 
       if (_target == "_blank" || width * height < 1) {
         window.open(url, "_blank")
       } else if (_target == "_self") {
         if (window.ipcRenderer) {
           window.ipcRenderer.invoke("open-win", {
-            url,
+            tempURL,
             width,
             height
           })
