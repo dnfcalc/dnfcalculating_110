@@ -980,6 +980,7 @@ def entry_981(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.MP消耗量加成(0.5)
         pass
 
 
@@ -1430,7 +1431,9 @@ def entry_900(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if '石化' in state_type:
+            char.技能攻击力加成(0.05)
+            pass
 
 
 def entry_901(char: Character = {}, mode=0, text=False, part=''):
@@ -2806,7 +2809,7 @@ def entry_1183(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         char.MP消耗量加成(1.0)
     if mode == 1:
-        char.技能攻击力加成(0.25)
+        char.技能攻击力加成(min(min((char.MP消耗倍率() - 1)*5, 0.25), 0))
 
 
 def entry_1185(char: Character = {}, mode=0, text=False, part=''):
@@ -2853,7 +2856,7 @@ def entry_1105(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(504)
+        char.攻击强化加成(504*5)
         char.MP消耗量加成(0.2)
 
 
@@ -3075,8 +3078,8 @@ def entry_1081(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.基础精通加成(0.15 * 5)
-        char.技能倍率加成(15, 30, 0.05 * 5)
+        char.基础精通加成(0.15 * 3)
+        char.技能倍率加成(15, 30, 0.05 * 3)
 
 
 def entry_1082(char: Character = {}, mode=0, text=False, part=''):
@@ -3310,7 +3313,8 @@ def entry_1020(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(326 * 10)
+        char.攻击强化加成(326 * min(enemy_num, 10) *
+                    (1 if len(state_type) > 0 else 0))
 
 
 def entry_1021(char: Character = {}, mode=0, text=False, part=''):
@@ -3422,7 +3426,7 @@ def entry_1032(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         char.MP消耗量加成(1.0)
     if mode == 1:
-        char.暴击率增加(0.03 * 10)
+        char.暴击率增加(0.03 * int(mp_rate_num/8))
 
 
 def entry_1033(char: Character = {}, mode=0, text=False, part=''):
@@ -3431,7 +3435,7 @@ def entry_1033(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         char.MP消耗量加成(1.0)
     if mode == 1:
-        char.技能恢复加成(1, 100, 0.03 * 10, [50, 85, 100])
+        char.技能恢复加成(1, 100, 0.03 * int(mp_rate_num/8), [50, 85, 100])
 
 
 def entry_1034(char: Character = {}, mode=0, text=False, part=''):
@@ -3440,13 +3444,13 @@ def entry_1034(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.火属性强化加成(50)
-        char.冰属性强化加成(50)
-        char.光属性强化加成(50)
+        char.火属性强化加成(min(50, int(char.暗属性强化() / 8)))
+        char.冰属性强化加成(min(50, int(char.暗属性强化() / 8)))
+        char.光属性强化加成(min(50, int(char.暗属性强化() / 8)))
         # char.暗属性强化加成(50)
-        char.火属性抗性加成(-30)
-        char.冰属性抗性加成(-30)
-        char.光属性抗性加成(-30)
+        char.火属性抗性加成(-min(30, int(char.暗属性抗性() / 10)))
+        char.冰属性抗性加成(-min(30, int(char.暗属性抗性() / 10)))
+        char.光属性抗性加成(-min(30, int(char.暗属性抗性() / 10)))
         # char.暗属性抗性加成(-30)
 
 
@@ -3456,14 +3460,14 @@ def entry_1035(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.火属性强化加成(50)
+        char.火属性强化加成(min(50, int(char.冰属性强化() / 8)))
         # char.冰属性强化加成(50)
-        char.光属性强化加成(50)
-        char.暗属性强化加成(50)
-        char.火属性抗性加成(-30)
+        char.光属性强化加成(min(50, int(char.冰属性强化() / 8)))
+        char.暗属性强化加成(min(50, int(char.冰属性强化() / 8)))
+        char.火属性抗性加成(-min(30, int(char.冰属性抗性() / 10)))
         # char.冰属性抗性加成(-30)
-        char.光属性抗性加成(-30)
-        char.暗属性抗性加成(-30)
+        char.光属性抗性加成(-min(30, int(char.冰属性抗性() / 10)))
+        char.暗属性抗性加成(-min(30, int(char.冰属性抗性() / 10)))
 
 
 def entry_1036(char: Character = {}, mode=0, text=False, part=''):
@@ -3472,14 +3476,14 @@ def entry_1036(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.火属性强化加成(50)
-        char.冰属性强化加成(50)
+        char.火属性强化加成(min(50, int(char.光属性强化() / 8)))
+        char.冰属性强化加成(min(50, int(char.光属性强化() / 8)))
         # char.光属性强化加成(50)
-        char.暗属性强化加成(50)
-        char.火属性抗性加成(-30)
-        char.冰属性抗性加成(-30)
+        char.暗属性强化加成(min(50, int(char.光属性强化() / 8)))
+        char.火属性抗性加成(-min(30, int(char.光属性抗性() / 10)))
+        char.冰属性抗性加成(-min(30, int(char.光属性抗性() / 10)))
         # char.光属性抗性加成(-30)
-        char.暗属性抗性加成(-30)
+        char.暗属性抗性加成(-min(30, int(char.光属性抗性() / 10)))
 
 
 def entry_1037(char: Character = {}, mode=0, text=False, part=''):
@@ -3489,13 +3493,13 @@ def entry_1037(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         # char.火属性强化加成(50)
-        char.冰属性强化加成(50)
-        char.光属性强化加成(50)
-        char.暗属性强化加成(50)
+        char.冰属性强化加成(min(50, int(char.火属性强化() / 8)))
+        char.光属性强化加成(min(50, int(char.火属性强化() / 8)))
+        char.暗属性强化加成(min(50, int(char.火属性强化() / 8)))
         # char.火属性抗性加成(-30)
-        char.冰属性抗性加成(-30)
-        char.光属性抗性加成(-30)
-        char.暗属性抗性加成(-30)
+        char.冰属性抗性加成(-min(30, int(char.火属性抗性() / 10)))
+        char.光属性抗性加成(-min(30, int(char.火属性抗性() / 10)))
+        char.暗属性抗性加成(-min(30, int(char.火属性抗性() / 10)))
 
 
 def entry_1040(char: Character = {}, mode=0, text=False, part=''):
@@ -3504,7 +3508,7 @@ def entry_1040(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(165 * 9)
+        char.攻击强化加成(165 * min(9, int(10-hp_rate_num/10)))
 
 
 def entry_1041(char: Character = {}, mode=0, text=False, part=''):
@@ -3513,7 +3517,7 @@ def entry_1041(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(362 * 9)
+        char.攻击强化加成(362 * min(int(10-mp_rate_num/10), 9))
 
 
 def entry_1042(char: Character = {}, mode=0, text=False, part=''):
@@ -3522,7 +3526,7 @@ def entry_1042(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(156 * 19)
+        char.攻击强化加成(156 * min(19, int(20-hp_rate_num/5)))
 
 
 def entry_1045(char: Character = {}, mode=0, text=False, part=''):
@@ -3571,7 +3575,11 @@ def entry_1049(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass  # 未实现
     if mode == 1:
-        pass
+        for index in range(0, len(char.技能队列)):
+            if (index+1) % 5 == 0:
+                char.技能队列[index]["倍率"] *= 1.2
+                char.技能队列[index]["CDR"] *= 0.9
+            pass
 
 
 def entry_1050(char: Character = {}, mode=0, text=False, part=''):
@@ -3580,6 +3588,7 @@ def entry_1050(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        # 先当全程
         char.攻击强化加成(889 * 5)
 
 
@@ -3599,7 +3608,8 @@ def entry_982(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.05)
+        if '石化' in state_type:
+            char.技能攻击力加成(0.05)
 
 
 def entry_983(char: Character = {}, mode=0, text=False, part=''):
@@ -3651,8 +3661,9 @@ def entry_988(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "技能MP消耗量在4000以上的技能攻击力 +15%(觉醒除外)"
     if mode == 0:
-        # 暂未实现
-        char.技能攻击力加成(0.15)
+        for skill in char.技能栏:
+            if skill.MP消耗(char.武器类型, char.输出类型, char.MP消耗量加成) >= 4000 and skill.所在等级 not in [50, 85, 100]:
+                skill.倍率 *= 1.15
     if mode == 1:
         pass
 
@@ -3670,9 +3681,13 @@ def entry_991(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "技能冷却时间15秒以上的技能攻击力 +10%, 技能冷却时间15秒以下的技能攻击力 -15%"
     if mode == 0:
-        pass  # 暂未实现
-    if mode == 1:
         pass
+    if mode == 1:
+        for skill in char.技能队列:
+            if char.get_skill_by_name(skill['name']).等效CD(char.武器类型, char.类型, skill['CDR'], 恢复=False) >= 15:
+                skill['倍率'] *= 1.1
+            else:
+                skill['倍率'] *= 0.85
 
 
 def entry_999(char: Character = {}, mode=0, text=False, part=''):
@@ -3796,7 +3811,8 @@ def entry_922(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.2)
+        if '石化' in state_type:
+            char.技能攻击力加成(0.2)
 
 
 def entry_925(char: Character = {}, mode=0, text=False, part=''):
@@ -3842,6 +3858,7 @@ def entry_937(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         char.攻击强化加成(356 * 10)
+        char.移动速度增加(0.01 * 10)
 
 
 def entry_938(char: Character = {}, mode=0, text=False, part=''):
@@ -3936,7 +3953,7 @@ def entry_392(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         # 期望/全程
-        char.所有属性强化加成(35)
+        char.所有属性强化加成(35/15*10)
         pass
 
 
@@ -6615,7 +6632,7 @@ def entry_186(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.暗属性强化加成(7 * enemy_num)
+        char.暗属性强化加成(7 * min(10, enemy_num))
 
 
 def entry_266(char: Character = {}, mode=0, text=False, part=''):
@@ -6624,7 +6641,7 @@ def entry_266(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(44 * enemy_num)
+        char.攻击强化加成(44 * min(60, enemy_num))
 
 
 def entry_283(char: Character = {}, mode=0, text=False, part=''):
@@ -6688,7 +6705,7 @@ def entry_139(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(356 * min(10, enemy_num))
+        char.攻击强化加成(356 * min(10, enemy_num)*(1 if '出血' in state_type else 0))
 
 
 def entry_140(char: Character = {}, mode=0, text=False, part=''):
@@ -6697,7 +6714,7 @@ def entry_140(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(356 * min(10, enemy_num))
+        char.攻击强化加成(356 * min(10, enemy_num)*(1 if '中毒' in state_type else 0))
 
 
 def entry_141(char: Character = {}, mode=0, text=False, part=''):
@@ -6706,7 +6723,7 @@ def entry_141(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(356 * min(10, enemy_num))
+        char.攻击强化加成(356 * min(10, enemy_num)*(1 if '灼烧' in state_type else 0))
 
 
 def entry_142(char: Character = {}, mode=0, text=False, part=''):
@@ -6715,7 +6732,7 @@ def entry_142(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(356 * min(10, enemy_num))
+        char.攻击强化加成(356 * min(10, enemy_num)*(1 if '感电' in state_type else 0))
 
 
 def entry_143(char: Character = {}, mode=0, text=False, part=''):
@@ -6724,7 +6741,7 @@ def entry_143(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(385 * min(10, enemy_num))
+        char.攻击强化加成(385 * min(10, enemy_num)*(1 if '冰冻' in state_type else 0))
 
 
 def entry_144(char: Character = {}, mode=0, text=False, part=''):
@@ -6733,7 +6750,7 @@ def entry_144(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(385 * min(10, enemy_num))
+        char.攻击强化加成(385 * min(10, enemy_num)*(1 if '减速' in state_type else 0))
 
 
 def entry_145(char: Character = {}, mode=0, text=False, part=''):
@@ -6742,7 +6759,7 @@ def entry_145(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(385 * min(10, enemy_num))
+        char.攻击强化加成(385 * min(10, enemy_num)*(1 if '眩晕' in state_type else 0))
 
 
 def entry_146(char: Character = {}, mode=0, text=False, part=''):
@@ -6751,7 +6768,7 @@ def entry_146(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(385 * min(10, enemy_num))
+        char.攻击强化加成(385 * min(10, enemy_num)*(1 if '诅咒' in state_type else 0))
 
 
 def entry_147(char: Character = {}, mode=0, text=False, part=''):
@@ -6760,7 +6777,7 @@ def entry_147(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(385 * min(10, enemy_num))
+        char.攻击强化加成(385 * min(10, enemy_num)*(1 if '失明' in state_type else 0))
 
 
 def entry_148(char: Character = {}, mode=0, text=False, part=''):
@@ -6769,7 +6786,7 @@ def entry_148(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(385 * min(10, enemy_num))
+        char.攻击强化加成(385 * min(10, enemy_num)*(1 if '石化' in state_type else 0))
 
 
 def entry_149(char: Character = {}, mode=0, text=False, part=''):
@@ -6778,7 +6795,7 @@ def entry_149(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(385 * min(10, enemy_num))
+        char.攻击强化加成(385 * min(10, enemy_num)*(1 if '睡眠' in state_type else 0))
 
 
 def entry_150(char: Character = {}, mode=0, text=False, part=''):
@@ -8091,7 +8108,7 @@ def entry_371(char: Character = {}, mode=0, text=False, part=''):
 
 # region HP范围
 hp_rate_num = 0
-hp_rate_num_list = [0, 0, 10, 20, 30, 50, 70, 90]
+hp_rate_num_list = [0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
 
 
 def set_hp_rate_num(x):
@@ -8103,9 +8120,12 @@ entry_chose.append((20814, ['选择HP范围'] +
                     ['10%以下',
                      '10%~20%',
                      '20%~30%',
-                     '30%~50%',
-                     '50%~70%',
-                     '70%~90%',
+                     '30%~40%',
+                     '40%~50%',
+                     '50%~60%',
+                     '60%~70%',
+                     '70%~80%',
+                     '80%~90%',
                      '90%以上',
                      ]))
 multi_select[20814] = False
@@ -8262,7 +8282,7 @@ def entry_1078(char: Character = {}, mode=0, text=False, part=''):
 
 # region MP范围
 mp_rate_num = 0
-mp_rate_num_list = [0, 0, 10, 20, 30, 50, 60, 70, 90]
+mp_rate_num_list = [0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
 
 
 def set_mp_rate_num(x):
@@ -8274,10 +8294,12 @@ entry_chose.append((20813, ['选择MP范围'] +
                     ['10%以下',
                      '10%~20%',
                      '20%~30%',
-                     '30%~50%',
+                     '30%~40%',
+                     '40%~50%',
                      '50%~60%',
                      '60%~70%',
-                     '70%~90%',
+                     '70%~80%',
+                     '80%~90%',
                      '90%以上',
                      ]))
 multi_select[20813] = False
@@ -8357,7 +8379,7 @@ def entry_833(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        if mp_rate_num < 90:
+        if mp_rate_num > 90:
             char.攻击强化加成(711 * 5)
 
 
@@ -8367,8 +8389,12 @@ def entry_1079(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(4298)
-
+        if mp_rate_num >= 90:
+            char.攻击强化加成(445)
+        elif mp_rate_num >= 60:
+            char.攻击强化加成(2668)
+        else:
+            char.攻击强化加成(4298)
 # endregion
 
 # region 装备指令相关
@@ -8513,7 +8539,7 @@ def entry_841(char: Character = {}, mode=0, text=False, part=''):
         char.攻击强化加成(222 * min(20, gold_num))
 # endregion
 
-# region 条件技能等级 (未实现)
+# region 条件技能等级
 
 
 def entry_884(char: Character = {}, mode=0, text=False, part=''):

@@ -291,8 +291,7 @@
         "title": "知源·元素师",
         "default_name": "国服",
         "class": [],
-        "options": [],
-        "open": true
+        "options": []
       },
       {
         "name": "summoner",
@@ -319,7 +318,6 @@
         "name": "enchantress",
         "title": "知源·小魔女",
         "default_name": "国服",
-        "open": true,
         "class": [],
         "options": []
       }

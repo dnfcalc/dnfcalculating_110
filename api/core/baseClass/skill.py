@@ -30,7 +30,6 @@ class 技能:
 
     MP_basic = 0
     MP_growth = 0
-    MP消耗倍率 = 1
     手搓 = False
     手搓指令数 = 0
     无色消耗 = 0
@@ -139,7 +138,7 @@ class 主动技能(技能):
                 等效倍率 += datas[item][self.等级+额外等级] * hits[item] * powers[item]
         return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
 
-    def 等效CD(self, 武器类型="", 输出类型="", 额外CDR=1.0, 手搓收益=1.0):
+    def 等效CD(self, 武器类型="", 输出类型="", 额外CDR=1.0, 手搓收益=1.0, 恢复=True):
         cdr = 1
         if self.手搓:
             if self.所在等级 >= 15 and self.所在等级 <= 30:
@@ -150,10 +149,10 @@ class 主动技能(技能):
                 cdr = 0.95
             if self.所在等级 in [50, 100]:
                 cdr = 0.95
-        return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / self.恢复 * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1))
+        return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / (self.恢复 if 恢复 else 1) * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1))
 
-    def MP消耗(self, 武器类型, 输出类型):
-        return ((self.等级 - 1)*self.MP_growth + self.MP_basic)*self.MP消耗倍率 * MP消耗惩罚(武器类型, 输出类型)
+    def MP消耗(self, 武器类型="", 输出类型="", 额外倍率=1.0):
+        return ((self.等级 - 1)*self.MP_growth + self.MP_basic) * MP消耗惩罚(武器类型, 输出类型) * 额外倍率
 
     def 基础等级计算(self):
         if self.基础等级 == 0:

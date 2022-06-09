@@ -4,14 +4,14 @@
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
   import { useOpenWindow } from "@/hooks/open"
-  import { defineComponent, ref, renderList } from "vue"
+  import { defineComponent, ref, renderList, Component, KeepAlive } from "vue"
   import { useRoute } from "vue-router"
 
-  import Character from "@/pages/main/character/character.vue"
-  import Customize from "@/pages/main/customize/customize.vue"
-  import Equipment from "@/pages/main/equipment/equipment.vue"
-  import Detail from "@/pages/main/detail/detail.vue"
-  import Singleset from "@/pages/main/singleset/singleset.vue"
+  // import Character from "@/pages/main/character/character.vue"
+  // import Customize from "@/pages/main/customize/customize.vue"
+  // import Equipment from "@/pages/main/equipment/equipment.vue"
+  // import Detail from "@/pages/main/detail/detail.vue"
+  // import Singleset from "@/pages/main/singleset/singleset.vue"
 
   export default defineComponent(() => {
     const route = useRoute()
@@ -47,39 +47,53 @@
       if (characterStore.alter) {
         return (
           <div class="main" style={"background-image:url(/images/characters/" + characterStore.alter + "/bg.jpg)"}>
-            {
-              //               <div class="header">
-              //   <calc-tabs route>
-              //     <calc-tab value={"/character/equips?name=" + characterStore.alter}>装备</calc-tab>
-              //     <calc-tab value={"/character/skills?name=" + characterStore.alter}>技能</calc-tab>
-              //     <calc-tab value={"/character/profile?name=" + characterStore.alter}>打造</calc-tab>
-              //     <calc-tab value={"/character/customize?name=" + characterStore.alter}>自选属性</calc-tab>
-              //     <calc-tab value={"/character/singleset?name=" + characterStore.alter}>单套选择</calc-tab>
-              //   </calc-tabs>
-              // </div>
-              // <div class="center">{characterStore.alter && <router-view></router-view>}</div>
-            }
-
             <div class="header">
-              <calc-tabs v-model={tab.value}>
-                <calc-tab value={0}>装备</calc-tab>
-                <calc-tab value={1}>技能</calc-tab>
-                <calc-tab value={2}>打造</calc-tab>
-                <calc-tab value={3}>自选属性</calc-tab>
-                <calc-tab value={4}>单套选择</calc-tab>
+              <calc-tabs route>
+                <calc-tab value={"/character/equips?name=" + characterStore.alter}>装备</calc-tab>
+                <calc-tab value={"/character/skills?name=" + characterStore.alter}>技能</calc-tab>
+                <calc-tab value={"/character/profile?name=" + characterStore.alter}>打造</calc-tab>
+                <calc-tab value={"/character/customize?name=" + characterStore.alter}>自选属性</calc-tab>
+                <calc-tab value={"/character/singleset?name=" + characterStore.alter}>单套选择</calc-tab>
               </calc-tabs>
             </div>
             <div class="center">
               {characterStore.alter && (
-                <>
-                  {tab.value == 0 && <Equipment style={tab.value == 0 ? "" : "display:none"}></Equipment>}
-                  <Character style={tab.value == 1 ? "" : "display:none"}></Character>
-                  <Detail style={tab.value == 2 ? "" : "display:none"}></Detail>
-                  <Customize style={tab.value == 3 ? "" : "display:none"}></Customize>
-                  <Singleset style={tab.value == 4 ? "" : "display:none"}></Singleset>
-                </>
+                <router-view>
+                  {
+                    //   ({ Component }: { Component: any }) => {
+                    //   return (
+                    //     <KeepAlive>
+                    //       <Component is={false} />
+                    //     </KeepAlive>
+                    //   )
+                    // }
+                  }
+                </router-view>
               )}
             </div>
+
+            {
+              // <div class="header">
+              //   <calc-tabs v-model={tab.value}>
+              //     <calc-tab value={0}>装备</calc-tab>
+              //     <calc-tab value={1}>技能</calc-tab>
+              //     <calc-tab value={2}>打造</calc-tab>
+              //     <calc-tab value={3}>自选属性</calc-tab>
+              //     <calc-tab value={4}>单套选择</calc-tab>
+              //   </calc-tabs>
+              // </div>
+              // <div class="center">
+              //   {characterStore.alter && (
+              //     <>
+              //       {tab.value == 0 && <Equipment style={tab.value == 0 ? "" : "display:none"}></Equipment>}
+              //       <Character style={tab.value == 1 ? "" : "display:none"}></Character>
+              //       <Detail style={tab.value == 2 ? "" : "display:none"}></Detail>
+              //       <Customize style={tab.value == 3 ? "" : "display:none"}></Customize>
+              //       <Singleset style={tab.value == 4 ? "" : "display:none"}></Singleset>
+              //     </>
+              //   )}
+              // </div>
+            }
             <div class="footer">
               <div class="flex col-4 justify-center">
                 <calc-select v-model={configStore.carry_type} class="!h-22px">

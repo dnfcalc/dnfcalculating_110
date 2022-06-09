@@ -24,27 +24,42 @@ const routes: RouteRecordRaw[] = [
         // meta: {
         //   title: "角色"
         // },
-        component: () => import("@/pages/main/character/character.vue")
+        component: () => import("@/pages/main/character/character.vue"),
+        meta: {
+          keepAlive: true
+        }
       },
       {
         path: "/character/equips",
         name: "equipment",
-        component: () => import("@/pages/main/equipment/equipment.vue")
+        component: () => import("@/pages/main/equipment/equipment.vue"),
+        meta: {
+          keepAlive: true
+        }
       },
       {
         path: "/character/profile",
         name: "profile",
-        component: () => import("@/pages/main/detail/detail.vue")
+        component: () => import("@/pages/main/detail/detail.vue"),
+        meta: {
+          keepAlive: true
+        }
       },
       {
         path: "/character/customize",
         name: "customize",
-        component: () => import("@/pages/main/customize/customize.vue")
+        component: () => import("@/pages/main/customize/customize.vue"),
+        meta: {
+          keepAlive: true
+        }
       },
       {
         path: "/character/singleset",
         name: "singleset",
-        component: () => import("@/pages/main/singleset/singleset.vue")
+        component: () => import("@/pages/main/singleset/singleset.vue"),
+        meta: {
+          keepAlive: true
+        }
       }
     ]
   },

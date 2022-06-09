@@ -472,6 +472,20 @@ class Character():
     def 站街智力(self) -> int:
         return int(self.__智力)
 
+    def MP消耗倍率(self) -> float:
+        return self.__MP消耗量
+
+    def 火属性强化(self) -> float:
+        return self.__火属性强化
+
+    def 冰属性强化(self) -> float:
+        return self.__冰属性强化
+
+    def 光属性强化(self) -> float:
+        return self.__光属性强化
+
+    def 暗属性强化(self) -> float:
+        return self.__暗属性强化
     # 新词条计算的力量智力
 
     def __基础面板力量(self) -> float:
@@ -656,13 +670,11 @@ class Character():
                 if k.名称 not in data.keys():
                     temp = {}
                     temp['rate'] = k.被动倍率
-                    temp['cd'] = k.等效CD(self.武器类型, self.类型)
-                    temp['mp'] = k.MP消耗(self.武器类型, self.类型)
+                    temp['cd'] = k.等效CD(self.武器类型, self.类型, i['CDR'])
+                    temp['mp'] = k.MP消耗(self.武器类型, self.类型, self.__MP消耗量)
                     temp['百分比'] = k.等效百分比(self.武器类型)
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
-                print(i['名称'], k.等效百分比(
-                    self.武器类型, i['等级变化'], i['倍率']))
                 damage = k.等效百分比(
                     self.武器类型, i['等级变化'], i['倍率']) * self.伤害指数 * k.被动倍率
                 sumdamage += damage
