@@ -12,7 +12,6 @@
     "dev:server": "python ./api/main.py",
     "dev:web": "vite ./packages/renderer",
     "dev:app": "node scripts/watch.mjs",
-    "build:app": "node internal/build.mjs",
     "build:web": "pnpm -r build",
     "postinstall": "husky install",
     "clean:pycache": "rimraf ./**/__pycache__",
