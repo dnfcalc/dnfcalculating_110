@@ -22,8 +22,8 @@ async def heartbeat():
 
 
 @appRouter.post(path="/checkUpdate")
-async def checkupdate(version=Body(None)):
-    return response(data=update.check_update(version))
+async def checkupdate(info=Body(None)):
+    return response(data=update.check_update(info['version']))
 
 
 @appRouter.post(path="/autoUpdate")

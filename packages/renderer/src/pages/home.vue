@@ -62,34 +62,35 @@
     const openLanzou = useOpenWindow({ url: "https://wwn.lanzout.com/s/dcalc" })
 
     onMounted(async () => {
-      if (window.ipcRenderer && process.env.NODE_ENV !== "development") {
-        try {
-          await api.checkUpdate(APP_VERSION)
-          const res = await show({
-            content: (
-              <div class="text-left w-full justify-center">
-                检测到更新，是否自动更新？
-                <br />
-                自动更新后台静默下载，下次启动时生效。
-              </div>
-            ),
-            rejectButton: "手动更新",
-            okButton: "自动更新",
-            cancelButton: "取消"
-          })
+      // if (window.ipcRenderer && process.env.NODE_ENV !== "development") {
+      try {
+        if (!(await api.checkUpdate(APP_VERSION))) return
+        console.log(await api.checkUpdate(APP_VERSION))
+        const res = await show({
+          content: (
+            <div class="text-left w-full justify-center">
+              检测到更新，是否自动更新？
+              <br />
+              自动更新后台静默下载，下次启动时生效。
+            </div>
+          ),
+          rejectButton: "手动更新",
+          okButton: "自动更新",
+          cancelButton: "取消"
+        })
 
-          if (res.status == "reject") {
-            openLanzou()
-          } else if (res.status == "ok") {
-            await api.autoUpdate()
-          } else {
-          }
-        } catch {
-          await alert({
-            content: "自动检查更新错误,请手动检查更新"
-          })
+        if (res.status == "reject") {
+          openLanzou()
+        } else if (res.status == "ok") {
+          await api.autoUpdate()
+        } else {
         }
+      } catch {
+        await alert({
+          content: "自动检查更新错误,请手动检查更新"
+        })
       }
+      // }
     })
 
     return () => (
