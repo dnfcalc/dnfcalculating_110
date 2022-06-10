@@ -6,6 +6,7 @@
   import { useOpenWindow } from "@/hooks/open"
   import { defineComponent, ref, renderList, Component, KeepAlive } from "vue"
   import { useRoute } from "vue-router"
+  import openURL from "@/utils/openURL"
 
   // import Character from "@/pages/main/character/character.vue"
   // import Customize from "@/pages/main/customize/customize.vue"
@@ -25,8 +26,6 @@
       appStore.$patch({ title: characterStore.name })
     })
 
-    const openResult = useOpenWindow()
-
     async function calc() {
       // alert({
       //   content: () => <>暂不支持多套计算</>
@@ -36,10 +35,10 @@
       const saveData = await configStore.calc(route.path.endsWith("/singleset"))
       if (saveData instanceof Array) {
         // 排行界面
-        openResult({ url: "/ranking?uid=" + saveData.id, width: 800, height: 800 })
+        openURL("/ranking?uid=" + saveData.id, { width: 800, height: 800 })
       } else if (saveData) {
         // 详情界面
-        openResult({ url: `/result?res=${saveData.id}`, width: 890, height: 600 })
+        openURL(`/result?res=${saveData.id}`, { width: 890, height: 600 })
       }
     }
 
@@ -94,6 +93,7 @@
               //   )}
               // </div>
             }
+
             <div class="footer">
               <div class="flex col-4 justify-center">
                 <calc-select v-model={configStore.carry_type} class="!h-22px">
@@ -110,23 +110,23 @@
                   ))}
                 </calc-select>
               </div>
-
-              <div class="flex col-4 justify-center">
-                <calc-select class="!h-22px">
-                  <calc-option value={0}>攻击属性：自适应</calc-option>
-                  <calc-option value={1}>攻击属性：火</calc-option>
-                  <calc-option value={2}>攻击属性：冰</calc-option>
-                  <calc-option value={3}>攻击属性：光</calc-option>
-                  <calc-option value={4}>攻击属性：暗</calc-option>
-                </calc-select>
-              </div>
-
-              <div class="flex col-4 justify-center">
-                <calc-select class="!h-22px">
-                  <calc-option value={0}>计算模式：减枝</calc-option>
-                  <calc-option value={1}>计算模式：全部</calc-option>
-                </calc-select>
-              </div>
+              {
+                // <div class="flex col-4 justify-center">
+                //   <calc-select class="!h-22px">
+                //     <calc-option value={0}>攻击属性：自适应</calc-option>
+                //     <calc-option value={1}>攻击属性：火</calc-option>
+                //     <calc-option value={2}>攻击属性：冰</calc-option>
+                //     <calc-option value={3}>攻击属性：光</calc-option>
+                //     <calc-option value={4}>攻击属性：暗</calc-option>
+                //   </calc-select>
+                // </div>
+                //   <div class="flex col-4 justify-center">
+                //     <calc-select class="!h-22px">
+                //       <calc-option value={0}>计算模式：减枝</calc-option>
+                //       <calc-option value={1}>计算模式：全部</calc-option>
+                //     </calc-select>
+                //   </div>
+              }
               <div class="flex col-4 justify-center">
                 <calc-button class="w-80% !h-28px" onClick={calc}>
                   开始计算

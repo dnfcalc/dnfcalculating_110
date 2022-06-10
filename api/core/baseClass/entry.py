@@ -3573,7 +3573,7 @@ def entry_1049(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "每使用5次技能，技能攻击力 +20%，技能冷却时间 +10%"
     if mode == 0:
-        pass  # 未实现
+        pass
     if mode == 1:
         for index in range(0, len(char.技能队列)):
             if (index+1) % 5 == 0:
@@ -5473,7 +5473,11 @@ def entry_387(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         if '正面攻击' in attack_type:
-            char.技能攻击力加成(0.08)
+            # 期望处理
+            if '背面攻击' in attack_type:
+                char.技能攻击力加成(0.04)
+            else:
+                char.技能攻击力加成(0.08)
 
 
 def entry_388(char: Character = {}, mode=0, text=False, part=''):
@@ -5483,7 +5487,10 @@ def entry_388(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         if '背面攻击' in attack_type:
-            char.技能攻击力加成(0.08)
+            if '正面攻击' in attack_type:
+                char.技能攻击力加成(0.04)
+            else:
+                char.技能攻击力加成(0.08)
 
 
 def entry_399(char: Character = {}, mode=0, text=False, part=''):
@@ -5493,7 +5500,10 @@ def entry_399(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         if '破招攻击' in attack_type:
-            char.技能攻击力加成(0.08)
+            if '非破招攻击' in attack_type:
+                char.技能攻击力加成(0.04)
+            else:
+                char.技能攻击力加成(0.08)
 
 
 def entry_400(char: Character = {}, mode=0, text=False, part=''):
@@ -5503,7 +5513,10 @@ def entry_400(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         if '非破招攻击' in attack_type:
-            char.技能攻击力加成(0.08)
+            if '破招攻击' in attack_type:
+                char.技能攻击力加成(0.04)
+            else:
+                char.技能攻击力加成(0.08)
 
 
 def entry_405(char: Character = {}, mode=0, text=False, part=''):
@@ -7287,6 +7300,7 @@ def entry_1056(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.技能倍率加成(15, 35, 0.03*10)
         pass
 
 
@@ -7296,6 +7310,7 @@ def entry_1057(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.技能恢复加成(15, 35, 0.01*10)
         pass
 
 
@@ -7314,6 +7329,8 @@ def entry_1061(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.攻击速度增加(0.3)
+        char.施放速度增加(0.3)
         pass
 
 
@@ -7323,6 +7340,9 @@ def entry_1062(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.基础精通加成(0.15*3)
+        char.技能冷却缩减(1, 100, 0.08*3)
+        char.技能倍率加成(1, 100, 0.05*3)
         pass
 
 
@@ -7341,6 +7361,8 @@ def entry_1064(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.攻击速度增加(0.3)
+        char.施放速度增加(0.3)
         pass
 
 
@@ -8613,7 +8635,7 @@ def entry_888(char: Character = {}, mode=0, text=False, part=''):
                                                         skill['名称'], char.技能队列[0:index-1]))), 10)
 # endregion
 
-# region 破招相关词条 (未实现)
+# region 破招相关词条
 
 
 def entry_1053(char: Character = {}, mode=0, text=False, part=''):
@@ -8631,6 +8653,11 @@ def entry_1054(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        if '破招攻击' in attack_type:
+            if '非破招攻击' in attack_type:
+                char.技能攻击力加成(0.075)
+            else:
+                char.技能攻击力加成(0.15)
         pass
 
 
@@ -8640,7 +8667,11 @@ def entry_1055(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        pass
+        if '破招攻击' in attack_type:
+            if '非破招攻击' in attack_type:
+                char.技能攻击力加成(0.05)
+            else:
+                char.技能攻击力加成(0.1)
 
 
 def entry_904(char: Character = {}, mode=0, text=False, part=''):
@@ -8649,7 +8680,12 @@ def entry_904(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.35)
+        if '非破招攻击' in attack_type and '破招攻击' in attack_type:
+            char.技能攻击力加成(0.08)
+        elif '非破招攻击' in attack_type:
+            char.技能攻击力加成(-0.2)
+        elif '破招攻击' in attack_type:
+            char.技能攻击力加成(0.35)
 # endregion
 
 # region 职业词条

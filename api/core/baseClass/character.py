@@ -676,7 +676,7 @@ class Character():
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
                 damage = k.等效百分比(
-                    self.武器类型, i['等级变化'], i['倍率']) * self.伤害指数 * k.被动倍率
+                    self.武器类型, i['等级变化'], i['倍率']) * self.伤害指数 * k.被动倍率 / 100
                 sumdamage += damage
                 temp['count'] = temp.get('count', 0) + 1
                 temp['damage'] = temp.get('damage', 0) + damage

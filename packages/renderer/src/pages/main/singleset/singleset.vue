@@ -6,6 +6,7 @@
   import { IEquipmentInfo } from "@/api/info/type"
   import { useOpenWindow } from "@/hooks/open"
   import { useAsyncState } from "@vueuse/core"
+  import openURL from "@/utils/openURL"
 
   const EPIC_EQUIP = 0
 
@@ -117,11 +118,7 @@
         await result.execute()
       })
 
-      const openDetail = useOpenWindow({
-        url: () => `/result?res=${result.state.value.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : ""),
-        width: 890,
-        height: 600
-      })
+      const openDetail = () => openURL(`/result?res=${result.state.value.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : ""), { width: 890, height: 600 })
 
       function setStandard() {
         if (result.state.value.sumdamage > 0) {
