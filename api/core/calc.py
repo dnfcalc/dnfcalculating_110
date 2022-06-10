@@ -16,7 +16,7 @@ def calc_set(alter: str, setName: str):
 
 def calc_single_set(alter: str, setName: str, equipList: List[int]):
     module_name = "core.characters." + alter
-    character = importlib.import_module(module_name).classChange()
+    character: Character = importlib.import_module(module_name).classChange()
     info = character.calc(setName, equipList)
     store.set("/calc/results/"+info.get("id"), info)
     return info

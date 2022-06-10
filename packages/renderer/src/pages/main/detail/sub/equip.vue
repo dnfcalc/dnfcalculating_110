@@ -16,7 +16,9 @@
       const basicInfoStore = useBasicInfoStore()
 
       const enchanting_list = computed<IEnchantingInfo[] | undefined>(() => {
-        return basicInfoStore.enchanting_info?.filter(item => item.position.includes(detailsStore.part)).sort((a, b) => (b.maxFrame ?? 0) - (a.maxFrame ?? 0))
+        return basicInfoStore.enchanting_info
+          ?.filter(item => item.position.includes(detailsStore.part) && !item.position.includes("武器装扮") && !item.position.includes("宠物装备"))
+          .sort((a, b) => (b.maxFrame ?? 0) - (a.maxFrame ?? 0))
       })
 
       const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {

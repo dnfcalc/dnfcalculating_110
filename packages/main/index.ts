@@ -20,13 +20,15 @@ let win: BrowserWindow | null = null
 
 let storage = {}
 
+console.log(join(__dirname, "../renderer/favicon.ico"))
+
 async function createWindow() {
   win = new BrowserWindow({
     frame: false,
     width: 861,
     height: 680,
     resizable: false,
-    icon: join(__dirname, "./favicon.ico"),
+    icon: join(__dirname, "../renderer/favicon.ico"),
     webPreferences: {
       preload: join(__dirname, "../preload/index.cjs"),
       nodeIntegration: true,
@@ -42,7 +44,7 @@ async function createWindow() {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}`
     win.loadURL(url)
-    win.webContents.openDevTools({ mode: "undocked", activate: true })
+    // win.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 
   // Test active push message to Renderer-process
@@ -99,7 +101,7 @@ ipcMain.handle("open-win", (event, arg) => {
     height: arg.height,
     resizable: false,
     frame: false,
-    icon: join(__dirname, "./favicon.ico"),
+    icon: join(__dirname, "../renderer/favicon.ico"),
     webPreferences: {
       preload: join(__dirname, "../preload/index.cjs"),
       webSecurity: false,
@@ -116,7 +118,7 @@ ipcMain.handle("open-win", (event, arg) => {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}/#${arg.url}`
     childWindow.loadURL(url)
-    childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
+    // childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 })
 

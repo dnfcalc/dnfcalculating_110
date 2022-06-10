@@ -7300,7 +7300,8 @@ def entry_1056(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能倍率加成(15, 35, 0.03*10)
+        for item in range(0, 10):
+            char.技能倍率加成(15, 35, 0.03)
         pass
 
 

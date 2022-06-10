@@ -780,7 +780,7 @@ class Character():
                     id = temp.get(j, 0)
                     if id == 0:
                         pass
-                    elif id.isdigit():
+                    elif str(id).isdigit():
                         idlist.append(id)
                     else:
                         # 白金技能等级加成处理 id:技能名称
