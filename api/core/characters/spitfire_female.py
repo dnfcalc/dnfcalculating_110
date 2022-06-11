@@ -135,6 +135,19 @@ class 技能5(职业主动技能):
     MP_basic = 40
     MP_growth = 5.25
 
+    def 等效百分比(self, 武器类型="", 额外等级=0, 额外倍率=1, 伤害类型="直伤"):
+        if 伤害类型 == "直伤":
+            等效倍率 = 0.0
+            if self.等级 + 额外等级 < len(self.data0):
+                等效倍率 += self.data0[self.等级+额外等级] * self.hit0 * self.power0
+            return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
+        elif 伤害类型 == "感电":
+            等效倍率 = 0.0
+            if self.等级 + 额外等级 < len(self.data1):
+                等效倍率 += self.data1[self.等级+额外等级] * self.hit1 * self.power1
+            return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率 * self.power1
+        else:
+            return 0
     # def 等效CD(self, 武器类型, 输出类型):
     #     # 经过测试,手雷恢复速度无法享受技能冷却恢复加成
     #     return round(self.CD, 1)

@@ -2,7 +2,7 @@
   import { getSession, toMap, to_percent } from "@/utils"
   import { computed, defineComponent, ref, renderList } from "vue"
   import { useRoute } from "vue-router"
-  import { useCharacterStore, useDetailsStore, useAppStore } from "@/store"
+  import { useCharacterStore, useDetailsStore, useAppStore, useConfigStore } from "@/store"
   import Profile from "@/components/internal/profile.vue"
   import { skill_icon } from "@/pages/main/character/sub/utils"
   import { IResultInfo } from "@/api/character/type"
@@ -15,14 +15,15 @@
       const characterStore = useCharacterStore()
       const store = useDetailsStore()
       const appStore = useAppStore()
-      console.log((useRoute().query.standard as string) ?? undefined)
+      const configStore = useConfigStore()
+
       store.setStandard((useRoute().query.standard as string) ?? undefined)
 
       appStore.title = "详细数据"
 
-      const res: IResultInfo = await api.getResult(uid)
+      const res = toMap(await api.getResult(uid), ["info", "skills"]) as IResultInfo
       characterStore.$patch({ alter: res.alter, name: res.name })
-
+      configStore.forge_set = res.forget_set ?? {}
       function skill_tooltip(skill: any) {
         return (
           <div class="tooltip-skill !p-5px !w-120px">

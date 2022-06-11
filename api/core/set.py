@@ -64,7 +64,6 @@ def get(alter: str, setName: str):
             "skill_set": skill_set,
             "skill_que": [],
             "forge_set": {},
-            "other_set": {},
             "clothes_set": {},
             "single_set": [],
             "equip_list": [],

@@ -3026,7 +3026,7 @@ def entry_1071(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "伤害的50%转化为中毒伤害, 中毒伤害 +10%"
     if mode == 0:
-        char.伤害类型转化('直接', '中毒', 0.5)
+        char.伤害类型转化('直伤', '中毒', 0.5)
         char.异常增伤('中毒', 0.1)
     if mode == 1:
         pass
@@ -3036,7 +3036,7 @@ def entry_1072(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "伤害的50%转化为灼烧伤害, 灼烧伤害 +10%"
     if mode == 0:
-        char.伤害类型转化('直接', '灼烧', 0.5)
+        char.伤害类型转化('直伤', '灼烧', 0.5)
         char.异常增伤('灼烧', 0.1)
     if mode == 1:
         pass
@@ -3046,7 +3046,7 @@ def entry_1073(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "伤害的50%转换为出血伤害, 出血伤害 +10%"
     if mode == 0:
-        char.伤害类型转化('直接', '出血', 0.5)
+        char.伤害类型转化('直伤', '出血', 0.5)
         char.异常增伤('出血', 0.1)
     if mode == 1:
         pass
@@ -3056,7 +3056,7 @@ def entry_1074(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "伤害的50%转换为感电伤害, 感电伤害 +10%"
     if mode == 0:
-        char.伤害类型转化('直接', '感电', 0.5)
+        char.伤害类型转化('直伤', '感电', 0.5)
         char.异常增伤('感电', 0.1)
     if mode == 1:
         pass
@@ -4649,7 +4649,7 @@ def entry_177(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "角色伤害的10%转化为中毒伤害"
     if mode == 0:
-        char.伤害类型转化('直接', '中毒', 0.1)
+        char.伤害类型转化('直伤', '中毒', 0.1)
     if mode == 1:
         pass
 
@@ -4658,7 +4658,7 @@ def entry_178(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "角色伤害的10%转化为灼烧伤害"
     if mode == 0:
-        char.伤害类型转化('直接', '灼烧', 0.1)
+        char.伤害类型转化('直伤', '灼烧', 0.1)
     if mode == 1:
         pass
 
@@ -4667,7 +4667,7 @@ def entry_179(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "角色伤害的10%转化为感电伤害"
     if mode == 0:
-        char.伤害类型转化('直接', '感电', 0.1)
+        char.伤害类型转化('直伤', '感电', 0.1)
     if mode == 1:
         pass
 
@@ -4676,7 +4676,7 @@ def entry_180(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "角色伤害的10%转化为出血伤害"
     if mode == 0:
-        char.伤害类型转化('直接', '出血', 0.1)
+        char.伤害类型转化('直伤', '出血', 0.1)
     if mode == 1:
         pass
 
@@ -8615,7 +8615,7 @@ def entry_887(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         skills = char.技能获取(60, 60)
-        for (skill, index) in range(0, len(char.技能队列)):
+        for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
             if skill["名称"] in skills:
                 skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
@@ -9221,7 +9221,7 @@ def entry_596(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_597(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "[闪电之舞]攻击时发生冲击波, - 攻击单一目标时不会产生冲击波, - 被直接攻击的对象不会受到冲击波攻击"
+        return "[闪电之舞]攻击时发生冲击波, - 攻击单一目标时不会产生冲击波, - 被直伤攻击的对象不会受到冲击波攻击"
     if mode == 0:
         pass
     if mode == 1:
@@ -10311,7 +10311,7 @@ def entry_715(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_716(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "降临:僵尸莱迪娅的追加操作删除，召唤莱迪娅后直接自爆"
+        return "降临:僵尸莱迪娅的追加操作删除，召唤莱迪娅后直伤自爆"
     if mode == 0:
         pass
     if mode == 1:

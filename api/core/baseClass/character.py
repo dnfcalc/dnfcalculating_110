@@ -119,7 +119,8 @@ class Character():
         self.__百分比攻击强化: float = 0.0
         self.__buff量: int = 0
         self.__基础精通倍率: float = 1.0
-        self.__伤害比例: Dict[str, float] = {'直伤': 1.0}
+        self.__伤害比例: Dict[str, float] = {
+            '直伤': 1.0, '中毒': 0.0, '灼烧': 0.0, '感电': 0.0, '出血': 0.0}
         self.__伤害系数: Dict[str, float] = {
             '中毒': 1.0, '灼烧': 1.0, '感电': 1.0, '出血': 1.0}
         self.__异常抗性: Dict[str, float] = {}
@@ -216,7 +217,7 @@ class Character():
         self.__百分比减防 += x
 
     def 伤害类型转化(self, 类型1: str, 类型2: str, x: float) -> None:
-        # 直接 中毒 灼烧 感电 出血
+        # 直伤 中毒 灼烧 感电 出血
         self.__伤害比例[类型1] = self.__伤害比例.get(类型1, 0.0) - x
         self.__伤害比例[类型2] = self.__伤害比例.get(类型2, 0.0) + x
 
@@ -688,8 +689,23 @@ class Character():
                     temp['百分比'] = k.等效百分比(self.武器类型)
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
-                damage = k.等效百分比(
-                    self.武器类型, i['等级变化'], i['倍率']) * self.伤害指数 * k.被动倍率 / 100
+                直伤 = k.等效百分比(self.武器类型, i['等级变化'], i['倍率'], "直伤")
+                # 直伤处理：直伤伤害*比例*系数
+                damage = 直伤 * self.伤害指数 * k.被动倍率 * \
+                    (self.__伤害比例.get("直伤", 0.0)) / 100
+                for item in ['中毒', '灼烧', '感电', '出血']:
+                    # 直伤转换的异常处理：直伤伤害*异常比例*异常系数
+                    damage += 直伤 * self.伤害指数 * k.被动倍率 * \
+                        (self.__伤害比例.get(item, 0.0) *
+                         self.__伤害系数.get(item, 0.0)) / 100
+                    # 异常伤害处理：异常伤害*异常系数
+                    if k.等效百分比(
+                            self.武器类型, i['等级变化'], i['倍率'], item) > 0:
+                        print(k.等效百分比(
+                            self.武器类型, i['等级变化'], i['倍率'], item) * self.伤害指数 * k.被动倍率*(self.__伤害系数.get(item, 0.0)) / 100)
+
+                    damage += k.等效百分比(
+                        self.武器类型, i['等级变化'], i['倍率'], item) * self.伤害指数 * k.被动倍率*(self.__伤害系数.get(item, 0.0)) / 100
                 sumdamage += damage
                 temp['count'] = temp.get('count', 0) + 1
                 temp['damage'] = temp.get('damage', 0) + damage
@@ -1129,6 +1145,28 @@ class Character():
 
         temp = self.伤害计算()
 
+        calc_info = {}
+
+        if self.类型 == '物理百分比':
+            calc_info['力量'] = self.站街力量()
+            calc_info['物理攻击'] = self.站街物理攻击力()
+        elif self.类型 == '魔法百分比':
+            calc_info['智力'] = self.站街智力()
+            calc_info['魔法攻击'] = self.站街魔法攻击力()
+        elif self.类型 == '物理固伤':
+            calc_info['力量'] = self.站街力量()
+            calc_info['独立攻击'] = self.站街独立攻击力()
+        elif self.类型 == '魔法固伤':
+            calc_info['智力'] = self.站街智力()
+            calc_info['独立攻击'] = self.站街独立攻击力()
+        calc_info['火'] = self.火属性强化()
+        calc_info['冰'] = self.冰属性强化()
+        calc_info['光'] = self.光属性强化()
+        calc_info['暗'] = self.暗属性强化()
+
+        print(self.__伤害比例)
+        print(self.__伤害系数)
+
         result = {
             'id': uuid1().hex,
             'alter': self.实际名称,
@@ -1137,35 +1175,26 @@ class Character():
             'equips': list(map(lambda x: equ.get_json(x), self.装备栏)),
             'info': {
                 # 站街
-                'zhanjie': {
-                    'liliang': self.站街力量(),
-                    'zhili': self.站街智力(),
-                    'wuligongji': self.站街物理攻击力(),
-                    'mofagongji': self.站街魔法攻击力(),
-                    'duligongji': self.站街独立攻击力(),
-                    'huo': self.__火属性强化,
-                    'bing': self.__冰属性强化,
-                    'guang': self.__光属性强化,
-                    'an': self.__暗属性强化
-                },
+                '站街': calc_info,
                 # 进图
-                'jintu': {
-                    'liliang': self.站街力量(),
-                    'zhili': self.站街智力(),
-                    'wuligongji': self.站街物理攻击力(),
-                    'mofagongji': self.站街魔法攻击力(),
-                    'duligongji': self.站街独立攻击力(),
-                    'huo': 0,
-                    'bing': 0,
-                    'guang': 0,
-                    'an': 0
-                },
+                # '进图': {
+                #     'liliang': self.站街力量(),
+                #     'zhili': self.站街智力(),
+                #     'wuligongji': self.站街物理攻击力(),
+                #     'mofagongji': self.站街魔法攻击力(),
+                #     'duligongji': self.站街独立攻击力(),
+                #     'huo': 0,
+                #     'bing': 0,
+                #     'guang': 0,
+                #     'an': 0
+                # },
                 # 词条
                 '词条': {
                     # 攻击强化
-                    '攻击强化': self.__攻击强化,
-                    '技能攻击力': self.__技能攻击力,
-                    '百分比攻击强化': self.__百分比攻击强化
+                    '攻击强化': round(self.__攻击强化, 0),
+                    '技能攻击力': round(100*(self.__技能攻击力-1), 2),
+                    '百分比攻击强化': round(self.__百分比攻击强化*100, 1),
+                    'MP消耗量': round(self.__MP消耗量*100-100, 2)
                     # 其他老词条·····
                 }
             },

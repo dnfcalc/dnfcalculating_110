@@ -10,27 +10,33 @@
     alter?: string
 
     mingwang?: number
-    zhanjie?: {
-      zhili?: number
-      liliang?: number
-      wuligongji?: number
-      mofagongji?: number
-      duligongji?: number
-      huo?: number
-      bing?: number
-      guang?: number
-      an?: number
+    站街?: {
+      智力?: number
+      力量?: number
+      物理攻击?: number
+      魔法攻击?: number
+      独立攻击?: number
+      火?: number
+      冰?: number
+      光?: number
+      暗?: number
     }
     jintu?: {
-      zhili?: number
-      liliang?: number
-      wuligongji?: number
-      mofagongji?: number
-      duligongji?: number
-      huo?: number
-      bing?: number
-      guang?: number
-      an?: number
+      智力?: number
+      力量?: number
+      物理攻击?: number
+      魔法攻击?: number
+      独立攻击?: number
+      火?: number
+      冰?: number
+      光?: number
+      暗?: number
+    }
+    词条: {
+      技能攻击力: number
+      攻击强化: number
+      百分比攻击强化: number
+      MP消耗量: number
     }
   }
 
@@ -69,7 +75,7 @@
       details: {
         type: Object,
         default: () => {
-          return { mingwang: 0, zhanjie: { huo: 0, bing: 0, guang: 0, an: 0 }, jintu: { huo: 0, bing: 0, guang: 0, an: 0 } }
+          return { mingwang: 0, 站街: { 火: 0, 冰: 0, 光: 0, an: 0 }, jintu: { 火: 0, 冰: 0, 光: 0, 暗: 0 } }
         }
       },
       canChoose: {
@@ -100,10 +106,10 @@
       // let details = props.details as IDetail
 
       const details = computed(() => (props.details as IDetail) ?? undefined)
-      // details.zhanjie = {
-      //   huo: 999,
-      //   bing: 999,
-      //   guang: 999,
+      // details.站街 = {
+      //   火: 999,
+      //   冰: 999,
+      //   光: 999,
       //   an: 999
       // }
 
@@ -235,43 +241,72 @@
                     </div>
                   )}
                   <div class="details">
-                    <div class="de-item">
-                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
-                      <div class="text-hex-836832 name">力量</div>
-                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.liliang?.toFixed(0)}</div>
-                    </div>
-                    <div class="de-item">
-                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
-                      <div class="text-hex-836832 name">智力</div>
-                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.zhili?.toFixed(0)}</div>
-                    </div>
+                    {details.value?.站街?.力量 && (
+                      <div class="de-item">
+                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
+                        <div class="text-hex-836832 name">力量</div>
+                        <div class="text-hex-3ea74e">{details.value?.站街?.力量?.toFixed(0)}</div>
+                      </div>
+                    )}
+                    {details.value?.站街?.智力 && (
+                      <div class="de-item">
+                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
+                        <div class="text-hex-836832 name">智力</div>
+                        <div class="text-hex-3ea74e">{details.value?.站街?.智力?.toFixed(0)}</div>
+                      </div>
+                    )}
 
-                    <div class="de-item">
-                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
-                      <div class="text-hex-836832 name">物理攻击</div>
-                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.wuligongji?.toFixed(0)}</div>
-                    </div>
+                    {details.value?.站街?.物理攻击 && (
+                      <div class="de-item">
+                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
+                        <div class="text-hex-836832 name">物理攻击</div>
+                        <div class="text-hex-3ea74e">{details.value?.站街?.物理攻击?.toFixed(0)}</div>
+                      </div>
+                    )}
 
-                    <div class="de-item">
-                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
-                      <div class="text-hex-836832 name">魔法攻击</div>
-                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.mofagongji?.toFixed(0)}</div>
-                    </div>
+                    {details.value?.站街?.魔法攻击 && (
+                      <div class="de-item">
+                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
+                        <div class="text-hex-836832 name">魔法攻击</div>
+                        <div class="text-hex-3ea74e">{details.value?.站街?.魔法攻击?.toFixed(0)}</div>
+                      </div>
+                    )}
 
-                    <div class="de-item">
-                      <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
-                      <div class="text-hex-836832 name">独立攻击</div>
-                      <div class="text-hex-3ea74e">{details.value?.zhanjie?.duligongji?.toFixed(0)}</div>
-                    </div>
+                    {details.value?.站街?.独立攻击 && (
+                      <div class="de-item">
+                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
+                        <div class="text-hex-836832 name">独立攻击</div>
+                        <div class="text-hex-3ea74e">{details.value?.站街?.独立攻击?.toFixed(0)}</div>
+                      </div>
+                    )}
 
                     <div class="de-item">
                       <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
                       <div class="text-hex-836832 name">攻击属性</div>
-                      <div class="text-hex-3ea74e">{`火(${details.value?.zhanjie?.huo?.toFixed(0)})/冰(${details.value?.zhanjie?.bing?.toFixed(0)})/光(${details.value?.zhanjie?.guang?.toFixed(
+                      <div class="text-hex-3ea74e">{`火(${details.value?.站街?.火?.toFixed(0)})/冰(${details.value?.站街?.冰?.toFixed(0)})/光(${details.value?.站街?.光?.toFixed(
                         0
-                      )})/暗(${details.value?.zhanjie?.an?.toFixed(0)})`}</div>
+                      )})/暗(${details.value?.站街?.暗?.toFixed(0)})`}</div>
                     </div>
                   </div>
+                  <div class="details">
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">技能攻击力</div>
+                      <div class="text-hex-3ea74e">{details.value?.词条?.技能攻击力?.toFixed(2) + "%"}</div>
+                    </div>
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">MP消耗量%</div>
+                      <div class="text-hex-3ea74e">{details.value?.词条?.MP消耗量?.toFixed(2) + "%"}</div>
+                    </div>
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">攻击强化</div>
+                      <div class="text-hex-3ea74e">{details.value?.词条?.攻击强化?.toFixed(0)}</div>
+                    </div>
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">攻击强化%</div>
+                      <div class="text-hex-3ea74e">{details.value?.词条?.百分比攻击强化?.toFixed(2) + "%"}</div>
+                    </div>
+                  </div>
+
                   {
                     <div class="sum" style={"color:" + result.value[1]}>
                       {result.value[0]}
@@ -334,6 +369,8 @@
         overflow-y: auto;
         padding-top: 5px;
         padding-bottom: 5px;
+        display: flex;
+        flex-wrap: wrap;
 
         -webkit-font-smoothing: none;
         // background-color: rgba(0, 0, 0, 0.8);
@@ -344,6 +381,7 @@
           height: 20px;
           display: flex;
           align-items: center;
+          min-width: 50%;
           img {
             padding-left: 5px;
             padding-right: 5px;
