@@ -1,6 +1,7 @@
 from multiprocessing.sharedctypes import Value
 from pickle import TRUE
 from pyclbr import Function
+from statistics import mode
 from typing import Dict, List, Union
 from uuid import uuid1
 from core.baseClass.equipment import equipment
@@ -486,6 +487,18 @@ class Character():
 
     def 暗属性强化(self) -> float:
         return self.__暗属性强化
+
+    def 火属性抗性(self) -> float:
+        return self.__火属性抗性
+
+    def 冰属性抗性(self) -> float:
+        return self.__冰属性抗性
+
+    def 光属性抗性(self) -> float:
+        return self.__光属性抗性
+
+    def 暗属性抗性(self) -> float:
+        return self.__暗属性抗性
     # 新词条计算的力量智力
 
     def __基础面板力量(self) -> float:
@@ -597,7 +610,7 @@ class Character():
 
     def __打造设置(self, setinfo):
         self.打造详情 = setinfo
-        for i in 部位列表 + ('称号', '宠物', ):
+        for i in 部位列表 + ('称号', '宠物', '光环', '武器装扮', '皮肤', '宠物装备-红', '宠物装备-绿', '宠物装备-蓝', '快捷装备'):
             from core.baseClass.enchanting import get_encfunc_by_id
             id = setinfo.get(i, {}).get('enchanting', 0)
             self.部位附魔[i] = get_encfunc_by_id(id)
@@ -797,6 +810,7 @@ class Character():
         for i in self.部位附魔.keys():
             func = self.部位附魔[i]
             func(self)
+            func(self, mode=1)
             # 打印相关函数和效果
             # print('{}: {}: {}'.format(i, func, func(self, text=TRUE)))
 
@@ -1065,7 +1079,9 @@ class Character():
     def __伤害指数计算(self):
 
         防御 = max(self.防御输入 - self.__固定减防, 0) * (1 - self.__百分比减防)
-        基准倍率 = 1.5 * self.buff * (1 - 防御 / (防御 + 200 * self.等级))
+
+        # 基准倍率 = 1.5 * self.buff * (1 - 防御 / (防御 + 200 * self.等级))
+        基准倍率 = 1.5 * self.buff * (1 - 防御 / (防御 + 200 * 100))
 
         # 避免出现浮点数取整BUG
         self.__伤害增加 += 0.00000001

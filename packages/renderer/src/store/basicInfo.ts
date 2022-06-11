@@ -58,7 +58,14 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       if (!state._equipmentInfo) {
         api.getEquipments().then(res => (state._equipmentInfo = res.data))
       }
-      return [...(state._equipmentInfo?.lv110 ?? []), ...(state._equipmentInfo?.myth ?? []), ...(state._equipmentInfo?.weapon ?? []), ...(state._equipmentInfo?.wisdom ?? [])]
+      return [
+        ...(state._equipmentInfo?.lv110 ?? []),
+        ...(state._equipmentInfo?.myth ?? []),
+        ...(state._equipmentInfo?.weapon ?? []),
+        ...(state._equipmentInfo?.wisdom ?? []),
+        ...(state._equipmentInfo?.title ?? []),
+        ...(state._equipmentInfo?.pet ?? [])
+      ]
     },
     adventure_info(state) {
       if (state._adventureInfo.length === 0) {

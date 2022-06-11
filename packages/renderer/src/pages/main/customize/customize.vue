@@ -36,7 +36,7 @@
                   <calc-select class="!h-20px !w-530px" v-model={configStore.customize[a.id][index - 1]}>
                     <calc-option value={0}>无</calc-option>
                     {renderList(
-                      a.alternative.filter(item => configStore.customize[a.id].filter((a, i) => index - 1 != i).indexOf(item) < 0),
+                      a.alternative?.filter(item => configStore.customize[a.id].filter((a, i) => index - 1 != i).indexOf(item) < 0),
                       b => (
                         <calc-option value={b}>{entry(b)}</calc-option>
                       )

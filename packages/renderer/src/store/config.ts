@@ -177,7 +177,7 @@ export const useConfigStore = defineStore("config", {
       const temp =
         useBasicInfoStore().equipment_list.filter(
           item =>
-            [...this.wisdom_list, ...this.myths_list, ...this.weapons_list, ...this.lv110_list, ...this.single_set].findIndex(e => Number(e) == Number(item.id)) >= 0 && item.alternative.length > 0
+            [...this.wisdom_list, ...this.myths_list, ...this.weapons_list, ...this.lv110_list, ...this.single_set].findIndex(e => Number(e) == Number(item.id)) >= 0 && item.alternative?.length > 0
         ) ?? []
       const list = temp.map(item => item.id)
       const keys = Object.keys(this.customize)

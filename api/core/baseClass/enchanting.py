@@ -146,7 +146,7 @@ def enchanting_20014(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         char.所有属性强化加成(12*rate)
         char.最终伤害加成(0.03*rate)
-        char.攻击强化加成(0.03*rate)
+        char.百分比攻击强化加成(0.03*rate)
         char.暴击率增加(0.03)
     if mode == 1:
         pass

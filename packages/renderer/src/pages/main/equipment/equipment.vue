@@ -33,7 +33,9 @@
 
       const myths = computed(() => basicStore.equipment_info?.myth ?? [])
 
-      const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
+      const wisdoms = computed(() => basicStore.equipment_info?.wisdom ?? [])
+      const pets = computed(() => basicStore.equipment_info?.pet ?? [])
+      const titles = computed(() => basicStore.equipment_info?.title ?? [])
 
       const selected_110 = computed({
         get() {
@@ -108,14 +110,14 @@
           </EquipList>
           <div class="equ-else">
             <EquipList v-model:selected={selected_myths.value} class="equ-else-sort" list={myths.value} title="神话装备" />
-            <EquipList v-model:selected={selected_wisdom.value} class="equ-else-sort" list={wisdom.value} title="智慧产物" />
+            <EquipList v-model:selected={selected_wisdom.value} class="equ-else-sort" list={wisdoms.value} title="智慧产物" />
             <EquipList v-model:selected={selected_weapons.value} class="equ-else-sort" list={weapons.value} title="武器列表" />
-            <EquipList class="equ-else-sort" title="称号" />
-            <EquipList class="equ-else-sort" title="宠物" />
+            <EquipList class="equ-else-sort" list={titles.value} title="称号" />
+            <EquipList class="equ-else-sort" list={pets.value} title="宠物" />
           </div>
           <div class="w-390px ml-5px flex flex-col">
             <EquipList class="equ-else-sort" title="药剂" />
-            <div class="equ-trigger">
+            <div class="equ-trigger !w-390px">
               {trigger_list.value &&
                 renderList(trigger_list.value, (trigger, index) => (
                   <>

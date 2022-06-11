@@ -4,7 +4,7 @@ import importlib
 import json
 import sys
 import os
-from typing import Dict, List
+from typing import Dict, List, Text
 from core.baseClass.equipment import equ
 from core.baseClass.enchanting import get_enchanting_setinfo
 from core.baseClass.emblems import get_emblems_setinfo
@@ -41,7 +41,9 @@ def get_equipment_info(alter: str):
         "lv110": [],
         "myth": [],
         "weapon": [],
-        "wisdom": []
+        "wisdom": [],
+        "pet": [],
+        "title": []
     }
 
     module_name = "core.characters." + alter
@@ -52,6 +54,18 @@ def get_equipment_info(alter: str):
 
     for i in equ.info.keys():
         temp = equ.info[i]
+        if temp['部位'] == "称号":
+            equipment_info["title"].append(
+                {
+                    "id": int(i),
+                    "name": temp["名称"],
+                    "icon": temp["icon"],
+                    "typeName": temp["部位"],
+                    "stable": temp["固有属性"],
+                    "features": temp["类型"],
+                    "alternative": temp["可选属性"]
+                }
+            )
         if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["部位"] != "武器":
             equipment_info["lv110"].append(
                 {
@@ -114,6 +128,30 @@ def get_equipment_detail_info(equID):
     equipment_detail_info['icon'] = cur['icon']
     # 固有属性
     base = []
+    base.append({
+        "id": 1,
+        "isRate": False,
+        "label": "物理攻击力",
+        "num": cur['物理攻击力'],
+    })
+    base.append({
+        "id": 6,
+        "isRate": False,
+        "label": "魔法攻击力",
+        "num": cur['魔法攻击力'],
+    })
+    base.append({
+        "id": 6,
+        "isRate": False,
+        "label": "独立攻击力",
+        "num": cur['独立攻击力'],
+    })
+    base.append({
+        "id": 6,
+        "isRate": False,
+        "label": "力量",
+        "num": cur['力量'],
+    })
     base.append({
         "id": 6,
         "isRate": False,
@@ -188,18 +226,28 @@ def get_equipment_detail_info(equID):
                 "label": "技能攻击力",
                 "num": 0.35
             })
+        if item > 12000:
+            props = equ.get_func_by_id(item)(text=True)
+            for prop in props:
+                effect.append({
+                    "id": -1,
+                    "isRate": False,
+                    "label": prop,
+                    "num": None
+                })
     effect.sort(key=lambda x: x["id"])
     # 成长属性
     growthProps = []
-    for index in range(0, len(cur['成长属性'])):
-        growth = growths.get(str(cur['成长属性'][index]))
-        growthProps.append({
-            "id": cur['成长属性'][index],
-            "index": index,
-            "buffer": growth['buff'],
-            "attack": growth['attack'],
-            "props": growth['props']})
-        pass
+    if cur['部位'] not in ['称号', '宠物']:
+        for index in range(0, len(cur['成长属性'])):
+            growth = growths.get(str(cur['成长属性'][index]))
+            growthProps.append({
+                "id": cur['成长属性'][index],
+                "index": index,
+                "buffer": growth['buff'],
+                "attack": growth['attack'],
+                "props": growth['props']})
+            pass
     equipment_detail_info["prop"] = {
         "base": base,
         "bufferProps": bufferProps,

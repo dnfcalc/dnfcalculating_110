@@ -30,6 +30,8 @@ export interface IEquipmentList {
   myth: IEquipmentInfo[]
   weapon: IEquipmentInfo[]
   wisdom: IEquipmentInfo[]
+  title: IEquipmentInfo[]
+  pet: IEquipmentInfo[]
 }
 
 export interface IEnchantingInfo {

@@ -16,6 +16,8 @@
 
   const WEAPON = 3
 
+  const TITLEANFPET = 4
+
   export default defineComponent({
     async setup() {
       const type = ref(EPIC_EQUIP)
@@ -27,6 +29,7 @@
       const weapons = computed(() => basicStore.equipment_info?.weapon ?? [])
       const myths = computed(() => basicStore.equipment_info?.myth ?? [])
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
+      const title_pet = computed(() => [...(basicStore.equipment_info?.pet ?? []), ...(basicStore.equipment_info?.title ?? [])])
 
       const result = useAsyncState(() => configStore.calc(true), { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0 }, {})
 
@@ -46,6 +49,9 @@
             return myths.value[index]
           case WIDSDOM_EQUIP:
             return wisdom.value[index]
+          case TITLEANFPET:
+            return title_pet.value[index]
+
           case EPIC_EQUIP: {
             const per = 13
             const mod = index % per
@@ -137,11 +143,12 @@
         <div class="flex singleset">
           <div class="flex flex-col m-7px mb-0">
             <div class="h-25px">
-              <calc-tabs item-class="h-6 w-15" v-model={type.value}>
+              <calc-tabs item-class="h-6 !w-20%" v-model={type.value}>
                 <calc-tab value={EPIC_EQUIP}>史诗</calc-tab>
                 <calc-tab value={MYTHIC_EQUIP}>神话</calc-tab>
                 <calc-tab value={WIDSDOM_EQUIP}>智慧产物</calc-tab>
                 <calc-tab value={WEAPON}>武器</calc-tab>
+                <calc-tab value={TITLEANFPET}>称号 宠物</calc-tab>
               </calc-tabs>
             </div>
             <div class="h-140 w-120 overflow-y-auto equ">
