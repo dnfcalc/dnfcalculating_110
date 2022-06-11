@@ -32,11 +32,14 @@
       光?: number
       暗?: number
     }
-    词条: {
+    词条?: {
       技能攻击力: number
       攻击强化: number
       百分比攻击强化: number
       MP消耗量: number
+      伤害比例: number[]
+      伤害系数: number[]
+      无色消耗: number
     }
   }
 
@@ -68,14 +71,21 @@
         type: String,
         default: null
       },
-      charType: {
-        type: String,
-        default: "魔法固伤"
-      },
       details: {
         type: Object,
         default: () => {
-          return { mingwang: 0, 站街: { 火: 0, 冰: 0, 光: 0, an: 0 }, jintu: { 火: 0, 冰: 0, 光: 0, 暗: 0 } }
+          return {
+            mingwang: 0,
+            站街: { 火: 0, 冰: 0, 光: 0, 暗: 0 },
+            词条: {
+              技能攻击力: 0,
+              攻击强化: 0,
+              百分比攻击强化: 0,
+              MP消耗量: 0,
+              伤害比例: [1, 0, 0, 0, 0],
+              伤害系数: [1, 1, 1, 1, 1]
+            }
+          }
         }
       },
       canChoose: {
@@ -143,12 +153,12 @@
 
         if (index == 13) index -= 7
         else if (index >= 5 && index <= 12) {
-          x += 189
+          x += 179
           index -= 5
         }
 
-        x += (index % 2) * 32
-        y += Math.floor(index / 2) * 32
+        x += (index % 2) * 39
+        y += Math.floor(index / 2) * 34
 
         let style = {
           left: `${x}px`,
@@ -163,19 +173,19 @@
       }
 
       function partIconStyle(part: string) {
-        let x = 10
-        let y = 10
+        let x = 11
+        let y = 11
         let index = display_parts.findIndex(p => p == part)
         let active = index == display_parts.findIndex(p => p == detailsStore.part)
 
         if (index == 13) index -= 7
         else if (index >= 5 && index <= 12) {
-          x += 189
+          x += 179
           index -= 5
         }
 
-        x += (index % 2) * 32
-        y += Math.floor(index / 2) * 32
+        x += (index % 2) * 39
+        y += Math.floor(index / 2) * 34
 
         let style =
           active && props.canChoose
@@ -294,19 +304,44 @@
                       <div class="text-hex-3ea74e">{details.value?.词条?.技能攻击力?.toFixed(2) + "%"}</div>
                     </div>
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">MP消耗量%</div>
-                      <div class="text-hex-3ea74e">{details.value?.词条?.MP消耗量?.toFixed(2) + "%"}</div>
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">直伤</div>
+                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[0] ?? 1).round(2) * 100}%`}</div>
                     </div>
+
                     <div class="de-item">
                       <div class="text-hex-836832 w-65px pl-5px pr-5px">攻击强化</div>
-                      <div class="text-hex-3ea74e">{details.value?.词条?.攻击强化?.toFixed(0)}</div>
+                      <div class="text-hex-3ea74e">{details.value?.词条?.攻击强化?.round(0)}</div>
                     </div>
                     <div class="de-item">
                       <div class="text-hex-836832 w-65px pl-5px pr-5px">攻击强化%</div>
                       <div class="text-hex-3ea74e">{details.value?.词条?.百分比攻击强化?.toFixed(2) + "%"}</div>
                     </div>
-                  </div>
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">无色消耗</div>
+                      <div class="text-hex-3ea74e">{details.value?.词条?.无色消耗}</div>
+                    </div>
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">MP消耗量%</div>
+                      <div class="text-hex-3ea74e">{details.value?.词条?.MP消耗量?.toFixed(2) + "%"}</div>
+                    </div>
 
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">中毒</div>
+                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[1] ?? 0) * 100}%(+${(details.value?.词条?.伤害系数?.[1] ?? 0).round(2) * 100}%)`}</div>
+                    </div>
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">灼烧</div>
+                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[2] ?? 0) * 100}%(+${(details.value?.词条?.伤害系数?.[2] ?? 0).round(2) * 100}%)`}</div>
+                    </div>
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">感电</div>
+                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[3] ?? 0) * 100}%(+${(details.value?.词条?.伤害系数?.[3] ?? 0).round(2) * 100}%)`}</div>
+                    </div>
+                    <div class="de-item">
+                      <div class="text-hex-836832 w-65px pl-5px pr-5px">出血</div>
+                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[4] ?? 0) * 100}%(+${(details.value?.词条?.伤害系数?.[4] ?? 0).round(2) * 100}%)`}</div>
+                    </div>
+                  </div>
                   {
                     <div class="sum" style={"color:" + result.value[1]}>
                       {result.value[0]}

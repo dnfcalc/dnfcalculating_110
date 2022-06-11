@@ -24,7 +24,6 @@
         }
       })
 
-      const characterStore = useCharacterStore()
       const configStore = useConfigStore()
 
       const equips = computed(() => basicStore.equipment_info?.lv110 ?? [])

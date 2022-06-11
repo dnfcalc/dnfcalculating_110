@@ -5790,6 +5790,7 @@ def entry_1096(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.MP消耗量加成(-0.3)
         pass
 
 
@@ -5893,6 +5894,7 @@ def entry_1118(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.MP消耗量加成(-0.1)
         pass
 
 
@@ -7442,6 +7444,7 @@ def entry_997(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.MP消耗量加成(1)
         char.攻击强化加成(2223)
 
 
@@ -8344,6 +8347,7 @@ def entry_827(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "MP MAX+2000, 技能MP消耗量+100%"
     if mode == 0:
+        char.MP消耗量加成(1)
         pass
     if mode == 1:
         pass
@@ -8353,6 +8357,7 @@ def entry_828(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "MP MAX+4196, 技能MP消耗量+50%"
     if mode == 0:
+        char.MP消耗量加成(0.5)
         pass
     if mode == 1:
         pass
@@ -8572,7 +8577,7 @@ def entry_884(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         skills = char.技能获取(40, 40, ['猫拳', '爱之急救', '生命源泉', '复苏之光', '六道'])
-        for (skill, index) in range(0, len(char.技能队列)):
+        for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
             if skill["名称"] in skills:
                 skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
@@ -8587,7 +8592,7 @@ def entry_885(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         skills = char.技能获取(45, 45)
-        for (skill, index) in range(0, len(char.技能队列)):
+        for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
             if skill["名称"] in skills:
                 skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
@@ -8629,7 +8634,7 @@ def entry_888(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         skills = char.技能获取(70, 70)
-        for (skill, index) in range(0, len(char.技能队列)):
+        for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
             if skill["名称"] in skills:
                 skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==

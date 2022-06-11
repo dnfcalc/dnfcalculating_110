@@ -635,6 +635,7 @@ class Character():
             k.TP等级 = i['tp']
             k.手搓 = i['direct']
             k.手搓指令数 = i['directNumber']
+            k.count = i['count']
 
     # 设置装备选项参数
     def __equ_chose_set(self, setinfo):
@@ -678,6 +679,7 @@ class Character():
         data = {}
         sumdamage = 0
         data['skills'] = {}
+        data['无色消耗'] = 0
         for i in self.技能队列:
             k = self.get_skill_by_name(i['名称'])
             if k.是否有伤害 == 1:
@@ -689,6 +691,7 @@ class Character():
                     temp['百分比'] = k.等效百分比(self.武器类型)
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
+                    temp['count'] = k.count
                 直伤 = k.等效百分比(self.武器类型, i['等级变化'], i['倍率'], "直伤")
                 # 直伤处理：直伤伤害*比例*系数
                 damage = 直伤 * self.伤害指数 * k.被动倍率 * \
@@ -699,17 +702,13 @@ class Character():
                         (self.__伤害比例.get(item, 0.0) *
                          self.__伤害系数.get(item, 0.0)) / 100
                     # 异常伤害处理：异常伤害*异常系数
-                    if k.等效百分比(
-                            self.武器类型, i['等级变化'], i['倍率'], item) > 0:
-                        print(k.等效百分比(
-                            self.武器类型, i['等级变化'], i['倍率'], item) * self.伤害指数 * k.被动倍率*(self.__伤害系数.get(item, 0.0)) / 100)
-
                     damage += k.等效百分比(
                         self.武器类型, i['等级变化'], i['倍率'], item) * self.伤害指数 * k.被动倍率*(self.__伤害系数.get(item, 0.0)) / 100
                 sumdamage += damage
-                temp['count'] = temp.get('count', 0) + 1
                 temp['damage'] = temp.get('damage', 0) + damage
                 data['skills'][k.名称] = temp
+                if k.名称 not in ['爆裂弹']:
+                    data['无色消耗'] += i['无色消耗']
         data['sumdamage'] = sumdamage
         return data
 
@@ -1164,9 +1163,6 @@ class Character():
         calc_info['光'] = self.光属性强化()
         calc_info['暗'] = self.暗属性强化()
 
-        print(self.__伤害比例)
-        print(self.__伤害系数)
-
         result = {
             'id': uuid1().hex,
             'alter': self.实际名称,
@@ -1194,7 +1190,10 @@ class Character():
                     '攻击强化': round(self.__攻击强化, 0),
                     '技能攻击力': round(100*(self.__技能攻击力-1), 2),
                     '百分比攻击强化': round(self.__百分比攻击强化*100, 1),
-                    'MP消耗量': round(self.__MP消耗量*100-100, 2)
+                    'MP消耗量': round(self.__MP消耗量*100-100, 2),
+                    '伤害比例': [self.__伤害比例.get('直伤', 1), self.__伤害比例.get('中毒', 0), self.__伤害比例.get('灼烧', 0), self.__伤害比例.get('感电', 0), self.__伤害比例.get('出血', 0)],
+                    '伤害系数': [self.__伤害系数.get('直伤', 1), self.__伤害系数.get('中毒', 1)-1, self.__伤害系数.get('灼烧', 1)-1, self.__伤害系数.get('感电',  1)-1, self.__伤害系数.get('出血',  1)-1],
+                    '无色消耗': temp['无色消耗']
                     # 其他老词条·····
                 }
             },
@@ -1204,6 +1203,7 @@ class Character():
             # '面板魔法攻击力': self.面板魔法攻击力(),
             # '面板独立攻击力': self.面板独立攻击力(),
             'sumdamage': temp["sumdamage"],
-            "skills": temp["skills"]
+            "skills": temp["skills"],
+            "skills_passive": []
         }
         return result

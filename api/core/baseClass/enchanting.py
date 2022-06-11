@@ -73,7 +73,7 @@ def enchanting_20005(char: Character = {}, mode=0, text=False, rate=1.0):
 
 def enchanting_20007(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
-        return "(168, '腰带,鞋', '三攻 +36 技攻 +3%')"
+        return "(168, '腰带，鞋', '三攻 +36 技攻 +3%')"
     if mode == 0:
         char.三攻固定加成(16*rate)
         char.技能攻击力加成(0.03*rate)
@@ -83,7 +83,7 @@ def enchanting_20007(char: Character = {}, mode=0, text=False, rate=1.0):
 
 def enchanting_20008(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
-        return "(168, '腰带,鞋', '三攻 +36 Lv1~50 主动+1')"
+        return "(168, '腰带，鞋', '三攻 +36 Lv1~50 主动+1')"
     if mode == 0:
         char.三攻固定加成(16*rate)
         char.技能等级加成('主动', 1, 50, 1)

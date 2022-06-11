@@ -7,6 +7,7 @@
   import { useOpenWindow } from "@/hooks/open"
   import { useAsyncState } from "@vueuse/core"
   import openURL from "@/utils/openURL"
+  import featureList from "@/utils/featureList"
 
   const EPIC_EQUIP = 0
 
@@ -24,6 +25,8 @@
       const configStore = useConfigStore()
       const basicStore = useBasicInfoStore()
       const detailsStore = useDetailsStore()
+      const choose_feature = ref(0)
+      const equ_name = ref("")
 
       const equips = computed(() => basicStore.equipment_info?.lv110 ?? [])
       const weapons = computed(() => basicStore.equipment_info?.weapon ?? [])
@@ -32,6 +35,17 @@
       const title_pet = computed(() => [...(basicStore.equipment_info?.pet ?? []), ...(basicStore.equipment_info?.title ?? [])])
 
       const result = useAsyncState(() => configStore.calc(true), { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0 }, {})
+
+      const highlight = computed<number[]>({
+        get() {
+          return equips.value.map(e => (e.features?.includes(choose_feature.value) || (e.name?.includes(equ_name.value) && equ_name.value != "") ? e.id : 0)).filter(e => e > 0)
+        },
+        set(val) {
+          if (val.length === 0) {
+            choose_feature.value = 0
+          }
+        }
+      })
 
       function isActive(equ: IEquipmentInfo) {
         return configStore.single_set.findIndex(e => e === equ.id) > -1
@@ -75,6 +89,7 @@
 
       function chooseEqu(equ: IEquipmentInfo) {
         return () => {
+          equ_name.value = ""
           configStore.single_set = configStore.single_set.sort((a, b) => a - b)
           const index = curEquList.value.findIndex(item => item.typeName == equ.typeName)
           if (index < 0) {
@@ -151,12 +166,35 @@
                 <calc-tab value={TITLEANFPET}>称号 宠物</calc-tab>
               </calc-tabs>
             </div>
-            <div class="h-140 w-120 overflow-y-auto equ">
+            {type.value == EPIC_EQUIP && (
+              <div class="flex justify-between items-center bg-hex-000000/45">
+                <calc-select class="!h-25px !w-40%" v-model={choose_feature.value} emptyLabel="特性选择">
+                  <calc-option value={0}>全部特性</calc-option>
+                  {renderList(featureList, item => (
+                    <calc-option value={item.value}>{item.label}</calc-option>
+                  ))}
+                </calc-select>
+                名称搜索:
+                <calc-autocomplete class="ml-10px !w-40%" v-model={equ_name.value}></calc-autocomplete>
+              </div>
+            )}
+            <div class={[type.value == EPIC_EQUIP ? "h-145" : "h-152", "w-120 overflow-y-auto equ"]}>
               {renderList(325, (item, index) => {
                 const equ = getEquip(index)
                 return (
                   <div class="equ-item">
-                    {equ && <EquipTips onClick={chooseEqu(equ)} onDblclick={selectSuit(index)} active={isActive(equ)} eq={equ} key={equ.id} canClick={true} show-tips={false}></EquipTips>}
+                    {equ && (
+                      <EquipTips
+                        hightlight={highlight.value.includes(equ.id)}
+                        onClick={chooseEqu(equ)}
+                        onDblclick={selectSuit(index)}
+                        active={isActive(equ)}
+                        eq={equ}
+                        key={equ.id}
+                        canClick={true}
+                        show-tips={false}
+                      ></EquipTips>
+                    )}
                   </div>
                 )
               })}

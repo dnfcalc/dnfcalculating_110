@@ -7,6 +7,17 @@
   import { skill_icon } from "@/pages/main/character/sub/utils"
   import { IResultInfo } from "@/api/character/type"
   import api from "@/api"
+  import { kill } from "process"
+
+  interface ISkillResult {
+    cd: number
+    count: number
+    damage: string[]
+    avg: string[]
+    mix: string
+    order: number
+    name: string
+  }
 
   export default defineComponent({
     async setup() {
@@ -25,18 +36,23 @@
       characterStore.$patch({ alter: res.alter, name: res.name })
       configStore.forge_set = res.forget_set ?? {}
       function skill_tooltip(skill: any) {
+        const skllInfo = res.skills[skill]
         return (
-          <div class="tooltip-skill !p-5px !w-120px">
-            <div class="info">等级:{+skill.lv}</div>
-            <div class="info">MP消耗:{skill.mp.toFixed(0)}</div>
-            <div class="info">无色消耗:{skill.无色}</div>
-            <div class="info">百分比:{skill.百分比.toFixed(0) + "%"}</div>
+          <div class="tooltip-skill">
+            <div class="name">
+              {skill} Lv {skllInfo.lv}
+            </div>
+            <div class="text-right info">冷却时间:{skllInfo.cd}秒</div>
+            <div class="info">MP消耗:{skllInfo.mp.toFixed(0)}</div>
+            <div class="info">无色消耗:{skllInfo.无色}</div>
+            <div class="info">百分比:{skllInfo.百分比.toFixed(0) + "%"}</div>
           </div>
         )
       }
 
-      const skillInfo = computed(() => {
-        return (skill: string) => {
+      const skills = computed(() => {
+        let temp: ISkillResult[] = []
+        Object.keys(res.skills).forEach(skill => {
           let damage = ["", "white"]
           let avg = []
           if (store.standard?.skills[skill]?.damage ?? undefined) {
@@ -60,15 +76,18 @@
           } else {
             avg = [Math.round(res.skills[skill].damage / res.skills[skill].count).toLocaleString(), "white"]
           }
-
-          return {
+          temp.push({
+            name: skill,
             cd: res.skills[skill].cd,
             count: res.skills[skill].count,
             damage: damage,
             avg: avg,
-            mix: to_percent(res.skills[skill].damage / res.sumdamage, 0, "%")
-          }
-        }
+            mix: to_percent(res.skills[skill].damage / res.sumdamage, 0, "%"),
+            order: res.skills[skill].damage
+          })
+        })
+        temp.sort((a, b) => b.order - a.order)
+        return temp
       })
 
       return () => (
@@ -88,31 +107,31 @@
                   <div class="w-12% item-head">占比</div>
                 </div>
                 <div class="flex flex-col flex-1 skills">
-                  {renderList(Object.keys(res.skills) ?? [], item => (
+                  {renderList(skills.value ?? [], skill => (
                     <div class="flex justify-between">
                       <div class="w-12% item">
                         <div>
                           <calc-tooltip position="right">
                             {{
                               default() {
-                                return <img src={skill_icon(characterStore.alter, item)} />
+                                return <img src={skill_icon(characterStore.alter, skill.name)} />
                               },
                               popper() {
-                                return skill_tooltip(res.skills[item])
+                                return skill_tooltip(skill.name)
                               }
                             }}
                           </calc-tooltip>
                         </div>
                       </div>
-                      <div class="w-12% item">{skillInfo.value(item).cd}</div>
-                      <div class="w-12% item">{skillInfo.value(item).count}</div>
-                      <div class="w-25% item" style={"color:" + skillInfo.value(item).damage[1]}>
-                        {skillInfo.value(item).damage[0]}
+                      <div class="w-12% item">{skill.cd}s</div>
+                      <div class="w-12% item">{skill.count}</div>
+                      <div class="w-25% item" style={"color:" + skill.damage[1]}>
+                        {skill.damage[0]}
                       </div>
-                      <div class="w-25% item" style={"color:" + skillInfo.value(item).avg[1]}>
-                        {skillInfo.value(item).avg[0]}
+                      <div class="w-25% item" style={"color:" + skill.avg[1]}>
+                        {skill.avg[0]}
                       </div>
-                      <div class="w-12% item">{to_percent(res.skills[item].damage / res.sumdamage, 0, "%")}</div>
+                      <div class="w-12% item">{to_percent(skill.order / res.sumdamage, 0, "%")}</div>
                     </div>
                   ))}
                 </div>
@@ -157,7 +176,7 @@
       margin-right: 5px;
       border-top: 1px solid rgba(255, 255, 255, 0.15);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      height: 30px;
+      height: 50px;
       margin-bottom: 5px;
     }
   }

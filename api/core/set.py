@@ -2,6 +2,7 @@ import importlib
 import json
 from math import fabs
 import os
+from core.baseClass.character import Character
 from core.store import store
 from core.baseClass.equipment import equ
 
@@ -42,8 +43,8 @@ def get(alter: str, setName: str):
     """
     set_info = {}
     module_name = "core.characters." + alter
-    character = importlib.import_module(module_name)
-    info = character.classChange().getinfo()
+    character: Character = importlib.import_module(module_name).classChange()
+    info = character.getinfo()
     skillInfo = info['skillInfo']
     buff = info['buff_ratio']
     skill_set = []
@@ -75,8 +76,8 @@ def get(alter: str, setName: str):
             "talisman_set": ['']*3,
             "rune_set": ['']*9,
             "buff_ratio": round((buff-1)*100, 1),
-            "hotkey_set": ['']*14
-        }
+            "hotkey_set": ['']*14,
+            "carry_type": info["carry_type_list"][0]}
     else:
         with open('./Sets/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
             set_info = json.load(fp)
@@ -88,4 +89,5 @@ def get(alter: str, setName: str):
             set_info['skill_set'] = skill_set
         if not len(trigger) == len(set_info['trigger_set']):
             set_info['trigger_set'] = trigger
+
     return set_info
