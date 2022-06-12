@@ -832,6 +832,8 @@ class Character():
                     else:
                         # 白金技能等级加成处理 id:技能名称
                         self.get_skill_by_name(id).等级 += 1
+                        self.力智固定加成(8)
+                        self.体精固定加成(8)
                         pass
         for i in idlist:
             from core.baseClass.emblems import get_embfunc_by_id
@@ -883,9 +885,11 @@ class Character():
             self.__智力 += 精通数值
 
     def __增幅计算(self, temp: equipment) -> None:
-        if self.打造详情.get(temp.部位, {}).get('cursed_type', 0) == 1:
+        if self.打造详情.get(temp.部位, {}).get('cursed_type', 1) == 1:
             x = 增幅计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
+            print(x, temp.等级, temp.品质, self.打造详情.get(
+                temp.部位, {}).get('cursed_number', 0), temp.部位)
             if '物理' in self.类型 or '力量' in self.类型:
                 self.__力量 += x
             else:

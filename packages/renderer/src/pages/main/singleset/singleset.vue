@@ -150,7 +150,7 @@
       }
 
       watch(curEquList, async val => {
-        if (val.map(item => item.typeName).length < 12) {
+        if (val.map(item => item.typeName).length < 1) {
           return
         }
         await result.execute()
@@ -170,13 +170,13 @@
         result.state.value.jade
           ?.sort((a, b) => b.damage - a.damage)
           .forEach((item, index) => {
-            let x = (index / (result.state.value.jade?.length ?? 0)) * 10 - 3
+            let x = (index / (result.state.value.jade?.length ?? 1)) * 10 - 3
             let y = 1 / (1 + Math.exp(-x))
             temp.push({
               id: item.id,
               name: item.name,
               damage: item.damage,
-              percent: ((item.damage.round(0) / damage.round(0)) * 100 - 100).toFixed(2),
+              percent: damage == 0 ? "- -" : ((item.damage.round(0) / damage.round(0)) * 100 - 100).toFixed(2) + "%",
               color: `rgb(${Math.trunc(255 - 80 * y)},${Math.trunc(245 - 100 * y)},${Math.trunc(0 + 150 * y)})`
             })
           })
@@ -262,7 +262,7 @@
               {renderList(jade.value ?? [], item => (
                 <div class="flex w-100% h-30px" style={"color:" + item.color}>
                   <div class="w-70% flex items-center justify-center">{item.name}</div>
-                  <div class="w-30% flex items-center justify-center">{item.percent}%</div>
+                  <div class="w-30% flex items-center justify-center">{item.percent}</div>
                 </div>
               ))}
             </div>

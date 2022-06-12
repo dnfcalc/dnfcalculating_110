@@ -473,8 +473,8 @@ def sundry_27042(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '工会属性', '四维 +120')"
     if mode == 0:
-        char.力智固定加成(60)
-        char.体精固定加成(60)
+        char.力智固定加成(120)
+        char.体精固定加成(120)
         pass
     if mode == 1:
         pass
@@ -707,6 +707,8 @@ def sundry_27062(char: Character = {}, mode=0, text=False):
     if text:
         return "(0, '名称装扮卡', '四维 +3 三速 +1%')"
     if mode == 0:
+        char.力智固定加成(3)
+        char.体精固定加成(3)
         pass
     if mode == 1:
         pass

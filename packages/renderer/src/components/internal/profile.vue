@@ -141,8 +141,8 @@
       const display_parts = detailsStore.display_parts
 
       function currentInfo(part: string) {
-        let num = configStore.getForge(part, "cursed_number")
-        return num ? "+" + num : ""
+        let num = configStore.getForge(part, "cursed_number") ?? 0
+        return "+" + num
       }
 
       function infoStyle(part: string) {
