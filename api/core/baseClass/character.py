@@ -888,8 +888,6 @@ class Character():
         if self.打造详情.get(temp.部位, {}).get('cursed_type', 1) == 1:
             x = 增幅计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
-            print(x, temp.等级, temp.品质, self.打造详情.get(
-                temp.部位, {}).get('cursed_number', 0), temp.部位)
             if '物理' in self.类型 or '力量' in self.类型:
                 self.__力量 += x
             else:
