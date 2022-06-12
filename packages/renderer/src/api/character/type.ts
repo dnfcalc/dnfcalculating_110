@@ -50,11 +50,8 @@ export interface IResultInfo {
   token?: string
   forget_set?: Record<string, Map<string, any>>
   skills: any
+  skills_passive: any
   equips: IEquipmentInfo[]
-  info?: {
-    citiao: any
-    jintu: any
-    zhanjie: any
-  }
+  info: any
   sumdamage: number
 }

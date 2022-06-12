@@ -32,9 +32,10 @@
       const weapons = computed(() => basicStore.equipment_info?.weapon ?? [])
       const myths = computed(() => basicStore.equipment_info?.myth ?? [])
       const wisdom = computed(() => basicStore.equipment_info?.wisdom ?? [])
-      const title_pet = computed(() => [...(basicStore.equipment_info?.pet ?? []), ...(basicStore.equipment_info?.title ?? [])])
+      const title = computed(() => basicStore.equipment_info?.title ?? [])
+      const pet = computed(() => basicStore.equipment_info?.pet ?? [])
 
-      const result = useAsyncState(() => configStore.calc(true), { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0 }, {})
+      const result = useAsyncState(() => configStore.calc(true), { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0, info: undefined, skills_passive: undefined }, {})
 
       const highlight = computed<number[]>({
         get() {
@@ -63,8 +64,12 @@
             return myths.value[index]
           case WIDSDOM_EQUIP:
             return wisdom.value[index]
-          case TITLEANFPET:
-            return title_pet.value[index]
+          case TITLEANFPET: {
+            const titleMax = Math.ceil(title.value.length / 13 + 1) * 13
+            if (index < titleMax) return title.value[index] ?? undefined
+            else return pet.value[index - titleMax] ?? undefined
+            // return title_pet.value[index]
+          }
 
           case EPIC_EQUIP: {
             const per = 13

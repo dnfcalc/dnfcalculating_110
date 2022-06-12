@@ -66,6 +66,18 @@ def get_equipment_info(alter: str):
                     "alternative": temp["可选属性"]
                 }
             )
+        if temp['部位'] == "宠物":
+            equipment_info["pet"].append(
+                {
+                    "id": int(i),
+                    "name": temp["名称"],
+                    "icon": temp["icon"],
+                    "typeName": temp["部位"],
+                    "stable": temp["固有属性"],
+                    "features": temp["类型"],
+                    "alternative": temp["可选属性"]
+                }
+            )
         if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["部位"] != "武器":
             equipment_info["lv110"].append(
                 {
@@ -226,7 +238,7 @@ def get_equipment_detail_info(equID):
                 "label": "技能攻击力",
                 "num": 0.35
             })
-        if item > 12000:
+        if item > 11000:
             props = equ.get_func_by_id(item)(text=True)
             for prop in props:
                 effect.append({

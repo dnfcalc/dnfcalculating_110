@@ -2,6 +2,7 @@ from multiprocessing.sharedctypes import Value
 from pickle import TRUE
 from pyclbr import Function
 from statistics import mode
+from tkinter.messagebox import NO
 from typing import Dict, List, Union
 from uuid import uuid1
 from core.baseClass.equipment import equipment
@@ -59,6 +60,7 @@ class Character():
     buff: float = 1.00
     hotkey: List[str] = [""]*14
     技能队列 = []
+    skills_passive: Dict = {}
 
     def __init__(self) -> None:
         # 计算变量 ##########
@@ -438,6 +440,9 @@ class Character():
                 if i.是否有伤害 == 1:
                     i.CDR *= (1 - x)
 
+    def 加算冷却缩减(self, x: float) -> None:
+        self.__加算冷却缩减 += x
+
     def 技能恢复加成(self, min: int, max: int, x: float, exc=[int]) -> None:
         for i in self.技能栏:
             if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
@@ -521,19 +526,25 @@ class Character():
     def __站街物理攻击力倍率(self) -> float:
         站街物理攻击倍率 = 1.0
         for i in self.技能栏:
-            站街物理攻击倍率 *= i.物理攻击力倍率(self.武器类型)
+            倍率 = i.物理攻击力倍率(self.武器类型)
+            if 倍率 != 1:
+                站街物理攻击倍率 *= 倍率
         return 站街物理攻击倍率
 
     def __站街魔法攻击力倍率(self) -> float:
         站街魔法攻击倍率 = 1.0
         for i in self.技能栏:
-            站街魔法攻击倍率 *= i.魔法攻击力倍率(self.武器类型)
+            倍率 = i.魔法攻击力倍率(self.武器类型)
+            if 倍率 != 1:
+                站街魔法攻击倍率 *= i.倍率
         return 站街魔法攻击倍率
 
     def __站街独立攻击力倍率(self) -> float:
         站街独立攻击倍率 = 1.0
         for i in self.技能栏:
-            站街独立攻击倍率 *= i.独立攻击力倍率(self.武器类型)
+            倍率 = i.独立攻击力倍率(self.武器类型)
+            if 倍率 != 1:
+                站街独立攻击倍率 *= 倍率
         return 站街独立攻击倍率
 
     # 站街三攻
@@ -709,6 +720,13 @@ class Character():
                 data['skills'][k.名称] = temp
                 if k.名称 not in ['爆裂弹']:
                     data['无色消耗'] += i['无色消耗']
+        data['skills_passive'] = {}
+        for i in self.技能栏:
+            if i.关联技能 != ['无'] or i.冷却关联技能 != ['无']:
+                temp = {}
+                temp['lv'] = i.等级
+                temp['name'] = i.名称
+                data['skills_passive'][i.名称] = temp
         data['sumdamage'] = sumdamage
         return data
 
@@ -840,6 +858,8 @@ class Character():
                 self.__特殊装备计算(temp)
             elif temp.部位 == '武器':
                 self.__武器计算(temp)
+            elif temp.部位 in ['称号', '宠物']:
+                self.__称号宠物计算(temp)
             self.__增幅计算(temp)
         pass
 
@@ -871,6 +891,15 @@ class Character():
                 self.__智力 += x
         # if self.是否增幅[i] and temp.所属套装 != '智慧产物':
         #    x = 增幅计算(temp.等级, temp.品质, self.强化等级[i])
+
+    def __称号宠物计算(self, temp: equipment) -> None:
+        self.__力量 += temp.力量
+        self.__智力 += temp.智力
+        self.__物理攻击力 += temp.物理攻击力
+        self.__魔法攻击力 += temp.魔法攻击力
+        self.__独立攻击力 += temp.独立攻击力
+        self.__物理暴击率 += temp.物理暴击
+        self.__魔法暴击率 += temp.魔法暴击
 
     def __首饰计算(self, temp: equipment) -> None:
         self.__力量 += temp.力量
@@ -939,58 +968,91 @@ class Character():
         for i in self.技能栏:
             i.被动倍率 = 1
         for i in self.技能栏:
-            if i.关联技能 != ['无']:
-                if i.关联技能 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.被动倍率 *= i.加成倍率(self.武器类型)
-                else:
-                    for k in i.关联技能:
-                        self.技能栏[self.技能序号[k]].被动倍率 *= i.加成倍率(self.武器类型)
-            if i.非关联技能 != ['无']:
-                if i.非关联技能 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.被动倍率 /= i.加成倍率(self.武器类型)
-                else:
-                    for k in i.非关联技能:
-                        self.技能栏[self.技能序号[k]].被动倍率 /= i.加成倍率(self.武器类型)
+            for index in range(0, 4):
+                index = "" if index == 0 else str(index+1)
+                关联技能 = getattr(i, "关联技能"+index, ["无"])
+                非关联技能 = getattr(i, "非关联技能"+index, ["无"])
+                try:
+                    加成倍率 = eval("i.加成倍率"+index+"(self.武器类型)")
+                except:
+                    加成倍率 = 1.0
+                try:
+                    if 加成倍率 != 1:
+                        self.skills_passive[i.名称]['info'].append({
+                            "type": "倍率",
+                            "info": eval("i.加成描述"+index+"(self.武器类型)")})
+                except:
+                    pass
+                if 关联技能 != ['无']:
+                    if 关联技能 == ['所有']:
+                        for j in self.技能栏:
+                            if j.是否有伤害 == 1:
+                                j.被动倍率 *= 加成倍率
+                    else:
+                        for k in 关联技能:
+                            self.技能栏[self.技能序号[k]
+                                     ].被动倍率 *= 加成倍率
+                if 非关联技能 != ['无']:
+                    if 非关联技能 == ['所有']:
+                        for j in self.技能栏:
+                            if j.是否有伤害 == 1:
+                                j.被动倍率 /= 加成倍率
+                    else:
+                        for k in 非关联技能:
+                            self.技能栏[self.技能序号[k]].被动倍率 /= 加成倍率
 
-            if i.关联技能2 != ['无']:
-                if i.关联技能2 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.被动倍率 *= i.加成倍率2(self.武器类型)
-                else:
-                    for k in i.关联技能2:
-                        self.技能栏[self.技能序号[k]].被动倍率 *= i.加成倍率2(self.武器类型)
+            # if i.关联技能 != ['无']:
+            #     if i.关联技能 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.被动倍率 *= i.加成倍率(self.武器类型)
+            #     else:
+            #         for k in i.关联技能:
+            #             self.技能栏[self.技能序号[k]].被动倍率 *= i.加成倍率(self.武器类型)
+            # if i.非关联技能 != ['无']:
+            #     if i.非关联技能 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.被动倍率 /= i.加成倍率(self.武器类型)
+            #     else:
+            #         for k in i.非关联技能:
+            #             self.技能栏[self.技能序号[k]].被动倍率 /= i.加成倍率(self.武器类型)
 
-            if i.非关联技能2 != ['无']:
-                if i.非关联技能2 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.被动倍率 /= i.加成倍率2(self.武器类型)
-                else:
-                    for k in i.非关联技能2:
-                        self.技能栏[self.技能序号[k]].被动倍率 /= i.加成倍率2(self.武器类型)
+            # if i.关联技能2 != ['无']:
+            #     if i.关联技能2 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.被动倍率 *= i.加成倍率2(self.武器类型)
+            #     else:
+            #         for k in i.关联技能2:
+            #             self.技能栏[self.技能序号[k]].被动倍率 *= i.加成倍率2(self.武器类型)
 
-            if i.关联技能3 != ['无']:
-                if i.关联技能3 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.被动倍率 *= i.加成倍率3(self.武器类型)
-                else:
-                    for k in i.关联技能3:
-                        self.技能栏[self.技能序号[k]].被动倍率 *= i.加成倍率3(self.武器类型)
+            # if i.非关联技能2 != ['无']:
+            #     if i.非关联技能2 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.被动倍率 /= i.加成倍率2(self.武器类型)
+            #     else:
+            #         for k in i.非关联技能2:
+            #             self.技能栏[self.技能序号[k]].被动倍率 /= i.加成倍率2(self.武器类型)
 
-            if i.非关联技能3 != ['无']:
-                if i.非关联技能3 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.被动倍率 /= i.加成倍率3(self.武器类型)
-                else:
-                    for k in i.非关联技能3:
-                        self.技能栏[self.技能序号[k]].被动倍率 /= i.加成倍率3(self.武器类型)
+            # if i.关联技能3 != ['无']:
+            #     if i.关联技能3 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.被动倍率 *= i.加成倍率3(self.武器类型)
+            #     else:
+            #         for k in i.关联技能3:
+            #             self.技能栏[self.技能序号[k]].被动倍率 *= i.加成倍率3(self.武器类型)
+
+            # if i.非关联技能3 != ['无']:
+            #     if i.非关联技能3 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.被动倍率 /= i.加成倍率3(self.武器类型)
+            #     else:
+            #         for k in i.非关联技能3:
+            #             self.技能栏[self.技能序号[k]].被动倍率 /= i.加成倍率3(self.武器类型)
 
     def __加算冷却计算(self):
         for i in self.技能栏:
@@ -999,54 +1061,92 @@ class Character():
 
     def __CD倍率计算(self):
         for i in self.技能栏:
-            if i.冷却关联技能 != ['无']:
-                if i.冷却关联技能 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.CDR *= i.CD缩减倍率(self.武器类型)
-                else:
-                    for k in i.冷却关联技能:
-                        self.技能栏[self.技能序号[k]].CDR *= i.CD缩减倍率(self.武器类型)
-            if i.非冷却关联技能 != ['无']:
-                if i.非冷却关联技能 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.CDR /= i.CD缩减倍率(self.武器类型)
-                else:
-                    for k in i.非冷却关联技能:
-                        self.技能栏[self.技能序号[k]].CDR /= i.CD缩减倍率(self.武器类型)
-            if i.冷却关联技能2 != ['无']:
-                if i.冷却关联技能2 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.CDR *= i.CD缩减倍率2(self.武器类型)
-                else:
-                    for k in i.冷却关联技能2:
-                        self.技能栏[self.技能序号[k]].CDR *= i.CD缩减倍率2(self.武器类型)
-            if i.非冷却关联技能2 != ['无']:
-                if i.非冷却关联技能2 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.CDR /= i.CD缩减倍率2(self.武器类型)
-                else:
-                    for k in i.非冷却关联技能2:
-                        self.技能栏[self.技能序号[k]].CDR /= i.CD缩减倍率2(self.武器类型)
-            if i.冷却关联技能3 != ['无']:
-                if i.冷却关联技能3 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.CDR *= i.CD缩减倍率3(self.武器类型)
-                else:
-                    for k in i.冷却关联技能3:
-                        self.技能栏[self.技能序号[k]].CDR *= i.CD缩减倍率3(self.武器类型)
-            if i.非冷却关联技能3 != ['无']:
-                if i.非冷却关联技能3 == ['所有']:
-                    for j in self.技能栏:
-                        if j.是否有伤害 == 1:
-                            j.CDR /= i.CD缩减倍率3(self.武器类型)
-                else:
-                    for k in i.非冷却关联技能3:
-                        self.技能栏[self.技能序号[k]].CDR /= i.CD缩减倍率3(self.武器类型)
+            self.skills_passive[i.名称] = {
+                "info": [],
+                "lv": i.等级
+            }
+            for index in range(0, 4):
+                index = "" if index == 0 else str(index+1)
+                关联技能 = getattr(i, "冷却关联技能"+index, ["无"])
+                非关联技能 = getattr(i, "非冷却关联技能"+index, ["无"])
+                try:
+                    加成倍率 = eval("i.CD缩减倍率"+index+"(self.武器类型)")
+                except:
+                    加成倍率 = 1.0
+                try:
+                    if 加成倍率 != 1:
+                        self.skills_passive[i.名称]['info'].append({
+                            "type": "CDR",
+                            "info": eval(
+                                "i.CD缩减描述"+index+"(self.武器类型)")
+                        })
+                except:
+                    pass
+                if 关联技能 != ['无']:
+                    if 关联技能 == ['所有']:
+                        for j in self.技能栏:
+                            if j.是否有伤害 == 1:
+                                j.CDR *= 加成倍率
+                    else:
+                        for k in 关联技能:
+                            self.技能栏[self.技能序号[k]
+                                     ].CDR *= 加成倍率
+                if 非关联技能 != ['无']:
+                    if 非关联技能 == ['所有']:
+                        for j in self.技能栏:
+                            if j.是否有伤害 == 1:
+                                j.CDR /= 加成倍率
+                    else:
+                        for k in 非关联技能:
+                            self.技能栏[self.技能序号[k]].CDR /= 加成倍率
+            # if i.冷却关联技能 != ['无']:
+            #     if i.冷却关联技能 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.CDR *= i.CD缩减倍率(self.武器类型)
+            #     else:
+            #         for k in i.冷却关联技能:
+            #             self.技能栏[self.技能序号[k]].CDR *= i.CD缩减倍率(self.武器类型)
+            # if i.非冷却关联技能 != ['无']:
+            #     if i.非冷却关联技能 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.CDR /= i.CD缩减倍率(self.武器类型)
+            #     else:
+            #         for k in i.非冷却关联技能:
+            #             self.技能栏[self.技能序号[k]].CDR /= i.CD缩减倍率(self.武器类型)
+            # if i.冷却关联技能2 != ['无']:
+            #     if i.冷却关联技能2 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.CDR *= i.CD缩减倍率2(self.武器类型)
+            #     else:
+            #         for k in i.冷却关联技能2:
+            #             self.技能栏[self.技能序号[k]].CDR *= i.CD缩减倍率2(self.武器类型)
+            # if i.非冷却关联技能2 != ['无']:
+            #     if i.非冷却关联技能2 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.CDR /= i.CD缩减倍率2(self.武器类型)
+            #     else:
+            #         for k in i.非冷却关联技能2:
+            #             self.技能栏[self.技能序号[k]].CDR /= i.CD缩减倍率2(self.武器类型)
+            # if i.冷却关联技能3 != ['无']:
+            #     if i.冷却关联技能3 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.CDR *= i.CD缩减倍率3(self.武器类型)
+            #     else:
+            #         for k in i.冷却关联技能3:
+            #             self.技能栏[self.技能序号[k]].CDR *= i.CD缩减倍率3(self.武器类型)
+            # if i.非冷却关联技能3 != ['无']:
+            #     if i.非冷却关联技能3 == ['所有']:
+            #         for j in self.技能栏:
+            #             if j.是否有伤害 == 1:
+            #                 j.CDR /= i.CD缩减倍率3(self.武器类型)
+            #     else:
+            #         for k in i.非冷却关联技能3:
+            #             self.技能栏[self.技能序号[k]].CDR /= i.CD缩减倍率3(self.武器类型)
 
     def __属性倍率计算(self):
         # 火、冰、光、暗
@@ -1163,6 +1263,25 @@ class Character():
         calc_info['光'] = self.光属性强化()
         calc_info['暗'] = self.暗属性强化()
 
+        for i in self.技能栏:
+            倍率 = i.独立攻击力倍率(self.武器类型)
+            if 倍率 != 1:
+                self.skills_passive[i.名称]['info'].append({
+                    "type": "独立攻击力",
+                    "info": [round((倍率-1)*100), '所有', '']
+                })
+            倍率 = i.魔法攻击力倍率(self.武器类型)
+            if 倍率 != 1:
+                self.skills_passive[i.名称]['info'].append({
+                    "type": "魔法攻击力",
+                    "info": [round((倍率-1)*100), '所有', '']
+                })
+            倍率 = i.物理攻击力倍率(self.武器类型)
+            if 倍率 != 1:
+                self.skills_passive[i.名称]['info'].append({
+                    "type": "物理攻击力",
+                    "info": [round((倍率-1)*100), '所有', '']
+                })
         result = {
             'id': uuid1().hex,
             'alter': self.实际名称,
@@ -1204,6 +1323,6 @@ class Character():
             # '面板独立攻击力': self.面板独立攻击力(),
             'sumdamage': temp["sumdamage"],
             "skills": temp["skills"],
-            "skills_passive": []
+            "skills_passive": self.skills_passive
         }
         return result

@@ -43,6 +43,8 @@ class equipment:
     固有属性 = []
     成长属性 = []
     可选属性 = []
+    物理暴击 = 0
+    魔法暴击 = 0
 
     def __init__(self, info={}):
         # 读取json获取装备属性

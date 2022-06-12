@@ -19,6 +19,15 @@
     name: string
   }
 
+  interface ISkillPassive {
+    lv: number
+    name: string
+    info: {
+      type: string
+      info: (string | number)[]
+    }[]
+  }
+
   export default defineComponent({
     async setup() {
       const uid = (useRoute().query.res as string) ?? ""
@@ -32,7 +41,7 @@
 
       appStore.title = "详细数据"
 
-      const res = toMap(await api.getResult(uid), ["info", "skills"]) as IResultInfo
+      const res = toMap(await api.getResult(uid), ["info", "skills", "skills_passive"]) as IResultInfo
       characterStore.$patch({ alter: res.alter, name: res.name })
       configStore.forge_set = res.forget_set ?? {}
       function skill_tooltip(skill: any) {
@@ -46,6 +55,27 @@
             <div class="info">MP消耗:{skllInfo.mp.toFixed(0)}</div>
             <div class="info">无色消耗:{skllInfo.无色}</div>
             <div class="info">百分比:{skllInfo.百分比.toFixed(0) + "%"}</div>
+          </div>
+        )
+      }
+
+      function skill_passive_tooltip(skill: ISkillPassive) {
+        return (
+          <div class="tooltip-skill">
+            <div class="name">
+              {skill.name} Lv {skill.lv}
+            </div>
+            {renderList(skill.info, item => (
+              <>
+                <div class="info">
+                  {item.type}:{item.info[0]}%<div></div>
+                </div>
+                <div class="info">
+                  关联技能:{item.info[1]}
+                  {item.info[2] != "无" && item.info[2] != "" && <div class="text-hex-696969">({item.info[2]}除外)</div>}
+                </div>
+              </>
+            ))}
           </div>
         )
       }
@@ -87,6 +117,22 @@
           })
         })
         temp.sort((a, b) => b.order - a.order)
+        return temp
+      })
+
+      const skill_passive = computed(() => {
+        let temp: ISkillPassive[] = []
+        Object.keys(res.skills_passive).forEach(name => {
+          let skill = res.skills_passive[name]
+          console.log(res.skills_passive[name])
+          if (skill.info.length > 0) {
+            temp.push({
+              name: name,
+              lv: skill.lv,
+              info: skill.info
+            })
+          }
+        })
         return temp
       })
 
@@ -135,7 +181,22 @@
                     </div>
                   ))}
                 </div>
-                <div class="bottom">被动详情</div>
+                <div class="bottom flex items-center">
+                  {renderList(skill_passive.value, skill => (
+                    <div class="mr-5px">
+                      <calc-tooltip position="top">
+                        {{
+                          default() {
+                            return <img src={skill_icon(characterStore.alter, skill.name)} />
+                          },
+                          popper() {
+                            return skill_passive_tooltip(skill)
+                          }
+                        }}
+                      </calc-tooltip>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -176,7 +237,7 @@
       margin-right: 5px;
       border-top: 1px solid rgba(255, 255, 255, 0.15);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      height: 50px;
+      height: 30px;
       margin-bottom: 5px;
     }
   }
