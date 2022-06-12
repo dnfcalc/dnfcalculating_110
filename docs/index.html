@@ -3,17 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no" />
+    <link rel="icon" href="./img/logo.ico" />
     <title>纸飞机计算器</title>
     <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css"> -->
     <!-- 1. Theme -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/docsify-themeable/dist/css/theme-simple.css"
-    />
+    <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-simple.css" />
     <!-- <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-simple-dark.css"> -->
     <!-- <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-defaults.css"> -->
 
@@ -36,15 +31,11 @@
         --code-font-weight: bolder;
 
         /* Add sidebar navigation bullets */
-        /* --sidebar-nav-link-before-content-l1: '😀'; 
+        /* --sidebar-nav-link-before-content-l1: '😀';
 			--sidebar-nav-link-before-content-l2: '💩'; */
       }
       .cover .mask {
-        background: linear-gradient(
-          to left bottom,
-          hsl(172, 100%, 85%) 0%,
-          hsl(15, 100%, 85%) 100%
-        );
+        background: linear-gradient(to left bottom, hsl(172, 100%, 85%) 0%, hsl(15, 100%, 85%) 100%);
         visibility: visible;
       }
 
@@ -93,29 +84,27 @@
           function (hook, vm) {
             // load livere
             hook.beforeEach(function (content) {
-              var comment = "";
-              if (content.indexOf("和计算器相关的BUG、意见可在此处反馈") > 0)
-                comment =
-                  "<div id='lv-container' data-id='city' data-uid='MTAyMC80NjcwNC8yMzIxNA=='></div>\n\n----\n";
-              return content + comment;
-            });
+              var comment = ""
+              if (content.indexOf("和计算器相关的BUG、意见可在此处反馈") > 0) comment = "<div id='lv-container' data-id='city' data-uid='MTAyMC80NjcwNC8yMzIxNA=='></div>\n\n----\n"
+              return content + comment
+            })
 
             hook.doneEach(function () {
-              (function (d, s) {
+              ;(function (d, s) {
                 var j,
-                  e = d.getElementsByTagName(s)[0];
+                  e = d.getElementsByTagName(s)[0]
                 if (typeof LivereTower === "function") {
-                  return;
+                  return
                 }
-                j = d.createElement(s);
-                j.src = "https://cdn-city.livere.com/js/embed.dist.js";
-                j.async = true;
-                e.parentNode.insertBefore(j, e);
-              })(document, "script");
-            });
-          },
-        ],
-      };
+                j = d.createElement(s)
+                j.src = "https://cdn-city.livere.com/js/embed.dist.js"
+                j.async = true
+                e.parentNode.insertBefore(j, e)
+              })(document, "script")
+            })
+          }
+        ]
+      }
     </script>
 
     <!-- Required: docsify + docsify-themeable -->
