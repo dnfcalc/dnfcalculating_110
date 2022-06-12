@@ -141,6 +141,7 @@
       const display_parts = detailsStore.display_parts
 
       function currentInfo(part: string) {
+        if (["称号", "宠物"].indexOf(part) >= 0) return ""
         let num = configStore.getForge(part, "cursed_number") ?? 0
         return "+" + num
       }
@@ -327,19 +328,19 @@
 
                     <div class="de-item">
                       <div class="text-hex-836832 w-65px pl-5px pr-5px">中毒</div>
-                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[1] ?? 0) * 100}%(+${(details.value?.词条?.伤害系数?.[1] ?? 0).round(2) * 100}%)`}</div>
+                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[1] ?? 0) * 100}%(+${((details.value?.词条?.伤害系数?.[1] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
                     </div>
                     <div class="de-item">
                       <div class="text-hex-836832 w-65px pl-5px pr-5px">灼烧</div>
-                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[2] ?? 0) * 100}%(+${(details.value?.词条?.伤害系数?.[2] ?? 0).round(2) * 100}%)`}</div>
+                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[2] ?? 0) * 100}%(+${((details.value?.词条?.伤害系数?.[2] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
                     </div>
                     <div class="de-item">
                       <div class="text-hex-836832 w-65px pl-5px pr-5px">感电</div>
-                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[3] ?? 0) * 100}%(+${(details.value?.词条?.伤害系数?.[3] ?? 0).round(2) * 100}%)`}</div>
+                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[3] ?? 0) * 100}%(+${((details.value?.词条?.伤害系数?.[3] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
                     </div>
                     <div class="de-item">
                       <div class="text-hex-836832 w-65px pl-5px pr-5px">出血</div>
-                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[4] ?? 0) * 100}%(+${(details.value?.词条?.伤害系数?.[4] ?? 0).round(2) * 100}%)`}</div>
+                      <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[4] ?? 0) * 100}%(+${((details.value?.词条?.伤害系数?.[4] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
                     </div>
                   </div>
                   {
