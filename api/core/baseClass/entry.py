@@ -11228,7 +11228,7 @@ def entry_11005(char: Character = {}, mode=0, text=False, part=''):
         char.百分比力智加成(0.12)
         char.百分比攻击强化加成(0.32)
         char.加算冷却缩减(0.05)
-        char.技能等级加成('全部', 1, 95, 1)
+        char.技能等级加成('全部', 1, 80, 1)
     if mode == 1:
         pass
 
@@ -11242,7 +11242,7 @@ def entry_11006(char: Character = {}, mode=0, text=False, part=''):
         char.附加伤害加成(0.10)
         char.百分比攻击强化加成(0.22)
         char.加算冷却缩减(0.05)
-        char.技能等级加成('全部', 1, 95, 1)
+        char.技能等级加成('全部', 1, 80, 1)
     if mode == 1:
         pass
 # endregion

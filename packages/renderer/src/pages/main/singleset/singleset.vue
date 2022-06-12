@@ -9,6 +9,14 @@
   import openURL from "@/utils/openURL"
   import featureList from "@/utils/featureList"
 
+  export interface IJadeUpgrade {
+    id: number
+    name: string
+    damage: number
+    percent: string
+    color: string
+  }
+
   const EPIC_EQUIP = 0
 
   const MYTHIC_EQUIP = 1
@@ -35,7 +43,11 @@
       const title = computed(() => basicStore.equipment_info?.title ?? [])
       const pet = computed(() => basicStore.equipment_info?.pet ?? [])
 
-      const result = useAsyncState(() => configStore.calc(true), { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0, info: undefined, skills_passive: undefined }, {})
+      const result = useAsyncState(
+        () => configStore.calc(true),
+        { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0, info: undefined, skills_passive: undefined, jade: undefined },
+        {}
+      )
 
       const highlight = computed<number[]>({
         get() {
@@ -152,6 +164,25 @@
         }
       }
 
+      const jade = computed(() => {
+        let temp: IJadeUpgrade[] = []
+        const damage = result.state.value.sumdamage
+        result.state.value.jade
+          ?.sort((a, b) => b.damage - a.damage)
+          .forEach((item, index) => {
+            let x = (index / (result.state.value.jade?.length ?? 0)) * 10 - 3
+            let y = 1 / (1 + Math.exp(-x))
+            temp.push({
+              id: item.id,
+              name: item.name,
+              damage: item.damage,
+              percent: ((item.damage.round(0) / damage.round(0)) * 100 - 100).toFixed(2),
+              color: `rgb(${Math.trunc(255 - 80 * y)},${Math.trunc(245 - 100 * y)},${Math.trunc(0 + 150 * y)})`
+            })
+          })
+        return temp.sort((a, b) => a.id - b.id)
+      })
+
       // onMounted(async () => {
       //   if (curEquList.value.map(item => item.typeName).length < 12) return
       //   result.value = await configStore.calc(true)
@@ -225,7 +256,17 @@
               class="m-5px !mt-0 !mr-2px !ml-2px"
             ></Profile>
           </div>
-          <div class="flex m-10px mr-2px mb-0 ml-2px w-350px justify-center">辟邪玉提升率(理论值仅供参考)</div>
+          {result.state.value.jade && (
+            <div class="flex flex-col mt-0 mr-2px mb-0 ml-2px w-350px items-center">
+              <div class="flex w-100% h-30px justify-center items-center">辟邪玉提升率(理论值仅供参考)</div>
+              {renderList(jade.value ?? [], item => (
+                <div class="flex w-100% h-30px" style={"color:" + item.color}>
+                  <div class="w-70% flex items-center justify-center">{item.name}</div>
+                  <div class="w-30% flex items-center justify-center">{item.percent}%</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )
     }

@@ -1,3 +1,4 @@
+from copy import deepcopy
 from multiprocessing.sharedctypes import Value
 from pickle import TRUE
 from pyclbr import Function
@@ -902,6 +903,7 @@ class Character():
         self.__魔法暴击率 += temp.魔法暴击
 
     def __首饰计算(self, temp: equipment) -> None:
+
         self.__力量 += temp.力量
         self.__智力 += temp.智力
         self.__物理攻击力 += temp.物理攻击力
@@ -923,7 +925,6 @@ class Character():
             self.__物理攻击力 += x
             self.__魔法攻击力 += x
             self.__独立攻击力 += x
-
         # 辅助装备、魔法石
         else:
             # if temp.所属套装 != '智慧产物':
@@ -1220,9 +1221,7 @@ class Character():
         self.伤害指数 /= 1000
     # endregion
 
-    def calc(self, setName: str = 'set', equipList: List[int] = []):
-        info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
-
+    def calc_init(self, info, equipList: List[int] = []):
         # 获取打造数据
         self.__打造设置(info['forge_set'])
 
@@ -1240,12 +1239,31 @@ class Character():
 
         self.__hotkey_set(info['hotkey_set'])
 
+    def jade_upgrade(self):
+        temp = []
+        from core.baseClass.jade import get_jade_setinfo, get_jadefunc_by_id
+        for jade in get_jade_setinfo():
+            if jade["id"] > 26001:
+                char = deepcopy(self)
+                func = get_jadefunc_by_id(jade["id"])
+                func(char, value=jade["max"])
+                char.__计算伤害预处理()
+                temp.append({
+                    "id": jade["id"],
+                    "name": jade["props"] + "  " + ("" if jade["max"] == 1 else("+" + str(jade["max"]))) + jade["unit"],
+                    "damage": round(char.伤害计算()["sumdamage"], 2)
+                })
+        return temp
+
+    def calc(self, setName: str = 'set', equipList: List[int] = [], withJade=False):
+        info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
+        self.calc_init(info, equipList)
+        jade = []
+        if withJade:
+            jade = self.jade_upgrade()
         self.__计算伤害预处理()
-
         temp = self.伤害计算()
-
         calc_info = {}
-
         if self.类型 == '物理百分比':
             calc_info['力量'] = self.站街力量()
             calc_info['物理攻击'] = self.站街物理攻击力()
@@ -1323,6 +1341,7 @@ class Character():
             # '面板独立攻击力': self.面板独立攻击力(),
             'sumdamage': temp["sumdamage"],
             "skills": temp["skills"],
-            "skills_passive": self.skills_passive
+            "skills_passive": self.skills_passive,
+            "jade": jade
         }
         return result

@@ -54,4 +54,9 @@ export interface IResultInfo {
   equips: IEquipmentInfo[]
   info: any
   sumdamage: number
+  jade?: {
+    id: number
+    name: string
+    damage: number
+  }[]
 }
