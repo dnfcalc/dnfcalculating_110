@@ -1,6 +1,6 @@
-from core.equipment.基础函数 import 武器冷却惩罚, 当前等级, MP消耗惩罚
+from core.equipment.基础函数 import 武器冷却惩罚, MP消耗惩罚
 
-等级 = 当前等级 + 5
+等级 = 110
 
 
 class 技能:
@@ -167,7 +167,6 @@ class 主动技能(技能):
 
     def 基础等级计算(self):
         if self.基础等级 == 0:
-            # 契约等级+5
             self.基础等级 = min(int((等级 + 5 - self.所在等级) / self.学习间隔 + 1),
                             self.等级精通)
 
@@ -179,7 +178,6 @@ class 被动技能(技能):
 
     def 基础等级计算(self):
         if self.基础等级 == 0:
-            # 契约等级+5
             self.基础等级 = min(int((等级 + 5 - self.所在等级) / self.学习间隔 + 1),
                             self.等级精通)
 
