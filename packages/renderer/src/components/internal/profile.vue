@@ -63,10 +63,6 @@
   export default defineComponent({
     name: "char-info",
     props: {
-      eq: {
-        type: Object,
-        default: () => {}
-      },
       charName: {
         type: String,
         default: null
@@ -143,6 +139,9 @@
       function currentInfo(part: string) {
         if (["称号", "宠物"].indexOf(part) >= 0) return ""
         let num = configStore.getForge(part, "cursed_number") ?? 0
+        if (getEqu(part)?.type == "智慧产物") {
+          num = configStore.getForge(part, "wisdom_number") ?? 0
+        }
         return "+" + num
       }
 
@@ -151,7 +150,9 @@
         let y = 5
         let index = display_parts.findIndex(p => p == part)
         let type = configStore.getForge(part, "cursed_type")
-
+        if (getEqu(part)?.type == "智慧产物") {
+          type = 3
+        }
         if (index == 13) index -= 7
         else if (index >= 5 && index <= 12) {
           x += 179
@@ -165,7 +166,7 @@
           left: `${x}px`,
           top: `${y}px`,
           zIndex: 4,
-          color: type == 2 ? "#19C7EA" : "#E458A9",
+          color: type == 2 ? "#19C7EA" : type == 3 ? "orange" : "#E458A9",
           fontWeight: 900,
           backgroundColor: "rgba(0,0,0,0.5)"
         }
@@ -214,7 +215,7 @@
       }
 
       function getEqu(part: string) {
-        return props.equList.filter(item => item.typeName == part)[0] || undefined
+        return props.equList.filter(item => item.typeName == part)[0] ?? undefined
       }
 
       return () => {

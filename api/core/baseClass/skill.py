@@ -1,4 +1,4 @@
-from core.equipment.基础函数 import 武器冷却惩罚, MP消耗惩罚
+from core.equipment.基础函数 import 武器冷却惩罚, 武器MP系数
 
 等级 = 110
 
@@ -65,7 +65,7 @@ class 技能:
     def 独立攻击力倍率进图(self, 武器类型):
         return 1.0
 
-    def MP消耗(self):
+    def MP消耗(self, 武器类型="", 输出类型="", 额外倍率=1.0):
         pass
 
 
@@ -163,7 +163,7 @@ class 主动技能(技能):
         return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / (self.恢复 if 恢复 else 1) * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1), 1)
 
     def MP消耗(self, 武器类型="", 输出类型="", 额外倍率=1.0):
-        return ((self.等级 - 1)*self.MP_growth + self.MP_basic) * MP消耗惩罚(武器类型, 输出类型) * 额外倍率
+        return round(((self.等级 - 1) * self.MP_growth + self.MP_basic) * 武器MP系数(武器类型, 输出类型) * 额外倍率, 0)
 
     def 基础等级计算(self):
         if self.基础等级 == 0:

@@ -709,13 +709,17 @@ class Character():
                 damage = 直伤 * self.伤害指数 * k.被动倍率 * \
                     (self.__伤害比例.get("直伤", 0.0)) / 100
                 for item in ['中毒', '灼烧', '感电', '出血']:
+                    系数 = self.__伤害系数.get(item, 0.0)
+                    # 出血 叠层 1层1%出血伤害 满10%
+                    if item == '出血':
+                        系数 *= 1.1
                     # 直伤转换的异常处理：直伤伤害*异常比例*异常系数
                     damage += 直伤 * self.伤害指数 * k.被动倍率 * \
                         (self.__伤害比例.get(item, 0.0) *
-                         self.__伤害系数.get(item, 0.0)) / 100
+                         系数) / 100
                     # 异常伤害处理：异常伤害*异常系数
                     damage += k.等效百分比(
-                        self.武器类型, i['等级变化'], i['倍率'], item) * self.伤害指数 * k.被动倍率*(self.__伤害系数.get(item, 0.0)) / 100
+                        self.武器类型, i['等级变化'], i['倍率'], item) * self.伤害指数 * k.被动倍率*系数 / 100
                 sumdamage += damage
                 temp['damage'] = temp.get('damage', 0) + damage
                 data['skills'][k.名称] = temp

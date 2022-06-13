@@ -48,7 +48,8 @@
 
       const equip = asyncComputed(async () => {
         if (props.eid) {
-          return basicStore.get_equipment_detail(props.eid)
+          let temp = basicStore.get_equipment_detail(props.eid)
+          return temp
         }
       })
 
@@ -58,7 +59,7 @@
         return ({ id, label, num, isRate }: Status) => {
           const array: JSX.Element[] = []
 
-          array.push(<span style={num ? "margin-right: 10px" : undefined}>{label}</span>)
+          array.push(<span style={num ? "margin-right: 5px" : undefined}>{label}</span>)
           const rowClassNames = rowClass?.(id)
           const spanClassNames = spanClass?.(id)
 
@@ -148,61 +149,32 @@
                   <span style="width: 100%" class={equip.value.rarityClass}>
                     {equip.value.name}
                   </span>
-                  {props.star == true ? (
-                    <div class="icon-star" onClick={star}>
-                      <el-icon class={[props.isStar ? "is-star" : ""]}>
-                        <icon-star v-show={!props.isStar} />
-                        <icon-star-filled v-show={props.isStar} />
-                      </el-icon>
-                    </div>
-                  ) : (
-                    <span></span>
-                  )}
+                </p>
+              </div>
+              <div class="eq-name yellow flex-1" style="text-align: right">
+                <p style="display: flex">
+                  <span style="width: 100%">{equip.value.position}</span>
                 </p>
               </div>
             </div>
-            {
-              // <div class="">
-              //   <div class="hr"></div>
-              //   <span class="strong">
-              //     <span style="color: #f3e500">最上级</span> (100%)
-              //   </span>
-              //   <span class={equip.value.rarityClass} style="float: right">
-              //     {equip.value.rarity}
-              //   </span>
-              // </div>
-              // <div class="" style="text-align: right">
-              //   Lv{equip.value.lv}以上可以使用
-              // </div>
-              // <div class="red" style="text-align: right">
-              //   {equip.value.trade}
-              // </div>
-              <div class="yellow" style="text-align: right">
-                {equip.value.position}
-              </div>
-              // {!props.simple && equip.value.naijiu > 0 && (
-              //   <div>
-              //     耐久度 {equip.value.naijiu}/{equip.value.naijiu}
-              //   </div>
-              // )}
-            }
-            {
-              //   !props.simple && (
-              //   <div>
-              //     <div class="hr"></div>
-              //     <div class="fame">
-              //       <img src="images/common/mingwang.png" />
-              //       冒险家名望 {equip.value.fame}
-              //     </div>
-              //     <div class="hr"></div>
-              //     {equip.value.prop.base.map(renderStatus())}
-              //     <div class="hr"></div>
-              //     <div class="green"> &lt;附魔属性&gt; </div>
-              //     <div class="gey">没有附魔属性</div>
-              //     <div class="gey">(可以在百科辞典中查看附魔属性)</div>
-              //   </div>
-              // )
-            }
+            <div class="hr"></div>
+            <div>
+              {
+                //   !props.simple && (
+                //   <div>
+                //     <div class="hr"></div>
+                //     <div class="fame">
+                //       <img src="images/common/mingwang.png" />
+                //       冒险家名望 {equip.value.fame}
+                //     </div>
+                //     <div class="hr"></div>
+              }
+
+              {equip.value.prop.base.map(renderStatus())}
+              <div class="hr"></div>
+              <div class="green"> &lt;附魔属性&gt; </div>
+              <div class="gey">没有附魔属性</div>
+            </div>
 
             {equip.value.prop.effect && equip.value.prop.effect.length > 0 && (
               <div>
@@ -232,7 +204,7 @@
               </div>
             )}
             {props.pps != null && props.pps.length > 0
-              ? renderList(props.pps, (x, i: number) => (
+              ? renderList(props.pps, (x: any, i: number) => (
                   <div style="padding-top: 5px">
                     <div class="yellow">
                       属性 {i + 1} - {x.typeName}

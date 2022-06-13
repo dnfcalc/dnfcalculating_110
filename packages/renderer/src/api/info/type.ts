@@ -16,7 +16,7 @@ export interface IAlterInfo {
 export interface IEquipmentInfo {
   groupId: number
   id: number
-  type: number
+  type?: string
   typeName: string
   name: string
   icon: string

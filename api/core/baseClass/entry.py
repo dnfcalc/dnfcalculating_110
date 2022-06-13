@@ -3662,7 +3662,7 @@ def entry_988(char: Character = {}, mode=0, text=False, part=''):
         return "技能MP消耗量在4000以上的技能攻击力 +15%(觉醒除外)"
     if mode == 0:
         for skill in char.技能栏:
-            if skill.MP消耗(char.武器类型, char.输出类型, char.MP消耗量加成) >= 4000 and skill.所在等级 not in [50, 85, 100]:
+            if skill.是否有伤害 == 1 and skill.MP消耗(char.武器类型, char.类型, char.MP消耗量加成) >= 4000 and skill.所在等级 not in [50, 85, 100]:
                 skill.倍率 *= 1.15
     if mode == 1:
         pass
@@ -4340,7 +4340,7 @@ def entry_27(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_28(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "该装备的成长属性等级之和每达到40，增加3%的技能攻击力,  - 穿戴神话装备时不适用,  - 仅适用上衣、手镯、耳环中最高的1个"
+        return ["该装备的成长属性等级之和每达到40，增加3%的技能攻击力", " - 穿戴神话装备时不适用", " - 仅适用上衣、手镯、耳环中最高的1个"]
     if mode == 0:
         if not char.已穿戴神话():  # 判断是否穿戴神话装备
             x = sum(char.词条等级.get(part, [0]))
@@ -11025,7 +11025,7 @@ for i in range(1260):
 
 def entry_10001(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "成长属性240级以上时增加1%技能攻击，每40级增加1%"
+        return ["成长属性240级以上时增加1%技能攻击，每40级增加1%"]
     if mode == 0:
         x = sum(char.词条等级.get(part, [0]))
         if x >= 240:
@@ -11036,7 +11036,8 @@ def entry_10001(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10002(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(上衣)技能攻击力 +12%"
+      # (上衣)
+        return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
     if mode == 1:
@@ -11045,7 +11046,8 @@ def entry_10002(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10003(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(下装)技能攻击力 +12%"
+      # (下装)
+        return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
     if mode == 1:
@@ -11054,7 +11056,8 @@ def entry_10003(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10004(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(头肩)技能攻击力 +34%"
+      # (头肩)
+        return ["技能攻击力 +34%"]
     if mode == 0:
         char.技能攻击力加成(0.34)
     if mode == 1:
@@ -11063,7 +11066,8 @@ def entry_10004(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10005(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(腰带)技能攻击力 +12%"
+      # (腰带)
+        return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
     if mode == 1:
@@ -11072,7 +11076,8 @@ def entry_10005(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10006(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(鞋)技能攻击力 +29%， 移动速度 +4%"
+      # (鞋)
+        return ["技能攻击力 +29%", "移动速度 +4%"]
     if mode == 0:
         char.技能攻击力加成(0.29)
         char.移动速度增加(0.04)
@@ -11082,7 +11087,8 @@ def entry_10006(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10007(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(手镯)技能攻击力 +12%"
+      # (手镯)
+        return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
     if mode == 1:
@@ -11091,7 +11097,8 @@ def entry_10007(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10008(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(项链)技能攻击力 +12%"
+      # (项链)
+        return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
     if mode == 1:
@@ -11100,7 +11107,8 @@ def entry_10008(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10009(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(戒指)技能攻击力 +12%"
+      # (戒指)
+        return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
     if mode == 1:
@@ -11109,7 +11117,8 @@ def entry_10009(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10010(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(辅助装备)技能攻击力 +12%"
+      # (辅助装备)
+        return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
     if mode == 1:
@@ -11118,7 +11127,8 @@ def entry_10010(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10011(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(魔法石)技能攻击力 +12%"
+      # (魔法石)
+        return["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
     if mode == 1:
@@ -11127,7 +11137,8 @@ def entry_10011(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10012(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(耳环)技能攻击力 +12%"
+      # (耳环)
+        return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
     if mode == 1:
@@ -11136,7 +11147,8 @@ def entry_10012(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10013(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(胜负武器)技能攻击力 +50%"
+      # (胜负武器)
+        return ["技能攻击力 +50%"]
     if mode == 0:
         char.技能攻击力加成(0.50)
     if mode == 1:
@@ -11145,7 +11157,8 @@ def entry_10013(char: Character = {}, mode=0, text=False, part=''):
 
 def entry_10014(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return "(吞噬武器)技能攻击力 +35%"
+      # (吞噬武器)
+        return["技能攻击力 +35%"]
     if mode == 0:
         char.技能攻击力加成(0.35)
     if mode == 1:
@@ -11287,4 +11300,14 @@ for i in range(11001, 13000):
         entry_func_list[i] = eval('entry_{}'.format(i))
     except:
         pass
+
+
+# region 神话、改造 14001 ~ 14999
+# endregion
+for i in range(14001, 14999):
+    try:
+        entry_func_list[i] = eval('entry_{}'.format(i))
+    except:
+        pass
+
 # 词条效果id范围 0~18999

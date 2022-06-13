@@ -63,7 +63,8 @@ def get_equipment_info(alter: str):
                     "typeName": temp["部位"],
                     "stable": temp["固有属性"],
                     "features": temp["类型"],
-                    "alternative": temp["可选属性"]
+                    "alternative": temp["可选属性"],
+                    "type": temp["品质"]
                 }
             )
         if temp['部位'] == "宠物":
@@ -75,7 +76,8 @@ def get_equipment_info(alter: str):
                     "typeName": temp["部位"],
                     "stable": temp["固有属性"],
                     "features": temp["类型"],
-                    "alternative": temp["可选属性"]
+                    "alternative": temp["可选属性"],
+                    "type": temp["品质"]
                 }
             )
         if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["部位"] != "武器":
@@ -88,7 +90,8 @@ def get_equipment_info(alter: str):
                     "typeName": temp["部位"],
                     "stable": temp["固有属性"],
                     "alternative": temp["可选属性"],
-                    "features": temp["特性"]
+                    "features": temp["特性"],
+                    "type": temp["品质"]
                 }
             )
         if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["类型"] in weapons and (转职 in temp["名称"] or not "胜负之役" in temp["名称"]):
@@ -99,7 +102,8 @@ def get_equipment_info(alter: str):
                     "icon": temp["icon"],
                     "typeName": temp["部位"],
                     "stable": temp["固有属性"],
-                    "alternative": temp["可选属性"]
+                    "alternative": temp["可选属性"],
+                    "type": temp["品质"]
                 }
             )
         if temp["品质"] == '神话':
@@ -110,7 +114,8 @@ def get_equipment_info(alter: str):
                     "icon": temp["icon"],
                     "typeName": temp["部位"],
                     "stable": temp["固有属性"],
-                    "alternative": temp["可选属性"]
+                    "alternative": temp["可选属性"],
+                    "type": temp["品质"]
                 }
             )
         if temp["品质"] == '智慧产物':
@@ -121,7 +126,8 @@ def get_equipment_info(alter: str):
                     "icon": temp["icon"],
                     "typeName": temp["部位"],
                     "stable": temp["固有属性"],
-                    "alternative": temp["可选属性"]
+                    "alternative": temp["可选属性"],
+                    "type": temp["品质"]
                 }
             )
 
@@ -140,113 +146,26 @@ def get_equipment_detail_info(equID):
     equipment_detail_info['icon'] = cur['icon']
     # 固有属性
     base = []
-    base.append({
-        "id": 1,
-        "isRate": False,
-        "label": "物理攻击力",
-        "num": cur['物理攻击力'],
-    })
-    base.append({
-        "id": 6,
-        "isRate": False,
-        "label": "魔法攻击力",
-        "num": cur['魔法攻击力'],
-    })
-    base.append({
-        "id": 6,
-        "isRate": False,
-        "label": "独立攻击力",
-        "num": cur['独立攻击力'],
-    })
-    base.append({
-        "id": 6,
-        "isRate": False,
-        "label": "力量",
-        "num": cur['力量'],
-    })
-    base.append({
-        "id": 6,
-        "isRate": False,
-        "label": "力量",
-        "num": cur['力量'],
-    })
-    base.append({
-        "id": 7,
-        "isRate": False,
-        "label": "智力",
-        "num": cur['智力'],
-    })
-    base.append({
-        "id": 8,
-        "isRate": False,
-        "label": "体力",
-        "num": cur['体力'],
-    })
-    base.append({
-        "id": 9,
-        "isRate": False,
-        "label": "精神",
-        "num": cur['精神'],
-    })
+    for item in ['力量', '智力', '物理攻击力', '魔法攻击力', '独立攻击力']:
+        if cur[item] != 0:
+            base.append({
+                "id": 6,
+                "isRate": False,
+                "label": item,
+                "num": cur[item],
+            })
     bufferProps = []
     # 移动、技攻
     effect = []
     for item in cur['固有属性']:
-        # if item == 10001:
-        #     effect.append({
-        #         "id": 10,
-        #         "label": "该装备的成长属性等级之和达到240，增加1%的技能攻击力\n该装备的成长属性等级之和每增加40级，额外增加1%的技能攻击力"
-        #     })
-        if item == 10006:
+        props = equ.get_func_by_id(item)(text=True)
+        for prop in props:
             effect.append({
-                "id": 16,
-                "isRate": True,
-                "label": "移动速度",
-                "num": 0.04
+                "id": -1,
+                "isRate": False,
+                "label": prop,
+                "num": None
             })
-            effect.append({
-                "id": 22,
-                "isRate": True,
-                "label": "技能攻击力",
-                "num": 0.29
-            })
-        if item in [10002, 10003, 10005, 10007, 10008, 10009, 10010, 10011, 10012]:
-            effect.append({
-                "id": 22,
-                "isRate": True,
-                "label": "技能攻击力",
-                "num": 0.12
-            })
-        if item in [10004]:
-            effect.append({
-                "id": 22,
-                "isRate": True,
-                "label": "技能攻击力",
-                "num": 0.34
-            })
-        if item in [10013]:
-            effect.append({
-                "id": 22,
-                "isRate": True,
-                "label": "技能攻击力",
-                "num": 0.5
-            })
-        if item in [10014]:
-            effect.append({
-                "id": 22,
-                "isRate": True,
-                "label": "技能攻击力",
-                "num": 0.35
-            })
-        if item > 11000:
-            props = equ.get_func_by_id(item)(text=True)
-            for prop in props:
-                effect.append({
-                    "id": -1,
-                    "isRate": False,
-                    "label": prop,
-                    "num": None
-                })
     effect.sort(key=lambda x: x["id"])
     # 成长属性
     growthProps = []

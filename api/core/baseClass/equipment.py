@@ -141,7 +141,8 @@ class equipment_list():
             "stable": temp["固有属性"],
             "alternative": temp["可选属性"] if "可选属性" in temp else [],
             "order":  temp["order"] if "order" in temp else 0,
-            "features": temp["特性"] if "特性" in temp else []
+            "features": temp["特性"] if "特性" in temp else [],
+            "type": temp["品质"]
         }
 
     def get_equ_by_id(self, id) -> equipment:
