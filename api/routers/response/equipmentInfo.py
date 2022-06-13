@@ -159,14 +159,15 @@ def get_equipment_detail_info(equID):
     # 移动、技攻
     effect = []
     for item in cur['固有属性']:
-        props = equ.get_func_by_id(item)(text=True)
-        for prop in props:
-            effect.append({
-                "id": -1,
-                "isRate": False,
-                "label": prop,
-                "num": None
-            })
+        if item not in [10001, 28, 1237]:
+            props = equ.get_func_by_id(item)(text=True)
+            for prop in props:
+                effect.append({
+                    "id": -1,
+                    "isRate": False,
+                    "label": prop,
+                    "num": None
+                })
     effect.sort(key=lambda x: x["id"])
     # 成长属性
     growthProps = []

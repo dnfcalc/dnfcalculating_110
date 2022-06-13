@@ -47,7 +47,7 @@
       const basicStore = useBasicInfoStore()
 
       const equip = asyncComputed(async () => {
-        if (props.eid) {
+        if (props.eid != undefined) {
           let temp = basicStore.get_equipment_detail(props.eid)
           return temp
         }
@@ -62,7 +62,6 @@
           array.push(<span style={num ? "margin-right: 5px" : undefined}>{label}</span>)
           const rowClassNames = rowClass?.(id)
           const spanClassNames = spanClass?.(id)
-
           if (num) {
             let text: any = num
             if (isRate) {
@@ -72,7 +71,7 @@
             //array.push(<span class={spanClassNames}>{text}</span>)
             array.push(<span>{text}</span>)
           }
-          return <div class={rowClassNames}>{array}</div>
+          return <div class={[rowClassNames]}>{array}</div>
         }
       }
 
@@ -193,23 +192,27 @@
                 {equip.value.prop.effect.map(renderStatus(effectClass))}
               </div>
             )}
-            {!props.simple && equip.value.prop.bufferProps && equip.value.prop.bufferProps.length > 0 ? (
-              <div>
-                <div class="hr"></div>
-                <div class="green"> &lt;辅助职业专属属性&gt; </div>
-                {equip.value.prop.bufferProps.map(renderStatus(effectClass))}
-              </div>
-            ) : (
-              <div></div>
-            )}
+            {
+              //   !props.simple && equip.value.prop.bufferProps && equip.value.prop.bufferProps.length > 0 ? (
+              //   <div>
+              //     <div class="hr"></div>
+              //     <div class="green"> &lt;辅助职业专属属性&gt; </div>
+              //     {equip.value.prop.bufferProps.map(renderStatus(undefined, effectClass))}
+              //   </div>
+              // ) : (
+              //   <div></div>
+              // )
+            }
             {(sumSHZJ.value > 0 || (props.pps != null && props.pps.length > 0)) && (
               <div>
                 <div class="hr"></div>
                 <div class="green"> &lt;成长属性&gt; </div>
                 {!props.simple && sumSHZJ.value > 0 && (
                   <div>
-                    <div>成长属性总伤害增加 {sumSHZJ.value}</div>
-                    {sumFZL.value > 0 && <div>成长属性总Buff量 {sumFZL.value}</div>}
+                    <div class="text-hex-8a6f36">成长属性总伤害增加 {sumSHZJ.value}</div>
+                    {
+                      // sumFZL.value > 0 && <div>成长属性总Buff量 {sumFZL.value}</div>
+                    }
                   </div>
                 )}
               </div>
@@ -232,18 +235,20 @@
                         <div class="yellow">
                           <span>属性{i + 1} - Lv1 (EXP 0.00%)</span>
                         </div>
-                        <div class="paddleft">
+                        <div class="paddleft text-hex-8a6f36">
                           <span style="margin-right: 10px;">伤害增加</span>
                           <span>{p.attack}</span>
                         </div>
-                        {p.buffer > 0 ? (
-                          <div class="paddleft">
-                            <span style="margin-right: 10px;">Buff量</span>
-                            <span>{p.buffer}</span>
-                          </div>
-                        ) : (
-                          <div></div>
-                        )}
+                        {
+                          //   p.buffer > 0 ? (
+                          //   <div class="paddleft">
+                          //     <span style="margin-right: 10px;">Buff量</span>
+                          //     <span>{p.buffer}</span>
+                          //   </div>
+                          // ) : (
+                          //   <div></div>
+                          // )
+                        }
                         {renderList(p.props, s => (
                           <div class="strong paddleft">
                             <span>{s}</span>

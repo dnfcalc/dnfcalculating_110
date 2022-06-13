@@ -48,6 +48,9 @@
                 return <eq-icon class="eq-item-icon" eq={props.eq} canClick={props.canClick} onClick={handleClick} v-model:active={active.value} hightlight={props.hightlight}></eq-icon>
               },
               popper() {
+                {
+                  console.log(Number(props.eq.id))
+                }
                 return <eq-info colums={props.colums} eid={Number(props.eq.id)} pps={props.eq.groupId == 10 ? props.eq.props : null}></eq-info>
               }
             }}
