@@ -131,8 +131,21 @@
         return s
       })
 
-      function star() {
-        emit("star")
+      const rarityClass = function (type: string) {
+        switch (type) {
+          case "史诗":
+            return "epic"
+          case "神话":
+            return "myth"
+          case "智慧产物":
+            return "epic"
+          case "神器":
+            return "artifact"
+          case "稀有":
+            return "rare"
+          default:
+            return ""
+        }
       }
 
       return () => {
@@ -145,11 +158,9 @@
             <div class="epic title" style="display: flex">
               <eq-icon eq={equip.value}></eq-icon>
               <div class="eq-name" style="margin-left: 8px">
-                <p style="display: flex">
-                  <span style="width: 100%" class={equip.value.rarityClass}>
-                    {equip.value.name}
-                  </span>
-                </p>
+                <span style="display: flex" class={rarityClass(equip.value.rarity)}>
+                  {equip.value.name}
+                </span>
               </div>
               <div class="eq-name yellow flex-1" style="text-align: right">
                 <p style="display: flex">

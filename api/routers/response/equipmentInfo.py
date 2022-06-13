@@ -5,7 +5,7 @@ import json
 import sys
 import os
 from typing import Dict, List, Text
-from core.baseClass.equipment import equ
+from core.baseClass.equipment import equ, equipment
 from core.baseClass.enchanting import get_enchanting_setinfo
 from core.baseClass.emblems import get_emblems_setinfo
 from core.baseClass.jade import get_jade_setinfo
@@ -144,6 +144,7 @@ def get_equipment_detail_info(equID):
     equipment_detail_info['position'] = '{}({})'.format(cur['类型'], cur['部位'])
     equipment_detail_info['name'] = cur['名称']
     equipment_detail_info['icon'] = cur['icon']
+    equipment_detail_info['rarity'] = cur['品质']
     # 固有属性
     base = []
     for item in ['力量', '智力', '物理攻击力', '魔法攻击力', '独立攻击力']:

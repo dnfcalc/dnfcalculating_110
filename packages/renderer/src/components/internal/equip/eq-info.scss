@@ -229,3 +229,83 @@
     }
   }
 }
+
+.normal {
+  color: #ffffff;
+}
+.advanced {
+  color: #61c8de;
+}
+.rare {
+  color: #b36bff;
+}
+.artifact {
+  color: #ff00ff;
+}
+.legend {
+  color: #e96e00;
+}
+.epic {
+  color: #ffb400;
+}
+.myth {
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f8c63d), color-stop(1, #cc66e7));
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.eq-icon {
+  width: 38px;
+  height: 38px;
+  background-image: linear-gradient(#e66465, #000);
+  position: relative;
+  margin-right: 8px;
+  display: inline-block;
+
+  &::before {
+    content: "";
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    position: absolute;
+    background-color: rgba($color: #000000, $alpha: 1);
+    top: 1px;
+    left: 1px;
+  }
+
+  &.normal {
+    background-image: linear-gradient(#ffffff, #000);
+  }
+  &.advanced {
+    background-image: linear-gradient(#61c8de, #000);
+  }
+  &.rare {
+    background-image: linear-gradient(#a060e4, #000);
+  }
+  &.artifact {
+    background-image: linear-gradient(#ef00ef, #000);
+  }
+  &.legend {
+    background-image: linear-gradient(#e96e00, #000);
+  }
+  &.epic {
+    background-image: linear-gradient(#e7a300, #000);
+  }
+  &.myth {
+    background-image: linear-gradient(#e7a300, #000);
+  }
+
+  &.can-click:hover {
+    cursor: pointer;
+    background-image: linear-gradient(#3ae7fa, #3ae7fa);
+  }
+
+  > img {
+    position: relative;
+    top: 1px;
+    left: 1px;
+    width: 36px;
+    height: 36px;
+  }
+}
