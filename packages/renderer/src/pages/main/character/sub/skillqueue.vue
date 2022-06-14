@@ -43,7 +43,12 @@
 
       const item = (item: any, index: number) => {
         return (
-          <div class="h-28px m-2px w-28px">
+          <div
+            class="h-28px m-2px w-28px"
+            onClick={() => {
+              console.log("onClick")
+            }}
+          >
             <img src={skill_icon(characterStore.alter, item.element.name)} />
           </div>
           // <div class="list-group-item">{item.element.name}</div>

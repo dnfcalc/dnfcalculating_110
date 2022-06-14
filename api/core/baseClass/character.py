@@ -164,11 +164,11 @@ class Character():
         info["armor"] = self.防具类型
         info["armor_mastery"] = self.防具精通属性
         info["buff_ratio"] = self.buff
-        self.__set_skill_info(info)
+        self.set_skill_info(info)
         self.__set_individuation(info)
         return info
 
-    def __set_skill_info(self, info, rune_except=[], clothes_bottom=[]) -> None:
+    def set_skill_info(self, info, rune_except=[], clothes_bottom=[]) -> None:
         skillInfo = []  # 技能
         rune = []  # 符文
         talisman = []  # 护石
@@ -617,6 +617,14 @@ class Character():
             num += self.打造详情.get(i, {}).get('cursed_number', 0)
         return num
 
+    def 获取改造等级(self, part=[]):
+        num = 0
+        temp = part
+        if len(temp) == 0:
+            temp += 部位列表
+        for i in temp:
+            num += self.打造详情.get(i, {}).get('wisdom_number', 0)
+        return num
     # endregion
 
     # 打造设置

@@ -2421,7 +2421,7 @@ def entry_1240(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "穿戴装备的强化/增幅数值总和每增加6，攻击强化 272(最多叠加24次)"
     if mode == 0:
-        x = char.获取强化等级()
+        x = char.image.png()
         char.攻击强化加成(272 * min(24, int(x / 6)))
     if mode == 1:
         pass
@@ -11321,6 +11321,8 @@ def entry_14001(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 大魔法师[???]的长袍
+
+
 def entry_14002(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11342,6 +11344,8 @@ def entry_14002(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 浪漫旋律华尔兹
+
+
 def entry_14003(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11363,6 +11367,8 @@ def entry_14003(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 深渊囚禁者长袍
+
+
 def entry_14004(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11384,6 +11390,8 @@ def entry_14004(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 掌管生死之阴影夹克
+
+
 def entry_14005(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11405,6 +11413,8 @@ def entry_14005(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 皇家裁决者审判外套
+
+
 def entry_14006(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11426,6 +11436,8 @@ def entry_14006(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 战无不胜上衣
+
+
 def entry_14007(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11447,6 +11459,8 @@ def entry_14007(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 圣者的黄昏披风
+
+
 def entry_14008(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11466,6 +11480,8 @@ def entry_14008(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 爆裂大地之勇猛
+
+
 def entry_14009(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11488,6 +11504,8 @@ def entry_14009(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 炙炎:霸王树
+
+
 def entry_14010(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11510,6 +11528,8 @@ def entry_14010(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 摧枯拉朽胸甲
+
+
 def entry_14011(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11536,6 +11556,8 @@ def entry_14011(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 逆转结局
+
+
 def entry_14012(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11561,6 +11583,8 @@ def entry_14012(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 撒旦:愤怒之王
+
+
 def entry_14013(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11582,6 +11606,8 @@ def entry_14013(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 天堂之翼
+
+
 def entry_14014(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11605,6 +11631,8 @@ def entry_14014(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 千链万化战甲
+
+
 def entry_14015(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11625,6 +11653,8 @@ def entry_14015(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 灭世之怒
+
+
 def entry_14016(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11648,6 +11678,8 @@ def entry_14016(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 英明循环之生命
+
+
 def entry_14017(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11677,6 +11709,8 @@ def entry_14017(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 神赐的抉择
+
+
 def entry_14018(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11700,6 +11734,8 @@ def entry_14018(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 生命脉动之地
+
+
 def entry_14019(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11721,6 +11757,8 @@ def entry_14019(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 莱多:秩序创造者
+
+
 def entry_14020(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11741,6 +11779,8 @@ def entry_14020(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 融化黑暗之温暖
+
+
 def entry_14021(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
@@ -11753,14 +11793,23 @@ def entry_14021(char: Character = {}, mode=0, text=False, part=''):
             "暴击时，额外增加10%的伤害增加量",
             "攻击时，额外增加11%的伤害增加量"]
     if mode == 0:
+        char.所有属性强化加成(16)
+        char.技能攻击力加成(0.16)
+        char.技能攻击力加成(min(char.获取强化等级([part]), 13))
+        char.技能恢复加成(15, 30, 0.3)
+        char.三攻固定加成(110)
+        char.暴击伤害加成(0.1)
+        char.伤害增加加成(0.11)
         pass
     if mode == 1:
         pass
 
 # 伽内什的永恒庇护
+
+
 def entry_14022(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["所有属性强化+32","攻击时，附加7%的伤害","技能攻击力+30%","暴击时，额外增加4%的伤害增加量","力量、智力+10%","攻击时，额外增加3%的伤害增加量","物理、魔法独立攻击力 +8%"]
+        return ["所有属性强化+32", "攻击时，附加7%的伤害", "技能攻击力+30%", "暴击时，额外增加4%的伤害增加量", "力量、智力+10%", "攻击时，额外增加3%的伤害增加量", "物理、魔法独立攻击力 +8%"]
     if mode == 0:
         char.所有属性强化加成(32)
         char.附加伤害加成(0.07)
@@ -11774,139 +11823,273 @@ def entry_14022(char: Character = {}, mode=0, text=False, part=''):
         pass
 
 # 至高之炎-伊弗利特
+
+
 def entry_14023(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["至高之炎-伊弗利特"]
+        return ['所有属性强化+35', '攻击时，附加8%的伤害', '技能攻击力+27%', '力量、智力+160', '最终伤害+12%', '物理、魔法、独立攻击力+12%']
     if mode == 0:
+        char.所有属性强化加成(35)
+        char.附加伤害加成(0.08)
+        char.技能攻击力加成(0.27)
+        char.力智固定加成(160)
+        char.最终伤害加成(0.12)
+        char.百分比三攻加成(0.12)
         pass
     if mode == 1:
         pass
+
+# 无尽的探求
 
 
 def entry_14024(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["无尽的探求"]
+        return ['所有属性强化+5', '技能攻击力 +30%', '所有属性强化+36(81暗抗)', '力量、智力+240', '攻击时，附加7%的伤害', '物理、魔法、独立攻击力+12%']
     if mode == 0:
+        char.所有属性强化加成(5)
+        char.所有属性强化加成(36)
+        char.技能攻击力加成(0.3)
+        char.力智固定加成(240)
+        char.附加伤害加成(0.07)
+        char.百分比三攻加成(0.12)
         pass
     if mode == 1:
         pass
+
+# 时间回溯之针
 
 
 def entry_14025(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["时间回溯之针"]
+        return ['所有属性强化+5', '力量、智力+8%', '技能攻击力+30%', '所有职业Lv50所有技能冷却时间-15%', '所有职业Lv85所有技能冷却时间-15%', '力量、智力+4%', '所有属性强化+20', '物理、魔法、独立攻击力+100', '最终伤害+8%']
     if mode == 0:
+        char.所有属性强化加成(5)
+        char.百分比力智加成(0.08)
+        char.技能攻击力加成(0.3)
+        char.技能冷却缩减(50, 50, 0.15)
+        char.技能冷却缩减(80, 80, 0.15)
+        char.百分比力智加成(0.04)
+        char.所有属性强化加成(20)
+        char.三攻固定加成(100)
+        char.最终伤害加成(0.08)
         pass
     if mode == 1:
         pass
+
+# 响彻天地的咆哮
 
 
 def entry_14026(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["响彻天地的咆哮"]
+        return ['所有属性强化+31', '最终伤害+5%', '技能攻击力+25%', '技能攻击力+3%', '攻击时，附加4%的伤害', '力量、智力+7%', '物理、魔法、独立攻击力+12%']
     if mode == 0:
+        char.所有属性强化加成(31)
+        char.技能攻击力加成(0.03)
+        char.附加伤害加成(0.04)
+        char.百分比力智加成(0.07)
+        char.百分比三攻加成(0.12)
         pass
     if mode == 1:
+        char.最终伤害加成(0.05)
+        char.技能攻击力加成(0.25)
         pass
+
+# 狂乱之逆转宿命
 
 
 def entry_14027(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["狂乱之逆转宿命"]
+        return ['所有属性强化+2', '力量、智力+11%', '技能攻击力+29%', '攻击时，额外增加10%的伤害增加量', '所有属性强化+32', '暴击时，额外增加12%的伤害增加量']
     if mode == 0:
+        char.所有属性强化加成(2)
+        char.百分比力智加成(0.11)
+        char.伤害增加加成(0.10)
+        char.所有属性强化加成(32)
+        char.暴击伤害加成(0.12)
         pass
     if mode == 1:
+        char.技能攻击力加成(0.29)
         pass
+
+# 军神的心之所念
 
 
 def entry_14028(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["军神的心之所念"]
+        return ['所有属性强化+25', '最终伤害+5%', '技能攻击力+30%', '攻击时，附加4%的伤害', '物理、魔法、独立攻击力+9%', '技能攻击力+4%', '最终伤害+7%']
     if mode == 0:
+        char.移动速度增加(0.15)
+        char.所有属性强化加成(25)
+        char.最终伤害加成(0.05)
+        char.技能攻击力加成(0.3)
+        char.附加伤害加成(0.04)
+        char.百分比三攻加成(0.09)
+        char.技能攻击力加成(0.04)
+        char.最终伤害加成(0.07)
         pass
     if mode == 1:
         pass
+
+# 永恒之海
 
 
 def entry_14029(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["永恒之海"]
+        return ['技能攻击力+27%', '所有属性强化+12', '所有属性强化+40', '最终伤害+8%', '力量、智力+5%', '攻击时，额外增加4%的伤害增加量']
     if mode == 0:
+        char.技能攻击力加成(0.27)
+        char.所有属性强化加成(40)
+        char.最终伤害加成(0.08)
+        char.百分比力智加成(0.05)
+        char.伤害增加加成(0.04)
         pass
     if mode == 1:
+        char.所有属性强化加成(12, mode=1)
+        char.攻击速度增加(0.15)
+        char.移动速度增加(0.15)
+        char.施放速度增加(37.5)
         pass
+
+# 时之魅影
 
 
 def entry_14030(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["时之魅影"]
+        return ['所有属性强化+39', '攻击时，额外增加5%的伤害增加量', '技能攻击力+25%', '物理、魔法、独立攻击力+6%', '技能攻击力+4%', '攻击时，附加8%的伤害', '力量、智力+5%']
     if mode == 0:
+        char.所有属性强化加成(39)
+        char.伤害增加加成(0.05)
+        char.技能攻击力加成(0.25)
+        char.技能攻击力加成(0.04)
+        char.附加伤害加成(0.08)
+        char.百分比力智(0.05)
         pass
     if mode == 1:
         pass
+
+# 等离子操控者
 
 
 def entry_14031(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["等离子操控者"]
+        return ['攻击时，附加5%的伤害', '技能攻击力+30%', '所有属性强化+30', '攻击时，额外增加12%的伤害增加量', '力量、智力+220', '攻击时，附加12%的伤害']
     if mode == 0:
+        char.附加伤害加成(0.05)
+        char.技能攻击力加成(0.3)
+        char.所有属性强化加成(30)
+        char.伤害增加加成(0.12)
+        char.力智固定加成(220)
+        char.附加伤害加成(0.12)
         pass
     if mode == 1:
         pass
+
+# 永恒地狱黑暗之印
 
 
 def entry_14032(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["永恒地狱黑暗之印"]
+        return ['技能攻击力+30%', '最终伤害+6%(18暗抗)', '最终伤害+12%', '所有属性强化+40', '攻击时，附加9%的伤害']
     if mode == 0:
+        char.技能攻击力加成(0.3)
+        char.最终伤害加成(0.6)
+        char.最终伤害加成(0.12)
+        char.所有属性强化加成(0.4)
+        char.附加伤害加成(0.09)
         pass
     if mode == 1:
         pass
+
+#  次元穿越之星
 
 
 def entry_14033(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["次元穿越者之星"]
+        return ['技能攻击力+19%', '最终伤害+10%', '所有职业Lv50所有技能Lv+1', '所有职业Lv85所有技能Lv+1', '所有职业Lv100所有技能Lv+1', '力量、智力+300', '暴击时，额外增加11%的伤害增加量', '所有职业Lv60~100所有技能Lv+1']
     if mode == 0:
+        char.技能攻击力加成(0.19)
+        char.最终伤害加成(0.1)
+        char.力智固定加成(300)
+        char.暴击伤害加成(0.11)
         pass
     if mode == 1:
+        char.技能等级加成(50, 50, 1)
+        char.技能等级加成(85, 85, 1)
+        char.技能等级加成(100, 100, 1)
         pass
+
+# 命运反抗者
 
 
 def entry_14034(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["命运反抗者"]
+        return ['所有属性强化+10', '技能攻击力+27%', '物理、魔法、独立攻击力+120', '所有职业Lv1~45所有技能+1', '力量、智力+4%', '攻击时，附加7%的伤害', '最终伤害+10%(期望)']
     if mode == 0:
+        char.所有属性强化加成(10)
+        char.技能攻击力加成(0.27)
+        char.三攻固定加成(120)
+        char.技能等级加成(1, 45, 1)
+        char.百分比力智加成(0.04)
+        char.附加伤害加成(0.07)
         pass
     if mode == 1:
+        char.最终伤害加成(0.1)
         pass
+
+# 心痛如绞的诀别
 
 
 def entry_14035(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["心痛如绞的诀别"]
+        return ['所有属性强化+23', '技能攻击力+27%', '攻击时，附加5.3%的伤害(期望)', '所有属性强化+16', '攻击时发生持续伤害3秒，伤害量为对敌人造成伤害的10%', '暴击时，额外增加8%的伤害增加量', '力量、智力+140']
     if mode == 0:
+        char.所有属性强化加成(23)
+        char.技能攻击力加成(0.27)
+        char.附加伤害加成(0.053)
+        char.所有属性强化加成(16)
+        char.持续伤害加成(0.1)
+        char.暴击伤害加成(0.08)
+        char.力智固定加成(140)
         pass
     if mode == 1:
         pass
+
+# 完美掌控
 
 
 def entry_14036(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["完美掌控"]
+        return ['所有职业Lv1~85所有技能Lv+1（特性技能除外）', '所有职业Lv100所有技能Lv+1（特性技能除外）', '所有属性强化+20*改造等级', '所有属性强化+12', '5阶段', '- 技能攻击力+1%(x20)', '6阶段', '- 技能攻击力+3%', '7阶段', '- 所有属性强化+12']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
+        char.技能等级加成(1, 85, 1)
+        char.技能等级加成(100, 100, 1)
+        char.所有属性强化加成(20*改造lv)
+        char.所有属性强化加成(12)
+        if 改造lv >= 5:
+            for i in range(0, 20):
+                char.技能攻击力加成(0.01)
+        if 改造lv >= 6:
+            char.技能攻击力加成(0.03)
+        if 改造lv >= 7:
+            char.所有属性强化加成(12)
         pass
     if mode == 1:
         pass
+
+# 噙毒手套
 
 
 def entry_14037(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["噙毒手套"]
+        return ['暴击时，额外增加2%*改造等级的伤害增加量', '所有属性强化+8*改造等级', '暴击时，额外增加3%的伤害增加量', '1阶段', '-暴击时，额外增加28%的伤害增加量', '4阶段', '-技能攻击力+10%', '6阶段', '-技能攻击力+3%', '7阶段', '-暴击时，额外增加3%的伤害增加量']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 先知者的预言
 
 
 def entry_14038(char: Character = {}, mode=0, text=False, part=''):
@@ -11917,92 +12100,121 @@ def entry_14038(char: Character = {}, mode=0, text=False, part=''):
     if mode == 1:
         pass
 
+# 骸麒之戒
+
 
 def entry_14039(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["骸麒之戒"]
+        return ['力量、智力+30*改造等级', '所有属性强化+8*改造等级', '攻击时，附加3%的伤害', '1阶段', '-攻击时，附加35%的伤害', '5阶段', '-攻击时，附加10%的伤害', '-技能攻击力+7%', '6阶段', '-技能攻击力+3%', '7阶段', '-攻击时，附加3%的伤害']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 窥视未来耳环
 
 
 def entry_14040(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["窥视未来耳环"]
+        return ['物理、魔法、独立攻击力+40*改造等级', '所有属性强化+8*改造等级', '攻击时，额外增加3%的伤害增加量', '1阶段', '-攻击时，增加35%的伤害', '5阶段', '-所有属性强化+40', '6阶段', '-技能攻击力+3%', '7阶段', '-攻击时，额外增加3%的伤害增加量']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 青面修罗的面具
 
 
 def entry_14041(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["青面修罗的面具"]
+        return ['所有属性强化+16*改造等级', '所有属性强化+12', '1阶段', '-所有职业Lv1~85所有技能Lv+2（特性技能除外）', '-所有职业Lv100所有技能Lv+2（特性技能除外）', '4阶段', '力量、智力+8%', '6阶段', '-技能攻击力+3%', '7阶段', '-所有属性强化+12']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 赤鬼的次元石
 
 
 def entry_14042(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["赤鬼的次元石"]
+        return ['暴击时，额外增加2%*改造等级的伤害增加量', '所有属性强化+8*改造等级', '暴击时，额外增加3%的伤害增加量', '1阶段', '-物理、魔法、独立攻击力+18%', '4阶段', '-攻击时，额外增加8%的伤害增加量', '-技能攻击力+7%', '5阶段', '-装备[青面修罗的面具、[噙毒手套]中一种以上时，攻击时，附加7%的伤害', '6阶段', '-技能攻击力+3%', '7阶段', '-暴击时，额外增加3%的伤害增加量']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 无念之仪服
 
 
 def entry_14043(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["无念之仪服"]
+        return ['攻击时，额外增加2%*改造等级的伤害增加', '所有属性强化+8*改造等级', '攻击时，额外增加3%的伤害增加量', '1阶段', '-所有职业Lv50、85、100所有技能Lv+2', '-攻击时，附加4%的属性伤害', '5阶段', '-攻击时，额外增加5%的伤害增加量', '-技能攻击力+6%', '6阶段', '-技能攻击力+3%', '7阶段', '-攻击时，额外增加3%的伤害增加量']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 无欲之花
 
 
 def entry_14044(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["无欲之花"]
+        return ['技能攻击力+4*改造等级', '攻击时，附加3%的伤害', '1阶段', '-攻击时，额外增加7%的伤害增加量', '-Lv50主动技能攻击力+30%', '-Lv85主动技能攻击力+25%', '-Lv100主动技能攻击力+16%', '5阶段', '-技能攻击力+12%', '6阶段', '-技能攻击力+3%', '7阶段', '-攻击时，附加3%的伤害']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# ["无形之气韵"]
 
 
 def entry_14045(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["无形之气韵"]
+        return ['暴击时，额外增加2%*改造等级的伤害增加量', '所有属性强化+8*改造等级', '暴击时，额外增加3%的伤害增加量', '1阶段', '-暴击时，额外增加5%的伤害增加量', '-所有属性强化+30', '-所有职业Lv50~85所有技能Lv+1（特性技能除外）', '-所有职业Lv100技能Lv+1（特性技能除外）', '5阶段', '-暴击时，额外增加10%的伤害增加量', '-技能攻击力+2%', '6阶段', '-技能攻击力+3%', '7阶段', '-暴击时，额外增加3%的伤害增加量']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 无言之罪恶
 
 
 def entry_14046(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["无言之罪恶"]
+        return ['最终伤害+2%*改造等级', '所有属性强化+8*改造等级', '最终伤害+3%', '1阶段', '-技能攻击力+5%', '-所有属性强化+42', '5阶段', '-技能攻击力+9%', '6阶段', '-技能攻击力+3%', '7阶段', '-最终伤害+3%']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
 
 
+# 无我之轮回
 def entry_14047(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["无我之轮回"]
+        return ['物理、魔法、独立攻击力+2%*改造等级', '所有属性强化+8*改造等级', '物理、魔法、独立攻击力+3%', '1阶段', '-最终伤害+10%', '-物理、魔法、独立攻击力+11%', '5阶段', '-攻击时，附加4%的伤害', '-技能攻击力+7%', '6阶段', '-技能攻击力+3%', '7阶段', '-物理、魔法、独立攻击力+3%']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 无言怒火
 
 
 def entry_14048(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["无言怒火"]
+        return ['所有属性强化+16*改造等级', '所有属性强化+12', '1阶段', '-力量、智力+5%', '-技能攻击力+13%', '4阶段', '-攻击时，附加5%的属性伤害', '6阶段', '-技能攻击力+3%', '7阶段', '-所有属性强化+12']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
@@ -12012,42 +12224,55 @@ def entry_14049(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return ["无形青岩"]
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 无念剑环
 
 
 def entry_14050(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["无念剑环"]
+        return ['技能攻击力+4*改造等级', '攻击时，附加3%的伤害', '1阶段', '-所有属性强化+40', '-攻击时，额外增加10%的伤害增加量', '4阶段', '-攻击时，附加10%的伤害', '6阶段', '-技能攻击力+3%', '7阶段', '-攻击时，附加3%的伤害']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# 支配者王冠
 
 
 def entry_14051(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["支配者王冠"]
+        return['物理、魔法、独立攻击力+3%*改造等级', '所有属性强化+4*改造等级', '物理、魔法、独立攻击力+3%', '1阶段', '-物理、魔法、独立攻击力+14%', '-最终伤害+8%', '4阶段', '-技能攻击力+10%', '6阶段', '-技能攻击力+3%', '7阶段', '-物理、魔法、独立攻击力+3%']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
+
+# ["灵魂掠夺者"]
 
 
 def entry_14052(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["灵魂掠夺者"]
+        return ['技能攻击力+4*改造等级', '攻击时，附加3%的伤害', '1阶段', '-暴击时，额外增加18%的伤害增加量', '4阶段', '-攻击时，附加4%的伤害', '6阶段', '-技能攻击力+3%', '7阶段', '-攻击时，附加3%的伤害']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
 
+# ["无我灵晶"]
+
 
 def entry_14053(char: Character = {}, mode=0, text=False, part=''):
     if text:
-        return ["无我灵晶"]
+        return ['暴击时，额外增加3%*改造等级的伤害增加量', '所有属性强化+4*改造等级', '暴击时，额外增加3%的伤害增加量', '1阶段', '-力量、智力+15%', '-所有属性强化+10', '4阶段', '-技能攻击力+14%', '6阶段', '-技能攻击力+3%', '7阶段', '-暴击时，额外增加3%的伤害增加量']
     if mode == 0:
+        改造lv = char.获取改造等级([part])
         pass
     if mode == 1:
         pass
