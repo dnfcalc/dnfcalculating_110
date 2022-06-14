@@ -299,6 +299,24 @@ class Character():
         self.__体力 += x
         self.__精神 += y
 
+    def 基础属性加成(self,
+               物理攻击力=0.00, 魔法攻击力=0.00, 独立攻击力=0.00, 三攻=0.00,
+               力量=0.00, 智力=0.00, 力智=0.00, 体力=0.00, 精神=0.00, 体精=0.00, 四维=0.00,
+               物理暴击率=0.00, 魔法暴击率=0.00, 暴击率=0.00,
+               攻击速度=0.00, 施放速度=0.00, 移动速度=0.00,   三速=0.00):
+        self.__物理攻击力 += 物理攻击力 + 三攻
+        self.__魔法攻击力 += 魔法攻击力 + 三攻
+        self.__独立攻击力 += 独立攻击力 + 三攻
+        self.__力量 += 力量 + 力智 + 四维
+        self.__智力 += 智力 + 力智 + 四维
+        self.__体力 += 体力 + 体精 + 四维
+        self.__精神 += 精神 + 体精 + 四维
+        self.__物理暴击率 += 物理暴击率 + 暴击率
+        self.__魔法暴击率 += 魔法暴击率 + 暴击率
+        self.__攻击速度 += 攻击速度 + 三速
+        self.__施放速度 += 施放速度 + 三速
+        self.__移动速度 += 移动速度 + 三速
+
     def 持续伤害加成(self, x: float) -> None:
         self.__持续伤害 += x
 
@@ -742,6 +760,18 @@ class Character():
         self.__徽章计算()
         self.__装备词条计算()
 
+    def __时装基础(self):
+        pass
+
+    def 获取改造等级(self, part=[]):
+        num = 0
+        temp = part
+        if len(temp) == 0:
+            temp += 部位列表
+        for i in temp:
+            num += self.打造详情.get(i, {}).get('wisdom_number', 0)
+        return num
+
     def __辟邪玉计算(self):
         if 'jade' not in self.打造详情.keys():
             return
@@ -900,59 +930,39 @@ class Character():
         #    x = 增幅计算(temp.等级, temp.品质, self.强化等级[i])
 
     def __称号宠物计算(self, temp: equipment) -> None:
-        self.__力量 += temp.力量
-        self.__智力 += temp.智力
-        self.__物理攻击力 += temp.物理攻击力
-        self.__魔法攻击力 += temp.魔法攻击力
-        self.__独立攻击力 += temp.独立攻击力
-        self.__物理暴击率 += temp.物理暴击
-        self.__魔法暴击率 += temp.魔法暴击
+        self.基础属性加成(*temp)
 
     def __首饰计算(self, temp: equipment) -> None:
-
-        self.__力量 += temp.力量
-        self.__智力 += temp.智力
-        self.__物理攻击力 += temp.物理攻击力
-        self.__魔法攻击力 += temp.魔法攻击力
-        self.__独立攻击力 += temp.独立攻击力
+        self.基础属性加成(*temp)
 
     def __特殊装备计算(self, temp: equipment) -> None:
-        self.__力量 += temp.力量
-        self.__智力 += temp.智力
-        self.__物理攻击力 += temp.物理攻击力
-        self.__魔法攻击力 += temp.魔法攻击力
-        self.__独立攻击力 += temp.独立攻击力
+        self.基础属性加成(*temp)
 
         # 耳环
         if temp.部位 == '耳环':
             # if temp.所属套装 != '智慧产物':
             x = 耳环计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
-            self.__物理攻击力 += x
-            self.__魔法攻击力 += x
-            self.__独立攻击力 += x
+            self.基础属性加成(三攻=x)
         # 辅助装备、魔法石
         else:
             # if temp.所属套装 != '智慧产物':
             x = 左右计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
-            self.__力量 += x
-            self.__智力 += x
+            self.基础属性加成(力智=x)
 
     def __武器计算(self, temp: equipment) -> None:
-        self.__力量 += temp.力量
-        self.__智力 += temp.智力
-        self.__物理攻击力 += temp.物理攻击力
-        self.__魔法攻击力 += temp.魔法攻击力
-        self.__独立攻击力 += temp.独立攻击力
+        self.基础属性加成(*temp)
 
         # if temp.所属套装 != '智慧产物':
         info = self.打造详情.get(temp.部位, {})
-        self.__物理攻击力 += 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
-                               '物理')
-        self.__魔法攻击力 += 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
-                               '魔法')
-        self.__独立攻击力 += 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
+        物理攻击力 = 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
+                       '物理')
+        魔法攻击力 = 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
+                       '魔法')
+        独立攻击力 = 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
+
+        self.基础属性加成(物理攻击力=物理攻击力, 魔法攻击力=魔法攻击力, 独立攻击力=独立攻击力)
 
     def __装备词条计算(self):
         # 攻击强化相关计算
