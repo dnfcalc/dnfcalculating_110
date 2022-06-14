@@ -209,7 +209,7 @@
                 <div class="green"> &lt;成长属性&gt; </div>
                 {!props.simple && sumSHZJ.value > 0 && (
                   <div>
-                    <div class="text-hex-8a6f36">成长属性总伤害增加 {sumSHZJ.value}</div>
+                    <div class="text-hex-8a6f36">成长属性总攻击强化 {sumSHZJ.value}</div>
                     {
                       // sumFZL.value > 0 && <div>成长属性总Buff量 {sumFZL.value}</div>
                     }
@@ -236,7 +236,7 @@
                           <span>属性{i + 1} - Lv1 (EXP 0.00%)</span>
                         </div>
                         <div class="paddleft text-hex-8a6f36">
-                          <span style="margin-right: 10px;">伤害增加</span>
+                          <span style="margin-right: 10px;">攻击强化</span>
                           <span>{p.attack}</span>
                         </div>
                         {

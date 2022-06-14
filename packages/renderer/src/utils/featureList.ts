@@ -110,7 +110,7 @@ export default [
   {
     value: 19,
     parent: 0,
-    label: "伤害增加",
+    label: "攻击强化",
     children: null
   },
   {
