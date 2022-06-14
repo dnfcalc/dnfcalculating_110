@@ -11540,7 +11540,7 @@ def entry_14012(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return [
             '攻击速度 +6%',
-            '移动速度 +6%'
+            '移动速度 +6%',
             '施放速度 +9%',
             "技能攻击力 +35%",
             "所有职业Lv1~48所有技能Lv+1",
@@ -11557,6 +11557,459 @@ def entry_14012(char: Character = {}, mode=0, text=False, part=''):
         char.三攻固定加成(70)
         char.最终伤害加成(0.05)
         char.力智固定加成(100)
+    if mode == 1:
+        pass
+
+
+def entry_14013(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return [
+            '所有属性强化 +20',
+            "技能攻击力 +34%",
+            "攻击时发生持续伤害3秒,伤害量为对敌人造成伤害的5%",
+            '暴击时，额外增加7%的伤害增加量',
+            '攻击时，附加4%的伤害',
+            "攻击时，额外增加9%的伤害增加量"
+        ]
+    if mode == 0:
+        char.所有属性强化加成(20)
+        char.技能攻击力加成(0.34)
+        char.持续伤害加成(0.05)
+        char.暴击伤害加成(0.07)
+        char.附加伤害加成(0.04)
+        char.伤害增加加成(0.09)
+    if mode == 1:
+        pass
+
+
+def entry_14014(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return [
+            '所有属性强化 +22',
+            "技能攻击力 +24%",
+            "所有职业Lv1~80所有技能冷却时间 -13%（Lv50技能除外）",
+            '攻击时，附加9%的伤害',
+            "力量、智力 +4%",
+            "最终伤害 +4%",
+            "物理、魔法、独立攻击力 +7%"
+        ]
+    if mode == 0:
+        char.所有属性强化加成(22)
+        char.技能攻击力加成(0.24)
+        char.技能冷却缩减(1, 80, 0.13, [50])
+        char.附加伤害加成(0.09)
+        char.百分比力智加成(0.04)
+        char.最终伤害加成(0.04)
+        char.百分比三攻加成(0.07)
+    if mode == 1:
+        pass
+
+
+def entry_14015(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return [
+            '所有属性强化 +29',
+            '技能攻击力 +30%',
+            '暴击时，额外增加10%的伤害增加',
+            "物理、魔法独立攻击力 +10%",
+            '攻击时，附加10%的伤害',
+        ]
+    if mode == 0:
+        char.所有属性强化加成(29)
+        char.技能攻击力加成(0.30)
+        char.技能冷却缩减(1, 80, 0.13, [50])
+        char.附加伤害加成(0.10)
+        char.暴击伤害加成(0.10)
+        char.百分比三攻加成(0.10)
+    if mode == 1:
+        pass
+
+
+def entry_14016(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return [
+            '所有属性强化 +31',
+            '技能攻击力 +23%',
+            '攻击时附加5%的伤害',
+            '最终伤害 +4% ',
+            "物理、魔法、独立攻击力 +13%",
+            '力量、智力 +4%',
+            '技能攻击力 +5% '
+        ]
+    if mode == 0:
+        char.所有属性强化加成(31)
+        char.技能攻击力加成(0.23)
+        char.附加伤害加成(0.5)
+        char.最终伤害加成(0.04)
+        char.百分比三攻加成(0.13)
+        char.百分比力智加成(0.04)
+        char.技能攻击力加成(0.05)
+    if mode == 1:
+        pass
+
+
+def entry_14017(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return [
+            '所有属性强化 +14',
+            '技能攻击力 +25%',
+            '所有职业Lv45技能攻击力-30% 技能冷却时间恢复速度+100%',
+            '所有职业Lv1~45所有技能Lv +1',
+            "攻击时，附加5%的伤害",
+            '力量、智力+8%',
+            '最终伤害+6%'
+        ]
+    if mode == 0:
+        char.所有属性强化加成(14)
+        char.技能攻击力加成(0.25)
+        if char.职业 == '缔造者':
+            char.技能倍率加成(50, 50, -0.3)
+            char.技能恢复加成(50, 50, 1)
+        else:
+            char.技能倍率加成(45, 45, -0.3)
+            char.技能恢复加成(45, 45, 1)
+        char.技能等级加成(1, 45, 1)
+        char.附加伤害加成(0.05)
+        char.百分比力智加成(0.08)
+        char.最终伤害加成(0.06)
+    if mode == 1:
+        pass
+
+
+def entry_14019(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return [
+            '所有属性强化 +6',
+            '技能攻击力 +30%',
+            '所有属性强化 +24'
+            '力量、智力 +12%',
+            '攻击时，额外增加9%的伤害增加量',
+            "最终伤害 +9%"
+        ]
+    if mode == 0:
+        char.所有属性强化加成(6)
+        char.技能攻击力加成(0.3)
+        char.百分比力智加成(0.24)
+        char.伤害增加加成(0.09)
+        char.最终伤害加成(0.09)
+    if mode == 1:
+        char.所有属性强化加成(24, 1)
+        pass
+
+
+def entry_14020(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return [
+            '所有属性强化 +25',
+            '技能攻击力 +25%',
+            '物理、魔法、独立攻击力 +3%'
+            '技能攻击力 +6%',
+            '暴击时，额外墙加9%的伤害增加',
+            "力量、智力 +6%"
+        ]
+    if mode == 0:
+        char.所有属性强化加成(25)
+        char.技能攻击力加成(0.25)
+        char.百分比力智加成(0.6)
+        char.暴击伤害加成(0.09)
+        char.百分比力智加成(0.06)
+    if mode == 1:
+        pass
+
+
+def entry_14021(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["融化黑暗之温暖"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14022(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["伽内什的永恒庇护"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14023(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["至高之炎-伊弗利特"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14024(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无尽的探求"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14025(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["时间回溯之针"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14026(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["响彻天地的咆哮"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14027(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["狂乱之逆转宿命"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14028(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["军神的心之所念"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14029(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["永恒之海"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14030(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["时之魅影"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14031(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["等离子操控者"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14032(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["永恒地狱黑暗之印"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14033(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["次元穿越者之星"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14034(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["命运反抗者"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14035(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["心痛如绞的诀别"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14036(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["完美掌控"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14037(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["噙毒手套"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14038(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["先知者的预言"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14039(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["骸麒之戒"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14040(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["窥视未来耳环"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14041(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["青面修罗的面具"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14042(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["赤鬼的次元石"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14043(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无念之仪服"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14044(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无欲之花"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14045(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无形之气韵"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14046(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无言之罪恶"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14047(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无我之轮回"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14048(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无言怒火"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14049(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无形青岩"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14050(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无念剑环"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14051(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["支配者王冠"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14052(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["灵魂掠夺者"]
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
+
+
+def entry_14053(char: Character = {}, mode=0, text=False, part=''):
+    if text:
+        return ["无我灵晶"]
+    if mode == 0:
+        pass
     if mode == 1:
         pass
 
