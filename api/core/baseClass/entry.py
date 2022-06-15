@@ -12206,7 +12206,6 @@ def entry_14041(char: Character = {}, mode=0, text=False, part=''):
                 '7阶段', '-所有属性强化+12']
     if mode == 0:
         改造lv = char.获取改造等级([part])
-        print(改造lv)
         char.所有属性强化加成(16*改造lv)
         char.所有属性强化加成(12)
         if 改造lv >= 1:

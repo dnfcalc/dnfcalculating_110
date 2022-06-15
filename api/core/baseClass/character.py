@@ -564,7 +564,7 @@ class Character(角色属性):
         for i in self.技能栏:
             倍率 = i.魔法攻击力倍率(self.武器类型)
             if 倍率 != 1:
-                站街魔法攻击倍率 *= i.倍率
+                站街魔法攻击倍率 *= 倍率
         return 站街魔法攻击倍率
 
     def __站街独立攻击力倍率(self) -> float:
@@ -714,9 +714,6 @@ class Character(角色属性):
     def __穿戴装扮(self, info):
         self.装扮栏 = {}
         self.装扮选项 = {}
-        info = {
-            "上衣": {"option": 0}
-        }
         for i in info:
             self.装扮栏[i] = info[i].get('id', 0)
             self.装扮选项[i] = info[i].get('option', 0)
@@ -790,10 +787,13 @@ class Character(角色属性):
         self.__装备词条计算()
 
     def __时装基础(self):
+        时装品级列表 = []
         for 部位 in self.装扮栏:
             id = self.装扮栏[部位]
             时装 = 装扮集合[id]()
             时装.效果(角色=self, 选项=self.装扮选项[部位])
+            时装品级列表.append(时装.套装)
+        print(时装品级列表)
         pass
 
     def 获取改造等级(self, part=[]):

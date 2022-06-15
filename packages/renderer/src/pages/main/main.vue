@@ -103,7 +103,7 @@
                 </calc-select>
               </div>
 
-              <div class="flex col-4 justify-center">
+              <div class="flex col-4 justify-center" style="display:none">
                 <calc-select v-model={configStore.name} class="!h-22px">
                   {renderList(configStore.config_list, item => (
                     <calc-option value={item}>{item}</calc-option>

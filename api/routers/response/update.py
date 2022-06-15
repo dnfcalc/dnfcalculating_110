@@ -37,7 +37,6 @@ def auto_update():
     for file in folder_info.files:
         if file.name == "resources.zip":
             url = file.url
-    print(url)
     lzy.down_file_by_url(url,
                          '',
                          './__ZFJtemp',
@@ -62,7 +61,6 @@ def after_downloaded(file_path):
         pass
     zip_file = zipfile.ZipFile(file_path)
     zip_list = zip_file.namelist()  # 得到压缩包里所有文件
-    print(os.path.dirname("../"))
     for f in zip_list:
         # if not f.endswith('desktop.ini'):
         zip_file.extract(f, os.path.dirname("../"))
