@@ -120,12 +120,14 @@
           {renderList(basicInfoStore.dress_list, (list, part) => {
             const current = computed({
               get() {
-                return (
-                  configStore.dress_set[part] ?? {
+                if (!configStore.dress_set[part]) {
+                  configStore.dress_set[part] = {
                     id: list[0]?.id,
-                    option: 0
+                    option: ""
                   }
-                )
+                }
+
+                return configStore.dress_set[part]
               },
               set(val) {
                 configStore.dress_set[part] = {

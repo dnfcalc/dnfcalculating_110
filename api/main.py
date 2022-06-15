@@ -1,3 +1,4 @@
+# encoding:utf-8
 # api docs:https://fastapi.tiangolo.com/zh/tutorial/first-steps/
 import os
 from fastapi import FastAPI

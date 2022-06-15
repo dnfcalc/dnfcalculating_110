@@ -15,7 +15,7 @@ from core.baseClass.equipment import equ
 from core.store import store
 from core.equipment.基础函数 import 获取基础属性, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器强化计算, 锻造计算
 from core.baseClass.skill import 技能, 主动技能, 被动技能
-from .avatar import 装扮集合
+from .avatar import 装扮集合, 装扮套装集合, 装扮套装
 # from core.baseClass.enchanting import get_encfunc_by_id
 # from core.baseClass.emblems import get_embfunc_by_id
 # from core.baseClass.jade import get_jadefunc_by_id
@@ -308,24 +308,6 @@ class Character(角色属性):
         self.__体力 += x
         self.__精神 += y
 
-    def 基础属性加成(self,
-               物理攻击力=0.00, 魔法攻击力=0.00, 独立攻击力=0.00, 三攻=0.00,
-               力量=0.00, 智力=0.00, 力智=0.00, 体力=0.00, 精神=0.00, 体精=0.00, 四维=0.00,
-               物理暴击率=0.00, 魔法暴击率=0.00, 暴击率=0.00,
-               攻击速度=0.00, 施放速度=0.00, 移动速度=0.00,   三速=0.00, **kwargs):
-        self.__物理攻击力 += float(物理攻击力) + float(三攻)
-        self.__魔法攻击力 += float(魔法攻击力) + float(三攻)
-        self.__独立攻击力 += float(独立攻击力) + float(三攻)
-        self.__力量 += float(力量) + float(力智) + float(四维)
-        self.__智力 += float(智力) + float(力智) + float(四维)
-        self.__体力 += float(体力) + float(体精) + float(四维)
-        self.__精神 += float(精神) + float(体精) + float(四维)
-        self.__物理暴击率 += float(物理暴击率) + float(暴击率)
-        self.__魔法暴击率 += float(魔法暴击率) + float(暴击率)
-        self.__攻击速度 += float(攻击速度) + float(三速)
-        self.__施放速度 += float(施放速度) + float(三速)
-        self.__移动速度 += float(移动速度) + float(三速)
-
     def 持续伤害加成(self, x: float) -> None:
         self.__持续伤害 += x
 
@@ -555,7 +537,7 @@ class Character(角色属性):
         站街物理攻击倍率 = 1.0
         for i in self.技能栏:
             倍率 = i.物理攻击力倍率(self.武器类型)
-            if 倍率 != 1:
+            if 倍率 != 1 and 倍率 is not None:
                 站街物理攻击倍率 *= 倍率
         return 站街物理攻击倍率
 
@@ -571,7 +553,7 @@ class Character(角色属性):
         站街独立攻击倍率 = 1.0
         for i in self.技能栏:
             倍率 = i.独立攻击力倍率(self.武器类型)
-            if 倍率 != 1:
+            if 倍率 != 1 and 倍率 is not None:
                 站街独立攻击倍率 *= 倍率
         return 站街独立攻击倍率
 
@@ -717,7 +699,7 @@ class Character(角色属性):
         for i in info:
             self.装扮栏[i] = info[i].get('id', 0)
             self.装扮选项[i] = info[i].get('option', 0)
-        print(self.装扮栏, self.装扮选项)
+        print(len(self.装扮栏))
 
     # region 伤害计算相关函数
     def __计算伤害预处理(self):
@@ -787,13 +769,34 @@ class Character(角色属性):
         self.__装备词条计算()
 
     def __时装基础(self):
-        时装品级列表 = []
+        时装品级列表 = {}
         for 部位 in self.装扮栏:
             id = self.装扮栏[部位]
-            时装 = 装扮集合[id]()
+            时装 = 装扮集合[id]
             时装.效果(角色=self, 选项=self.装扮选项[部位])
-            时装品级列表.append(时装.套装)
-        print(时装品级列表)
+            时装品级列表[时装.套装] = 时装品级列表.get(时装.套装, 0) + 1
+
+        套装集合: List[装扮套装] = []
+
+        for 套装 in 装扮套装集合:
+            数量 = 时装品级列表.get(套装.名称, 0)
+            if 数量 > 0:
+                if 数量 >= 套装.所需数量:
+                    查找 = len([i for i in 套装集合 if hasattr(i, '兼容于') and i.兼容于 ==
+                             套装.名称 and i.所需数量 == 套装.所需数量])
+                    if 查找 == 0:
+                        套装集合.append(套装)
+                else:
+                    if hasattr(套装, '兼容于') and 套装.兼容于 is not None:
+                        数量 += 时装品级列表.get(套装.兼容于, 0)
+                        时装品级列表[套装.兼容于] = 数量
+                        时装品级列表.pop(套装.名称)
+        print("suit：", len(套装集合))
+
+        for 套装 in 套装集合:
+            套装.效果(self)
+
+        print(时装品级列表, "length", len(时装品级列表))
         pass
 
     def 获取改造等级(self, part=[]):
@@ -1270,13 +1273,6 @@ class Character(角色属性):
         旧 *= 1 + self.__持续伤害
         旧 *= 1 + self.__附加伤害 + self.__属性附加 * self.属性倍率
 
-        print("基础面板:", 基础面板)
-        print("旧版面板:", 旧版面板)
-        print("新版面板:", 新)
-        print("旧版面板:", 旧)
-        print("技能攻击力:", self.__技能攻击力)
-        print("属性倍率:", self.属性倍率)
-        print("基准倍率:", 基准倍率)
         self.伤害指数 = (新 * 基础面板 + 旧 * 旧版面板) * self.__技能攻击力 * self.属性倍率 * 基准倍率
 
         # 7.8日,伤害数据压缩
@@ -1301,7 +1297,6 @@ class Character(角色属性):
         self.__equ_chose_set(info['trigger_set'])
 
         self.__hotkey_set(info['hotkey_set'])
-        self.__穿戴装扮(info['dress_set'])
 
     def jade_upgrade(self):
         temp = []

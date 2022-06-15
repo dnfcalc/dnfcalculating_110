@@ -50,14 +50,6 @@ def get(alter: str, setName: str):
     skill_set = []
     trigger = equ.get_chose_set(mode=1)
     dress_set = {
-        "上衣": {
-            "id": 4,
-            "option": 0
-        },
-        "下装": {
-            "id": 6,
-            "option": 0
-        },
         "头发": {
             "id": 0,
             "option": 0
@@ -66,25 +58,30 @@ def get(alter: str, setName: str):
             "id": 1,
             "option": 0
         },
+        "脸部": {
+            "id": 1,
+            "option": 0
+        },
         "胸部": {
             "id": 3,
             "option": 0
         },
-
+        "上衣": {
+            "id": 4,
+            "option": 0
+        },
         "腰带": {
             "id": 5,
+            "option": 0
+        },
+        "下装": {
+            "id": 6,
             "option": 0
         },
         "鞋": {
             "id": 15,
             "option": 0
         },
-
-        "上衣": {
-            "id": 4,
-            "option": 0
-        },
-
     }
     for item in skillInfo:
         skill_set.append({
