@@ -177,6 +177,30 @@ class Character(角色属性):
         self.__set_individuation(info)
         return info
 
+    def 基础属性加成(self,
+               物理攻击力=0.00, 魔法攻击力=0.00, 独立攻击力=0.00, 三攻=0.00,
+               力量=0.00, 智力=0.00, 力智=0.00, 体力=0.00, 精神=0.00, 体精=0.00, 四维=0.00,
+               物理暴击率=0.00, 魔法暴击率=0.00, 暴击率=0.00,
+               攻击速度=0.00, 施放速度=0.00, 移动速度=0.00,   三速=0.00, **kwargs):
+        self.__物理攻击力 += float(物理攻击力) + float(三攻)
+        self.__魔法攻击力 += float(魔法攻击力) + float(三攻)
+        self.__独立攻击力 += float(独立攻击力) + float(三攻)
+        self.__力量 += float(力量) + float(力智) + float(四维)
+        self.__智力 += float(智力) + float(力智) + float(四维)
+        self.__体力 += float(体力) + float(体精) + float(四维)
+        self.__精神 += float(精神) + float(体精) + float(四维)
+        self.__物理暴击率 += float(物理暴击率) + float(暴击率)
+        self.__魔法暴击率 += float(魔法暴击率) + float(暴击率)
+        self.__攻击速度 += float(攻击速度) + float(三速)
+        self.__施放速度 += float(施放速度) + float(三速)
+        self.__移动速度 += float(移动速度) + float(三速)
+
+    def 属性强化加成(self, 所有属性强化=0.00, 冰属性强化=0.00, 火属性强化=0.00, 暗属性强化=0.00, 光属性强化=0.00):
+        self.__火属性强化 += 火属性强化 + 所有属性强化
+        self.__冰属性强化 += 冰属性强化 + 所有属性强化
+        self.__暗属性强化 += 暗属性强化 + 所有属性强化
+        self.__光属性强化 += 光属性强化 + 所有属性强化
+
     def set_skill_info(self, info, rune_except=[], clothes_pants=[]) -> None:
         skillInfo = []  # 技能
         rune = []  # 符文
@@ -699,7 +723,7 @@ class Character(角色属性):
         for i in info:
             self.装扮栏[i] = info[i].get('id', 0)
             self.装扮选项[i] = info[i].get('option', 0)
-        print(len(self.装扮栏))
+        # print(len(self.装扮栏))
 
     # region 伤害计算相关函数
     def __计算伤害预处理(self):
@@ -773,7 +797,7 @@ class Character(角色属性):
         for 部位 in self.装扮栏:
             id = self.装扮栏[部位]
             时装 = 装扮集合[id]
-            时装.效果(角色=self, 选项=self.装扮选项[部位])
+            时装().效果(角色=self, 选项=self.装扮选项[部位])
             时装品级列表[时装.套装] = 时装品级列表.get(时装.套装, 0) + 1
 
         套装集合: List[装扮套装] = []
@@ -783,7 +807,7 @@ class Character(角色属性):
             if 数量 > 0:
                 if 数量 >= 套装.所需数量:
                     查找 = len([i for i in 套装集合 if hasattr(i, '兼容于') and i.兼容于 ==
-                             套装.名称 and i.所需数量 == 套装.所需数量])
+                              套装.名称 and i.所需数量 == 套装.所需数量])
                     if 查找 == 0:
                         套装集合.append(套装)
                 else:
@@ -791,12 +815,9 @@ class Character(角色属性):
                         数量 += 时装品级列表.get(套装.兼容于, 0)
                         时装品级列表[套装.兼容于] = 数量
                         时装品级列表.pop(套装.名称)
-        print("suit：", len(套装集合))
-
         for 套装 in 套装集合:
-            套装.效果(self)
+            套装().效果(self)
 
-        print(时装品级列表, "length", len(时装品级列表))
         pass
 
     def 获取改造等级(self, part=[]):

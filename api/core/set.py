@@ -59,7 +59,7 @@ def get(alter: str, setName: str):
             "option": 0
         },
         "脸部": {
-            "id": 1,
+            "id": 2,
             "option": 0
         },
         "胸部": {
@@ -79,9 +79,10 @@ def get(alter: str, setName: str):
             "option": 0
         },
         "鞋": {
-            "id": 15,
+            "id": 7,
             "option": 0
         },
+
     }
     for item in skillInfo:
         skill_set.append({
