@@ -22,6 +22,7 @@ def check_update(version: str):
         return False
     for file in folder_info.files:
         if file.name.startswith("DNF计算器"):
+            print(file.name.split("_")[1].replace(".exe", ""), version)
             if file.name.split("_")[1].replace(".exe", "") == version:
                 return False
             else:

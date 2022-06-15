@@ -7,6 +7,7 @@
   import { defineComponent, ref, renderList, Component, KeepAlive } from "vue"
   import { useRoute } from "vue-router"
   import openURL from "@/utils/openURL"
+  import { useDialog } from "@/components/hooks/dialog"
 
   // import Character from "@/pages/main/character/character.vue"
   // import Customize from "@/pages/main/customize/customize.vue"
@@ -16,6 +17,7 @@
 
   export default defineComponent(() => {
     const route = useRoute()
+    const { alert, render } = useDialog()
     const tab = ref(0)
     const char = route.query.name as string
     const appStore = useAppStore()
@@ -32,6 +34,12 @@
       // })
       // return
       // 一堆前处理和判断，然后计算
+      if (!route.path.endsWith("/singleset")) {
+        await alert({
+          content: "暂不支持多套计算,请使用单套选择"
+        })
+        return
+      }
       const saveData = await configStore.calc(route.path.endsWith("/singleset"))
       if (saveData instanceof Array) {
         // 排行界面

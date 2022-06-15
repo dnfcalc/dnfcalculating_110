@@ -42,6 +42,10 @@
         if (ignores.includes(child.name)) {
           return
         }
+        if (child.name == "sponsor") {
+          openURL(child.url ?? "")
+          return
+        }
         if (child.open) {
           openURL("/character?name=" + child.name, { width: 1100, height: 750 })
         } else {
