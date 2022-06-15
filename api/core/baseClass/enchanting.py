@@ -54,7 +54,8 @@ def enchanting_20004(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         char.三攻固定加成(40*rate)
         char.所有属性强化加成(15*rate)
-        char.技能等级加成('主动', 1, 50, 1)
+        if rate == 1:
+            char.技能等级加成('主动', 1, 50, 1)
     if mode == 1:
         pass
 
@@ -86,7 +87,8 @@ def enchanting_20008(char: Character = {}, mode=0, text=False, rate=1.0):
         return "(168, '腰带，鞋', '三攻 +36 Lv1~50 主动+1')"
     if mode == 0:
         char.三攻固定加成(16*rate)
-        char.技能等级加成('主动', 1, 50, 1)
+        if rate == 1:
+            char.技能等级加成('主动', 1, 50, 1)
     if mode == 1:
         pass
 
@@ -248,7 +250,8 @@ def enchanting_20025(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         char.三攻固定加成(20*rate)
         char.力智固定加成(75*rate)
-        char.技能等级加成('主动', 1, 50, 1)
+        if rate == 1:
+            char.技能等级加成('主动', 1, 50, 1)
     if mode == 1:
         pass
 

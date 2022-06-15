@@ -2421,7 +2421,7 @@ def entry_1240(char: Character = {}, mode=0, text=False, part=''):
     if text:
         return "穿戴装备的强化/增幅数值总和每增加6，攻击强化 272(最多叠加24次)"
     if mode == 0:
-        x = char.image.png()
+        x = char.获取强化等级()
         char.攻击强化加成(272 * min(24, int(x / 6)))
     if mode == 1:
         pass
@@ -2809,7 +2809,7 @@ def entry_1183(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         char.MP消耗量加成(1.0)
     if mode == 1:
-        char.技能攻击力加成(min(min((char.MP消耗倍率() - 1)*5, 0.25), 0))
+        char.技能攻击力加成(min((char.MP消耗倍率() - 1)*0.05, 0.25))
 
 
 def entry_1185(char: Character = {}, mode=0, text=False, part=''):
@@ -3662,7 +3662,7 @@ def entry_988(char: Character = {}, mode=0, text=False, part=''):
         return "技能MP消耗量在4000以上的技能攻击力 +15%(觉醒除外)"
     if mode == 0:
         for skill in char.技能栏:
-            if skill.是否有伤害 == 1 and skill.MP消耗(char.武器类型, char.类型, char.MP消耗量加成) >= 4000 and skill.所在等级 not in [50, 85, 100]:
+            if skill.是否有伤害 == 1 and skill.MP消耗(char.武器类型, char.类型, char.MP消耗倍率()) >= 4000 and skill.所在等级 not in [50, 85, 100]:
                 skill.倍率 *= 1.15
     if mode == 1:
         pass
@@ -3684,7 +3684,7 @@ def entry_991(char: Character = {}, mode=0, text=False, part=''):
         pass
     if mode == 1:
         for skill in char.技能队列:
-            if char.get_skill_by_name(skill['name']).等效CD(char.武器类型, char.类型, skill['CDR'], 恢复=False) >= 15:
+            if char.get_skill_by_name(skill['名称']).等效CD(char.武器类型, char.类型, skill['CDR'], 恢复=False) >= 15:
                 skill['倍率'] *= 1.1
             else:
                 skill['倍率'] *= 0.85
