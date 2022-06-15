@@ -17,13 +17,14 @@
       })
 
       const equipInfo = function <T>(part: string, name: string, defaultValue?: T) {
-        return computed<string | number>({
+        return computed<T>({
           get() {
             return configStore.getForge(part, name) ?? defaultValue ?? 0
           },
           set(val) {
-            if (val == undefined) return
-            configStore.setForge(part, name, val)
+            if (val !== undefined) {
+              configStore.setForge(part, name, val)
+            }
           }
         })
       }
@@ -47,13 +48,13 @@
         <div class="flex flex-wrap equ-profile">
           <div class="equ-profile-item">
             <div class="row-name">武器装扮</div>
-            <calc-select v-model={wqzb_enchat.value} class="!h-20px flex-1">
+            <calc-select v-model={wqzb_enchat.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
               {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "武器装扮") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
-            <calc-select v-model={wqzb_left.value} class="!h-20px flex-1">
+            <calc-select v-model={wqzb_left.value} class="flex-1 !h-20px">
               <calc-option v-model={wqzb_left.value} value={0}>
                 无
               </calc-option>
@@ -61,7 +62,7 @@
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}
             </calc-select>
-            <calc-select v-model={wqzb_right.value} class="!h-20px flex-1">
+            <calc-select v-model={wqzb_right.value} class="flex-1 !h-20px">
               <calc-option v-model={wqzb_right.value} value={0}>
                 无
               </calc-option>
@@ -72,19 +73,19 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">皮肤</div>
-            <calc-select v-model={pf_enchat.value} class="!h-20px flex-1">
+            <calc-select v-model={pf_enchat.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
               {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "皮肤") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
-            <calc-select v-model={pf_left.value} class="!h-20px flex-1">
+            <calc-select v-model={pf_left.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}
             </calc-select>
-            <calc-select v-model={pf_right.value} class="!h-20px flex-1">
+            <calc-select v-model={pf_right.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
@@ -93,19 +94,19 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">光环</div>
-            <calc-select v-model={gh_enchat.value} class="!h-20px flex-1">
+            <calc-select v-model={gh_enchat.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
               {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "光环") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
-            <calc-select v-model={gh_left.value} class="!h-20px flex-1">
+            <calc-select v-model={gh_left.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}
             </calc-select>
-            <calc-select v-model={gh_right.value} class="!h-20px flex-1">
+            <calc-select v-model={gh_right.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
@@ -114,12 +115,12 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">头发</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               {renderList(clothes_type, (item, index) => (
                 <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               <calc-option value="0">智力</calc-option>
               <calc-option value="1">精神</calc-option>
               <calc-option value="-1">其它</calc-option>
@@ -127,12 +128,12 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">头部</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               {renderList(clothes_type, (item, index) => (
                 <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               <calc-option value="0">智力</calc-option>
               <calc-option value="1">精神</calc-option>
               <calc-option value="-1">其它</calc-option>
@@ -140,34 +141,34 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">脸部</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               {renderList(clothes_type, (item, index) => (
                 <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               <calc-option value="-1">其它</calc-option>
             </calc-select>
           </div>
           <div class="equ-profile-item">
             <div class="row-name">胸部</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               {renderList(clothes_type, (item, index) => (
                 <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               <calc-option value="-1">其它</calc-option>
             </calc-select>
           </div>
           <div class="equ-profile-item">
             <div class="row-name">上衣</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               {renderList(clothes_type, (item, index) => (
                 <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
               {renderList(up_skill.value, item => (
                 <calc-option value={item}>{item} Lv+1</calc-option>
@@ -176,12 +177,12 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">腰带</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               {renderList(clothes_type, (item, index) => (
                 <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               <calc-option value="0">力量</calc-option>
               <calc-option value="1">体力</calc-option>
               <calc-option value="-1">其它</calc-option>
@@ -189,12 +190,12 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">下装</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               {renderList(clothes_type, (item, index) => (
                 <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
               {renderList(down_skill.value, item => (
                 <calc-option value={item}>{item} Lv+1</calc-option>
@@ -203,12 +204,12 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">鞋</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               {renderList(clothes_type, (item, index) => (
                 <calc-option value={index}>{item}</calc-option>
               ))}
             </calc-select>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               <calc-option value="0">力量</calc-option>
               <calc-option value="1">体力</calc-option>
               <calc-option value="-1">其它</calc-option>
@@ -216,7 +217,7 @@
           </div>
           <div class="equ-profile-item">
             <div class="row-name">套装</div>
-            <calc-select class="!h-20px flex-1">
+            <calc-select class="flex-1 !h-20px">
               {renderList(clothes_type, (item, index) => (
                 <calc-option value={index}>{item + "套装"}</calc-option>
               ))}
