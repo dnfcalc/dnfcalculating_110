@@ -174,7 +174,7 @@ class Character(角色属性):
         self.__set_individuation(info)
         return info
 
-    def __set_skill_info(self, info, rune_except=[], clothes_pants=[]) -> None:
+    def set_skill_info(self, info, rune_except=[], clothes_pants=[]) -> None:
         skillInfo = []  # 技能
         rune = []  # 符文
         talisman = []  # 护石
@@ -309,19 +309,19 @@ class Character(角色属性):
                物理攻击力=0.00, 魔法攻击力=0.00, 独立攻击力=0.00, 三攻=0.00,
                力量=0.00, 智力=0.00, 力智=0.00, 体力=0.00, 精神=0.00, 体精=0.00, 四维=0.00,
                物理暴击率=0.00, 魔法暴击率=0.00, 暴击率=0.00,
-               攻击速度=0.00, 施放速度=0.00, 移动速度=0.00,   三速=0.00):
-        self.__物理攻击力 += 物理攻击力 + 三攻
-        self.__魔法攻击力 += 魔法攻击力 + 三攻
-        self.__独立攻击力 += 独立攻击力 + 三攻
-        self.__力量 += 力量 + 力智 + 四维
-        self.__智力 += 智力 + 力智 + 四维
-        self.__体力 += 体力 + 体精 + 四维
-        self.__精神 += 精神 + 体精 + 四维
-        self.__物理暴击率 += 物理暴击率 + 暴击率
-        self.__魔法暴击率 += 魔法暴击率 + 暴击率
-        self.__攻击速度 += 攻击速度 + 三速
-        self.__施放速度 += 施放速度 + 三速
-        self.__移动速度 += 移动速度 + 三速
+               攻击速度=0.00, 施放速度=0.00, 移动速度=0.00,   三速=0.00, **kwargs):
+        self.__物理攻击力 += float(物理攻击力) + float(三攻)
+        self.__魔法攻击力 += float(魔法攻击力) + float(三攻)
+        self.__独立攻击力 += float(独立攻击力) + float(三攻)
+        self.__力量 += float(力量) + float(力智) + float(四维)
+        self.__智力 += float(智力) + float(力智) + float(四维)
+        self.__体力 += float(体力) + float(体精) + float(四维)
+        self.__精神 += float(精神) + float(体精) + float(四维)
+        self.__物理暴击率 += float(物理暴击率) + float(暴击率)
+        self.__魔法暴击率 += float(魔法暴击率) + float(暴击率)
+        self.__攻击速度 += float(攻击速度) + float(三速)
+        self.__施放速度 += float(施放速度) + float(三速)
+        self.__移动速度 += float(移动速度) + float(三速)
 
     def 持续伤害加成(self, x: float) -> None:
         self.__持续伤害 += x
@@ -956,13 +956,13 @@ class Character(角色属性):
         #    x = 增幅计算(temp.等级, temp.品质, self.强化等级[i])
 
     def __称号宠物计算(self, temp: equipment) -> None:
-        self.基础属性加成(*temp)
+        self.基础属性加成(**temp.__dict__)
 
     def __首饰计算(self, temp: equipment) -> None:
-        self.基础属性加成(*temp)
+        self.基础属性加成(**temp.__dict__)
 
     def __特殊装备计算(self, temp: equipment) -> None:
-        self.基础属性加成(*temp)
+        self.基础属性加成(**temp.__dict__)
 
         # 耳环
         if temp.部位 == '耳环':
@@ -978,7 +978,7 @@ class Character(角色属性):
             self.基础属性加成(力智=x)
 
     def __武器计算(self, temp: equipment) -> None:
-        self.基础属性加成(*temp)
+        self.基础属性加成(**temp.__dict__)
 
         # if temp.所属套装 != '智慧产物':
         info = self.打造详情.get(temp.部位, {})

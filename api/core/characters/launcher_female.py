@@ -604,16 +604,3 @@ class classChange(Character):
         self.buff = 1.957
 
         super().__init__()
-
-    def __set_individuation(self, info):
-        info['individuation'] = [
-            {"type": "checkbox", "value": "测试checkbox",
-                "items": [], "row":0, "column":0, "key":0},
-            {"type": "select", "value": "", "items": [
-                1, 2, 3, 4, 5, 6, 7], "row":1, "column":0, "key":1},
-            {"type": "label", "value": "测试label",
-             "items": [], "row":2, "column":0, "key":2}
-        ]
-
-    def __set_skill_info(self, info, rune_except=[], clothes_pants=[]):
-        super().__set_skill_info(info, rune_except=[], clothes_pants=[])

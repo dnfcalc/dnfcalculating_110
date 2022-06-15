@@ -572,6 +572,6 @@ class classChange(Character):
              "items": [], "row":2, "column":0, "key":2}
         ]
 
-    def __set_skill_info(self, info, rune_except=[], clothes_pants=[]):
-        super().__set_skill_info(info, rune_except=[
+    def set_skill_info(self, info, rune_except=[], clothes_pants=[]):
+        super().set_skill_info(info, rune_except=[
             '爆裂弹'], clothes_pants=['远古记忆'])
