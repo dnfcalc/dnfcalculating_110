@@ -33,7 +33,7 @@
             to: props.to,
             class: {
               [props.class]: !!props.class,
-              "i-button cursor-pointer outline-none": true,
+              "i-button cursor-pointer outline-none text-shadow": true,
               small: props.small
             }
           },

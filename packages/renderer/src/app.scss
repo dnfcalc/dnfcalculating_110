@@ -24,6 +24,7 @@ body,
   height: 100%;
   overflow-y: hidden;
   overflow-x: hidden;
+
   // font-family: "ArkPixel", "Consola", sans-serif;
 }
 
@@ -31,6 +32,7 @@ body,
   // font-family: "ArkPixel", "Consola", sans-serif;
   font-family: "SimSun";
   font-size: 12px;
+  text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
 }
 
 @mixin pointer() {

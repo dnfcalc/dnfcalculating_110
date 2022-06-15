@@ -45,11 +45,18 @@
         return (
           <div
             class="h-28px m-2px w-28px"
+            style="position: relative;"
             onClick={() => {
-              console.log("onClick")
+              // 预留多形态切换
             }}
           >
             <img src={skill_icon(characterStore.alter, item.element.name)} />
+            {
+              // 预留多形态切换
+              // <div style="" class="size-11">
+              //   毛冰
+              // </div>
+            }
           </div>
           // <div class="list-group-item">{item.element.name}</div>
         )
@@ -71,4 +78,15 @@
   })
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .size-11 {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    font-size: 12px;
+    transform: scale(0.85);
+    color: #fee86b;
+    text-shadow: #000 2px 0 0, #000 0 2px 0, #000 -2px 0 0, #000 0 -2px 0;
+    -webkit-font-smoothing: antialiased;
+  }
+</style>
