@@ -563,7 +563,7 @@ class Character(角色属性):
         站街魔法攻击倍率 = 1.0
         for i in self.技能栏:
             倍率 = i.魔法攻击力倍率(self.武器类型)
-            if 倍率 != 1:
+            if 倍率 != 1 and 倍率 is not None:
                 站街魔法攻击倍率 *= 倍率
         return 站街魔法攻击倍率
 
@@ -833,22 +833,27 @@ class Character(角色属性):
     def __符文计算(self):
         for item in self.符文:
             if not item is None and item != '':
-                skill = item[0:-1]
+                skill_name: str = item[0:-1]
                 type = item[-1]
-                # 紫
-                if type == "0":
-                    self.get_skill_by_name(skill).倍率 *= 1.04
-                    # 红
-                if type == "1":
-                    self.get_skill_by_name(skill).倍率 *= 1.06
-                    self.get_skill_by_name(skill).CDR *= 1.04
-                    # 绿
-                if type == "3":
-                    self.get_skill_by_name(skill).倍率 *= 0.96
-                    self.get_skill_by_name(skill).CDR *= 0.97
-                    # 蓝
-                if type == "4":
-                    self.get_skill_by_name(skill).CDR *= 0.95
+                skill = self.get_skill_by_name(skill_name)
+
+                if skill is not None:
+                    # 紫
+                    if type == "0":
+                        skill.倍率 *= 1.04
+                        # 红
+                    if type == "1":
+                        skill.倍率 *= 1.06
+                        skill.CDR *= 1.04
+                        # 绿
+                    if type == "3":
+                        skill.倍率 *= 0.96
+                        skill.CDR *= 0.97
+                        # 蓝
+                    if type == "4":
+                        skill.CDR *= 0.95
+                else:
+                    print("skill not found {skill_name}".format(skill_name))
             pass
 
     def __杂项计算(self, mode=0):
@@ -1265,6 +1270,13 @@ class Character(角色属性):
         旧 *= 1 + self.__持续伤害
         旧 *= 1 + self.__附加伤害 + self.__属性附加 * self.属性倍率
 
+        print("基础面板:", 基础面板)
+        print("旧版面板:", 旧版面板)
+        print("新版面板:", 新)
+        print("旧版面板:", 旧)
+        print("技能攻击力:", self.__技能攻击力)
+        print("属性倍率:", self.属性倍率)
+        print("基准倍率:", 基准倍率)
         self.伤害指数 = (新 * 基础面板 + 旧 * 旧版面板) * self.__技能攻击力 * self.属性倍率 * 基准倍率
 
         # 7.8日,伤害数据压缩

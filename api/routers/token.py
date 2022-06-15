@@ -28,7 +28,6 @@ def readToken(token) -> AlterState:
     return store.get(token)
 
 
-def authorize(access_token: Optional[str] = Header(None), alter: str = ''):
+def authorize(access_token: Optional[str] = Header(None)):
     if access_token is not None:
         return readToken(access_token)
-    return AlterState(alter, createToken(alter))

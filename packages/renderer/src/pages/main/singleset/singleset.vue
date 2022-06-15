@@ -4,8 +4,7 @@
   import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { IEquipmentInfo } from "@/api/info/type"
-  import { useOpenWindow } from "@/hooks/open"
-  import { useAsyncState } from "@vueuse/core"
+  import { useAsyncState, useDebounceFn } from "@vueuse/core"
   import openURL from "@/utils/openURL"
   import featureList from "@/utils/featureList"
 
@@ -46,7 +45,7 @@
       const result = useAsyncState(
         () => configStore.calc(true),
         { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0, info: undefined, skills_passive: undefined, jade: undefined },
-        {}
+        { resetOnExecute: false }
       )
 
       const highlight = computed<number[]>({
@@ -149,12 +148,15 @@
         }
       }
 
-      watch(curEquList, async val => {
-        if (val.map(item => item.typeName).length < 1) {
-          return
-        }
-        await result.execute()
-      })
+      watch(
+        curEquList,
+        useDebounceFn(async val => {
+          if (val.length < 1) {
+            return
+          }
+          await result.execute()
+        }, 200)
+      )
 
       const openDetail = () => openURL(`/result?res=${result.state.value.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : ""), { width: 890, height: 600 })
 
@@ -203,7 +205,7 @@
               </calc-tabs>
             </div>
             {type.value == EPIC_EQUIP && (
-              <div class="flex justify-between items-center bg-hex-000000/45">
+              <div class="flex bg-hex-000000/45 justify-between items-center">
                 <calc-select class="!h-25px !w-40%" v-model={choose_feature.value} emptyLabel="特性选择">
                   <calc-option value={0}>全部特性</calc-option>
                   {renderList(featureList, item => (
@@ -258,11 +260,11 @@
           </div>
           {result.state.value.jade && (
             <div class="flex flex-col mt-0 mr-2px mb-0 ml-2px w-350px items-center">
-              <div class="flex w-100% h-30px justify-center items-center">辟邪玉提升率(理论值仅供参考)</div>
+              <div class="flex h-30px w-100% justify-center items-center">辟邪玉提升率(理论值仅供参考)</div>
               {renderList(jade.value ?? [], item => (
-                <div class="flex w-100% h-30px" style={"color:" + item.color}>
-                  <div class="w-70% flex items-center justify-center">{item.name}</div>
-                  <div class="w-30% flex items-center justify-center">{item.percent}</div>
+                <div class="flex h-30px w-100%" style={"color:" + item.color}>
+                  <div class="flex w-70% items-center justify-center">{item.name}</div>
+                  <div class="flex w-30% items-center justify-center">{item.percent}</div>
                 </div>
               ))}
             </div>

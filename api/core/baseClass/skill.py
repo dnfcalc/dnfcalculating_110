@@ -89,7 +89,7 @@ class 主动技能(技能):
     是否主动 = 1
     是否有伤害 = 1
     恢复 = 1.0
-    倍率 = 1.0
+    倍率: float
     被动倍率 = 1.0
     基础释放次数 = 0
     演出时间 = 0
@@ -123,6 +123,10 @@ class 主动技能(技能):
     data6 = []
     hit6 = 0
     power6 = 1
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.倍率 = 1.0
 
     def 等效百分比(self, 武器类型="", 额外等级=0, 额外倍率=1, 伤害类型="直伤"):
         datas = [self.data0, self.data1, self.data2,
@@ -162,7 +166,8 @@ class 主动技能(技能):
         return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / (self.恢复 if 恢复 else 1) * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1), 1)
 
     def MP消耗(self, 武器类型="", 输出类型="", 额外倍率=1.0):
-        mpnum = int(self.MP[0] + (self.等级 - 1) * (self.MP[1] - self.MP[0]) / (self.等级上限 - 1))
+        mpnum = int(self.MP[0] + (self.等级 - 1) *
+                    (self.MP[1] - self.MP[0]) / (self.等级上限 - 1))
         return round(mpnum * 武器MP系数(武器类型, 输出类型) * 额外倍率, 0)
 
     def 基础等级计算(self):

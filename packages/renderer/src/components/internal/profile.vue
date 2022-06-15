@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
   import { useCharacterStore, useDetailsStore, useConfigStore, useBasicInfoStore } from "@/store"
-  import { computed, defineComponent, PropType, renderList } from "vue"
+  import { computed, defineComponent, nextTick, PropType, ref, renderList, watch } from "vue"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { to_percent } from "@/utils"
 
@@ -119,13 +119,16 @@
       //   an: 999
       // }
 
+      const current_data = computed(() => props.sumdamage)
+
       const result = computed(() => {
-        if (props.sumdamage) {
+        const sumdamage = current_data.value
+        if (sumdamage) {
           if (props.standardSum) {
-            if (props.sumdamage == props.standardSum) return ["无变化", "white"]
-            else return [to_percent(props.sumdamage / props.standardSum - 1, 0, "%", true), props.sumdamage > props.standardSum ? "#3ea74e" : "red"]
+            if (sumdamage == props.standardSum) return ["无变化", "white"]
+            else return [to_percent(sumdamage / props.standardSum - 1, 0, "%", true), sumdamage > props.standardSum ? "#3ea74e" : "red"]
           }
-          return [props.sumdamage.round(0).toLocaleString(), "white"]
+          return [sumdamage.round(0).toLocaleString(), "white"]
         }
         return [" -- ", "white"]
       })
@@ -302,45 +305,45 @@
                   </div>
                   <div class="details">
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">技能攻击力</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">技能攻击力</div>
                       <div class="text-hex-3ea74e">{details.value?.词条?.技能攻击力?.toFixed(2) + "%"}</div>
                     </div>
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">直伤</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">直伤</div>
                       <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[0] ?? 1).round(2) * 100}%`}</div>
                     </div>
 
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">攻击强化</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">攻击强化</div>
                       <div class="text-hex-3ea74e">{details.value?.词条?.攻击强化?.round(0)}</div>
                     </div>
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">攻击强化%</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">攻击强化%</div>
                       <div class="text-hex-3ea74e">{details.value?.词条?.百分比攻击强化?.toFixed(2) + "%"}</div>
                     </div>
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">无色消耗</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">无色消耗</div>
                       <div class="text-hex-3ea74e">{details.value?.词条?.无色消耗}</div>
                     </div>
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">MP消耗量%</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">MP消耗量%</div>
                       <div class="text-hex-3ea74e">{details.value?.词条?.MP消耗量?.toFixed(2) + "%"}</div>
                     </div>
 
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">中毒</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">中毒</div>
                       <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[1] ?? 0) * 100}%(+${((details.value?.词条?.伤害系数?.[1] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
                     </div>
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">灼烧</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">灼烧</div>
                       <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[2] ?? 0) * 100}%(+${((details.value?.词条?.伤害系数?.[2] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
                     </div>
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">感电</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">感电</div>
                       <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[3] ?? 0) * 100}%(+${((details.value?.词条?.伤害系数?.[3] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
                     </div>
                     <div class="de-item">
-                      <div class="text-hex-836832 w-65px pl-5px pr-5px">出血</div>
+                      <div class="pr-5px pl-5px text-hex-836832 w-65px">出血</div>
                       <div class="text-hex-3ea74e">{`${(details.value?.词条?.伤害比例?.[4] ?? 0) * 100}%(+${((details.value?.词条?.伤害系数?.[4] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
                     </div>
                   </div>
