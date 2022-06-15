@@ -25,7 +25,7 @@ export const useConfigStore = defineStore("config", {
       attack_attribute: 0,
       skill_set: [],
       forge_set: {},
-      clothes_set: {},
+      dress_set: {},
       single_set: [],
       equip_list: [],
       wisdom_list: [],
@@ -58,7 +58,7 @@ export const useConfigStore = defineStore("config", {
         attack_attribute: state.attack_attribute,
         skill_set: state.skill_set,
         forge_set: state.forge_set,
-        clothes_set: state.clothes_set,
+        dress_set: state.dress_set,
         single_set: state.single_set,
         trigger_set: state.trigger_set,
         skill_que: state.skill_que,
@@ -157,30 +157,34 @@ export const useConfigStore = defineStore("config", {
         return map.get(key)
       }
     },
-    seClothes(part: string, key: string, value: any) {
-      if (!this.clothes_set[part]) {
-        this.clothes_set[part] = new Map<string, any>()
-      }
-      let map = this.clothes_set[part]
-      map.set(key, value)
+    setDress(part: string, id: number, option: string) {
+      this.dress_set[part] = { id, option }
     },
-    getClothes(part: string, key: string) {
-      if (this.clothes_set[part]) {
-        let map = this.clothes_set[part]
-        return map.get(key)
-      }
+    getDress(part: string) {
+      return this.dress_set[part]
     },
 
     customizeInit() {
+      const infoStore = useBasicInfoStore()
       const temp =
-        useBasicInfoStore().equipment_list.filter(
+        infoStore.equipment_list.filter(
           item =>
             [...this.wisdom_list, ...this.myths_list, ...this.weapons_list, ...this.lv110_list, ...this.single_set].findIndex(e => Number(e) == Number(item.id)) >= 0 && item.alternative?.length > 0
         ) ?? []
       const list = temp.map(item => item.id)
       const keys = Object.keys(this.customize)
-      ;(keys.filter(item => list.indexOf(Number(item)) < 0) ?? []).forEach(item => delete this.customize[item])
-      list.filter(item => keys.indexOf(item.toString()) < 0).forEach(item => (this.customize[item] = [0, 0, 0, 0]))
+
+      for (let key of keys) {
+        if (list.indexOf(Number(key)) < 0) {
+          delete this.customize[key]
+        }
+      }
+
+      for (let item of list) {
+        if (keys.indexOf(item.toString()) < 0) {
+          this.customize[item] = [0, 0, 0, 0]
+        }
+      }
     }
   }
 })

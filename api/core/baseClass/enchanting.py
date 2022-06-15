@@ -2,7 +2,7 @@ from core.baseClass.character import Character
 enchanting_func_list = {}
 
 # 名望 部位 描述
-index = ("maxFrame", "position", "props")
+index = ("maxFame", "position", "props")
 
 # region 正常部位 20000~21000
 

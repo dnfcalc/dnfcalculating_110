@@ -3,7 +3,7 @@ import base64
 import hmac
 from typing import Optional
 
-from fastapi import Header
+from fastapi import Body, Header
 from core.store import store
 
 
@@ -28,6 +28,7 @@ def readToken(token) -> AlterState:
     return store.get(token)
 
 
-def authorize(access_token: Optional[str] = Header(None)):
+def authorize(access_token: Optional[str] = Header(None), alter: str = ''):
     if access_token is not None:
         return readToken(access_token)
+    return AlterState(alter, createToken(alter))

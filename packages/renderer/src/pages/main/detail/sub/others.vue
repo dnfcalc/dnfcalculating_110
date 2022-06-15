@@ -71,7 +71,7 @@
           <div class="equ-profile-item">
             <div class="row-name">冒险团等级</div>
             <calc-select v-model={mxtLV.value} class="!h-20px flex-1">
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "冒险团") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "冒险团") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -80,7 +80,7 @@
             <div class="row-name">工会属性</div>
             <calc-select v-model={gh.value} class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "工会属性") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "工会属性") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -90,14 +90,14 @@
             <div class="row-name">训练官Buff</div>
             <calc-select v-model={gh_buff_SW.value} class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "工会buff-攻击力") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "工会buff-攻击力") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
 
             <calc-select v-model={gh_buff_GJ.value} class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "工会buff-四维强化") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "工会buff-四维强化") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -109,14 +109,14 @@
             </div>
             <calc-select v-model={HF.value} class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "婚房") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "婚房") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
 
             <calc-select v-model={HJ.value} class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "婚戒") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "婚戒") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -126,7 +126,7 @@
             <div class="row-name">晶体契约</div>
             <calc-select v-model={JTQY.value} class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "晶体契约") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "晶体契约") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -136,7 +136,7 @@
             <div class="row-name">收集箱</div>
             <calc-select v-model={SJX_TYPE.value} emptyLabel="种类" class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "收集箱") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "收集箱") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -156,7 +156,7 @@
             <div class="row-name">勋章</div>
             <calc-select v-model={XZ_TYPE.value} class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "勋章") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "勋章") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -178,7 +178,7 @@
             </div>
             <calc-select v-model={MCZBK.value} class="!h-20px flex-1">
               <calc-option value="0">无</calc-option>
-              {renderList(basicInfoStore.sundry_info?.filter(item => item.position == "名称装扮卡") ?? [], item => (
+              {renderList(basicInfoStore.sundries_info?.filter(item => item.position == "名称装扮卡") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>

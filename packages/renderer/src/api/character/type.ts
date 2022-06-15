@@ -17,7 +17,7 @@ export interface ICharacterInfo {
   individuation: IIndividuation[]
   config: string
   clothes: string[]
-  clothes_bottom: string[]
+  clothes_pants: string[]
   platinum: string[]
 }
 

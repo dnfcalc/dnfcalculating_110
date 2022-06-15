@@ -1,4 +1,4 @@
-import { IAdventureInfo, IEquipmentList, IEnchantingInfo, IJadeInfo, ITrigger } from "./type"
+import { IAdventureInfo, IEquipmentList, IEnchantingInfo, IJadeInfo, ITrigger, Dress } from "./type"
 import { defineRequest } from "../common"
 
 export default defineRequest(request => {
@@ -21,14 +21,17 @@ export default defineRequest(request => {
     getJade() {
       return request.get<IJadeInfo[]>("/jade")
     },
-    getSundry() {
-      return request.get<IEnchantingInfo[]>("/sundry")
+    getsundries() {
+      return request.get<IEnchantingInfo[]>("/sundries")
     },
-    getTriggerList() {
-      return request.get<ITrigger[]>("/triggerlist")
+    gettriggers() {
+      return request.get<ITrigger[]>("/triggers")
     },
-    getEntryList() {
-      return request.get<Record<string, { attack: number; buff: number; props: string[] }>>("/entrylist")
+    getentries() {
+      return request.get<Record<string, { attack: number; buff: number; props: string[] }>>("/entries")
+    },
+    getDressList() {
+      return request.get<Record<string, Dress[]>>("/dress")
     }
   }
 })

@@ -3,7 +3,7 @@ from core.baseClass.character import Character
 jade_func_list = {}
 
 # 名望 最小值 最大值 单位 分段 属性
-index = ("maxFrame", "min", "max", "unit", "pre", "props")
+index = ("maxFame", "min", "max", "unit", "pre", "props")
 
 
 def jade_26000(char: Character = {}, text=False, value=0):

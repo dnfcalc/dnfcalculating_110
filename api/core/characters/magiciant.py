@@ -527,7 +527,6 @@ class 技能21(职业主动技能):
         return 0.0
 
 
-
 class classChange(Character):
     def __init__(self):
         self.实际名称 = 'magiciant'
@@ -556,7 +555,6 @@ class classChange(Character):
                 i += 1
             except:
                 i = -1
-
 
         知源·元素师一觉序号 = 0
         知源·元素师二觉序号 = 0
@@ -594,6 +592,6 @@ class classChange(Character):
              "items": [], "row":2, "column":0, "key":2}
         ]
 
-    def __set_skill_info(self, info, rune_except=[], clothes_bottom=[]):
+    def __set_skill_info(self, info, rune_except=[], clothes_pants=[]):
         super().__set_skill_info(info, rune_except=[
-            '爆裂弹'], clothes_bottom=['远古记忆'])
+            '爆裂弹'], clothes_pants=['远古记忆'])

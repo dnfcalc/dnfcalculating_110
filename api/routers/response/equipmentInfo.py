@@ -9,7 +9,7 @@ from core.baseClass.equipment import equ, equipment
 from core.baseClass.enchanting import get_enchanting_setinfo
 from core.baseClass.emblems import get_emblems_setinfo
 from core.baseClass.jade import get_jade_setinfo
-from core.baseClass.sundry import get_sundry_setinfo
+from core.baseClass.sundry import get_sundries_setinfo
 
 import requests
 

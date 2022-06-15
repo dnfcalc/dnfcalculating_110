@@ -1,7 +1,6 @@
 import importlib
 from typing import List
 import core.set as set
-from core.calc import calc_set, calc_single_set
 
 
 def get_character_info(character: str):

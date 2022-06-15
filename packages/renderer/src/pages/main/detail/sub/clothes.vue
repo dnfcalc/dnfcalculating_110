@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { IEnchantingInfo } from "@/api/info/type"
-  import { compile, computed, defineComponent, renderList } from "vue"
+  import { compile, computed, defineComponent, ref, renderList } from "vue"
   import { useBasicInfoStore, useCharacterStore, useConfigStore } from "@/store"
 
   export default defineComponent({
@@ -13,7 +13,7 @@
       const configStore = useConfigStore()
 
       const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {
-        return basicInfoStore.emblem_info?.filter(item => item.rarity != "白金").sort((a, b) => (b.maxFrame ?? 0) - (a.maxFrame ?? 0))
+        return basicInfoStore.emblem_info?.filter(item => item.rarity != "白金").sort((a, b) => (b.maxFame ?? 0) - (a.maxFame ?? 0))
       })
 
       const equipInfo = function <T>(part: string, name: string, defaultValue?: T) {
@@ -30,7 +30,7 @@
       }
 
       const up_skill = computed(() => characterStore.clothes)
-      const down_skill = computed(() => characterStore.clothes_bottom)
+      const down_skill = computed(() => characterStore.clothes_pants)
       // 武器装扮
       const wqzb_enchat = equipInfo<string | number>("武器装扮", "enchanting")
       const wqzb_left = equipInfo<string | number>("武器装扮", "socket_left")
@@ -113,108 +113,43 @@
               ))}
             </calc-select>
           </div>
-          <div class="equ-profile-item">
-            <div class="row-name">头发</div>
-            <calc-select class="flex-1 !h-20px">
-              {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item}</calc-option>
-              ))}
-            </calc-select>
-            <calc-select class="flex-1 !h-20px">
-              <calc-option value="0">智力</calc-option>
-              <calc-option value="1">精神</calc-option>
-              <calc-option value="-1">其它</calc-option>
-            </calc-select>
-          </div>
-          <div class="equ-profile-item">
-            <div class="row-name">头部</div>
-            <calc-select class="flex-1 !h-20px">
-              {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item}</calc-option>
-              ))}
-            </calc-select>
-            <calc-select class="flex-1 !h-20px">
-              <calc-option value="0">智力</calc-option>
-              <calc-option value="1">精神</calc-option>
-              <calc-option value="-1">其它</calc-option>
-            </calc-select>
-          </div>
-          <div class="equ-profile-item">
-            <div class="row-name">脸部</div>
-            <calc-select class="flex-1 !h-20px">
-              {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item}</calc-option>
-              ))}
-            </calc-select>
-            <calc-select class="flex-1 !h-20px">
-              <calc-option value="-1">其它</calc-option>
-            </calc-select>
-          </div>
-          <div class="equ-profile-item">
-            <div class="row-name">胸部</div>
-            <calc-select class="flex-1 !h-20px">
-              {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item}</calc-option>
-              ))}
-            </calc-select>
-            <calc-select class="flex-1 !h-20px">
-              <calc-option value="-1">其它</calc-option>
-            </calc-select>
-          </div>
-          <div class="equ-profile-item">
-            <div class="row-name">上衣</div>
-            <calc-select class="flex-1 !h-20px">
-              {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item}</calc-option>
-              ))}
-            </calc-select>
-            <calc-select class="flex-1 !h-20px">
-              <calc-option value={0}>无</calc-option>
-              {renderList(up_skill.value, item => (
-                <calc-option value={item}>{item} Lv+1</calc-option>
-              ))}
-            </calc-select>
-          </div>
-          <div class="equ-profile-item">
-            <div class="row-name">腰带</div>
-            <calc-select class="flex-1 !h-20px">
-              {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item}</calc-option>
-              ))}
-            </calc-select>
-            <calc-select class="flex-1 !h-20px">
-              <calc-option value="0">力量</calc-option>
-              <calc-option value="1">体力</calc-option>
-              <calc-option value="-1">其它</calc-option>
-            </calc-select>
-          </div>
-          <div class="equ-profile-item">
-            <div class="row-name">下装</div>
-            <calc-select class="flex-1 !h-20px">
-              {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item}</calc-option>
-              ))}
-            </calc-select>
-            <calc-select class="flex-1 !h-20px">
-              <calc-option value={0}>无</calc-option>
-              {renderList(down_skill.value, item => (
-                <calc-option value={item}>{item} Lv+1</calc-option>
-              ))}
-            </calc-select>
-          </div>
-          <div class="equ-profile-item">
-            <div class="row-name">鞋</div>
-            <calc-select class="flex-1 !h-20px">
-              {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item}</calc-option>
-              ))}
-            </calc-select>
-            <calc-select class="flex-1 !h-20px">
-              <calc-option value="0">力量</calc-option>
-              <calc-option value="1">体力</calc-option>
-              <calc-option value="-1">其它</calc-option>
-            </calc-select>
-          </div>
+          {renderList(basicInfoStore.dress_list, (list, part) => {
+            const current = computed({
+              get() {
+                return (
+                  configStore.dress_set[part] ?? {
+                    id: list[0]?.id
+                  }
+                )
+              },
+              set(val) {
+                configStore.dress_set[part] = {
+                  id: val.id,
+                  option: val.option
+                }
+              }
+            })
+
+            const options = computed(() => {
+              return list.find(e => e.id == current.value.id)?.options ?? []
+            })
+
+            return (
+              <div class="equ-profile-item">
+                <div class="row-name">{part}</div>
+                <calc-select v-model={current.value.id} class="flex-1 !h-20px">
+                  {renderList(list, item => (
+                    <calc-option value={item.id}>{item.name}</calc-option>
+                  ))}
+                </calc-select>
+                <calc-select v-model={current.value.option} class="flex-1 !h-20px">
+                  {renderList(options.value, (item, i) => (
+                    <calc-option value={i}>{item}</calc-option>
+                  ))}
+                </calc-select>
+              </div>
+            )
+          })}
           <div class="equ-profile-item">
             <div class="row-name">套装</div>
             <calc-select class="flex-1 !h-20px">

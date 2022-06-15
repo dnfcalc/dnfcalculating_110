@@ -3,7 +3,7 @@ from core.baseClass.character import Character
 emblems_func_list = {}
 
 # 名望 部位 颜色 品质 属性
-index = ("maxFrame", "position", "type", "rarity", "props")
+index = ("maxFame", "position", "type", "rarity", "props")
 
 
 def emblems_25000(char: Character = {}, text=False):

@@ -1,7 +1,7 @@
 import { useCharacterStore } from "./character"
 import { defineStore } from "pinia"
 import api from "@/api"
-import { IAdventureInfo, IEnchantingInfo, IEquipmentList, IJadeInfo, ITrigger } from "../api/info/type"
+import { Dress, IAdventureInfo, IEnchantingInfo, IEquipmentInfo, IEquipmentList, IJadeInfo, ITrigger } from "../api/info/type"
 
 interface BasicInfoState {
   // 冒险团信息
@@ -23,14 +23,16 @@ interface BasicInfoState {
   // 辟邪玉信息
   _jadeInfo: IJadeInfo[] | undefined
   // 杂项信息
-  _sundryInfo: IEnchantingInfo[] | undefined
+  _sundriesInfo: IEnchantingInfo[] | undefined
   // 触发词条选择
-  _triggerList: ITrigger[] | undefined
-  _entryList: Record<string, { attack: number; buff: number; props: string[] }> | undefined
+  _triggers: ITrigger[] | undefined
+  _entries: Record<string, { attack: number; buff: number; props: string[] }> | undefined
+
+  _dresses?: Record<string, Dress[]>
 }
 
 export const useBasicInfoStore = defineStore("basicInfo", {
-  state: (): BasicInfoState => {
+  state(): BasicInfoState {
     return {
       _adventureInfo: [],
       version: "0.0.0.0",
@@ -41,9 +43,10 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       _enchantingInfo: undefined,
       _emblemInfo: undefined,
       _jadeInfo: undefined,
-      _triggerList: undefined,
-      _entryList: undefined,
-      _sundryInfo: undefined
+      _triggers: undefined,
+      _entries: undefined,
+      _sundriesInfo: undefined,
+      _dresses: undefined
     }
   },
   getters: {
@@ -51,21 +54,14 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       if (!state._equipmentInfo) {
         api.getEquipments().then(res => (state._equipmentInfo = res.data))
       }
-      this.entry_list
       return state._equipmentInfo
     },
     equipment_list(state) {
-      if (!state._equipmentInfo) {
-        api.getEquipments().then(res => (state._equipmentInfo = res.data))
+      const info = state._equipmentInfo
+      if (info) {
+        return [...(info?.lv110 ?? []), ...(info?.myth ?? []), ...(info?.weapon ?? []), ...(info?.wisdom ?? []), ...(info?.title ?? []), ...(info?.pet ?? [])]
       }
-      return [
-        ...(state._equipmentInfo?.lv110 ?? []),
-        ...(state._equipmentInfo?.myth ?? []),
-        ...(state._equipmentInfo?.weapon ?? []),
-        ...(state._equipmentInfo?.wisdom ?? []),
-        ...(state._equipmentInfo?.title ?? []),
-        ...(state._equipmentInfo?.pet ?? [])
-      ]
+      return []
     },
     adventure_info(state) {
       if (state._adventureInfo.length === 0) {
@@ -86,7 +82,7 @@ export const useBasicInfoStore = defineStore("basicInfo", {
           useCharacterStore().platinum.forEach(item => {
             state._emblemInfo?.push({
               id: item,
-              maxFrame: 232,
+              maxFame: 232,
               position: "辅助装备，魔法石",
               props: item + " Lv+1",
               type: "技能",
@@ -103,23 +99,29 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       }
       return state._jadeInfo
     },
-    sundry_info(state) {
-      if (!state._sundryInfo) {
-        api.getSundry().then(res => (state._sundryInfo = res.data))
+    sundries_info(state) {
+      if (!state._sundriesInfo) {
+        api.getsundries().then(res => (state._sundriesInfo = res.data))
       }
-      return state._sundryInfo
+      return state._sundriesInfo
     },
     trigger_list(state) {
-      if (!state._triggerList) {
-        api.getTriggerList().then(res => (state._triggerList = res.data))
+      if (!state._triggers) {
+        api.gettriggers().then(res => (state._triggers = res.data))
       }
-      return state._triggerList
+      return state._triggers
     },
     entry_list(state) {
-      if (!state._entryList) {
-        api.getEntryList().then(res => (state._entryList = res.data))
+      if (!state._entries) {
+        api.getentries().then(res => (state._entries = res.data))
       }
-      return state._entryList
+      return state._entries
+    },
+    dress_list(state) {
+      if (!state._dresses) {
+        api.getDressList().then(res => (state._dresses = res.data))
+      }
+      return state._dresses ?? {}
     }
   },
   actions: {

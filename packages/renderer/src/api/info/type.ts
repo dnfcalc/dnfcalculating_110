@@ -36,7 +36,7 @@ export interface IEquipmentList {
 
 export interface IEnchantingInfo {
   id: string | number
-  maxFrame: number | undefined
+  maxFame: number | undefined
   position: string
   props: string
   type: string | undefined
@@ -49,7 +49,7 @@ export interface IJadeInfo {
   max: string | number
   props: string
   pre: number
-  maxFrame: string | number
+  maxFame: string | number
   unit: string
 }
 
@@ -62,6 +62,15 @@ export interface ITrigger {
 export interface TriggerSet {
   id: number
   select: number | number[]
+}
+
+export interface Dress {
+  id: number
+  options: string[]
+  part: string
+  rarity: string
+  suit?: string
+  name: string
 }
 
 export interface KTV<T> {
@@ -123,7 +132,13 @@ export interface ICharacterSet {
 
   lv110_list: number[]
 
-  clothes_set: Record<string, Map<string, any>>
+  dress_set: Record<
+    string,
+    {
+      id?: number
+      option?: string
+    }
+  >
 
   single_set: number[]
 

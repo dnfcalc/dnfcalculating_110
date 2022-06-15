@@ -26,7 +26,7 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       platinum: [],
       config: "set",
       clothes: [],
-      clothes_bottom: [],
+      clothes_pants: [],
       talisman: []
     }
   },

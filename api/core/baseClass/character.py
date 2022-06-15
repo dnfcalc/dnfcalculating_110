@@ -1,4 +1,5 @@
 from copy import deepcopy
+import importlib
 from multiprocessing.sharedctypes import Value
 from pickle import TRUE
 from pyclbr import Function
@@ -6,6 +7,7 @@ from statistics import mode
 from tkinter.messagebox import NO
 from typing import Dict, List, Union
 from uuid import uuid1
+from core.baseClass.property import 角色属性
 from core.baseClass.equipment import equipment
 from core.baseClass.equipment import equ
 from core.store import store
@@ -16,7 +18,7 @@ from core.baseClass.skill import 技能, 主动技能, 被动技能
 # from core.baseClass.jade import get_jadefunc_by_id
 
 
-class Character():
+class Character(角色属性):
     # 辟邪玉属性
     附加伤害增加增幅: float = 1.0
     属性附加伤害增加增幅: float = 1.0
@@ -62,6 +64,9 @@ class Character():
     hotkey: List[str] = [""]*14
     技能队列 = []
     skills_passive: Dict = {}
+
+    装扮栏: Dict[str, int] = {}
+    装扮选项: Dict[str, str] = {}
 
     def __init__(self) -> None:
         # 计算变量 ##########
@@ -168,12 +173,12 @@ class Character():
         self.__set_individuation(info)
         return info
 
-    def set_skill_info(self, info, rune_except=[], clothes_bottom=[]) -> None:
+    def __set_skill_info(self, info, rune_except=[], clothes_pants=[]) -> None:
         skillInfo = []  # 技能
         rune = []  # 符文
         talisman = []  # 护石
         platinum = []  # 白金
-        clothes = []  # 时装
+        clothes_coat = []  # 时装
         for skill in self.技能栏:
             skill.等级 = skill.基础等级
             skillInfo.append({
@@ -199,13 +204,13 @@ class Character():
                 platinum.append(skill.名称)
             # 时装
             if skill.所在等级 <= 95:
-                clothes.append(skill.名称)
+                clothes_coat.append(skill.名称)
         info['skillInfo'] = skillInfo
         info['rune'] = rune
         info['talisman'] = talisman
         info['platinum'] = platinum
-        info['clothes'] = clothes
-        info['clothes_bottom'] = clothes_bottom
+        info['clothes_coat'] = clothes_coat
+        info['clothes_pants'] = clothes_pants
 
     def __set_individuation(self, info) -> None:
         pass
@@ -702,6 +707,13 @@ class Character():
         for k in self.部位装备.keys():
             self.装备栏.append(self.部位装备[k])
 
+    def __穿戴装扮(self, info):
+        self.装扮栏 = []
+        self.装扮选项 = {}
+        for i in info:
+            self.装扮栏[i] = info[i].id
+            self.装扮选项[i] = info[i].option
+
     # region 伤害计算相关函数
     def __计算伤害预处理(self):
         self.__辟邪玉计算()
@@ -763,12 +775,18 @@ class Character():
 
     def __装备属性计算(self):
         self.__装备基础()
+        self.__时装基础()
         self.__附魔计算()
         self.__杂项计算()
         self.__徽章计算()
         self.__装备词条计算()
 
     def __时装基础(self):
+        时装集合 = importlib.import_module("core.avatar", "时装集合")
+        for 部位 in self.装扮栏:
+            id = self.装扮栏[部位]
+            时装 = 时装集合[id]
+            时装.效果(角色=self, 选项=self.装扮选项[部位])
         pass
 
     def 获取改造等级(self, part=[]):
@@ -832,16 +850,16 @@ class Character():
         setinfo = self.打造详情['others']
         # 收集箱
         try:
-            from core.baseClass.sundry import get_sundryfunc_by_id
-            func = get_sundryfunc_by_id(setinfo['SJX_TYPE'])
+            from core.baseClass.sundries import get_sundriesfunc_by_id
+            func = get_sundriesfunc_by_id(setinfo['SJX_TYPE'])
             # print(func)
             func(self, 0, False, setinfo['SJX_XY'], setinfo['SJX_SQ'])
         except:
             pass
         # 勋章
         try:
-            from core.baseClass.sundry import get_sundryfunc_by_id
-            func = get_sundryfunc_by_id(setinfo['XZ_TYPE'])
+            from core.baseClass.sundries import get_sundriesfunc_by_id
+            func = get_sundriesfunc_by_id(setinfo['XZ_TYPE'])
             func(self, 0, False, setinfo['XZ_SHZ'], setinfo['XZ_QH'])
         except:
             pass
@@ -851,8 +869,8 @@ class Character():
             else:
                 try:
                     id = setinfo[i]
-                    from core.baseClass.sundry import get_sundryfunc_by_id
-                    func = get_sundryfunc_by_id(id)
+                    from core.baseClass.sundries import get_sundriesfunc_by_id
+                    func = get_sundriesfunc_by_id(id)
                     # 站街
                     func(self)
                     # 进图
@@ -1262,6 +1280,7 @@ class Character():
         self.__equ_chose_set(info['trigger_set'])
 
         self.__hotkey_set(info['hotkey_set'])
+        self.__穿戴装扮(info['dress_set'])
 
     def jade_upgrade(self):
         temp = []
