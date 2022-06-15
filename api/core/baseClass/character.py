@@ -13,6 +13,7 @@ from core.baseClass.equipment import equ
 from core.store import store
 from core.equipment.基础函数 import 获取基础属性, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器强化计算, 锻造计算
 from core.baseClass.skill import 技能, 主动技能, 被动技能
+from .avatar import 装扮集合
 # from core.baseClass.enchanting import get_encfunc_by_id
 # from core.baseClass.emblems import get_embfunc_by_id
 # from core.baseClass.jade import get_jadefunc_by_id
@@ -782,10 +783,9 @@ class Character(角色属性):
         self.__装备词条计算()
 
     def __时装基础(self):
-        时装集合 = importlib.import_module("core.avatar", "时装集合")
         for 部位 in self.装扮栏:
             id = self.装扮栏[部位]
-            时装 = 时装集合[id]
+            时装 = 装扮集合[id]
             时装.效果(角色=self, 选项=self.装扮选项[部位])
         pass
 
@@ -850,7 +850,7 @@ class Character(角色属性):
         setinfo = self.打造详情['others']
         # 收集箱
         try:
-            from core.baseClass.sundries import get_sundriesfunc_by_id
+            from core.baseClass.sundry import get_sundriesfunc_by_id
             func = get_sundriesfunc_by_id(setinfo['SJX_TYPE'])
             # print(func)
             func(self, 0, False, setinfo['SJX_XY'], setinfo['SJX_SQ'])
@@ -858,7 +858,7 @@ class Character(角色属性):
             pass
         # 勋章
         try:
-            from core.baseClass.sundries import get_sundriesfunc_by_id
+            from core.baseClass.sundry import get_sundriesfunc_by_id
             func = get_sundriesfunc_by_id(setinfo['XZ_TYPE'])
             func(self, 0, False, setinfo['XZ_SHZ'], setinfo['XZ_QH'])
         except:
@@ -869,7 +869,7 @@ class Character(角色属性):
             else:
                 try:
                     id = setinfo[i]
-                    from core.baseClass.sundries import get_sundriesfunc_by_id
+                    from core.baseClass.sundry import get_sundriesfunc_by_id
                     func = get_sundriesfunc_by_id(id)
                     # 站街
                     func(self)
