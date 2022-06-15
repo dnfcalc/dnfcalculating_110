@@ -78,7 +78,9 @@ export const useConfigStore = defineStore("config", {
     async load() {
       // console.log(this.name)
       await api.getConfig(this.name).then(res => {
-        const data = toMap(res, ["trigger_set", "customize", "buff_ratio"]) as ICharacterSet
+        const data = toMap(res, ["trigger_set", "customize", "buff_ratio", "dress_set"]) as ICharacterSet
+        // data.dress_set = Object.entries(data.dress_set)
+        console.log(data.dress_set)
         this.$patch(data)
       })
     },

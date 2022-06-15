@@ -49,6 +49,43 @@ def get(alter: str, setName: str):
     buff = info['buff_ratio']
     skill_set = []
     trigger = equ.get_chose_set(mode=1)
+    dress_set = {
+        "上衣": {
+            "id": 4,
+            "option": 0
+        },
+        "下装": {
+            "id": 6,
+            "option": 0
+        },
+        "头发": {
+            "id": 0,
+            "option": 0
+        },
+        "帽子": {
+            "id": 1,
+            "option": 0
+        },
+        "胸部": {
+            "id": 3,
+            "option": 0
+        },
+
+        "腰带": {
+            "id": 5,
+            "option": 0
+        },
+        "鞋": {
+            "id": 15,
+            "option": 0
+        },
+
+        "上衣": {
+            "id": 4,
+            "option": 0
+        },
+
+    }
     for item in skillInfo:
         skill_set.append({
             "name": item["name"],
@@ -77,7 +114,8 @@ def get(alter: str, setName: str):
             "rune_set": ['']*9,
             "buff_ratio": round((buff-1)*100, 1),
             "hotkey_set": ['']*14,
-            "carry_type": info["carry_type_list"][0]}
+            "carry_type": info["carry_type_list"][0], "dress_set": dress_set}
+
     else:
         with open('./Sets/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
             set_info = json.load(fp)

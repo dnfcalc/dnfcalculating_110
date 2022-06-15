@@ -1,3 +1,6 @@
+from core.baseClass.skill import 技能, 主动技能, 被动技能
+
+
 class 角色属性:
     __物理攻击力: float = 65
     __魔法攻击力: float = 65
@@ -41,3 +44,6 @@ class 角色属性:
         self.__冰属性强化 += 冰属性强化 + 所有属性强化
         self.__暗属性强化 += 暗属性强化 + 所有属性强化
         self.__光属性强化 += 光属性强化 + 所有属性强化
+
+    def get_skill_by_name(self, name):
+        pass

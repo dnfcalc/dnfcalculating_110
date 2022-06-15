@@ -12,6 +12,10 @@
       const characterStore = useCharacterStore()
       const configStore = useConfigStore()
 
+      const chageSuit = (val: any, val2: any) => {
+        console.log(val)
+      }
+
       const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {
         return basicInfoStore.emblem_info?.filter(item => item.rarity != "白金").sort((a, b) => (b.maxFame ?? 0) - (a.maxFame ?? 0))
       })
@@ -118,7 +122,8 @@
               get() {
                 return (
                   configStore.dress_set[part] ?? {
-                    id: list[0]?.id
+                    id: list[0]?.id,
+                    option: 0
                   }
                 )
               },
@@ -143,22 +148,26 @@
                   ))}
                 </calc-select>
                 <calc-select v-model={current.value.option} class="flex-1 !h-20px">
+                  <calc-option value={0}>其他</calc-option>
                   {renderList(options.value, (item, i) => (
-                    <calc-option value={i}>{item}</calc-option>
+                    <calc-option value={item}>{item}</calc-option>
                   ))}
                 </calc-select>
               </div>
             )
           })}
-          <div class="equ-profile-item">
-            <div class="row-name">套装</div>
-            <calc-select class="flex-1 !h-20px">
-              {renderList(clothes_type, (item, index) => (
-                <calc-option value={index}>{item + "套装"}</calc-option>
-              ))}
-            </calc-select>
-            <div class="flex-1"></div>
-          </div>
+          {
+            // 暂时无法解决渲染触发change事件 后面实现
+            //   <div class="equ-profile-item">
+            //     <div class="row-name">套装</div>
+            //     <calc-select class="flex-1 !h-20px" onChange={chageSuit}>
+            //       {renderList(clothes_type, (item, index) => (
+            //         <calc-option value={index}>{item + "套装"}</calc-option>
+            //       ))}
+            //     </calc-select>
+            //     <div class="flex-1"></div>
+            //   </div>
+          }
         </div>
       )
     }

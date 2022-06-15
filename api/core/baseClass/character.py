@@ -7,6 +7,8 @@ from statistics import mode
 from tkinter.messagebox import NO
 from typing import Dict, List, Union
 from uuid import uuid1
+
+from click import option
 from core.baseClass.property import 角色属性
 from core.baseClass.equipment import equipment
 from core.baseClass.equipment import equ
@@ -138,6 +140,7 @@ class Character(角色属性):
         self.__指令效果: Dict[str, float] = {}
         self.__消耗品效果: float = 1.0
         self.__MP消耗量: float = 1.0
+        self.skills_passive = {}
 
         if self.转职 == '':
             self.转职 = self.职业
@@ -709,11 +712,15 @@ class Character(角色属性):
             self.装备栏.append(self.部位装备[k])
 
     def __穿戴装扮(self, info):
-        self.装扮栏 = []
+        self.装扮栏 = {}
         self.装扮选项 = {}
+        info = {
+            "上衣": {"option": 0}
+        }
         for i in info:
-            self.装扮栏[i] = info[i].id
-            self.装扮选项[i] = info[i].option
+            self.装扮栏[i] = info[i].get('id', 0)
+            self.装扮选项[i] = info[i].get('option', 0)
+        print(self.装扮栏, self.装扮选项)
 
     # region 伤害计算相关函数
     def __计算伤害预处理(self):
@@ -785,7 +792,7 @@ class Character(角色属性):
     def __时装基础(self):
         for 部位 in self.装扮栏:
             id = self.装扮栏[部位]
-            时装 = 装扮集合[id]
+            时装 = 装扮集合[id]()
             时装.效果(角色=self, 选项=self.装扮选项[部位])
         pass
 
@@ -1103,6 +1110,7 @@ class Character(角色属性):
                 i.CDR *= (1 - self.__加算冷却缩减)
 
     def __CD倍率计算(self):
+        self.skills_passive = {}
         for i in self.技能栏:
             self.skills_passive[i.名称] = {
                 "info": [],
@@ -1266,12 +1274,13 @@ class Character(角色属性):
     def calc_init(self, info, equipList: List[int] = []):
         # 获取打造数据
         self.__打造设置(info['forge_set'])
-
         self.__技能队列设置(info['skill_que'])
         # 设置职业信息
         self.__set_char(info)
         # 自定义词条部分
         self.自定义词条 = info['customize']
+        #  时装设置
+        self.__穿戴装扮(info['dress_set'])
         # 获取装备列表
         self.__穿戴装备(equipList)
         # 获取技能数据

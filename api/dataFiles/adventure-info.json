@@ -571,6 +571,7 @@
         "name": "creator",
         "title": "知源·缔造者",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
