@@ -731,10 +731,16 @@ class Character(角色属性):
         self.__护石计算()
         self.__符文计算()
         self.__装备属性计算()
+
+        self.职业特殊计算()
+        
         self.__CD倍率计算()
         self.__加算冷却计算()
         self.__被动倍率计算()
         self.__伤害指数计算()
+
+    def 职业特殊计算(self):
+        pass
 
     def 伤害计算(self):
         data = {}
