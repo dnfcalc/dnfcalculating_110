@@ -14,22 +14,22 @@
 
       const skillList = computed(() => {
         return (index: number) => {
-          return characterStore.skillInfo.filter(skill => skill.type == 1 && configStore.hotkey_set.filter((a, b) => b != index).indexOf(skill.name) < 0)
+          return characterStore.skills.filter(skill => skill.type == 1 && configStore.hotkey_set.filter((a, b) => b != index).indexOf(skill.name) < 0)
         }
       })
       return () => (
         <div class="w-240px">
-          <div class="skill-slots subitem mt-2%">
+          <div class="mt-2% skill-slots subitem">
             <div class="head-sec">技能快捷键设置</div>
             <div class="body-sec">
-              <div class="flex flex-1 flex-wrap justify-center w-100%">
+              <div class="flex flex-wrap flex-1 w-100% justify-center">
                 {renderList(14, item => (
                   <div class="skill-slot-item">
                     <calc-iconselect class="!pt-1px" emptyLabel="点击" columnNum={5} v-model={configStore.hotkey_set[item - 1]}>
-                      <calc-option class="w-28px h-28px bg-hex-000000 !flex items-center justify-center" value="">
+                      <calc-option class="bg-hex-000000 h-28px w-28px items-center justify-center !flex" value="">
                         无
                       </calc-option>
-                      <calc-option class="w-28px h-28px bg-hex-000000 !flex items-center justify-center" value="其它">
+                      <calc-option class="bg-hex-000000 h-28px w-28px items-center justify-center !flex" value="其它">
                         其它
                       </calc-option>
                       {renderList(skillList.value(item - 1), skill => (

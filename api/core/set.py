@@ -45,7 +45,7 @@ def get(alter: str, setName: str):
     module_name = "core.characters." + alter
     character: Character = importlib.import_module(module_name).classChange()
     info = character.getinfo()
-    skillInfo = info['skillInfo']
+    skillInfo = info['skills']
     buff = info['buff_ratio']
     skill_set = []
     trigger = equ.get_chose_set(mode=1)
@@ -91,7 +91,7 @@ def get(alter: str, setName: str):
             "count": 0,
             "pet": 0,
             "direct": False,
-            "level": item["current_LV"],
+            "level": item["current_level"],
             "directNumber": 0,
             "damage": item["type"] == 1
         })

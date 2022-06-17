@@ -1,4 +1,7 @@
 
+from core.baseClass.property import 角色属性
+
+
 class 技能:
     名称 = ''
     备注 = ''
@@ -26,7 +29,7 @@ class 技能:
                 self.等级 += x
 
     def 结算统计(self, context=None):
-        return [0, 0, 0, 0, 0, 0, 0, 0]
+        return [0, 0, 0, 0]
         # 智力 体力 精神  力量  智力  物攻  魔攻 独立
 
 
@@ -55,26 +58,17 @@ class 觉醒技能(主动技能):
     ]
 
     def 结算统计(self, context, compute_3rd_awake=False):
+
         if not compute_3rd_awake and self.名称 in context.技能表['三次觉醒'].关联技能:
-            return [0] * 8
-        倍率 = self.适用数值 / 750 + 1
+            return [0] * 4
+        倍率 = (self.适用数值 / 750 + 1) * context.BUFF强化比率()
         x = (self.力智[self.等级] + self.一觉力智) * 倍率
         values = [
-            0, 0, 0,
-            int(round(x * self.一觉力智per)),
-            int(round(x * self.一觉力智per)), 0, 0, 0
+            0, 0,
+            int(round(x * self.一觉力智per)), 0
         ]
         return values
         # 智力 体力 精神  力量  智力  物攻  魔攻 独立
-
-    def 技能面板(self):
-        temp = []
-        temp.append(self.名称)
-        temp.append(
-            int(round((self.力智[self.等级] + self.一觉力智) * self.一觉力智per, 0)))
-        temp.append(
-            int(round((self.力智[self.等级] + self.一觉力智) * self.一觉力智per, 0)))
-        return temp
 
 
 class 三觉技能(主动技能):
@@ -100,6 +94,12 @@ class 三觉技能(主动技能):
             return round(1.08 + self.等级 * 0.01, 2)
         else:
             return round(0.23 + self.等级 * 0.01, 2)
+
+
+class Buffer(角色属性):
+
+    def BUFF强化比率(self):
+        return 1
 
 
 BUFF影响技能 = ['勇气祝福', '勇气圣歌', '荣誉祝福', '禁忌诅咒', '死命召唤']
