@@ -763,13 +763,14 @@ class Character(角色属性):
                 if k.名称 not in data.keys():
                     temp = {}
                     temp['rate'] = k.被动倍率
-                    temp['cd'] = k.等效CD(self.武器类型, self.类型, i['CDR'])
-                    temp['mp'] = k.MP消耗(self.武器类型, self.类型, self.__MP消耗量)
-                    temp['百分比'] = k.等效百分比(self.武器类型)
+                    temp['cd'] = k.等效CD(武器类型=self.武器类型, 输出类型=self.类型, 额外CDR=i['CDR'])
+                    temp['mp'] = k.MP消耗(武器类型=self.武器类型, 输出类型=self.类型, 额外倍率=self.__MP消耗量)
+                    temp['百分比'] = k.等效百分比(武器类型=self.武器类型)
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
                     temp['count'] = k.count
-                直伤 = k.等效百分比(self.武器类型, i['等级变化'], i['倍率'], "直伤", i['形态'])
+                直伤 = k.等效百分比(
+                    武器类型=self.武器类型, 额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型="直伤", 形态=i['形态'])
                 # 直伤处理：直伤伤害*比例*系数
                 damage = 直伤 * self.伤害指数 * k.被动倍率 * \
                     (self.__伤害比例.get("直伤", 0.0)) / 100
@@ -784,7 +785,7 @@ class Character(角色属性):
                          系数) / 100
                     # 异常伤害处理：异常伤害*异常系数
                     damage += k.等效百分比(
-                        self.武器类型, i['等级变化'], i['倍率'], item, i['形态']) * self.伤害指数 * k.被动倍率*系数 / 100
+                        武器类型=self.武器类型, 额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型="直伤", 形态=i['形态']) * self.伤害指数 * k.被动倍率*系数 / 100
                 sumdamage += damage
                 temp['damage'] = temp.get('damage', 0) + damage
                 data['skills'][k.名称] = temp
