@@ -238,7 +238,7 @@ class Character(角色属性):
                 "level_max": skill.等级上限,
                 "cooldown": 0 if not skill.是否有伤害 else skill.CD,
                 "current_level": skill.基础等级,
-                "data": 0 if not skill.是否有伤害 else skill.等效百分比(''),
+                "data": 0 if not skill.是否有伤害 else skill.等效百分比(),
                 "tp_max": skill.TP上限 if skill.是否有伤害 else None,
                 "tp_level": skill.TP等级 if skill.是否有伤害 else None,
                 "mode": [] if not skill.是否有伤害 else skill.形态
@@ -859,8 +859,10 @@ class Character(角色属性):
                 if k.名称 not in data.keys():
                     temp = {}
                     temp['rate'] = k.被动倍率
-                    temp['cd'] = k.等效CD(武器类型=self.武器类型, 输出类型=self.类型, 额外CDR=i['CDR'])
-                    temp['mp'] = k.MP消耗(武器类型=self.武器类型, 输出类型=self.类型, 额外倍率=self.__MP消耗量)
+                    temp['cd'] = k.等效CD(
+                        武器类型=self.武器类型, 输出类型=self.类型, 额外CDR=i['CDR'])
+                    temp['mp'] = k.MP消耗(
+                        武器类型=self.武器类型, 输出类型=self.类型, 额外倍率=self.__MP消耗量)
                     temp['百分比'] = k.等效百分比(武器类型=self.武器类型)
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
