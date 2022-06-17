@@ -20,6 +20,7 @@
         "name": "berserker",
         "title": "极诣·狂战士",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
