@@ -116,7 +116,7 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
   provide(InitSymbol, (option: Ref<Option>) => {
     options.push(option)
 
-    if (option.value.value == props.modelValue || (actives.length == 0 && defaultFirst.value)) {
+    if (!actives.includes(option.value.value) && (option.value.value == props.modelValue || (actives.length == 0 && defaultFirst.value))) {
       actives.push(option.value.value)
     }
 
