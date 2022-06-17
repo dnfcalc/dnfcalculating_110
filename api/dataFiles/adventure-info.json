@@ -25,14 +25,14 @@
         "options": []
       },
       {
-        "name": "asura",
-        "title": "极诣·剑魂",
+        "name": "ghostblade",
+        "title": "极诣·剑影",
         "default_name": "国服",
         "class": [],
         "options": []
       },
       {
-        "name": "sword_ghost",
+        "name": "asura",
         "title": "极诣·阿修罗",
         "default_name": "国服",
         "class": [],
@@ -98,8 +98,8 @@
         "options": []
       },
       {
-        "name": "street_fighter_male",
-        "title": "极诣·散打",
+        "name": "brawler_male",
+        "title": "归元·街霸",
         "default_name": "国服",
         "class": [],
         "options": []
@@ -138,8 +138,8 @@
         "options": []
       },
       {
-        "name": "street_fighter_female",
-        "title": "极诣·散打",
+        "name": "brawler_female",
+        "title": "归元·街霸",
         "default_name": "国服",
         "class": [],
         "options": []
