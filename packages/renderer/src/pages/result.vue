@@ -1,13 +1,12 @@
 <script lang="tsx">
-  import { getSession, toMap, to_percent } from "@/utils"
-  import { computed, defineComponent, ref, renderList } from "vue"
-  import { useRoute } from "vue-router"
-  import { useCharacterStore, useDetailsStore, useAppStore, useConfigStore } from "@/store"
+  import api from "@/api"
+  import { IResultInfo } from "@/api/character/type"
   import Profile from "@/components/internal/profile.vue"
   import { skill_icon } from "@/pages/main/character/sub/utils"
-  import { IResultInfo } from "@/api/character/type"
-  import api from "@/api"
-  import { kill } from "process"
+  import { useAppStore, useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
+  import { toMap, to_percent } from "@/utils"
+  import { computed, defineComponent, renderList } from "vue"
+  import { useRoute } from "vue-router"
 
   interface ISkillResult {
     cd: number
@@ -112,7 +111,7 @@
             count: res.skills[skill].count,
             damage: damage,
             avg: avg,
-            mix: to_percent(res.skills[skill].damage / res.sumdamage, 0, "%"),
+            mix: to_percent(res.skills[skill].damage / res.total_data, 0, "%"),
             order: res.skills[skill].damage
           })
         })
@@ -140,7 +139,7 @@
         <>
           <div class="flex h-100% m-0 detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:100% 100%">
             <div class="flex h-100% w-266px justify-center">
-              <Profile sumdamage={res.sumdamage} equList={res.equips} class="!m-0 !p-0" details={res.info} standardSum={store.standard?.sumdamage}></Profile>
+              <Profile total-data={res.total_data} equList={res.equips} class="!m-0 !p-0" details={res.info} standardSum={store.standard?.total_data}></Profile>
             </div>
             <div class="bg-hex-000000/60 flex-1 ml-1px pt-10px pr-15px pb-10px pl-15px" style="border:1px solid rgba(255,255,255,0.15)">
               <div class="flex flex-col bg-hex-000000/40 h-100% text-hex-FFFFFF w-100%" style="border:1px solid rgba(255,255,255,0.15)">
@@ -177,11 +176,11 @@
                       <div class="w-25% item" style={"color:" + skill.avg[1]}>
                         {skill.avg[0]}
                       </div>
-                      <div class="w-12% item">{to_percent(skill.order / res.sumdamage, 0, "%")}</div>
+                      <div class="w-12% item">{to_percent(skill.order / res.total_data, 0, "%")}</div>
                     </div>
                   ))}
                 </div>
-                <div class="bottom flex items-center">
+                <div class="flex bottom items-center">
                   {renderList(skill_passive.value, skill => (
                     <div class="mr-5px">
                       <calc-tooltip position="top">

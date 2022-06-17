@@ -9532,6 +9532,10 @@ def entry_629(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "聚焦喷火器变成最大3次的堆栈技能, —每次的攻击力是总攻击力的50%, —每次的补充时间是4秒"
     if mode == 0:
+        skill = char.get_skill_by_name('聚焦喷火器')
+        skill.CD = 4
+        skill.基础施放次数 = 3
+        skill.倍率 *= 0.5
         pass
     if mode == 1:
         pass

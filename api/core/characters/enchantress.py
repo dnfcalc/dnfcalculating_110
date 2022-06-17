@@ -1,8 +1,9 @@
 
 from copy import deepcopy
 from typing import List
-from core.baseClass.character import Character
+
 from core.baseClass.buffer.property import *
+from core.baseClass.character import Character
 
 
 class SkillFrame:
@@ -25,8 +26,8 @@ class 知源·小魔女技能0(被动技能):
     def 智力加成(self):
         return self.智力[self.等级] + self.额外智力 + self.进图加成
 
-    def 结算统计(self, context):
-        return [self.智力加成(), 0, 0, 0, 0, 0, 0, 0]
+    def 结算统计(self, context: Buffer):
+        return [self.智力加成(), 0, 0, 0]
         # 智力 体力 精神  力量  智力  物攻  魔攻 独立
 
 
@@ -38,12 +39,12 @@ class 知源·小魔女技能1(主动技能):
     基础等级 = 10
     增幅倍率 = 0.15
 
-    def 结算统计(self, context):
+    def 结算统计(self, context: Buffer):
         buff = context.技能表['BUFF']
-        if buff.是否启用 and context.偏爱独立计算:
+        if buff.是否启用 and hasattr(context, '偏爱独立计算') and context.偏爱独立计算:
             values = buff.结算统计(context)
             return [int(round(i * self.增幅倍率, 3)) for i in values]
-        return [0]*8
+        return [0]*4
 
 
 class 知源·小魔女技能2(主动技能):
@@ -52,55 +53,31 @@ class 知源·小魔女技能2(主动技能):
     等级精通 = 20
     等级上限 = 40
     基础等级 = 10
-    BUFF力量per = 0
-    BUFF智力per = 0
-    BUFF物攻per = 0
-    BUFF魔攻per = 0
-    BUFF独立per = 0
-    BUFF力量 = 0
-    BUFF智力 = 0
-    BUFF物攻 = 0
-    BUFF魔攻 = 0
-    BUFF独立 = 0
+
+    BUFF力智per = 1
+    BUFF三攻per = 1
+
+    BUFF力智 = 0
+    BUFF三攻 = 0
+
     三攻 = [0, 34, 35, 37, 38, 39, 41, 42, 43, 45, 46, 47, 49, 50, 51, 53, 54, 55, 57, 58,
           60, 61, 62, 64, 65, 66, 68, 69, 70, 72, 73, 74, 76, 77, 78, 80, 81, 82, 84, 85, 87]
     力智 = [0, 131, 140, 149, 158, 167, 175, 184, 193, 202, 211, 220, 229, 238, 247, 256, 264, 273, 282, 291,
           300, 309, 318, 327, 336, 345, 353, 362, 371, 380, 389, 398, 407, 416, 425, 434, 442, 451, 460, 469, 478]
 
-    def 结算统计(self, context=None):
-        倍率 = self.适用数值 / 665 + 1
+    def 结算统计(self, context: Buffer):
+        倍率 = (self.适用数值 / 665 + 1) * context.BUFF强化比率()
 
         偏爱 = context.技能表['小魔女的偏爱']
-        if 偏爱.是否启用 and not context.偏爱独立计算:
+        if 偏爱.是否启用 and hasattr(context, '偏爱独立计算') and not context.偏爱独立计算:
             倍率 *= 1 + 偏爱.增幅倍率
 
-        temp = [0, 0, 0]  # 智力,体力,精神
+        temp = [0, 0]  # 智力,体力,精神
         temp.append(
-            int(round((self.力智[self.等级] + self.BUFF力量) * self.BUFF力量per * 倍率, 3)))  # 力量
+            int(round((self.力智[self.等级] + self.BUFF力智) * self.BUFF力智per * 倍率, 3)))  # 力量
         temp.append(
-            int(round((self.力智[self.等级] + self.BUFF智力) * self.BUFF智力per * 倍率, 3)))  # 智力
-        temp.append(
-            int(round((self.三攻[self.等级] + self.BUFF物攻) * self.BUFF物攻per * 倍率, 3)))  # 物攻
-        temp.append(
-            int(round((self.三攻[self.等级] + self.BUFF魔攻) * self.BUFF魔攻per * 倍率, 3)))  # 魔攻
-        temp.append(
-            int(round((self.三攻[self.等级] + self.BUFF独立) * self.BUFF独立per * 倍率, 3)))  # 独立
+            int(round((self.三攻[self.等级] + self.BUFF三攻) * self.BUFF三攻per * 倍率, 3)))  # 物攻
 
-        return temp
-
-    def 技能面板(self):
-        temp = []
-        temp.append(self.名称)
-        temp.append(
-            int(round((self.力智[self.等级] + self.BUFF力量) * self.BUFF力量per, 0)))
-        temp.append(
-            int(round((self.力智[self.等级] + self.BUFF智力) * self.BUFF智力per, 0)))
-        temp.append(
-            int(round((self.三攻[self.等级] + self.BUFF物攻) * self.BUFF物攻per, 0)))
-        temp.append(
-            int(round((self.三攻[self.等级] + self.BUFF魔攻) * self.BUFF魔攻per, 0)))
-        temp.append(
-            int(round((self.三攻[self.等级] + self.BUFF独立) * self.BUFF独立per, 0)))
         return temp
 
 
@@ -112,19 +89,19 @@ class 知源·小魔女技能3(主动技能):
     基础等级 = 24
     增幅倍率 = 0.25
 
-    def 结算统计(self, context):
+    def 结算统计(self, context: Buffer):
         buff = context.技能表['BUFF']
         偏爱 = context.技能表['小魔女的偏爱']
         if buff.是否启用:
             values = buff.结算统计(context)
 
-            if context.偏爱独立计算 and 偏爱.是否启用:
+            if hasattr(context, '偏爱独立计算') and context.偏爱独立计算 and 偏爱.是否启用:
                 temps = 偏爱.结算统计(context)
-                for i in range(8):
+                for i in range(len(temps)):
                     values[i] += temps[i]
 
             return [int(round(i * self.增幅倍率)) for i in values]
-        return [0]*8
+        return [0]*4
 
 
 class 知源·小魔女技能4(被动技能):
@@ -147,8 +124,8 @@ class 知源·小魔女技能4(被动技能):
         else:
             return 0
 
-    def 结算统计(self, context):
-        return [self.力智加成(), 0, 0, self.力智加成(), self.力智加成(), 0, 0, 0]
+    def 结算统计(self, context: Buffer):
+        return [self.力智加成(), 0, self.力智加成(), 0]
         # 智力 体力 精神  力量  智力  物攻  魔攻 独立
 
 
@@ -170,9 +147,9 @@ class 知源·小魔女技能6(被动技能):
     def 智力加成(self):
         return self.智力[self.等级]
 
-    def 结算统计(self, context):
-        return [self.智力加成(), 0, 0, 0, 0, 0, 0, 0]
-        # 智力 体力 精神  力量  智力  物攻  魔攻 独立
+    def 结算统计(self, context: Buffer):
+        return [self.智力加成(), 0, 0, 0]
+        # 智力 体精  力智  三攻
 
 
 class 知源·小魔女技能7(主动技能):
@@ -182,7 +159,7 @@ class 知源·小魔女技能7(主动技能):
     等级上限 = 40
     基础等级 = 5
 
-    def 结算统计(self, context):
+    def 结算统计(self, context: Buffer):
         return [0]*8
 
 
@@ -199,9 +176,9 @@ class 知源·小魔女技能8(被动技能):
     def 智力加成(self):
         return self.智力[self.等级]
 
-    def 结算统计(self, context):
-        return [self.智力加成(), 0, 0, 0, 0, 0, 0, 0]
-        # 智力 体力 精神  力量  智力  物攻  魔攻 独立
+    def 结算统计(self, context: Buffer):
+        return [self.智力加成(), 0, 0, 0]
+        # 智力 体精  力智  三攻
 
 
 class 知源·小魔女技能9(三觉技能):
@@ -223,6 +200,7 @@ class classChange(Character):
         self.类型 = '魔法固伤'
         self.武器类型 = '扫把'
         self.防具类型 = '板甲'
+        self.技能序号 = {}
         技能表 = {}
         技能栏 = []
         i = 0
@@ -231,6 +209,7 @@ class classChange(Character):
                 skill: 技能 = eval("知源·小魔女技能"+str(i)+"()")
                 skill.技能序号 = i
                 名称 = skill.名称
+                self.技能序号[名称] = i
                 if skill.所在等级 == 30:
                     名称 = 'BUFF'
                 elif skill.所在等级 == 50:
@@ -241,6 +220,7 @@ class classChange(Character):
                     名称 = '三次觉醒'
                 技能表[名称] = skill
                 技能栏.append(skill)
+                self.技能序号[名称] = i
                 i += 1
             except:
                 i = -1
@@ -249,13 +229,3 @@ class classChange(Character):
         self.buff = 1.70
 
         super().__init__()
-
-    def __set_individuation(self, info):
-        info['individuation'] = [
-            {"type": "checkbox", "value": "测试checkbox",
-                "items": [], "row":0, "column":0, "key":0},
-            {"type": "select", "value": "", "items": [
-                1, 2, 3, 4, 5, 6, 7], "row":1, "column":0, "key":1},
-            {"type": "label", "value": "测试label",
-             "items": [], "row":2, "column":0, "key":2}
-        ]

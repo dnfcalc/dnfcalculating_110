@@ -321,6 +321,7 @@
         "name": "enchantress",
         "title": "知源·小魔女",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       }

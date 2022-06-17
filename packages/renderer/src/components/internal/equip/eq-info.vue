@@ -1,7 +1,7 @@
 <script lang="tsx">
-  import { computed, defineComponent, reactive, ref, renderSlot, watch, onMounted, renderList } from "vue"
+  import { useBasicInfoStore, useCharacterStore } from "@/store"
   import { asyncComputed } from "@vueuse/core"
-  import { useBasicInfoStore } from "@/store"
+  import { computed, defineComponent, renderList } from "vue"
 
   import EqIcon from "./eq-icon.vue"
 
@@ -103,13 +103,11 @@
         return classNames
       }
 
-      const growthSpanClass = function (id: number) {
-        if (id == 101) {
-          return "white"
-        }
-      }
+      const characterStore = useCharacterStore()
 
-      const sumFZL = computed(() => {
+      const is_buffer = computed(() => characterStore.is_buffer)
+
+      const sum_buffer = computed(() => {
         let s = 0
         if (equip.value?.prop.growthProps && equip.value.prop.growthProps.length > 0) {
           let a = equip.value.prop.growthProps
@@ -119,7 +117,8 @@
         }
         return s
       })
-      const sumSHZJ = computed(() => {
+
+      const sum_attack = computed(() => {
         let s = 0
         if (equip.value?.prop.growthProps && equip.value.prop.growthProps.length > 0) {
           let a = equip.value.prop.growthProps
@@ -161,7 +160,7 @@
                   {equip.value.name}
                 </span>
               </div>
-              <div class="eq-name yellow flex-1" style="text-align: right">
+              <div class="flex-1 eq-name yellow" style="text-align: right">
                 <p style="display: flex">
                   <span style="width: 100%">{equip.value.position}</span>
                 </p>
@@ -174,7 +173,7 @@
                 //   <div>
                 //     <div class="hr"></div>
                 //     <div class="fame">
-                //       <img src="images/common/mingwang.png" />
+                //       <img src="images/common/fame.png" />
                 //       冒险家名望 {equip.value.fame}
                 //     </div>
                 //     <div class="hr"></div>
@@ -203,18 +202,11 @@
               //   <div></div>
               // )
             }
-            {(sumSHZJ.value > 0 || (props.pps != null && props.pps.length > 0)) && (
+            {(sum_attack.value > 0 || sum_buffer.value > 0 || (props.pps != null && props.pps.length > 0)) && (
               <div>
                 <div class="hr"></div>
                 <div class="green"> &lt;成长属性&gt; </div>
-                {!props.simple && sumSHZJ.value > 0 && (
-                  <div>
-                    <div class="text-hex-8a6f36">成长属性总攻击强化 {sumSHZJ.value}</div>
-                    {
-                      // sumFZL.value > 0 && <div>成长属性总Buff量 {sumFZL.value}</div>
-                    }
-                  </div>
-                )}
+                {!props.simple && <div>{is_buffer.value ? <div>成长属性总Buff量 {sum_buffer.value}</div> : <div class="text-hex-8a6f36">成长属性总攻击强化 {sum_attack.value}</div>}</div>}
               </div>
             )}
             {props.pps != null && props.pps.length > 0
@@ -235,20 +227,18 @@
                         <div class="yellow">
                           <span>属性{i + 1} - Lv1 (EXP 0.00%)</span>
                         </div>
-                        <div class="paddleft text-hex-8a6f36">
-                          <span style="margin-right: 10px;">攻击强化</span>
-                          <span>{p.attack}</span>
-                        </div>
-                        {
-                          //   p.buffer > 0 ? (
-                          //   <div class="paddleft">
-                          //     <span style="margin-right: 10px;">Buff量</span>
-                          //     <span>{p.buffer}</span>
-                          //   </div>
-                          // ) : (
-                          //   <div></div>
-                          // )
-                        }
+                        {is_buffer.value ? (
+                          <div class="text-hex-8a6f36  paddleft">
+                            <span style="margin-right: 10px;">Buff量</span>
+                            <span>{p.buffer}</span>
+                          </div>
+                        ) : (
+                          <div class="text-hex-8a6f36 paddleft">
+                            <span style="margin-right: 10px;">攻击强化</span>
+                            <span>{p.attack}</span>
+                          </div>
+                        )}
+
                         {renderList(p.props, s => (
                           <div class="strong paddleft">
                             <span>{s}</span>

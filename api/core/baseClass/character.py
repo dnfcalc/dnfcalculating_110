@@ -1,5 +1,5 @@
-from copy import deepcopy
 import importlib
+from copy import deepcopy
 from multiprocessing.sharedctypes import Value
 from operator import index
 from pickle import TRUE
@@ -10,13 +10,15 @@ from typing import Dict, List, Union
 from uuid import uuid1
 
 from click import option
+from core.baseClass.equipment import equ, equipment
 from core.baseClass.property import 角色属性
-from core.baseClass.equipment import equipment
-from core.baseClass.equipment import equ
+from core.baseClass.skill import 主动技能, 技能, 被动技能
+from core.equipment.基础函数 import (增幅计算, 左右计算, 成长词条计算, 武器强化计算, 精通计算, 耳环计算,
+                                 获取基础属性, 部位列表, 锻造计算)
 from core.store import store
-from core.equipment.基础函数 import 获取基础属性, 部位列表, 精通计算, 增幅计算, 耳环计算, 左右计算, 成长词条计算, 武器强化计算, 锻造计算
-from core.baseClass.skill import 技能, 主动技能, 被动技能
-from .avatar import 装扮集合, 装扮套装集合, 装扮套装
+
+from .avatar import 装扮套装, 装扮套装集合, 装扮集合
+
 # from core.baseClass.enchanting import get_encfunc_by_id
 # from core.baseClass.emblems import get_embfunc_by_id
 # from core.baseClass.jade import get_jadefunc_by_id
@@ -55,6 +57,7 @@ class Character(角色属性):
     武器选项: List[str] = []
     输出类型选项: List[str] = []
     防具精通属性: List[str] = []
+    排行类型 = '物理百分比'
     类型 = ''
     武器类型 = ''
     防具类型 = ''
@@ -62,7 +65,7 @@ class Character(角色属性):
     # 技能栏: List[技能 | 主动技能 | 被动技能] = []
     # 技能序号: Dict[int, 技能 | 主动技能 | 被动技能] = {}
     技能栏: List[Union[技能, 主动技能, 被动技能]] = []
-    技能序号: Dict[int, Union[技能, 主动技能, 被动技能]] = {}
+    技能序号: Dict[str, int] = {}
     自定义词条: Dict[int, List[int]] = {}
     buff: float = 1.00
     hotkey: List[str] = [""]*14
@@ -79,6 +82,14 @@ class Character(角色属性):
         self.__基础体力: int = 0
         self.__基础精神: int = 0
 
+        self.__进图力量: int = 0
+        self.__进图智力: int = 0
+        self.__进图体力: int = 0
+        self.__进图精神: int = 0
+        self.__BUFF补正智力: int = 0
+        self.__BUFF补正体力: int = 0
+        self.__BUFF补正精神: int = 0
+
         self.__力量: float = 0.0
         self.__智力: float = 0.0
         self.__体力: float = 0.0
@@ -89,6 +100,9 @@ class Character(角色属性):
         self.年宠技能 = False
         self.白兔子技能 = False
         self.斗神之吼秘药 = False
+
+        self.辅助对象力智 = 5000
+        self.辅助对象三攻 = 3000
 
         self.__物理攻击力: float = 65
         self.__魔法攻击力: float = 65
@@ -130,6 +144,7 @@ class Character(角色属性):
         self.__攻击强化: int = 0
         self.__百分比攻击强化: float = 0.0
         self.__buff量: int = 0
+        self.__buff量百分比: float = 0.0
         self.__基础精通倍率: float = 1.0
         self.__伤害比例: Dict[str, float] = {
             '直伤': 1.0, '中毒': 0.0, '灼烧': 0.0, '感电': 0.0, '出血': 0.0}
@@ -141,6 +156,12 @@ class Character(角色属性):
         self.__指令效果: Dict[str, float] = {}
         self.__消耗品效果: float = 1.0
         self.__MP消耗量: float = 1.0
+
+        self.BUFF力智 = 0
+        self.BUFF三攻 = 0
+        self.BUFF力智per = 1.0
+        self.BUFF三攻per = 1.0
+
         self.skills_passive = {}
 
         if self.转职 == '':
@@ -167,9 +188,8 @@ class Character(角色属性):
         info["alter"] = self.实际名称
         info["name"] = self.名称
         info["character"] = self.职业
-        info["characterType"] = self.职业类型
-        info["classChange"] = self.职业
-        info["weaponType"] = self.武器选项
+        info["role"] = 'buffer' if self.职业类型 == '辅助' else 'delear'
+        info["weapon_types"] = self.武器选项
         info["carry_type_list"] = self.输出类型选项
         info["armor"] = self.防具类型
         info["armor_mastery"] = self.防具精通属性
@@ -216,11 +236,11 @@ class Character(角色属性):
                 "need_level": skill.所在等级,
                 "level_master": skill.等级精通,
                 "level_max": skill.等级上限,
-                "CD": 0 if not skill.是否有伤害 else skill.CD,
-                "current_LV": skill.基础等级,
-                "data": 0 if not skill.是否有伤害 else skill.等效百分比(),
-                "TP_max": skill.TP上限 if skill.是否有伤害 else None,
-                "TP_Lv": skill.TP等级 if skill.是否有伤害 else None,
+                "cooldown": 0 if not skill.是否有伤害 else skill.CD,
+                "current_level": skill.基础等级,
+                "data": 0 if not skill.是否有伤害 else skill.等效百分比(''),
+                "tp_max": skill.TP上限 if skill.是否有伤害 else None,
+                "tp_level": skill.TP等级 if skill.是否有伤害 else None,
                 "mode": [] if not skill.是否有伤害 else skill.形态
             })
             # 护石
@@ -235,7 +255,7 @@ class Character(角色属性):
             # 时装
             if skill.所在等级 <= 95:
                 clothes_coat.append(skill.名称)
-        info['skillInfo'] = skillInfo
+        info['skills'] = skillInfo
         info['rune'] = rune
         info['talisman'] = talisman
         info['platinum'] = platinum
@@ -729,32 +749,108 @@ class Character(角色属性):
         # print(len(self.装扮栏))
 
     # region 伤害计算相关函数
-    def __计算伤害预处理(self):
-
+    def __计算前预处理(self):
         self.__辟邪玉计算()
         self.__护石计算()
         self.__符文计算()
         self.__装备属性计算()
+        print(self.职业类型)
+        if self.职业类型 != '辅助':
+            self.__CD倍率计算()
+            self.__加算冷却计算()
+            self.__被动倍率计算()
+            self.__伤害指数计算()
 
-        self.skills_passive = {}
+    def 适用数值计算(self):
+        self.__进图智力 = self.__智力
+        self.__进图体力 = self.__体力
+        self.__进图精神 = self.__精神
+        for skill in self.技能表.values():
+            if skill.是否启用:
+                结算 = skill.结算统计(self)
+                self.__BUFF补正智力 += 结算[0]
+                self.__BUFF补正体力 += 结算[1]
+                self.__BUFF补正精神 += 结算[2]
+
+        进图 = 0
+        BUFF补正 = 0
+        if self.类型 == '智力':
+            进图 = self.__进图智力
+            BUFF补正 = self.__BUFF补正智力
+        elif self.类型 == '体力':
+            进图 = self.__进图体力
+            BUFF补正 = self.__BUFF补正体力
+        elif self.类型 == '精神':
+            进图 = self.__进图精神
+            BUFF补正 = self.__BUFF补正精神
+
+        self.技能表['一次觉醒'].适用数值 = 进图
+        self.技能表['BUFF'].适用数值 = 进图 + BUFF补正
+
+        return 进图
+
+    def 站街系数(self):
+        return self.__智力
+
+    def 提升率计算(self, 总数据):
+
+        力智合计 = 0
+        三攻合计 = 0
+
+        for i in 总数据:
+            力智合计 += i[2]
+            三攻合计 += i[3]
+
+        x1 = (
+            (self.辅助对象力智 +
+             (self.辅助对象力智 - 950) * self.系统奶系数 + self.系统奶基数) / 250 + 1) * self.辅助对象三攻
+
+        x2 = ((self.辅助对象力智 +
+               (self.辅助对象力智 - 950) * self.系统奶系数 + self.系统奶基数 + 力智合计) / 250 +
+              1) * (self.辅助对象三攻 + 三攻合计)
+        return [x2 / x1 * 100, int(self.站街系数()), 力智合计, 三攻合计]
+
+    def BUFF强化比率(self):
+        return self.__buff量 * 0.0005 + 1
+
+    def 辅助计算(self):
+        self.适用数值计算()
+        data = {}
+        data['skills'] = {}
+        data['无色消耗'] = 0
+
+        values = []
+
         for i in self.技能栏:
-            self.skills_passive[i.名称] = {
-                "info": [],
-                "lv": i.等级
-            }
+            rs = i.结算统计(self)
+            k = {}
+            k['name'] = i.名称
+            k['data'] = rs
 
-        self.职业特殊计算()
-        self.__CD倍率计算()
-        self.__加算冷却计算()
-        self.__被动倍率计算()
-        self.__伤害指数计算()
+            if hasattr(i, '适用数值'):
+                k['apply_status'] = i.适用数值
+            if sum(rs) > 0:
+                values.append(rs)
+
+        结果 = self.提升率计算(values)
+
+        data['total_data'] = 结果[0]
+        data['buffer_addition'] = 结果
+
+        return data
+
+    def 结果计算(self):
+        if self.职业类型 == '辅助':
+            return self.辅助计算()
+        else:
+            return self.伤害计算()
 
     def 职业特殊计算(self):
         pass
 
     def 伤害计算(self):
         data = {}
-        sumdamage = 0
+        total_data = 0
         data['skills'] = {}
         data['无色消耗'] = 0
         for i in self.技能队列:
@@ -785,8 +881,8 @@ class Character(角色属性):
                          系数) / 100
                     # 异常伤害处理：异常伤害*异常系数
                     damage += k.等效百分比(
-                        武器类型=self.武器类型, 额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型="直伤", 形态=i['形态']) * self.伤害指数 * k.被动倍率*系数 / 100
-                sumdamage += damage
+                        self.武器类型, i['等级变化'], i['倍率'], item, i['形态']) * self.伤害指数 * k.被动倍率*系数 / 100
+                total_data += damage
                 temp['damage'] = temp.get('damage', 0) + damage
                 data['skills'][k.名称] = temp
                 if k.名称 not in ['爆裂弹']:
@@ -798,7 +894,7 @@ class Character(角色属性):
                 temp['lv'] = i.等级
                 temp['name'] = i.名称
                 data['skills_passive'][i.名称] = temp
-        data['sumdamage'] = sumdamage
+        data['total_data'] = total_data
         return data
 
     def __装备属性计算(self):
@@ -814,7 +910,7 @@ class Character(角色属性):
         for 部位 in self.装扮栏:
             id = self.装扮栏[部位]
             时装 = 装扮集合[id]
-            时装().效果(角色=self, 选项=self.装扮选项[部位])
+            时装.效果(角色=self, 选项=self.装扮选项[部位])
             时装品级列表[时装.套装] = 时装品级列表.get(时装.套装, 0) + 1
 
         套装集合: List[装扮套装] = []
@@ -833,7 +929,7 @@ class Character(角色属性):
                         时装品级列表[套装.兼容于] = 数量
                         时装品级列表.pop(套装.名称)
         for 套装 in 套装集合:
-            套装().效果(self)
+            套装.效果(self)
 
         pass
 
@@ -1053,6 +1149,7 @@ class Character(角色属性):
         for 部位, 序号, 基础 in equ.get_damagelist_by_idlist(self.装备栏, self.自定义词条):
             等级 = self.词条等级[部位][序号]
             self.攻击强化加成(成长词条计算(基础, 等级))
+            self.buff量加成(成长词条计算(基础, 等级))
         # 词条效果相关计算
         for func, 部位, 序号 in equ.get_func_list_by_idlist(self.装备栏, self.自定义词条):
             if 序号 >= 0:
@@ -1089,6 +1186,7 @@ class Character(角色属性):
                             if j.是否有伤害 == 1:
                                 j.被动倍率 *= 加成倍率
                     else:
+                        print(self.技能序号)
                         for k in 关联技能:
                             self.技能栏[self.技能序号[k]
                                      ].被动倍率 *= 加成倍率
@@ -1343,11 +1441,11 @@ class Character(角色属性):
                 char = deepcopy(self)
                 func = get_jadefunc_by_id(jade["id"])
                 func(char, value=jade["max"])
-                char.__计算伤害预处理()
+                char.__计算前预处理()
                 temp.append({
                     "id": jade["id"],
                     "name": jade["props"] + "  " + ("" if jade["max"] == 1 else("+" + str(jade["max"]))) + jade["unit"],
-                    "damage": round(char.伤害计算()["sumdamage"], 2)
+                    "damage": round(char.伤害计算()["total_data"], 2)
                 })
         return temp
 
@@ -1355,51 +1453,53 @@ class Character(角色属性):
         info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
         self.calc_init(info, equipList)
         jade = []
-        if withJade:
+        if withJade and self.职业类型 != '辅助':
             jade = self.jade_upgrade()
-        self.__计算伤害预处理()
-        temp = self.伤害计算()
+        self.__计算前预处理()
+        temp = self.结果计算()
         calc_info = {}
-        if self.类型 == '物理百分比':
-            calc_info['力量'] = self.站街力量()
-            calc_info['物理攻击'] = self.站街物理攻击力()
-        elif self.类型 == '魔法百分比':
-            calc_info['智力'] = self.站街智力()
-            calc_info['魔法攻击'] = self.站街魔法攻击力()
-        elif self.类型 == '物理固伤':
-            calc_info['力量'] = self.站街力量()
-            calc_info['独立攻击'] = self.站街独立攻击力()
-        elif self.类型 == '魔法固伤':
-            calc_info['智力'] = self.站街智力()
-            calc_info['独立攻击'] = self.站街独立攻击力()
-        calc_info['火'] = self.火属性强化()
-        calc_info['冰'] = self.冰属性强化()
-        calc_info['光'] = self.光属性强化()
-        calc_info['暗'] = self.暗属性强化()
+        if self.职业类型 != '辅助':
+            if self.类型 == '物理百分比':
+                calc_info['力量'] = self.站街力量()
+                calc_info['物理攻击'] = self.站街物理攻击力()
+            elif self.类型 == '魔法百分比':
+                calc_info['智力'] = self.站街智力()
+                calc_info['魔法攻击'] = self.站街魔法攻击力()
+            elif self.类型 == '物理固伤':
+                calc_info['力量'] = self.站街力量()
+                calc_info['独立攻击'] = self.站街独立攻击力()
+            elif self.类型 == '魔法固伤':
+                calc_info['智力'] = self.站街智力()
+                calc_info['独立攻击'] = self.站街独立攻击力()
+            calc_info['火'] = self.火属性强化()
+            calc_info['冰'] = self.冰属性强化()
+            calc_info['光'] = self.光属性强化()
+            calc_info['暗'] = self.暗属性强化()
 
-        for i in self.技能栏:
-            倍率 = i.独立攻击力倍率(self.武器类型)
-            if 倍率 != 1:
-                self.skills_passive[i.名称]['info'].append({
-                    "type": "独立攻击力",
-                    "info": [round((倍率-1)*100), '所有', '']
-                })
-            倍率 = i.魔法攻击力倍率(self.武器类型)
-            if 倍率 != 1:
-                self.skills_passive[i.名称]['info'].append({
-                    "type": "魔法攻击力",
-                    "info": [round((倍率-1)*100), '所有', '']
-                })
-            倍率 = i.物理攻击力倍率(self.武器类型)
-            if 倍率 != 1:
-                self.skills_passive[i.名称]['info'].append({
-                    "type": "物理攻击力",
-                    "info": [round((倍率-1)*100), '所有', '']
-                })
+            for i in self.技能栏:
+                倍率 = i.独立攻击力倍率(self.武器类型)
+                if 倍率 != 1:
+                    self.skills_passive[i.名称]['info'].append({
+                        "type": "独立攻击力",
+                        "info": [round((倍率-1)*100), '所有', '']
+                    })
+                倍率 = i.魔法攻击力倍率(self.武器类型)
+                if 倍率 != 1:
+                    self.skills_passive[i.名称]['info'].append({
+                        "type": "魔法攻击力",
+                        "info": [round((倍率-1)*100), '所有', '']
+                    })
+                倍率 = i.物理攻击力倍率(self.武器类型)
+                if 倍率 != 1:
+                    self.skills_passive[i.名称]['info'].append({
+                        "type": "物理攻击力",
+                        "info": [round((倍率-1)*100), '所有', '']
+                    })
         result = {
             'id': uuid1().hex,
             'alter': self.实际名称,
             'name': self.名称,
+            'role': 'buffer' if self.职业类型 == '辅助' else 'delear',
             'forget_set': info['forge_set'],
             'equips': list(map(lambda x: equ.get_json(x), self.装备栏)),
             'info': {
@@ -1421,12 +1521,16 @@ class Character(角色属性):
                 '词条': {
                     # 攻击强化
                     '攻击强化': round(self.__攻击强化, 0),
+                    '辅助强化': round(self.__buff量, 0),
                     '技能攻击力': round(100*(self.__技能攻击力-1), 2),
                     '百分比攻击强化': round(self.__百分比攻击强化*100, 1),
                     'MP消耗量': round(self.__MP消耗量*100-100, 2),
                     '伤害比例': [self.__伤害比例.get('直伤', 1), self.__伤害比例.get('中毒', 0), self.__伤害比例.get('灼烧', 0), self.__伤害比例.get('感电', 0), self.__伤害比例.get('出血', 0)],
                     '伤害系数': [self.__伤害系数.get('直伤', 1), self.__伤害系数.get('中毒', 1)-1, self.__伤害系数.get('灼烧', 1)-1, self.__伤害系数.get('感电',  1)-1, self.__伤害系数.get('出血',  1)-1],
-                    '无色消耗': temp['无色消耗']
+                    '无色消耗': temp['无色消耗'],
+                    'buffer_power': round(self.__buff量, 0),
+                    "buffer_power_percent": round(self.__buff量百分比, 0)
+
                     # 其他老词条·····
                 }
             },
@@ -1435,7 +1539,8 @@ class Character(角色属性):
             # '面板物理攻击力': self.面板物理攻击力(),
             # '面板魔法攻击力': self.面板魔法攻击力(),
             # '面板独立攻击力': self.面板独立攻击力(),
-            'sumdamage': temp["sumdamage"],
+            'buffer_addition': temp['buffer_addition'] if 'buffer_addition' in temp else [0, 0, 0, 0],
+            'total_data': temp["total_data"],
             "skills": temp["skills"],
             "skills_passive": self.skills_passive,
             "jade": jade

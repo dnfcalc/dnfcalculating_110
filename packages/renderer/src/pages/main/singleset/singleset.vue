@@ -1,12 +1,12 @@
 <script lang="tsx">
-  import { defineComponent, ref, renderList, computed, reactive, watch, onMounted } from "vue"
+  import { IEquipmentInfo } from "@/api/info/type"
+  import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import Profile from "@/components/internal/profile.vue"
   import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
-  import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
-  import { IEquipmentInfo } from "@/api/info/type"
-  import { useAsyncState, useDebounceFn } from "@vueuse/core"
-  import openURL from "@/utils/openURL"
   import featureList from "@/utils/featureList"
+  import openURL from "@/utils/openURL"
+  import { useAsyncState, useDebounceFn } from "@vueuse/core"
+  import { computed, defineComponent, ref, renderList, watch } from "vue"
 
   export interface IJadeUpgrade {
     id: number
@@ -44,7 +44,7 @@
 
       const result = useAsyncState(
         () => configStore.calc(true),
-        { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0, info: undefined, skills_passive: undefined, jade: undefined },
+        { id: undefined, role: "delear", equips: [], name: "", alter: "", skills: [], total_data: 0, info: undefined, skills_passive: undefined, jade: undefined },
         { resetOnExecute: false }
       )
 
@@ -161,14 +161,14 @@
       const openDetail = () => openURL(`/result?res=${result.state.value.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : ""), { width: 890, height: 600 })
 
       function setStandard() {
-        if (result.state.value.sumdamage > 0) {
+        if (result.state.value.total_data > 0) {
           detailsStore.setStandard(result.state.value.id)
         }
       }
 
       const jade = computed(() => {
         let temp: IJadeUpgrade[] = []
-        const damage = result.state.value.sumdamage
+        const damage = result.state.value.total_data
         result.state.value.jade
           ?.sort((a, b) => b.damage - a.damage)
           .forEach((item, index) => {
@@ -251,9 +251,10 @@
               </calc-button>
             </div>
             <Profile
-              standardSum={detailsStore.standard?.sumdamage}
+              standardSum={detailsStore.standard?.total_data}
               details={result.state.value.info}
-              sumdamage={result.state.value.sumdamage}
+              total-data={result.state.value.total_data}
+              role={result.state.value.role}
               equ-list={curEquList.value}
               class="m-5px !mt-0 !mr-2px !ml-2px"
             ></Profile>
