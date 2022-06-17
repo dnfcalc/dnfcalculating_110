@@ -192,7 +192,6 @@ class 主动技能(技能):
         if 伤害类型 == "直伤":
             for item in range(0, 7):
                 等级 = min(self.等级+额外等级, len(datas[item]))
-                print(self.等级+额外等级, len(datas[item]))
                 if hits[item] > 0 and 等级 > 0:
                     等效倍率 += datas[item][等级] * \
                         hits[item] * powers[item]
