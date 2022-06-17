@@ -8722,8 +8722,8 @@ def entry_541(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.单技能加成('血气之刃',1.3)
-        char.单技能加成('暴怒狂斩',1.3)
+        char.单技能加成('血气之刃', 1.3)
+        char.单技能加成('暴怒狂斩', 1.3)
         pass
 
 
@@ -9634,7 +9634,7 @@ def entry_641(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
-        char.单技能加成('G96热压手雷',1.3)
+        char.单技能加成('G96热压手雷', 1.3)
         pass
 
 
@@ -9909,6 +9909,10 @@ def entry_671(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.单技能加成('杰克降临', 1.15, 1.15)
+        char.单技能加成('极冰盛宴', 1.15, 1.15)
+        char.单技能加成('天雷冲击', 1.15, 1.15)
+        char.单技能加成('湮灭黑洞', 1.15, 1.15)
         pass
 
 
@@ -9918,6 +9922,9 @@ def entry_672(char: Character = {}, mode=0, text=False, part=''):
     if mode == 0:
         pass
     if mode == 1:
+        char.单技能加成('元素之幕', 1.15, 1.15)
+        char.单技能加成('元素震荡', 1.15, 1.15)
+        char.单技能加成('圣灵水晶', 1.15, 1.15)
         pass
 
 

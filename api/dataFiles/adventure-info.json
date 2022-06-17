@@ -289,9 +289,10 @@
     "name": "mage_female",
     "children": [
       {
-        "name": "magiciant",
+        "name": "elementalist",
         "title": "知源·元素师",
         "default_name": "国服",
+        "open":true,
         "class": [],
         "options": []
       },

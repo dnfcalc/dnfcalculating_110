@@ -43,9 +43,6 @@ class 技能:
             else:
                 self.等级 += x
 
-    def 基础等级计算(self):
-        pass
-
     def 物理攻击力倍率(self, 武器类型):
         return 1.0
 
@@ -66,6 +63,47 @@ class 技能:
 
     def MP消耗(self, 武器类型="", 输出类型="", 额外倍率=1.0):
         pass
+
+    def 基础等级计算(self):
+        if self.基础等级 == 0:
+            self.基础等级 = min(int((等级 + 5 - self.所在等级) / self.学习间隔 + 1),
+                            self.等级精通)
+
+    def 加成倍率(self, 武器类型):
+        return 1.0
+
+    def 加成描述(self, 武器类型):
+        return [round((self.加成倍率(武器类型) - 1)*100), ",".join(self.关联技能), ",".join(self.非关联技能)]
+
+    def 加成倍率2(self, 武器类型):
+        return 1.0
+
+    def 加成描述2(self, 武器类型):
+        return [round((self.加成倍率2(武器类型) - 1)*100), ",".join(self.关联技能2), ",".join(self.非关联技能2)]
+
+    def 加成倍率3(self, 武器类型):
+        return 1.0
+
+    def 加成描述3(self, 武器类型):
+        return [round((self.加成倍率3(武器类型) - 1)*100), ",".join(self.关联技能3), ",".join(self.非关联技能3)]
+
+    def CD缩减倍率(self, 武器类型):
+        return 1.0
+
+    def CD缩减描述(self, 武器类型):
+        return [round((1-self.CD缩减倍率(武器类型))*100), ",".join(self.冷却关联技能), ",".join(self.非冷却关联技能)]
+
+    def CD缩减倍率2(self, 武器类型):
+        return 1.0
+
+    def CD缩减描述2(self, 武器类型):
+        return [round((1-self.CD缩减倍率2(武器类型))*100), ",".join(self.冷却关联技能2), ",".join(self.非冷却关联技能2)]
+
+    def CD缩减倍率3(self, 武器类型):
+        return 1.0
+
+    def CD缩减描述3(self, 武器类型):
+        return [round((1-self.CD缩减倍率3(武器类型))*100), ",".join(self.冷却关联技能3), ",".join(self.非冷却关联技能3)]
 
 
 class 主动技能(技能):
@@ -178,54 +216,8 @@ class 主动技能(技能):
                     (self.MP[1] - self.MP[0]) / (self.等级上限 - 1))
         return round(mpnum * 武器MP系数(武器类型, 输出类型) * 额外倍率, 0)
 
-    def 基础等级计算(self):
-        if self.基础等级 == 0:
-            self.基础等级 = min(int((等级 + 5 - self.所在等级) / self.学习间隔 + 1),
-                            self.等级精通)
-
 
 class 被动技能(技能):
     是否主动 = 0
     是否有伤害 = 0
     关联技能 = ['所有']
-
-    def 基础等级计算(self):
-        if self.基础等级 == 0:
-            self.基础等级 = min(int((等级 + 5 - self.所在等级) / self.学习间隔 + 1),
-                            self.等级精通)
-
-    def 加成倍率(self, 武器类型):
-        return 1.0
-
-    def 加成描述(self, 武器类型):
-        return [round((self.加成倍率(武器类型) - 1)*100), ",".join(self.关联技能), ",".join(self.非关联技能)]
-
-    def 加成倍率2(self, 武器类型):
-        return 1.0
-
-    def 加成描述2(self, 武器类型):
-        return [round((self.加成倍率2(武器类型) - 1)*100), ",".join(self.关联技能2), ",".join(self.非关联技能2)]
-
-    def 加成倍率3(self, 武器类型):
-        return 1.0
-
-    def 加成描述3(self, 武器类型):
-        return [round((self.加成倍率3(武器类型) - 1)*100), ",".join(self.关联技能3), ",".join(self.非关联技能3)]
-
-    def CD缩减倍率(self, 武器类型):
-        return 1.0
-
-    def CD缩减描述(self, 武器类型):
-        return [round((1-self.CD缩减倍率(武器类型))*100), ",".join(self.冷却关联技能), ",".join(self.非冷却关联技能)]
-
-    def CD缩减倍率2(self, 武器类型):
-        return 1.0
-
-    def CD缩减描述2(self, 武器类型):
-        return [round((1-self.CD缩减倍率2(武器类型))*100), ",".join(self.冷却关联技能2), ",".join(self.非冷却关联技能2)]
-
-    def CD缩减倍率3(self, 武器类型):
-        return 1.0
-
-    def CD缩减描述3(self, 武器类型):
-        return [round((1-self.CD缩减倍率3(武器类型))*100), ",".join(self.冷却关联技能3), ",".join(self.非冷却关联技能3)]

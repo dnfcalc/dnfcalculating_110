@@ -729,13 +729,20 @@ class Character(角色属性):
 
     # region 伤害计算相关函数
     def __计算伤害预处理(self):
+
         self.__辟邪玉计算()
         self.__护石计算()
         self.__符文计算()
         self.__装备属性计算()
 
-        self.职业特殊计算()
+        self.skills_passive = {}
+        for i in self.技能栏:
+            self.skills_passive[i.名称] = {
+                "info": [],
+                "lv": i.等级
+            }
 
+        self.职业特殊计算()
         self.__CD倍率计算()
         self.__加算冷却计算()
         self.__被动倍率计算()
@@ -1147,12 +1154,7 @@ class Character(角色属性):
                 i.CDR *= (1 - self.__加算冷却缩减)
 
     def __CD倍率计算(self):
-        self.skills_passive = {}
         for i in self.技能栏:
-            self.skills_passive[i.名称] = {
-                "info": [],
-                "lv": i.等级
-            }
             for index in range(0, 4):
                 index = "" if index == 0 else str(index+1)
                 关联技能 = getattr(i, "冷却关联技能"+index, ["无"])
