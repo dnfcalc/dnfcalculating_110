@@ -217,9 +217,10 @@ class Character(角色属性):
                 "level_max": skill.等级上限,
                 "CD": 0 if not skill.是否有伤害 else skill.CD,
                 "current_LV": skill.基础等级,
-                "data": 0 if not skill.是否有伤害 else skill.等效百分比(''),
+                "data": 0 if not skill.是否有伤害 else skill.等效百分比(),
                 "TP_max": skill.TP上限 if skill.是否有伤害 else None,
                 "TP_Lv": skill.TP等级 if skill.是否有伤害 else None,
+                "mode": [] if not skill.是否有伤害 else skill.形态
             })
             # 护石
             if skill.是否有伤害 == 1 and skill.是否有护石 == 1:
@@ -677,7 +678,8 @@ class Character(角色属性):
                 '无色消耗': self.get_skill_by_name(item['name']).无色消耗,
                 '倍率': 1.0,
                 '等级变化': 0,
-                'CDR': 1.0
+                'CDR': 1.0,
+                '形态': item.get('mode', '')
             })
 
     # 设置技能相关参数
@@ -733,7 +735,7 @@ class Character(角色属性):
         self.__装备属性计算()
 
         self.职业特殊计算()
-        
+
         self.__CD倍率计算()
         self.__加算冷却计算()
         self.__被动倍率计算()
@@ -759,7 +761,7 @@ class Character(角色属性):
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
                     temp['count'] = k.count
-                直伤 = k.等效百分比(self.武器类型, i['等级变化'], i['倍率'], "直伤")
+                直伤 = k.等效百分比(self.武器类型, i['等级变化'], i['倍率'], "直伤", i['形态'])
                 # 直伤处理：直伤伤害*比例*系数
                 damage = 直伤 * self.伤害指数 * k.被动倍率 * \
                     (self.__伤害比例.get("直伤", 0.0)) / 100
@@ -774,7 +776,7 @@ class Character(角色属性):
                          系数) / 100
                     # 异常伤害处理：异常伤害*异常系数
                     damage += k.等效百分比(
-                        self.武器类型, i['等级变化'], i['倍率'], item) * self.伤害指数 * k.被动倍率*系数 / 100
+                        self.武器类型, i['等级变化'], i['倍率'], item, i['形态']) * self.伤害指数 * k.被动倍率*系数 / 100
                 sumdamage += damage
                 temp['damage'] = temp.get('damage', 0) + damage
                 data['skills'][k.名称] = temp

@@ -124,11 +124,19 @@ class 主动技能(技能):
     hit6 = 0
     power6 = 1
 
+    形态 = []
+
     def __init__(self) -> None:
         super().__init__()
         self.倍率 = 1.0
 
-    def 等效百分比(self, 武器类型="", 额外等级=0, 额外倍率=1, 伤害类型="直伤"):
+    def 形态变更(self, 形态: str = "", 武器类型: str = ""):
+        pass
+
+    def 等效百分比(self, 武器类型: str = "", 额外等级: float = 0, 额外倍率: float = 1, 伤害类型: str = "直伤", 形态: str = ""):
+        self.形态变更(形态, 武器类型)
+        if 形态 == '':
+            pass
         datas = [self.data0, self.data1, self.data2,
                  self.data3, self.data4, self.data5, self.data6]
         hits = [self.hit0, self.hit1, self.hit2,

@@ -15,7 +15,7 @@
       let canChooseSkill = ref(configStore.skill_que)
 
       watch(configStore.skill_set, val => {
-        let tem: { name: string; id: number }[] = []
+        let tem: { name: string; id: number; mode: string; modes: string[] | undefined }[] = []
         // 重新排序一下
         //   let temp =
         //     configStore.skill_que?.map((item, index) => {
@@ -29,7 +29,7 @@
         // })
         // todo 根据次数修改自动添加/删除技能
         configStore.skill_set.forEach(item => {
-          if (item.count > 0 && item.level > 0 && item.damage) for (var i = 0; i < item.count; i++) tem.push({ name: item.name, id: 0 })
+          if (item.count > 0 && item.level > 0 && item.damage) for (var i = 0; i < item.count; i++) tem.push({ name: item.name, id: 0, mode: item.mode?.[0] ?? "", modes: item.mode })
         })
         configStore.skill_que = tem.map((item, index) => {
           item.id = index
@@ -41,22 +41,21 @@
       //   configStore.skill_que = val
       // })
 
+      const changeMode = (skill: { name: string; id: number; mode: string; modes: string[] | undefined }) => {
+        return () => {
+          let index = skill.modes?.indexOf(skill.mode) ?? 0
+          console.log(index)
+          index = index >= 0 ? (index + 1 >= (skill.modes?.length ?? 0) ? 0 : index + 1) : 0
+          skill.mode = skill.modes?.[index] ?? ""
+        }
+      }
+
       const item = (item: any, index: number) => {
+        const skill = item.element as { name: string; id: number; mode: string; modes: string[] | undefined }
         return (
-          <div
-            class="h-28px m-2px w-28px"
-            style="position: relative;"
-            onClick={() => {
-              // 预留多形态切换
-            }}
-          >
-            <img src={skill_icon(characterStore.alter, item.element.name)} />
-            {
-              // 预留多形态切换
-              // <div style="" class="size-11">
-              //   毛冰
-              // </div>
-            }
+          <div class="h-28px m-2px w-28px" style="position: relative;" onClick={changeMode(skill)}>
+            <img src={skill_icon(characterStore.alter, skill.name)} />
+            {skill.modes && skill.modes.length > 0 && <div class="size-11">{skill.mode}</div>}
           </div>
           // <div class="list-group-item">{item.element.name}</div>
         )

@@ -32,6 +32,7 @@ export interface ISkillInfo {
   data: number
   TP_max: number | undefined
   TP_Lv: number | undefined
+  mode: string[] | undefined
 }
 
 export interface IIndividuation {

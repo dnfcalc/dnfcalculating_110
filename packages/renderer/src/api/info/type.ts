@@ -101,6 +101,8 @@ export interface SkillSet {
 
   // 是否有伤害
   damage: boolean
+
+  mode: string[] | undefined
 }
 
 interface EquipSet {
@@ -114,6 +116,7 @@ interface EquipSet {
 interface skillQue {
   name: string
   id: number
+  mode?: string
 }
 
 export interface ICharacterSet {

@@ -3299,7 +3299,7 @@ def entry_1017(char: Character = {}, mode=0, text=False, part=''):
         num = len(list(filter(lambda i: i != "", char.hotkey[:7])))*0.02
         for i in char.技能栏:
             if i.是否有伤害 == 1:
-                if i in char.hotkey[:7]:
+                if i.名称 in char.hotkey[:7]:
                     i.倍率 *= 0.8
                 else:
                     i.倍率 *= (num+1)
