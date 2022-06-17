@@ -1,8 +1,9 @@
-import { defineStore } from "pinia"
 import api from "@/api"
+import { IResultInfo } from "@/api/character/type"
 import { ICharacterSet } from "@/api/info/type"
-import { toObj, toMap, getUuid, setSession } from "@/utils"
-import { useCharacterStore, useBasicInfoStore } from "."
+import { toMap, toObj } from "@/utils"
+import { defineStore } from "pinia"
+import { useBasicInfoStore } from "."
 
 interface ConfigState extends ICharacterSet {
   name: string
@@ -113,9 +114,11 @@ export const useConfigStore = defineStore("config", {
     async set(name: string, item: Record<string, any>) {
       this[name] = item
     },
-    async calc(single: boolean = false) {
+    async calc(single: boolean = false): Promise<IResultInfo> {
       this.customizeInit()
-      if (single && this.data.single_set.length < 1) return { id: undefined, equips: [], name: "", alter: "", skills: [], sumdamage: 0, info: undefined, skills_passive: undefined, jade: undefined }
+      if (single && this.data.single_set.length < 1) {
+        return { id: undefined, role: "delear", equips: [], name: "", alter: "", skills: [], total_data: 0, info: undefined, skills_passive: undefined, jade: undefined }
+      }
       return await api.calc(
         {
           setInfo: toObj(this.data),

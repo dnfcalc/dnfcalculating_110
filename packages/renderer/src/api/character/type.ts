@@ -4,19 +4,18 @@ export interface ICharacterInfo {
   name: string
   alter: string
   character: string
-  characterType: string
-  classChange: string
-  weaponType: string[]
+  role: string
+  weapon_types: string[]
   carry_type_list: string[]
   armor?: string
   armor_mastery: string[]
   buff_ratio: number
-  skillInfo: ISkillInfo[]
+  skills: ISkillInfo[]
   rune: string[]
   talisman?: string[]
   individuation: IIndividuation[]
   config: string
-  clothes: string[]
+  clothes_coat: string[]
   clothes_pants: string[]
   platinum: string[]
 }
@@ -27,12 +26,12 @@ export interface ISkillInfo {
   need_level: number
   level_master: number
   level_max: number
-  CD: number
-  current_LV: number
+  cooldown: number
+  current_level: number
   data: number
-  TP_max: number | undefined
-  TP_Lv: number | undefined
-  mode: string[] | undefined
+  tp_max?: number
+  tp_level?: number
+  mode?: string[]
 }
 
 export interface IIndividuation {
@@ -48,13 +47,15 @@ export interface IResultInfo {
   id: ID
   name: string
   alter: string
+  role: "delear" | "buffer"
+
   token?: string
   forget_set?: Record<string, Map<string, any>>
   skills: any
   skills_passive: any
   equips: IEquipmentInfo[]
   info: any
-  sumdamage: number
+  total_data: number
   jade?: {
     id: number
     name: string

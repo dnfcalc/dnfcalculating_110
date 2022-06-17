@@ -1,7 +1,7 @@
-import { defineStore } from "pinia"
+import api from "@/api"
 import { ICharacterInfo } from "@/api/character/type"
 import { useConfigStore } from "@/store/config"
-import api from "@/api"
+import { defineStore } from "pinia"
 
 export interface CharacterInfo extends ICharacterInfo {
   // 基础信息
@@ -12,12 +12,11 @@ export const useCharacterStore = defineStore("CharacterInfo", {
     return {
       alter: "",
       name: "",
-      skillInfo: [],
+      skills: [],
       individuation: [],
       character: "",
-      characterType: "",
-      classChange: "",
-      weaponType: [],
+      role: "delear",
+      weapon_types: [],
       carry_type_list: [],
       armor: "",
       armor_mastery: [],
@@ -25,9 +24,14 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       rune: [],
       platinum: [],
       config: "set",
-      clothes: [],
+      clothes_coat: [],
       clothes_pants: [],
       talisman: []
+    }
+  },
+  getters: {
+    is_buffer(state) {
+      return state.role === "buffer"
     }
   },
   actions: {

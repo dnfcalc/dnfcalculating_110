@@ -30,18 +30,17 @@
 
       async function initSkills() {
         const characterInfoState = useCharacterStore()
-        await characterInfoState.get_character_info(props.character)
         let basicInfo = characterInfoState[props.character]?.basicInfo as ICharacterInfo
 
         let sks = spSkills.get(props.character)
         if (sks && sks.length > 0) {
           for (let item of sks) {
-            let tk = basicInfo.skillInfo.find(x => x.name == item.name)
+            let tk = basicInfo.skills.find(x => x.name == item.name)
             if (tk) {
               item.master = tk.level_master
               item.max = tk.level_max
-              item.learnMax = tk.current_LV
-              item.skillInfo = tk
+              item.learnMax = tk.current_level
+              item.skills = tk
               item.icon = `/images/characters/${props.character}/skill/${item.name}.png`
             } else {
               // 这里需要修改成一个默认图标
