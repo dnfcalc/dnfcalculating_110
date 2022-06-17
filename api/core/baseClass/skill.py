@@ -179,7 +179,6 @@ class 主动技能(技能):
         伤害类型 = argv.get('伤害类型', '直伤')
         形态 = argv.get('形态', '')
 
-
         self.形态变更(形态, 武器类型)
         if 形态 == '':
             pass
@@ -192,8 +191,10 @@ class 主动技能(技能):
         等效倍率 = 0.0
         if 伤害类型 == "直伤":
             for item in range(0, 7):
-                if hits[item] > 0 and self.等级+额外等级 < len(datas[item]):
-                    等效倍率 += datas[item][self.等级+额外等级] * \
+                等级 = min(self.等级+额外等级, len(datas[item]))
+                print(self.等级+额外等级, len(datas[item]))
+                if hits[item] > 0 and 等级 > 0:
+                    等效倍率 += datas[item][等级] * \
                         hits[item] * powers[item]
             return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
         elif 伤害类型 == "感电":
@@ -207,7 +208,7 @@ class 主动技能(技能):
         return 0
 
     def 等效CD(self, **argv):
-        #武器类型 输出类型 额外CDR 手搓收益 恢复=True
+        # 武器类型 输出类型 额外CDR 手搓收益 恢复=True
         武器类型 = argv.get('武器类型', '')
         输出类型 = argv.get('输出类型', '')
         额外CDR = argv.get('额外CDR', 1.0)
@@ -227,7 +228,7 @@ class 主动技能(技能):
         return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / (self.恢复 if 恢复 else 1) * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1), 1)
 
     def MP消耗(self, **argv):
-        #武器类型 输出类型 额外CDR 手搓收益 恢复=True
+        # 武器类型 输出类型 额外CDR 手搓收益 恢复=True
         武器类型 = argv.get('武器类型', '')
         输出类型 = argv.get('输出类型', '')
         额外倍率 = argv.get('额外倍率', 1.0)
