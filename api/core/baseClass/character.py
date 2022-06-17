@@ -869,6 +869,7 @@ class Character(角色属性):
                     temp['count'] = k.count
                 直伤 = k.等效百分比(
                     武器类型=self.武器类型, 额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型="直伤", 形态=i['形态'])
+
                 # 直伤处理：直伤伤害*比例*系数
                 damage = 直伤 * self.伤害指数 * k.被动倍率 * \
                     (self.__伤害比例.get("直伤", 0.0)) / 100
@@ -883,7 +884,7 @@ class Character(角色属性):
                          系数) / 100
                     # 异常伤害处理：异常伤害*异常系数
                     damage += k.等效百分比(
-                        self.武器类型, i['等级变化'], i['倍率'], item, i['形态']) * self.伤害指数 * k.被动倍率*系数 / 100
+                        武器类型=self.武器类型,  额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型=item, 形态=i['形态']) * self.伤害指数 * k.被动倍率*系数 / 100
                 total_data += damage
                 temp['damage'] = temp.get('damage', 0) + damage
                 data['skills'][k.名称] = temp
@@ -1460,6 +1461,8 @@ class Character(角色属性):
         self.__计算前预处理()
         temp = self.结果计算()
         calc_info = {}
+
+        print(self.skills_passive)
         if self.职业类型 != '辅助':
             if self.类型 == '物理百分比':
                 calc_info['力量'] = self.站街力量()
@@ -1480,6 +1483,8 @@ class Character(角色属性):
 
             for i in self.技能栏:
                 倍率 = i.独立攻击力倍率(self.武器类型)
+                if i.名称 not in self.skills_passive:
+                    continue
                 if 倍率 != 1:
                     self.skills_passive[i.名称]['info'].append({
                         "type": "独立攻击力",
