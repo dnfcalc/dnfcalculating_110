@@ -61,7 +61,7 @@ class 技能:
     def 独立攻击力倍率进图(self, 武器类型):
         return 1.0
 
-    def MP消耗(self, 武器类型="", 输出类型="", 额外倍率=1.0):
+    def MP消耗(self, **argv):
         pass
 
     def 基础等级计算(self):
@@ -171,7 +171,15 @@ class 主动技能(技能):
     def 形态变更(self, 形态: str = "", 武器类型: str = ""):
         pass
 
-    def 等效百分比(self, 武器类型: str = "", 额外等级: float = 0, 额外倍率: float = 1, 伤害类型: str = "直伤", 形态: str = ""):
+    def 等效百分比(self, **argv):
+        # 武器类型 额外等级 额外倍率 伤害类型 形态
+        武器类型 = argv.get('武器类型', '')
+        额外等级 = argv.get('额外等级', 0)
+        额外倍率 = argv.get('额外倍率', 1.0)
+        伤害类型 = argv.get('伤害类型', '直伤')
+        形态 = argv.get('形态', '')
+
+
         self.形态变更(形态, 武器类型)
         if 形态 == '':
             pass
@@ -198,7 +206,14 @@ class 主动技能(技能):
             return 0
         return 0
 
-    def 等效CD(self, 武器类型="", 输出类型="", 额外CDR=1.0, 手搓收益=1.0, 恢复=True):
+    def 等效CD(self, **argv):
+        #武器类型 输出类型 额外CDR 手搓收益 恢复=True
+        武器类型 = argv.get('武器类型', '')
+        输出类型 = argv.get('输出类型', '')
+        额外CDR = argv.get('额外CDR', 1.0)
+        手搓收益 = argv.get('手搓收益', 1.0)
+        恢复 = argv.get('恢复', True)
+
         cdr = 1
         if self.手搓:
             if self.所在等级 >= 15 and self.所在等级 <= 30:
@@ -211,7 +226,11 @@ class 主动技能(技能):
                 cdr = 0.95
         return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / (self.恢复 if 恢复 else 1) * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1), 1)
 
-    def MP消耗(self, 武器类型="", 输出类型="", 额外倍率=1.0):
+    def MP消耗(self, **argv):
+        #武器类型 输出类型 额外CDR 手搓收益 恢复=True
+        武器类型 = argv.get('武器类型', '')
+        输出类型 = argv.get('输出类型', '')
+        额外倍率 = argv.get('额外倍率', 1.0)
         mpnum = int(self.MP[0] + (self.等级 - 1) *
                     (self.MP[1] - self.MP[0]) / (self.等级上限 - 1))
         return round(mpnum * 武器MP系数(武器类型, 输出类型) * 额外倍率, 0)

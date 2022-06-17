@@ -127,9 +127,9 @@ class 技能5(主动技能):
     MP = [125, 436]
     无色消耗 = 1
 
-    def 等效百分比(self, 武器类型="", 额外等级=0, 额外倍率=1, 伤害类型="直伤"):
+    def 等效百分比(self, **argv):
         self.倍率 *= self.天雷攻击力增加率
-        return super().等效百分比(武器类型, 额外等级, 额外倍率, 伤害类型)
+        return super().等效百分比(**argv)
 
     def 装备护石(self):
         self.hit = 1
