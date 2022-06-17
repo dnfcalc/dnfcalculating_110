@@ -1,6 +1,7 @@
 from copy import deepcopy
 import importlib
 from multiprocessing.sharedctypes import Value
+from operator import index
 from pickle import TRUE
 from pyclbr import Function
 from statistics import mode
@@ -1052,11 +1053,15 @@ class Character(角色属性):
             等级 = self.词条等级[部位][序号]
             self.攻击强化加成(成长词条计算(基础, 等级))
         # 词条效果相关计算
-        for func, buwei in equ.get_func_list_by_idlist(self.装备栏, self.自定义词条):
-            func(self, part=buwei)  # 站街效果
-            func(self, mode=1, part=buwei)  # 进图效果
+        for func, 部位, 序号 in equ.get_func_list_by_idlist(self.装备栏, self.自定义词条):
+            if 序号 >= 0:
+                等级 = self.词条等级[部位][序号]
+            else:
+                等级 = 0
+            func(self, part=部位, lv=等级)  # 站街效果
+            func(self, mode=1, part=部位, lv=等级)  # 进图效果
             # 打印相关函数和效果
-            # print('{}: {}: {}'.format(buwei, func, func(self, text=TRUE)))
+            # print('{}(lv.{}): {} {}'.format(部位, 等级, func, func(self, text=TRUE)))
 
     def __被动倍率计算(self):
         for i in self.技能栏:

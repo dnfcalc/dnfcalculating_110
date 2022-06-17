@@ -232,15 +232,20 @@ class equipment_list():
         for id in idlist:
             cus = customize.get(str(id), [])
             i = self.get_equ_by_id(id)
-            for k in i.成长属性 + i.固有属性 + cus:
-                temp.append((k, i.部位))
+            index = 0
+            for k in i.成长属性:
+                temp.append((k, i.部位, index))  #词条id 部位 部位序号(用于获取成长词条等级)
+                index += 1
+            for k in i.固有属性 + cus:
+                temp.append((k, i.部位, -1))  #词条id 部位 部位序号(非成长词条无序号)
         # 词条优先级排序
         temp.sort(key=(lambda x: priority.get(x[0], 100)))
         funclist = []
-        for k, part in temp:
+        for k, part, index in temp:
             funclist.append((
                 self.get_func_by_id(k),
-                part))
+                part,
+                index))
         return funclist
 
     def get_chose_set_info(self) -> List[tuple]:
