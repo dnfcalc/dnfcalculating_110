@@ -124,25 +124,6 @@ export const useConfigStore = defineStore("config", {
         single
       )
     },
-    setSkill(skill: string, key: string, value: any) {
-      const index = this.skill_set.findIndex(item => item.name == skill)
-      if (index < 0) {
-        let temp = {
-          name: skill,
-          level: 0,
-          tp: 0,
-          direct: false,
-          count: 0,
-          pet: 0,
-          directNumber: 0,
-          damage: false
-        }
-        temp[key] = value
-        this.skill_set.push(temp)
-      } else {
-        this.skill_set[index][key] = value
-      }
-    },
     getSkill(skill: string) {
       return this.skill_set.find(item => item.name == skill)
     },

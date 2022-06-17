@@ -102,7 +102,7 @@ export interface SkillSet {
   // 是否有伤害
   damage: boolean
 
-  mode: string[] | undefined
+  mode?: string[]
 }
 
 interface EquipSet {

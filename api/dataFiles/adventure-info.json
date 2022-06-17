@@ -10,7 +10,7 @@
         "options": []
       },
       {
-        "name": "soul_bringer",
+        "name": "soul_bender",
         "title": "极诣·鬼泣",
         "default_name": "国服",
         "class": [],
@@ -72,7 +72,7 @@
         "options": []
       },
       {
-        "name": "blade",
+        "name": "spectre",
         "title": "极诣·刃影",
         "default_name": "国服",
         "class": [],
@@ -496,21 +496,21 @@
         "options": []
       },
       {
-        "name": "chaos",
+        "name": "skirmisher",
         "title": "千魂·决战者",
         "default_name": "国服",
         "class": [],
         "options": []
       },
       {
-        "name": "paladin",
+        "name": "dragoon",
         "title": "千魂·狩猎者",
         "default_name": "国服",
         "class": [],
         "options": []
       },
       {
-        "name": "dragon_knight",
+        "name": "impaler",
         "title": "千魂·暗枪士",
         "default_name": "国服",
         "class": [],
@@ -578,7 +578,7 @@
       },
       {
         "name": "dark_knight",
-        "title": "苍暮·特工",
+        "title": "极诣·黑暗武士",
         "default_name": "国服",
         "class": [],
         "options": []
