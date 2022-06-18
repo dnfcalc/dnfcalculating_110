@@ -94,7 +94,8 @@
         }
       },
       role: {
-        type: String as PropType<"delear" | "buffer">
+        type: String as PropType<"delear" | "buffer">,
+        default: () => "delear"
       },
       canChoose: {
         type: Boolean,
@@ -404,9 +405,8 @@
                         )})/暗(${details.value?.站街?.暗?.toFixed(0)})`}</div>
                       </div>
                     )}
-                    {props.role == "delear" ? renderDelearPropties() : renderBufferProperties()}
                   </div>
-                  <div class="details"></div>
+                  <div class="details">{props.role == "buffer" ? renderBufferProperties() : renderDelearPropties()}</div>
 
                   {
                     <div class="sum" style={"color:" + result.value[1]}>
