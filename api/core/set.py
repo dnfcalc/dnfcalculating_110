@@ -93,7 +93,8 @@ def get(alter: str, setName: str):
             "direct": False,
             "level": item["current_level"],
             "directNumber": 0,
-            "damage": item["type"] == 1
+            "damage": item["type"] == 1,
+            "mode": item.get("mode", [])
         })
     if not os.path.exists('./Sets/{}/{}/store.json'.format(alter, setName)):
         set_info = {
