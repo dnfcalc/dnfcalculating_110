@@ -68,6 +68,7 @@
         "name": "vegabond",
         "title": "极诣·流浪武士",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
@@ -292,7 +293,7 @@
         "name": "elementalist",
         "title": "知源·元素师",
         "default_name": "国服",
-        "open":true,
+        "open": true,
         "class": [],
         "options": []
       },

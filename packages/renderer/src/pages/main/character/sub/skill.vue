@@ -39,19 +39,17 @@
       const characterStore = useCharacterStore()
       const configStore = useConfigStore()
 
-      const buind_skill = ref("EMP磁暴")
-
-      const test = ref("0")
-
       const skills = reactive<SkillSet[]>([])
-      characterStore.skills.forEach(item => {
-        const temp = configStore.getSkill(item.name)
-        if (configStore.getSkill(item.name)) {
-          skills.push(temp as SkillSet)
-        } else {
-          skills.push({ name: item.name, tp: 0, count: 0, pet: 0, direct: false, level: item.current_level, directNumber: 0, damage: item.type == 1, mode: item.mode })
-        }
-      })
+      characterStore.skills
+        .sort((a, b) => a.need_level - b.need_level)
+        .forEach(item => {
+          const temp = configStore.getSkill(item.name)
+          if (configStore.getSkill(item.name)) {
+            skills.push(temp as SkillSet)
+          } else {
+            skills.push({ name: item.name, tp: 0, count: 0, pet: 0, direct: false, level: item.current_level, directNumber: 0, damage: item.type == 1, mode: item.mode })
+          }
+        })
       configStore.skill_set = skills
 
       function highlight(index: number) {
@@ -86,7 +84,7 @@
               <div class="text-center w-68px !ml-10px">手搓相关</div>
             </div>
             {renderList(
-              characterStore.skills,
+              characterStore.skills.sort((a, b) => a.need_level - b.need_level),
               (skill, index) =>
                 skill.type == 1 && (
                   <div class="flex mt-3px mb-3px items-center">
