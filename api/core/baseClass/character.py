@@ -1198,7 +1198,7 @@ class Character(角色属性):
                             if j.是否有伤害 == 1:
                                 j.被动倍率 *= 加成倍率
                     else:
-                        print(self.技能序号)
+                        #print(self.技能序号)
                         for k in 关联技能:
                             self.技能栏[self.技能序号[k]
                                      ].被动倍率 *= 加成倍率
@@ -1471,7 +1471,7 @@ class Character(角色属性):
         temp = self.结果计算()
         calc_info = {}
 
-        print(self.skills_passive)
+        #print(self.skills_passive)
         if self.职业类型 != '辅助':
             if self.类型 == '物理百分比':
                 calc_info['力量'] = self.站街力量()

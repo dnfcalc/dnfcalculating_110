@@ -3,21 +3,18 @@ from core.baseClass.skill import 技能
 from core.baseClass.character import Character
 from core.baseClass.skill import 主动技能, 被动技能
 
-等级 = 110
-
 
 class 主动技能(主动技能):
     def 等效CD(self, **argv):
         # 重火器精通取消除觉醒之外的技能惩罚
-        if self.所在等级 not in [50, 85, 100]:
-            return round(self.CD / self.恢复, 1)
+        if self.所在等级 not in [50, 85, 100] and argv.get('武器类型', '') == '手炮':
+            return round(super().等效CD(**argv) * 0.9, 1)  # 重火器精通
         else:
             return super().等效CD(**argv)
 
     def 基础等级计算(self):
         if self.基础等级 == 0:
-            self.基础等级 = min(
-                int((等级 + 5 - self.所在等级) / self.学习间隔 + 1), self.等级精通)
+            super().基础等级计算()
             if self.所在等级 not in [50, 85, 100] and self.是否主动 == 1:
                 self.基础等级 = min(self.基础等级 + 1, self.等级精通)
 
