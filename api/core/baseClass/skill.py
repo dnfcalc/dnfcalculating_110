@@ -164,6 +164,22 @@ class 主动技能(技能):
 
     形态 = []
 
+    感电 = []
+    感电hit = 0
+    感电power = 1
+
+    灼烧 = []
+    灼烧hit = 0
+    灼烧power = 1
+
+    中毒 = []
+    中毒hit = 0
+    中毒power = 1
+
+    出血 = []
+    出血hit = 0
+    出血power = 1
+
     def __init__(self) -> None:
         super().__init__()
         self.倍率 = 1.0
@@ -188,23 +204,31 @@ class 主动技能(技能):
                 self.hit3, self.hit4, self.hit5, self.hit6]
         powers = [self.power0, self.power1, self.power2,
                   self.power3, self.power4, self.power5, self.power6]
-        等效倍率 = 0.0
+
+        等级 = min(self.等级+额外等级, len(datas[item]))
         if 伤害类型 == "直伤":
+            等效倍率 = 0.0
             for item in range(0, 7):
-                等级 = min(self.等级+额外等级, len(datas[item]))
                 if hits[item] > 0 and 等级 > 0:
                     等效倍率 += datas[item][等级] * \
                         hits[item] * powers[item]
-            return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
         elif 伤害类型 == "感电":
-            return 0
+            等效倍率 = 0.0
+            if self.感电hit > 0 and 等级 > 0:
+                等效倍率 += self.感电[等级] * self.感电hit * self.感电power
         elif 伤害类型 == "灼烧":
-            return 0
+            等效倍率 = 0.0
+            if self.出血hit > 0 and 等级 > 0:
+                等效倍率 += self.出血[等级] * self.出血hit * self.出血power
         elif 伤害类型 == "中毒":
-            return 0
+            等效倍率 = 0.0
+            if self.中毒hit > 0 and 等级 > 0:
+                等效倍率 += self.中毒[等级] * self.中毒hit * self.中毒power
         elif 伤害类型 == "出血":
-            return 0
-        return 0
+            等效倍率 = 0.0
+            if self.出血hit > 0 and 等级 > 0:
+                等效倍率 += self.出血[等级] * self.出血hit * self.出血power
+        return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
 
     def 等效CD(self, **argv):
         # 武器类型 输出类型 额外CDR 手搓收益 恢复=True

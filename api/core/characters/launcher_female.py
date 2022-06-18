@@ -221,9 +221,9 @@ class 技能10(主动技能):
              44037, 45041, 46043, 47048, 48052, 49056, 50061, 51066, 52068, 53073, 54076, 55081, 56086, 57088, 58093, 59097, 60101, 61106, 62110, 63113, 64117, 65122, 66126, 67130, 68135, 69137, 70142, 71147, 72150, 73155, 74160, 75162, 76166, 77171, 78175, 79179]
     hit1 = 1
 
-    data2 = [0, 10, 10, 10, 10, 10, 10, 11, 12, 12, 13, 14, 14, 15, 16, 16, 17, 18, 19, 19, 20, 21, 21, 22, 23, 23, 24, 25, 25, 26, 27, 27, 28, 29, 30,
+    感电 = [0, 10, 10, 10, 10, 10, 10, 11, 12, 12, 13, 14, 14, 15, 16, 16, 17, 18, 19, 19, 20, 21, 21, 22, 23, 23, 24, 25, 25, 26, 27, 27, 28, 29, 30,
              30, 31, 32, 32, 33, 34, 34, 35, 36, 36, 37, 38, 39, 39, 40, 41, 41, 42, 43, 43, 44, 45, 45, 46, 47, 47, 48, 49, 50, 50, 51, 52, 52, 53, 54, 54]
-    hit2 = 1
+    感电hit = 1
 
     CD = 18.0
     TP成长 = 0.10
@@ -232,50 +232,12 @@ class 技能10(主动技能):
     MP = [164, 1376]
     无色消耗 = 1
 
-    def 等效百分比(self, **argv):
-        # 武器类型 额外等级 额外倍率 伤害类型 形态
-        武器类型 = argv.get('武器类型', '')
-        额外等级 = argv.get('额外等级', 0)
-        额外倍率 = argv.get('额外倍率', 1.0)
-        伤害类型 = argv.get('伤害类型', '直伤')
-        形态 = argv.get('形态', '')
-
-        self.形态变更(形态, 武器类型)
-        if 形态 == '':
-            pass
-        datas = [self.data0, self.data1, self.data2,
-                 self.data3, self.data4, self.data5, self.data6]
-        hits = [self.hit0, self.hit1, self.hit2,
-                self.hit3, self.hit4, self.hit5, self.hit6]
-        powers = [self.power0, self.power1, self.power2,
-                  self.power3, self.power4, self.power5, self.power6]
-        等效倍率 = 0.0
-        if 伤害类型 == "直伤":
-            for item in range(0, 2):
-                等级 = min(self.等级+额外等级, len(datas[item]))
-                if hits[item] > 0 and 等级 > 0:
-                    等效倍率 += datas[item][等级] * \
-                        hits[item] * powers[item]
-            return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
-        elif 伤害类型 == "感电":
-            等级 = min(self.等级+额外等级, len(datas[3]))
-            if hits[3] > 0 and 等级 > 0:
-                等效倍率 += datas[3][等级] * \
-                    hits[3] * powers[3]
-            return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
-        elif 伤害类型 == "灼烧":
-            return 0
-        elif 伤害类型 == "中毒":
-            return 0
-        elif 伤害类型 == "出血":
-            return 0
-        return 0
     是否有护石 = 1
 
     def 装备护石(self):
         self.hit1 = 0
         self.hit1 = 0.16 * 8 * 1.14
-        self.hit2 *= 0.16 * 8 * 1.14
+        self.感电hit *= 0.16 * 8 * 1.14
         self.CDR *= 0.9
 
 
