@@ -205,27 +205,31 @@ class 主动技能(技能):
         powers = [self.power0, self.power1, self.power2,
                   self.power3, self.power4, self.power5, self.power6]
 
-        等级 = min(self.等级+额外等级, len(datas[item]))
         if 伤害类型 == "直伤":
             等效倍率 = 0.0
             for item in range(0, 7):
+                等级 = min(self.等级+额外等级, len(datas[item]))
                 if hits[item] > 0 and 等级 > 0:
                     等效倍率 += datas[item][等级] * \
                         hits[item] * powers[item]
         elif 伤害类型 == "感电":
             等效倍率 = 0.0
+            等级 = min(self.等级+额外等级, len(self.感电))
             if self.感电hit > 0 and 等级 > 0:
                 等效倍率 += self.感电[等级] * self.感电hit * self.感电power
         elif 伤害类型 == "灼烧":
             等效倍率 = 0.0
+            等级 = min(self.等级+额外等级, len(self.灼烧))
             if self.出血hit > 0 and 等级 > 0:
                 等效倍率 += self.出血[等级] * self.出血hit * self.出血power
         elif 伤害类型 == "中毒":
             等效倍率 = 0.0
+            等级 = min(self.等级+额外等级, len(self.中毒))
             if self.中毒hit > 0 and 等级 > 0:
                 等效倍率 += self.中毒[等级] * self.中毒hit * self.中毒power
         elif 伤害类型 == "出血":
             等效倍率 = 0.0
+            等级 = min(self.等级+额外等级, len(self.出血))
             if self.出血hit > 0 and 等级 > 0:
                 等效倍率 += self.出血[等级] * self.出血hit * self.出血power
         return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
