@@ -150,6 +150,9 @@ class 主动技能(技能):
     def 形态变更(self, 形态: str = "", 武器类型: str = ""):
         pass
 
+    def TP加成(self):
+        return 1 + self.TP成长 * self.TP等级
+
     def 基础百分比(self, 类型, 等级):
         if 类型 == '直伤':
             name = ''
@@ -158,10 +161,9 @@ class 主动技能(技能):
         等效倍率 = 0.0
         for i in range(0, 7):
             hit = getattr(self, '{}hit{}'.format(name, i), 0)
-            power = getattr(self, '{}power{}'.format(name, i), 0)
-            rate = hit * power
-            if rate > 0 and 等级 > 0:
-                等效倍率 += getattr(self, '{}data{}'.format(name, i), [])[等级] * rate
+            if hit > 0 and 等级 > 0:
+                power = getattr(self, '{}power{}'.format(name, i), 1)
+                等效倍率 += getattr(self, '{}data{}'.format(name, i), [])[等级] * hit * power
         return 等效倍率
 
     def 等效百分比(self, **argv):
@@ -177,7 +179,7 @@ class 主动技能(技能):
 
         等效倍率 = self.基础百分比(伤害类型, 等级)
 
-        return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
+        return 等效倍率 * self.TP加成() * self.倍率 * 额外倍率
 
     def 等效CD(self, **argv):
         # 武器类型 输出类型 额外CDR 手搓收益 恢复
@@ -204,8 +206,11 @@ class 主动技能(技能):
         武器类型 = argv.get('武器类型', '')
         输出类型 = argv.get('输出类型', '')
         额外倍率 = argv.get('额外倍率', 1.0)
-        mpnum = int(self.MP[0] + (self.等级 - 1) *
-                    (self.MP[1] - self.MP[0]) / (self.等级上限 - 1))
+        if self.等级上限 > 1:
+            mpnum = int(self.MP[0] + (self.等级 - 1) *
+                        (self.MP[1] - self.MP[0]) / (self.等级上限 - 1))
+        else:
+            mpnum = self.MP[0]
         return round(mpnum * 武器MP系数(武器类型, 输出类型) * 额外倍率, 0)
 
 
