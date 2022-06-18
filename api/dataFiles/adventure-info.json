@@ -142,6 +142,7 @@
         "name": "brawler_female",
         "title": "归元·街霸",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },

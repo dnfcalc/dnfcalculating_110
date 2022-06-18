@@ -1,8 +1,6 @@
 from core.equipment.基础函数 import 武器MP系数, 武器冷却惩罚
 
 等级 = 110
-
-
 class 技能:
     名称 = ''
     备注 = ''
@@ -107,18 +105,8 @@ class 技能:
 
 
 class 主动技能(技能):
-    # 只扩展了技能的三条属性，第一条技能hit默认1,2、3条hit默认为0，需要手动赋值
     # 如果需要继续扩展，可以在各自职业类内继承后自行扩展，同时需要重写下等效百分比函数
     # 固伤在填写基础及成长的时候需要注意，技能面板/独立得到的成长及数值需要*100
-    基础 = 0.0
-    成长 = 0.0
-    攻击次数 = 1.0
-    基础2 = 0.0
-    成长2 = 0.0
-    攻击次数2 = 0.0
-    基础3 = 0.0
-    成长3 = 0.0
-    攻击次数3 = 0.0
     CD = 0.0
     CDR = 1.0
     TP成长 = 0.0
@@ -133,52 +121,27 @@ class 主动技能(技能):
     演出时间 = 0
     是否有护石 = 0
     护石选项 = ['魔界']
+    形态 = []
 
     data0 = []
     hit0 = 1
     power0 = 1
 
-    data1 = []
-    hit1 = 0
-    power1 = 1
+    感电data0 = []
+    感电hit0 = 0
+    感电power0 = 1
 
-    data2 = []
-    hit2 = 0
-    power2 = 1
+    灼烧data0 = []
+    灼烧hit0 = 0
+    灼烧power0 = 1
 
-    data3 = []
-    hit3 = 0
-    power3 = 1
+    中毒data0 = []
+    中毒hit0 = 0
+    中毒power0 = 1
 
-    data4 = []
-    hit4 = 0
-    power4 = 1
-
-    data5 = []
-    hit5 = 0
-    power5 = 1
-
-    data6 = []
-    hit6 = 0
-    power6 = 1
-
-    形态 = []
-
-    感电 = []
-    感电hit = 0
-    感电power = 1
-
-    灼烧 = []
-    灼烧hit = 0
-    灼烧power = 1
-
-    中毒 = []
-    中毒hit = 0
-    中毒power = 1
-
-    出血 = []
-    出血hit = 0
-    出血power = 1
+    出血data0 = []
+    出血hit0 = 0
+    出血power0 = 1
 
     def __init__(self) -> None:
         super().__init__()
@@ -186,6 +149,20 @@ class 主动技能(技能):
 
     def 形态变更(self, 形态: str = "", 武器类型: str = ""):
         pass
+
+    def 基础百分比(self, 类型, 等级):
+        if 类型 == '直伤':
+            name = ''
+        else:
+            name = 类型
+        等效倍率 = 0.0
+        for i in range(0, 7):
+            hit = getattr(self, '{}hit{}'.format(name, i), 0)
+            power = getattr(self, '{}power{}'.format(name, i), 0)
+            rate = hit * power
+            if rate > 0 and 等级 > 0:
+                等效倍率 += getattr(self, '{}data{}'.format(name, i), [])[等级] * rate
+        return 等效倍率
 
     def 等效百分比(self, **argv):
         # 武器类型 额外等级 额外倍率 伤害类型 形态
@@ -196,46 +173,14 @@ class 主动技能(技能):
         形态 = argv.get('形态', '')
 
         self.形态变更(形态, 武器类型)
-        if 形态 == '':
-            pass
-        datas = [self.data0, self.data1, self.data2,
-                 self.data3, self.data4, self.data5, self.data6]
-        hits = [self.hit0, self.hit1, self.hit2,
-                self.hit3, self.hit4, self.hit5, self.hit6]
-        powers = [self.power0, self.power1, self.power2,
-                  self.power3, self.power4, self.power5, self.power6]
+        等级 = min(self.等级 + 额外等级, self.等级上限)
 
-        if 伤害类型 == "直伤":
-            等效倍率 = 0.0
-            for item in range(0, 7):
-                等级 = min(self.等级+额外等级, len(datas[item]))
-                if hits[item] > 0 and 等级 > 0:
-                    等效倍率 += datas[item][等级] * \
-                        hits[item] * powers[item]
-        elif 伤害类型 == "感电":
-            等效倍率 = 0.0
-            等级 = min(self.等级+额外等级, len(self.感电))
-            if self.感电hit > 0 and 等级 > 0:
-                等效倍率 += self.感电[等级] * self.感电hit * self.感电power
-        elif 伤害类型 == "灼烧":
-            等效倍率 = 0.0
-            等级 = min(self.等级+额外等级, len(self.灼烧))
-            if self.出血hit > 0 and 等级 > 0:
-                等效倍率 += self.出血[等级] * self.出血hit * self.出血power
-        elif 伤害类型 == "中毒":
-            等效倍率 = 0.0
-            等级 = min(self.等级+额外等级, len(self.中毒))
-            if self.中毒hit > 0 and 等级 > 0:
-                等效倍率 += self.中毒[等级] * self.中毒hit * self.中毒power
-        elif 伤害类型 == "出血":
-            等效倍率 = 0.0
-            等级 = min(self.等级+额外等级, len(self.出血))
-            if self.出血hit > 0 and 等级 > 0:
-                等效倍率 += self.出血[等级] * self.出血hit * self.出血power
+        等效倍率 = self.基础百分比(伤害类型, 等级)
+
         return 等效倍率 * (1 + self.TP成长 * self.TP等级) * self.倍率 * 额外倍率
 
     def 等效CD(self, **argv):
-        # 武器类型 输出类型 额外CDR 手搓收益 恢复=True
+        # 武器类型 输出类型 额外CDR 手搓收益 恢复
         武器类型 = argv.get('武器类型', '')
         输出类型 = argv.get('输出类型', '')
         额外CDR = argv.get('额外CDR', 1.0)
