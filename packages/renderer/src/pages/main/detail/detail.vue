@@ -6,9 +6,10 @@
   import Clothes from "./sub/clothes.vue"
   import Others from "./sub/others.vue"
   import Petequ from "./sub/petequ.vue"
+  import Special from "./sub/special.vue"
 
   export default defineComponent({
-    components: { Profile, Equip, Jade, Clothes, Others, Petequ },
+    components: { Profile, Equip, Jade, Clothes, Others, Petequ, Special },
     setup() {
       return () => (
         <div class="detail">
@@ -33,6 +34,9 @@
 
             <calc-collapse class="w-510px" title="其它">
               <Others />
+            </calc-collapse>
+            <calc-collapse class="w-510px" title="职业特殊">
+              <Special />
             </calc-collapse>
           </div>
         </div>

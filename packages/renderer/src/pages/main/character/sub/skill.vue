@@ -16,7 +16,7 @@
           <div class="info">学习等级:{+skill.need_level}</div>
           <div class="info">精通等级:{+skill.level_master}</div>
           <div class="info">上限等级:{+skill.level_max}</div>
-          <div class="info">技能倍率:{+skill.data}%</div>
+          <div class="info">技能倍率:{+skill.data.toFixed(0)}%</div>
         </div>
       )
     else
@@ -157,7 +157,7 @@
               characterStore.skills,
               (skill, index) =>
                 skill.type == 0 && (
-                  <div class="flex items-center justify-center">
+                  <div class="flex items-center  mt-3px mb-3px justify-center">
                     <div>
                       <calc-tooltip position="right" offset={5}>
                         {{

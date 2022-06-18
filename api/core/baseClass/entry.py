@@ -8984,6 +8984,10 @@ def entry_569(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "[一花渡江]、[啸空十字斩]、[樱花劫]、[落英惊鸿掌] 技能冷却时间 -20%"
     if mode == 0:
+        char.单技能加成('一花渡江', CD=0.8)
+        char.单技能加成('啸空十字斩', CD=0.8)
+        char.单技能加成('樱花劫', CD=0.8)
+        char.单技能加成('落英惊鸿掌', CD=0.8)
         pass
     if mode == 1:
         pass

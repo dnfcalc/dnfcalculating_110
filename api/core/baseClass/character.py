@@ -754,8 +754,14 @@ class Character(角色属性):
         self.__护石计算()
         self.__符文计算()
         self.__装备属性计算()
-        print(self.职业类型)
+        self.skills_passive = {}
+        for i in self.技能栏:
+            self.skills_passive[i.名称] = {
+                "info": [],
+                "lv": i.等级
+            }
         if self.职业类型 != '辅助':
+            self.职业特殊计算()
             self.__CD倍率计算()
             self.__加算冷却计算()
             self.__被动倍率计算()
@@ -1141,6 +1147,9 @@ class Character(角色属性):
         独立攻击力 = 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
 
         self.基础属性加成(物理攻击力=物理攻击力, 魔法攻击力=魔法攻击力, 独立攻击力=独立攻击力)
+
+    def 职业装备特殊计算(self) -> None:
+        pass
 
     def __装备词条计算(self):
         # 攻击强化相关计算
