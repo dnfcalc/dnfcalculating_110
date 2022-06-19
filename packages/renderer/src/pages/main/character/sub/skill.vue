@@ -68,6 +68,27 @@
         configStore.skill_set = val
       })
 
+      const skillQueChange = (count: number, skill: ISkillInfo) => {
+        let indexs = (
+          configStore.skill_que
+            .map((item, index) => {
+              if (item.name == skill.name) return index
+            })
+            .filter(item => item) ?? []
+        ).sort((a, b) => (b ?? 0) - (a ?? 0))
+        if (indexs.length > count) {
+          // 删除后几位
+          console.log(indexs)
+          for (let i = 0; i < indexs.length - count; i++) {
+            configStore.skill_que.splice(indexs[i] as number, 1)
+          }
+        } else {
+          for (let i = 0; i < count - indexs.length; i++) {
+            configStore.skill_que.push({ name: skill.name, id: 0, mode: skill.mode?.[0] ?? "", modes: skill.mode })
+          }
+        }
+      }
+
       const wakens = computed(() => characterStore.skills.filter(item => item.need_level == 50 || item.need_level == 85))
 
       return () => (
@@ -119,7 +140,13 @@
                       <div class="!h-20px !ml-5px !w-50px"></div>
                     )}
                     {
-                      <calc-select v-model={skills[index].count} class="!h-20px !ml-5px !min-w-45px !w-45px">
+                      <calc-select
+                        v-model={skills[index].count}
+                        onChange={(val: any) => {
+                          skillQueChange(val, skill)
+                        }}
+                        class="!h-20px !ml-5px !min-w-45px !w-45px"
+                      >
                         {renderList(100, item => (
                           <calc-option value={item - 1}>
                             <span>{item - 1}</span>

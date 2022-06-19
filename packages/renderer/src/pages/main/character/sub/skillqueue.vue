@@ -14,28 +14,28 @@
       const configStore = useConfigStore()
       let canChooseSkill = ref(configStore.skill_que)
 
-      watch(configStore.skill_set, val => {
-        let tem: { name: string; id: number; mode: string; modes: string[] | undefined }[] = []
-        // 重新排序一下
-        //   let temp =
-        //     configStore.skill_que?.map((item, index) => {
-        //       item.id = index
-        //       return item
-        //     }) || []
-        //   let toRemove = []
-        //   let toAdd = []
-        //   // 根据次数删除
-        //   temp.map(item => item.name)
-        // })
-        // todo 根据次数修改自动添加/删除技能
-        configStore.skill_set.forEach(item => {
-          if (item.count > 0 && item.level > 0 && item.damage) for (var i = 0; i < item.count; i++) tem.push({ name: item.name, id: 0, mode: item.mode?.[0] ?? "", modes: item.mode })
-        })
-        configStore.skill_que = tem.map((item, index) => {
-          item.id = index
-          return item
-        })
-      })
+      //   watch(configStore.skill_set, val => {
+      //     let tem: { name: string; id: number; mode: string; modes: string[] | undefined }[] = []
+      //     // 重新排序一下
+      //     //   let temp =
+      //     //     configStore.skill_que?.map((item, index) => {
+      //     //       item.id = index
+      //     //       return item
+      //     //     }) || []
+      //     //   let toRemove = []
+      //     //   let toAdd = []
+      //     //   // 根据次数删除
+      //     //   temp.map(item => item.name)
+      //     // })
+      //     // todo 根据次数修改自动添加/删除技能
+      //     configStore.skill_set.forEach(item => {
+      //       if (item.count > 0 && item.level > 0 && item.damage) for (var i = 0; i < item.count; i++) tem.push({ name: item.name, id: 0, mode: item.mode?.[0] ?? "", modes: item.mode })
+      //     })
+      //     configStore.skill_que = tem.map((item, index) => {
+      //       item.id = index
+      //       return item
+      //     })
+      //   })
 
       // watch(canChooseSkill.value, val => {
       //   configStore.skill_que = val
