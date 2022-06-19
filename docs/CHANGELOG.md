@@ -7,7 +7,3 @@
 #### BugFixes
 
 ## History
-
-#### NewFeatures
-
-#### BugFixes
