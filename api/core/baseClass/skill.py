@@ -147,7 +147,7 @@ class 主动技能(技能):
         super().__init__()
         self.倍率 = 1.0
 
-    def 形态变更(self, 形态: str = "", 武器类型: str = ""):
+    def 形态变更(self, 形态, char):
         pass
 
     def TP加成(self):
@@ -173,8 +173,9 @@ class 主动技能(技能):
         额外倍率 = argv.get('额外倍率', 1.0)
         伤害类型 = argv.get('伤害类型', '直伤')
         形态 = argv.get('形态', '')
+        char = argv.get('char', {})
 
-        self.形态变更(形态, 武器类型)
+        self.形态变更(形态, char)
         等级 = min(self.等级 + 额外等级, self.等级上限)
 
         等效倍率 = self.基础百分比(伤害类型, 等级)

@@ -25,6 +25,7 @@ from .avatar import 装扮套装, 装扮套装集合, 装扮集合
 
 
 class Character(角色属性):
+    等级 = 110
     # 辟邪玉属性
     附加伤害增加增幅: float = 1.0
     属性附加伤害增加增幅: float = 1.0
@@ -274,6 +275,9 @@ class Character(角色属性):
     def 百分比防御减少(self, x: float) -> None:
         self.__百分比减防 += x
 
+    def 固定防御减少(self, x: int) -> None:
+        self.__固定减防 += x
+
     def 伤害类型转化(self, 类型1: str, 类型2: str, x: float) -> None:
         # 直伤 中毒 灼烧 感电 出血
         self.__伤害比例[类型1] = self.__伤害比例.get(类型1, 0.0) - x
@@ -361,15 +365,20 @@ class Character(角色属性):
         self.__属性附加 += self.属性附加伤害增加增幅 * x
 
     def 技能攻击力加成(self, x: float, 辟邪玉加成=1, 适用累加=1) -> None:
-        if 适用累加 == 0:
-            self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * x if 辟邪玉加成 == 1 else x
-        else:
-            self.__技能攻击力累加 += x
-            if self.__技能攻击力累加 <= 2:
-                self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * x if 辟邪玉加成 == 1 else x
+        if 辟邪玉加成 == 1:
+            if 适用累加 == 0:
+                self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * x
             else:
-                self.__技能攻击力 *= 1 + (self.技能伤害增加增幅*(2+x-self.__技能攻击力累加) +
-                                     self.__技能攻击力累加-2) if self.__技能攻击力累加 - x < 2 or 辟邪玉加成 == 1 else x
+                if self.__技能攻击力累加 > 2:  #累计已经大于2不再加成
+                    self.__技能攻击力 *= 1 + x
+                elif self.__技能攻击力累加 + x > 2:  #此次累计导致大于2，一部分加成，一部分不加成
+                    overflow = self.__技能攻击力累加 - 2 #溢出部分
+                    self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * (x - overflow) + overflow
+                else: #累计后仍小于等于2
+                    self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * x
+                self.__技能攻击力累加 += x #累计计算
+        else:
+            self.__技能攻击力 *= 1 + x
 
     def 暴击伤害加成(self, x: float, 辟邪玉加成=1) -> None:
         self.__暴击伤害 += self.暴击伤害增加增幅 * x if 辟邪玉加成 == 1 else x
@@ -765,7 +774,7 @@ class Character(角色属性):
             self.__CD倍率计算()
             self.__加算冷却计算()
             self.__被动倍率计算()
-            self.__伤害指数计算()
+            self.伤害指数计算()
 
     def 适用数值计算(self):
         self.__进图智力 = self.__智力
@@ -862,8 +871,8 @@ class Character(角色属性):
         for i in self.技能队列:
             k = self.get_skill_by_name(i['名称'])
             if k.是否有伤害 == 1:
+                temp = data['skills'].get(k.名称, {})
                 if k.名称 not in data.keys():
-                    temp = {}
                     temp['rate'] = k.被动倍率
                     temp['cd'] = k.等效CD(
                         武器类型=self.武器类型, 输出类型=self.类型, 额外CDR=i['CDR'])
@@ -872,27 +881,24 @@ class Character(角色属性):
                     temp['百分比'] = k.等效百分比(武器类型=self.武器类型)
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
-                    temp['count'] = k.count
                 直伤 = k.等效百分比(
-                    武器类型=self.武器类型, 额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型="直伤", 形态=i['形态'])
+                    武器类型=self.武器类型, 额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型="直伤", 形态=i['形态'], char=self)
 
                 # 直伤处理：直伤伤害*比例*系数
-                damage = 直伤 * self.伤害指数 * k.被动倍率 * \
-                    (self.__伤害比例.get("直伤", 0.0)) / 100
+                damage = 直伤 * self.伤害指数 * k.被动倍率 * (self.__伤害比例.get("直伤", 0.0)) / 100
                 for item in ['中毒', '灼烧', '感电', '出血']:
                     系数 = self.__伤害系数.get(item, 0.0)
                     # 出血 叠层 1层1%出血伤害 满10%
                     if item == '出血':
                         系数 *= 1.1
                     # 直伤转换的异常处理：直伤伤害*异常比例*异常系数
-                    damage += 直伤 * self.伤害指数 * k.被动倍率 * \
-                        (self.__伤害比例.get(item, 0.0) *
-                         系数) / 100
+                    damage += 直伤 * self.伤害指数 * k.被动倍率 * (self.__伤害比例.get(item, 0.0) * 系数) / 100
                     # 异常伤害处理：异常伤害*异常系数
                     damage += k.等效百分比(
-                        武器类型=self.武器类型,  额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型=item, 形态=i['形态']) * self.伤害指数 * k.被动倍率*系数 / 100
+                        武器类型=self.武器类型,  额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型=item, 形态=i['形态'], char=self) * self.伤害指数 * k.被动倍率*系数 / 100
                 total_data += damage
                 temp['damage'] = temp.get('damage', 0) + damage
+                temp['count'] = temp.get('count', 0) + 1
                 data['skills'][k.名称] = temp
                 if k.名称 not in ['爆裂弹']:
                     data['无色消耗'] += i['无色消耗']
@@ -1397,15 +1403,11 @@ class Character(角色属性):
             elif self.类型 == '魔法固伤':
                 return int((self.面板智力() / 250 + 1) * self.__基础面板独立攻击力() * (1 + self.__百分比三攻))
 
-    def __伤害指数计算(self):
+    def 伤害指数计算(self):
 
         防御 = max(self.防御输入 - self.__固定减防, 0) * (1 - self.__百分比减防)
 
-        # 基准倍率 = 1.5 * self.buff * (1 - 防御 / (防御 + 200 * self.等级))
-        基准倍率 = 1.5 * self.buff * (1 - 防御 / (防御 + 200 * 100))
-
-        # 避免出现浮点数取整BUG
-        self.__伤害增加 += 0.00000001
+        基准倍率 = 1.5 * self.buff * (1 - 防御 / (防御 + 200 * self.等级))
 
         self.__属性倍率计算()
 
@@ -1414,7 +1416,7 @@ class Character(角色属性):
         旧版面板 = self.__面板系数计算(mode=1)
 
         新 = self.__攻击强化 * (1 + self.__百分比攻击强化) * 0.001
-        旧 = 1 + int(self.__伤害增加 * 100) / 100
+        旧 = 1 + int((self.__伤害增加 + 0.00000001) * 100) / 100 # 避免出现浮点数取整BUG
         旧 *= 1 + self.__暴击伤害
         旧 *= 1 + self.__最终伤害
         旧 *= 1 + self.__持续伤害
