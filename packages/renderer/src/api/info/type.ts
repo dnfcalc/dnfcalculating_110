@@ -117,6 +117,7 @@ interface skillQue {
   name: string
   id: number
   mode?: string
+  modes?: string[]
 }
 
 export interface ICharacterSet {
