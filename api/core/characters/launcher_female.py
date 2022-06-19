@@ -16,7 +16,7 @@ class 主动技能(主动技能):
         if self.基础等级 == 0:
             super().基础等级计算()
             if self.所在等级 not in [50, 85, 100] and self.是否主动 == 1:
-                self.基础等级 = min(self.基础等级 + 1, self.等级精通)
+                self.基础等级 = min(self.基础等级 + 1, self.等级上限)
 
 
 class 技能0(主动技能):
@@ -36,7 +36,7 @@ class 技能0(主动技能):
     无色消耗 = 0
 
     def 等效百分比(self, **argv):
-        self.hit0 += 1 if self.TP等级 >= 4 else 0
+        self.hit0 = 14 + 1 if self.TP等级 >= 5 else 0 #5级以上TP能多打一段
         return super().等效百分比(**argv)
 
 
