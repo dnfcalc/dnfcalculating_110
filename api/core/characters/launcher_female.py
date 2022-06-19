@@ -36,7 +36,7 @@ class 技能0(主动技能):
     无色消耗 = 0
 
     def 等效百分比(self, **argv):
-        self.hit0 = 14 + 1 if self.TP等级 >= 5 else 0 #5级以上TP能多打一段
+        self.hit0 = 14 + (1 if self.TP等级 >= 5 else 0) #5级以上TP能多打一段
         return super().等效百分比(**argv)
 
 
@@ -428,7 +428,7 @@ class 技能19(主动技能):
 
     hit0 = 50
     hit1 = 20
-    hit3 = 1
+    hit2 = 1
     CD = 180.0
 
     MP = [2500, 8000]

@@ -269,6 +269,13 @@ class 技能12(主动技能):
     护石选项 = ['魔界', '圣痕']
     MP = [180, 1512]
     无色消耗 = 1
+    
+    形态 = ['x4', 'x6', 'x8']
+    def 形态形态变更(self, 形态, char):
+        num = int(形态.replace('x', ''))
+        self.hit0 = num
+        self.中毒hit0 = num
+        self.涂毒hit0 = num
 
     def 装备护石(self, x):
         if x == 0:
@@ -277,7 +284,7 @@ class 技能12(主动技能):
         if x == 1:
             self.倍率 *= 1.16
             self.CD *= 0.90
-
+    
 
 class 技能13(主动技能):
     名称 = '街头风暴'
@@ -854,106 +861,3 @@ class classChange(Character):
 
     def 面板智力(self):
         return self.面板力量()
-
-
-'''
-    死亡毒雾力智开关 = 0
-    毒伤结算丢失开关 = 0
-    def 数据计算(self, x=0, y=-1):
-        self.预处理()
-        # 初步计算
-        技能释放次数 = self.技能释放次数计算()
-        
-        # 死亡毒物计算
-        if self.死亡毒雾力智开关 == 1:
-            self.进图力量 += self.技能栏[self.技能序号['死亡毒雾']].力智加成()
-            self.进图智力 += self.技能栏[self.技能序号['死亡毒雾']].力智加成()
-            self.固定减防 += self.技能栏[self.技能序号['死亡毒雾']].防御减少()
-
-        # 涂毒丢失估算
-        if self.毒伤结算丢失开关 == 1:
-            蛇拳 = ''
-            蛇拳次数 = 3
-            for n in ['万毒噬心诀x3', '万毒噬心诀x4', '万毒噬心诀x5']:
-                if 技能释放次数[self.技能序号[n]] > 蛇拳次数:
-                    蛇拳次数 = 技能释放次数[self.技能序号[n]]
-                    蛇拳 = n
-            if 蛇拳次数 > 3:
-                self.技能栏[self.技能序号[蛇拳]].涂毒倍率 *= (蛇拳次数 - 2) / 蛇拳次数
-
-            for n in ['猛毒擒月炎', '毒雷引爆', '裂地飞沙', '伏虎霸王拳', '擒月炎', '天罗地网', '毒影针', '毒龙轰天雷', '连环毒爆弹', ]:
-                次数 = 技能释放次数[self.技能序号[n]]
-                if 次数 > 1:
-                    # 1秒余地 例如：输入20S，18S技能放两次，会丢失2秒
-                    丢失涂毒时间 = (
-                        次数 - 1) * self.技能栏[self.技能序号[n]].等效CD(self.武器类型, self.类型) - self.时间输入 + 3 + 1
-                    if 丢失涂毒时间 > 0:
-                        # 接上面，丢失2秒，平均倍率为1-2/6=2/3，也即是6*2/3计算4秒涂毒伤害
-                        self.技能栏[self.技能序号[n]].涂毒倍率 *= 1 - 丢失涂毒时间 / (次数 * 3)
-
-        技能单次伤害 = self.技能单次伤害计算(y)
-        技能总伤害 = self.技能总伤害计算(技能释放次数, 技能单次伤害)
-
-        # 返回结果
-        return self.数据返回(x, 技能释放次数, 技能总伤害)
-
-
-class 归元·街霸·女(角色窗口):
-    def 窗口属性输入(self):
-        self.初始属性 = 归元·街霸·女角色属性()
-        self.角色属性A = 归元·街霸·女角色属性()
-        self.角色属性B = 归元·街霸·女角色属性()
-        self.一觉序号 = 归元·街霸·女一觉序号
-        self.二觉序号 = 归元·街霸·女二觉序号
-        self.三觉序号 = 归元·街霸·女三觉序号
-        self.护石选项 = deepcopy(归元·街霸·女护石选项)
-        self.符文选项 = deepcopy(归元·街霸·女符文选项)
-
-    def 界面(self):
-        super().界面()
-        self.收招选择 = []
-
-        self.死亡毒雾力智开关 = QCheckBox('死亡毒雾效果', self.main_frame2)
-        self.死亡毒雾力智开关.resize(100, 20)
-        self.死亡毒雾力智开关.move(335, 420)
-        self.死亡毒雾力智开关.setStyleSheet(复选框样式)
-        self.死亡毒雾力智开关.setToolTip('包含力智和减防')
-        self.死亡毒雾力智开关.setChecked(False)
-
-        self.毒伤结算丢失开关 = QCheckBox('毒伤结算补正', self.main_frame2)
-        self.毒伤结算丢失开关.resize(100, 20)
-        self.毒伤结算丢失开关.move(335, 450)
-        self.毒伤结算丢失开关.setStyleSheet(复选框样式)
-        self.毒伤结算丢失开关.setToolTip('计算结果将不计入部分未结算毒伤')
-        self.毒伤结算丢失开关.setChecked(False)
-
-        self.毒雷个数数选择 = MyQComboBox(self.main_frame2)
-        for i in range(9):
-            self.毒雷个数数选择.addItem('毒雷引爆：' + str(i) + '颗')
-        self.毒雷个数数选择.setToolTip('包含冲击波次数')
-        self.毒雷个数数选择.setCurrentIndex(8)
-        self.毒雷个数数选择.resize(120, 20)
-        self.毒雷个数数选择.move(325, 480)
-
-        self.毒雾中毒次数选择 = MyQComboBox(self.main_frame2)
-        for i in range(21):
-            self.毒雾中毒次数选择.addItem('毒雾中毒：' + str(i) + '次')
-        self.毒雾中毒次数选择.setCurrentIndex(10)
-        self.毒雾中毒次数选择.resize(120, 20)
-        self.毒雾中毒次数选择.move(325, 510)
-
-        self.职业存档.append(('死亡毒雾力智开关', self.死亡毒雾力智开关, 0))
-        self.职业存档.append(('毒伤结算丢失开关', self.毒伤结算丢失开关, 0))
-        self.职业存档.append(('毒雷个数数选择', self.毒雷个数数选择, 1))
-        self.职业存档.append(('毒雾中毒次数选择', self.毒雾中毒次数选择, 1))
-
-    def 输入属性(self, 属性, x=0):
-        super().输入属性(属性, x)
-        if self.死亡毒雾力智开关.isChecked():
-            属性.死亡毒雾力智开关 = 1
-            属性.技能栏[属性.技能序号['死亡毒雾']].自定义描述 = 1
-        if self.毒伤结算丢失开关.isChecked():
-            属性.毒伤结算丢失开关 = 1
-        属性.技能栏[属性.技能序号['毒雷引爆']].倍率 *= self.毒雷个数数选择.currentIndex()
-        属性.技能栏[属性.技能序号['死亡毒雾']].中毒倍率 *= self.毒雾中毒次数选择.currentIndex()
-'''
