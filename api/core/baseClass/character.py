@@ -372,7 +372,7 @@ class Character(角色属性):
                 if self.__技能攻击力累加 > 2:  #累计已经大于2不再加成
                     self.__技能攻击力 *= 1 + x
                 elif self.__技能攻击力累加 + x > 2:  #此次累计导致大于2，一部分加成，一部分不加成
-                    overflow = self.__技能攻击力累加 - 2 #溢出部分
+                    overflow = self.__技能攻击力累加 + x - 2 #溢出部分
                     self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * (x - overflow) + overflow
                 else: #累计后仍小于等于2
                     self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * x
