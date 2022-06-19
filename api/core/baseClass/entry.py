@@ -7354,7 +7354,7 @@ def entry_1062(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.基础精通加成(0.15*3)
-        char.技能冷却缩减(1, 100, 0.08*3)
+        char.技能冷却缩减(1, 100, - 0.08*3)
         char.技能倍率加成(1, 100, 0.05*3)
         pass
 
