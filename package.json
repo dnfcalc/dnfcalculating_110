@@ -1,6 +1,6 @@
 {
   "name": "dcalc",
-  "version": "2022.6.15",
+  "version": "Beta",
   "main": "dist/web/main/index.cjs",
   "license": "GNU",
   "lint-staged": {
