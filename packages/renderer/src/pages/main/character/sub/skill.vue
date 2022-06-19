@@ -74,11 +74,10 @@
             .map((item, index) => {
               if (item.name == skill.name) return index
             })
-            .filter(item => item) ?? []
+            .filter(item => item != undefined) ?? []
         ).sort((a, b) => (b ?? 0) - (a ?? 0))
         if (indexs.length > count) {
           // 删除后几位
-          console.log(indexs)
           for (let i = 0; i < indexs.length - count; i++) {
             configStore.skill_que.splice(indexs[i] as number, 1)
           }
@@ -87,6 +86,10 @@
             configStore.skill_que.push({ name: skill.name, id: 0, mode: skill.mode?.[0] ?? "", modes: skill.mode })
           }
         }
+        configStore.skill_que = configStore.skill_que.map((item, index) => {
+          item.id = index
+          return item
+        })
       }
 
       const wakens = computed(() => characterStore.skills.filter(item => item.need_level == 50 || item.need_level == 85))

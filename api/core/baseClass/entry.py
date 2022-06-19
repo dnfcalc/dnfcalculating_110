@@ -9594,6 +9594,7 @@ def entry_635(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "[移动射击]技能左轮枪发射数+50%, [移动射击]攻击力 +30%"
     if mode == 0:
+        char.单技能加成('移动射击', 1.5*1.3)
         pass
     if mode == 1:
         pass
@@ -9612,6 +9613,7 @@ def entry_637(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "[移动射击技能使用时就开始计算冷却时间, [移动射击]技能冷却时间 -20%"
     if mode == 0:
+        char.单技能加成('移动射击', 1, 0.8)
         pass
     if mode == 1:
         pass
