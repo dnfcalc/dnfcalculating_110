@@ -34,6 +34,7 @@
       {
         "name": "asura",
         "title": "极诣·阿修罗",
+        "open": true,
         "default_name": "国服",
         "class": [],
         "options": []
