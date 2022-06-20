@@ -852,11 +852,14 @@ def entry_958(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_959(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return "攻击无力化状态的敌人时，技能攻击力 +10%"
+        return "地图中存在控制型异常状态的敌人时，技能攻击力 +10%"
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.1)
+        for i in ['冰冻', '眩晕', '睡眠', '石化', '减速', '束缚', '失明', '混乱', '诅咒']:
+            if i in state_type:
+                char.技能攻击力加成(0.1)
+                return
 
 
 def entry_960(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -865,7 +868,10 @@ def entry_960(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.05)
+        if len(state_type) > 0:
+            char.技能攻击力加成(0.05)
+        else:
+            char.技能攻击力(-0.05)
 
 
 def entry_963(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -893,7 +899,8 @@ def entry_969(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.02)
+        if '灼烧' in state_type:
+            char.技能攻击力加成(0.02)
 
 
 def entry_971(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2734,7 +2741,7 @@ def entry_1220(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         # char.所有速度增加(0.3)
         char.技能攻击力加成(0.1)
-        #char.技能恢复加成(1, 100, 0.3, [50, 85, 100])
+        # char.技能恢复加成(1, 100, 0.3, [50, 85, 100])
 
 
 def entry_1222(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2916,7 +2923,8 @@ def entry_1141(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.02)
+        if '中毒' in state_type:
+            char.技能攻击力加成(0.02)
 
 
 def entry_1142(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2925,7 +2933,8 @@ def entry_1142(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.02)
+        if '灼烧' in state_type:
+            char.技能攻击力加成(0.02)
 
 
 def entry_1143(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2934,7 +2943,8 @@ def entry_1143(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.02)
+        if '出血' in state_type:
+            char.技能攻击力加成(0.02)
 
 
 def entry_1144(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2943,7 +2953,8 @@ def entry_1144(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.02)
+        if '感电' in state_type:
+            char.技能攻击力加成(0.02)
 
 
 def entry_1145(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -10983,7 +10994,7 @@ def entry_785(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "时间隔离领域内部拥有终末之时计表,使用烈炎、寒水、风暴系列技能可以攻击终末之时计表，每2次攻击增加5%的爆炸攻击力和各系列技能的剩余能量条(最大重叠到50%)"
     if mode == 0:
-        char.单技能加成('末日虫洞',1.5)
+        char.单技能加成('末日虫洞', 1.5)
         pass
     if mode == 1:
         pass
@@ -11057,6 +11068,8 @@ def entry_10001(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ["成长属性240级以上时增加1%技能攻击，每40级增加1%"]
     if mode == 0:
+        if char.穿戴低于105():
+            return
         x = sum(char.词条等级.get(part, [0]))
         if x >= 240:
             char.技能攻击力加成(0.01 * int((x - 200) / 40))
