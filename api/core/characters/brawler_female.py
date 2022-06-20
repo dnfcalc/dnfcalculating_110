@@ -48,6 +48,8 @@ class 技能1(主动技能):
     def 双重投掷(self, 等级):
         self.hit0 *= 1 + 0.30 + 0.02 * 等级
         self.涂毒hit0 *= 2
+
+
 class 技能2(主动技能):
     名称 = '擒月炎'
     所在等级 = 15
@@ -235,17 +237,12 @@ class 技能11(主动技能):
     TP成长 = 0.10
     TP上限 = 5
     是否有护石 = 1
-    护石选项 = ['魔界', '圣痕']
     MP = [200, 1820]
     无色消耗 = 1
 
-    def 装备护石(self, x):
-        if x == 0:
-            self.倍率 *= 1.27
-            self.CD *= 1.00
-        if x == 1:
-            self.倍率 *= 1.36
-            self.CD *= 1.00
+    def 装备护石(self):
+        self.倍率 *= 1.36
+        self.CDR *= 1.00
 
 
 class 技能12(主动技能):
@@ -269,22 +266,19 @@ class 技能12(主动技能):
     护石选项 = ['魔界', '圣痕']
     MP = [180, 1512]
     无色消耗 = 1
-    
+
     形态 = ['x4', 'x6', 'x8']
-    def 形态形态变更(self, 形态, char):
+
+    def 形态变更(self, 形态, char):
         num = int(形态.replace('x', ''))
         self.hit0 = num
         self.中毒hit0 = num
         self.涂毒hit0 = num
 
-    def 装备护石(self, x):
-        if x == 0:
-            self.倍率 *= 1.07
-            self.CD *= 0.90
-        if x == 1:
-            self.倍率 *= 1.16
-            self.CD *= 0.90
-    
+    def 装备护石(self):
+        self.倍率 *= 1.16
+        self.CDR *= 0.90
+
 
 class 技能13(主动技能):
     名称 = '街头风暴'
@@ -315,21 +309,13 @@ class 技能13(主动技能):
     无色消耗 = 2
 
     是否有护石 = 1
-    护石选项 = ['魔界', '圣痕']
 
-    def 装备护石(self, x):
-        if x == 0:
-            self.hit0 = 0
-            self.hit1 = 25 * 0.74
-            self.中毒hit0 = 0.74
-            self.涂毒hit0 = 0
-            self.涂毒hit1 = 25 * 0.74
-        if x == 1:
-            self.hit0 = 0
-            self.hit1 = 25 * 0.74 * 1.06
-            self.中毒hit0 = 0.74 * 1.06
-            self.涂毒hit0 = 0
-            self.涂毒hit1 = 25 * 0.74 * 1.06
+    def 装备护石(self):
+        self.hit0 = 0
+        self.hit1 = 25 * 0.74 * 1.06
+        self.中毒hit0 = 0.74 * 1.06
+        self.涂毒hit0 = 0
+        self.涂毒hit1 = 25 * 0.74 * 1.06
 
     def 双重投掷(self, 等级):
         self.hit0 *= 1 + 0.31 + 0.01 * 等级
@@ -441,23 +427,15 @@ class 技能16(主动技能):
     TP成长 = 0.10
     TP上限 = 5
     是否有护石 = 1
-    护石选项 = ['魔界', '圣痕']
     MP = [280, 784]
     无色消耗 = 1
 
-    def 装备护石(self, x):
-        if x == 0:
-            self.倍率 *= 1.06
-            self.power0 *= 1+(0.2+.05)*3  # 异常增伤
-            self.中毒power0 *= 1+(0.2+.05)*3  # 异常增伤
-            self.涂毒power0 *= 1+(0.2+.05)*3  # 异常增伤
-            self.CD *= 0.80
-        if x == 1:
-            self.倍率 *= 1.15
-            self.power0 *= 1+(0.2+.05)*3  # 异常增伤
-            self.中毒power0 *= 1+(0.2+.05)*3  # 异常增伤
-            self.涂毒power0 *= 1+(0.2+.05)*3  # 异常增伤
-            self.CD *= 0.80
+    def 装备护石(self):
+        self.倍率 *= 1.15
+        self.power0 *= 1+(0.2+.05)*3  # 异常增伤
+        self.中毒power0 *= 1+(0.2+.05)*3  # 异常增伤
+        self.涂毒power0 *= 1+(0.2+.05)*3  # 异常增伤
+        self.CDR *= 0.80
 
 
 class 技能17(主动技能):
@@ -501,29 +479,17 @@ class 技能17(主动技能):
     是否有护石 = 1
     护石选项 = ['魔界', '圣痕']
 
-    def 装备护石(self, x):
-        if x == 0:
-            self.hit1 = 0
-            self.hit3 = 0
-            self.hit0 = 1
-            self.hit2 = 15
-            self.涂毒hit1 = 0
-            self.涂毒hit3 = 0
-            self.涂毒hit0 = 1
-            self.涂毒hit2 = 15
-            self.倍率 *= 1.10
-            self.CD *= 1.00
-        if x == 1:
-            self.hit1 = 0
-            self.hit3 = 0
-            self.hit0 = 1
-            self.hit2 = 15
-            self.涂毒hit1 = 0
-            self.涂毒hit3 = 0
-            self.涂毒hit0 = 1
-            self.涂毒hit2 = 15
-            self.倍率 *= 1.18
-            self.CD *= 1.00
+    def 装备护石(self):
+        self.hit1 = 0
+        self.hit3 = 0
+        self.hit0 = 1
+        self.hit2 = 15
+        self.涂毒hit1 = 0
+        self.涂毒hit3 = 0
+        self.涂毒hit0 = 1
+        self.涂毒hit2 = 15
+        self.倍率 *= 1.18
+        self.CDR *= 1.00
 
 
 class 技能18(被动技能):
@@ -570,10 +536,9 @@ class 技能19(主动技能):
     MP = [580, 4500]
     无色消耗 = 3
 
-    def 装备护石(self, x):
-        if x == 0:
-            self.倍率 *= 1.33
-            self.CD *= 0.9
+    def 装备护石(self):
+        self.倍率 *= 1.33
+        self.CDR *= 0.9
 
 
 class 技能20(主动技能):
@@ -609,9 +574,8 @@ class 技能20(主动技能):
     是否有护石 = 1
     护石选项 = ['圣痕']
 
-    def 装备护石(self, x):
-        if x == 0:
-            self.倍率 *= 1.33
+    def 装备护石(self):
+        self.倍率 *= 1.33
 
 
 class 技能21(主动技能):
@@ -840,7 +804,8 @@ class classChange(Character):
                 i.涂毒倍率 *= (self.buff - 1)
         self.buff = 1.0
         # 二觉解放等级绑定
-        self.get_skill_by_name('禁技：万毒蛇窟').等级 = self.get_skill_by_name('万毒噬心诀').等级
+        self.get_skill_by_name(
+            '禁技：万毒蛇窟').等级 = self.get_skill_by_name('万毒噬心诀').等级
 
         # 双重投掷
         等级 = self.get_skill_by_name('双重投掷').等级
