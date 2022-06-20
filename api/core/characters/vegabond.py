@@ -146,6 +146,7 @@ class 技能7(主动技能):
     形态 = ['非抓', '抓取']
 
     def 形态变更(self, 形态, char):
+        super().形态变更(形态, char)
         if 形态 == '非抓':
             self.hit0 = 1
             self.hit1 = 0

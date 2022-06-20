@@ -1,6 +1,8 @@
 from core.equipment.基础函数 import 武器MP系数, 武器冷却惩罚
 
 等级 = 110
+
+
 class 技能:
     名称 = ''
     备注 = ''
@@ -148,6 +150,8 @@ class 主动技能(技能):
         self.倍率 = 1.0
 
     def 形态变更(self, 形态, char):
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         pass
 
     def TP加成(self):
@@ -163,7 +167,8 @@ class 主动技能(技能):
             hit = getattr(self, '{}hit{}'.format(name, i), 0)
             if hit > 0 and 等级 > 0:
                 power = getattr(self, '{}power{}'.format(name, i), 1)
-                等效倍率 += getattr(self, '{}data{}'.format(name, i), [])[等级] * hit * power
+                等效倍率 += getattr(self, '{}data{}'.format(name, i),
+                                [])[等级] * hit * power
         return 等效倍率
 
     def 等效百分比(self, **argv):

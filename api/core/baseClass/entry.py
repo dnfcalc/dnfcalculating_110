@@ -10964,6 +10964,7 @@ def entry_783(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "末日虫洞更变为生成时间隔离领域禁锢内部泊的敌人,持续5秒，时间隔离领域持续时间结束时，时间隔离领域崩坏产生爆炸, - 爆炸攻击力是末日虫洞的100%"
     if mode == 0:
+
         pass
     if mode == 1:
         pass
@@ -10982,6 +10983,7 @@ def entry_785(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "时间隔离领域内部拥有终末之时计表,使用烈炎、寒水、风暴系列技能可以攻击终末之时计表，每2次攻击增加5%的爆炸攻击力和各系列技能的剩余能量条(最大重叠到50%)"
     if mode == 0:
+        char.单技能加成('末日虫洞',1.5)
         pass
     if mode == 1:
         pass
@@ -10991,6 +10993,7 @@ def entry_786(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "风暴吸引范围 +30%，消耗量 -35%, 装备时，风暴能量条从0开始恢复(复活和进入地下城时除外)"
     if mode == 0:
+        char.get_skill_by_name('风暴漩涡').最小值 *= 0.65
         pass
     if mode == 1:
         pass
