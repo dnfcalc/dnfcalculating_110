@@ -369,14 +369,15 @@ class Character(角色属性):
             if 适用累加 == 0:
                 self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * x
             else:
-                if self.__技能攻击力累加 > 2:  #累计已经大于2不再加成
+                if self.__技能攻击力累加 > 2:  # 累计已经大于2不再加成
                     self.__技能攻击力 *= 1 + x
-                elif self.__技能攻击力累加 + x > 2:  #此次累计导致大于2，一部分加成，一部分不加成
-                    overflow = self.__技能攻击力累加 + x - 2 #溢出部分
-                    self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * (x - overflow) + overflow
-                else: #累计后仍小于等于2
+                elif self.__技能攻击力累加 + x > 2:  # 此次累计导致大于2，一部分加成，一部分不加成
+                    overflow = self.__技能攻击力累加 + x - 2  # 溢出部分
+                    self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * \
+                        (x - overflow) + overflow
+                else:  # 累计后仍小于等于2
                     self.__技能攻击力 *= 1 + self.技能伤害增加增幅 * x
-                self.__技能攻击力累加 += x #累计计算
+                self.__技能攻击力累加 += x  # 累计计算
         else:
             self.__技能攻击力 *= 1 + x
 
@@ -672,6 +673,13 @@ class Character(角色属性):
                 return True
         return False
 
+    def 穿戴低于105(self):
+        for i in self.装备栏:
+            temp = equ.get_equ_by_id(i)
+            if temp.等级 < 105:
+                return True
+        return False
+
     def 获取强化等级(self, part=[]):
         num = 0
         temp = part
@@ -885,14 +893,16 @@ class Character(角色属性):
                     武器类型=self.武器类型, 额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型="直伤", 形态=i['形态'], char=self)
 
                 # 直伤处理：直伤伤害*比例*系数
-                damage = 直伤 * self.伤害指数 * k.被动倍率 * (self.__伤害比例.get("直伤", 0.0)) / 100
+                damage = 直伤 * self.伤害指数 * k.被动倍率 * \
+                    (self.__伤害比例.get("直伤", 0.0)) / 100
                 for item in ['中毒', '灼烧', '感电', '出血']:
                     系数 = self.__伤害系数.get(item, 0.0)
                     # 出血 叠层 1层1%出血伤害 满10%
                     if item == '出血':
                         系数 *= 1.1
                     # 直伤转换的异常处理：直伤伤害*异常比例*异常系数
-                    damage += 直伤 * self.伤害指数 * k.被动倍率 * (self.__伤害比例.get(item, 0.0) * 系数) / 100
+                    damage += 直伤 * self.伤害指数 * k.被动倍率 * \
+                        (self.__伤害比例.get(item, 0.0) * 系数) / 100
                     # 异常伤害处理：异常伤害*异常系数
                     damage += k.等效百分比(
                         武器类型=self.武器类型,  额外等级=i['等级变化'], 额外倍率=i['倍率'], 伤害类型=item, 形态=i['形态'], char=self) * self.伤害指数 * k.被动倍率*系数 / 100
@@ -900,7 +910,7 @@ class Character(角色属性):
                 temp['damage'] = temp.get('damage', 0) + damage
                 temp['count'] = temp.get('count', 0) + 1
                 data['skills'][k.名称] = temp
-                if k.名称 not in ['爆裂弹']:
+                if k.名称 not in ['爆裂弹', '杀意波动', '万毒噬心诀']:
                     data['无色消耗'] += i['无色消耗']
         data['skills_passive'] = {}
         for i in self.技能栏:
@@ -1204,7 +1214,7 @@ class Character(角色属性):
                             if j.是否有伤害 == 1:
                                 j.被动倍率 *= 加成倍率
                     else:
-                        #print(self.技能序号)
+                        # print(self.技能序号)
                         for k in 关联技能:
                             self.技能栏[self.技能序号[k]
                                      ].被动倍率 *= 加成倍率
@@ -1416,7 +1426,7 @@ class Character(角色属性):
         旧版面板 = self.__面板系数计算(mode=1)
 
         新 = self.__攻击强化 * (1 + self.__百分比攻击强化) * 0.001
-        旧 = 1 + int((self.__伤害增加 + 0.00000001) * 100) / 100 # 避免出现浮点数取整BUG
+        旧 = 1 + int((self.__伤害增加 + 0.00000001) * 100) / 100  # 避免出现浮点数取整BUG
         旧 *= 1 + self.__暴击伤害
         旧 *= 1 + self.__最终伤害
         旧 *= 1 + self.__持续伤害
@@ -1473,7 +1483,7 @@ class Character(角色属性):
         temp = self.结果计算()
         calc_info = {}
 
-        #print(self.skills_passive)
+        # print(self.skills_passive)
         if self.职业类型 != '辅助':
             if self.类型 == '物理百分比':
                 calc_info['力量'] = self.站街力量()
