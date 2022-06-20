@@ -13,6 +13,7 @@
       const characterStore = useCharacterStore()
       const configStore = useConfigStore()
       let canChooseSkill = ref(configStore.skill_que)
+      const colors = ["#fee86b", "#75ae1b", "#1bae83", "#1b63ae", "#b920c3", "c3207c"]
 
       //   watch(configStore.skill_set, val => {
       //     let tem: { name: string; id: number; mode: string; modes: string[] | undefined }[] = []
@@ -53,8 +54,12 @@
       const item = (item: any, index: number) => {
         const skill = item.element as { name: string; id: number; mode: string; modes: string[] | undefined }
         return (
-          <div class="h-28px m-2px w-28px" style="position: relative;" onClick={changeMode(skill)}>
-            <img src={skill_icon(characterStore.alter, skill.name)} />
+          <div
+            class="h-28px m-2px w-28px"
+            style={"position: relative;" + (skill.modes?.length ?? 0 > 0 ? (skill.modes?.indexOf(skill.mode) ?? 0 > 0 ? "background-color: " + colors[skill.modes?.indexOf(skill.mode) ?? 0] : 0) : "")}
+            onClick={changeMode(skill)}
+          >
+            <img style={skill.modes?.length ?? 0 > 0 ? (skill.modes?.indexOf(skill.mode) ?? 0 > 0 ? "mix-blend-mode: luminosity;" : "") : ""} src={skill_icon(characterStore.alter, skill.name)} />
             {skill.modes && skill.modes.length > 0 && <div class="size-11">{skill.mode}</div>}
           </div>
           // <div class="list-group-item">{item.element.name}</div>
