@@ -4,30 +4,27 @@ web:vue3+TS+electron+vite<br> 参考项目：https://github.com/caoxiemeihao/ele
 
 ## 项目依赖安装
 
-先安装好 python3.6 以上、node 16 以上
+先安装好 python3.6 以上、node 16 以上 以及 Git
 
 ```
-  git clone https://gitee.com/i_melon/dnfcalculating_110
-  cd api
-  pip install -i https://pypi.mirrors.ustc.edu.cn/simple/ -r ./api/requirements.txt
+    npm config --global set registry https://registry.npmmirror.com/
 
-  cd ..
-  npm install -g pnpm
+    npm install -g pnpm
 
-  如果依赖安装过慢，可设置镜像
-  npm config set registry https://registry.npmmirror.com/
-  或
-  pnpm add -g nrm
-  nrm use taobao
+    git clone https://gitee.com/dcalc/dnfcalculating_110.git
 
-  pnpm install
+    cd ./dnfcalculating_110
+
+    pip install -i https://pypi.mirrors.ustc.edu.cn/simple/ -r requirements.txt
+
+    pnpm install
 
 ```
 
 ## 项目运行
 
 ```
-  pnpm dev
+  pnpm dev:app
 ```
 
 ## 项目进展
@@ -52,7 +49,7 @@ web:vue3+TS+electron+vite<br> 参考项目：https://github.com/caoxiemeihao/ele
 
 #### web
 
-- [ ] 称号
-- [ ] 宠物
-- [ ] 时装
+- [x] 称号
+- [x] 宠物
+- [x] 时装
 - [ ] 药剂
