@@ -62,6 +62,7 @@
         "name": "demon_slayer",
         "title": "极诣·契魔者",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
