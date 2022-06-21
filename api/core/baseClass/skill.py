@@ -163,7 +163,7 @@ class 主动技能(技能):
         else:
             name = 类型
         等效倍率 = 0.0
-        for i in range(0, 7):
+        for i in range(0, 8):
             hit = getattr(self, '{}hit{}'.format(name, i), 0)
             if hit > 0 and 等级 > 0:
                 power = getattr(self, '{}power{}'.format(name, i), 1)
