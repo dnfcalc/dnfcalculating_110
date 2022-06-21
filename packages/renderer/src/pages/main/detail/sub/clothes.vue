@@ -33,7 +33,7 @@
         })
       }
 
-      const up_skill = computed(() => characterStore.clothes)
+      const up_skill = computed(() => characterStore.clothes_coat)
       const down_skill = computed(() => characterStore.clothes_pants)
       // 武器装扮
       const wqzb_enchat = equipInfo<string | number>("武器装扮", "enchanting")
