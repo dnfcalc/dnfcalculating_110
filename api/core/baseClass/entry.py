@@ -8950,6 +8950,8 @@ def entry_564(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "[蛇腹剑:破]喷发的剑刃数里+3"
     if mode == 0:
+        char.get_skill_by_name("蛇腹剑：破").hit0 +=3
+        char.get_skill_by_name("群魔乱舞").hit0 +=3
         pass
     if mode == 1:
         pass
