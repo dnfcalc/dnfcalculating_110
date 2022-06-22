@@ -1526,6 +1526,26 @@ class Character(角色属性):
                         "type": "物理攻击力",
                         "info": [round((倍率-1)*100), '所有', '']
                     })
+                倍率 = i.独立攻击力倍率进图(self.武器类型)
+                if i.名称 not in self.skills_passive:
+                    continue
+                if 倍率 != 1:
+                    self.skills_passive[i.名称]['info'].append({
+                        "type": "进图独立攻击力",
+                        "info": [round((倍率-1)*100), '所有', '']
+                    })
+                倍率 = i.魔法攻击力倍率进图(self.武器类型)
+                if 倍率 != 1:
+                    self.skills_passive[i.名称]['info'].append({
+                        "type": "进图魔法攻击力",
+                        "info": [round((倍率-1)*100), '所有', '']
+                    })
+                倍率 = i.物理攻击力倍率进图(self.武器类型)
+                if 倍率 != 1:
+                    self.skills_passive[i.名称]['info'].append({
+                        "type": "进图物理攻击力",
+                        "info": [round((倍率-1)*100), '所有', '']
+                    })
         result = {
             'id': uuid1().hex,
             'alter': self.实际名称,
