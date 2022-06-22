@@ -1004,16 +1004,16 @@ class Character(角色属性):
 
                 if skill is not None:
                     # 紫
-                    if type == "0":
+                    if type == "1":
                         skill.倍率 *= 1.04
                         # 红
-                    if type == "1":
+                    if type == "2":
                         skill.倍率 *= 1.06
                         skill.CDR *= 1.04
                         # 绿
                     if type == "3":
                         skill.倍率 *= 0.96
-                        skill.CDR *= 0.97
+                        skill.CDR *= 0.93
                         # 蓝
                     if type == "4":
                         skill.CDR *= 0.95
