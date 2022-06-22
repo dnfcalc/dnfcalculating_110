@@ -157,7 +157,7 @@ class 技能7(主动技能):
 
     是否有护石 = 1
 
-    def 装备护石(self, x):
+    def 装备护石(self):
         self.hit0 = 14 * 2 * 0.56
         self.hit1 = 1 + 1.25
         self.CDR *= 0.9
