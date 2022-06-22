@@ -399,7 +399,7 @@ class 技能18(主动技能):
 
     def 等效百分比(self, **argv):
         if self.等级 >= 9:
-            self.power0 *= 1.1
+            return super().等效百分比(**argv) * 1.1
         return super().等效百分比(**argv)
 
 
@@ -585,3 +585,6 @@ class classChange(Character):
         self.buff = 2.06
 
         super().__init__()
+
+    def set_skill_info(self, info):
+        super().set_skill_info(info, rune_start_lv=15)

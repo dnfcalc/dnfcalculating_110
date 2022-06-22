@@ -304,7 +304,7 @@ class 技能12(主动技能):
 
     def 等效百分比(self, **argv):
         if self.等级 >= 3:
-            self.倍率 *= 1.1
+            return super().等效百分比(**argv)*1.1
         return super().等效百分比(**argv)
 
 
@@ -559,7 +559,6 @@ class classChange(Character):
 
         y = self.get_skill_by_name('魔源觉醒').加成倍率(self.武器类型)
         self.get_skill_by_name('蛇腹剑：缠').被动倍率 *= (x + y - 1) / (x * y)
-
 
         self.get_skill_by_name('血饮狂舞').hit0 += 10 * 唤魔弑神剑.特殊倍率()
         self.get_skill_by_name('血饮狂舞').hit1 += 1 * 唤魔弑神剑.特殊倍率()

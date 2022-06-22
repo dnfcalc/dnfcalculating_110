@@ -127,8 +127,7 @@ class 技能5(主动技能):
     无色消耗 = 1
 
     def 等效百分比(self, **argv):
-        self.倍率 *= self.天雷攻击力增加率
-        return super().等效百分比(**argv)
+        return super().等效百分比(**argv)*self.天雷攻击力增加率
 
     def 装备护石(self):
         self.hit = 1
