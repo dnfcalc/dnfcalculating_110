@@ -9704,7 +9704,7 @@ def entry_645(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "[冰之技艺]的冰枪攻击力 +20%"
     if mode == 0:
-        pass
+        char.get_skill_by_name("冰之技艺").额外冰枪攻击力 += 0.2
     if mode == 1:
         pass
 

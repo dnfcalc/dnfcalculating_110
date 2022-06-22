@@ -264,6 +264,7 @@
         "name": "glacial_master",
         "title": "知源·冰结师",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
