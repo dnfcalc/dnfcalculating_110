@@ -459,7 +459,8 @@ class 技能15(主动技能):
     形态 = ["开眼", "平X"]
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == "开眼":
             self.hit0 = 1
             self.hit1 = 0
@@ -650,7 +651,8 @@ class 技能20(主动技能):
     形态 = ["终结", "雷针"]
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == "雷针":
             self.hit0 = 3*2
             self.hit1 = 0

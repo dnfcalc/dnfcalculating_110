@@ -30,7 +30,8 @@ class 技能0(主动技能):
     power0 = 0
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == '普通':
             self.power0 = 1
         elif 形态 == '觉醒':
@@ -67,7 +68,8 @@ class 技能1(主动技能):
     power0 = 0
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == '普通':
             self.power0 = 1
         elif 形态 == '觉醒':
@@ -102,7 +104,8 @@ class 技能2(主动技能):
     power0 = 0
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == '普通':
             self.power0 = 1
             self.最小值 = 20
@@ -138,7 +141,8 @@ class 技能3(主动技能):
     power0 = 0
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == '普通':
             self.power0 = 1
         elif 形态 == '觉醒':
@@ -264,7 +268,8 @@ class 技能8(主动技能):
     power0 = 0
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == '普通':
             self.power0 = 1
         elif 形态 == '觉醒':
@@ -304,7 +309,8 @@ class 技能9(主动技能):
     形态 = ['普通', '觉醒']
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == '普通':
             self.power0 = 1
         elif 形态 == '觉醒':

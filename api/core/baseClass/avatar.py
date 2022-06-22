@@ -44,7 +44,7 @@ class 装扮:
             数值 = 装扮选项属性[self.品质][选项]
             print({选项: 数值})
             角色.基础属性加成(**{选项: 数值})
-        elif 选项 == '0':
+        elif str(选项) == '0':
             pass
         else:
             角色.get_skill_by_name(选项).等级 += 1

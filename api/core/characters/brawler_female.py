@@ -270,7 +270,8 @@ class 技能12(主动技能):
     形态 = ['x4', 'x6', 'x8']
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         num = int(形态.replace('x', ''))
         self.hit0 = num
         self.中毒hit0 = num
@@ -367,7 +368,8 @@ class 技能15(主动技能):
     temp = {}
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == 'buff':
             if self.buff:
                 self.buff = False
@@ -615,7 +617,8 @@ class 技能21(主动技能):
     涂毒hit2 = 0.0
 
     def 形态变更(self, 形态, char):
-        super().形态变更(形态, char)
+        if 形态 == '' and len(self.形态) > 0:
+            形态 = self.形态[0]
         if 形态 == 'x3':
             self.hit0 = 1.0
             self.涂毒hit0 = 1.0

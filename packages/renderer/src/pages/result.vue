@@ -123,7 +123,7 @@
         let temp: ISkillPassive[] = []
         Object.keys(res.skills_passive).forEach(name => {
           let skill = res.skills_passive[name]
-          console.log(res.skills_passive[name])
+          //   console.log(res.skills_passive[name])
           if (skill.info.length > 0) {
             temp.push({
               name: name,
