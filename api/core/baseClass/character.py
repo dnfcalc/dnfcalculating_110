@@ -71,6 +71,8 @@ class Character(角色属性):
     buff: float = 1.00
     hotkey: List[str] = [""]*14
     技能队列 = []
+    护石 = []
+    符文 = []
     skills_passive: Dict = {}
 
     装扮栏: Dict[str, int] = {}
@@ -239,7 +241,7 @@ class Character(角色属性):
                 "level_max": skill.等级上限,
                 "cooldown": 0 if not skill.是否有伤害 else skill.CD,
                 "current_level": skill.基础等级,
-                "data": 0 if not skill.是否有伤害 else skill.等效百分比(),
+                "data": 0 if not skill.是否有伤害 else skill.等效百分比(char=self),
                 "tp_max": skill.TP上限 if skill.是否有伤害 else None,
                 "tp_level": skill.TP等级 if skill.是否有伤害 else None,
                 "mode": [] if not skill.是否有伤害 else skill.形态
@@ -889,7 +891,7 @@ class Character(角色属性):
                         武器类型=self.武器类型, 输出类型=self.类型, 额外CDR=i['CDR'])
                     temp['mp'] = k.MP消耗(
                         武器类型=self.武器类型, 输出类型=self.类型, 额外倍率=self.__MP消耗量)
-                    temp['百分比'] = k.等效百分比(武器类型=self.武器类型)
+                    temp['百分比'] = k.等效百分比(武器类型=self.武器类型, char=self)
                     temp['无色'] = k.无色消耗
                     temp['lv'] = k.等级
                 直伤 = k.等效百分比(
