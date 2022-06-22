@@ -9317,43 +9317,6 @@ def enchanting_21004(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 1:
         pass
 
-
-def enchanting_21005(char: Character = {}, mode=0, text=False, rate=1.0):
-    if text:
-        return "(130, '武器', '体(50)')"
-    if mode == 0:
-        char.基础属性加成(体力=50 * rate)
-    if mode == 1:
-        pass
-
-
-def enchanting_21006(char: Character = {}, mode=0, text=False, rate=1.0):
-    if text:
-        return "(130, '武器', '精(50)')"
-    if mode == 0:
-        char.基础属性加成(精神=50 * rate)
-    if mode == 1:
-        pass
-
-
-def enchanting_21007(char: Character = {}, mode=0, text=False, rate=1.0):
-    if text:
-        return "(130, '上衣, 下装', '体(50)')"
-    if mode == 0:
-        char.基础属性加成(体力=50 * rate)
-    if mode == 1:
-        pass
-
-
-def enchanting_21008(char: Character = {}, mode=0, text=False, rate=1.0):
-    if text:
-        return "(130, '上衣, 下装', '精(50)')"
-    if mode == 0:
-        char.基础属性加成(精神=50 * rate)
-    if mode == 1:
-        pass
-
-
 def enchanting_21009(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(86, '上衣, 下装', '三攻(45)')"
