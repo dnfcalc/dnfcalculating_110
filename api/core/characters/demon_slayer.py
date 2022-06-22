@@ -161,8 +161,8 @@ class 技能7(主动技能):
     是否有护石 = 1
 
     def 装备护石(self):
-        self.hit0 = 14 * 2 * 0.56
-        self.hit1 = 1 + 1.25
+        self.power0 = 0.56 * 2
+        self.power1 = 2.25
         self.CDR *= 0.9
 
 
@@ -560,7 +560,9 @@ class classChange(Character):
         y = self.get_skill_by_name('魔源觉醒').加成倍率(self.武器类型)
         self.get_skill_by_name('蛇腹剑：缠').被动倍率 *= (x + y - 1) / (x * y)
 
-        self.get_skill_by_name('血饮狂舞').被动倍率 *= 唤魔弑神剑.特殊倍率()
+
+        self.get_skill_by_name('血饮狂舞').hit0 += 10 * 唤魔弑神剑.特殊倍率()
+        self.get_skill_by_name('血饮狂舞').hit1 += 1 * 唤魔弑神剑.特殊倍率()
         self.get_skill_by_name('唤魔：塔莫斯之袭').hit0 = 8+唤魔弑神剑.次数加成()
         self.get_skill_by_name('唤魔：塔莫斯之袭').hit1 = 唤魔弑神剑.特殊倍率()
 
