@@ -225,7 +225,7 @@ class Character(角色属性):
         self.__暗属性强化 += 暗属性强化 + 所有属性强化
         self.__光属性强化 += 光属性强化 + 所有属性强化
 
-    def set_skill_info(self, info, rune_except=[], clothes_pants=[]) -> None:
+    def set_skill_info(self, info, rune_except=[], clothes_pants=[], rune_start_lv=20) -> None:
         skillInfo = []  # 技能
         rune = []  # 符文
         talisman = []  # 护石
@@ -250,7 +250,7 @@ class Character(角色属性):
             if skill.是否有伤害 == 1 and skill.是否有护石 == 1:
                 talisman.append(skill.名称)
             # 符文
-            if skill.所在等级 >= 20 and skill.所在等级 <= 80 and skill.所在等级 != 50 and skill.是否有伤害 == 1 and skill.名称 not in rune_except:
+            if skill.所在等级 >= rune_start_lv and skill.所在等级 <= 80 and skill.所在等级 != 50 and skill.是否有伤害 == 1 and skill.名称 not in rune_except:
                 rune.append(skill.名称)
             # 白金
             if skill.所在等级 <= 70 and skill.所在等级 not in [48, 50]:
