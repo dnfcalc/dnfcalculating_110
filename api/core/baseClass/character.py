@@ -963,15 +963,6 @@ class Character(角色属性):
 
         pass
 
-    def 获取改造等级(self, part=[]):
-        num = 0
-        temp = part
-        if len(temp) == 0:
-            temp += 部位列表
-        for i in temp:
-            num += self.打造详情.get(i, {}).get('wisdom_number', 0)
-        return num
-
     def __辟邪玉计算(self):
         if 'jade' not in self.打造详情.keys():
             return

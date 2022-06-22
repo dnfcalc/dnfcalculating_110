@@ -4,9 +4,17 @@ entry_func_list = {}  # id : enteyfunc 词条函数(数组)列表
 entry_chose = []  # (20000 + id, [chose1, 2, 3...]) 额外选项设置，参考20074消灭敌人词条
 multi_select = {}  # id : True/False 设置选项是否支持多选
 variable_set = {}  # id : setfunc  参数返回设置函数
-priority = {}  # id : num  词条计算优先级，默认为100
 
 # region 无效果词条
+
+
+def entry_980(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "获得该装备词条的队友之间获得效果, - 相互分摊伤害, - 其他队友受到伤害时，自身攻击速度、移动速度 +2%，效果持续5秒(最多叠加5次), 被击伤害 +10%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        pass
 
 
 def entry_1247(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -816,179 +824,6 @@ def entry_985(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        pass
-
-
-def entry_956(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "攻击速度 +5%, 施放速度 +7.5%, 技能MP消耗量 +50%"
-    if mode == 0:
-        char.攻击速度增加(0.05)
-        char.施放速度增加(0.075)
-        char.MP消耗量加成(0.5)
-    if mode == 1:
-        pass
-
-
-def entry_957(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "攻击速度 +5%, 移动速度 +5%, 施放速度 +8%, HP MAX -250"
-    if mode == 0:
-        char.攻击速度增加(0.05)
-        char.施放速度增加(0.08)
-        char.移动速度增加(0.05)
-    if mode == 1:
-        pass
-
-
-def entry_958(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "攻击速度、施放速度之和在100以下：技能冷却时间-10%(觉醒除外),  攻击速度、施放速度之和在100以上：技能冷却时间+10%(觉醒除外)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.技能冷却缩减(1, 100, 0.1, [50, 85, 100])
-
-
-def entry_959(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "地图中存在控制型异常状态的敌人时，技能攻击力 +10%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        for i in ['冰冻', '眩晕', '睡眠', '石化', '减速', '束缚', '失明', '混乱', '诅咒']:
-            if i in state_type:
-                char.技能攻击力加成(0.1)
-                return
-
-
-def entry_960(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "攻击异常状态敌人时，技能攻击力 +5%, 攻击非异常状态敌人时，技能攻击力 -5%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        if len(state_type) > 0:
-            char.技能攻击力加成(0.05)
-        else:
-            char.技能攻击力(-0.05)
-
-
-def entry_963(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "攻击与施放时，自身周围300px随机位置召唤补给箱无人机(补给箱只能发动者获得，冷却时间20秒),  拾取补给箱时，20秒内，伤害增加 3409"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.攻击强化加成(3409)
-
-
-def entry_967(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "攻击灼烧敌人时，火属性强化+5，火属性抗性 -10，效果持续5秒(冷却时间1秒，最多叠加5次)"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.火属性强化加成(5)
-        char.火属性抗性加成(-10)
-
-
-def entry_969(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "攻击灼烧敌人时，引发火焰爆炸(冷却时间0.5秒), 攻击灼烧状态敌人时，技能攻击力 +2%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        if '灼烧' in state_type:
-            char.技能攻击力加成(0.02)
-
-
-def entry_971(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "光属性抗性 +50, 火属性抗性、冰属性抗性、暗属性抗性 -20"
-    if mode == 0:
-        char.光属性抗性加成(50)
-        char.火属性抗性加成(-20)
-        char.冰属性抗性加成(-20)
-        char.暗属性抗性加成(-20)
-    if mode == 1:
-        pass
-
-
-def entry_972(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "光属性强化达150以上时，物理、魔法暴击率 +15%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.暴击率增加(0.15)
-
-
-def entry_973(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "回避率 +10%, 被击时，20秒内，物理、魔法暴击率 +10%(最多叠加1次)"
-    if mode == 0:
-        char.回避率增加(0.1)
-    if mode == 1:
-        char.暴击率增加(0.1)
-
-
-def entry_974(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "回避率 +5%, 混乱抗性 +15%"
-    if mode == 0:
-        char.回避率增加(0.05)
-        char.异常抗性加成('混乱', 0.15)
-    if mode == 1:
-        pass
-
-
-def entry_976(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "火、冰、光、暗属性数值相同时，所有属性抗性 +25"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.所有属性抗性加成(25)
-
-
-def entry_978(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "火属性抗性 +50, 冰属性抗性、光属性抗性、暗属性抗性 -20"
-    if mode == 0:
-        char.火属性抗性加成(50)
-        char.光属性抗性加成(-20)
-        char.冰属性抗性加成(-20)
-        char.暗属性抗性加成(-20)
-    if mode == 1:
-        pass
-
-
-def entry_979(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "火属性强化达150以上：物理、魔法暴击率 +15%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.暴击率增加(0.15)
-
-
-def entry_980(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "获得该装备词条的队友之间获得效果, - 相互分摊伤害, - 其他队友受到伤害时，自身攻击速度、移动速度 +2%，效果持续5秒(最多叠加5次), 被击伤害 +10%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        pass
-
-
-def entry_981(char: Character = {}, mode=0, text=False, part='', lv=0):
-    if text:
-        return "击杀敌人后，恢复10%MP, 技能MP消耗量+50%"
-    if mode == 0:
-        pass
-    if mode == 1:
-        char.MP消耗量加成(0.5)
         pass
 
 
@@ -2344,8 +2179,170 @@ def entry_325(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
 # endregion
 
-# region 常规词条 (部分未实现)
+# region 常规词条
 
+def entry_956(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "攻击速度 +5%, 施放速度 +7.5%, 技能MP消耗量 +50%"
+    if mode == 0:
+        char.攻击速度增加(0.05)
+        char.施放速度增加(0.075)
+        char.MP消耗量加成(0.5)
+    if mode == 1:
+        pass
+
+
+def entry_957(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "攻击速度 +5%, 移动速度 +5%, 施放速度 +8%, HP MAX -250"
+    if mode == 0:
+        char.攻击速度增加(0.05)
+        char.施放速度增加(0.08)
+        char.移动速度增加(0.05)
+    if mode == 1:
+        pass
+
+
+def entry_958(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "攻击速度、施放速度之和在100以下：技能冷却时间-10%(觉醒除外),  攻击速度、施放速度之和在100以上：技能冷却时间+10%(觉醒除外)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.技能冷却缩减(1, 100, 0.1, [50, 85, 100])
+
+
+def entry_959(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "地图中存在控制型异常状态的敌人时，技能攻击力 +10%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        for i in ['冰冻', '眩晕', '睡眠', '石化', '减速', '束缚', '失明', '混乱', '诅咒']:
+            if i in state_type:
+                char.技能攻击力加成(0.1)
+                return
+
+
+def entry_960(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "攻击异常状态敌人时，技能攻击力 +5%, 攻击非异常状态敌人时，技能攻击力 -5%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        if len(state_type) > 0:
+            char.技能攻击力加成(0.05)
+        else:
+            char.技能攻击力加成(-0.05)
+
+
+def entry_963(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "攻击与施放时，自身周围300px随机位置召唤补给箱无人机(补给箱只能发动者获得，冷却时间20秒),  拾取补给箱时，20秒内，伤害增加 3409"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.攻击强化加成(3409)
+
+
+def entry_967(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "攻击灼烧敌人时，火属性强化+5，火属性抗性 -10，效果持续5秒(冷却时间1秒，最多叠加5次)"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.火属性强化加成(5)
+        char.火属性抗性加成(-10)
+
+
+def entry_969(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "攻击灼烧敌人时，引发火焰爆炸(冷却时间0.5秒), 攻击灼烧状态敌人时，技能攻击力 +2%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        if '灼烧' in state_type:
+            char.技能攻击力加成(0.02)
+
+
+def entry_971(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "光属性抗性 +50, 火属性抗性、冰属性抗性、暗属性抗性 -20"
+    if mode == 0:
+        char.光属性抗性加成(50)
+        char.火属性抗性加成(-20)
+        char.冰属性抗性加成(-20)
+        char.暗属性抗性加成(-20)
+    if mode == 1:
+        pass
+
+
+def entry_972(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "光属性强化达150以上时，物理、魔法暴击率 +15%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.暴击率增加(0.15)
+
+
+def entry_973(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "回避率 +10%, 被击时，20秒内，物理、魔法暴击率 +10%(最多叠加1次)"
+    if mode == 0:
+        char.回避率增加(0.1)
+    if mode == 1:
+        char.暴击率增加(0.1)
+
+
+def entry_974(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "回避率 +5%, 混乱抗性 +15%"
+    if mode == 0:
+        char.回避率增加(0.05)
+        char.异常抗性加成('混乱', 0.15)
+    if mode == 1:
+        pass
+
+
+def entry_976(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "火、冰、光、暗属性数值相同时，所有属性抗性 +25"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.所有属性抗性加成(25)
+
+
+def entry_978(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "火属性抗性 +50, 冰属性抗性、光属性抗性、暗属性抗性 -20"
+    if mode == 0:
+        char.火属性抗性加成(50)
+        char.光属性抗性加成(-20)
+        char.冰属性抗性加成(-20)
+        char.暗属性抗性加成(-20)
+    if mode == 1:
+        pass
+
+
+def entry_979(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "火属性强化达150以上：物理、魔法暴击率 +15%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.暴击率增加(0.15)
+
+
+def entry_981(char: Character = {}, mode=0, text=False, part='', lv=0):
+    if text:
+        return "击杀敌人后，恢复10%MP, 技能MP消耗量+50%"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.MP消耗量加成(0.5)
+        pass
 
 def entry_1223(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
@@ -3308,13 +3305,13 @@ def entry_1017(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "每1个扩展技能栏中的技能，未放置扩展技能栏的技能攻击力 +2%(最多增加14%), 扩展技能栏的技能攻击力 -20%"
     if mode == 0:
-        num = len(list(filter(lambda i: i != "", char.hotkey[:7])))*0.02
+        num = len(list(filter(lambda i: i != "", char.hotkey[:7]))) * 0.02
         for i in char.技能栏:
             if i.是否有伤害 == 1:
                 if i.名称 in char.hotkey[:7]:
                     i.倍率 *= 0.8
                 else:
-                    i.倍率 *= (num+1)
+                    i.倍率 *= (num + 1)
     if mode == 1:
         pass
 
@@ -3325,8 +3322,7 @@ def entry_1020(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(326 * min(enemy_num, 10) *
-                    (1 if len(state_type) > 0 else 0))
+        char.攻击强化加成(326 * min(enemy_num, 10) * (1 if len(state_type) > 0 else 0))
 
 
 def entry_1021(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -4709,10 +4705,6 @@ def entry_182(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.异常增伤('中毒', 0.15)
-
-
-priority[192] = 200
-
 
 def entry_192(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
