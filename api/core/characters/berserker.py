@@ -158,11 +158,14 @@ class 技能7(主动技能):
     TP上限 = 5
     是否有护石 = 1
 
+    power1 = 1
+    power2 = 1
+
     def 装备护石(self):
         self.power0 = 0
         self.power1 *= 1.56
         self.power2 *= 1.56
-        self.CDRR *= 0.9
+        self.CDR *= 0.9
 
 
 class 技能8(主动技能):
@@ -199,7 +202,7 @@ class 技能9(主动技能):
     TP上限 = 5
     是否有护石 = 1
 
-    def 装备护石(self, x):
+    def 装备护石(self):
         self.倍率 *= 1.37
 
 
@@ -306,13 +309,8 @@ class 技能13(主动技能):
     # 血气爆炸范围 +20%
     # 攻击力 +6%
 
-    护石选项 = ['魔界', '圣痕']
-
-    def 装备护石(self, x):
-        if x == 0:
-            self.倍率 *= 1.20
-        elif x == 1:
-            self.倍率 *= 1.29
+    def 装备护石(self):
+        self.倍率 *= 1.29
 
 
 class 技能14(主动技能):
@@ -411,11 +409,10 @@ class 技能17(主动技能):
 
     是否有护石 = 1
 
-    def 装备护石(self, x):
-        if x == 0:
-            self.power2 *= 1.19
-            self.倍率 *= 1.21
-            self.CDR *= 0.9
+    def 装备护石(self):
+        self.power2 *= 1.19
+        self.倍率 *= 1.21
+        self.CDR *= 0.9
 
 
 class 技能18(主动技能):

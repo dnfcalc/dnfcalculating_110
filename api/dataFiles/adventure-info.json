@@ -28,6 +28,7 @@
         "name": "ghostblade",
         "title": "极诣·剑影",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
