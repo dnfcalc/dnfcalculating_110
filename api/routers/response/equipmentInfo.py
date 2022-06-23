@@ -1,18 +1,17 @@
-from ast import Lambda
-from cProfile import label
 import importlib
 import json
-import sys
 import os
+import sys
+from ast import Lambda
+from cProfile import label
 from typing import Dict, List, Text
-from core.baseClass.equipment import equ, equipment
-from core.baseClass.enchanting import get_enchanting_setinfo
-from core.baseClass.emblems import get_emblems_setinfo
-from core.baseClass.jade import get_jade_setinfo
-from core.baseClass.sundry import get_sundries_setinfo
 
 import requests
-
+from core.baseClass.emblems import get_emblems_setinfo
+from core.baseClass.enchanting import get_enchanting_setinfo
+from core.baseClass.equipment import equ, equipment
+from core.baseClass.jade import get_jade_setinfo
+from core.baseClass.sundry import get_sundries_setinfo
 
 try:
     os.chdir(os.path.dirname(sys.argv[0]))
@@ -148,7 +147,7 @@ def get_equipment_detail_info(equID):
     # 固有属性
     base = []
     for item in ['力量', '智力', '物理攻击力', '魔法攻击力', '独立攻击力']:
-        if cur[item] != 0:
+        if item in cur and cur[item] != 0:
             base.append({
                 "id": 6,
                 "isRate": False,

@@ -9,7 +9,7 @@
   import { useRoute } from "vue-router"
 
   interface ISkillResult {
-    cd: number
+    cd?: number
     count: number
     damage: string[]
     avg: string[]
@@ -40,22 +40,29 @@
 
       appStore.title = "详细数据"
 
-      const res = toMap(await api.getResult(uid), ["info", "skills", "skills_passive"]) as IResultInfo
+      const res = toMap(await api.getResult(uid), ["info", "skills", "skills_passive"]) as IResultInfo<"buffer"> | IResultInfo<"delear">
       characterStore.$patch({ alter: res.alter, name: res.name })
       configStore.forge_set = res.forget_set ?? {}
-      function skill_tooltip(skill: any) {
-        const skllInfo = res.skills[skill]
+      function skill_tooltip(skill: string) {
+        if (res.role == "buffer") {
+          return <div></div>
+        }
+        const delearSkills = res.skills[skill]
         return (
           <div class="tooltip-skill">
             <div class="name">
-              {skill} Lv {skllInfo.lv}
+              {skill} Lv {delearSkills.level}
             </div>
-            <div class="text-right info">冷却时间:{skllInfo.cd}秒</div>
-            <div class="info">MP消耗:{skllInfo.mp.toFixed(0)}</div>
-            <div class="info">无色消耗:{skllInfo.无色}</div>
-            <div class="info">百分比:{skllInfo.百分比.toFixed(0) + "%"}</div>
+            <div class="text-right info">冷却时间:{delearSkills.cd}秒</div>
+            <div class="info">MP消耗:{delearSkills.mp?.toFixed(0)}</div>
+            <div class="info">无色消耗:{delearSkills.cosume_cube_frag}</div>
+            <div class="info">百分比:{delearSkills.rate?.toFixed(0) + "%"}</div>
           </div>
         )
+      }
+
+      function transformNum(num = 0, digit = 0) {
+        return num <= 0 ? "" : num.toFixed(digit)
       }
 
       function skill_passive_tooltip(skill: ISkillPassive) {
@@ -79,29 +86,71 @@
         )
       }
 
-      const skills = computed(() => {
+      function renderSkills() {
+        if (res.role == "buffer") {
+          return renderList(Object.values(res.skills), skill => {
+            return (
+              <tr>
+                <td width="12%" class=" h-9 leading-9">
+                  <calc-tooltip class="flex justify-center" position="right">
+                    {{
+                      default() {
+                        return <img src={skill_icon(characterStore.alter, skill.name)} />
+                      },
+                      popper() {
+                        return skill_tooltip(skill.name)
+                      }
+                    }}
+                  </calc-tooltip>
+                </td>
+                <td width="12%" class="text-right pr-4">
+                  {skill.level}
+                </td>
+                <td width="16%" class="text-right  pr-4">
+                  {transformNum(skill.data[2])}
+                </td>
+                <td width="16%" class="text-right  pr-4">
+                  {transformNum(skill.data[3])}
+                </td>
+                <td width="16%" class="text-right  pr-4">
+                  {transformNum(skill.data[0])}
+                </td>
+                <td width="16%" class="text-right  pr-4">
+                  {transformNum(skill.data[1])}
+                </td>
+              </tr>
+            )
+          })
+        }
         let temp: ISkillResult[] = []
+
         Object.keys(res.skills).forEach(skill => {
-          let damage = ["", "white"]
+          let display_damage = ["", "white"]
           let avg = []
-          if (store.standard?.skills[skill]?.damage ?? undefined) {
-            if (store.standard?.skills[skill].damage == res.skills[skill].damage) damage = ["无变化", "white"]
-            else
-              damage = [
-                to_percent(res.skills[skill].damage / store.standard?.skills[skill].damage - 1, 0, "%", true),
-                res.skills[skill].damage > store.standard?.skills[skill].damage ? "#3ea74e" : "red"
-              ]
+          const standard_skill = store.standard?.skiils[skill] as typeof res.skills[string]
+          const standard_damage = standard_skill?.damage as number
+
+          const current_damage = res.skills[skill].damage
+
+          if (standard_damage) {
+            if (standard_damage == current_damage) {
+              display_damage = ["无变化", "white"]
+            } else {
+              display_damage = [to_percent(current_damage / standard_damage - 1, 0, "%", true), current_damage > standard_damage ? "#3ea74e" : "red"]
+            }
           } else {
-            damage = [Math.round(res.skills[skill].damage).toLocaleString(), "white"]
+            display_damage = [Math.round(current_damage).toLocaleString(), "white"]
           }
 
-          if (store.standard?.skills[skill]?.damage ?? undefined) {
-            if (store.standard?.skills[skill].damage / store.standard?.skills[skill].count == res.skills[skill].damage / res.skills[skill].count) avg = ["无变化", "white"]
-            else
+          if (standard_damage) {
+            if (standard_damage / store.standard?.skills[skill].count == res.skills[skill].damage / res.skills[skill].count) {
+              avg = ["无变化", "white"]
+            } else {
               avg = [
                 to_percent(res.skills[skill].damage / res.skills[skill].count / (store.standard?.skills[skill].damage / store.standard?.skills[skill].count) - 1, 0, "%", true),
                 res.skills[skill].damage / res.skills[skill].count > store.standard?.skills[skill].damage / store.standard?.skills[skill].count ? "#3ea74e" : "red"
               ]
+            }
           } else {
             avg = [Math.round(res.skills[skill].damage / res.skills[skill].count).toLocaleString(), "white"]
           }
@@ -109,15 +158,45 @@
             name: skill,
             cd: res.skills[skill].cd,
             count: res.skills[skill].count,
-            damage: damage,
+            damage: display_damage,
             avg: avg,
-            mix: to_percent(res.skills[skill].damage / res.total_data, 0, "%"),
+            mix: to_percent(res.skills[skill].damage / res.total_data[0], 0, "%"),
             order: res.skills[skill].damage
           })
         })
         temp.sort((a, b) => b.order - a.order)
-        return temp
-      })
+        return renderList(temp, skill => (
+          <tr>
+            <td width="12%" class=" h-9 leading-9">
+              <calc-tooltip class="flex justify-center" position="right">
+                {{
+                  default() {
+                    return <img src={skill_icon(characterStore.alter, skill.name)} />
+                  },
+                  popper() {
+                    return skill_tooltip(skill.name)
+                  }
+                }}
+              </calc-tooltip>
+            </td>
+            <td width="12%" class="h-9 text-center leading-9">
+              {skill.cd}s
+            </td>
+            <td width="12%" class="h-9 text-center leading-9">
+              {skill.count}
+            </td>
+            <td width="24%" class="h-9 text-right leading-9" style={"color:" + skill.damage[1]}>
+              {skill.damage[0]}
+            </td>
+            <td width="24%" class="h-9 text-right leading-9" style={"color:" + skill.avg[1]}>
+              {skill.avg[0]}
+            </td>
+            <td width="14%" class="h-9 text-right pr-2 leading-9">
+              {to_percent(skill.order / res.total_data[0], 0, "%")}
+            </td>
+          </tr>
+        ))
+      }
 
       const skill_passive = computed(() => {
         let temp: ISkillPassive[] = []
@@ -135,69 +214,99 @@
         return temp
       })
 
+      const headers = computed(() => {
+        if (res.role == "delear") {
+          return [
+            {
+              title: "技能",
+              width: "12%"
+            },
+            {
+              title: "CD",
+              width: "12%"
+            },
+            {
+              title: "次数",
+              width: "12%"
+            },
+            {
+              title: "总伤害",
+              width: "24%"
+            },
+            {
+              title: "平均伤害",
+              width: "24%"
+            },
+            {
+              title: "占比",
+              width: "14%"
+            }
+          ]
+        } else {
+          return [
+            {
+              title: "技能",
+              width: "12%"
+            },
+            {
+              title: "等级",
+              width: "12%"
+            },
+            {
+              title: "力智",
+              width: "16%"
+            },
+            {
+              title: "三攻",
+              width: "16%"
+            },
+            {
+              title: "进图力智",
+              width: "16%"
+            },
+            {
+              title: "进图体精",
+              width: "16%"
+            }
+          ]
+        }
+      })
+
       return () => (
         <>
-          <div class="flex h-100% m-0 detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:100% 100%">
-            <div class="flex h-100% w-266px justify-center">
-              <Profile total-data={res.total_data} equList={res.equips} class="!m-0 !p-0" details={res.info} standardSum={store.standard?.total_data}></Profile>
+          <div class="flex h-full m-0 overflow-hidden detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:cover">
+            <div class="flex h-full w-266px justify-center">
+              <Profile total-data={res.total_data} role={res.role} equList={res.equips} class="!m-0 !p-0" details={res.info} standardSum={store.standard?.total_data}></Profile>
             </div>
-            <div class="bg-hex-000000/60 flex-1 ml-1px pt-10px pr-15px pb-10px pl-15px" style="border:1px solid rgba(255,255,255,0.15)">
-              <div class="flex flex-col bg-hex-000000/40 h-100% text-hex-FFFFFF w-100%" style="border:1px solid rgba(255,255,255,0.15)">
-                <div class="bg-black flex h-15px justify-between !text-hex-B2966B">
-                  <div class="w-12% item-head">技能</div>
-                  <div class="w-12% item-head">CD</div>
-                  <div class="w-12% item-head">次数</div>
-                  <div class="w-25% item-head">总伤害</div>
-                  <div class="w-25% item-head">平均伤害</div>
-                  <div class="w-12% item-head">占比</div>
-                </div>
-                <div class="flex flex-col flex-1 skills">
-                  {renderList(skills.value ?? [], skill => (
-                    <div class="flex justify-between">
-                      <div class="w-12% item">
-                        <div>
-                          <calc-tooltip position="right">
-                            {{
-                              default() {
-                                return <img src={skill_icon(characterStore.alter, skill.name)} />
-                              },
-                              popper() {
-                                return skill_tooltip(skill.name)
-                              }
-                            }}
-                          </calc-tooltip>
-                        </div>
-                      </div>
-                      <div class="w-12% item">{skill.cd}s</div>
-                      <div class="w-12% item">{skill.count}</div>
-                      <div class="w-25% item" style={"color:" + skill.damage[1]}>
-                        {skill.damage[0]}
-                      </div>
-                      <div class="w-25% item" style={"color:" + skill.avg[1]}>
-                        {skill.avg[0]}
-                      </div>
-                      <div class="w-12% item">{to_percent(skill.order / res.total_data, 0, "%")}</div>
-                    </div>
-                  ))}
-                </div>
-                <div class="flex bottom items-center">
-                  {renderList(skill_passive.value, skill => (
-                    <div class="mr-5px">
-                      <calc-tooltip position="top">
-                        {{
-                          default() {
-                            return <img src={skill_icon(characterStore.alter, skill.name)} />
-                          },
-                          popper() {
-                            return skill_passive_tooltip(skill)
-                          }
-                        }}
-                      </calc-tooltip>
-                    </div>
-                  ))}
-                </div>
+            <table class="h-full bg-hex-000000/60 flex-1 ml-1 p-4 block overflow-y-hidden " style="border:1px solid rgba(255,255,255,0.15)">
+              <thead class="bg-hex-000000/40 text-white w-full" style="border:1px solid rgba(255,255,255,0.15)">
+                <tr class="bg-black h-4 !text-hex-B2966B">
+                  {renderList(headers.value, head => {
+                    return <th width={head.width}>{head.title}</th>
+                  })}
+                </tr>
+              </thead>
+
+              <tbody class="text-white skills overflow-y-auto block" style="height:calc(100% - 48px)">
+                {renderSkills()}
+              </tbody>
+              <div class="bottom h-8 mx-1 mb-1 w-full">
+                {renderList(skill_passive.value, skill => (
+                  <td class="mr-1">
+                    <calc-tooltip z={9} position="top">
+                      {{
+                        default() {
+                          return <img src={skill_icon(characterStore.alter, skill.name)} />
+                        },
+                        popper() {
+                          return skill_passive_tooltip(skill)
+                        }
+                      }}
+                    </calc-tooltip>
+                  </td>
+                ))}
               </div>
-            </div>
+            </table>
           </div>
         </>
       )
@@ -205,39 +314,24 @@
   })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  table thead,
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
   .detail {
     .item-head {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: linear-gradient(#2b2817, #171407);
       // font-size: 12px;
-      height: 14px;
       border-top: 1px solid #423d2c;
       border-bottom: 1px solid #211d15;
     }
 
-    .skills {
-      overflow-y: auto;
-      .item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        // font-size: 12px;
-        height: 35px;
-        // border-top: 1px solid white;
-        // border-bottom: 1px solid white;
-      }
-    }
-
     .bottom {
-      margin-left: 5px;
-      margin-right: 5px;
       border-top: 1px solid rgba(255, 255, 255, 0.15);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      height: 30px;
-      margin-bottom: 5px;
     }
   }
 </style>

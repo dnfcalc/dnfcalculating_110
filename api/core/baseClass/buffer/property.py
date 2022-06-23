@@ -1,12 +1,14 @@
 
 from core.baseClass.property import 角色属性
+from core.baseClass.skill import 技能
 
 
-class 技能:
+class 辅助职业技能(技能):
     名称 = ''
     备注 = ''
     所在等级 = 0
     等级上限 = 0
+    等级间隔 = 3
     等级 = 0
     基础等级 = 0
     是否主动 = 0
@@ -33,23 +35,23 @@ class 技能:
         # 智力 体力 精神  力量  智力  物攻  魔攻 独立
 
 
-class 被动技能(技能):
+class 辅助职业被动技能(辅助职业技能):
     是否主动 = 0
     进图加成 = 0
 
 
-class 主动技能(技能):
+class 辅助职业主动技能(辅助职业技能):
     是否主动 = 1
     适用数值 = 0
 
 
-class 觉醒技能(主动技能):
+class 辅助职业觉醒技能(辅助职业主动技能):
     所在等级 = 50
     等级精通 = 30
     等级上限 = 40
-    基础等级 = 12
+    基础等级 = 14
     一觉力智 = 0
-    一觉力智per = 0
+    一觉力智per = 1.0
     # 28 原力智 941  测试修改为 939
     力智 = [
         0, 43, 57, 74, 91, 111, 131, 153, 176, 201, 228, 255, 284, 315, 346,
@@ -58,10 +60,11 @@ class 觉醒技能(主动技能):
     ]
 
     def 结算统计(self, context, compute_3rd_awake=False):
+        buffer_power = context.BUFF量()
 
         if not compute_3rd_awake and self.名称 in context.技能表['三次觉醒'].关联技能:
             return [0] * 4
-        倍率 = (self.适用数值 / 750 + 1) * context.BUFF强化比率()
+        倍率 = ((self.适用数值 + 5250) / 750 + 1) * (buffer_power + 5000) * 0.000025
         x = (self.力智[self.等级] + self.一觉力智) * 倍率
         values = [
             0, 0,
@@ -71,18 +74,21 @@ class 觉醒技能(主动技能):
         # 智力 体力 精神  力量  智力  物攻  魔攻 独立
 
 
-class 三觉技能(主动技能):
+class Buffer(角色属性):
+    pass
+
+
+class 辅助职业三觉技能(辅助职业主动技能):
     所在等级 = 100
     等级精通 = 30
     等级上限 = 40
-    基础等级 = 2
+    学习间隔 = 5
     绑定一觉力智per = 1.08
     绑定二觉力智per = 0.23
     关联技能 = []
 
-    def 结算统计(self, context):
-        技能表 = context.技能表
-        awake = 技能表['一次觉醒']
+    def 结算统计(self, context: Buffer):
+        awake = context.get_skill_by_name('一次觉醒')
         if awake.是否启用:
             values = awake.结算统计(context, True)
             倍率 = self.加成倍率(awake.名称 in self.关联技能)
@@ -94,12 +100,6 @@ class 三觉技能(主动技能):
             return round(1.08 + self.等级 * 0.01, 2)
         else:
             return round(0.23 + self.等级 * 0.01, 2)
-
-
-class Buffer(角色属性):
-
-    def BUFF强化比率(self):
-        return 1
 
 
 BUFF影响技能 = ['勇气祝福', '勇气圣歌', '荣誉祝福', '禁忌诅咒', '死命召唤']
