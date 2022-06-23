@@ -289,7 +289,7 @@ class 技能10(主动技能):
             等效倍率 = self.基础百分比(伤害类型, 等级)
 
             return 等效倍率 * self.TP加成() * self.倍率 * 额外倍率
-        if 形态 == "天照":
+        if 形态 == "闪枪":
             self.CD = 4.9
             skill = char.get_skill_by_name("暗天波动眼")
             # 额外倍率暂不确定 应该是跟着觉醒走
