@@ -95,7 +95,7 @@ class 知源·小魔女技能0(辅助职业被动技能):
         return self.智力[self.等级] + self.额外智力 + self.进图加成
 
     def 结算统计(self, context: Buffer):
-        return [self.智力加成(), 0, 0, 0]
+        return [0, 0, self.智力加成(), 0]
         # 智力 体力 精神  力量  智力  物攻  魔攻 独立
 
 
@@ -159,11 +159,13 @@ class 知源·小魔女技能2(辅助职业主动技能):
         力智 = (新词条力智 + 旧词条力智) * 倍率
         三攻 = (新词条三攻 + 旧词条三攻) * 倍率
 
-        temp = [0, 0]  # 智力,体力,精神
+        temp = []  # 智力,体力,精神
         temp.append(
             int(round(力智, 3)))  # 力量
         temp.append(
             int(round(三攻, 3)))  # 物攻
+        temp.append(0)
+        temp.append(0)
 
         return temp
 
@@ -213,7 +215,6 @@ class 知源·小魔女技能4(辅助职业被动技能):
 
     def 结算统计(self, context: Buffer):
         return [self.力智加成(), 0, self.力智加成(), 0]
-        # 智力 体力 精神  力量  智力  物攻  魔攻 独立
 
 
 class 知源·小魔女技能5(辅助职业觉醒技能):
@@ -235,8 +236,8 @@ class 知源·小魔女技能6(辅助职业被动技能):
         return self.智力[self.等级]
 
     def 结算统计(self, context: Buffer):
-        return [self.智力加成(), 0, 0, 0]
-        # 智力 体精  力智  三攻
+        return [0, 0, self.智力加成(), 0]
+        #  力智  三攻 智力 体精
 
 
 class 知源·小魔女技能7(辅助职业主动技能):
@@ -247,7 +248,7 @@ class 知源·小魔女技能7(辅助职业主动技能):
     基础等级 = 5
 
     def 结算统计(self, context: Buffer):
-        return [0]*8
+        return [0]*4
 
 
 class 知源·小魔女技能8(辅助职业被动技能):
@@ -264,7 +265,7 @@ class 知源·小魔女技能8(辅助职业被动技能):
         return self.智力[self.等级]
 
     def 结算统计(self, context: Buffer):
-        return [self.智力加成(), 0, 0, 0]
+        return [0, 0, self.智力加成(),  0]
         # 智力 体精  力智  三攻
 
 
