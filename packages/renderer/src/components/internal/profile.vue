@@ -12,7 +12,7 @@
     MP消耗量: number
     伤害比例: number[]
     伤害系数: number[]
-    cosume_cube_frag: number
+    无色消耗: number
   }
 
   interface BufferProperties {
@@ -252,11 +252,69 @@
 
       function renderDelearPropties() {
         const properties = details.value?.properties
-        if (!properties) {
+        const town = details.value?.站街
+        if (!properties || !town) {
           return []
         }
         return (
           <>
+            {town.力量 && (
+              <div class="de-item">
+                <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
+                <div class="text-hex-836832 name">力量</div>
+                <div class="text-hex-3ea74e">{details.value?.站街?.力量?.toFixed(0)}</div>
+              </div>
+            )}
+            {town.智力 && (
+              <div class="de-item">
+                <div class="flex items-center">
+                  <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
+                  <div class="text-hex-836832 name">智力</div>
+                </div>
+                <div class="text-hex-3ea74e">{details.value?.站街?.智力?.toFixed(0)}</div>
+              </div>
+            )}
+
+            {town.物理攻击 && (
+              <div class="de-item">
+                <div class="flex items-center">
+                  <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
+                  <div class="text-hex-836832 name">物理攻击</div>
+                </div>
+                <div class="text-hex-3ea74e">{details.value?.站街?.物理攻击?.toFixed(0)}</div>
+              </div>
+            )}
+
+            {town.魔法攻击 && (
+              <div class="de-item">
+                <div class="flex items-center">
+                  <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
+                  <div class="text-hex-836832 name">魔法攻击</div>
+                </div>
+                <div class="text-hex-3ea74e">{details.value?.站街?.魔法攻击?.toFixed(0)}</div>
+              </div>
+            )}
+
+            {town.独立攻击 && (
+              <div class="de-item">
+                <div class="flex items-center">
+                  <img class="h-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
+                  <div class="text-hex-836832 name">独立攻击</div>
+                </div>
+                <div class="text-hex-3ea74e">{details.value?.站街?.独立攻击?.toFixed(0)}</div>
+              </div>
+            )}
+
+            <div class="de-item">
+              <div class="flex items-center">
+                <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
+                <div class="text-hex-836832 name">攻击属性</div>
+              </div>
+              <div class="text-hex-3ea74e">{`火(${details.value?.站街?.火?.toFixed(0)})/冰(${details.value?.站街?.冰?.toFixed(0)})/光(${details.value?.站街?.光?.toFixed(
+                0
+              )})/暗(${details.value?.站街?.暗?.toFixed(0)})`}</div>
+            </div>
+
             <div class="de-item">
               <div class="pl-1 text-hex-836832">技能攻击力</div>
               <div class="text-hex-3ea74e">{properties.技能攻击力.toFixed(2) + "%"}</div>
@@ -275,7 +333,7 @@
             </div>
             <div class="de-item">
               <div class=" text-hex-836832">无色消耗</div>
-              <div class="text-hex-3ea74e">{properties.cosume_cube_frag}</div>
+              <div class="text-hex-3ea74e">{properties.无色消耗}</div>
             </div>
             <div class="de-item">
               <div class=" text-hex-836832">MP消耗量%</div>
@@ -306,18 +364,24 @@
           return []
         }
         const properties = details.value?.properties
-        if (!properties) {
+        const town = details.value.站街
+        if (!properties || !town) {
           return []
         }
         return (
           <>
+            {town.智力 && (
+              <div class="de-item">
+                <div class="flex items-center">
+                  <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
+                  <div class="text-hex-836832 name">智力</div>
+                </div>
+                <div class="text-hex-3ea74e">{town.智力?.toFixed(0)}</div>
+              </div>
+            )}
             <div class="de-item">
               <div class="text-hex-836832">BUFF量</div>
               <div class="text-hex-3ea74e">{properties.buffer_power.round(0)}</div>
-            </div>
-            <div class="de-item">
-              <div class=" text-hex-836832">BUFF量%</div>
-              <div class="text-hex-3ea74e">{`${properties.buffer_power_percent.toFixed(2)}%`}</div>
             </div>
 
             <div class="de-item">
@@ -374,66 +438,7 @@
                       </div>
                     </div>
                   )}
-                  <div class="details">
-                    {details.value?.站街?.力量 && (
-                      <div class="de-item">
-                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
-                        <div class="text-hex-836832 name">力量</div>
-                        <div class="text-hex-3ea74e">{details.value?.站街?.力量?.toFixed(0)}</div>
-                      </div>
-                    )}
-                    {details.value?.站街?.智力 && (
-                      <div class="de-item">
-                        <div class="flex items-center">
-                          <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
-                          <div class="text-hex-836832 name">智力</div>
-                        </div>
-                        <div class="text-hex-3ea74e">{details.value?.站街?.智力?.toFixed(0)}</div>
-                      </div>
-                    )}
-
-                    {details.value?.站街?.物理攻击 && (
-                      <div class="de-item">
-                        <div class="flex items-center">
-                          <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
-                          <div class="text-hex-836832 name">物理攻击</div>
-                        </div>
-                        <div class="text-hex-3ea74e">{details.value?.站街?.物理攻击?.toFixed(0)}</div>
-                      </div>
-                    )}
-
-                    {details.value?.站街?.魔法攻击 && (
-                      <div class="de-item">
-                        <div class="flex items-center">
-                          <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
-                          <div class="text-hex-836832 name">魔法攻击</div>
-                        </div>
-                        <div class="text-hex-3ea74e">{details.value?.站街?.魔法攻击?.toFixed(0)}</div>
-                      </div>
-                    )}
-
-                    {details.value?.站街?.独立攻击 && (
-                      <div class="de-item">
-                        <div class="flex items-center">
-                          <img class="h-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
-                          <div class="text-hex-836832 name">独立攻击</div>
-                        </div>
-                        <div class="text-hex-3ea74e">{details.value?.站街?.独立攻击?.toFixed(0)}</div>
-                      </div>
-                    )}
-                    {props.role == "delear" && (
-                      <div class="de-item">
-                        <div class="flex items-center">
-                          <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
-                          <div class="text-hex-836832 name">攻击属性</div>
-                        </div>
-                        <div class="text-hex-3ea74e">{`火(${details.value?.站街?.火?.toFixed(0)})/冰(${details.value?.站街?.冰?.toFixed(0)})/光(${details.value?.站街?.光?.toFixed(
-                          0
-                        )})/暗(${details.value?.站街?.暗?.toFixed(0)})`}</div>
-                      </div>
-                    )}
-                    {props.role == "delear" ? renderDelearPropties() : renderBufferProperties()}
-                  </div>
+                  <div class="details">{props.role == "delear" ? renderDelearPropties() : renderBufferProperties()}</div>
                   <div class="details"></div>
 
                   {
