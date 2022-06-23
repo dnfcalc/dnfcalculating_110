@@ -523,7 +523,7 @@ class classChange(Character):
         self.实际名称 = 'demon_slayer'
         self.名称 = '极诣·契魔者'
         self.角色 = '鬼剑士(女)'
-        self.职业类型 = '输出'
+        self.角色类型 = '输出'
         self.职业 = '契魔者'
         self.武器选项 = ['巨剑', '钝器', '太刀', '短剑']
         self.输出类型选项 = ['物理百分比']

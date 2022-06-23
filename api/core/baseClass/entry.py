@@ -2182,6 +2182,7 @@ def entry_325(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 # region 常规词条
 
+
 def entry_956(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "攻击速度 +5%, 施放速度 +7.5%, 技能MP消耗量 +50%"
@@ -2344,6 +2345,7 @@ def entry_981(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         char.MP消耗量加成(0.5)
         pass
+
 
 def entry_1223(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
@@ -3323,7 +3325,8 @@ def entry_1020(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(326 * min(enemy_num, 10) * (1 if len(state_type) > 0 else 0))
+        char.攻击强化加成(326 * min(enemy_num, 10) *
+                    (1 if len(state_type) > 0 else 0))
 
 
 def entry_1021(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -4706,6 +4709,7 @@ def entry_182(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.异常增伤('中毒', 0.15)
+
 
 def entry_192(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
@@ -10029,6 +10033,8 @@ def entry_681(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "装备时，[禁忌诅咒]对队友提升效果+8%(解除装备后[禁忌诅咒]失效；Buff登记系统不适用该效果), [细心缝补]HP恢复量 -50%, [爱之急救]HP回复量 -50%"
     if mode == 0:
+        buff = char.get_skill_by_name('BUFF')
+        buff.倍率 *= 1.08
         pass
     if mode == 1:
         pass
@@ -11079,6 +11085,7 @@ def entry_10002(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
+        char.buff量加成(1010)
     if mode == 1:
         pass
 
@@ -11089,6 +11096,7 @@ def entry_10003(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
+        char.buff量加成(1010)
     if mode == 1:
         pass
 
@@ -11099,6 +11107,7 @@ def entry_10004(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +34%"]
     if mode == 0:
         char.技能攻击力加成(0.34)
+        char.buff量加成(1010)
     if mode == 1:
         pass
 
@@ -11109,6 +11118,7 @@ def entry_10005(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
+        char.buff量加成(1010)
     if mode == 1:
         pass
 
@@ -11120,6 +11130,7 @@ def entry_10006(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.技能攻击力加成(0.29)
         char.移动速度增加(0.04)
+        char.buff量加成(1010)
     if mode == 1:
         pass
 
@@ -11130,6 +11141,7 @@ def entry_10007(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
+        char.buff量加成(295)
     if mode == 1:
         pass
 
@@ -11140,6 +11152,7 @@ def entry_10008(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
+        char.buff量加成(295)
     if mode == 1:
         pass
 
@@ -11150,6 +11163,7 @@ def entry_10009(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
+        char.buff量加成(295)
     if mode == 1:
         pass
 
@@ -11160,6 +11174,7 @@ def entry_10010(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
+        char.buff量加成(1875)
     if mode == 1:
         pass
 
@@ -11170,6 +11185,7 @@ def entry_10011(char: Character = {}, mode=0, text=False, part='', lv=0):
         return["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
+        char.buff量加成(1875)
     if mode == 1:
         pass
 
@@ -11180,6 +11196,7 @@ def entry_10012(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
+        char.buff量加成(1010)
     if mode == 1:
         pass
 
@@ -11190,6 +11207,7 @@ def entry_10013(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +50%"]
     if mode == 0:
         char.技能攻击力加成(0.50)
+        char.buff量加成(11695)
     if mode == 1:
         pass
 
@@ -11200,6 +11218,7 @@ def entry_10014(char: Character = {}, mode=0, text=False, part='', lv=0):
         return["技能攻击力 +35%"]
     if mode == 0:
         char.技能攻击力加成(0.35)
+        char.buff量加成(11695)
     if mode == 1:
         pass
 
@@ -11218,7 +11237,7 @@ for i in range(10001, 10015):
 def entry_10101(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         # (宠物)
-        return ["Buff量 +3%","所有职业Lv1~50 全部技能+1", "Lv30 Buff技能力量、智力增加量 +3%", "Lv30 Buff技能物理、魔法、独立攻击力 +3%"]
+        return ["Buff量 +3%", "所有职业Lv1~50 全部技能+1", "Lv30 Buff技能力量、智力增加量 +3%", "Lv30 Buff技能物理、魔法、独立攻击力 +3%"]
     if mode == 0:
         char.技能等级加成('所有', 1, 50, 1)
         char.辅助属性加成(buff百分比力智=0.03, buff百分比三攻=0.03, 百分比buff量=0.03)

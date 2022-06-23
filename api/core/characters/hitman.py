@@ -361,7 +361,7 @@ class 技能16(主动技能):
     def 形态变更(self, 形态, char: Character):
         if 形态 == '' and len(self.形态) > 0:
             形态 = self.形态[0]
-        if 形态 == "空中" and '大回旋坠斩' in char.护石:
+        if 形态 == "空中" and '大回旋坠斩' in char.护石栏:
             self.hit0 = 0
             self.hit1 = 0
             self.hit2 = 1
@@ -372,7 +372,7 @@ class 技能16(主动技能):
             self.hit0 = 10
             self.hit1 = 10
             self.hit2 = 1
-            if '大回旋坠斩' in char.护石:
+            if '大回旋坠斩' in char.护石栏:
                 self.hit0 += 1
                 self.hit1 += 1
 
@@ -566,7 +566,7 @@ class classChange(Character):
         self.实际名称 = 'hitman'
         self.名称 = '苍暮·暗刃'
         self.角色 = '枪剑士'
-        self.职业类型 = '输出'
+        self.角色类型 = '输出'
         self.职业 = '暗刃'
         self.武器选项 = ['长刀']
         self.输出类型选项 = ['物理百分比']

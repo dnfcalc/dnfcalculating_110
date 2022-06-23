@@ -6,10 +6,78 @@ from core.baseClass.buffer.property import *
 from core.baseClass.character import Character
 
 
-class SkillFrame:
-    data: List[float]
-    hits: int
-    power: int
+class 小魔女护石0:
+    def __init__(self):
+        self.name = '黑魔法大师'
+        self.skill = '疯疯熊坠击'
+        pass
+
+    def effect(self, 角色: Buffer):
+        角色.辅助属性加成(buff百分比力智=0.08)
+        pass
+
+
+class 小魔女护石1:
+    def __init__(self):
+        self.name = '好的主人！'
+        self.skill = '变大吧！疯疯熊'
+
+    def effect(self, 角色: Buffer):
+        角色.辅助属性加成(buff百分比力智=0.06)
+
+
+class 小魔女护石2:
+    def __init__(self):
+        self.name = '黑暗救援'
+        self.skill = '哇咔咔！'
+        pass
+
+    def effect(self, 角色: Buffer):
+        角色.辅助属性加成(buff百分比力智=0.04)
+
+
+class 小魔女护石3:
+    def __init__(self):
+        self.name = '完美华尔兹'
+        self.skill = '死命召唤'
+        pass
+
+    def effect(self, 角色: Buffer):
+        角色.辅助属性加成(buff百分比力智=0.04)
+
+
+class 小魔女护石4:
+    def __init__(self):
+        self.name = '永恒之舞'
+        self.skill = '人偶戏法'
+        pass
+
+    def effect(self, 角色: Buffer):
+        角色.辅助属性加成(buff百分比力智=0.06)
+
+
+class 小魔女护石5:
+    def __init__(self):
+        self.name = '魔女的庭院'
+        self.skill = '苦痛庭院'
+        pass
+
+    def effect(self, 角色: Buffer):
+        角色.辅助属性加成(buff百分比力智=0.06)
+
+
+class 小魔女护石6:
+    def __init__(self):
+        self.name = '个人主义者'
+        self.skill = '咆哮吧！疯疯熊'
+        pass
+
+    def effect(self, 角色: Buffer):
+        角色.辅助属性加成(buff百分比力智=0.08)
+
+
+小魔女护石组合 = (小魔女护石0(), 小魔女护石1(), 小魔女护石2(),
+           小魔女护石3(), 小魔女护石4(), 小魔女护石5(), 小魔女护石6())
 
 
 class 知源·小魔女技能0(辅助职业被动技能):
@@ -40,7 +108,7 @@ class 知源·小魔女技能1(辅助职业主动技能):
     增幅倍率 = 0.15
 
     def 结算统计(self, context: Buffer):
-        buff = context.技能表['BUFF']
+        buff = context.get_skill_by_name('BUFF')
         if buff.是否启用 and hasattr(context, '偏爱独立计算') and context.偏爱独立计算:
             values = buff.结算统计(context)
             return [int(round(i * self.增幅倍率, 3)) for i in values]
@@ -60,6 +128,8 @@ class 知源·小魔女技能2(辅助职业主动技能):
     BUFF力智 = 0
     BUFF三攻 = 0
 
+    倍率 = 1.0
+
     三攻 = [0, 34, 35, 37, 38, 39, 41, 42, 43, 45, 46, 47, 49, 50, 51, 53, 54, 55, 57, 58,
           60, 61, 62, 64, 65, 66, 68, 69, 70, 72, 73, 74, 76, 77, 78, 80, 81, 82, 84, 85, 87]
     力智 = [0, 131, 140, 149, 158, 167, 175, 184, 193, 202, 211, 220, 229, 238, 247, 256, 264, 273, 282, 291,
@@ -67,17 +137,33 @@ class 知源·小魔女技能2(辅助职业主动技能):
 
     def 结算统计(self, context: Buffer):
         buffer_power = context.BUFF量()
-        倍率 = ((self.适用数值 + 4350) / 665 + 1) * (buffer_power + 3500) * 0.0000379
+
+        新词条倍率 = (((self.适用数值 + 4350) / 665 + 1) *
+                 (buffer_power + 3500) * 0.0000379) if buffer_power > 0 else 0
+
+        新词条力智 = 新词条倍率 * (self.力智[self.等级])
+        新词条三攻 = 新词条倍率 * (self.三攻[self.等级])
+
+        旧词条力智 = ((self.适用数值)/665 + 1) * \
+            (self.力智[self.等级]+self.BUFF力智) * self.BUFF力智per
+
+        旧词条三攻 = ((self.适用数值)/665 + 1) * \
+            (self.三攻[self.等级]+self.BUFF三攻) * self.BUFF三攻per
+
+        倍率 = self.倍率
 
         偏爱 = context.get_skill_by_name('小魔女的偏爱')
-        if 偏爱.是否启用 and hasattr(context, '偏爱独立计算') and not context.偏爱独立计算:
+        if 偏爱.是否启用 and not (hasattr(context, '偏爱独立计算') and context.偏爱独立计算):
             倍率 *= 1 + 偏爱.增幅倍率
+
+        力智 = (新词条力智 + 旧词条力智) * 倍率
+        三攻 = (新词条三攻 + 旧词条三攻) * 倍率
 
         temp = [0, 0]  # 智力,体力,精神
         temp.append(
-            int(round((self.力智[self.等级] + self.BUFF力智) * self.BUFF力智per * 倍率, 3)))  # 力量
+            int(round(力智, 3)))  # 力量
         temp.append(
-            int(round((self.三攻[self.等级] + self.BUFF三攻) * self.BUFF三攻per * 倍率, 3)))  # 物攻
+            int(round(三攻, 3)))  # 物攻
 
         return temp
 
@@ -193,7 +279,7 @@ class classChange(Character):
         self.实际名称 = 'enchantress'
         self.名称 = '知源·小魔女'
         self.角色 = '魔法师(女)'
-        self.职业类型 = '辅助'
+        self.角色类型 = '辅助'
         self.职业 = '小魔女'
         self.武器选项 = ['扫把']
         self.输出类型选项 = ['魔法固伤']
@@ -202,7 +288,6 @@ class classChange(Character):
         self.武器类型 = '扫把'
         self.防具类型 = '板甲'
         self.技能序号 = {}
-        技能表 = {}
         技能栏 = []
         i = 0
         while i >= 0:
@@ -220,14 +305,18 @@ class classChange(Character):
                 elif skill.所在等级 == 100:
                     名称 = '三次觉醒'
                 skill.基础等级计算()
-                技能表[名称] = skill
                 技能栏.append(skill)
                 self.技能序号[名称] = i
                 i += 1
             except:
                 i = -1
-        self.技能表 = deepcopy(技能表)
         self.技能栏 = 技能栏
         self.buff = 1.70
+        self.护石技能 = [i.skill for i in 小魔女护石组合]
 
         super().__init__()
+
+    def 护石计算(self):
+        for 护石 in 小魔女护石组合:
+            if 护石.skill in self.护石栏:
+                护石.effect(self)
