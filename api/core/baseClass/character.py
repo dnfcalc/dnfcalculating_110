@@ -1216,7 +1216,9 @@ class Character(角色属性):
             for j in ["growth_first", "growth_second", "growth_third", "growth_fourth"]:
                 temp.append(self.打造详情.get(i, {}).get(j, 1))
             self.词条等级[i] = temp
-        for 部位, 序号, atk, buff in equ.get_damagelist_by_idlist(self.装备栏, self.自定义词条):
+        成长词条组合 = equ.get_damagelist_by_idlist(self.装备栏, self.自定义词条)
+
+        for 部位, 序号, atk, buff in 成长词条组合:
             等级 = self.词条等级[部位][序号]
             self.攻击强化加成(成长词条计算(atk, 等级))
             self.buff量加成(奶成长词条计算(buff, 等级))
@@ -1598,9 +1600,7 @@ class Character(角色属性):
                     '伤害系数': [self.__伤害系数.get('直伤', 1), self.__伤害系数.get('中毒', 1)-1, self.__伤害系数.get('灼烧', 1)-1, self.__伤害系数.get('感电',  1)-1, self.__伤害系数.get('出血',  1)-1],
                     '无色消耗': temp['无色消耗'],
                     'buff_level': self.get_skill_by_name('BUFF').等级,
-                    'awake_level': self.get_skill_by_name('一次觉醒').等级,
-
-                    "buffer_power_percent": round(self.__百分比buff量 * 100, 2)
+                    'awake_level': self.get_skill_by_name('一次觉醒').等级
 
                     # 其他老词条·····
                 }
