@@ -95,10 +95,10 @@ class Character(角色属性):
         self.__BUFF补正精神: int = 0
         self.适用属性 = '智力'
 
-        self.__力量: float = 0.0
-        self.__智力: float = 0.0
-        self.__体力: float = 0.0
-        self.__精神: float = 0.0
+        self.__力量: int = 0
+        self.__智力: int = 0
+        self.__体力: int = 0
+        self.__精神: int = 0
 
         self.系统奶系数: float = 0.0
         self.系统奶基数: float = 0.0
@@ -109,9 +109,9 @@ class Character(角色属性):
         self.辅助对象力智 = 5000
         self.辅助对象三攻 = 3000
 
-        self.__物理攻击力: float = 65
-        self.__魔法攻击力: float = 65
-        self.__独立攻击力: float = 1045
+        self.__物理攻击力: int = 65
+        self.__魔法攻击力: int = 65
+        self.__独立攻击力: int = 1045
         self.__火属性强化: float = 13
         self.__冰属性强化: float = 13
         self.__光属性强化: float = 13
@@ -206,17 +206,18 @@ class Character(角色属性):
         return info
 
     def 基础属性加成(self,
-               物理攻击力=0.00, 魔法攻击力=0.00, 独立攻击力=0.00, 三攻=0.00,
-               力量=0.00, 智力=0.00, 力智=0.00, 体力=0.00, 精神=0.00, 体精=0.00, 四维=0.00,
+               物理攻击力=0.00, 魔法攻击力=0.00, 独立攻击力=0.00, 三攻=0,
+               力量=0.00, 智力=0, 力智=0, 体力=0, 精神=0, 体精=0, 四维=0,
                物理暴击率=0.00, 魔法暴击率=0.00, 暴击率=0.00,
-               攻击速度=0.00, 施放速度=0.00, 移动速度=0.00,   三速=0.00, **kwargs):
-        self.__物理攻击力 += float(物理攻击力) + float(三攻)
-        self.__魔法攻击力 += float(魔法攻击力) + float(三攻)
-        self.__独立攻击力 += float(独立攻击力) + float(三攻)
-        self.__力量 += float(力量) + float(力智) + float(四维)
-        self.__智力 += float(智力) + float(力智) + float(四维)
-        self.__体力 += float(体力) + float(体精) + float(四维)
-        self.__精神 += float(精神) + float(体精) + float(四维)
+               攻击速度=0.00, 施放速度=0.00, 移动速度=0.00,   三速=0.00,
+               **kwargs):
+        self.__物理攻击力 += 物理攻击力 + 三攻
+        self.__魔法攻击力 += 魔法攻击力 + 三攻
+        self.__独立攻击力 += 独立攻击力 + 三攻
+        self.__力量 += 力量 + 力智 + 四维
+        self.__智力 += 智力 + 力智 + 四维
+        self.__体力 += 体力 + 体精 + 四维
+        self.__精神 += 精神 + 体精 + 四维
         self.__物理暴击率 += float(物理暴击率) + float(暴击率)
         self.__魔法暴击率 += float(魔法暴击率) + float(暴击率)
         self.__攻击速度 += float(攻击速度) + float(三速)
@@ -359,26 +360,6 @@ class Character(角色属性):
 
     def 附加伤害加成(self, x: float, 辟邪玉加成=1) -> None:
         self.__附加伤害 += self.附加伤害增加增幅 * x if 辟邪玉加成 == 1 else x
-
-    def 三攻固定加成(self, x=0, y=0, z=0) -> None:
-        if y == 0 or z == 0:
-            y = x
-            z = x
-        self.__物理攻击力 += x
-        self.__魔法攻击力 += y
-        self.__独立攻击力 += z
-
-    def 力智固定加成(self, 力量=0, 智力=0) -> None:
-        if 智力 == 0:
-            智力 = 力量
-        self.__力量 += 力量
-        self.__智力 += 智力
-
-    def 体精固定加成(self, x=0, y=0) -> None:
-        if y == 0:
-            y = x
-        self.__体力 += x
-        self.__精神 += y
 
     def 持续伤害加成(self, x: float) -> None:
         self.__持续伤害 += x
@@ -1102,8 +1083,7 @@ class Character(角色属性):
                     else:
                         # 白金技能等级加成处理 id:技能名称
                         self.get_skill_by_name(id).等级 += 1
-                        self.力智固定加成(8)
-                        self.体精固定加成(8)
+                        self.基础属性加成(四维=8)
                         pass
         for i in idlist:
             from core.baseClass.emblems import get_embfunc_by_id
@@ -1145,17 +1125,18 @@ class Character(角色属性):
         #    return 精通计算(temp.等级, temp.品质, self.打造详情.get(部位, {}).get('wisdom_number', 0), 部位)
 
     def __防具计算(self, temp: equipment) -> None:
-        self.__力量 += temp.力量[self.防具类型]
-        self.__智力 += temp.智力[self.防具类型]
+        力量 = temp.力量[self.防具类型]
+        智力 = temp.智力[self.防具类型]
 
         精通数值 = self.__防具精通计算(temp)
         if '力量' in self.防具精通属性:
-            self.__力量 += 精通数值
+            力量 += 精通数值
         if '智力' in self.防具精通属性:
-            self.__智力 += 精通数值
+            智力 += 精通数值
         if temp.等级 == 105 and self.角色类型 == '辅助':
             self.技能等级加成('主动', 30, 30, 1)
             self.技能等级加成('主动', 50, 50, 1)
+        self.基础属性加成(力量=力量, 智力=智力)
 
     def __增幅计算(self, temp: equipment) -> None:
         if self.打造详情.get(temp.部位, {}).get('cursed_type', 1) == 1:

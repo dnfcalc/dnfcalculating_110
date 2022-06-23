@@ -53,7 +53,7 @@
             <div class="name">
               {skill} Lv {delearSkills.level}
             </div>
-            <div class="text-right info">冷却时间:{delearSkills.cd}秒</div>
+            <div class=" info">冷却时间:{delearSkills.cd}秒</div>
             <div class="info">MP消耗:{delearSkills.mp?.toFixed(0)}</div>
             <div class="info">无色消耗:{delearSkills.cosume_cube_frag}</div>
             <div class="info">百分比:{delearSkills.rate?.toFixed(0) + "%"}</div>
@@ -62,7 +62,7 @@
       }
 
       function transformNum(num = 0, digit = 0) {
-        return num <= 0 ? "" : num.toFixed(digit)
+        return num <= 0 ? "-" : num.round(digit).toLocaleString()
       }
 
       function skill_passive_tooltip(skill: ISkillPassive) {
@@ -103,21 +103,9 @@
                     }}
                   </calc-tooltip>
                 </td>
-                <td width="12%" class="text-right pr-4">
-                  {skill.level}
-                </td>
-                <td width="16%" class="text-right  pr-4">
-                  {transformNum(skill.data[2])}
-                </td>
-                <td width="16%" class="text-right  pr-4">
-                  {transformNum(skill.data[3])}
-                </td>
-                <td width="16%" class="text-right  pr-4">
-                  {transformNum(skill.data[0])}
-                </td>
-                <td width="16%" class="text-right  pr-4">
-                  {transformNum(skill.data[1])}
-                </td>
+                <td width="12%">{skill.level}</td>
+                <td width="16%">{transformNum(skill.data[2])}</td>
+                <td width="16%">{transformNum(skill.data[3])}</td>
               </tr>
             )
           })
@@ -185,13 +173,13 @@
             <td width="12%" class="h-9 text-center leading-9">
               {skill.count}
             </td>
-            <td width="24%" class="h-9 text-right leading-9" style={"color:" + skill.damage[1]}>
+            <td width="24%" class="h-9  leading-9" style={"color:" + skill.damage[1]}>
               {skill.damage[0]}
             </td>
-            <td width="24%" class="h-9 text-right leading-9" style={"color:" + skill.avg[1]}>
+            <td width="24%" class="h-9  leading-9" style={"color:" + skill.avg[1]}>
               {skill.avg[0]}
             </td>
-            <td width="14%" class="h-9 text-right pr-2 leading-9">
+            <td width="14%" class="h-9  pr-2 leading-9">
               {to_percent(skill.order / res.total_data[0], 0, "%")}
             </td>
           </tr>
@@ -238,7 +226,7 @@
               width: "24%"
             },
             {
-              title: "占比",
+              title: "伤害占比",
               width: "14%"
             }
           ]
@@ -258,14 +246,6 @@
             },
             {
               title: "三攻",
-              width: "16%"
-            },
-            {
-              title: "进图力智",
-              width: "16%"
-            },
-            {
-              title: "进图体精",
               width: "16%"
             }
           ]
@@ -291,20 +271,24 @@
                 {renderSkills()}
               </tbody>
               <div class="bottom h-8 mx-1 mb-1 w-full">
-                {renderList(skill_passive.value, skill => (
-                  <td class="mr-1">
-                    <calc-tooltip z={9} position="top">
-                      {{
-                        default() {
-                          return <img src={skill_icon(characterStore.alter, skill.name)} />
-                        },
-                        popper() {
-                          return skill_passive_tooltip(skill)
-                        }
-                      }}
-                    </calc-tooltip>
-                  </td>
-                ))}
+                {res.role == "delear" ? (
+                  renderList(skill_passive.value, skill => (
+                    <td class="mr-1">
+                      <calc-tooltip z={9} position="top">
+                        {{
+                          default() {
+                            return <img src={skill_icon(characterStore.alter, skill.name)} />
+                          },
+                          popper() {
+                            return skill_passive_tooltip(skill)
+                          }
+                        }}
+                      </calc-tooltip>
+                    </td>
+                  ))
+                ) : (
+                  <td>总和</td>
+                )}
               </div>
             </table>
           </div>
@@ -320,6 +304,10 @@
     display: table;
     width: 100%;
     table-layout: fixed;
+
+    td {
+      text-align: center;
+    }
   }
   .detail {
     .item-head {

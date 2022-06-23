@@ -11341,7 +11341,7 @@ def entry_12001(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.附加伤害加成(0.05)
         char.百分比攻击强化加成(0.25)
     if mode == 1:
-        char.力智固定加成(35)
+        char.基础属性加成(力智=35)
         char.暴击率增加(0.05)
         pass
 
@@ -11355,7 +11355,7 @@ def entry_12002(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.附加伤害加成(0.10)
         char.百分比攻击强化加成(0.22)
     if mode == 1:
-        char.力智固定加成(35)
+        char.基础属性加成(力智=35)
         char.暴击率增加(0.05)
         pass
 
@@ -11458,7 +11458,7 @@ def entry_14004(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.暗属性抗性加成(10)
         char.技能攻击力加成(0.19)
         char.百分比三攻加成(0.07)
-        char.三攻固定加成(80)
+        char.基础属性加成(三攻=80)
         char.最终伤害加成(0.05)
         char.技能等级加成('所有', 5, 100, 1)
     if mode == 1:
@@ -11482,7 +11482,7 @@ def entry_14005(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.所有属性强化加成(18)
         char.百分比力智加成(0.1)
         char.暴击伤害加成(0.08)
-        char.三攻固定加成(170)
+        char.基础属性加成(三攻=170)
     if mode == 1:
         char.百分比三攻加成(0.04)
         pass
@@ -11651,9 +11651,9 @@ def entry_14012(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.施放速度增加(0.09)
         char.技能攻击力加成(0.35)
         char.技能等级加成('所有', 1, 48, 1)
-        char.三攻固定加成(70)
+        char.基础属性加成(三攻=70)
         char.最终伤害加成(0.05)
-        char.力智固定加成(100)
+        char.基础属性加成(力智=100)
     if mode == 1:
         pass
 
@@ -11872,7 +11872,7 @@ def entry_14021(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.技能攻击力加成(0.16)
         char.技能攻击力加成(min(char.获取强化等级([part]), 13))
         char.技能恢复加成(15, 30, 0.3)
-        char.三攻固定加成(110)
+        char.基础属性加成(三攻=110)
         char.暴击伤害加成(0.1)
         char.伤害增加加成(0.11)
         pass
@@ -11907,7 +11907,7 @@ def entry_14023(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.所有属性强化加成(35)
         char.附加伤害加成(0.08)
         char.技能攻击力加成(0.27)
-        char.力智固定加成(160)
+        char.基础属性加成(力智=160)
         char.最终伤害加成(0.12)
         char.百分比三攻加成(0.12)
         pass
@@ -11924,7 +11924,7 @@ def entry_14024(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.所有属性强化加成(5)
         char.所有属性强化加成(36)
         char.技能攻击力加成(0.3)
-        char.力智固定加成(240)
+        char.基础属性加成(力智=240)
         char.附加伤害加成(0.07)
         char.百分比三攻加成(0.12)
         pass
@@ -11945,7 +11945,7 @@ def entry_14025(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.技能冷却缩减(80, 80, 0.15)
         char.百分比力智加成(0.04)
         char.所有属性强化加成(20)
-        char.三攻固定加成(100)
+        char.基础属性加成(三攻=100)
         char.最终伤害加成(0.08)
         pass
     if mode == 1:
@@ -12053,7 +12053,7 @@ def entry_14031(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.技能攻击力加成(0.3)
         char.所有属性强化加成(30)
         char.伤害增加加成(0.12)
-        char.力智固定加成(220)
+        char.基础属性加成(力智=220)
         char.附加伤害加成(0.12)
         pass
     if mode == 1:
@@ -12084,7 +12084,7 @@ def entry_14033(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.技能攻击力加成(0.19)
         char.最终伤害加成(0.1)
-        char.力智固定加成(300)
+        char.基础属性加成(力智=300)
         char.暴击伤害加成(0.11)
         pass
     if mode == 1:
@@ -12102,7 +12102,7 @@ def entry_14034(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.所有属性强化加成(10)
         char.技能攻击力加成(0.27)
-        char.三攻固定加成(120)
+        char.基础属性加成(三攻=120)
         char.技能等级加成('所有', 1, 45, 1)
         char.百分比力智加成(0.04)
         char.附加伤害加成(0.07)
@@ -12124,7 +12124,7 @@ def entry_14035(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.所有属性强化加成(16)
         char.持续伤害加成(0.1)
         char.暴击伤害加成(0.08)
-        char.力智固定加成(140)
+        char.基础属性加成(力智=140)
         pass
     if mode == 1:
         pass
@@ -12219,7 +12219,7 @@ def entry_14039(char: Character = {}, mode=0, text=False, part='', lv=0):
                 '7阶段', '-攻击时，附加3%的伤害']
     if mode == 0:
         改造lv = char.获取改造等级([part])
-        char.力智固定加成(30*改造lv)
+        char.基础属性加成(力智=30*改造lv)
         char.所有属性强化加成(8*改造lv)
         char.附加伤害加成(0.03)
         if 改造lv >= 1:
@@ -12250,7 +12250,7 @@ def entry_14040(char: Character = {}, mode=0, text=False, part='', lv=0):
                 '7阶段', '-攻击时，额外增加3%的伤害增加量']
     if mode == 0:
         改造lv = char.获取改造等级([part])
-        char.三攻固定加成(40*改造lv)
+        char.基础属性加成(三攻=40*改造lv)
         char.所有属性强化加成(8*改造lv)
         char.伤害增加加成(0.03)
         if 改造lv >= 1:
