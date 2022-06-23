@@ -4,4 +4,4 @@
 
 ## 其余途径
 
-- [码云](https://gitee.com/i_melon/DNFCalculating/issues)
+- [码云](https://gitee.com/dcalc/dnfcalculating_110/issues)
