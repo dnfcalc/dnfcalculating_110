@@ -41,7 +41,7 @@ class 辅助职业技能(技能):
 
     def 结算统计(self, context=None):
         return [0, 0, 0, 0]
-        # 智力 体力 精神  力量  智力  物攻  魔攻 独立
+        # 力智 三攻 智力 体精
 
 
 class 辅助职业被动技能(辅助职业技能):
@@ -81,8 +81,8 @@ class 辅助职业觉醒技能(辅助职业主动技能):
         新词条力智 = (((self.适用数值 + 5250) / 750 + 1) *
                  (buffer_power + 5000) * 0.000025 * self.力智[self.等级]) if buffer_power > 0 else 0
         力智 = 旧词条力智 + 新词条力智
-        return [0, 0, 力智, 0]
-        # 智力 体力 精神  力量  智力  物攻  魔攻 独立
+        return [力智, 0, 0, 0]
+        # 力智 三攻 智力 体精
 
 
 class 辅助职业三觉技能(辅助职业主动技能):
@@ -100,7 +100,7 @@ class 辅助职业三觉技能(辅助职业主动技能):
             values = awake.结算统计(context, True)
             倍率 = self.加成倍率(awake.名称 in self.关联技能)
             return [int(round(i * 倍率)) for i in values]
-        return [0] * 8
+        return [0] * 4
 
     def 加成倍率(self, bind_awake):
         if bind_awake:

@@ -797,9 +797,9 @@ class Character(角色属性):
         for skill in self.技能栏:
             if skill.是否启用:
                 结算 = skill.结算统计(self)
-                self.__BUFF补正智力 += 结算[0]
-                self.__BUFF补正体力 += 结算[1]
-                self.__BUFF补正精神 += 结算[2]
+                self.__BUFF补正智力 += 结算[2]
+                self.__BUFF补正体力 += 结算[3]
+                self.__BUFF补正精神 += 结算[3]
 
         进图 = 0
         BUFF补正 = 0
@@ -840,8 +840,8 @@ class Character(角色属性):
         三攻合计 = 0
 
         for i in 总数据:
-            力智合计 += i[2]
-            三攻合计 += i[3]
+            力智合计 += i[0]
+            三攻合计 += i[1]
 
         x1 = (
             (self.辅助对象力智 +
@@ -865,7 +865,7 @@ class Character(角色属性):
         values = []
 
         for i in self.技能栏:
-            rs = i.结算统计(self)
+            rs = i.结算统计(self)[:2]
             k = {}
             k['name'] = i.名称
             k['data'] = rs

@@ -104,8 +104,8 @@
                   </calc-tooltip>
                 </td>
                 <td width="12%">{skill.level}</td>
-                <td width="16%">{transformNum(skill.data[2])}</td>
-                <td width="16%">{transformNum(skill.data[3])}</td>
+                <td width="16%">{transformNum(skill.data[0])}</td>
+                <td width="16%">{transformNum(skill.data[1])}</td>
               </tr>
             )
           })

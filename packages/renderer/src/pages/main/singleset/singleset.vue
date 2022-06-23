@@ -45,7 +45,7 @@
 
       const result = useAsyncState(
         () => configStore.calc(true),
-        { id: undefined, role: "delear", equips: [], name: "", alter: "", skills: [], total_data: [0], info: undefined, skills_passive: undefined, jade: undefined },
+        { id: undefined, role: "delear", equips: [], name: "", alter: "", skills: {}, total_data: [0], info: undefined, skills_passive: undefined, jade: undefined },
         { resetOnExecute: false }
       )
 
