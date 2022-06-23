@@ -702,7 +702,7 @@ class Character(角色属性):
     def 穿戴低于105(self):
         for i in self.装备栏:
             temp = equ.get_equ_by_id(i)
-            if temp.等级 < 105:
+            if temp.等级 < 105 and temp.部位 not in ['称号', '宠物']:
                 return True
         return False
 
