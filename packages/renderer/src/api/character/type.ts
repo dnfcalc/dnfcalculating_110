@@ -43,19 +43,36 @@ export interface IIndividuation {
   key?: number
 }
 
-export interface IResultInfo {
+export interface IBufferSkillInfo {
+  name: string
+  level: number
+  data: number[]
+}
+
+export interface IDelearSkillInfo {
+  name: string
+  level: number
+  cd: number
+  rate: number
+  mp: number
+  cosume_cube_frag: number
+  damage: number
+  count: number
+}
+
+export interface IResultInfo<R = "delear" | "buffer", S = R extends "buffer" ? IBufferSkillInfo : IDelearSkillInfo> {
   id: ID
   name: string
   alter: string
-  role: "delear" | "buffer"
+  role: R
 
   token?: string
   forget_set?: Record<string, Map<string, any>>
-  skills: any
+  skills: Record<string, S>
   skills_passive: any
   equips: IEquipmentInfo[]
   info: any
-  total_data: number
+  total_data: number[]
   jade?: {
     id: number
     name: string

@@ -117,7 +117,7 @@ export const useConfigStore = defineStore("config", {
     async calc(single: boolean = false): Promise<IResultInfo> {
       this.customizeInit()
       if (single && this.data.single_set.length < 1) {
-        return { id: undefined, role: "delear", equips: [], name: "", alter: "", skills: [], total_data: 0, info: undefined, skills_passive: undefined, jade: undefined }
+        return { id: undefined, role: "delear", equips: [], name: "", alter: "", skills: {}, total_data: [], info: undefined, skills_passive: undefined, jade: undefined }
       }
       return await api.calc(
         {

@@ -1,7 +1,7 @@
 <script lang="tsx">
-  import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
-  import { computed, defineComponent, renderList, PropType, ref } from "vue"
   import { IEnchantingInfo } from "@/api/info/type"
+  import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
+  import { computed, defineComponent, ref, renderList } from "vue"
   export default defineComponent({
     name: "equip",
     setup(props, { emit, slots }) {
@@ -33,10 +33,12 @@
             return configStore.getForge(detailsStore.part, name) ?? defaultValue ?? 0
           },
           set(val) {
-            if (val == undefined) return
+            if (val == undefined) {
+              return
+            }
             if (global_change.value) {
               let parts: string[] = []
-              let appendName = ""
+              let appendNames: string[] = []
               if (name === "enchanting") {
                 const enchant = basicInfoStore.enchanting_info?.find(item => item.id == val) as IEnchantingInfo | undefined
                 if (enchant?.position) {
@@ -48,14 +50,27 @@
                 if (enchant?.position) {
                   parts = enchant.position.split("，").filter(item => !["皮肤", "武器装扮", "光环"].includes(item))
                 }
-                appendName = ["socket_left", "socket_right"].filter(item => item !== name)[0]
+                if (name == "socket_left") {
+                  appendNames = ["socket_right"]
+                }
               }
-              if (["cursed_type", "cursed_number", "growth_First", "growth_Second", "growth_Third", "growth_Fourth"].includes(name)) {
+              if (["cursed_type", "cursed_number"].includes(name)) {
                 parts = detailsStore.display_parts.filter(e => !["称号", "宠物"].includes(e))
               }
+
+              if (["growth_first", "growth_second", "growth_third", "growth_fourth"].includes(name)) {
+                parts = detailsStore.display_parts.filter(e => !["称号", "宠物"].includes(e))
+                if (name == "growth_first") {
+                  appendNames = ["growth_second", "growth_third", "growth_fourth"].filter(item => item !== name)
+                }
+              }
               if (parts.length) {
-                parts.forEach(e => configStore.setForge(e, name, val))
-                if (appendName) parts.forEach(e => configStore.setForge(e, appendName, val))
+                appendNames.push(name)
+                appendNames.forEach(n => {
+                  parts.forEach(e => {
+                    configStore.setForge(e, n, val)
+                  })
+                })
               }
             }
             configStore.setForge(detailsStore.part, name, val)
@@ -85,22 +100,22 @@
       const dz_number = currentInfo<string | number>("dz_number")
 
       // 成长1
-      const growth_First = currentInfo<string | number>("growth_First", 1)
+      const growth_first = currentInfo<string | number>("growth_first", 1)
 
       // 成长2
-      const growth_Second = currentInfo<string | number>("growth_Second", 1)
+      const growth_second = currentInfo<string | number>("growth_second", 1)
 
       // 成长3
-      const growth_Third = currentInfo<string | number>("growth_Third", 1)
+      const growth_third = currentInfo<string | number>("growth_third", 1)
 
       // 成长4
-      const growth_Fourth = currentInfo<string | number>("growth_Fourth", 1)
+      const growth_fourth = currentInfo<string | number>("growth_fourth", 1)
 
       return () => {
         return (
           <div class="flex flex-wrap equ-profile">
             <div class="equ-profile-item">
-              <div class="row-name mr-10px">当前部位</div>
+              <div class="mr-10px row-name">当前部位</div>
               {detailsStore.part}
 
               {can_upgrade.value ? <calc-checkbox style="margin-left:auto" v-model={global_change.value} label="全局修改"></calc-checkbox> : <div></div>}
@@ -108,23 +123,23 @@
             {can_upgrade.value ? (
               <div class="equ-profile-item">
                 <div class="row-name">增幅</div>
-                <calc-select v-model={cursed_type.value} class="!h-20px flex-1">
+                <calc-select v-model={cursed_type.value} class="flex-1 !h-20px">
                   <calc-option value={1}>增幅</calc-option>
                   <calc-option value={2}>强化</calc-option>
                 </calc-select>
-                <calc-select v-model={cursed_number.value} class="!h-20px flex-1">
+                <calc-select v-model={cursed_number.value} class="flex-1 !h-20px">
                   {renderList(32, i => (
                     <calc-option value={i - 1}>{i - 1}</calc-option>
                   ))}
                 </calc-select>
                 {has_wisdom.value ? (
-                  <calc-select v-model={wisdom_number.value} class="!h-20px flex-1">
+                  <calc-select v-model={wisdom_number.value} class="flex-1 !h-20px">
                     {renderList(32, i => (
                       <calc-option value={i - 1}>改造+ {i - 1}</calc-option>
                     ))}
                   </calc-select>
                 ) : (
-                  <calc-select v-model={dz_number.value} class="!h-20px flex-1">
+                  <calc-select v-model={dz_number.value} class="flex-1 !h-20px">
                     {renderList(9, i => (
                       <calc-option value={i - 1}>锻造+ {i - 1}</calc-option>
                     ))}
@@ -136,7 +151,7 @@
             )}
             <div class="equ-profile-item">
               <div class="row-name">附魔</div>
-              <calc-select v-model={enchanting.value} class="!h-20px flex-1">
+              <calc-select v-model={enchanting.value} class="flex-1 !h-20px">
                 <calc-option value={0}>无</calc-option>
                 {renderList(enchanting_list.value ?? [], item => (
                   <calc-option value={item.id}>{item.props}</calc-option>
@@ -146,14 +161,14 @@
             {has_socket.value ? (
               <div class="equ-profile-item">
                 <div class="row-name">徽章</div>
-                <calc-select v-model={socket_left.value} class="!h-20px flex-1">
+                <calc-select v-model={socket_left.value} class="flex-1 !h-20px">
                   <calc-option value={0}>无</calc-option>
                   {renderList(emblem_list.value ?? [], item => (
                     <calc-option value={item.id}>{`${item.rarity}${item.type}徽章[${item.props}]`}</calc-option>
                   ))}
                 </calc-select>
                 {has_socket_right.value && has_socket.value && (
-                  <calc-select v-model={socket_right.value} class="!h-20px flex-1">
+                  <calc-select v-model={socket_right.value} class="flex-1 !h-20px">
                     <calc-option value={0}>无</calc-option>
                     {renderList(emblem_list.value ?? [], item => (
                       <calc-option value={item.id}>{`${item.rarity}${item.type}徽章[${item.props}]`}</calc-option>
@@ -167,22 +182,22 @@
             {can_upgrade.value ? (
               <div class="equ-profile-item">
                 <div class="row-name">成长属性</div>
-                <calc-select v-model={growth_First.value} class="!h-20px flex-1">
+                <calc-select v-model={growth_first.value} class="flex-1 !h-20px">
                   {renderList(100, i => (
                     <calc-option value={i}>属性1 Lv{i}</calc-option>
                   ))}
                 </calc-select>
-                <calc-select v-model={growth_Second.value} class="!h-20px flex-1">
+                <calc-select v-model={growth_second.value} class="flex-1 !h-20px">
                   {renderList(100, i => (
                     <calc-option value={i}>属性2 Lv{i}</calc-option>
                   ))}
                 </calc-select>
-                <calc-select v-model={growth_Third.value} class="!h-20px flex-1">
+                <calc-select v-model={growth_third.value} class="flex-1 !h-20px">
                   {renderList(100, i => (
                     <calc-option value={i}>属性3 Lv{i}</calc-option>
                   ))}
                 </calc-select>
-                <calc-select v-model={growth_Fourth.value} class="!h-20px flex-1">
+                <calc-select v-model={growth_fourth.value} class="flex-1 !h-20px">
                   {renderList(100, i => (
                     <calc-option value={i}>属性4 Lv{i}</calc-option>
                   ))}

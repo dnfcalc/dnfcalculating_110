@@ -4,19 +4,19 @@
  * @Last Modified by:   Kritsu
  * @Last Modified time: 2021/11/17 18:49:42
  */
-import { watch, defineComponent, renderSlot, Teleport, ref, computed, CSSProperties, Transition, PropType, reactive, nextTick } from "vue"
+import { computed, CSSProperties, defineComponent, nextTick, PropType, reactive, ref, renderSlot, Teleport, Transition, watch } from "vue"
 
 export const tooltipProps = {
   popClass: {
     type: String
   },
   position: {
-    type: String as PropType<"bottom" | "top" | "left" | "right">,
-    default: () => "bottom"
+    type: String as PropType<"bottom" | "top" | "left" | "right" | "auto">,
+    default: () => "auto"
   },
   offset: {
     type: Number,
-    default: () => 4
+    default: () => 8
   },
   lazy: {
     type: Boolean,
@@ -76,7 +76,9 @@ export default defineComponent({
         let y = 0
 
         const offset = props.offset
+
         switch (props.position) {
+          case "auto":
           case "bottom":
             x = left + width / 2
             y = top + height + offset
@@ -94,8 +96,10 @@ export default defineComponent({
             y = top
             break
         }
-        x = window.innerWidth - x > 500 ? x + 20 : x - 20 - 310
-        y = window.innerHeight - y > popup.offsetHeight + 50 ? y : window.innerHeight - (popup.offsetHeight + 50)
+        if (props.position == "auto") {
+          x = window.innerWidth - x > 500 ? x + 20 : x - 20 - 310
+          y = window.innerHeight - y > popup.offsetHeight + 50 ? y : window.innerHeight - (popup.offsetHeight + 50)
+        }
         dropdownPosition.x = x
         dropdownPosition.y = y
       }

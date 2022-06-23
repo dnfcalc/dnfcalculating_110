@@ -2,7 +2,7 @@
   import { IEquipmentInfo } from "@/api/info/type"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import Profile from "@/components/internal/profile.vue"
-  import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
+  import { useBasicInfoStore, useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
   import featureList from "@/utils/featureList"
   import openURL from "@/utils/openURL"
   import { useAsyncState, useDebounceFn } from "@vueuse/core"
@@ -32,6 +32,7 @@
       const configStore = useConfigStore()
       const basicStore = useBasicInfoStore()
       const detailsStore = useDetailsStore()
+      const charcaterStore = useCharacterStore()
       const choose_feature = ref(0)
       const equ_name = ref("")
 
@@ -44,7 +45,7 @@
 
       const result = useAsyncState(
         () => configStore.calc(true),
-        { id: undefined, role: "delear", equips: [], name: "", alter: "", skills: [], total_data: 0, info: undefined, skills_passive: undefined, jade: undefined },
+        { id: undefined, role: "delear", equips: [], name: "", alter: "", skills: [], total_data: [0], info: undefined, skills_passive: undefined, jade: undefined },
         { resetOnExecute: false }
       )
 
@@ -161,14 +162,14 @@
       const openDetail = () => openURL(`/result?res=${result.state.value.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : ""), { width: 890, height: 600 })
 
       function setStandard() {
-        if (result.state.value.total_data > 0) {
+        if (result.state.value.total_data[0] > 0) {
           detailsStore.setStandard(result.state.value.id)
         }
       }
 
       const jade = computed(() => {
         let temp: IJadeUpgrade[] = []
-        const damage = result.state.value.total_data
+        const damage = result.state.value.total_data[0]
         result.state.value.jade
           ?.sort((a, b) => b.damage - a.damage)
           .forEach((item, index) => {
@@ -199,7 +200,7 @@
               <calc-tabs item-class="h-6 !w-20%" v-model={type.value}>
                 <calc-tab value={EPIC_EQUIP}>史诗</calc-tab>
                 <calc-tab value={MYTHIC_EQUIP}>神话</calc-tab>
-                <calc-tab value={WIDSDOM_EQUIP}>智慧产物</calc-tab>
+                {!charcaterStore.is_buffer && <calc-tab value={WIDSDOM_EQUIP}>智慧产物</calc-tab>}
                 <calc-tab value={WEAPON}>武器</calc-tab>
                 <calc-tab value={TITLEANFPET}>称号 宠物</calc-tab>
               </calc-tabs>
@@ -251,7 +252,7 @@
               </calc-button>
             </div>
             <Profile
-              standardSum={detailsStore.standard?.total_data}
+              standardSum={detailsStore.standard?.total_data[0]}
               details={result.state.value.info}
               total-data={result.state.value.total_data}
               role={result.state.value.role}

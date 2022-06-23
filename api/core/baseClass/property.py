@@ -1,4 +1,6 @@
-from core.baseClass.skill import 技能, 主动技能, 被动技能
+from typing import Union
+
+from core.baseClass.skill import 主动技能, 技能, 被动技能
 
 
 class 角色属性:
@@ -13,5 +15,7 @@ class 角色属性:
     def 属性强化加成(self, 所有属性强化=0.00, 冰属性强化=0.00, 火属性强化=0.00, 暗属性强化=0.00, 光属性强化=0.00):
         pass
 
-    def get_skill_by_name(self, name):
+    # region 其它函数
+    #     def get_skill_by_name(self, name) -> 技能 | 主动技能 | 被动技能:
+    def get_skill_by_name(self, name) -> Union[技能, 主动技能, 被动技能]:
         pass

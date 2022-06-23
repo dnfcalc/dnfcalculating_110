@@ -1,4 +1,5 @@
 from core.baseClass.character import Character
+
 enchanting_func_list = {}
 
 # 名望 部位 描述

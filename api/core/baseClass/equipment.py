@@ -1,11 +1,10 @@
+import json
+import os
+import sys
 from decimal import Decimal
 from pyclbr import Function
 from typing import Dict, List
 from webbrowser import get
-
-import json
-import sys
-import os
 
 try:
     os.chdir(os.path.dirname(sys.argv[0]))
@@ -198,6 +197,9 @@ class equipment_list():
     def get_entry_atk_by_id(self, id) -> int:
         return self.entry_info.get(str(id), {}).get('attack', 0)
 
+    def get_entry_buff_by_id(self, id) -> int:
+        return self.entry_info.get(str(id), {}).get('buff', 0)
+
     def get_damagelist_by_idlist(self, idlist, customize: Dict[str, List[int]] = {}) -> List[tuple]:
         damagelist = []  # (部位, 序号, 基础伤害)
         for id in idlist:
@@ -208,7 +210,8 @@ class equipment_list():
                 damagelist.append((
                     i.部位,
                     num,
-                    self.get_entry_atk_by_id(k)))
+                    self.get_entry_atk_by_id(k),
+                    self.get_entry_buff_by_id(k)))
                 num += 1
                 pass
         return damagelist
@@ -234,10 +237,10 @@ class equipment_list():
             i = self.get_equ_by_id(id)
             index = 0
             for k in i.成长属性:
-                temp.append((k, i.部位, index))  #词条id 部位 部位序号(用于获取成长词条等级)
+                temp.append((k, i.部位, index))  # 词条id 部位 部位序号(用于获取成长词条等级)
                 index += 1
             for k in i.固有属性 + cus:
-                temp.append((k, i.部位, -1))  #词条id 部位 部位序号(非成长词条无序号)
+                temp.append((k, i.部位, -1))  # 词条id 部位 部位序号(非成长词条无序号)
         # 词条优先级排序
         temp.sort(key=(lambda x: priority.get(x[0], 100)))
         funclist = []
@@ -249,7 +252,7 @@ class equipment_list():
         return funclist
 
     def get_chose_set_info(self) -> List[tuple]:
-        from core.baseClass.entry import entry_func_list, entry_chose
+        from core.baseClass.entry import entry_chose, entry_func_list
         info = []
         # for i in entry_func_list.keys():
         #     temp = entry_func_list[i]

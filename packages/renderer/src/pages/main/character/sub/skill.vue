@@ -2,7 +2,7 @@
   import { ISkillInfo } from "@/api/character/type"
   import { SkillSet } from "@/api/info/type"
   import { useCharacterStore, useConfigStore } from "@/store"
-  import { computed, defineComponent, reactive, ref, renderList, watch } from "vue"
+  import { computed, defineComponent, reactive, renderList, watch } from "vue"
   import { skill_icon } from "./utils"
 
   function skill_tooltip(skill: ISkillInfo) {
@@ -182,7 +182,7 @@
               characterStore.skills,
               (skill, index) =>
                 skill.type == 0 && (
-                  <div class="flex items-center  mt-3px mb-3px justify-center">
+                  <div class="flex mt-3px  mb-3px items-center justify-center">
                     <div>
                       <calc-tooltip position="right" offset={5}>
                         {{

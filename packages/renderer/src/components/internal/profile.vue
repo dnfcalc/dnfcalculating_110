@@ -12,12 +12,14 @@
     MP消耗量: number
     伤害比例: number[]
     伤害系数: number[]
-    无色消耗: number
+    cosume_cube_frag: number
   }
 
   interface BufferProperties {
     buffer_power: number
     buffer_power_percent: number
+    buff_level: number
+    awake_level: number
   }
 
   interface IDetail {
@@ -48,7 +50,8 @@
       光?: number
       暗?: number
     }
-    词条?: DelearProperties & BufferProperties
+    properties?: DelearProperties & BufferProperties
+    buffer_addition: [number, number, number, number]
   }
 
   enum ICONS {
@@ -69,27 +72,28 @@
   }
 
   export default defineComponent({
-    name: "char-info",
+    name: "profile",
     props: {
       charName: {
         type: String,
         default: null
       },
       details: {
-        type: Object,
+        type: Object as PropType<IDetail>,
         default: () => {
           return {
             fame: 0,
             站街: { 火: 0, 冰: 0, 光: 0, 暗: 0 },
             role: "delear",
-            词条: {
+            properties: {
               技能攻击力: 0,
               攻击强化: 0,
               百分比攻击强化: 0,
               MP消耗量: 0,
               伤害比例: [1, 0, 0, 0, 0],
               伤害系数: [1, 1, 1, 1, 1]
-            }
+            },
+            buffer_addition: [0, 0, 0, 0]
           }
         }
       },
@@ -114,7 +118,10 @@
         default: []
       },
       totalData: {
-        type: Number
+        type: Array as PropType<number[]>,
+        default: () => {
+          return [0]
+        }
       },
       standardSum: {
         type: Number
@@ -132,7 +139,7 @@
       //   an: 999
       // }
 
-      const current_data = computed(() => props.totalData)
+      const current_data = computed(() => props.totalData?.[0] ?? 0)
 
       console.log(props.role)
 
@@ -243,53 +250,51 @@
         return props.equList.filter(item => item.typeName == part)[0] ?? undefined
       }
 
-      const property_names = ["力量", "智力", "物理攻击力", "魔法攻击力", "独立攻击力"]
-
       function renderDelearPropties() {
-        const properties = details.value?.词条
+        const properties = details.value?.properties
         if (!properties) {
           return []
         }
         return (
           <>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">技能攻击力</div>
+              <div class="pl-1 text-hex-836832">技能攻击力</div>
               <div class="text-hex-3ea74e">{properties.技能攻击力.toFixed(2) + "%"}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">直伤</div>
+              <div class=" text-hex-836832">直伤</div>
               <div class="text-hex-3ea74e">{`${(properties.伤害比例?.[0] ?? 1).round(2) * 100}%`}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">攻击强化</div>
+              <div class=" text-hex-836832">攻击强化</div>
               <div class="text-hex-3ea74e">{properties.攻击强化?.round(0)}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">攻击强化%</div>
+              <div class=" text-hex-836832">攻击强化%</div>
               <div class="text-hex-3ea74e">{properties.百分比攻击强化?.toFixed(2) + "%"}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">无色消耗</div>
-              <div class="text-hex-3ea74e">{properties.无色消耗}</div>
+              <div class=" text-hex-836832">无色消耗</div>
+              <div class="text-hex-3ea74e">{properties.cosume_cube_frag}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">MP消耗量%</div>
+              <div class=" text-hex-836832">MP消耗量%</div>
               <div class="text-hex-3ea74e">{properties.MP消耗量?.toFixed(2) + "%"}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">中毒</div>
+              <div class=" text-hex-836832">中毒</div>
               <div class="text-hex-3ea74e">{`${(properties.伤害比例?.[1] ?? 0) * 100}%(+${((properties.伤害系数?.[1] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">灼烧</div>
+              <div class=" text-hex-836832">灼烧</div>
               <div class="text-hex-3ea74e">{`${(properties.伤害比例?.[2] ?? 0) * 100}%(+${((properties.伤害系数?.[2] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">感电</div>
+              <div class=" text-hex-836832">感电</div>
               <div class="text-hex-3ea74e">{`${(properties.伤害比例?.[3] ?? 0) * 100}%(+${((properties.伤害系数?.[3] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">出血</div>
+              <div class=" text-hex-836832">出血</div>
               <div class="text-hex-3ea74e">{`${(properties.伤害比例?.[4] ?? 0) * 100}%(+${((properties.伤害系数?.[4] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
             </div>
           </>
@@ -297,27 +302,39 @@
       }
 
       function renderBufferProperties() {
-        const properties = details.value?.词条
+        if (!details.value) {
+          return []
+        }
+        const properties = details.value?.properties
         if (!properties) {
           return []
         }
         return (
           <>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">BUFF量</div>
-              <div class="text-hex-3ea74e">{properties.buffer_power.toFixed(2)}</div>
+              <div class="text-hex-836832">BUFF量</div>
+              <div class="text-hex-3ea74e">{properties.buffer_power.round(0)}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">BUFF量%</div>
-              <div class="text-hex-3ea74e">{`${properties.buffer_power_percent.round(2) * 100}%`}</div>
+              <div class=" text-hex-836832">BUFF量%</div>
+              <div class="text-hex-3ea74e">{`${properties.buffer_power_percent.toFixed(2)}%`}</div>
+            </div>
+
+            <div class="de-item">
+              <div class=" text-hex-836832">Buff技能等级</div>
+              <div class="text-hex-3ea74e">{properties.buff_level}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">BUFF力智</div>
-              <div class="text-hex-3ea74e">{details.value?.词条?.攻击强化?.round(0)}</div>
+              <div class=" text-hex-836832">觉醒技能等级</div>
+              <div class="text-hex-3ea74e">{properties.awake_level}</div>
             </div>
             <div class="de-item">
-              <div class="pr-5px pl-5px text-hex-836832 w-65px">攻击强化%</div>
-              <div class="text-hex-3ea74e">{details.value?.词条?.百分比攻击强化?.toFixed(2) + "%"}</div>
+              <div class=" text-hex-836832">力智加成</div>
+              <div class="text-hex-3ea74e">{props.totalData[2].round(0)}</div>
+            </div>
+            <div class="de-item">
+              <div class=" text-hex-836832">三攻加成</div>
+              <div class="text-hex-3ea74e">{props.totalData[3].round(0)}</div>
             </div>
           </>
         )
@@ -367,46 +384,57 @@
                     )}
                     {details.value?.站街?.智力 && (
                       <div class="de-item">
-                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
-                        <div class="text-hex-836832 name">智力</div>
+                        <div class="flex items-center">
+                          <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
+                          <div class="text-hex-836832 name">智力</div>
+                        </div>
                         <div class="text-hex-3ea74e">{details.value?.站街?.智力?.toFixed(0)}</div>
                       </div>
                     )}
 
                     {details.value?.站街?.物理攻击 && (
                       <div class="de-item">
-                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
-                        <div class="text-hex-836832 name">物理攻击</div>
+                        <div class="flex items-center">
+                          <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
+                          <div class="text-hex-836832 name">物理攻击</div>
+                        </div>
                         <div class="text-hex-3ea74e">{details.value?.站街?.物理攻击?.toFixed(0)}</div>
                       </div>
                     )}
 
                     {details.value?.站街?.魔法攻击 && (
                       <div class="de-item">
-                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
-                        <div class="text-hex-836832 name">魔法攻击</div>
+                        <div class="flex items-center">
+                          <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
+                          <div class="text-hex-836832 name">魔法攻击</div>
+                        </div>
                         <div class="text-hex-3ea74e">{details.value?.站街?.魔法攻击?.toFixed(0)}</div>
                       </div>
                     )}
 
                     {details.value?.站街?.独立攻击 && (
                       <div class="de-item">
-                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
-                        <div class="text-hex-836832 name">独立攻击</div>
+                        <div class="flex items-center">
+                          <img class="h-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
+                          <div class="text-hex-836832 name">独立攻击</div>
+                        </div>
                         <div class="text-hex-3ea74e">{details.value?.站街?.独立攻击?.toFixed(0)}</div>
                       </div>
                     )}
                     {props.role == "delear" && (
                       <div class="de-item">
-                        <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
-                        <div class="text-hex-836832 name">攻击属性</div>
+                        <div class="flex items-center">
+                          <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
+                          <div class="text-hex-836832 name">攻击属性</div>
+                        </div>
                         <div class="text-hex-3ea74e">{`火(${details.value?.站街?.火?.toFixed(0)})/冰(${details.value?.站街?.冰?.toFixed(0)})/光(${details.value?.站街?.光?.toFixed(
                           0
                         )})/暗(${details.value?.站街?.暗?.toFixed(0)})`}</div>
                       </div>
                     )}
+                    {props.role == "delear" ? renderDelearPropties() : renderBufferProperties()}
                   </div>
-                  <div class="details">{props.role == "buffer" ? renderBufferProperties() : renderDelearPropties()}</div>
+                  <div class="details"></div>
 
                   {
                     <div class="sum" style={"color:" + result.value[1]}>
@@ -481,8 +509,11 @@
         .de-item {
           height: 20px;
           display: flex;
+          justify-content: space-between;
           align-items: center;
           min-width: 50%;
+          padding: 0 5px;
+          box-sizing: border-box;
           img {
             padding-left: 5px;
             padding-right: 5px;
