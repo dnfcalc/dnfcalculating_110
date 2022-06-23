@@ -776,7 +776,7 @@ class classChange(Character):
         self.实际名称 = 'brawler_female'
         self.名称 = '归元·街霸'
         self.角色 = '格斗家(女)'
-        self.职业类型 = '输出'
+        self.角色类型 = '输出'
         self.职业 = '街霸'
         # 用来筛CP武器的
         self.转职 = '街霸(女)'

@@ -53,7 +53,7 @@ class Character(角色属性):
     实际名称 = ''
     名称 = ''
     角色 = ''
-    职业类型 = ''
+    角色类型 = ''
     职业 = ''
     武器选项: List[str] = []
     输出类型选项: List[str] = []
@@ -71,7 +71,8 @@ class Character(角色属性):
     buff: float = 1.00
     hotkey: List[str] = [""]*14
     技能队列 = []
-    护石 = []
+    护石技能 = []
+    护石栏 = []
     符文 = []
     skills_passive: Dict = {}
 
@@ -168,11 +169,6 @@ class Character(角色属性):
         self.__消耗品效果: float = 1.0
         self.__MP消耗量: float = 1.0
 
-        self.BUFF力智 = 0
-        self.BUFF三攻 = 0
-        self.BUFF力智per = 1.0
-        self.BUFF三攻per = 1.0
-
         self.skills_passive = {}
 
         if self.转职 == '':
@@ -199,7 +195,7 @@ class Character(角色属性):
         info["alter"] = self.实际名称
         info["name"] = self.名称
         info["character"] = self.职业
-        info["role"] = 'buffer' if self.职业类型 == '辅助' else 'delear'
+        info["role"] = 'buffer' if self.角色类型 == '辅助' else 'delear'
         info["weapon_types"] = self.武器选项
         info["carry_type_list"] = self.输出类型选项
         info["armor"] = self.防具类型
@@ -266,6 +262,9 @@ class Character(角色属性):
             # 时装
             if skill.所在等级 <= 95:
                 clothes_coat.append(skill.名称)
+        if self.角色类型 == '辅助':
+            talisman += self.护石技能
+        print("护石技能:", self.护石技能)
         info['skills'] = skillInfo
         info['rune'] = rune
         info['talisman'] = talisman
@@ -350,11 +349,11 @@ class Character(角色属性):
 
     def 辅助属性加成(self, buff固定力智=0, buff百分比力智=0.0, buff固定三攻=0, buff百分比三攻=0.0, 觉醒固定力智=0, 觉醒百分比力智=0.0, buff量=0, 百分比buff量=0.0):
         self.__buff固定力智 += buff固定力智
-        self.__buff百分比力智 *= 1 + buff百分比力智
+        self.__buff百分比力智 *= 1.0 + buff百分比力智
         self.__buff固定三攻 += buff固定三攻
-        self.__buff百分比三攻 *= 1 + buff百分比三攻
+        self.__buff百分比三攻 *= 1.0 + buff百分比三攻
         self.__觉醒固定力智 += 觉醒固定力智
-        self.__觉醒百分比力智 *= 1 + 觉醒百分比力智
+        self.__觉醒百分比力智 *= 1.0 + 觉醒百分比力智
         self.__buff量 += buff量
         self.__百分比buff量 += 百分比buff量
 
@@ -768,7 +767,7 @@ class Character(角色属性):
     def __set_char(self, info):
         self.类型 = info['carry_type']
         self.buff = info['buff_ratio'] / 100 + 1
-        self.护石 = info['talisman_set']
+        self.护石栏 = info['talisman_set']
         self.符文 = info['rune_set']
         pass
 
@@ -794,7 +793,7 @@ class Character(角色属性):
     # region 伤害计算相关函数
     def __计算前预处理(self):
         self.__辟邪玉计算()
-        self.__护石计算()
+        self.护石计算()
         self.__符文计算()
         self.__装备属性计算()
         self.skills_passive = {}
@@ -803,7 +802,7 @@ class Character(角色属性):
                 "info": [],
                 "lv": i.等级
             }
-        if self.职业类型 != '辅助':
+        if self.角色类型 != '辅助':
             self.职业特殊计算()
             self.__CD倍率计算()
             self.__加算冷却计算()
@@ -814,7 +813,7 @@ class Character(角色属性):
         self.__进图智力 = self.__智力
         self.__进图体力 = self.__体力
         self.__进图精神 = self.__精神
-        for skill in self.技能表.values():
+        for skill in self.技能栏:
             if skill.是否启用:
                 结算 = skill.结算统计(self)
                 self.__BUFF补正智力 += 结算[0]
@@ -834,9 +833,18 @@ class Character(角色属性):
             进图 = self.__进图智力
             BUFF补正 = self.__BUFF补正智力
 
-        self.get_skill_by_name('一次觉醒').适用数值 = 进图
-        self.get_skill_by_name('BUFF').适用数值 = 进图 + BUFF补正
+        awake = self.get_skill_by_name('一次觉醒')
+        buff = self.get_skill_by_name('BUFF')
 
+        awake.适用数值 = 进图
+        awake.一觉力智 = self.__觉醒固定力智
+        awake.一觉力智per = self.__觉醒百分比力智
+
+        buff.适用数值 = 进图 + BUFF补正
+        buff.BUFF力智per = self.__buff百分比力智
+        buff.BUFF力智 = self.__buff固定力智
+        buff.BUFF三攻per = self.__buff百分比三攻
+        buff.BUFF三攻 = self.__buff固定三攻
         print('copaosee:', self.get_skill_by_name(
             'BUFF').适用数值, 进图, BUFF补正, self.类型 == '智力')
 
@@ -896,7 +904,7 @@ class Character(角色属性):
         return data
 
     def 结果计算(self):
-        if self.职业类型 == '辅助':
+        if self.角色类型 == '辅助':
             return self.辅助计算()
         else:
             return self.伤害计算()
@@ -1012,8 +1020,8 @@ class Character(角色属性):
                 func(self, value=value)
                 # 打印相关函数和效果
 
-    def __护石计算(self):
-        for item in self.护石:
+    def 护石计算(self):
+        for item in self.护石栏:
             try:
                 if not item is None and item != '' and item != '无':
                     self.get_skill_by_name(item).装备护石()
@@ -1145,7 +1153,7 @@ class Character(角色属性):
             self.__力量 += 精通数值
         if '智力' in self.防具精通属性:
             self.__智力 += 精通数值
-        if temp.等级 == 105 and self.职业类型 == '辅助':
+        if temp.等级 == 105 and self.角色类型 == '辅助':
             self.技能等级加成('主动', 30, 30, 1)
             self.技能等级加成('主动', 50, 50, 1)
 
@@ -1165,13 +1173,13 @@ class Character(角色属性):
 
     def __首饰计算(self, temp: equipment) -> None:
         self.基础属性加成(**temp.__dict__)
-        if temp.等级 == 105 and self.职业类型 == '辅助':
+        if temp.等级 == 105 and self.角色类型 == '辅助':
             self.技能等级加成('主动', 30, 30, 1)
             self.技能等级加成('主动', 50, 50, 1)
 
     def __特殊装备计算(self, temp: equipment) -> None:
         self.基础属性加成(**temp.__dict__)
-        if temp.等级 == 105 and self.职业类型 == '辅助':
+        if temp.等级 == 105 and self.角色类型 == '辅助':
             self.技能等级加成('主动', 30, 30, 1)
             self.技能等级加成('主动', 50, 50, 1)
             if temp.品质 == '史诗' and temp.部位 == '魔法石':
@@ -1191,7 +1199,7 @@ class Character(角色属性):
 
     def __武器计算(self, temp: equipment) -> None:
         self.基础属性加成(**temp.__dict__)
-        if temp.等级 == 105 and self.职业类型 == '辅助':
+        if temp.等级 == 105 and self.角色类型 == '辅助':
             self.技能等级加成('主动', 30, 30, 3)
             self.技能等级加成('主动', 50, 50, 2)
             if temp.品质 == '史诗':
@@ -1521,7 +1529,7 @@ class Character(角色属性):
         info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
         self.calc_init(info, equipList)
         jade = []
-        if withJade and self.职业类型 != '辅助':
+        if withJade and self.角色类型 != '辅助':
             jade = self.jade_upgrade()
         self.__计算前预处理()
         temp = self.结果计算()
@@ -1570,7 +1578,7 @@ class Character(角色属性):
             'id': uuid1().hex,
             'alter': self.实际名称,
             'name': self.名称,
-            'role': 'buffer' if self.职业类型 == '辅助' else 'delear',
+            'role': 'buffer' if self.角色类型 == '辅助' else 'delear',
             'forget_set': info['forge_set'],
             'equips': list(map(lambda x: equ.get_json(x), self.装备栏)),
             'info': {
@@ -1600,7 +1608,13 @@ class Character(角色属性):
                     '伤害系数': [self.__伤害系数.get('直伤', 1), self.__伤害系数.get('中毒', 1)-1, self.__伤害系数.get('灼烧', 1)-1, self.__伤害系数.get('感电',  1)-1, self.__伤害系数.get('出血',  1)-1],
                     '无色消耗': temp['无色消耗'],
                     'buff_level': self.get_skill_by_name('BUFF').等级,
-                    'awake_level': self.get_skill_by_name('一次觉醒').等级
+                    'awake_level': self.get_skill_by_name('一次觉醒').等级,
+                    'buff_intstr_per': self.__buff百分比力智,
+                    'buff_intstr': self.__buff固定力智,
+                    'buff_attack_per': self.__buff百分比三攻,
+                    'buff_attack': self.__buff固定三攻,
+                    'awake_intstr_per': self.__觉醒百分比力智,
+                    'awake_intstr': self.__觉醒固定力智
 
                     # 其他老词条·····
                 }

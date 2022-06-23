@@ -3,6 +3,16 @@ from core.baseClass.property import 角色属性
 from core.baseClass.skill import 技能
 
 
+class Buffer(角色属性):
+
+    def BUFF量():
+        return 0
+
+    def 辅助属性加成(self, buff固定力智=0, buff百分比力智=0.0, buff固定三攻=0, buff百分比三攻=0.0, 觉醒固定力智=0, 觉醒百分比力智=0.0, buff量=0, 百分比buff量=0.0):
+        pass
+    pass
+
+
 class 辅助职业技能(技能):
     名称 = ''
     备注 = ''
@@ -17,7 +27,6 @@ class 辅助职业技能(技能):
 
     是否启用 = 1
     技能序号 = 0
-    技能表 = {}
 
     是否有伤害 = 0
 
@@ -59,23 +68,21 @@ class 辅助职业觉醒技能(辅助职业主动技能):
         993, 1047, 1103, 1160, 1219, 1278, 1340, 1403, 1467, 1533, 1600, 1668
     ]
 
-    def 结算统计(self, context, compute_3rd_awake=False):
+    def 结算统计(self, context: Buffer, compute_3rd_awake=False):
         buffer_power = context.BUFF量()
 
-        if not compute_3rd_awake and self.名称 in context.技能表['三次觉醒'].关联技能:
+        三次觉醒 = context.get_skill_by_name("三次觉醒")
+
+        if not compute_3rd_awake and self.名称 in 三次觉醒.关联技能:
             return [0] * 4
-        倍率 = ((self.适用数值 + 5250) / 750 + 1) * (buffer_power + 5000) * 0.000025
-        x = (self.力智[self.等级] + self.一觉力智) * 倍率
-        values = [
-            0, 0,
-            int(round(x * self.一觉力智per)), 0
-        ]
-        return values
+        旧词条力智 = ((self.适用数值/750 + 1) *
+                 self.力智[self.等级] + self.一觉力智)*self.一觉力智per
+
+        新词条力智 = (((self.适用数值 + 5250) / 750 + 1) *
+                 (buffer_power + 5000) * 0.000025 * self.力智[self.等级]) if buffer_power > 0 else 0
+        力智 = 旧词条力智 + 新词条力智
+        return [0, 0, 力智, 0]
         # 智力 体力 精神  力量  智力  物攻  魔攻 独立
-
-
-class Buffer(角色属性):
-    pass
 
 
 class 辅助职业三觉技能(辅助职业主动技能):
