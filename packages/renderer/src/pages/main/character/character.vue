@@ -1,6 +1,6 @@
 <script lang="tsx">
-  import { computed, defineComponent, onMounted, reactive, ref, renderList } from "vue"
   import { useCharacterStore } from "@/store"
+  import { defineComponent } from "vue"
   import Cp from "./sub/cp.vue"
   import Hotkey from "./sub/hotkey.vue"
   import Skill from "./sub/skill.vue"
@@ -8,22 +8,25 @@
 
   export default defineComponent({
     setup() {
+      const characterStore = useCharacterStore()
       return () => (
-        <div class="character flex">
+        <div class="flex character">
           <div class="flex p-5px">
             <Skill></Skill>
           </div>
           <div>
-            <div class="h-220px subitem mt-2%">
+            <div class="h-220px mt-2% subitem">
               <Cp></Cp>
             </div>
-            <div class="skill-slots subitem mt-2%">
+            <div class="mt-2% skill-slots subitem">
               <Hotkey></Hotkey>
             </div>
           </div>
-          <div class="flex p-5px pl-35px">
-            <Skillqueue></Skillqueue>
-          </div>
+          {characterStore.is_delear && (
+            <div class="flex p-5px pl-35px">
+              <Skillqueue></Skillqueue>
+            </div>
+          )}
         </div>
       )
     }

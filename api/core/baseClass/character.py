@@ -14,7 +14,7 @@ from core.baseClass.equipment import equ, equipment
 from core.baseClass.property import 角色属性
 from core.baseClass.skill import 主动技能, 技能, 被动技能
 from core.equipment.基础函数 import (增幅计算, 奶成长词条计算, 左右计算, 成长词条计算, 武器强化计算, 精通计算,
-                                 耳环计算, 获取基础属性, 部位列表, 锻造计算)
+                                 耳环计算, 获取基础属性, 部位列表, 锻造四维, 锻造计算)
 from core.store import store
 
 from .avatar import 装扮套装, 装扮套装集合, 装扮集合
@@ -1193,7 +1193,11 @@ class Character(角色属性):
                        '魔法')
         独立攻击力 = 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
 
-        self.基础属性加成(物理攻击力=物理攻击力, 魔法攻击力=魔法攻击力, 独立攻击力=独立攻击力)
+        四维 = 0
+        if self.角色类型 == '辅助':
+            四维 = 锻造四维(temp.等级, temp.品质, info.get('dz_number', 0))
+
+        self.基础属性加成(物理攻击力=物理攻击力, 魔法攻击力=魔法攻击力, 独立攻击力=独立攻击力, 四维=四维)
 
     def 职业装备特殊计算(self) -> None:
         pass
@@ -1555,6 +1559,8 @@ class Character(角色属性):
                 "type": "物理攻击力",
                 "info": [round((倍率-1)*100), '所有', '']
             })
+        buff = self.get_skill_by_name('BUFF')
+        awake = self.get_skill_by_name('一次觉醒')
         result = {
             'id': uuid1().hex,
             'alter': self.实际名称,
@@ -1582,14 +1588,18 @@ class Character(角色属性):
                     # 攻击强化
                     '攻击强化': round(self.__攻击强化, 0),
                     'buffer_power': round(self.BUFF量(), 0),
+                    'buffer_power_value': round(self.__buff量, 0),
+                    'buffer_power_per': round(self.__百分比buff量*100, 2),
                     '技能攻击力': round(100*(self.__技能攻击力-1), 2),
                     '百分比攻击强化': round(self.__百分比攻击强化*100, 1),
                     'MP消耗量': round(self.__MP消耗量*100-100, 2),
                     '伤害比例': [self.__伤害比例.get('直伤', 1), self.__伤害比例.get('中毒', 0), self.__伤害比例.get('灼烧', 0), self.__伤害比例.get('感电', 0), self.__伤害比例.get('出血', 0)],
                     '伤害系数': [self.__伤害系数.get('直伤', 1), self.__伤害系数.get('中毒', 1)-1, self.__伤害系数.get('灼烧', 1)-1, self.__伤害系数.get('感电',  1)-1, self.__伤害系数.get('出血',  1)-1],
                     '无色消耗': temp['无色消耗'],
-                    'buff_level': self.get_skill_by_name('BUFF').等级,
-                    'awake_level': self.get_skill_by_name('一次觉醒').等级,
+                    'buff_level': buff.等级,
+                    'buff_name': buff.名称,
+                    'awake_level': awake.等级,
+                    'awake_name': awake.名称,
                     'buff_intstr_per': self.__buff百分比力智,
                     'buff_intstr': self.__buff固定力智,
                     'buff_attack_per': self.__buff百分比三攻,
