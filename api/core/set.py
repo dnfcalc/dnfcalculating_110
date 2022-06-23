@@ -1,10 +1,11 @@
 import importlib
 import json
-from math import fabs
 import os
+from math import fabs
+
 from core.baseClass.character import Character
-from core.store import store
 from core.baseClass.equipment import equ
+from core.store import store
 
 
 def save(alter: str, setName: str, setInfo):
@@ -13,7 +14,7 @@ def save(alter: str, setName: str, setInfo):
     """
     store.set('/{}/setinfo/{}'.format(alter, setName), setInfo)
     # 创建配置文件夹
-    path = './Sets/{}/{}'.format(alter, setName)
+    path = './sets/{}/{}'.format(alter, setName)
     if not os.path.exists(path):
         os.makedirs(path, exist_ok=True)
     with open(path + "/store.json", "w", encoding='utf-8') as fp:
@@ -29,9 +30,9 @@ def get_set_list(alter: str):
     获取存档列表
     """
     setList = []
-    if not os.path.exists('./Sets/{}'.format(alter)):
-        os.makedirs('./Sets/{}'.format(alter), exist_ok=True)
-    setList = os.listdir('./Sets/{}'.format(alter))
+    if not os.path.exists('./sets/{}'.format(alter)):
+        os.makedirs('./sets/{}'.format(alter), exist_ok=True)
+    setList = os.listdir('./sets/{}'.format(alter))
     if len(setList) == 0:
         setList.append("set")
     return setList
@@ -96,7 +97,7 @@ def get(alter: str, setName: str):
             "damage": item["type"] == 1,
             "mode": item.get("mode", [])
         })
-    if not os.path.exists('./Sets/{}/{}/store.json'.format(alter, setName)):
+    if not os.path.exists('./sets/{}/{}/store.json'.format(alter, setName)):
         set_info = {
             "skill_set": skill_set,
             "skill_que": [],
@@ -116,7 +117,7 @@ def get(alter: str, setName: str):
             "carry_type": info["carry_type_list"][0], "dress_set": dress_set}
 
     else:
-        with open('./Sets/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
+        with open('./sets/{}/{}/store.json'.format(alter, setName), "r", encoding='utf-8') as fp:
             set_info = json.load(fp)
         fp.close()
         # 先简化处理，后续优化

@@ -13789,7 +13789,7 @@ def enchanting_23008(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(168, '头肩', '力智(75)|三攻(20)|技攻(3%)')"
     if mode == 0:
-        char.基础属性加成(力智=75 * rate,三攻 = 20 *rate)
+        char.基础属性加成(力智=75 * rate, 三攻=20 * rate)
         char.技能攻击力加成(0.03 * rate)
     if mode == 1:
         pass
@@ -13799,7 +13799,7 @@ def enchanting_23009(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(168, '头肩', '力智(75)|三攻(20)|Lv1~50主动+1')"
     if mode == 0:
-        char.基础属性加成(力智 = 75 * rate,三攻 = 20 * rate)
+        char.基础属性加成(力智=75 * rate, 三攻=20 * rate)
         if rate == 1:
             char.技能等级加成('主动', 1, 50, 1)
     if mode == 1:
@@ -13845,6 +13845,18 @@ def enchanting_24003(char: Character = {}, mode=0, text=False, rate=1.0):
         pass
     if mode == 1:
         pass
+
+
+def enchanting_24004(char: Character = {}, mode=0, text=False, rate=1.0):
+    if text:
+        return "(0, '光环', 'Lv1~80+1|buff(3%)')"
+    if mode == 0:
+        char.技能等级加成('所有', 1, 80, 1)
+        char.辅助属性加成(buff百分比力智=0.03, 百分比buff量=0.015)
+        pass
+    if mode == 1:
+        pass
+
 # endregion
 
 # region 武器装扮 24101~24199
@@ -13864,7 +13876,7 @@ def enchanting_24102(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv45+1')"
     if mode == 0:
-        char.武器装扮等级加成(45, 1)        
+        char.武器装扮等级加成(45, 1)
         char.基础属性加成(四维=55)
     if mode == 1:
         pass
@@ -13874,7 +13886,7 @@ def enchanting_24103(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv60+1')"
     if mode == 0:
-        char.武器装扮等级加成(60, 1)        
+        char.武器装扮等级加成(60, 1)
         char.基础属性加成(四维=55)
     if mode == 1:
         pass
@@ -13884,7 +13896,7 @@ def enchanting_24104(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv70+1')"
     if mode == 0:
-        char.武器装扮等级加成(70, 1)        
+        char.武器装扮等级加成(70, 1)
         char.基础属性加成(四维=55)
     if mode == 1:
         pass
@@ -13894,7 +13906,7 @@ def enchanting_24105(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv75+1')"
     if mode == 0:
-        char.武器装扮等级加成(75, 1)        
+        char.武器装扮等级加成(75, 1)
         char.基础属性加成(四维=55)
     if mode == 1:
         pass
@@ -13904,7 +13916,7 @@ def enchanting_24106(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv80+1')"
     if mode == 0:
-        char.武器装扮等级加成(80, 1)        
+        char.武器装扮等级加成(80, 1)
         char.基础属性加成(四维=55)
     if mode == 1:
         pass
@@ -13980,6 +13992,16 @@ def enchanting_24304(char: Character = {}, mode=0, text=False, rate=1.0):
         pass
     if mode == 1:
         pass
+
+
+def enchanting_24351(char: Character = {}, mode=0, text=False, rate=1.0):
+    if text:
+        return "(0, '宠物装备-红', '四维(33)')"
+    if mode == 0:
+        char.基础属性加成(四维=33)
+        pass
+    if mode == 1:
+        pass
 # endregion
 
 # region 宠物装备-绿 24401~24499
@@ -13995,6 +14017,16 @@ def enchanting_24401(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 1:
         pass
 
+
+def enchanting_24451(char: Character = {}, mode=0, text=False, rate=1.0):
+    if text:
+        return "(0, '宠物装备-绿', '四维(30)')"
+    if mode == 0:
+        char.基础属性加成(四维=30)
+        pass
+    if mode == 1:
+        pass
+
 # endregion
 
 # region 宠物装备-蓝 24501~24599
@@ -14005,6 +14037,16 @@ def enchanting_24501(char: Character = {}, mode=0, text=False, rate=1.0):
         return "(0, '宠物装备-蓝', '三攻(30)')"
     if mode == 0:
         char.基础属性加成(三攻=30)
+        pass
+    if mode == 1:
+        pass
+
+
+def enchanting_24551(char: Character = {}, mode=0, text=False, rate=1.0):
+    if text:
+        return "(0, '宠物装备-蓝', '四维(25)')"
+    if mode == 0:
+        char.基础属性加成(四维=30)
         pass
     if mode == 1:
         pass
@@ -14038,6 +14080,15 @@ def enchanting_24602(char: Character = {}, mode=0, text=False, rate=1.0):
         char.百分比攻击强化加成(0.08)
         pass
 
+
+def enchanting_24603(char: Character = {}, mode=0, text=False, rate=1.0):
+    if text:
+        return "(0, '快捷装备', '四维(50)')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.基础属性加成(四维=50)
+        pass
 
 # endregion
 

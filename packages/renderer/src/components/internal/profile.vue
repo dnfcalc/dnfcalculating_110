@@ -17,8 +17,11 @@
 
   interface BufferProperties {
     buffer_power: number
-    buffer_power_percent: number
+    buffer_power_value: number
+    buffer_power_per: number
+    buff_name: string
     buff_level: number
+    awake_name: string
     awake_level: number
   }
 
@@ -379,25 +382,59 @@
                   <div class="text-hex-3ea74e">{town.智力?.toFixed(0)}</div>
                 </div>
               )}
-              <div class="de-item">
-                <div class="text-hex-836832">BUFF量</div>
-                <div class="text-hex-3ea74e">{properties.buffer_power.round(0)}</div>
-              </div>
-              <div class="de-item">
-                <div class=" text-hex-836832">Buff技能等级</div>
-                <div class="text-hex-3ea74e">{properties.buff_level}</div>
-              </div>
-              <div class="de-item">
-                <div class=" text-hex-836832">觉醒技能等级</div>
-                <div class="text-hex-3ea74e">{properties.awake_level}</div>
-              </div>
+              <calc-tooltip class="de-item" position="bottom">
+                {{
+                  default() {
+                    return (
+                      <>
+                        <div class="text-hex-836832">BUFF量</div>
+                        <div class="text-hex-3ea74e">{properties.buffer_power?.round(0)}</div>
+                      </>
+                    )
+                  },
+                  popper() {
+                    return <div class="text-white py-1 px-2">{`BUFF量:${properties.buffer_power_value}(+${properties.buffer_power_per}%)`}</div>
+                  }
+                }}
+              </calc-tooltip>
+              <calc-tooltip position="bottom" class="de-item">
+                {{
+                  default() {
+                    return (
+                      <>
+                        <div class=" text-hex-836832">Buff技能等级</div>
+                        <div class="text-hex-3ea74e">{properties.buff_level}</div>
+                      </>
+                    )
+                  }
+                  // popper() {
+                  //   return (
+                  //     <div class="text-white py-1 px-2">
+                  //       <div>{`${properties.buff_name} Lv.${properties.buff_level}`}</div>
+                  //     </div>
+                  //   )
+                  // }
+                }}
+              </calc-tooltip>
+              <calc-tooltip position="bottom" class="de-item">
+                {{
+                  default() {
+                    return (
+                      <>
+                        <div class=" text-hex-836832">觉醒技能等级</div>
+                        <div class="text-hex-3ea74e">{properties.awake_level}</div>
+                      </>
+                    )
+                  }
+                }}
+              </calc-tooltip>
               <div class="de-item">
                 <div class=" text-hex-836832">力智加成</div>
-                <div class="text-hex-3ea74e">{props.totalData[2].round(0)}</div>
+                <div class="text-hex-3ea74e">{props.totalData[2]?.round(0)}</div>
               </div>
               <div class="de-item">
                 <div class=" text-hex-836832">三攻加成</div>
-                <div class="text-hex-3ea74e">{props.totalData[3].round(0)}</div>
+                <div class="text-hex-3ea74e">{props.totalData[3]?.round(0)}</div>
               </div>
             </div>
           </>

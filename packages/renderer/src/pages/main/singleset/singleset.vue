@@ -45,7 +45,7 @@
 
       const result = useAsyncState(
         () => configStore.calc(true),
-        { id: undefined, role: "delear", equips: [], name: "", alter: "", skills: {}, total_data: [0], info: undefined, skills_passive: undefined, jade: undefined },
+        { id: undefined, equips: [], role: "delear", name: "", alter: "", skills: {}, total_data: [0], info: undefined, skills_passive: undefined, jade: undefined },
         { resetOnExecute: false }
       )
 
@@ -255,7 +255,7 @@
               standardSum={detailsStore.standard?.total_data[0]}
               details={result.state.value.info}
               total-data={result.state.value.total_data}
-              role={result.state.value.role}
+              role={charcaterStore.role}
               equ-list={curEquList.value}
               class="m-5px !mt-0 !mr-2px !ml-2px"
             ></Profile>

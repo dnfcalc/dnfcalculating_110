@@ -32,6 +32,9 @@ export const useCharacterStore = defineStore("CharacterInfo", {
   getters: {
     is_buffer(state) {
       return state.role === "buffer"
+    },
+    is_delear(state) {
+      return state.role !== "buffer"
     }
   },
   actions: {

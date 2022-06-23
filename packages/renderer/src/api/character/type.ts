@@ -4,7 +4,7 @@ export interface ICharacterInfo {
   name: string
   alter: string
   character: string
-  role: string
+  role: "delear" | "buffer"
   weapon_types: string[]
   carry_type_list: string[]
   armor?: string
