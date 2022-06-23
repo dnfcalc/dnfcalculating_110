@@ -14,70 +14,70 @@ def emblems_25000(char: Character = {}, text=False):
 def emblems_25001(char: Character = {}, text=False):
     if text:
         return "(0, '戒指，腰带，皮肤，光环', '红色', '玲珑', '力智+35')"
-    char.力智固定加成(35)
+    char.基础属性加成(力智=35)
 
 
 def emblems_25002(char: Character = {}, text=False):
     if text:
         return "(0, '戒指，腰带，皮肤，光环', '红色', '灿烂', '力智+25')"
-    char.力智固定加成(25)
+    char.基础属性加成(力智=25)
 
 
 def emblems_25003(char: Character = {}, text=False):
     if text:
         return "(0, '戒指，腰带，皮肤，光环', '红色', '华丽', '力智+17')"
-    char.力智固定加成(17)
+    char.基础属性加成(力智=17)
 
 
 def emblems_25004(char: Character = {}, text=False):
     if text:
         return "(0, '上衣，下装，戒指，腰带，皮肤，光环', '红绿', '玲珑', '力智+20 暴击+2.2%')"
-    char.力智固定加成(20)
+    char.基础属性加成(力智=20)
     char.暴击率增加(0.022)
 
 
 def emblems_25005(char: Character = {}, text=False):
     if text:
         return "(0, '上衣，下装，戒指，腰带，皮肤，光环', '红绿', '玲珑', '力智+15 暴击+1.5%')"
-    char.力智固定加成(15)
+    char.基础属性加成(力智=15)
     char.暴击率增加(0.015)
 
 
 def emblems_25006(char: Character = {}, text=False):
     if text:
         return "(0, '上衣，下装，戒指，腰带，皮肤，光环', '红绿', '玲珑', '力智+10 暴击+1.1%')"
-    char.力智固定加成(10)
+    char.基础属性加成(力智=10)
     char.暴击率增加(0.011)
 
 
 def emblems_25007(char: Character = {}, text=False):
     if text:
         return "(0, '头肩，项链', '黄色', '灿烂', '力智+15')"
-    char.力智固定加成(15)
+    char.基础属性加成(力智=15)
 
 
 def emblems_25008(char: Character = {}, text=False):
     if text:
         return "(0, '头肩，项链', '黄色', '华丽', '力智+10')"
-    char.力智固定加成(10)
+    char.基础属性加成(力智=10)
 
 
 def emblems_25009(char: Character = {}, text=False):
     if text:
         return "(0, '手镯，鞋，皮肤，光环', '蓝色', '玲珑', '三攻+20')"
-    char.三攻固定加成(20)
+    char.基础属性加成(三攻=20)
 
 
 def emblems_25010(char: Character = {}, text=False):
     if text:
         return "(0, '手镯，鞋，皮肤，光环', '蓝色', '灿烂', '三攻+15')"
-    char.三攻固定加成(15)
+    char.基础属性加成(三攻=15)
 
 
 def emblems_25011(char: Character = {}, text=False):
     if text:
         return "(0, '手镯，鞋，皮肤，光环', '蓝色', '华丽', '三攻+10')"
-    char.三攻固定加成(10)
+    char.基础属性加成(三攻=10)
 
 
 def emblems_25012(char: Character = {}, text=False):

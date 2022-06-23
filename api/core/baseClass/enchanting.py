@@ -9318,6 +9318,7 @@ def enchanting_21004(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 1:
         pass
 
+
 def enchanting_21009(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(86, '上衣, 下装', '三攻(45)')"
@@ -13670,6 +13671,7 @@ def enchanting_21464(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 1:
         pass
 
+
 def enchanting_21490(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(106, '头肩', '物暴(6%)|魔暴(6%)')"
@@ -13707,8 +13709,6 @@ def enchanting_21493(char: Character = {}, mode=0, text=False, rate=1.0):
         char.基础属性加成(移动速度=0.025 * rate)
     if mode == 1:
         pass
-
-
 
 
 #  国服特色
@@ -13789,8 +13789,7 @@ def enchanting_23008(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(168, '头肩', '力智(75)|三攻(20)|技攻(3%)')"
     if mode == 0:
-        char.三攻固定加成(20 * rate)
-        char.力智固定加成(75 * rate)
+        char.基础属性加成(力智=75 * rate,三攻 = 20 *rate)
         char.技能攻击力加成(0.03 * rate)
     if mode == 1:
         pass
@@ -13800,8 +13799,7 @@ def enchanting_23009(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(168, '头肩', '力智(75)|三攻(20)|Lv1~50主动+1')"
     if mode == 0:
-        char.三攻固定加成(20 * rate)
-        char.力智固定加成(75 * rate)
+        char.基础属性加成(力智 = 75 * rate,三攻 = 20 * rate)
         if rate == 1:
             char.技能等级加成('主动', 1, 50, 1)
     if mode == 1:
@@ -13857,8 +13855,7 @@ def enchanting_24101(char: Character = {}, mode=0, text=False, rate=1.0):
         return "(0, '武器装扮', '四维(55)|Lv40+1')"
     if mode == 0:
         char.武器装扮等级加成(40, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
+        char.基础属性加成(四维=55)
     if mode == 1:
         pass
 
@@ -13867,9 +13864,8 @@ def enchanting_24102(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv45+1')"
     if mode == 0:
-        char.武器装扮等级加成(45, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
+        char.武器装扮等级加成(45, 1)        
+        char.基础属性加成(四维=55)
     if mode == 1:
         pass
 
@@ -13878,9 +13874,8 @@ def enchanting_24103(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv60+1')"
     if mode == 0:
-        char.武器装扮等级加成(60, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
+        char.武器装扮等级加成(60, 1)        
+        char.基础属性加成(四维=55)
     if mode == 1:
         pass
 
@@ -13889,9 +13884,8 @@ def enchanting_24104(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv70+1')"
     if mode == 0:
-        char.武器装扮等级加成(70, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
+        char.武器装扮等级加成(70, 1)        
+        char.基础属性加成(四维=55)
     if mode == 1:
         pass
 
@@ -13900,9 +13894,8 @@ def enchanting_24105(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv75+1')"
     if mode == 0:
-        char.武器装扮等级加成(75, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
+        char.武器装扮等级加成(75, 1)        
+        char.基础属性加成(四维=55)
     if mode == 1:
         pass
 
@@ -13911,9 +13904,8 @@ def enchanting_24106(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '武器装扮', '四维(55)|Lv80+1')"
     if mode == 0:
-        char.武器装扮等级加成(80, 1)
-        char.力智固定加成(55)
-        char.体精固定加成(55)
+        char.武器装扮等级加成(80, 1)        
+        char.基础属性加成(四维=55)
     if mode == 1:
         pass
 
@@ -13997,7 +13989,7 @@ def enchanting_24401(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '宠物装备-绿', '三攻(40)|所有属性强化(20)')"
     if mode == 0:
-        char.三攻固定加成(40)
+        char.基础属性加成(三攻=40)
         char.所有属性强化加成(20)
         pass
     if mode == 1:
@@ -14012,7 +14004,7 @@ def enchanting_24501(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '宠物装备-蓝', '三攻(30)')"
     if mode == 0:
-        char.三攻固定加成(30)
+        char.基础属性加成(三攻=30)
         pass
     if mode == 1:
         pass
@@ -14028,7 +14020,7 @@ def enchanting_24601(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         pass
     if mode == 1:
-        char.三攻固定加成(30)
+        char.基础属性加成(三攻=30)
         char.附加伤害加成(0.08)
         char.百分比攻击强化加成(0.08)
         pass
@@ -14038,8 +14030,8 @@ def enchanting_24602(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '快捷装备', '四维(8)|附加伤害(8%)|攻击强化(8%)')"
     if mode == 0:
-        char.力智固定加成(8)
-        char.体精固定加成(8)
+        char.基础属性加成(力智=8)
+        char.基础属性加成(体精=8)
         pass
     if mode == 1:
         char.附加伤害加成(0.08)
