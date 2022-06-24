@@ -356,6 +356,10 @@
                 <div class=" text-hex-836832">感电</div>
                 <div class="text-hex-3ea74e">{`${(properties.伤害比例?.[3] ?? 0) * 100}%(+${((properties.伤害系数?.[3] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
               </div>
+              <div class="de-item">
+                <div class=" text-hex-836832">出血</div>
+                <div class="text-hex-3ea74e">{`${(properties.伤害比例?.[4] ?? 0) * 100}%(+${((properties.伤害系数?.[4] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
+              </div>
             </div>
           </>
         )

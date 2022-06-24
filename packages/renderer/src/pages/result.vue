@@ -165,7 +165,13 @@
               <calc-tooltip class="flex justify-center" position="right">
                 {{
                   default() {
-                    return <img src={skill_icon(characterStore.alter, skill.name)} />
+                    return (
+                      <>
+                        <div style="position:relative">
+                          <img src={skill_icon(characterStore.alter, skill.name)} />
+                        </div>
+                      </>
+                    )
                   },
                   popper() {
                     return skill_tooltip(skill.name)

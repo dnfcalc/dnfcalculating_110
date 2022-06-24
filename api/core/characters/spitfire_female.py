@@ -521,9 +521,6 @@ class 技能23(职业主动技能):
 
     无色消耗 = 15
 
-    def 加成倍率(self, 武器类型):
-        return 0.0
-
 
 class classChange(Character):
     def __init__(self):

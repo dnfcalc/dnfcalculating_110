@@ -14,13 +14,11 @@
           <div class="flex p-5px">
             <Skill></Skill>
           </div>
-          <div>
+          <div class="w-240px">
             <div class="h-220px mt-2% subitem">
               <Cp></Cp>
             </div>
-            <div class="mt-2% skill-slots subitem">
-              <Hotkey></Hotkey>
-            </div>
+            <div class="mt-2% skill-slots subitem">{characterStore.is_delear && <Hotkey></Hotkey>}</div>
           </div>
           {characterStore.is_delear && (
             <div class="flex p-5px pl-35px">
