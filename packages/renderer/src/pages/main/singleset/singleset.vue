@@ -199,8 +199,12 @@
             <div class="h-25px">
               <calc-tabs item-class="h-6 !w-20%" v-model={type.value}>
                 <calc-tab value={EPIC_EQUIP}>史诗</calc-tab>
-                <calc-tab value={MYTHIC_EQUIP}>神话</calc-tab>
-                {!charcaterStore.is_buffer && <calc-tab value={WIDSDOM_EQUIP}>智慧产物</calc-tab>}
+                {charcaterStore.is_delear && (
+                  <>
+                    <calc-tab value={MYTHIC_EQUIP}>神话</calc-tab>
+                    <calc-tab value={WIDSDOM_EQUIP}>智慧产物</calc-tab>
+                  </>
+                )}
                 <calc-tab value={WEAPON}>武器</calc-tab>
                 <calc-tab value={TITLEANFPET}>称号 宠物</calc-tab>
               </calc-tabs>

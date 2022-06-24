@@ -321,3 +321,20 @@ class classChange(Character):
         for 护石 in 小魔女护石组合:
             if 护石.skill in self.护石栏:
                 护石.effect(self)
+
+    def 职业特殊计算(self):
+        for skill in self.技能栏:
+            data = skill.结算统计(self)
+            if(data[2] > 0):
+                self.skills_passive[skill.名称]['info'] = [{
+                    'type': '智力',
+                    'info': [data[2]],
+                    'percent': False
+                }]
+            if data[3] > 0:
+                self.skills_passive[skill.名称]['info'] = [{
+                    'type': '体精',
+                    'info': [data[3]],
+                    'percent': False
+                }]
+        pass

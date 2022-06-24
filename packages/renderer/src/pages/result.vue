@@ -24,6 +24,7 @@
     info: {
       type: string
       info: (string | number)[]
+      percent?: boolean
     }[]
   }
 
@@ -71,17 +72,22 @@
             <div class="name">
               {skill.name} Lv {skill.lv}
             </div>
-            {renderList(skill.info, item => (
-              <>
-                <div class="info">
-                  {item.type}:{item.info[0]}%<div></div>
-                </div>
-                <div class="info">
-                  关联技能:{item.info[1]}
-                  {item.info[2] != "无" && item.info[2] != "" && <div class="text-hex-696969">({item.info[2]}除外)</div>}
-                </div>
-              </>
-            ))}
+            {renderList(skill.info, item => {
+              const percent = item.percent ?? true
+              return (
+                <>
+                  <div class="info">
+                    {item.type}:{item.info[0]}
+                    {percent && "%"}
+                    <div></div>
+                  </div>
+                  <div class="info">
+                    关联技能:{item.info[1]}
+                    {item.info[2] != "无" && item.info[2] != "" && item.info[2] != 0 && <div class="text-hex-696969">({item.info[2]}除外)</div>}
+                  </div>
+                </>
+              )
+            })}
           </div>
         )
       }
@@ -190,6 +196,7 @@
         let temp: ISkillPassive[] = []
         Object.keys(res.skills_passive).forEach(name => {
           let skill = res.skills_passive[name]
+          console.log(skill.info)
           //   console.log(res.skills_passive[name])
           if (skill.info.length > 0) {
             temp.push({
@@ -267,29 +274,26 @@
                 </tr>
               </thead>
 
-              <tbody class="text-white skills overflow-y-auto block" style="height:calc(100% - 48px)">
+              <tbody class="text-white skills overflow-y-auto block" style="height:calc(100% - 96px)">
                 {renderSkills()}
               </tbody>
-              <div class="bottom h-8 mx-1 mb-1 w-full">
-                {res.role == "delear" ? (
-                  renderList(skill_passive.value, skill => (
-                    <td class="mr-1">
-                      <calc-tooltip z={9} position="top">
-                        {{
-                          default() {
-                            return <img src={skill_icon(characterStore.alter, skill.name)} />
-                          },
-                          popper() {
-                            return skill_passive_tooltip(skill)
-                          }
-                        }}
-                      </calc-tooltip>
-                    </td>
-                  ))
-                ) : (
-                  <td>总和</td>
-                )}
+              <div class="flex h-8  p-1 items-center">
+                {renderList(skill_passive.value, skill => (
+                  <div class="mr-1">
+                    <calc-tooltip z={9} position="top">
+                      {{
+                        default() {
+                          return <img src={skill_icon(characterStore.alter, skill.name)} />
+                        },
+                        popper() {
+                          return skill_passive_tooltip(skill)
+                        }
+                      }}
+                    </calc-tooltip>
+                  </div>
+                ))}
               </div>
+              <tr class="bottom h-8 w-full p-1 block"></tr>
             </table>
           </div>
         </>
