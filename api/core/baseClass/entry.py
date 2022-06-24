@@ -10075,6 +10075,8 @@ def entry_685(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "装备时，[荣誉祝福]对队友提升效果+8%(解除装备后[荣誉祝福]失效；Buff登记系统不适用该效果), [缓慢愈合]HP恢复量 -50%, [圣愈之风]HP恢复量 -50%, [圣佑结界]HP恢复量 -50%, [圣光突袭]突进距离 -70%, [圣光突袭]攻击力 +20%"
     if mode == 0:
+        buff = char.get_skill_by_name("BUFF")
+        buff.倍率 *= 1.08
         pass
     if mode == 1:
         pass
@@ -10219,6 +10221,8 @@ def entry_701(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "装备时，[勇气祝福]对队友提升效果+8%(解除装备后[勇气祝福]失效；Buff登记系统不适用该效果), [治愈祈祷]HP恢复量 -50%, [新生圣歌]HP恢复量 -50%, [圣光普照]HP恢复量 -50%"
     if mode == 0:
+        buff = char.get_skill_by_name("BUFF")
+        buff.倍率 *= 1.08
         pass
     if mode == 1:
         pass

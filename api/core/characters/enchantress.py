@@ -156,18 +156,10 @@ class 知源·小魔女技能2(辅助职业主动技能):
         if 偏爱.是否启用 and not (hasattr(context, '偏爱独立计算') and context.偏爱独立计算):
             倍率 *= 1 + 偏爱.增幅倍率
 
-        力智 = (新词条力智 + 旧词条力智) * 倍率
-        三攻 = (新词条三攻 + 旧词条三攻) * 倍率
+        力智 = int((新词条力智 + 旧词条力智) * 倍率)
+        三攻 = int((新词条三攻 + 旧词条三攻) * 倍率)
 
-        temp = []  # 智力,体力,精神
-        temp.append(
-            int(round(力智, 3)))  # 力量
-        temp.append(
-            int(round(三攻, 3)))  # 物攻
-        temp.append(0)
-        temp.append(0)
-
-        return temp
+        return [力智, 三攻, 0, 0]
 
 
 class 知源·小魔女技能3(辅助职业主动技能):
@@ -329,12 +321,6 @@ class classChange(Character):
                 self.skills_passive[skill.名称]['info'] = [{
                     'type': '智力',
                     'info': [data[2]],
-                    'percent': False
-                }]
-            if data[3] > 0:
-                self.skills_passive[skill.名称]['info'] = [{
-                    'type': '体精',
-                    'info': [data[3]],
                     'percent': False
                 }]
         pass
