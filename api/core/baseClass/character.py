@@ -799,7 +799,11 @@ class Character(角色属性):
                 结算 = skill.结算统计(self)
                 self.__BUFF补正智力 += 结算[2]
                 self.__BUFF补正体力 += 结算[3]
-                self.__BUFF补正精神 += 结算[3]
+                self.__BUFF补正精神 += 结算[4]
+                if skill.站街生效:
+                    self.__智力 += 结算[2]
+                    self.__体力 += 结算[3]
+                    self.__精神 += 结算[4]
 
         进图 = 0
         BUFF补正 = 0

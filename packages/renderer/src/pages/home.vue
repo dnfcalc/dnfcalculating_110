@@ -1,11 +1,11 @@
 <script lang="tsx">
-  import { useBasicInfoStore } from "@/store"
-  import { defineComponent, onMounted, renderList } from "vue"
+  import api from "@/api"
   import { IAlterInfo } from "@/api/info/type"
   import { useDialog } from "@/components/hooks/dialog"
-  import api from "@/api"
   import { useOpenWindow } from "@/hooks/open"
+  import { useBasicInfoStore } from "@/store"
   import openURL from "@/utils/openURL"
+  import { defineComponent, onMounted, renderList } from "vue"
 
   function sub_icon(sub: number) {
     return {
@@ -15,7 +15,7 @@
 
   function job_icon(child: IAlterInfo) {
     return {
-      filter: !child.open ? `grayscale(100%)` : ``,
+      filter: !(child.open || import.meta.env.DEV) ? `grayscale(100%)` : ``,
       backgroundImage: `url(./images/adventure/jobs/${child.name}.png)`
     }
   }
@@ -46,7 +46,7 @@
           openURL(child.url ?? "")
           return
         }
-        if (child.open) {
+        if (child.open || import.meta.env.DEV) {
           openURL("/character?name=" + child.name, { width: 1100, height: 750 })
         } else {
           await alert({
