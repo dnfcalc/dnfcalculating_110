@@ -783,8 +783,8 @@ class Character(角色属性):
                 "info": [],
                 "lv": i.等级
             }
+        self.职业特殊计算()
         if self.角色类型 != '辅助':
-            self.职业特殊计算()
             self.__CD倍率计算()
             self.__加算冷却计算()
             self.__被动倍率计算()
