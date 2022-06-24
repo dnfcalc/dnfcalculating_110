@@ -340,6 +340,7 @@
       {
         "name": "crusader_male",
         "title": "神启·圣骑士",
+        "open": true,
         "default_name": "输出",
         "class": [],
         "options": []
@@ -381,6 +382,7 @@
         "name": "crusader_female",
         "title": "神启·圣骑士",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
