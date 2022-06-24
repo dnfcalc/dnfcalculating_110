@@ -165,6 +165,7 @@ class Character(角色属性):
         self.__异常抗性: Dict[str, float] = {}
         self.__条件技攻: Dict[str, float] = {}
         self.__条件冷却: Dict[str, float] = {}
+        self.__条件冷却恢复: Dict[str, float] = {}
         self.__指令效果: Dict[str, float] = {}
         self.__消耗品效果: float = 1.0
         self.__MP消耗量: float = 1.0
@@ -265,7 +266,6 @@ class Character(角色属性):
                 clothes_coat.append(skill.名称)
         if self.角色类型 == '辅助':
             talisman += self.护石技能
-        print("护石技能:", self.护石技能)
         info['skills'] = skillInfo
         info['rune'] = rune
         info['talisman'] = talisman
@@ -315,6 +315,9 @@ class Character(角色属性):
     def 条件冷却加成(self, 类型: str, x: float) -> None:
         # 消耗无色 不消耗无色
         self.__条件冷却[类型] = self.__条件冷却.get(类型, 1.0) * (1 - x)
+
+    def 条件冷却恢复加成(self, 类型: str, x: float) -> None:
+        self.__条件冷却恢复[类型] = self.__条件冷却恢复.get(类型, 0) + x
 
     def 指令效果加成(self, 类型: str, x: float) -> None:
         # 所有 消耗无色 不消耗无色  (觉醒技能默认除外)
@@ -1600,6 +1603,8 @@ class Character(角色属性):
                     '伤害比例': [self.__伤害比例.get('直伤', 1), self.__伤害比例.get('中毒', 0), self.__伤害比例.get('灼烧', 0), self.__伤害比例.get('感电', 0), self.__伤害比例.get('出血', 0)],
                     '伤害系数': [self.__伤害系数.get('直伤', 1), self.__伤害系数.get('中毒', 1)-1, self.__伤害系数.get('灼烧', 1)-1, self.__伤害系数.get('感电',  1)-1, self.__伤害系数.get('出血',  1)-1],
                     '无色消耗': temp['无色消耗'],
+                    '条件冷却': self.__条件冷却,
+                    "条件恢复": self.__条件冷却恢复,
                     'buff_level': buff.等级,
                     'buff_name': buff.名称,
                     'awake_level': awake.等级,
@@ -1610,7 +1615,6 @@ class Character(角色属性):
                     'buff_attack': self.__buff固定三攻,
                     'awake_intstr_per': self.__觉醒百分比力智,
                     'awake_intstr': self.__觉醒固定力智
-
                     # 其他老词条·····
                 }
             },

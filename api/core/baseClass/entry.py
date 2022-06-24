@@ -987,6 +987,7 @@ def entry_949(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.攻击强化加成(成长词条计算(667, lv)*4)
         pass
 
 
@@ -1041,6 +1042,7 @@ def entry_935(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.攻击强化加成(成长词条计算(889, lv)*5)
         pass
 
 
@@ -2244,7 +2246,7 @@ def entry_963(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(3409)
+        char.攻击强化加成(成长词条计算(3409, lv))
 
 
 def entry_967(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2430,7 +2432,7 @@ def entry_1240(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "穿戴装备的强化/增幅数值总和每增加6，攻击强化 272(最多叠加24次)"
     if mode == 0:
         x = char.获取强化等级()
-        char.攻击强化加成(272 * min(24, int(x / 6)))
+        char.攻击强化加成(成长词条计算(272, lv) * min(24, int(x / 6)))
     if mode == 1:
         pass
 
@@ -2449,7 +2451,7 @@ def entry_1243(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "地下城入场时，攻击强化 2223, 连击维持时间 -0.5秒"
     if mode == 0:
-        char.攻击强化加成(2223)
+        char.攻击强化加成(成长词条计算(2223, lv))
     if mode == 1:
         pass
 
@@ -2476,7 +2478,7 @@ def entry_1249(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "HP在40%以下时，物理、魔法防御力 +14000，攻击强化 2816"
     if mode == 0:
-        char.攻击强化加成(2816)
+        char.攻击强化加成(成长词条计算(2816, lv))
     if mode == 1:
         pass
 
@@ -2488,6 +2490,7 @@ def entry_1250(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(1, 100, 0.04 * 6)
+        char.条件冷却恢复加成("所有", 0.04 * 6)
 
 
 def entry_1251(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2505,8 +2508,14 @@ def entry_1252(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2816)
-        char.技能攻击力加成(0.07)
+        属强 = max(char.火属性强化(), char.光属性强化(), char.暗属性强化(), char.冰属性强化)
+        if 属强 >= 200 and 属强 <= 249:
+            char.攻击强化加成(成长词条计算(1037, lv))
+        if 属强 >= 250 and 属强 <= 299:
+            char.攻击强化加成(成长词条计算(1927, lv))
+        if 属强 >= 300:
+            char.攻击强化加成(成长词条计算(2816, lv))
+            char.技能攻击力加成(0.07)
 
 
 def entry_1253(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2515,7 +2524,7 @@ def entry_1253(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(700)
+        char.攻击强化加成(成长词条计算(700, lv))
 
 
 def entry_1254(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2533,7 +2542,7 @@ def entry_1255(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(3557)
+        char.攻击强化加成(成长词条计算(3557, lv))
 
 
 def entry_1256(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2572,6 +2581,7 @@ def entry_1191(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能冷却缩减(1, 100, 0.08, [50, 85, 100])
+        char.条件冷却加成("所有[除觉醒]", 0.08)
 
 
 def entry_1197(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2580,7 +2590,7 @@ def entry_1197(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(326 * 10)
+        char.攻击强化加成(成长词条计算(326, lv) * 10)
 
 
 def entry_1198(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2639,7 +2649,7 @@ def entry_1204(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2223)
+        char.攻击强化加成(成长词条计算(2223, lv))
         char.异常增伤('出血', 0.05)
 
 
@@ -2694,6 +2704,7 @@ def entry_1215(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(1, 45, 0.5)
+        char.条件冷却恢复加成("Lv1~45", 0.5)
 
 
 def entry_1216(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2703,6 +2714,7 @@ def entry_1216(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(60, 100, 0.5, [50, 85, 100])
+        char.条件冷却恢复加成("Lv60~100[觉醒除外]", 0.5)
 
 
 def entry_1217(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2721,7 +2733,7 @@ def entry_1218(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(593 * 5)
+        char.攻击强化加成(成长词条计算(593, lv) * 5)
 
 
 def entry_1219(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2731,6 +2743,7 @@ def entry_1219(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(1, 100, 0.1, [50, 85, 100])
+        char.条件冷却恢复加成("所有[觉醒除外]", 0.1)
 
 
 def entry_1220(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2757,7 +2770,8 @@ def entry_1166(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "物理防御力 -21000, 魔法防御力 -21000, 技能冷却时间 -10%(觉醒技能除外)"
     if mode == 0:
-        char.技能冷却缩减(1, 100, -0.1, [50, 85, 100])
+        char.技能冷却缩减(1, 100, 0.1, [50, 85, 100])
+        char.条件冷却加成("所有[除觉醒]", 0.1)
     if mode == 1:
         pass
 
@@ -2777,7 +2791,7 @@ def entry_1173(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2519)
+        char.攻击强化加成(成长词条计算(2519, lv))
 
 
 def entry_1174(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2798,7 +2812,7 @@ def entry_1176(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(3853)
+        char.攻击强化加成(成长词条计算(3853, lv))
 
 
 def entry_1180(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2864,8 +2878,8 @@ def entry_1105(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(504*5)
-        char.MP消耗量加成(0.2)
+        char.攻击强化加成(成长词条计算(504, lv)*5)
+        char.MP消耗量加成(0.2*5)
 
 
 def entry_1106(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2874,7 +2888,7 @@ def entry_1106(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2223)
+        char.攻击强化加成(成长词条计算(2223, lv))
         char.技能攻击力加成(0.06)
 
 
@@ -2885,6 +2899,7 @@ def entry_1123(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(1, 100, 0.25, [50, 85, 100])
+        char.条件冷却恢复加成("所有[觉醒除外]", 0.25)
 
 
 def entry_1124(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2904,7 +2919,7 @@ def entry_1133(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2519)
+        char.攻击强化加成(成长词条计算(2519, lv))
 
 
 def entry_1139(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3013,7 +3028,7 @@ def entry_1162(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(445 * 10)
+        char.攻击强化加成(成长词条计算(445, lv) * 10)
 
 
 def entry_1164(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3082,6 +3097,7 @@ def entry_1080(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         char.技能倍率加成(1, 35, -0.02 * 5)
         char.技能恢复加成(40, 80, 0.1 * 5, [50, 85, 100])
+        char.条件冷却恢复加成("Lv40~80[觉醒除外]", 0.1*5)
 
 
 def entry_1081(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3147,6 +3163,7 @@ def entry_1087(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         char.技能倍率加成(40, 80, -0.02 * 5)
         char.技能恢复加成(1, 35, 0.1 * 5, [50, 85, 100])
+        char.条件冷却恢复加成("Lv1~35", 0.1)
 
 
 def entry_1088(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3242,7 +3259,7 @@ def entry_1004(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2223)
+        char.攻击强化加成(成长词条计算(2223, lv))
 
 
 def entry_1011(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3325,7 +3342,7 @@ def entry_1020(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(326 * min(enemy_num, 10) *
+        char.攻击强化加成(成长词条计算(326, lv) * min(enemy_num, 10) *
                     (1 if len(state_type) > 0 else 0))
 
 
@@ -3345,6 +3362,7 @@ def entry_1022(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能冷却缩减(1, 100, 0.15, [50, 85, 100])
+        char.条件冷却加成("所有[除觉醒]", 0.15)
 
 
 def entry_1023(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3353,7 +3371,8 @@ def entry_1023(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能恢复加成(1, 100, 0.03, [50, 85, 100])
+        char.技能恢复加成(1, 100, 0.3, [50, 85, 100])
+        char.条件冷却恢复加成("所有[觉醒除外]", 0.3)
 
 
 def entry_1025(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3362,7 +3381,7 @@ def entry_1025(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2371 + 1186)
+        char.攻击强化加成(成长词条计算(2371, lv) + 成长词条计算(1186, lv))
 
 
 def entry_1026(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3438,7 +3457,7 @@ def entry_1032(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.MP消耗量加成(1.0)
     if mode == 1:
-        char.暴击率增加(0.03 * int(mp_rate_num/8))
+        char.暴击率增加(min(0.3, 0.03 * int(mp_rate_num/8)))
 
 
 def entry_1033(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3448,6 +3467,7 @@ def entry_1033(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.MP消耗量加成(1.0)
     if mode == 1:
         char.技能恢复加成(1, 100, 0.03 * int(mp_rate_num/8), [50, 85, 100])
+        char.条件冷却恢复加成("所有[觉醒除外]", 0.3)
 
 
 def entry_1034(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3520,7 +3540,7 @@ def entry_1040(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(165 * min(9, int(10-hp_rate_num/10)))
+        char.攻击强化加成(成长词条计算(165, lv) * min(9, int(10-hp_rate_num/10)))
 
 
 def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3529,7 +3549,7 @@ def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(362 * min(int(10-mp_rate_num/10), 9))
+        char.攻击强化加成(成长词条计算(362, lv) * min(int(10-mp_rate_num/10), 9))
 
 
 def entry_1042(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3538,7 +3558,7 @@ def entry_1042(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(156 * min(19, int(20-hp_rate_num/5)))
+        char.攻击强化加成(成长词条计算(156, lv) * min(19, int(20-hp_rate_num/5)))
 
 
 def entry_1045(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3601,7 +3621,7 @@ def entry_1050(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         # 先当全程
-        char.攻击强化加成(889 * 5)
+        char.攻击强化加成(成长词条计算(889, lv) * 5)
 
 
 def entry_1052(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3632,7 +3652,7 @@ def entry_983(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.技能倍率加成(15, 30, 0.1)
         for skill in char.技能队列:
             if skill["无色消耗"] > 0:
-                skill["倍率"] *= 0.75
+                skill["倍率"] *= 0.85
     if mode == 1:
         pass
 
@@ -3646,6 +3666,7 @@ def entry_984(char: Character = {}, mode=0, text=False, part='', lv=0):
         for skill in char.技能队列:
             if skill["无色消耗"] > 0:
                 skill["CDR"] *= 1.1
+        char.条件冷却加成("消耗无色", -0.1)
     if mode == 1:
         pass
 
@@ -3656,6 +3677,7 @@ def entry_986(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.MP消耗量加成(1.0)
         char.技能冷却缩减(1, 100, 0.12, [50, 85, 100])
+        char.条件冷却加成("所有[除觉醒]", 0.12)
     if mode == 1:
         pass
 
@@ -3720,7 +3742,7 @@ def entry_1002(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(593)
+        char.攻击强化加成(成长词条计算(583, lv))
 
 
 def entry_902(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3729,7 +3751,7 @@ def entry_902(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(400 * 10)
+        char.攻击强化加成(成长词条计算(400, lv) * 10)
 
 
 def entry_903(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3738,7 +3760,7 @@ def entry_903(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(3260)
+        char.攻击强化加成(成长词条计算(3260, lv))
 
 
 def entry_905(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3749,6 +3771,7 @@ def entry_905(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         char.所有速度增加(0.15)
         char.技能冷却缩减(1, 100, 0.08, [50, 85, 100])
+        char.条件冷却加成("所有[除觉醒]", 0.08)
 
 
 def entry_910(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3757,7 +3780,7 @@ def entry_910(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2075)
+        char.攻击强化加成(成长词条计算(2075, lv))
 
 
 def entry_907(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3796,7 +3819,7 @@ def entry_914(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2668)
+        char.攻击强化加成(成长词条计算(2668, lv))
 
 
 def entry_917(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3842,7 +3865,7 @@ def entry_930(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(889 * 3)
+        char.攻击强化加成(成长词条计算(889, lv) * 3)
 
 
 def entry_932(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3861,6 +3884,7 @@ def entry_936(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(1, 100, 0.02 * 10, [50, 85, 100])
+        char.条件冷却恢复加成("所有[觉醒除外]", 0.2)
 
 
 def entry_937(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3869,7 +3893,7 @@ def entry_937(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(356 * 10)
+        char.攻击强化加成(成长词条计算(356, lv) * 10)
         char.移动速度增加(0.01 * 10)
 
 
@@ -3926,6 +3950,8 @@ def entry_879(char: Character = {}, mode=0, text=False, part='', lv=0):
         for skill in char.技能队列:
             if skill["无色消耗"] > 0:
                 skill["CDR"] *= 1.15
+        char.条件冷却加成("消耗无色", -0.15)
+        char.条件冷却加成("不消耗无色", 0.3)
     if mode == 1:
         pass
 
@@ -4877,7 +4903,7 @@ def entry_226(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(267 * 10)
+        char.攻击强化加成(成长词条计算(267, lv) * 10)
 
 
 def entry_228(char: Character = {}, mode: int = 0, text=False, part='', lv=0):
@@ -4942,7 +4968,7 @@ def entry_294(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(111 * 20)
+        char.攻击强化加成(成长词条计算(111, lv) * 20)
 
 
 def entry_296(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -5335,9 +5361,9 @@ def entry_376(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if boss_time == 1:
-            char.攻击强化加成(0)
+            char.攻击强化加成(成长词条计算(0, lv))
         elif boss_time == 2:
-            char.攻击强化加成(-0)
+            char.攻击强化加成(-成长词条计算(0, lv))
 
 
 def entry_377(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -5731,6 +5757,7 @@ def entry_75(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(1, 100, 0.3)
+        char.条件冷却恢复加成("所有", 0.3)
 
 
 def entry_222(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -5874,6 +5901,7 @@ def entry_1115(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         char.攻击速度增加(0.10)
         char.施放速度增加(0.15)
+        char.条件冷却加成("消耗无色", -0.2)
         for skill in char.技能队列:
             if skill["无色消耗"] == 0:
                 skill["CDR"] *= 1.2
@@ -5979,7 +6007,7 @@ def entry_117(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(416 * min(10, int(combo_num / 3)))
+        char.攻击强化加成(成长词条计算(416, lv) * min(10, int(combo_num / 3)))
 
 
 def entry_122(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6079,7 +6107,7 @@ def entry_891(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if combo_num >= 30:
-            char.攻击强化加成(2223)
+            char.攻击强化加成(成长词条计算(2223, lv))
 
 
 def entry_892(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6107,7 +6135,7 @@ def entry_911(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if combo_num >= 10:
-            char.攻击强化加成(3705)
+            char.攻击强化加成(成长词条计算(3705, lv))
             char.MP消耗量加成(1.75)
 
 
@@ -6128,6 +6156,7 @@ def entry_1044(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(1, 100, 0.1 * min(10, int(combo_num / 200)), [50, 85, 100])
+        char.条件冷却恢复加成("所有[觉醒除外]", 0.1 * min(10, int(combo_num / 200)))
 
 
 def entry_1242(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6136,8 +6165,8 @@ def entry_1242(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能恢复加成(1, 100, 0.25 - 0.05 *
-                    min(5, int(combo_num / 6)), [50, 85, 100])
+        char.技能恢复加成(1, 100, 0.25, [50, 85, 100])
+        char.条件冷却恢复加成("所有[觉醒除外]", 0.25)
 # endregion
 
 # region 施放冷却时间词条
@@ -6566,7 +6595,7 @@ def entry_165(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(0 * teammate_num)
+        char.攻击强化加成(成长词条计算(0, lv) * teammate_num)
 
 
 def entry_166(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6584,7 +6613,7 @@ def entry_1018(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(371 * teammate_num)
+        char.攻击强化加成(成长词条计算(371, lv) * teammate_num)
 
 
 def entry_1019(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6593,7 +6622,7 @@ def entry_1019(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(1112 * teammate_num)
+        char.攻击强化加成(成长词条计算(1112, lv) * teammate_num)
 
 
 def entry_1244(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6602,7 +6631,7 @@ def entry_1244(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(4001)
+        char.攻击强化加成(成长词条计算(4001, lv))
 
 
 # endregion
@@ -6665,7 +6694,7 @@ def entry_266(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(44 * min(60, enemy_num))
+        char.攻击强化加成(成长词条计算(44, lv) * min(60, enemy_num))
 
 
 def entry_283(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6675,6 +6704,7 @@ def entry_283(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能冷却缩减(1, 100, 0.04 * min(10, enemy_num), [50, 85, 100])
+        char.条件冷却加成("所有[除觉醒]", 0.04)
 
 
 def entry_289(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6729,7 +6759,8 @@ def entry_139(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(356 * min(10, enemy_num)*(1 if '出血' in state_type else 0))
+        char.攻击强化加成(成长词条计算(356, lv) * min(10, enemy_num)
+                    * (1 if '出血' in state_type else 0))
 
 
 def entry_140(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6738,7 +6769,8 @@ def entry_140(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(356 * min(10, enemy_num)*(1 if '中毒' in state_type else 0))
+        char.攻击强化加成(成长词条计算(356, lv) * min(10, enemy_num)
+                    * (1 if '中毒' in state_type else 0))
 
 
 def entry_141(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6747,7 +6779,8 @@ def entry_141(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(356 * min(10, enemy_num)*(1 if '灼烧' in state_type else 0))
+        char.攻击强化加成(成长词条计算(356, lv) * min(10, enemy_num)
+                    * (1 if '灼烧' in state_type else 0))
 
 
 def entry_142(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6756,7 +6789,8 @@ def entry_142(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(356 * min(10, enemy_num)*(1 if '感电' in state_type else 0))
+        char.攻击强化加成(成长词条计算(356, lv) * min(10, enemy_num)
+                    * (1 if '感电' in state_type else 0))
 
 
 def entry_143(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6885,6 +6919,7 @@ def entry_807(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(1, 100, 0.1*min(3, enemy_num), [50, 85, 100])
+        char.条件冷却恢复加成("所有[觉醒除外]", 0.1*min(3, enemy_num))
         if enemy_num > 0:
             char.技能攻击力加成(0.02)
 
@@ -6981,6 +7016,7 @@ def entry_194(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(45, 45, 0.03 * min(10, toughness_num))
+        char.条件冷却恢复加成("Lv45", 0.03 * min(10, toughness_num))
 
 
 def entry_195(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6989,7 +7025,7 @@ def entry_195(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(0 * toughness_num)
+        char.攻击强化加成(成长词条计算(0, lv) * toughness_num)
 
 
 def entry_200(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6999,6 +7035,7 @@ def entry_200(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(75, 75, 0.03 * min(10, toughness_num))
+        char.条件冷却恢复加成("Lv70", 0.03 * min(10, toughness_num))
 
 
 def entry_205(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7035,6 +7072,7 @@ def entry_286(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(95, 95, 0.03 * min(10, toughness_num))
+        char.条件冷却恢复加成("Lv95", 0.03 * min(10, toughness_num))
 
 
 def entry_287(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7044,6 +7082,7 @@ def entry_287(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(60, 60, 0.03 * min(10, toughness_num))
+        char.条件冷却恢复加成("Lv60", 0.03 * min(10, toughness_num))
 
 
 def entry_310(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7071,6 +7110,7 @@ def entry_362(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(80, 80, 0.03 * min(10, toughness_num))
+        char.条件冷却恢复加成("Lv80", 0.03 * min(10, toughness_num))
 
 
 def entry_367(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7080,6 +7120,7 @@ def entry_367(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(70, 70, 0.03 * min(10, toughness_num))
+        char.条件冷却恢复加成("Lv70", 0.03 * min(10, toughness_num))
 
 
 def entry_373(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7089,6 +7130,7 @@ def entry_373(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(35, 35, 0.03 * min(10, toughness_num))
+        char.条件冷却恢复加成("Lv35", 0.03 * min(10, toughness_num))
 
 
 def entry_374(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7098,6 +7140,7 @@ def entry_374(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(40, 40, 0.03 * min(10, toughness_num))
+        char.条件冷却恢复加成("Lv40", 0.03 * min(10, toughness_num))
 
 
 def entry_396(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7301,7 +7344,7 @@ def entry_380(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(0)
+        char.攻击强化加成(成长词条计算(0, lv))
 
 
 def entry_391(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7332,6 +7375,7 @@ def entry_1057(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.技能恢复加成(15, 35, 0.01*10)
+        char.条件冷却恢复加成("Lv15~35", 0.1)
         pass
 
 
@@ -7364,6 +7408,7 @@ def entry_1062(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.基础精通加成(0.15*3)
         char.技能冷却缩减(1, 100, - 0.08*3)
         char.技能倍率加成(1, 100, 0.05*3)
+        char.条件冷却加成("所有", -0.08*3)
         pass
 
 
@@ -7430,7 +7475,7 @@ def entry_1181(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if distance_num < 100:
-            char.攻击强化加成(2964)
+            char.攻击强化加成(成长词条计算(2964, lv))
 # endregion
 
 # region 进入地下城时相关
@@ -7453,7 +7498,7 @@ def entry_224(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(0)
+        char.攻击强化加成(成长词条计算(0, lv))
 
 
 def entry_997(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7463,7 +7508,7 @@ def entry_997(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.MP消耗量加成(1)
-        char.攻击强化加成(2223)
+        char.攻击强化加成(成长词条计算(2223, lv))
 
 
 def entry_998(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7484,6 +7529,7 @@ def entry_1103(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.攻击速度增加(0.05 * 10)
         char.施放速度增加(0.08 * 10)
         char.技能冷却缩减(1, 100, 0.05, [50, 85, 100])
+        char.条件冷却加成("所有[除觉醒]", 0.05)
         char.技能攻击力加成(-0.02)
 # endregion
 
@@ -7495,6 +7541,7 @@ def entry_236(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv95所有技能冷却时间 +30%, Lv80所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(95, 95, -0.3)
+        char.条件冷却加成("Lv95", -0.3)
         char.技能倍率加成(80, 80, 0.2)
     if mode == 1:
         pass
@@ -7505,6 +7552,7 @@ def entry_237(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv80所有技能冷却时间 +30%, Lv80所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(80, 80, -0.3)
+        char.条件冷却加成("Lv80", -0.3)
         char.技能倍率加成(95, 95, 0.2)
     if mode == 1:
         pass
@@ -7515,6 +7563,7 @@ def entry_241(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv35所有技能冷却时间 +30%, Lv35所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(35, 35, -0.3)
+        char.条件冷却加成("Lv35", -0.3)
         char.技能倍率加成(35, 35, 0.2)
     if mode == 1:
         pass
@@ -7525,6 +7574,7 @@ def entry_242(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv40所有技能冷却时间 +30%, Lv35所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(40, 40, -0.3)
+        char.条件冷却加成("Lv40", -0.3)
         char.技能倍率加成(35, 35, 0.2)
     if mode == 1:
         pass
@@ -7535,6 +7585,7 @@ def entry_243(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv40所有技能冷却时间 +30%, Lv40所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(40, 40, -0.3)
+        char.条件冷却加成("Lv40", -0.3)
         char.技能倍率加成(40, 40, 0.2)
     if mode == 1:
         pass
@@ -7545,6 +7596,7 @@ def entry_244(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv45所有技能冷却时间 +30%, Lv40所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(45, 45, -0.3)
+        char.条件冷却加成("Lv45", -0.3)
         char.技能倍率加成(40, 40, 0.2)
     if mode == 1:
         pass
@@ -7555,6 +7607,7 @@ def entry_250(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv45所有技能冷却时间 +30%, Lv45所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(45, 45, -0.3)
+        char.条件冷却加成("Lv45", -0.3)
         char.技能倍率加成(45, 45, 0.2)
     if mode == 1:
         pass
@@ -7565,6 +7618,7 @@ def entry_251(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv60所有技能冷却时间 +30%, Lv45所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(60, 60, -0.3)
+        char.条件冷却加成("Lv60", -0.3)
         char.技能倍率加成(45, 45, 0.2)
     if mode == 1:
         pass
@@ -7575,6 +7629,7 @@ def entry_255(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv60所有技能冷却时间 +30%, Lv60所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(60, 60, -0.3)
+        char.条件冷却加成("Lv60", -0.3)
         char.技能倍率加成(60, 60, 0.2)
     if mode == 1:
         pass
@@ -7585,6 +7640,7 @@ def entry_256(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv70所有技能冷却时间 +30%, Lv60所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(70, 70, -0.3)
+        char.条件冷却加成("Lv70", -0.3)
         char.技能倍率加成(60, 60, 0.2)
     if mode == 1:
         pass
@@ -7595,6 +7651,7 @@ def entry_260(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv70所有技能冷却时间 +30%, Lv70所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(70, 70, -0.3)
+        char.条件冷却加成("Lv70", -0.3)
         char.技能倍率加成(70, 70, 0.2)
     if mode == 1:
         pass
@@ -7605,6 +7662,7 @@ def entry_261(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv75所有技能冷却时间 +30%, Lv70所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(75, 75, -0.3)
+        char.条件冷却加成("Lv75", -0.3)
         char.技能倍率加成(70, 70, 0.2)
     if mode == 1:
         pass
@@ -7615,6 +7673,7 @@ def entry_262(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv75所有技能冷却时间 +30%, Lv75所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(75, 75, -0.3)
+        char.条件冷却加成("Lv75", -0.3)
         char.技能倍率加成(75, 75, 0.2)
     if mode == 1:
         pass
@@ -7625,6 +7684,7 @@ def entry_263(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "Lv80所有技能冷却时间 +30%, Lv75所有技能攻击力 +20%"
     if mode == 0:
         char.技能冷却缩减(80, 80, -0.3)
+        char.条件冷却加成("Lv80", -0.3)
         char.技能倍率加成(75, 75, 0.2)
     if mode == 1:
         pass
@@ -7671,6 +7731,7 @@ def entry_1121(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         # char.指令冷却缩减(0.15)
         # 暂未判断是否指令
+        char.条件冷却加成("手搓非快捷栏", 0.15)
         for i in char.技能栏:
             if i.所在等级 not in [50, 85, 100] and i.手搓 == True and i.名称 not in char.hotkey:
                 if i.是否有伤害 == 1:
@@ -7837,6 +7898,7 @@ def entry_273(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv45技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(45, 45, 0.2)
+        char.条件冷却加成("Lv45", 0.2)
     if mode == 1:
         pass
 
@@ -7846,6 +7908,7 @@ def entry_274(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv35技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(35, 35, 0.2)
+        char.条件冷却加成("Lv35", 0.2)
     if mode == 1:
         pass
 
@@ -7855,6 +7918,7 @@ def entry_279(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv40技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(40, 40, 0.2)
+        char.条件冷却加成("Lv40", 0.2)
     if mode == 1:
         pass
 
@@ -7864,6 +7928,7 @@ def entry_280(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv30技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(30, 30, 0.2)
+        char.条件冷却加成("Lv30", 0.2)
     if mode == 1:
         pass
 
@@ -7873,6 +7938,7 @@ def entry_314(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv60技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(60, 60, 0.2)
+        char.条件冷却加成("Lv60", 0.2)
     if mode == 1:
         pass
 
@@ -7882,6 +7948,7 @@ def entry_315(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv70技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(70, 70, 0.2)
+        char.条件冷却加成("Lv70", 0.2)
     if mode == 1:
         pass
 
@@ -7891,6 +7958,7 @@ def entry_320(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv20技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(20, 20, 0.2)
+        char.条件冷却加成("Lv20", 0.2)
     if mode == 1:
         pass
 
@@ -7900,6 +7968,7 @@ def entry_321(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv25技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(25, 25, 0.2)
+        char.条件冷却加成("Lv25", 0.2)
     if mode == 1:
         pass
 
@@ -7909,6 +7978,7 @@ def entry_327(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv95技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(95, 95, 0.2)
+        char.条件冷却加成("Lv95", 0.2)
     if mode == 1:
         pass
 
@@ -7918,6 +7988,7 @@ def entry_332(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv75技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(75, 75, 0.2)
+        char.条件冷却加成("Lv75", 0.2)
     if mode == 1:
         pass
 
@@ -7927,6 +7998,7 @@ def entry_333(char: Character = {}, mode=0, text=False, part='', lv=0):
         return "所有职业Lv80技能冷却时间 -20%"
     if mode == 0:
         char.技能冷却缩减(80, 80, 0.2)
+        char.条件冷却加成("Lv80", 0.2)
     if mode == 1:
         pass
 
@@ -8261,16 +8333,19 @@ def entry_822(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_823(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return "HP在70%以上：技能冷却时间 -10%(觉醒技能除外), HP在50%~70%：技能冷却时间 -12%(觉醒技能除外), HP在50%以下：技能冷却时间 -15%(觉醒技能除外)"
+        return "MP在70%以上：技能冷却时间 -10%(觉醒技能除外), HP在50%~70%：技能冷却时间 -12%(觉醒技能除外), HP在50%以下：技能冷却时间 -15%(觉醒技能除外)"
     if mode == 0:
         pass
     if mode == 1:
-        if hp_rate_num >= 70:
+        if mp_rate_num >= 70:
             char.技能冷却缩减(1, 100, 0.10, [50, 85, 100])
+            char.条件冷却加成("所有[除觉醒]", 0.1)
         elif hp_rate_num >= 50:
             char.技能冷却缩减(1, 100, 0.12, [50, 85, 100])
+            char.条件冷却加成("所有[除觉醒]", 0.12)
         else:
             char.技能冷却缩减(1, 100, 0.15, [50, 85, 100])
+            char.条件冷却加成("所有[除觉醒]", 0.15)
 
 
 def entry_824(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8291,6 +8366,7 @@ def entry_825(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         if hp_rate_num >= 90:
             char.技能恢复加成(1, 100, 0.10, [50, 85, 100])
+            char.条件冷却恢复加成("所有[除觉醒]", 0.1)
 
 
 def entry_826(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8308,8 +8384,9 @@ def entry_1077(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2223)
-        char.技能攻击力加成(0.05)
+        if hp_rate_num <= 50:
+            char.攻击强化加成(成长词条计算(2223, lv))
+            char.技能攻击力加成(0.05)
 
 
 def entry_1078(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8318,8 +8395,13 @@ def entry_1078(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(2668)
-        char.技能攻击力加成(0.05)
+        if hp_rate_num >= 80:
+            char.攻击强化加成(成长词条计算(445, lv))
+        elif hp_rate_num >= 50 and hp_rate_num < 80:
+            char.攻击强化加成(成长词条计算(2668, lv))
+        elif hp_rate_num < 50:
+            char.攻击强化加成(成长词条计算(2668, lv))
+            char.技能攻击力加成(0.05)
 
 
 # endregion
@@ -8356,7 +8438,7 @@ def entry_813(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(267 * 10)
+        char.攻击强化加成(成长词条计算(267, lv) * 10)
         if mp_rate_num < 60:
             char.技能攻击力加成(-0.04)
 
@@ -8397,7 +8479,7 @@ def entry_830(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if mp_rate_num < 10:
-            char.攻击强化加成(3557)
+            char.攻击强化加成(成长词条计算(3557, lv))
 
 
 def entry_831(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8407,7 +8489,7 @@ def entry_831(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if mp_rate_num < 20:
-            char.攻击强化加成(2223)
+            char.攻击强化加成(成长词条计算(2223, lv))
 
 
 def entry_832(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8425,8 +8507,8 @@ def entry_833(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        if mp_rate_num > 90:
-            char.攻击强化加成(711 * 5)
+        if mp_rate_num >= 90:
+            char.攻击强化加成(成长词条计算(711, lv) * 5)
 
 
 def entry_1079(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8436,11 +8518,11 @@ def entry_1079(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if mp_rate_num >= 90:
-            char.攻击强化加成(445)
+            char.攻击强化加成(成长词条计算(445, lv))
         elif mp_rate_num >= 60:
-            char.攻击强化加成(2668)
+            char.攻击强化加成(成长词条计算(2668, lv))
         else:
-            char.攻击强化加成(4298)
+            char.攻击强化加成(成长词条计算(4298, lv))
 # endregion
 
 # region 装备指令相关
@@ -8582,8 +8664,9 @@ def entry_841(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(222 * min(20, gold_num))
+        char.攻击强化加成(成长词条计算(222, lv) * min(20, gold_num))
 # endregion
+
 
 # region 条件技能等级
 
