@@ -111,7 +111,7 @@ class Character(角色属性):
 
         self.__物理攻击力: int = 65
         self.__魔法攻击力: int = 65
-        self.__独立攻击力: int = 1045
+        self.__独立攻击力: int = 1134
         self.__火属性强化: float = 13
         self.__冰属性强化: float = 13
         self.__光属性强化: float = 13
@@ -1505,7 +1505,7 @@ class Character(角色属性):
         temp = []
         from core.baseClass.jade import get_jade_setinfo, get_jadefunc_by_id
         for jade in get_jade_setinfo():
-            if jade["id"] > 26001:
+            if jade["id"] > 26001 and jade["id"] < 26200:
                 char = deepcopy(self)
                 func = get_jadefunc_by_id(jade["id"])
                 func(char, value=jade["max"])
