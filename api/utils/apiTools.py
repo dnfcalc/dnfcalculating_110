@@ -1,5 +1,6 @@
 import json
 from logging import Logger
+import sys
 import traceback
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse, Response
@@ -30,6 +31,9 @@ def register_exception(app: FastAPI):
     @app.exception_handler(Exception)
     async def all_exception_handler(request: Request, ex: Exception):
         api = str(request.url).split("api/")[1]
+        info = "  ".join(traceback.format_exc().replace(
+            "  ", "").split("\n")[-4:])
+        # traceback.print_last(sys.exc_info())
         return JSONResponse(
             status_code=status.HTTP_200_OK,
             # 一定要加
@@ -39,7 +43,7 @@ def register_exception(app: FastAPI):
             content={
                 "code": 500,
                 "message":
-                f"{api}:{str(ex)}",
+                f"{api}:{info}",
                 "data": []
             })
 

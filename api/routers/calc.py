@@ -13,9 +13,9 @@ calcRouter = APIRouter()
 
 @calcRouter.post(path="/calc")
 async def calc(setInfo=Body(None), setName=Body(None), state: AlterState = Depends(authorize)):
-    alter = "spitfire_female"
+    alter = None
     if(state is None or state.alter is None):
-        alter = "spitfire_female"
+        raise Exception("无效token")
     else:
         alter = state.alter
         # raise Exception("无效token")
@@ -33,9 +33,9 @@ def get_result(id):
 
 @calcRouter.post(path="/calc/single")
 async def calc_single(setInfo=Body(None), setName=Body(None), state: AlterState = Depends(authorize)):
-    alter = "spitfire_female"
+    alter = None
     if(state is None or state.alter is None):
-        alter = "spitfire_female"
+        raise Exception("无效token")
     else:
         alter = state.alter
         # raise Exception("无效token")
