@@ -488,7 +488,7 @@ class classChange(Character):
         self.实际名称 = 'glacial_master'
         self.名称 = '知源·冰结师'
         self.角色 = '魔法师(男)'
-        self.角色类型 = '输出'
+
         self.职业 = '冰结师'
         self.武器选项 = ['魔杖', '法杖']
         self.输出类型选项 = ['魔法百分比']

@@ -495,7 +495,7 @@ class classChange(Character):
         self.实际名称 = 'launcher_female'
         self.名称 = '重霄·枪炮师'
         self.角色 = '神枪手(女)'
-        self.角色类型 = '输出'
+
         self.职业 = '枪炮师'
         # 用来筛CP武器的
         self.转职 = '枪炮师(女)'

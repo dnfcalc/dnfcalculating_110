@@ -1,7 +1,7 @@
 from math import *
-from core.baseClass.skill import 技能
+
 from core.baseClass.character import Character
-from core.baseClass.skill import 主动技能, 被动技能
+from core.baseClass.skill import 主动技能, 技能, 被动技能
 
 
 class 技能0(主动技能):
@@ -600,7 +600,6 @@ class classChange(Character):
         self.实际名称 = 'creator'
         self.名称 = '知源·缔造者'
         self.角色 = '魔法师(女)'
-        self.角色类型 = '输出'
         self.职业 = '缔造者'
         # 用来筛CP武器的
         self.转职 = '缔造者'

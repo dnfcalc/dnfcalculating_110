@@ -511,7 +511,7 @@ class classChange(Character):
         self.实际名称 = 'berserker'
         self.名称 = '极诣·狂战士'
         self.角色 = '鬼剑士(男)'
-        self.角色类型 = '输出'
+        self.类型 = '输出'
         self.职业 = '狂战士'
         self.武器选项 = ['太刀', '钝器', '巨剑', '短剑']
         self.输出类型选项 = ['物理固伤']

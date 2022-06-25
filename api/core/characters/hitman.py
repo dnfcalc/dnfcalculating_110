@@ -566,7 +566,7 @@ class classChange(Character):
         self.实际名称 = 'hitman'
         self.名称 = '苍暮·暗刃'
         self.角色 = '枪剑士'
-        self.角色类型 = '输出'
+
         self.职业 = '暗刃'
         self.武器选项 = ['长刀']
         self.输出类型选项 = ['物理百分比']

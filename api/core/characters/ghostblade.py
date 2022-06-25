@@ -560,7 +560,7 @@ class classChange(Character):
         self.实际名称 = 'ghostblade'
         self.名称 = '极诣·剑影'
         self.角色 = '鬼剑士(男)'
-        self.角色类型 = '输出'
+
         self.职业 = '剑影'
         self.武器选项 = ['太刀']
         self.输出类型选项 = ['物理百分比']
