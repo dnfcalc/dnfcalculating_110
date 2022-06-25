@@ -1,6 +1,5 @@
-from core.baseClass.skill import 技能
 from core.baseClass.character import Character
-from core.baseClass.skill import 主动技能, 被动技能
+from core.baseClass.skill import 主动技能, 技能, 被动技能
 
 
 class 主动技能(主动技能):
@@ -776,7 +775,6 @@ class classChange(Character):
         self.实际名称 = 'brawler_female'
         self.名称 = '归元·街霸'
         self.角色 = '格斗家(女)'
-        self.角色类型 = '输出'
         self.职业 = '街霸'
         # 用来筛CP武器的
         self.转职 = '街霸(女)'

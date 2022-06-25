@@ -17,16 +17,34 @@ def emblems_25001(char: Character = {}, text=False):
     char.基础属性加成(力智=35)
 
 
+def emblems_25021(char: Character = {}, text=False):
+    if text:
+        return "(0, '戒指，腰带，皮肤，光环', '红色', '玲珑', '体精+35')"
+    char.基础属性加成(体精=35)
+
+
 def emblems_25002(char: Character = {}, text=False):
     if text:
         return "(0, '戒指，腰带，皮肤，光环', '红色', '灿烂', '力智+25')"
     char.基础属性加成(力智=25)
 
 
+def emblems_25022(char: Character = {}, text=False):
+    if text:
+        return "(0, '戒指，腰带，皮肤，光环', '红色', '玲珑', '体精+25')"
+    char.基础属性加成(体精=25)
+
+
 def emblems_25003(char: Character = {}, text=False):
     if text:
         return "(0, '戒指，腰带，皮肤，光环', '红色', '华丽', '力智+17')"
     char.基础属性加成(力智=17)
+
+
+def emblems_25023(char: Character = {}, text=False):
+    if text:
+        return "(0, '戒指，腰带，皮肤，光环', '红色', '玲珑', '体精+17')"
+    char.基础属性加成(体精=17)
 
 
 def emblems_25004(char: Character = {}, text=False):
@@ -62,6 +80,18 @@ def emblems_25008(char: Character = {}, text=False):
     char.基础属性加成(力智=10)
 
 
+def emblems_25027(char: Character = {}, text=False):
+    if text:
+        return "(0, '头肩，项链', '黄色', '灿烂', '体精+15')"
+    char.基础属性加成(体精=15)
+
+
+def emblems_25028(char: Character = {}, text=False):
+    if text:
+        return "(0, '头肩，项链', '黄色', '华丽', '体精+10')"
+    char.基础属性加成(体精=10)
+
+
 def emblems_25009(char: Character = {}, text=False):
     if text:
         return "(0, '手镯，鞋，皮肤，光环', '蓝色', '玲珑', '三攻+20')"
@@ -80,23 +110,8 @@ def emblems_25011(char: Character = {}, text=False):
     char.基础属性加成(三攻=10)
 
 
-def emblems_25012(char: Character = {}, text=False):
-    if text:
-        return "(0, '上衣，下装，戒指，腰带，手镯，鞋，皮肤，光环', '其它', '玲珑', '其它效果')"
-
-
-def emblems_25013(char: Character = {}, text=False):
-    if text:
-        return "(0, '上衣，下装，戒指，腰带，手镯，鞋，皮肤，光环', '其它', '灿烂', '其它效果')"
-
-
-def emblems_25014(char: Character = {}, text=False):
-    if text:
-        return "(0, '上衣，下装，戒指，腰带，手镯，鞋，皮肤，光环', '其它', '华丽', '其它效果')"
-
-
 # 徽章效果id范围 25001~25999
-for i in range(25000, 25015):
+for i in range(25000, 25030):
     try:
         if i not in emblems_func_list.keys():
             emblems_func_list[i] = eval('emblems_{}'.format(i))

@@ -8,19 +8,19 @@ from core.baseClass.character import Character
 
 class 男圣骑士护石0:
     def __init__(self):
-        self.name = '天使圣歌'
-        self.skill = '勇气圣歌'
+        self.name = '绝对壁垒'
+        self.skill = '圣光球'
         pass
 
     def effect(self, 角色: Buffer):
-        角色.辅助属性加成(buff百分比力智=0.04)
+        角色.辅助属性加成(buff百分比力智=0.06)
         pass
 
 
 class 男圣骑士护石1:
     def __init__(self):
-        self.name = '奇迹之光'
-        self.skill = '忏悔之雷'
+        self.name = '附庸的生命'
+        self.skill = '忏悔之锤'
 
     def effect(self, 角色: Buffer):
         角色.辅助属性加成(buff百分比力智=0.06)
@@ -28,28 +28,28 @@ class 男圣骑士护石1:
 
 class 男圣骑士护石2:
     def __init__(self):
-        self.name = '神圣十字'
-        self.skill = '神光十字'
+        self.name = '米歇尔的审判'
+        self.skill = '正义审判'
         pass
 
     def effect(self, 角色: Buffer):
-        角色.辅助属性加成(buff百分比力智=0.06)
+        角色.辅助属性加成(buff百分比力智=0.04)
 
 
 class 男圣骑士护石3:
     def __init__(self):
-        self.name = '乌列尔的庇佑'
-        self.skill = '圣佑之阵'
+        self.name = '圣光奇袭'
+        self.skill = '圣光突袭'
         pass
 
     def effect(self, 角色: Buffer):
-        角色.辅助属性加成(buff百分比力智=0.06)
+        角色.辅助属性加成(buff百分比力智=0.08)
 
 
 class 男圣骑士护石4:
     def __init__(self):
-        self.name = '光之祈祷'
-        self.skill = '忏悔重击'
+        self.name = '神圣操控'
+        self.skill = '神圣之矛'
         pass
 
     def effect(self, 角色: Buffer):
@@ -58,8 +58,8 @@ class 男圣骑士护石4:
 
 class 男圣骑士护石5:
     def __init__(self):
-        self.name = '米迦勒的圣光球'
-        self.skill = '圣光普照'
+        self.name = '天堂结界'
+        self.skill = '圣佑结界'
         pass
 
     def effect(self, 角色: Buffer):
@@ -68,12 +68,12 @@ class 男圣骑士护石5:
 
 class 男圣骑士护石6:
     def __init__(self):
-        self.name = '圣洁之源'
-        self.skill = '圣洁之翼'
+        self.name = '神圣守护'
+        self.skill = '神圣之光'
         pass
 
     def effect(self, 角色: Buffer):
-        角色.辅助属性加成(buff百分比力智=0.08)
+        角色.辅助属性加成(buff百分比力智=0.06)
 
 
 男圣骑士护石组合 = (男圣骑士护石0(), 男圣骑士护石1(), 男圣骑士护石2(),
@@ -143,6 +143,8 @@ class 神启·圣骑士技能2(辅助职业主动技能):
 
     def 结算统计(self, context: Buffer):
         buffer_power = context.BUFF量()
+
+        print(self.适用数值)
 
         新词条倍率 = (((self.适用数值 + 4348) / 620 + 1) *
                  (buffer_power + 3488) * 0.0000357) if buffer_power > 0 else 0
@@ -250,18 +252,7 @@ class 神启·圣骑士技能8(辅助职业三觉技能):
 
 class classChange(Character):
     def __init__(self):
-        self.实际名称 = 'crusader_male'
-        self.名称 = '神启·圣骑士'
-        self.角色 = '圣职者(男)'
-        self.角色类型 = '辅助'
-        self.职业 = '圣骑士'
-        self.武器选项 = ['十字架']
-        self.输出类型选项 = ['魔法固伤']
-        self.防具精通属性 = ['体力', '精神']
-        self.类型 = '体力'
-        self.武器类型 = '十字架'
-        self.防具类型 = '板甲'
-        self.适用属性 = '体力'
+
         self.技能序号 = {}
         技能栏 = []
         i = 0
@@ -289,6 +280,17 @@ class classChange(Character):
         self.buff = 1.70
         self.护石技能 = [i.skill for i in 男圣骑士护石组合]
 
+        self.实际名称 = 'crusader_male'
+        self.名称 = '神启·圣骑士'
+        self.角色 = '圣职者(男)'
+        self.类型 = '辅助'
+        self.职业 = '圣骑士'
+        self.武器选项 = ['十字架']
+        self.输出类型选项 = ['魔法固伤']
+        self.防具精通属性 = ['体力', '精神']
+        self.武器类型 = '十字架'
+        self.防具类型 = '板甲'
+        self.适用属性 = '体力'
         super().__init__()
 
     def 护石计算(self):

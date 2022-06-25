@@ -771,7 +771,7 @@ class classChange(Character):
         self.名称 = '极诣·阿修罗'
         self.角色 = '鬼剑士(男)'
         self.职业 = '阿修罗'
-        self.角色类型 = '输出'
+        self.类型 = '输出'
 
         self.武器选项 = ['太刀', '钝器', '巨剑', '短剑']
 

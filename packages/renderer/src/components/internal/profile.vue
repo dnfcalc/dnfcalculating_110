@@ -23,6 +23,7 @@
     buff_level: number
     awake_name: string
     awake_level: number
+    apply_value: number
   }
 
   interface IDetail {
@@ -34,6 +35,8 @@
     站街?: {
       智力?: number
       力量?: number
+      体力?: number
+      精神?: number
       物理攻击?: number
       魔法攻击?: number
       独立攻击?: number
@@ -259,6 +262,7 @@
         if (!properties || !town) {
           return []
         }
+
         return (
           <>
             <div class="details">
@@ -376,18 +380,78 @@
         if (!properties || !town) {
           return []
         }
+
+        let coreProperty: JSX.Element
+
+        if (town.智力) {
+        }
+
         return (
           <>
             <div class="details">
               {town.智力 && (
-                <div class="de-item">
-                  <div class="flex items-center">
-                    <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
-                    <div class="text-hex-836832 name">智力</div>
-                  </div>
-                  <div class="text-hex-3ea74e">{town.智力?.toFixed(0)}</div>
-                </div>
+                <calc-tooltip class="de-item" position="bottom">
+                  {{
+                    default() {
+                      return (
+                        <>
+                          <div class="flex items-center">
+                            <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
+                            <div class="text-hex-836832 name">智力</div>
+                          </div>
+                          <div class="text-hex-3ea74e">{town.智力?.toFixed(0)}</div>
+                        </>
+                      )
+                    },
+                    popper() {
+                      return <div class="text-white py-1 px-2">{`适用数值:${properties.apply_value}`}</div>
+                    }
+                  }}
+                </calc-tooltip>
               )}
+
+              {town.体力 && (
+                <calc-tooltip class="de-item" position="bottom">
+                  {{
+                    default() {
+                      return (
+                        <>
+                          <div class="flex items-center">
+                            <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.体力 + ".png"} />
+                            <div class="text-hex-836832 name">体力</div>
+                          </div>
+                          <div class="text-hex-3ea74e">{town.体力?.toFixed(0)}</div>
+                        </>
+                      )
+                    },
+                    popper() {
+                      return <div class="text-white py-1 px-2">{`适用数值:${properties.apply_value}`}</div>
+                    }
+                  }}
+                </calc-tooltip>
+              )}
+
+              {town.精神 && (
+                <calc-tooltip class="de-item" position="bottom">
+                  {{
+                    default() {
+                      return (
+                        <>
+                          <div class="flex items-center">
+                            <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.精神 + ".png"} />
+                            <div class="text-hex-836832 name">精神</div>
+                          </div>
+                          <div class="text-hex-3ea74e">{town.精神?.toFixed(0)}</div>
+                        </>
+                      )
+                    },
+                    popper() {
+                      return <div class="text-white py-1 px-2">{`适用数值:${properties.apply_value}`}</div>
+                    }
+                  }}
+                </calc-tooltip>
+              )}
+
               <calc-tooltip class="de-item" position="bottom">
                 {{
                   default() {

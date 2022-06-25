@@ -267,12 +267,11 @@ class classChange(Character):
         self.实际名称 = 'enchantress'
         self.名称 = '知源·小魔女'
         self.角色 = '魔法师(女)'
-        self.角色类型 = '辅助'
+        self.类型 = '辅助'
         self.职业 = '小魔女'
         self.武器选项 = ['扫把']
         self.输出类型选项 = ['魔法固伤']
         self.防具精通属性 = ['智力']
-        self.类型 = '智力'
         self.武器类型 = '扫把'
         self.防具类型 = '板甲'
         self.技能序号 = {}

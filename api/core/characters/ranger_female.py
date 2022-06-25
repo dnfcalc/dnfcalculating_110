@@ -511,7 +511,7 @@ class classChange(Character):
         self.实际名称 = 'ranger_female'
         self.名称 = '重霄·漫游枪手'
         self.角色 = '神枪手(女)'
-        self.角色类型 = '输出'
+
         self.职业 = '漫游枪手'
         # 用来筛CP武器的
         self.转职 = '漫游枪手(女)'

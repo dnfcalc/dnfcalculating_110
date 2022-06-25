@@ -59,6 +59,8 @@ class Character(角色属性):
     输出类型选项: List[str] = []
     防具精通属性: List[str] = []
     排行类型 = '物理百分比'
+    适用属性 = '智力'
+    适用数值 = 0
     类型 = ''
     武器类型 = ''
     防具类型 = ''
@@ -93,7 +95,6 @@ class Character(角色属性):
         self.__BUFF补正智力: int = 0
         self.__BUFF补正体力: int = 0
         self.__BUFF补正精神: int = 0
-        self.适用属性 = '智力'
 
         self.__力量: int = 0
         self.__智力: int = 0
@@ -196,7 +197,7 @@ class Character(角色属性):
         info["alter"] = self.实际名称
         info["name"] = self.名称
         info["character"] = self.职业
-        info["role"] = 'buffer' if self.角色类型 == '辅助' else 'delear'
+        info["role"] = 'buffer' if self.类型 == '辅助' else 'delear'
         info["weapon_types"] = self.武器选项
         info["carry_type_list"] = self.输出类型选项
         info["armor"] = self.防具类型
@@ -264,7 +265,7 @@ class Character(角色属性):
             # 时装
             if skill.所在等级 <= 95:
                 clothes_coat.append(skill.名称)
-        if self.角色类型 == '辅助':
+        if self.类型 == '辅助':
             talisman += self.护石技能
         info['skills'] = skillInfo
         info['rune'] = rune
@@ -749,7 +750,7 @@ class Character(角色属性):
         self.hotkey = setinfo
 
     def __set_char(self, info):
-        self.类型 = info['carry_type']
+        self.类型 = info['carry_type'] if self.类型 != '辅助' else self.类型
         self.buff = info['buff_ratio'] / 100 + 1
         self.护石栏 = info['talisman_set']
         self.符文 = info['rune_set']
@@ -787,38 +788,41 @@ class Character(角色属性):
                 "lv": i.等级
             }
         self.职业特殊计算()
-        if self.角色类型 != '辅助':
+        if self.类型 != '辅助':
             self.__CD倍率计算()
             self.__加算冷却计算()
             self.__被动倍率计算()
             self.伤害指数计算()
 
     def 适用数值计算(self):
-        self.__进图智力 = self.__智力
-        self.__进图体力 = self.__体力
-        self.__进图精神 = self.__精神
+        进图智力 = 0
+        进图体力 = 0
+        进图精神 = 0
         for skill in self.技能栏:
             if skill.是否启用:
                 结算 = skill.结算统计(self)
-                self.__BUFF补正智力 += 结算[2]
-                self.__BUFF补正体力 += 结算[3]
-                self.__BUFF补正精神 += 结算[4]
                 if skill.站街生效:
                     self.__智力 += 结算[2]
                     self.__体力 += 结算[3]
                     self.__精神 += 结算[4]
+                    print('zhanjie', self.__体力)
+                else:
+                    进图智力 += 结算[2]
+                    进图体力 += 结算[3]
+                    进图精神 += 结算[4]
+                    print('jintu', 进图体力)
 
         进图 = 0
         BUFF补正 = 0
 
         if self.适用属性 == '体力':
-            进图 = self.__进图体力
+            进图 = self.__体力 + 进图体力
             BUFF补正 = self.__BUFF补正体力
         elif self.适用属性 == '精神':
-            进图 = self.__进图精神
+            进图 = self.__精神 + 进图精神
             BUFF补正 = self.__BUFF补正精神
         else:
-            进图 = self.__进图智力
+            进图 = self.__智力 + 进图智力
             BUFF补正 = self.__BUFF补正智力
 
         awake = self.get_skill_by_name('一次觉醒')
@@ -833,12 +837,16 @@ class Character(角色属性):
         buff.BUFF力智 = self.__buff固定力智
         buff.BUFF三攻per = self.__buff百分比三攻
         buff.BUFF三攻 = self.__buff固定三攻
-        print('copaosee:', self.get_skill_by_name(
-            'BUFF').适用数值, 进图, BUFF补正, self.类型 == '智力')
 
-        return 进图
+        self.适用数值 = 进图
+        print('copaosee:', self.适用数值, [
+              self.__智力, self.__体力, self.__精神], 进图, BUFF补正)
 
     def 站街系数(self):
+        if self.适用属性 == '体力':
+            return self.__体力
+        elif self.适用属性 == '精神':
+            return self.__精神
         return self.__智力
 
     def 提升率计算(self, 总数据):
@@ -892,7 +900,7 @@ class Character(角色属性):
         return data
 
     def 结果计算(self):
-        if self.角色类型 == '辅助':
+        if self.类型 == '辅助':
             return self.辅助计算()
         else:
             return self.伤害计算()
@@ -1140,19 +1148,29 @@ class Character(角色属性):
             力量 += 精通数值
         if '智力' in self.防具精通属性:
             智力 += 精通数值
-        if temp.等级 == 105 and self.角色类型 == '辅助':
-            self.技能等级加成('主动', 30, 30, 1)
-            self.技能等级加成('主动', 50, 50, 1)
+
+        if temp.等级 == 105:
+
+            if self.类型 == '辅助':
+                self.技能等级加成('主动', 30, 30, 1)
+                self.技能等级加成('主动', 50, 50, 1)
         self.基础属性加成(力量=力量, 智力=智力)
 
     def __增幅计算(self, temp: equipment) -> None:
         if self.打造详情.get(temp.部位, {}).get('cursed_type', 1) == 1:
             x = 增幅计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
-            if '物理' in self.类型 or '力量' in self.类型:
-                self.__力量 += x
-            else:
-                self.__智力 += x
+            if self.类型 == '物理百分比' or self.类型 == '物理固伤':
+                self.基础属性加成(力量=x)
+            elif self.类型 == '魔法百分比' or self.类型 == '魔法固伤':
+                self.基础属性加成(智力=x)
+            elif self.类型 == '辅助':
+                if self.适用属性 == '体力':
+                    self.基础属性加成(体力=x)
+                elif self.适用属性 == '精神':
+                    self.基础属性加成(精神=x)
+                else:
+                    self.基础属性加成(智力=x)
         # if self.是否增幅[i] and temp.所属套装 != '智慧产物':
         #    x = 增幅计算(temp.等级, temp.品质, self.强化等级[i])
 
@@ -1161,13 +1179,13 @@ class Character(角色属性):
 
     def __首饰计算(self, temp: equipment) -> None:
         self.基础属性加成(**temp.__dict__)
-        if temp.等级 == 105 and self.角色类型 == '辅助':
+        if temp.等级 == 105 and self.类型 == '辅助':
             self.技能等级加成('主动', 30, 30, 1)
             self.技能等级加成('主动', 50, 50, 1)
 
     def __特殊装备计算(self, temp: equipment) -> None:
         self.基础属性加成(**temp.__dict__)
-        if temp.等级 == 105 and self.角色类型 == '辅助':
+        if temp.等级 == 105 and self.类型 == '辅助':
             self.技能等级加成('主动', 30, 30, 1)
             self.技能等级加成('主动', 50, 50, 1)
             if temp.品质 == '史诗' and temp.部位 == '魔法石':
@@ -1183,11 +1201,11 @@ class Character(角色属性):
             # if temp.所属套装 != '智慧产物':
             x = 左右计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
-            self.基础属性加成(力智=x)
+            self.基础属性加成(四维=x)
 
     def __武器计算(self, temp: equipment) -> None:
         self.基础属性加成(**temp.__dict__)
-        if temp.等级 == 105 and self.角色类型 == '辅助':
+        if temp.等级 == 105 and self.类型 == '辅助':
             self.技能等级加成('主动', 30, 30, 3)
             self.技能等级加成('主动', 50, 50, 2)
             if temp.品质 == '史诗':
@@ -1201,7 +1219,7 @@ class Character(角色属性):
         独立攻击力 = 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
 
         四维 = 0
-        if self.角色类型 == '辅助':
+        if self.类型 == '辅助':
             四维 = 锻造四维(temp.等级, temp.品质, info.get('dz_number', 0))
 
         self.基础属性加成(物理攻击力=物理攻击力, 魔法攻击力=魔法攻击力, 独立攻击力=独立攻击力, 四维=四维)
@@ -1521,14 +1539,16 @@ class Character(角色属性):
         info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
         self.calc_init(info, equipList)
         jade = []
-        if withJade and self.角色类型 != '辅助':
+        if withJade and self.类型 != '辅助':
             jade = self.jade_upgrade()
         self.__计算前预处理()
         temp = self.结果计算()
         calc_info = {}
 
+        if self.类型 == '辅助':
+            calc_info[self.适用属性] = self.站街系数()
         # print(self.skills_passive)
-        if self.类型 == '物理百分比':
+        elif self.类型 == '物理百分比':
             calc_info['力量'] = self.站街力量()
             calc_info['物理攻击'] = self.站街物理攻击力()
         elif self.类型 == '魔法百分比':
@@ -1572,7 +1592,7 @@ class Character(角色属性):
             'id': uuid1().hex,
             'alter': self.实际名称,
             'name': self.名称,
-            'role': 'buffer' if self.角色类型 == '辅助' else 'delear',
+            'role': 'buffer' if self.类型 == '辅助' else 'delear',
             'forget_set': info['forge_set'],
             'equips': list(map(lambda x: equ.get_json(x), self.装备栏)),
             'info': {
@@ -1605,6 +1625,7 @@ class Character(角色属性):
                     '无色消耗': temp['无色消耗'],
                     '条件冷却': self.__条件冷却,
                     "条件恢复": self.__条件冷却恢复,
+                    'apply_value': self.适用数值,
                     'buff_level': buff.等级,
                     'buff_name': buff.名称,
                     'awake_level': awake.等级,
