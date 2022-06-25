@@ -97,7 +97,7 @@
           return renderList(Object.values(res.skills), skill => {
             return (
               <tr>
-                <td width="12%" class=" h-9 leading-9">
+                <td width="12%" class="h-9">
                   <calc-tooltip class="flex justify-center" position="right">
                     {{
                       default() {
@@ -161,14 +161,17 @@
         temp.sort((a, b) => b.order - a.order)
         return renderList(temp, skill => (
           <tr>
-            <td width="12%" class=" h-9 leading-9">
-              <calc-tooltip class="flex justify-center" position="right">
+            <td width="12%" class=" h-9">
+              <calc-tooltip class="flex items-center justify-center" position="right">
                 {{
                   default() {
                     return (
                       <>
-                        <div style="position:relative">
+                        <div style="position:relative" class="w-28px h-28px">
                           <img src={skill_icon(characterStore.alter, skill.name)} />
+                          <div class="size-11" data-text={"Lv " + res.skills[skill.name].level}>
+                            Lv&nbsp;{res.skills[skill.name].level}
+                          </div>
                         </div>
                       </>
                     )
@@ -198,11 +201,48 @@
         ))
       }
 
+      function renderTotal() {
+        if (res.role == "buffer") {
+          return (
+            <tr>
+              <td width="12%" class="h-5">
+                总和
+              </td>
+              <td width="12%">-</td>
+              <td width="16%">{transformNum(res.total_data[2])}</td>
+              <td width="16%">{transformNum(res.total_data[3])}</td>
+            </tr>
+          )
+        }
+        return (
+          <tr>
+            <td width="12%" class="h-5 leading-5">
+              总和
+            </td>
+            <td width="12%" class="h-5 text-center">
+              -
+            </td>
+            <td width="12%" class="h-5 text-center">
+              -
+            </td>
+            <td width="24%" class="h-5">
+              {transformNum(res.total_data[0])}
+            </td>
+            <td width="24%" class="h-5">
+              -
+            </td>
+            <td width="14%" class="h-5  pr-2">
+              -
+            </td>
+          </tr>
+        )
+      }
+
       const skill_passive = computed(() => {
         let temp: ISkillPassive[] = []
         Object.keys(res.skills_passive).forEach(name => {
           let skill = res.skills_passive[name]
-          console.log(skill.info)
+          //   console.log(skill.info)
           //   console.log(res.skills_passive[name])
           if (skill.info.length > 0) {
             temp.push({
@@ -271,35 +311,52 @@
             <div class="flex h-full w-266px justify-center">
               <Profile total-data={res.total_data} role={res.role} equList={res.equips} class="!m-0 !p-0" details={res.info} standardSum={store.standard?.total_data}></Profile>
             </div>
-            <table class="h-full bg-hex-000000/60 flex-1 ml-1 p-4 block overflow-y-hidden " style="border:1px solid rgba(255,255,255,0.15)">
-              <thead class="bg-hex-000000/40 text-white w-full" style="border:1px solid rgba(255,255,255,0.15)">
-                <tr class="bg-black h-4 !text-hex-B2966B">
+            <table class="h-full bg-hex-000000/60 flex-1 ml-1 p-4 block overflow-hidden" style="border:1px solid rgba(255,255,255,0.15);">
+              <thead class="text-white w-full bg-hex-000000/40" style="border-left:1px solid rgba(255,255,255,0.15);border-right:1px solid rgba(255,255,255,0.15)">
+                <tr class="bg-hex-000000/40 h-4 !text-hex-B2966B">
                   {renderList(headers.value, head => {
-                    return <th width={head.width}>{head.title}</th>
+                    return (
+                      <th class="item-head" width={head.width}>
+                        {head.title}
+                      </th>
+                    )
                   })}
                 </tr>
               </thead>
 
-              <tbody class="text-white skills overflow-y-auto block" style="height:calc(100% - 96px)">
+              <tbody class="text-white w-full skills overflow-y-auto block m-0 p-0 bg-hex-000000/40" style="height:calc(100% - 86px);border:1px solid rgba(255,255,255,0.15);border-top:none">
                 {renderSkills()}
               </tbody>
-              <div class="flex h-8  p-1 items-center">
-                {renderList(skill_passive.value, skill => (
-                  <div class="mr-1">
-                    <calc-tooltip z={9} position="top">
-                      {{
-                        default() {
-                          return <img src={skill_icon(characterStore.alter, skill.name)} />
-                        },
-                        popper() {
-                          return skill_passive_tooltip(skill)
-                        }
-                      }}
-                    </calc-tooltip>
-                  </div>
-                ))}
-              </div>
-              <tr class="bottom h-8 w-full p-1 block"></tr>
+
+              <tbody class="h-6 w-full m-0 p-0 block bg-hex-000000/40 text-white" style="border-left:1px solid rgba(255,255,255,0.15);border-right:1px solid rgba(255,255,255,0.15)">
+                {renderTotal()}
+              </tbody>
+
+              <tr class="bottom h-10 w-full m-0 p-0 block bg-hex-000000/40">
+                <div class="flex h-10 ml-1 items-center">
+                  {renderList(skill_passive.value, skill => (
+                    <div class="mr-1">
+                      <calc-tooltip z={9} position="top">
+                        {{
+                          default() {
+                            return (
+                              <div style="position:relative">
+                                <img src={skill_icon(characterStore.alter, skill.name)} />
+                                <div class="size-11" data-text={"Lv " + skill.lv}>
+                                  Lv&nbsp;{skill.lv}
+                                </div>
+                              </div>
+                            )
+                          },
+                          popper() {
+                            return skill_passive_tooltip(skill)
+                          }
+                        }}
+                      </calc-tooltip>
+                    </div>
+                  ))}
+                </div>
+              </tr>
             </table>
           </div>
         </>
@@ -319,17 +376,50 @@
       text-align: center;
     }
   }
-  .detail {
-    .item-head {
-      background: linear-gradient(#2b2817, #171407);
-      // font-size: 12px;
-      border-top: 1px solid #423d2c;
-      border-bottom: 1px solid #211d15;
-    }
-
-    .bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    }
+  .item-head {
+    background: linear-gradient(#2b2817, #171407);
+    // font-size: 12px;
+    border-top: 1px solid #423d2c;
+    border-bottom: 1px solid #211d15;
   }
+
+  .bottom {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .size-11 {
+    position: absolute;
+    z-index: 0;
+    top: -3px;
+    right: -4px;
+    font-size: 12px;
+    transform: scale(0.7);
+    color: black;
+    text-shadow: none;
+    font-weight: bolder;
+    font-family: Arial;
+  }
+  .size-11::before {
+    // text-shadow: #37fa38 2px 0 0, #37fa38 0 2px 0, #37fa38 -2px 0 0, #37fa38 0 -2px 0;
+    // -webkit-text-stroke-width: 1px;
+    // -webkit-text-stroke-color: #37fa38;
+    content: attr(data-text);
+    position: absolute;
+    -webkit-text-stroke: 2.5px #37fa38;
+    font-family: Arial;
+    text-shadow: none;
+    z-index: -1;
+  }
+  //   .size-11 {
+  //     position: absolute;
+  //     top: -3px;
+  //     right: -2px;
+  //     font-size: 12px;
+  //     transform: scale(0.78);
+  //     font-weight: 650;
+  //     font-family: Arial;
+  //     color: #fee86b;
+  //     text-shadow: #000 2px 0 0, #000 0 2px 0, #000 -2px 0 0, #000 0 -2px 0;
+  //     -webkit-font-smoothing: antialiased;
+  //   }
 </style>
