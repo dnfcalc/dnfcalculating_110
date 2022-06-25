@@ -263,14 +263,16 @@
           <>
             <div class="details">
               {town.力量 && (
-                <div class="de-item">
-                  <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
-                  <div class="text-hex-836832 name">力量</div>
+                <div class="de-item !pl-0 ">
+                  <div class="flex items-center">
+                    <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
+                    <div class="text-hex-836832 name">力量</div>
+                  </div>
                   <div class="text-hex-3ea74e">{details.value?.站街?.力量?.toFixed(0)}</div>
                 </div>
               )}
               {town.智力 && (
-                <div class="de-item">
+                <div class="de-item  !pl-0">
                   <div class="flex items-center">
                     <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
                     <div class="text-hex-836832 name">智力</div>
@@ -280,7 +282,7 @@
               )}
 
               {town.物理攻击 && (
-                <div class="de-item">
+                <div class="de-item  !pl-0">
                   <div class="flex items-center">
                     <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
                     <div class="text-hex-836832 name">物理攻击</div>
@@ -290,7 +292,7 @@
               )}
 
               {town.魔法攻击 && (
-                <div class="de-item">
+                <div class="de-item  !pl-0">
                   <div class="flex items-center">
                     <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
                     <div class="text-hex-836832 name">魔法攻击</div>
@@ -300,7 +302,7 @@
               )}
 
               {town.独立攻击 && (
-                <div class="de-item">
+                <div class="de-item  !pl-0">
                   <div class="flex items-center">
                     <img class="h-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
                     <div class="text-hex-836832 name">独立攻击</div>
@@ -309,7 +311,7 @@
                 </div>
               )}
 
-              <div class="de-item">
+              <div class="de-item  !p-0">
                 <div class="flex items-center">
                   <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
                   <div class="text-hex-836832 name">攻击属性</div>
