@@ -8337,11 +8337,11 @@ def entry_822(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_823(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return "MP在70%以上：技能冷却时间 -10%(觉醒技能除外), HP在50%~70%：技能冷却时间 -12%(觉醒技能除外), HP在50%以下：技能冷却时间 -15%(觉醒技能除外)"
+        return "HP在70%以上：技能冷却时间 -10%(觉醒技能除外), HP在50%~70%：技能冷却时间 -12%(觉醒技能除外), HP在50%以下：技能冷却时间 -15%(觉醒技能除外)"
     if mode == 0:
         pass
     if mode == 1:
-        if mp_rate_num >= 70:
+        if hp_rate_num >= 70:
             char.技能冷却缩减(1, 100, 0.10, [50, 85, 100])
             char.条件冷却加成("所有[除觉醒]", 0.1)
         elif hp_rate_num >= 50:
