@@ -5,6 +5,8 @@ import { defineStore } from "pinia"
 
 export interface CharacterInfo extends ICharacterInfo {
   // 基础信息
+
+  calc_token: string
 }
 
 export const useCharacterStore = defineStore("CharacterInfo", {
@@ -26,7 +28,8 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       config: "set",
       clothes_coat: [],
       clothes_pants: [],
-      talisman: []
+      talisman: [],
+      calc_token: ""
     }
   },
   getters: {
@@ -46,6 +49,9 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       this.$patch(state)
       configStore.$patch({ alter, name: "set" })
       await configStore.load()
+    },
+    calc() {
+      this.calc_token = new Date().getTime().toString()
     }
   }
 })

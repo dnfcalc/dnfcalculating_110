@@ -1,13 +1,12 @@
 <script lang="tsx">
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+  import { useDialog } from "@/components/hooks/dialog"
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import { useOpenWindow } from "@/hooks/open"
-  import { defineComponent, ref, renderList, Component, KeepAlive } from "vue"
-  import { useRoute } from "vue-router"
   import openURL from "@/utils/openURL"
-  import { useDialog } from "@/components/hooks/dialog"
+  import { defineComponent, ref, renderList } from "vue"
+  import { useRoute } from "vue-router"
 
   // import Character from "@/pages/main/character/character.vue"
   // import Customize from "@/pages/main/customize/customize.vue"
@@ -104,7 +103,7 @@
 
             <div class="footer">
               <div class="flex col-4 justify-center">
-                <calc-select v-model={configStore.carry_type} class="!h-22px">
+                <calc-select onChange={characterStore.calc} v-model={configStore.carry_type} class="!h-22px">
                   {renderList(characterStore.carry_type_list, (item, index) => (
                     <calc-option value={item}>{item}</calc-option>
                   ))}
