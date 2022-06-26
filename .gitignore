@@ -20,3 +20,5 @@ components.d.ts
 packages/renderer/components.d.ts
 api/sets
 build
+resources/
+**/__ZFJtemp/**

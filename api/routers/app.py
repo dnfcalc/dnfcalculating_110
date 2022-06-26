@@ -1,12 +1,14 @@
+import asyncio
+import json
+import os
+import sys
+
+import requests
 from fastapi import APIRouter, Body
 from routers.info import notice
-from utils.apiTools import Return
-from utils.apiTools import response
+from utils.apiTools import Return, response
+
 from .response import update
-import json
-import sys
-import requests
-import os
 
 appRouter = APIRouter()
 
@@ -22,14 +24,20 @@ async def heartbeat():
 
 
 @appRouter.post(path="/checkUpdate")
-async def checkupdate(info=Body(None)):
+async def checkUpdate(info=Body(None)):
     return response(data=update.check_update(info['version']))
 
 
 @appRouter.post(path="/autoUpdate")
-def checkupdate():
+def checkUpdate():
+    update.clear_progress()
     update.auto_update()
     return response(data=None)
+
+
+@appRouter.get("/update/progress")
+def getUpdateProgress():
+    return response(data=update.get_progress())
 
 
 @appRouter.get(path='/notice', response_model=Return[notice])

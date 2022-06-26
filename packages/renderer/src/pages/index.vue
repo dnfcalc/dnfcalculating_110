@@ -1,11 +1,11 @@
 <script lang="tsx">
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-  import { computed, defineComponent, onUnmounted, Suspense } from "vue"
-  import { RouterView, useRoute } from "vue-router"
-  import { useAppStore } from "@/store/app"
   import api from "@/api"
   import { useDialog } from "@/components/hooks/dialog"
+  import { useAppStore } from "@/store/app"
+  import { computed, defineComponent, onUnmounted, Suspense } from "vue"
+  import { RouterView, useRoute } from "vue-router"
 
   export default defineComponent({
     setup() {
@@ -18,7 +18,7 @@
         return route.meta.title ?? appStore.title
       })
 
-      if (process.env.NODE_ENV !== "development") {
+      if (!import.meta.env.DEV) {
         const timer = setInterval(async () => {
           try {
             await api.heartbeat()

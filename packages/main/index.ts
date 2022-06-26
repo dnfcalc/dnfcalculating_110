@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain } from "electron"
+import { app, BrowserWindow, ipcMain, shell } from "electron"
 import { release } from "os"
 import { join } from "path"
 import { startServer, stopServer } from "./server"
@@ -134,6 +134,16 @@ ipcMain.handle("close-win", event => {
   if (window) {
     window.close()
   }
+})
+
+ipcMain.handle("restart", () => {
+  console.log(process.execPath, process.execArgv, app.getAppPath(), process.env)
+  app.relaunch({
+    execPath: process.execPath,
+    args: [app.getAppPath()]
+  })
+  app.quit()
+  console.log("restart...")
 })
 
 ipcMain.handle("getStorage", (event, arg) => {
