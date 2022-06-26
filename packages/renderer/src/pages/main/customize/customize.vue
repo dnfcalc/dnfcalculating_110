@@ -1,9 +1,10 @@
 <script lang="tsx">
   import { computed, defineComponent, reactive, ref, renderList, watch } from "vue"
-  import { useBasicInfoStore, useConfigStore } from "@/store"
+  import { useBasicInfoStore, useCharacterStore, useConfigStore } from "@/store"
   export default defineComponent(() => {
     const configStore = useConfigStore()
     const basicStore = useBasicInfoStore()
+    const characterStore = useCharacterStore()
 
     const equs = computed(() => {
       const temp =
@@ -22,9 +23,10 @@
     const entry_list = computed(() => basicStore.entry_list)
 
     const entry = (index: number) => {
-      return entry_list.value?.[index]?.props.join(",")
+      const info = entry_list.value?.[index]
+      if (characterStore.is_buffer) return `[${info?.buff}] ${info?.props.join(",")}`
+      return `[${info?.attack}] ${info?.props.join(",")}`
     }
-
     return () => (
       <div class="flex flex-wrap mt-5px">
         {equs.value.length > 0 &&
