@@ -166,11 +166,11 @@ class 主动技能(技能):
             name = 类型
         等效倍率 = 0.0
         for i in range(0, 8):
-            hit = getattr(self, '{}hit{}'.format(name, i), 0)
-            if hit > 0 and 等级 > 0:
+            data = getattr(self, '{}data{}'.format(name, i), [])
+            if 等级 < len(data) and 等级 > 0:
+                hit = getattr(self, '{}hit{}'.format(name, i), 1)
                 power = getattr(self, '{}power{}'.format(name, i), 1)
-                等效倍率 += getattr(self, '{}data{}'.format(name, i),
-                                [])[等级] * hit * power
+                等效倍率 += data[等级] * hit * power
         return 等效倍率
 
     def 等效百分比(self, **argv):

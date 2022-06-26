@@ -6,7 +6,7 @@
   import featureList from "@/utils/featureList"
   import openURL from "@/utils/openURL"
   import { useAsyncState, useDebounceFn } from "@vueuse/core"
-  import { computed, defineComponent, ref, renderList, watch } from "vue"
+  import { computed, defineComponent, onUnmounted, ref, renderList, watch } from "vue"
 
   export interface IJadeUpgrade {
     id: number
@@ -48,6 +48,17 @@
         { id: undefined, equips: [], role: "delear", name: "", alter: "", skills: {}, total_data: [0], info: undefined, skills_passive: undefined, jade: undefined, equips_forget: {} },
         { resetOnExecute: false }
       )
+
+      const stopWatch = watch(
+        () => charcaterStore.calc_token,
+        () => {
+          result.execute()
+        }
+      )
+
+      onUnmounted(() => {
+        stopWatch()
+      })
 
       const highlight = computed<number[]>({
         get() {
