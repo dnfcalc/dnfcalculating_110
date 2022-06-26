@@ -288,13 +288,17 @@
       const transform = reactive({
         enchanting: [] as string[], //["所有属性强化 +30"], // 附魔
         reinforce: 0, // 18, // 增幅、强化数值
+        type: 1,
         refine: 0, //8, // 锻造
         reinforceInfo: {
           reinforce: [0, 0, 0, 0, 0, 0, 0], //[0, 91, 91, 0, 0, 0, 0], //增幅
           strengthen: [0, 0, 0, 0, 0, 0, 0], //[29, 29, 0, 29, 0, 0, 0], //强化
-          refine: [0, 0, 0, 0, 0, 0, 0] //[0, 0, 0, 0, 0, 0, 539]// 锻造
+          refine: [0, 0, 0, 0, 0, 0, 0], //[0, 0, 0, 0, 0, 0, 539]// 锻造
+          refineSW: 0 //[0, 0, 0, 0, 0, 0, 539]// 锻造
         },
-        growthLvs: [80, 80, 80, 80], // 词条等级
+        growthLvs: [1, 1, 1, 1], // 词条等级
+        growthAttacks: [0, 0, 0, 0], // 词条等级
+        growthBuffers: [0, 0, 0, 0], // 词条等级
         badges: [] as forBadgeArray[] //[ { type: 1,  props: [ "智力 +30", ] }, { type: 2,  props: [ "智力+30 魔爆+3%", ] }, { type: 3,  props: [ "物攻 +20", ] },
         //{ type: 4,  props: [ "智力 +15", ] }, { type: 0,  props: [  "四维+8 [冰之领悟]技能Lv+1", ] }, ], // 徽章
       })
@@ -304,9 +308,13 @@
 
           if (props.forget.info) {
             transform.growthLvs = props.forget.info["成长词条等级"] ?? [1, 1, 1, 1]
+            transform.growthAttacks = props.forget.data["attack"] ?? [0, 0, 0, 0]
+            transform.growthBuffers = props.forget.data["buffer"] ?? [0, 0, 0, 0]
             transform.reinforce = props.forget.info["强化数值"] ?? 0
             transform.refine = props.forget.info["锻造数值"] ?? 0
             transform.enchanting = props.forget.info["附魔"] ?? []
+
+            transform.type = props.forget.info["强化类型"] ?? 1
 
             // 处理徽章
             transform.badges = []
@@ -332,7 +340,7 @@
             transform.reinforceInfo.reinforce = [0, 0, 0, 0, 0, 0, 0]
             transform.reinforceInfo.strengthen = [0, 0, 0, 0, 0, 0, 0]
             if (transform.reinforce > 0) {
-              if (props.forget.info["强化类型"] == 1 && props.forget.data["增幅四维"] && props.forget.data["增幅四维"].length > 0) {
+              if (transform.type == 1 && props.forget.data["增幅四维"] && props.forget.data["增幅四维"].length > 0) {
                 // 增幅
                 for (var i = 0; i < props.forget.data["增幅四维"].length; i++) {
                   transform.reinforceInfo.reinforce[i] = props.forget.data["增幅四维"][i]
@@ -351,42 +359,24 @@
             }
             // 处理强化锻造数据
             transform.reinforceInfo.refine = [0, 0, 0, 0, 0, 0, 0]
+            transform.reinforceInfo.refineSW = 0
             if (transform.refine > 0) {
-              if (props.forget.data["锻造四维"] && props.forget.data["锻造四维"].length > 0) {
-                for (var i = 0; i < props.forget.data["锻造四维"].length; i++) {
-                  transform.reinforceInfo.strengthen[i] = props.forget.data["锻造四维"][i]
-                }
+              let dz = props.forget.data["锻造加成"]
+              if (dz && dz.length > 0) {
+                transform.reinforceInfo.refine[6] = dz[0]
               }
-              if (props.forget.data["锻造攻击力"] && props.forget.data["强化攻击力"].length > 0) {
-                for (var i = 0; i < props.forget.data["强化攻击力"].length; i++) {
-                  transform.reinforceInfo.strengthen[i + 4] = props.forget.data["强化攻击力"][i]
-                }
+              if (dz && dz.length > 1) {
+                transform.reinforceInfo.refineSW = dz[1]
+                // transform.reinforceInfo.refine[0] = dz[1];
+                // transform.reinforceInfo.refine[1] = dz[1];
+                // transform.reinforceInfo.refine[2] = dz[1];
+                // transform.reinforceInfo.refine[3] = dz[1];
               }
             }
           }
         }
 
-        //transform.growthLvs = props.forget.info['强化类型'];
-
         console.log(transform)
-
-        // 加载 打造数据
-
-        //   console.log(type, position)
-
-        //   if (position == "武器") {
-        //     transform.badges = [
-        //       { type: 1, props: ["智力 +999"] },
-        //       { type: 1, props: ["智力+999 魔爆+100%"] }
-        //     ]
-        //     transform.reinforceInfo.reinforce = [99, 99, 99, 99, 999, 999, 999]
-        //     transform.reinforceInfo.strengthen = [99, 99, 99, 99, 999, 999, 999]
-        //     transform.reinforceInfo.refine = [0, 0, 0, 0, 9999, 9999, 9999]
-        //     transform.refine = 18
-        //     transform.reinforce = 31
-        //     transform.enchanting = ["所有属性强化 +300"] // 附魔
-        //   }
-        // }
       }
 
       return () => {
@@ -414,14 +404,16 @@
             {transform.badges && transform.badges.length > 0 ? (
               <div>
                 <div class="hr"></div>
-                {renderList(transform.badges, (bs, i) => (
-                  <div style={i > 0 ? "margin-top: 5px" : ""}>
-                    <div class={badgeClass[bs.type]}>[{badgeNames[bs.type]}]</div>
-                    {renderList(bs.props, b => (
-                      <div>{b}</div>
-                    ))}
-                  </div>
-                ))}
+                <div style="display: flex">
+                  {renderList(transform.badges, (bs, i) => (
+                    <div style={i > 0 ? "margin-left: 20px" : ""}>
+                      <div class={badgeClass[bs.type]}>[{badgeNames[bs.type]}]</div>
+                      {renderList(bs.props, b => (
+                        <div>{b}</div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : (
               <div></div>
@@ -441,7 +433,13 @@
               <span>
                 {transform.reinforce > 0 ? (
                   <span style="margin-right: 5px">
-                    <span class="advanced">+{transform.reinforce} 强化</span>/<span class="artifact">增幅</span>
+                    {transform.type == 1 ? (
+                      <span>
+                        <span class="advanced">+{transform.reinforce} 强化</span>/<span class="artifact">增幅</span>
+                      </span>
+                    ) : (
+                      <span class="advanced">+{transform.reinforce} 强化</span>
+                    )}
                   </span>
                 ) : (
                   <span></span>
@@ -476,17 +474,16 @@
                 {equip.value.prop.effect.map(renderStatus(effectClass))}
               </div>
             )}
-            {
-              //   !props.simple && equip.value.prop.bufferProps && equip.value.prop.bufferProps.length > 0 ? (
-              //   <div>
-              //     <div class="hr"></div>
-              //     <div class="green"> &lt;辅助职业专属属性&gt; </div>
-              //     {equip.value.prop.bufferProps.map(renderStatus(undefined, effectClass))}
-              //   </div>
-              // ) : (
-              //   <div></div>
-              // )
-            }
+            {transform.reinforceInfo.refineSW > 0 ? (
+              <div>
+                <div class="hr"></div>
+                <div class="green"> &lt;辅助职业专属属性&gt; </div>
+                <div class="rare">力量/智力/体力/精神 +{transform.reinforceInfo.refineSW}</div>
+              </div>
+            ) : (
+              <span></span>
+            )}
+
             {(sum_attack.value > 0 || sum_buffer.value > 0 || (props.pps != null && props.pps.length > 0)) && (
               <div>
                 <div class="hr"></div>
@@ -498,7 +495,7 @@
               ? renderList(props.pps, (x: any, i: number) => (
                   <div style="padding-top: 5px">
                     <div class="yellow">
-                      属性 {i + 1} - {x.typeName}
+                      属性 {i + 1} - Lv{transform.growthLvs[i]}
                     </div>
                     {renderList(x.props, p => (
                       <div class="strong paddleft">{p}</div>
@@ -510,17 +507,19 @@
                     {p.props && p.props.length > 0 ? (
                       <>
                         <div class="yellow">
-                          <span>属性{i + 1} - Lv1 (EXP 0.00%)</span>
+                          <span>
+                            属性 {i + 1} - Lv{transform.growthLvs[i] || 1} (EXP 0.00%)
+                          </span>
                         </div>
                         {is_buffer.value ? (
                           <div class="text-hex-8a6f36  paddleft">
                             <span style="margin-right: 10px;">Buff量</span>
-                            <span>{p.buffer}</span>
+                            <span>{transform.growthBuffers[i] || p.buffer}</span>
                           </div>
                         ) : (
                           <div class="text-hex-8a6f36 paddleft">
                             <span style="margin-right: 10px;">攻击强化</span>
-                            <span>{p.attack}</span>
+                            <span>{transform.growthAttacks[i] || p.attack}</span>
                           </div>
                         )}
 
