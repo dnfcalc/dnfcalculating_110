@@ -1,4 +1,5 @@
 .approved-form {
+  line-height: 16px;
   width: calc(100% - 23px);
   text-align: left;
   display: inline-block;
@@ -75,11 +76,30 @@
   }
 }
 
+.kong-blue {
+  color: #549aec;
+}
+.kong-red {
+  color: #ff6666;
+}
+.kong-green {
+  color: #79c59d;
+}
+.kong-yellow {
+  color: #c1a237;
+}
+.kong-baijin {
+  color: #add9df;
+}
+
 .red {
   color: #bc3232;
 }
 .green {
-  color: #3e8848;
+  color: #4aa256;
+}
+.enchanting {
+  color: #68eda1;
 }
 .yellow {
   color: #b59834;
@@ -234,7 +254,7 @@
   color: #ffffff;
 }
 .advanced {
-  color: #61c8de;
+  color: #68d5ed;
 }
 .rare {
   color: #b36bff;
@@ -253,6 +273,9 @@
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
+  > span {
+    text-shadow: none !important;
+  }
 }
 
 .eq-icon {
@@ -281,19 +304,19 @@
     background-image: linear-gradient(#61c8de, #000);
   }
   &.rare {
-    background-image: linear-gradient(#a060e4, #000);
+    background-image: linear-gradient(#b36bff, #000);
   }
   &.artifact {
-    background-image: linear-gradient(#ef00ef, #000);
+    background-image: linear-gradient(#ff00ff, #000);
   }
   &.legend {
     background-image: linear-gradient(#e96e00, #000);
   }
   &.epic {
-    background-image: linear-gradient(#e7a300, #000);
+    background-image: linear-gradient(#ffb400, #000);
   }
   &.myth {
-    background-image: linear-gradient(#e7a300, #000);
+    background-image: linear-gradient(#ffb400, #000);
   }
 
   &.can-click:hover {

@@ -189,6 +189,7 @@
       const equips_forget = computed(() => {
         return (index: string) => {
           let infos = configStore.forge_set[index]
+          if (!infos) return undefined
           return {
             info: {
               成长词条等级: [infos.get("growth_first") ?? 1, infos.get("growth_second") ?? 1, infos.get("growth_third") ?? 1, infos.get("growth_fourth") ?? 1],

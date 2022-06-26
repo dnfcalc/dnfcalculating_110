@@ -34,7 +34,7 @@
       },
       forget: {
         type: Object,
-        default: undefined
+        default: () => {}
       }
     },
     setup(props, { emit }) {
@@ -49,10 +49,20 @@
           <calc-tooltip lazy>
             {{
               default() {
-                return <eq-icon class="eq-item-icon" eq={props.eq} canClick={props.canClick} onClick={handleClick} v-model:active={active.value} hightlight={props.hightlight}></eq-icon>
+                return (
+                  <eq-icon
+                    class="eq-item-icon"
+                    forget={props.forget}
+                    eq={props.eq}
+                    canClick={props.canClick}
+                    onClick={handleClick}
+                    v-model:active={active.value}
+                    hightlight={props.hightlight}
+                  ></eq-icon>
+                )
               },
               popper() {
-                return <eq-info colums={props.colums} eid={Number(props.eq.id)} pps={props.eq.groupId == 10 ? props.eq.props : null}></eq-info>
+                return <eq-info colums={props.colums} forget={props.forget} eid={Number(props.eq.id)} pps={props.eq.groupId == 10 ? props.eq.props : null}></eq-info>
               }
             }}
           </calc-tooltip>

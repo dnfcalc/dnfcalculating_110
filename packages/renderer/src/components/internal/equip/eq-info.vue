@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { useBasicInfoStore, useCharacterStore } from "@/store"
   import { asyncComputed } from "@vueuse/core"
-  import { computed, defineComponent, renderList } from "vue"
+  import { computed, defineComponent, renderList, reactive } from "vue"
 
   import EqIcon from "./eq-icon.vue"
 
@@ -11,6 +11,11 @@
     num: number
     isRate: boolean
     info: string
+  }
+
+  interface forBadgeArray {
+    type: number
+    props: string[]
   }
 
   type classNames = (id: number) => string | string[] | undefined
@@ -38,9 +43,17 @@
         type: Boolean,
         default: false
       },
+      forget: {
+        type: Object,
+        default: () => {}
+      },
       pps: {
         type: Array,
         default: () => []
+      },
+      withTransform: {
+        type: Boolean,
+        default: true
       }
     },
     setup(props, { emit, slots }) {
@@ -48,16 +61,17 @@
 
       const equip = asyncComputed(async () => {
         if (props.eid != undefined) {
-          let temp = basicStore.get_equipment_detail(props.eid)
+          let temp = await basicStore.get_equipment_detail(props.eid)
+          if (props.withTransform) {
+            loadTransform(temp) // 加载打造数据
+          }
           return temp
         }
       })
 
-      // console.log(equip.value)
-
-      function renderStatus(rowClass?: classNames, spanClass?: classNames) {
-        return ({ id, label, num, isRate }: Status) => {
-          const array: JSX.Element[] = []
+      function renderStatus(rowClass?: classNames, spanClass?: classNames, withTransform?: boolean) {
+        return ({ id, label, num, isRate }: Status, indexForStatus: number) => {
+          let array: JSX.Element[] = []
 
           array.push(<span style={num ? "margin-right: 5px" : undefined}>{label}</span>)
           const rowClassNames = rowClass?.(id)
@@ -71,8 +85,117 @@
             //array.push(<span class={spanClassNames}>{text}</span>)
             array.push(<span>{text}</span>)
           }
-          return <div class={[rowClassNames]}>{array}</div>
+
+          let result: JSX.Element = <div class={[rowClassNames]}>{array}</div>
+          if (withTransform) {
+            let nameIndex = propNames.findIndex(x => x == label)
+            if (nameIndex > -1 && (transform.refine > 0 || transform.reinforce > 0)) {
+              let arr = setTransform(nameIndex)
+              array = array.concat(arr)
+
+              let beforeArr = []
+              // 往前查漏补缺
+              for (var i = nameIndex - 1; i >= 0; i--) {
+                if (isWithTransform(i)) {
+                  let name = propNames[i]
+                  let index = equip.value.prop.base.findIndex(({ label }: Status) => label == name)
+                  if (index >= 0) {
+                    console.log(indexForStatus, label, name, "往前， stop")
+                    break
+                  } else {
+                    let tArr = setTransform(i, name)
+                    beforeArr.push(<div class={[rowClassNames]}>{tArr}</div>)
+                    console.log(indexForStatus, label, name, "往前，find")
+                  }
+                }
+              }
+              let arrterArr = []
+              // 最后一个， 往后查漏补缺
+              if (indexForStatus == equip.value.prop.base.length - 1) {
+                for (let i = nameIndex + 1; i < propNames.length; i++) {
+                  if (isWithTransform(i)) {
+                    let name = propNames[i]
+                    let index = equip.value.prop.base.findIndex(({ label }: Status) => label == name)
+                    if (index < 0) {
+                      let tArr = setTransform(i, name)
+                      arrterArr.push(<div class={[rowClassNames]}>{tArr}</div>)
+
+                      console.log(indexForStatus, label, name, "往后，find")
+                    }
+                  }
+                }
+              }
+              result = (
+                <div>
+                  {beforeArr}
+                  <div class={[rowClassNames]}>{array}</div>
+                  {arrterArr}
+                </div>
+              )
+            }
+          }
+          return result
         }
+      }
+
+      function isWithTransform(i: number) {
+        return transform.reinforceInfo.strengthen[i] > 0 || transform.reinforceInfo.reinforce[i] > 0 || transform.reinforceInfo.refine[i] > 0
+      }
+
+      function setTransform(index: number, name?: string) {
+        let array: JSX.Element[] = []
+        if (transform.reinforceInfo.strengthen[index] > 0) {
+          // 强化
+          if (name) {
+            array.push(<span class="advanced">{name}</span>)
+            array.push(
+              <span style="margin-left: 5px" class="advanced">
+                {transform.reinforceInfo.strengthen[index]}
+              </span>
+            )
+          } else {
+            array.push(
+              <span style="margin-left: 5px" class="advanced">
+                +{transform.reinforceInfo.strengthen[index]}
+              </span>
+            )
+          }
+        }
+        if (transform.reinforceInfo.reinforce[index] > 0) {
+          // 增幅
+          if (name && transform.reinforceInfo.strengthen[index] <= 0) {
+            array.push(<span class="artifact">{name}</span>)
+            array.push(
+              <span style="margin-left: 5px" class="artifact">
+                {transform.reinforceInfo.reinforce[index]}
+              </span>
+            )
+          } else {
+            array.push(
+              <span style="margin-left: 5px" class="artifact">
+                +{transform.reinforceInfo.reinforce[index]}
+              </span>
+            )
+          }
+        }
+        if (transform.reinforceInfo.refine[index] > 0) {
+          // 锻造
+          if (name && transform.reinforceInfo.strengthen[index] <= 0 && transform.reinforceInfo.reinforce[index] <= 0) {
+            array.push(<span class="rare">{name}</span>)
+            array.push(
+              <span style="margin-left: 5px" class="rare">
+                {transform.reinforceInfo.refine[index]}
+              </span>
+            )
+          } else {
+            array.push(
+              <span style="margin-left: 5px" class="rare">
+                +{transform.reinforceInfo.refine[index]}
+              </span>
+            )
+          }
+        }
+        return array
       }
 
       const effectClass = function (id: number) {
@@ -146,6 +269,126 @@
         }
       }
 
+      const propNames = ["力量", "智力", "体力", "精神", "物理攻击力", "魔法攻击力", "独立攻击力"]
+      const badgeNames = ["白金徽章镶嵌栏", "红色徽章镶嵌栏", "绿色徽章镶嵌栏", "蓝色徽章镶嵌栏", "黄色徽章镶嵌栏"]
+      const badgeClass = ["kong-baijin", "kong-red", "kong-green", "kong-blue", "kong-yellow"]
+      const eqBagdes = {
+        上衣: 2,
+        下装: 2,
+        头肩: 4,
+        项链: 4,
+        腰带: 1,
+        戒指: 1,
+        鞋: 3,
+        手镯: 3,
+        辅助装备: 0,
+        魔法石: 0
+      }
+
+      const transform = reactive({
+        enchanting: [] as string[], //["所有属性强化 +30"], // 附魔
+        reinforce: 0, // 18, // 增幅、强化数值
+        refine: 0, //8, // 锻造
+        reinforceInfo: {
+          reinforce: [0, 0, 0, 0, 0, 0, 0], //[0, 91, 91, 0, 0, 0, 0], //增幅
+          strengthen: [0, 0, 0, 0, 0, 0, 0], //[29, 29, 0, 29, 0, 0, 0], //强化
+          refine: [0, 0, 0, 0, 0, 0, 0] //[0, 0, 0, 0, 0, 0, 539]// 锻造
+        },
+        growthLvs: [80, 80, 80, 80], // 词条等级
+        badges: [] as forBadgeArray[] //[ { type: 1,  props: [ "智力 +30", ] }, { type: 2,  props: [ "智力+30 魔爆+3%", ] }, { type: 3,  props: [ "物攻 +20", ] },
+        //{ type: 4,  props: [ "智力 +15", ] }, { type: 0,  props: [  "四维+8 [冰之领悟]技能Lv+1", ] }, ], // 徽章
+      })
+      function loadTransform(eq: any) {
+        if (props.forget) {
+          console.log(props.forget)
+
+          if (props.forget.info) {
+            transform.growthLvs = props.forget.info["成长词条等级"] ?? [1, 1, 1, 1]
+            transform.reinforce = props.forget.info["强化数值"] ?? 0
+            transform.refine = props.forget.info["锻造数值"] ?? 0
+            transform.enchanting = props.forget.info["附魔"] ?? []
+
+            // 处理徽章
+            transform.badges = []
+            if (eq && eq.position) {
+              let types = eq.position.split("(")
+              let type = types[0]
+              let position = type
+              if (types.length > 1) {
+                position = types[1].split(")")[0]
+              }
+              let bgs = props.forget.info["徽章"] ?? []
+              for (var b of bgs) {
+                if (b) {
+                  transform.badges.push({
+                    type: eqBagdes[position] ?? 0,
+                    props: [b]
+                  })
+                }
+              }
+            }
+
+            // 处理强化增幅数据
+            transform.reinforceInfo.reinforce = [0, 0, 0, 0, 0, 0, 0]
+            transform.reinforceInfo.strengthen = [0, 0, 0, 0, 0, 0, 0]
+            if (transform.reinforce > 0) {
+              if (props.forget.info["强化类型"] == 1 && props.forget.data["增幅四维"] && props.forget.data["增幅四维"].length > 0) {
+                // 增幅
+                for (var i = 0; i < props.forget.data["增幅四维"].length; i++) {
+                  transform.reinforceInfo.reinforce[i] = props.forget.data["增幅四维"][i]
+                }
+              }
+              if (props.forget.data["强化四维"] && props.forget.data["强化四维"].length > 0) {
+                for (var i = 0; i < props.forget.data["强化四维"].length; i++) {
+                  transform.reinforceInfo.strengthen[i] = props.forget.data["强化四维"][i]
+                }
+              }
+              if (props.forget.data["强化攻击力"] && props.forget.data["强化攻击力"].length > 0) {
+                for (var i = 0; i < props.forget.data["强化攻击力"].length; i++) {
+                  transform.reinforceInfo.strengthen[i + 4] = props.forget.data["强化攻击力"][i]
+                }
+              }
+            }
+            // 处理强化锻造数据
+            transform.reinforceInfo.refine = [0, 0, 0, 0, 0, 0, 0]
+            if (transform.refine > 0) {
+              if (props.forget.data["锻造四维"] && props.forget.data["锻造四维"].length > 0) {
+                for (var i = 0; i < props.forget.data["锻造四维"].length; i++) {
+                  transform.reinforceInfo.strengthen[i] = props.forget.data["锻造四维"][i]
+                }
+              }
+              if (props.forget.data["锻造攻击力"] && props.forget.data["强化攻击力"].length > 0) {
+                for (var i = 0; i < props.forget.data["强化攻击力"].length; i++) {
+                  transform.reinforceInfo.strengthen[i + 4] = props.forget.data["强化攻击力"][i]
+                }
+              }
+            }
+          }
+        }
+
+        //transform.growthLvs = props.forget.info['强化类型'];
+
+        console.log(transform)
+
+        // 加载 打造数据
+
+        //   console.log(type, position)
+
+        //   if (position == "武器") {
+        //     transform.badges = [
+        //       { type: 1, props: ["智力 +999"] },
+        //       { type: 1, props: ["智力+999 魔爆+100%"] }
+        //     ]
+        //     transform.reinforceInfo.reinforce = [99, 99, 99, 99, 999, 999, 999]
+        //     transform.reinforceInfo.strengthen = [99, 99, 99, 99, 999, 999, 999]
+        //     transform.reinforceInfo.refine = [0, 0, 0, 0, 9999, 9999, 9999]
+        //     transform.refine = 18
+        //     transform.reinforce = 31
+        //     transform.enchanting = ["所有属性强化 +300"] // 附魔
+        //   }
+        // }
+      }
+
       return () => {
         if (!equip.value) {
           return <div></div>
@@ -157,7 +400,9 @@
               <eq-icon eq={equip.value}></eq-icon>
               <div class="eq-name" style="margin-left: 8px">
                 <span style="display: flex" class={rarityClass(equip.value.rarity)}>
-                  {equip.value.name}
+                  {transform.reinforce > 0 ? <span style="margin-right: 4px">+{transform.reinforce}</span> : <span></span>}
+                  {transform.refine > 0 ? <span>({transform.refine})</span> : <span></span>}
+                  <span>{equip.value.name}</span>
                 </span>
               </div>
               <div class="flex-1 eq-name yellow" style="text-align: right">
@@ -166,25 +411,65 @@
                 </p>
               </div>
             </div>
+            {transform.badges && transform.badges.length > 0 ? (
+              <div>
+                <div class="hr"></div>
+                {renderList(transform.badges, (bs, i) => (
+                  <div style={i > 0 ? "margin-top: 5px" : ""}>
+                    <div class={badgeClass[bs.type]}>[{badgeNames[bs.type]}]</div>
+                    {renderList(bs.props, b => (
+                      <div>{b}</div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div></div>
+            )}
             <div class="hr"></div>
-            <div>
-              {
-                //   !props.simple && (
-                //   <div>
-                //     <div class="hr"></div>
-                //     <div class="fame">
-                //       <img src="images/common/fame.png" />
-                //       冒险家名望 {equip.value.fame}
-                //     </div>
-                //     <div class="hr"></div>
-              }
-
-              {equip.value.prop.base.map(renderStatus())}
-              <div class="hr"></div>
-              <div class="green"> &lt;附魔属性&gt; </div>
+            {
+              //   !props.simple && (
+              //   <div>
+              //     <div class="hr"></div>
+              //     <div class="fame">
+              //       <img src="images/common/fame.png" />
+              //       冒险家名望 {equip.value.fame}
+              //     </div>
+              //     <div class="hr"></div>
+            }
+            {transform.reinforce > 0 || transform.refine > 0 ? (
+              <span>
+                {transform.reinforce > 0 ? (
+                  <span style="margin-right: 5px">
+                    <span class="advanced">+{transform.reinforce} 强化</span>/<span class="artifact">增幅</span>
+                  </span>
+                ) : (
+                  <span></span>
+                )}
+                {transform.refine > 0 ? (
+                  <span style="margin-right: 5px" class="rare">
+                    +{transform.refine} 锻造
+                  </span>
+                ) : (
+                  <span></span>
+                )}
+                <span>性能适用</span>
+              </span>
+            ) : (
+              <span></span>
+            )}
+            {equip.value.prop.base.map(renderStatus(undefined, undefined, true))}
+            <div class="hr"></div>
+            <div class="green"> &lt;附魔属性&gt; </div>
+            {transform.enchanting != null && transform.enchanting.length > 0 ? (
+              <div class="enchanting" style="margin-top:6px">
+                {renderList(transform.enchanting, e => (
+                  <div>{e}</div>
+                ))}
+              </div>
+            ) : (
               <div class="gey">没有附魔属性</div>
-            </div>
-
+            )}
             {equip.value.prop.effect && equip.value.prop.effect.length > 0 && (
               <div>
                 <div class="hr"></div>
