@@ -147,8 +147,6 @@
 
       const current_data = computed(() => props.totalData?.[0] ?? 0)
 
-      console.log(props.role)
-
       const result = computed(() => {
         const total_data = current_data.value
         if (total_data) {

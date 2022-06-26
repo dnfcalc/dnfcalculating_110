@@ -8799,9 +8799,9 @@ def entry_904(char: Character = {}, mode=0, text=False, part='', lv=0):
         if '非破招攻击' in attack_type and '破招攻击' in attack_type:
             char.技能攻击力加成(0.08)
         elif '非破招攻击' in attack_type:
-            char.技能攻击力加成(-0.2)
-        elif '破招攻击' in attack_type:
             char.技能攻击力加成(0.35)
+        elif '破招攻击' in attack_type:
+            char.技能攻击力加成(-0.2)
 # endregion
 
 # region 职业词条

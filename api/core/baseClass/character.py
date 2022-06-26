@@ -1,15 +1,9 @@
 import importlib
 from copy import deepcopy
-from multiprocessing.sharedctypes import Value
-from operator import index
-from pickle import TRUE
 from pyclbr import Function
-from statistics import mode
-from tkinter.messagebox import NO
 from typing import Dict, List, Union
 from uuid import uuid1
 
-from click import option
 from core.baseClass.equipment import equ, equipment
 from core.baseClass.property import 角色属性
 from core.baseClass.skill import 主动技能, 技能, 被动技能
@@ -80,6 +74,8 @@ class Character(角色属性):
 
     装扮栏: Dict[str, int] = {}
     装扮选项: Dict[str, str] = {}
+
+    打造: Dict = {}
 
     def __init__(self) -> None:
         # 计算变量 ##########
@@ -172,6 +168,21 @@ class Character(角色属性):
         self.__MP消耗量: float = 1.0
 
         self.skills_passive = {}
+
+        self.打造 = {}
+        for item in 部位列表 + ('称号', '宠物'):
+            self.打造[item] = {
+                # 成长
+                "attack": [0]*4,
+                # 成长
+                "buffer": [0]*4,
+                # 强化
+                "强化四维": [0]*4,
+                # 增幅
+                "增幅四维": [0]*4,
+                # 攻击力
+                "强化攻击力": [0]*3,
+            }
 
         if self.转职 == '':
             self.转职 = self.职业
@@ -1162,15 +1173,20 @@ class Character(角色属性):
                 temp.部位, {}).get('cursed_number', 0))
             if self.类型 == '物理百分比' or self.类型 == '物理固伤':
                 self.基础属性加成(力量=x)
+                self.打造[temp.部位]['增幅四维'][0] = x
             elif self.类型 == '魔法百分比' or self.类型 == '魔法固伤':
                 self.基础属性加成(智力=x)
+                self.打造[temp.部位]['增幅四维'][1] = x
             elif self.类型 == '辅助':
                 if self.适用属性 == '体力':
                     self.基础属性加成(体力=x)
+                    self.打造[temp.部位]['增幅四维'][2] = x
                 elif self.适用属性 == '精神':
                     self.基础属性加成(精神=x)
+                    self.打造[temp.部位]['增幅四维'][3] = x
                 else:
                     self.基础属性加成(智力=x)
+                    self.打造[temp.部位]['增幅四维'][1] = x
         # if self.是否增幅[i] and temp.所属套装 != '智慧产物':
         #    x = 增幅计算(temp.等级, temp.品质, self.强化等级[i])
 
@@ -1195,12 +1211,14 @@ class Character(角色属性):
             # if temp.所属套装 != '智慧产物':
             x = 耳环计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
+            self.打造['耳环']['强化攻击力'] = [x] * 3
             self.基础属性加成(三攻=x)
         # 辅助装备、魔法石
         else:
             # if temp.所属套装 != '智慧产物':
             x = 左右计算(temp.等级, temp.品质, self.打造详情.get(
                 temp.部位, {}).get('cursed_number', 0))
+            self.打造[temp.部位]['强化四维'] = [x]*3
             self.基础属性加成(四维=x)
 
     def __武器计算(self, temp: equipment) -> None:
@@ -1217,6 +1235,8 @@ class Character(角色属性):
         魔法攻击力 = 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
                        '魔法')
         独立攻击力 = 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
+
+        self.打造['武器']['强化攻击力'] = [物理攻击力, 魔法攻击力, 独立攻击力]
 
         四维 = 0
         if self.类型 == '辅助':
@@ -1238,8 +1258,12 @@ class Character(角色属性):
 
         for 部位, 序号, atk, buff in 成长词条组合:
             等级 = self.词条等级[部位][序号]
-            self.攻击强化加成(成长词条计算(atk, 等级))
-            self.buff量加成(奶成长词条计算(buff, 等级))
+            attack = 成长词条计算(atk, 等级)
+            buffer = 奶成长词条计算(buff, 等级)
+            self.攻击强化加成(attack)
+            self.buff量加成(buffer)
+            self.打造[部位]["attack"][序号] = attack
+            self.打造[部位]["buffer"][序号] = buffer
         # 词条效果相关计算
         for func, 部位, 序号 in equ.get_func_list_by_idlist(self.装备栏, self.自定义词条):
             if 序号 >= 0:
@@ -1595,6 +1619,7 @@ class Character(角色属性):
             'role': 'buffer' if self.类型 == '辅助' else 'delear',
             'forget_set': info['forge_set'],
             'equips': list(map(lambda x: equ.get_json(x), self.装备栏)),
+            'equips_forget': self.打造,
             'info': {
                 # 站街
                 '站街': calc_info,
