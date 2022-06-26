@@ -45,7 +45,7 @@
 
       const result = useAsyncState(
         () => configStore.calc(true),
-        { id: undefined, equips: [], role: "delear", name: "", alter: "", skills: {}, total_data: [0], info: undefined, skills_passive: undefined, jade: undefined },
+        { id: undefined, equips: [], role: "delear", name: "", alter: "", skills: {}, total_data: [0], info: undefined, skills_passive: undefined, jade: undefined, equips_forget: {} },
         { resetOnExecute: false }
       )
 
@@ -186,6 +186,27 @@
         return temp.sort((a, b) => a.id - b.id)
       })
 
+      const equips_forget = computed(() => {
+        return (index: string) => {
+          let infos = configStore.forge_set[index]
+          return {
+            info: {
+              成长词条等级: [infos.get("growth_first") ?? 1, infos.get("growth_second") ?? 1, infos.get("growth_third") ?? 1, infos.get("growth_fourth") ?? 1],
+              // 1增幅 2强化
+              强化类型: infos.get("cursed_type") ?? 1,
+              强化数值: infos.get("cursed_number") ?? 0,
+              锻造数值: infos.get("dz_number") ?? 0,
+              附魔: basicStore.enchanting_info?.filter(item => item.id == infos.get("enchanting") ?? 0)?.[0]?.props?.split("|"),
+              徽章: [
+                basicStore.emblem_info?.filter(item => item.id == infos.get("socket_left") ?? 0)?.[0]?.props,
+                basicStore.emblem_info?.filter(item => item.id == infos.get("socket_right") ?? 0)?.[0]?.props
+              ]
+            },
+            data: result.state.value.equips_forget[index]
+          }
+        }
+      })
+
       // onMounted(async () => {
       //   if (curEquList.value.map(item => item.typeName).length < 12) return
       //   result.value = await configStore.calc(true)
@@ -229,6 +250,7 @@
                     {equ && (
                       <EquipTips
                         hightlight={highlight.value.includes(equ.id)}
+                        forget={equips_forget.value(equ.typeName)}
                         onClick={chooseEqu(equ)}
                         onDblclick={selectSuit(index)}
                         active={isActive(equ)}

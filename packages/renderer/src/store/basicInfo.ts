@@ -84,7 +84,7 @@ export const useBasicInfoStore = defineStore("basicInfo", {
               id: item,
               maxFame: 232,
               position: "辅助装备，魔法石",
-              props: item + " Lv+1",
+              props: item + " Lv+1" + " 四维 + 8",
               type: "技能",
               rarity: "白金"
             })
@@ -126,7 +126,7 @@ export const useBasicInfoStore = defineStore("basicInfo", {
   },
   actions: {
     async get_equipment_detail(equ_id: number) {
-      console.log(equ_id)
+      //   console.log(equ_id)
       return (await api.getEquipmentDetail(equ_id))?.data
     }
   }

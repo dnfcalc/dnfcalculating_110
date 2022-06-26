@@ -56,7 +56,8 @@ async def get_equipment(state: AlterState = Depends(authorize)):
 
 @infoRouter.get("/dress")
 async def get_dress(state: AlterState = Depends(authorize)):
-
+    if(state is None or state.alter is None):
+        raise Exception("无效token")
     character = characterInfo.get_character_info(state.alter)
     infolist = {}
     i = 0

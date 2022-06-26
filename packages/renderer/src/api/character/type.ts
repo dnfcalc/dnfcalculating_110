@@ -68,9 +68,11 @@ export interface IResultInfo<R = "delear" | "buffer", S = R extends "buffer" ? I
 
   token?: string
   forget_set?: Record<string, Map<string, any>>
+  equips_forget: any
   skills: Record<string, S>
   skills_passive: any
   equips: IEquipmentInfo[]
+
   info: any
   total_data: number[]
   jade?: {
