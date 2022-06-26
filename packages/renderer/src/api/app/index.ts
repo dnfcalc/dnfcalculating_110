@@ -10,6 +10,12 @@ export default defineRequest(axios => {
     },
     autoUpdate() {
       return axios.post("/autoUpdate")
+    },
+    getUpdateProgress() {
+      return axios.get<[number, number]>("/update/progress").then(r => r.data)
+    },
+    restart() {
+      return axios.post("/restart")
     }
   }
 })

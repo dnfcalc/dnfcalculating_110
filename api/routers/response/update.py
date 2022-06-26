@@ -1,6 +1,8 @@
 import os
 import sys
 from typing import List
+
+from core.store import store
 from utils import zipfile
 
 try:
@@ -11,11 +13,16 @@ except:
     pass
 
 
+def safeRm(path: str):
+    if os.path.exists(path):
+        os.remove(path)
+
+
 def check_update(version: str):
     if os.path.exists("./__ZFJtemp"):
         os.system('RMDIR /Q /S "{}"'.format('./__ZFJtemp'))
-        os.remove("./elevate.exe.del")
-        os.remove("./dnfcalc-api.exe.del")
+        safeRm("./elevate.exe.del")
+        safeRm("./dnfcalc-api.exe.del")
     folder_info = lzy.get_folder_info_by_url(
         'https://wwn.lanzout.com/s/dcalc')
     if folder_info.code != LanZouCloud.SUCCESS:
@@ -29,6 +36,25 @@ def check_update(version: str):
                 return True
 
 
+def update_progress(filename: str, total: int, current: int):
+    store.set("/app/update/progress", current)
+    store.set("/app/update/total", total)
+    print("{}/{}".format(current, total))
+    pass
+
+
+def get_progress():
+    current = store.get("/app/update/progress")
+    total = store.get("/app/update/total")
+    return current, total
+
+
+def clear_progress():
+    store.set("/app/update/progress", 0)
+    store.set("/app/update/total", 0)
+    pass
+
+
 def auto_update():
     folder_info = lzy.get_folder_info_by_url(
         'https://wwn.lanzout.com/s/dcalc-update')
@@ -38,9 +64,11 @@ def auto_update():
     for file in folder_info.files:
         if file.name == "resources.zip":
             url = file.url
+
     lzy.down_file_by_url(url,
                          '',
                          './__ZFJtemp',
+                         callback=update_progress,
                          downloaded_handler=after_downloaded)
     # folder_info = lzy.get_folder_info_by_url(
     #     'https://wwn.lanzout.com/s/dcalc', '17173')
