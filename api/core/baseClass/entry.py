@@ -2364,7 +2364,8 @@ def entry_1224(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.05)
+        if '冰冻' in state_type:
+            char.技能攻击力加成(0.05)
 
 
 def entry_1225(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2508,7 +2509,7 @@ def entry_1252(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        属强 = max(char.火属性强化(), char.光属性强化(), char.暗属性强化(), char.冰属性强化)
+        属强 = max(char.火属性强化(), char.光属性强化(), char.暗属性强化(), char.冰属性强化())
         if 属强 >= 200 and 属强 <= 249:
             char.攻击强化加成(成长词条计算(1037, lv))
         if 属强 >= 250 and 属强 <= 299:
@@ -3828,7 +3829,8 @@ def entry_917(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.05)
+        if '冰冻' in state_type:
+            char.技能攻击力加成(0.05)
 
 
 def entry_920(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3837,7 +3839,8 @@ def entry_920(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.05)
+        if '眩晕' in state_type:
+            char.技能攻击力加成(0.05)
 
 
 def entry_922(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6889,8 +6892,8 @@ def entry_804(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        if enemy_num > 0:
-            char.技能攻击力加成(0.02 * 5)
+        # if enemy_num > 0:
+        char.技能攻击力加成(0.02 * 5)
 
 
 def entry_805(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6899,8 +6902,8 @@ def entry_805(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        if enemy_num > 0:
-            char.所有速度增加(0.1)
+        # if enemy_num > 0:
+        char.所有速度增加(0.1)
 
 
 def entry_806(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6920,7 +6923,7 @@ def entry_807(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         char.技能恢复加成(1, 100, 0.1*min(3, enemy_num), [50, 85, 100])
         char.条件冷却恢复加成("所有[觉醒除外]", 0.1*min(3, enemy_num))
-        if enemy_num > 0:
+        if '出血' in state_type:
             char.技能攻击力加成(0.02)
 
 
@@ -6932,6 +6935,7 @@ def entry_808(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         if enemy_num > 0:
             char.异常抗性加成('出血', 0.2)
+        if '出血' in state_type:
             char.技能攻击力加成(0.02)
 
 
@@ -8534,7 +8538,8 @@ def entry_793(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.02)
+        if '感电' in state_type:
+            char.技能攻击力加成(0.02)
 
 
 def entry_794(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8543,7 +8548,8 @@ def entry_794(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.1)
+        if '失明' in state_type:
+            char.技能攻击力加成(0.1)
 
 
 def entry_795(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8552,7 +8558,8 @@ def entry_795(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.02)
+        if '灼烧' in state_type:
+            char.技能攻击力加成(0.02)
 
 
 def entry_796(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8561,7 +8568,8 @@ def entry_796(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.05)
+        if '眩晕' in state_type:
+            char.技能攻击力加成(0.05)
 
 
 def entry_797(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8570,7 +8578,8 @@ def entry_797(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.05)
+        if '冰冻' in state_type:
+            char.技能攻击力加成(0.05)
 
 
 def entry_798(char: Character = {}, mode=0, text=False, part='', lv=0):
