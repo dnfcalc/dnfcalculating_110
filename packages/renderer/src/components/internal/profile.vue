@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
-  import { useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
+  import { useCharacterStore, useConfigStore, useDetailsStore, useBasicInfoStore } from "@/store"
   import { to_percent } from "@/utils"
   import { computed, defineComponent, PropType, renderList } from "vue"
 
@@ -131,6 +131,10 @@
       },
       standardSum: {
         type: Number
+      },
+      equips_forget: {
+        type: Object,
+        default: undefined
       }
     },
     components: { EquipTips },
@@ -169,8 +173,31 @@
       const configStore = useConfigStore()
       const characterStore = useCharacterStore()
       const detailsStore = useDetailsStore()
-      // const basicStore = useBasicInfoStore()
+      const basicStore = useBasicInfoStore()
       const display_parts = detailsStore.display_parts
+
+      const equips_forget = computed(() => {
+        return (index: string) => {
+          console.log(props.equips_forget)
+          let infos = configStore.forge_set[index]
+          if (!infos) return undefined
+          return {
+            info: {
+              成长词条等级: [infos.get("growth_first") ?? 1, infos.get("growth_second") ?? 1, infos.get("growth_third") ?? 1, infos.get("growth_fourth") ?? 1],
+              // 1增幅 2强化
+              强化类型: infos.get("cursed_type") ?? 1,
+              强化数值: infos.get("cursed_number") ?? 0,
+              锻造数值: infos.get("dz_number") ?? 0,
+              附魔: basicStore.enchanting_info?.filter(item => item.id == infos.get("enchanting") ?? 0)?.[0]?.props?.split("|"),
+              徽章: [
+                basicStore.emblem_info?.filter(item => item.id == infos.get("socket_left") ?? 0)?.[0]?.props,
+                basicStore.emblem_info?.filter(item => item.id == infos.get("socket_right") ?? 0)?.[0]?.props
+              ]
+            },
+            data: props.equips_forget?.[index]
+          }
+        }
+      })
 
       function currentInfo(part: string) {
         if (["称号", "宠物"].indexOf(part) >= 0) return ""
@@ -525,7 +552,7 @@
                         {currentInfo(item)}
                       </div>
                       <div onClick={setPart(item)} class="h-7 w-7 absolute" style={partIconStyle(item)}>
-                        {getEqu(item) && <EquipTips eq={getEqu(item)} canClick={false} show-tips></EquipTips>}
+                        {getEqu(item) && <EquipTips forget={equips_forget.value(item)} eq={getEqu(item)} canClick={false} show-tips></EquipTips>}
                       </div>
                     </>
                   ))}

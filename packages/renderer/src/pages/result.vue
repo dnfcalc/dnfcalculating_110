@@ -41,7 +41,7 @@
 
       appStore.title = "详细数据"
 
-      const res = toMap(await api.getResult(uid), ["info", "skills", "skills_passive"]) as IResultInfo<"buffer"> | IResultInfo<"delear">
+      const res = toMap(await api.getResult(uid), ["info", "skills", "skills_passive", "equips_forget"]) as IResultInfo<"buffer"> | IResultInfo<"delear">
       characterStore.$patch({ alter: res.alter, name: res.name })
       configStore.forge_set = res.forget_set ?? {}
       function skill_tooltip(skill: string) {
@@ -309,7 +309,15 @@
         <>
           <div class="flex h-full m-0 overflow-hidden detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:cover">
             <div class="flex h-full w-266px justify-center">
-              <Profile total-data={res.total_data} role={res.role} equList={res.equips} class="!m-0 !p-0" details={res.info} standardSum={store.standard?.total_data}></Profile>
+              <Profile
+                total-data={res.total_data}
+                role={res.role}
+                equList={res.equips}
+                class="!m-0 !p-0"
+                details={res.info}
+                standardSum={store.standard?.total_data}
+                equips_forget={res.equips_forget}
+              ></Profile>
             </div>
             <table class="h-full bg-hex-000000/60 flex-1 ml-1 p-4 block overflow-hidden" style="border:1px solid rgba(255,255,255,0.15);">
               <thead class="text-white w-full bg-hex-000000/40" style="border-left:1px solid rgba(255,255,255,0.15);border-right:1px solid rgba(255,255,255,0.15)">
