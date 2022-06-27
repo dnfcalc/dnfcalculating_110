@@ -137,11 +137,7 @@ ipcMain.handle("close-win", event => {
 })
 
 ipcMain.handle("restart", () => {
-  console.log(process.execPath, process.execArgv, app.getAppPath(), process.env)
-  app.relaunch({
-    execPath: process.execPath,
-    args: [app.getAppPath()]
-  })
+  app.relaunch()
   app.quit()
   console.log("restart...")
 })

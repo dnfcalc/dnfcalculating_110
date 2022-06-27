@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { onClickOutside, onKeyDown, onKeyPressed, onKeyStroke, onKeyUp, syncRef, useDraggable, useVModel } from "@vueuse/core"
+  import { onClickOutside, onKeyDown, syncRef, useDraggable, useVModel } from "@vueuse/core"
   import { computed, defineComponent, PropType, ref, renderSlot, Teleport, Transition } from "vue"
 
   export default defineComponent({
@@ -26,6 +26,10 @@
         default: () => "提示"
       },
       closeOnEsc: {
+        type: Boolean,
+        default: () => true
+      },
+      closeButton: {
         type: Boolean,
         default: () => true
       },
@@ -102,9 +106,11 @@
                     {props.header && (
                       <div ref={headerRef} class="flex h-4 px-1 leading-4 z-9999 justify-center relative app-header">
                         <div class="text-xs text-shadow ">{props.header}</div>
-                        <div class="flex top-0 right-0 bottom-0 items-center absolute">
-                          <div onClick={close} class="cursor-pointer flex  h-4 text-center w-4  items-center close-icon"></div>
-                        </div>
+                        {props.closeButton && (
+                          <div class="flex top-0 right-0 bottom-0 items-center absolute">
+                            <div onClick={close} class="cursor-pointer flex  h-4 text-center w-4  items-center close-icon"></div>
+                          </div>
+                        )}
                       </div>
                     )}
                     <div class="bg-hex-000 bg-opacity-80 text-white text-xs">{renderSlot(slots, "default")}</div>

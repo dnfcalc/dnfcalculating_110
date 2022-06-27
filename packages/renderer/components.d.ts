@@ -14,6 +14,7 @@ declare module 'vue' {
     CalcItem: typeof import('./src/components/calc/item/index.vue')['default']
     CalcMenuMenu: typeof import('./src/components/calc/menu/menu.vue')['default']
     CalcOption: typeof import('./src/components/calc/option/index.vue')['default']
+    CalcProgress: typeof import('./src/components/calc/progress/index.vue')['default']
     CalcSelect: typeof import('./src/components/calc/select/index.vue')['default']
     CalcSelection: typeof import('./src/components/calc/selection/index.vue')['default']
     CalcTab: typeof import('./src/components/calc/tab/index.vue')['default']
