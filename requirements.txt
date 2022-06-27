@@ -1,8 +1,8 @@
 # pip install wheel==0.35.1
 # pip install -i https://pypi.mirrors.ustc.edu.cn/simple/ -r requirements.txt
 # pyinstaller
-chardet
-fastapi
+# chardet
+fastapi==0.75.0
 requests
-uvicorn[standard]
+uvicorn[standard]==0.17.6
 lanzou-api
