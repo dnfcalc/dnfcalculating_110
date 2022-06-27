@@ -1,5 +1,18 @@
 ## Newest
 
+### 2022.6.27.Beta
+
+#### NewFeatures
+* 添加巫女 ([c6e4a6](https://gitee.com/dcalc/dnfcalculating_110/commit/c6e4a658c2591208112fbe1c32efbfd9b6c05cf6))
+
+#### BugFixes
+* 修复选择称号宠物导致240词条技攻无效的问题 ([4979d1](https://gitee.com/dcalc/dnfcalculating_110/commit/4979d10fc0242653a1fa8dadc0a17b75b8f32eb6))
+* 缔造低阶技能TP修改 ([59f445](https://gitee.com/dcalc/dnfcalculating_110/commit/59f4451a65991255d454d357f2774ac99f7f8a63))
+* 若干修复 ([06d415](https://gitee.com/dcalc/dnfcalculating_110/commit/06d4151a53cbec70363e53df2d0cee9d2ff9fb8d))
+* 词条校对修改 ([179cdc](https://gitee.com/dcalc/dnfcalculating_110/commit/179cdc60ad5092db9efb71e5d979a5ab03920679))
+* 词条问题修复 ([a35d94](https://gitee.com/dcalc/dnfcalculating_110/commit/a35d94e67db5718d2bf580c5363231900e6e14b7))
+* 阿修罗：修复切换到闪枪无法计算的情况 ([377bc0](https://gitee.com/dcalc/dnfcalculating_110/commit/377bc0ebb30a8f48da5fe05617c829e604196589))
+
 ### 2022.6.22.Beta
 
 #### NewFeatures
@@ -18,3 +31,6 @@
 - 修复红紫绿符文效果有误的 ([bdb1ec](https://gitee.com/dcalc/dnfcalculating_110/commit/bdb1ecbb984b069d7b1c76183560b99b765e7682))
 
 ## History
+## History
+
+

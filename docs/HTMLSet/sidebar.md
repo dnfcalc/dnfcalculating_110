@@ -7,7 +7,7 @@
 - **其他**
 - [反馈](COMMENT.md)
 - **友情链接**
-- [下载链接](https://wwx.lanzoui.com/b01bfj76f)
+- [下载链接](https://wwn.lanzout.com/s/dcalc)
 - [源码](https://gitee.com/i_melon/DNFCalculating)
 - [Colg](https://bbs.colg.cn/)
-- [无名空岛](https://www.skycity.top/)
+- [无名空岛](https://www.skycity.top?from=calc)

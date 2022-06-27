@@ -22,3 +22,4 @@ api/sets
 build
 resources/
 **/__ZFJtemp/**
+web.config
