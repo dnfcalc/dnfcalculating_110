@@ -1,11 +1,9 @@
-import { useCharacterStore } from "./character"
-import { defineStore } from "pinia"
 import api from "@/api"
-import { Dress, IAdventureInfo, IEnchantingInfo, IEquipmentInfo, IEquipmentList, IJadeInfo, ITrigger } from "../api/info/type"
+import { defineStore } from "pinia"
+import { Dress, IEnchantingInfo, IEquipmentList, IJadeInfo, ITrigger } from "../api/info/type"
+import { useCharacterStore } from "./character"
 
 interface BasicInfoState {
-  // 冒险团信息
-  _adventureInfo: IAdventureInfo[]
   // 版本信息
   version: string
   // 用户识别码
@@ -34,7 +32,6 @@ interface BasicInfoState {
 export const useBasicInfoStore = defineStore("basicInfo", {
   state(): BasicInfoState {
     return {
-      _adventureInfo: [],
       version: "0.0.0.0",
       UID: "西瓜",
       blacklist: [],
@@ -62,12 +59,6 @@ export const useBasicInfoStore = defineStore("basicInfo", {
         return [...(info?.lv110 ?? []), ...(info?.myth ?? []), ...(info?.weapon ?? []), ...(info?.wisdom ?? []), ...(info?.title ?? []), ...(info?.pet ?? [])]
       }
       return []
-    },
-    adventure_info(state) {
-      if (state._adventureInfo.length === 0) {
-        api.getAdventure().then(res => (state._adventureInfo = res.data))
-      }
-      return state._adventureInfo
     },
     enchanting_info(state) {
       if (!state._enchantingInfo) {

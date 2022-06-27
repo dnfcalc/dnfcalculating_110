@@ -1,9 +1,10 @@
 <script lang="tsx">
+  import api from "@/api"
   import { IAlterInfo } from "@/api/info/type"
   import { useDialog } from "@/components/hooks/dialog"
-  import { useBasicInfoStore } from "@/store"
+  import { useAppStore } from "@/store"
   import openURL from "@/utils/openURL"
-  import { defineComponent, renderList } from "vue"
+  import { defineComponent, onMounted, renderList } from "vue"
   import Update from "./update.vue"
 
   function sub_icon(sub: number) {
@@ -19,8 +20,8 @@
     }
   }
 
-  export default defineComponent(() => {
-    const basicInfoStore = useBasicInfoStore()
+  export default defineComponent(async () => {
+    const appStore = useAppStore()
 
     const { alert, show } = useDialog()
 
@@ -56,6 +57,10 @@
       // router.push("/character/" + alter)
     }
 
+    onMounted(window.removeLoading)
+
+    const adventure = await api.getAdventure().then(r => r.data)
+
     const ignores = ["empty"]
 
     // function getName(name: string) {
@@ -63,10 +68,9 @@
     // }
 
     return () => (
-      <div class="bg-cover bg-no-repeat pt-8 pb-12 pl-4 home" style="background-image: url('./images/adventure/bg.jpg')">
+      <div class="bg-cover bg-no-repeat h-auto min-h-full pt-8 pb-12 pl-4 home" style="background-image: url('./images/adventure/bg.jpg')">
         <Update />
-
-        {renderList(basicInfoStore.adventure_info, (job, index) => (
+        {renderList(adventure, (job, index) => (
           <div class="flex flex-row">
             <div class="bg-no-repeat bg-center flex flex-wrap h-25 w-30 job-icon-box justify-center items-center relative" style="background-image: url('./images/adventure/flash.png')">
               <div class="bg-center bg-no-repeat h-22.5 w-30" style={sub_icon(index)}></div>
