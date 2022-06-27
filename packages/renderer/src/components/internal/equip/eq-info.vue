@@ -458,7 +458,7 @@
             )}
             {equip.value.prop.base.map(renderStatus(undefined, undefined, true))}
             <div class="hr"></div>
-            <div class="green"> &lt;附魔属性&gt; </div>
+            <div class="green"> &lt;附魔&gt; </div>
             {transform.enchanting != null && transform.enchanting.length > 0 ? (
               <div class="enchanting" style="margin-top:6px">
                 {renderList(transform.enchanting, e => (
@@ -466,7 +466,7 @@
                 ))}
               </div>
             ) : (
-              <div class="gey">没有附魔属性</div>
+              <div class="gey">未赋予魔法能力</div>
             )}
             {equip.value.prop.effect && equip.value.prop.effect.length > 0 && (
               <div>
