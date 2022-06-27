@@ -462,7 +462,7 @@
             {transform.enchanting != null && transform.enchanting.length > 0 ? (
               <div class="enchanting" style="margin-top:6px">
                 {renderList(transform.enchanting, e => (
-                  <div>{e}</div>
+                  <div>{e.replace("(", " +").replace(")", "")}</div>
                 ))}
               </div>
             ) : (
@@ -508,7 +508,7 @@
                       <>
                         <div class="yellow">
                           <span>
-                            属性 {i + 1} - Lv{transform.growthLvs[i] || 1} (EXP 0.00%)
+                            属性 {i + 1} - Lv{transform.growthLvs[i] || 1}
                           </span>
                         </div>
                         {is_buffer.value ? (

@@ -6,7 +6,7 @@
   import { useOpenWindow } from "@/hooks/open"
   import { useBasicInfoStore } from "@/store"
   import openURL from "@/utils/openURL"
-  import { setTimeout } from "timers"
+  // import { setTimeout } from "timers"
   import { defineComponent, onMounted, reactive, ref, renderList } from "vue"
 
   function sub_icon(sub: number) {

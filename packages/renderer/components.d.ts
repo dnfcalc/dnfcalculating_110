@@ -28,6 +28,7 @@ declare module 'vue' {
     InternalProfile: typeof import('./src/components/internal/profile.vue')['default']
     InternalSkillSkillIcon: typeof import('./src/components/internal/skill/skill-icon.vue')['default']
     InternalSkillSkillPanel: typeof import('./src/components/internal/skill/skill-panel.vue')['default']
+    InternalUpdate: typeof import('./src/components/internal/update.vue')['default']
   }
 }
 
