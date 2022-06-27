@@ -27,11 +27,17 @@
       hightlight: {
         type: Boolean,
         default: false
+      },
+      badges: {
+        type: Object,
+        default: () => {
+          return null
+        }
       }
     },
     setup(props, { emit }) {
       const active = useVModel(props, "active")
-
+      const badgeClass = ["white", "red", "green", "blue", "yellow"]
       const toggle = useToggle(active)
 
       return () => {
@@ -48,6 +54,34 @@
                   ])}
                 >
                   <img src={"./images/equipment/" + props.eq.icon} />
+                  {true || props.badges == null ? (
+                    <div></div>
+                  ) : props.badges.color[0] == 0 ? (
+                    props.badges.num == 0 ? (
+                      <div class="kong-box left">
+                        <div class="kong-item"></div>
+                      </div>
+                    ) : (
+                      <div class="kong-box left">
+                        <div class={["kong-item"].concat([badgeClass[props.badges.color[0]]])}></div>
+                      </div>
+                    )
+                  ) : props.badges.num == 0 ? (
+                    <div class="kong-box">
+                      <div class="kong-item"></div>
+                      <div class="kong-item"></div>
+                    </div>
+                  ) : props.badges.num == 1 ? (
+                    <div class="kong-box">
+                      <div class={["kong-item"].concat([badgeClass[props.badges.color[0]]])}></div>
+                      <div class="kong-item"></div>
+                    </div>
+                  ) : (
+                    <div class="kong-box">
+                      <div class={["kong-item"].concat([badgeClass[props.badges.color[0]]])}></div>
+                      <div class={["kong-item"].concat([badgeClass[props.badges.color[1]]])}></div>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <span class="icon"></span>
@@ -143,6 +177,55 @@
       left: 1px;
       width: 28px;
       height: 28px;
+    }
+
+    .kong-box {
+      width: 14px;
+      height: 7px;
+      position: absolute;
+      bottom: 1px;
+      right: -1px;
+      display: flex;
+
+      &.left {
+        right: auto;
+        left: 0;
+        width: 7px;
+      }
+
+      .kong-item {
+        width: 7px;
+        position: relative;
+        border: 1px solid #637b39;
+        background-color: #522910;
+        &::after {
+          content: "";
+          display: block;
+          height: 3px;
+          border: 1px solid rgba(#000, 0.5);
+        }
+
+        &:last-child {
+          right: 1px;
+        }
+
+        &.red {
+          background: linear-gradient(to left top, #ff108c, #ff73c6, #ad0852, #ff108c, #ffffff, #ffffff);
+        }
+        &.blue {
+          background: linear-gradient(to left top, #10ceff, #73e7ff, #086bad, #10ceff, #ffffff, #ffffff);
+        }
+        &.green {
+          background: linear-gradient(to left top, #b5ff10, #efff73, #63ad08, #b5ff10, #ffffff, #ffffff);
+        }
+        &.yellow {
+          background: linear-gradient(to left top, #ffbd10, #ffd673, #ad6308, #ffbd10, #ffffff, #ffffff);
+        }
+        &.white {
+          border: 1px solid #ffde5a;
+          background: linear-gradient(to left top, #efffff, #ceffff, #4a7bde, #efffff, #efffff, #ffffff);
+        }
+      }
     }
   }
 </style>

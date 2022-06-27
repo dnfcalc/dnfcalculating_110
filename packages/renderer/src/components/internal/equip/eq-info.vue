@@ -234,8 +234,10 @@
         let s = 0
         if (equip.value?.prop.growthProps && equip.value.prop.growthProps.length > 0) {
           let a = equip.value.prop.growthProps
-          for (let item of a) {
-            s += item.buffer ?? 0
+
+          for (let i = 0; i < a.length; i++) {
+            let item = a[i]
+            s += transform.growthBuffers[i] ?? item.buffer ?? 0
           }
         }
         return s
@@ -245,8 +247,10 @@
         let s = 0
         if (equip.value?.prop.growthProps && equip.value.prop.growthProps.length > 0) {
           let a = equip.value.prop.growthProps
-          for (let item of a) {
-            s += item.attack
+
+          for (let i = 0; i < a.length; i++) {
+            let item = a[i]
+            s += transform.growthAttacks[i] ?? item.attack ?? 0
           }
         }
         return s
@@ -379,6 +383,12 @@
         console.log(transform)
       }
 
+      const iconBages = computed(() => {
+        let x = transform.badges && transform.badges.length > 0 ? { color: [transform.badges[0]?.type, transform.badges[1]?.type], num: transform.badges.length } : null
+        console.log(x)
+        return x
+      })
+
       return () => {
         if (!equip.value) {
           return <div></div>
@@ -387,7 +397,7 @@
         return (
           <div class={["approved-form"].concat([props.colums ? "with-colums" : ""].concat("!w-300px"))}>
             <div class="epic title" style="display: flex">
-              <eq-icon eq={equip.value}></eq-icon>
+              <eq-icon eq={equip.value} badges={iconBages.value}></eq-icon>
               <div class="eq-name" style="margin-left: 8px">
                 <span style="display: flex" class={rarityClass(equip.value.rarity)}>
                   {transform.reinforce > 0 ? <span style="margin-right: 4px">+{transform.reinforce}</span> : <span></span>}
