@@ -9,4 +9,5 @@
 - **友情链接**
 - [下载链接](https://wwx.lanzoui.com/b01bfj76f)
 - [源码](https://gitee.com/i_melon/DNFCalculating)
-
+- [Colg](https://bbs.colg.cn/)
+- [无名空岛](https://www.skycity.top/)
