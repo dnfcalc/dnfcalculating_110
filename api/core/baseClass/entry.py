@@ -1223,6 +1223,10 @@ def entry_890(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        for i in ['冰冻', '眩晕', '睡眠', '石化', '减速', '束缚', '失明', '混乱', '诅咒']:
+            if i in state_type:
+                char.技能恢复加成(1,100,0.5,[50,85,100])
+                return
         pass
 
 
@@ -2374,7 +2378,8 @@ def entry_1225(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.异常增伤('灼烧', 0.3)
+        # char.异常增伤('灼烧', 0.3)
+        pass
 
 
 def entry_1229(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -2442,7 +2447,7 @@ def entry_1241(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "穿戴装备的强化/增幅数值总和每增加1，所有速度 +2%(最多叠加12次)"
     if mode == 0:
-        x = char.获取强化等级()
+        x = char.获取强化等级([part])
         char.所有速度增加(0.02 * min(12, x))
     if mode == 1:
         pass
@@ -3467,7 +3472,7 @@ def entry_1033(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.MP消耗量加成(1.0)
     if mode == 1:
-        char.技能恢复加成(1, 100, 0.03 * int(mp_rate_num/8), [50, 85, 100])
+        char.技能恢复加成(1, 100, min(0.3,0.03 * int(mp_rate_num/8)), [50, 85, 100])
         char.条件冷却恢复加成("所有[觉醒除外]", 0.3)
 
 
@@ -3541,7 +3546,7 @@ def entry_1040(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(165, lv) * min(9, int(10-hp_rate_num/10)))
+        char.攻击强化加成(成长词条计算(165, lv) * 9)
 
 
 def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3550,7 +3555,7 @@ def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(362, lv) * min(int(10-mp_rate_num/10), 9))
+        char.攻击强化加成(成长词条计算(362, lv) * 9)
 
 
 def entry_1042(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3559,7 +3564,7 @@ def entry_1042(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(156, lv) * min(19, int(20-hp_rate_num/5)))
+        char.攻击强化加成(成长词条计算(156, lv) * 19)
 
 
 def entry_1045(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3611,7 +3616,7 @@ def entry_1049(char: Character = {}, mode=0, text=False, part='', lv=0):
         for index in range(0, len(char.技能队列)):
             if (index+1) % 5 == 0:
                 char.技能队列[index]["倍率"] *= 1.2
-                char.技能队列[index]["CDR"] *= 0.9
+                char.技能队列[index]["CDR"] *= 1.1
             pass
 
 
@@ -3743,7 +3748,7 @@ def entry_1002(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(583, lv))
+        char.攻击强化加成(成长词条计算(593, lv))
 
 
 def entry_902(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3809,7 +3814,7 @@ def entry_909(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "感电伤害 +20%"
     if mode == 0:
-        char.异常增伤('感电', 0.02)
+        char.异常增伤('感电', 0.2)
     if mode == 1:
         pass
 
@@ -4163,7 +4168,7 @@ def entry_861(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         char.攻击速度增加(0.15)
         char.移动速度增加(0.15)
-        char.施放速度增加(0.15)
+        char.施放速度增加(0.20)
 
 
 def entry_864(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -5284,7 +5289,10 @@ def entry_55(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "攻击无力化状态下的敌人时，出血伤害 +15%"
     if mode == 0:
-        char.异常增伤('出血', 0.15)
+        for i in ['冰冻', '眩晕', '睡眠', '石化', '减速', '束缚', '失明', '混乱', '诅咒']:
+            if i in state_type:
+                char.异常增伤('出血', 0.15)
+                return
     if mode == 1:
         pass
 
@@ -5293,7 +5301,10 @@ def entry_56(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "攻击无力化状态下的敌人时，中毒伤害 +15%"
     if mode == 0:
-        char.异常增伤('中毒', 0.15)
+        for i in ['冰冻', '眩晕', '睡眠', '石化', '减速', '束缚', '失明', '混乱', '诅咒']:
+            if i in state_type:
+                char.异常增伤('中毒', 0.15)
+                return
     if mode == 1:
         pass
 
@@ -5302,7 +5313,10 @@ def entry_57(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "攻击无力化状态下的敌人时，灼烧伤害 +15%"
     if mode == 0:
-        char.异常增伤('灼烧', 0.15)
+        for i in ['冰冻', '眩晕', '睡眠', '石化', '减速', '束缚', '失明', '混乱', '诅咒']:
+            if i in state_type:
+                char.异常增伤('灼烧', 0.15)
+                return
     if mode == 1:
         pass
 
@@ -5311,7 +5325,10 @@ def entry_58(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return "攻击无力化状态下的敌人时，感电伤害 +15%"
     if mode == 0:
-        char.异常增伤('感电', 0.15)
+        for i in ['冰冻', '眩晕', '睡眠', '石化', '减速', '束缚', '失明', '混乱', '诅咒']:
+            if i in state_type:
+                char.异常增伤('感电', 0.15)
+                return
     if mode == 1:
         pass
 
@@ -6661,7 +6678,7 @@ def entry_183(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.火属性强化加成(7 * enemy_num)
+        char.火属性强化加成(7 * min(10,enemy_num))
 
 
 def entry_184(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6670,7 +6687,7 @@ def entry_184(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.冰属性强化加成(7 * enemy_num)
+        char.冰属性强化加成(7 *  min(10,enemy_num))
 
 
 def entry_185(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6679,7 +6696,7 @@ def entry_185(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.光属性强化加成(7 * enemy_num)
+        char.光属性强化加成(7 *  min(10,enemy_num))
 
 
 def entry_186(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -6688,7 +6705,7 @@ def entry_186(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.暗属性强化加成(7 * min(10, enemy_num))
+        char.暗属性强化加成(7 *  min(10,enemy_num))
 
 
 def entry_266(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7762,7 +7779,7 @@ def entry_1135(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         for i in char.技能栏:
-            if i.手搓 == True:
+            if i.手搓 == True and i.所在等级 not in [50,85,100]:
                 if i.是否有伤害 == 1:
                     i.倍率 *= 1.05
 
@@ -7783,7 +7800,7 @@ def entry_1137(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         for i in char.技能栏:
-            if i.手搓 == True:
+            if i.手搓 == True  and i.所在等级 not in [50,85,100]:
                 if i.是否有伤害 == 1:
                     if i.手搓指令数 == 1:
                         i.倍率 *= 1.07
@@ -8624,6 +8641,7 @@ def entry_802(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.技能恢复加成(1,100,0.2,[50,85,100])
         pass
 
 
