@@ -2,10 +2,11 @@
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useDialog } from "@/components/hooks/dialog"
+  import WatermarkVue from "@/components/internal/watermark.vue"
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
   import openURL from "@/utils/openURL"
-  import { defineComponent, ref, renderList } from "vue"
+  import { defineComponent, onMounted, renderList } from "vue"
   import { useRoute } from "vue-router"
 
   // import Character from "@/pages/main/character/character.vue"
@@ -14,18 +15,17 @@
   // import Detail from "@/pages/main/detail/detail.vue"
   // import Singleset from "@/pages/main/singleset/singleset.vue"
 
-  export default defineComponent(() => {
+  export default defineComponent(async () => {
     const route = useRoute()
-    const { alert, render } = useDialog()
-    const tab = ref(0)
+    const { alert } = useDialog()
     const char = route.query.name as string
     const appStore = useAppStore()
     const configStore = useConfigStore()
     const characterStore = useCharacterStore()
 
-    characterStore.newCharacter(char).then(() => {
-      appStore.$patch({ title: characterStore.name })
-    })
+    onMounted(window.removeLoading)
+    await characterStore.newCharacter(char)
+    appStore.$patch({ title: characterStore.name })
 
     async function calc() {
       // alert({
@@ -52,7 +52,8 @@
     return () => {
       if (characterStore.alter) {
         return (
-          <div class="main" style={"background-image:url(./images/characters/" + characterStore.alter + "/bg.jpg)"}>
+          <div class="main">
+            <WatermarkVue content="test" class="h-full w-full top-0 left-0 absolute" src={`./images/characters/${characterStore.alter}/bg.jpg`} />
             <div class="header">
               <calc-tabs route>
                 <calc-tab value={"/character/equips?name=" + characterStore.alter}>装备</calc-tab>

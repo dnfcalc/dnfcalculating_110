@@ -5,7 +5,7 @@
   import { skill_icon } from "@/pages/main/character/sub/utils"
   import { useAppStore, useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
   import { toMap, to_percent } from "@/utils"
-  import { computed, defineComponent, renderList } from "vue"
+  import { computed, defineComponent, onMounted, renderList } from "vue"
   import { useRoute } from "vue-router"
 
   interface ISkillResult {
@@ -41,7 +41,11 @@
 
       appStore.title = "详细数据"
 
-      const res = toMap(await api.getResult(uid), ["info", "skills", "skills_passive", "equips_forget"]) as IResultInfo<"buffer"> | IResultInfo<"delear">
+      onMounted(window.removeLoading)
+
+      const result = await api.getResult(uid)
+
+      const res = toMap(result, ["info", "skills", "skills_passive", "equips_forget"]) as IResultInfo<"buffer"> | IResultInfo<"delear">
       characterStore.$patch({ alter: res.alter, name: res.name })
       configStore.forge_set = res.forget_set ?? {}
       function skill_tooltip(skill: string) {
@@ -167,7 +171,7 @@
                   default() {
                     return (
                       <>
-                        <div style="position:relative" class="w-28px h-28px">
+                        <div style="position:relative" class="h-28px w-28px">
                           <img src={skill_icon(characterStore.alter, skill.name)} />
                           <div class="size-11" data-text={"Lv " + res.skills[skill.name].level}>
                             Lv&nbsp;{res.skills[skill.name].level}
@@ -320,7 +324,7 @@
               ></Profile>
             </div>
             <table class="h-full bg-hex-000000/60 flex-1 ml-1 p-4 block overflow-hidden" style="border:1px solid rgba(255,255,255,0.15);">
-              <thead class="text-white w-full bg-hex-000000/40" style="border-left:1px solid rgba(255,255,255,0.15);border-right:1px solid rgba(255,255,255,0.15)">
+              <thead class="bg-hex-000000/40 text-white w-full" style="border-left:1px solid rgba(255,255,255,0.15);border-right:1px solid rgba(255,255,255,0.15)">
                 <tr class="bg-hex-000000/40 h-4 !text-hex-B2966B">
                   {renderList(headers.value, head => {
                     return (
@@ -332,15 +336,15 @@
                 </tr>
               </thead>
 
-              <tbody class="text-white w-full skills overflow-y-auto block m-0 p-0 bg-hex-000000/40" style="height:calc(100% - 86px);border:1px solid rgba(255,255,255,0.15);border-top:none">
+              <tbody class="bg-hex-000000/40 m-0 text-white w-full p-0 skills overflow-y-auto block" style="height:calc(100% - 86px);border:1px solid rgba(255,255,255,0.15);border-top:none">
                 {renderSkills()}
               </tbody>
 
-              <tbody class="h-6 w-full m-0 p-0 block bg-hex-000000/40 text-white" style="border-left:1px solid rgba(255,255,255,0.15);border-right:1px solid rgba(255,255,255,0.15)">
+              <tbody class="bg-hex-000000/40 h-6 m-0 text-white w-full p-0 block" style="border-left:1px solid rgba(255,255,255,0.15);border-right:1px solid rgba(255,255,255,0.15)">
                 {renderTotal()}
               </tbody>
 
-              <tr class="bottom h-10 w-full m-0 p-0 block bg-hex-000000/40">
+              <tr class="bg-hex-000000/40 bottom h-10 m-0 w-full p-0 block">
                 <div class="flex h-10 ml-1 items-center">
                   {renderList(skill_passive.value, skill => (
                     <div class="mr-1">
