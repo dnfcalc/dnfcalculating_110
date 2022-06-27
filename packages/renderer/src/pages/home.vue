@@ -1,13 +1,10 @@
 <script lang="tsx">
-  import api from "@/api"
   import { IAlterInfo } from "@/api/info/type"
   import { useDialog } from "@/components/hooks/dialog"
-  import UpdateDialog from "@/components/internal/update.vue"
-  import { useOpenWindow } from "@/hooks/open"
   import { useBasicInfoStore } from "@/store"
   import openURL from "@/utils/openURL"
-  // import { setTimeout } from "timers"
-  import { defineComponent, onMounted, reactive, ref, renderList } from "vue"
+  import { defineComponent, renderList } from "vue"
+  import Update from "./update.vue"
 
   function sub_icon(sub: number) {
     return {
@@ -65,70 +62,9 @@
     //   return ignores.includes(name) ? "" : name
     // }
 
-    const openLanzou = useOpenWindow({ url: "https://wwn.lanzout.com/s/dcalc" })
-
-    onMounted(async () => {
-      if (window.ipcRenderer) {
-        try {
-          //    if (!(await api.checkUpdate(APP_VERSION))) return
-          console.log(await api.checkUpdate(APP_VERSION))
-          const res = await show({
-            content: (
-              <div class="text-left w-full px-4 justify-center">
-                检测到更新，是否自动更新？
-                <br />
-                自动更新将在下次启动时生效。
-              </div>
-            ),
-            rejectButton: "手动更新",
-            okButton: "自动更新",
-            cancelButton: "取消"
-          })
-
-          if (res.status == "reject") {
-            openLanzou()
-          } else if (res.status == "ok") {
-            await autoUpdate()
-          } else {
-          }
-        } catch {
-          await alert({
-            content: "自动检查更新错误,请手动检查更新"
-          })
-        }
-      }
-    })
-
-    const updateData = reactive({ current: 0, total: 0 })
-
-    async function autoUpdate() {
-      api.autoUpdate()
-      startUpdate.value = true
-      let timer: NodeJS.Timeout
-      const fn = async () => {
-        clearTimeout(timer)
-        const [current, total] = await api.getUpdateProgress()
-        updateData.current = current
-        updateData.total = total
-        console.log(current, total)
-
-        if (current == 0 || current < total) {
-          await new Promise(resolve => {
-            timer = setTimeout(async () => {
-              await fn()
-              resolve(null)
-            }, 200)
-          })
-        }
-      }
-      await fn()
-    }
-
-    const startUpdate = ref(false)
-
     return () => (
       <div class="bg-cover bg-no-repeat pt-8 pb-12 pl-4 home" style="background-image: url('./images/adventure/bg.jpg')">
-        <UpdateDialog {...updateData} v-model:visible={startUpdate.value} />
+        <Update />
 
         {renderList(basicInfoStore.adventure_info, (job, index) => (
           <div class="flex flex-row">
