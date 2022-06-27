@@ -397,6 +397,7 @@
         "name": "sorceress",
         "title": "神启·巫女",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },

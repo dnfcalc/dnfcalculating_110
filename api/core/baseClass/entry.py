@@ -10427,6 +10427,7 @@ def entry_711(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name('不动珠箔阵').hit0 += 8
         pass
 
 
@@ -10436,6 +10437,10 @@ def entry_712(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        百八念珠 = char.get_skill_by_name('百八念珠')
+        百八念珠.hit0 +=10
+        百八念珠.hit1 +=10
+        char.get_skill_by_name('退魔阴阳符').hit1 +=3
         pass
 
 
@@ -10445,6 +10450,7 @@ def entry_713(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name('天坠阴阳玉').倍率 *=2
         pass
 
 
