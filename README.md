@@ -19,6 +19,10 @@ web:vue3+TS+electron+vite<br> 参考项目：https://github.com/caoxiemeihao/ele
 
     pnpm install
 
+    若安装node_modules/.pnpm/electron时超时失败可尝试换源
+
+    pnpm config set electron_mirror "https://npm.taobao.org/mirrors/electron/"
+
 ```
 
 ## 项目运行
