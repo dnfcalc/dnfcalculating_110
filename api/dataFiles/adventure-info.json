@@ -120,7 +120,8 @@
         "title": "",
         "default_name": "国服",
         "class": [],
-        "options": []
+        "options": [],
+        "comment": "首页"
       }
     ]
   },

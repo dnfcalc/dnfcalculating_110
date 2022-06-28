@@ -9,7 +9,7 @@ import "./app.scss"
 
 createApp(App).use(pinia).use(router).mount("#app")
 
-setTimeout(window.removeLoading, 5000)
+if(window.removeLoading)setTimeout(window.removeLoading, 5000)
 
 // console.log('fs', window.fs)
 // console.log('ipcRenderer', window.ipcRenderer)
