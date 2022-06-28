@@ -172,7 +172,7 @@ class 技能7(主动技能):
     MP = [300, 2520]
     形态 = ['打满', '秒炸']
 
-    def 形态变更(self, 形态, char):
+    def 形态变更(self, 形态, char:Character):
         if 形态 == '' and len(self.形态) > 0:
             形态 = self.形态[0]
         if 形态 == "秒炸":

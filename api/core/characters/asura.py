@@ -458,7 +458,7 @@ class 技能15(主动技能):
 
     形态 = ["开眼", "平X"]
 
-    def 形态变更(self, 形态, char):
+    def 形态变更(self, 形态, char:Character):
         if 形态 == '' and len(self.形态) > 0:
             形态 = self.形态[0]
         if 形态 == "开眼":
@@ -657,7 +657,7 @@ class 技能20(主动技能):
 
     形态 = ["终结", "雷针"]
 
-    def 形态变更(self, 形态, char):
+    def 形态变更(self, 形态, char:Character):
         if 形态 == '' and len(self.形态) > 0:
             形态 = self.形态[0]
         if 形态 == "雷针":

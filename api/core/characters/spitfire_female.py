@@ -492,7 +492,7 @@ class 技能22(职业主动技能):
     hit1 = 1
 
     # 不同形态下的技能数值，每个形态都要有对应的判断和修改，没有进行拷贝，可能会出错
-    # def 形态变更(self, 形态, char):
+    # def 形态变更(self, 形态, char:Character):
     #     if 形态 == "毛电":
     #         self.hit0 = 7
     #     else:
