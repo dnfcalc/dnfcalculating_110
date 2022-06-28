@@ -1,6 +1,7 @@
 import { useDialog } from "@/components/hooks/dialog"
 import axios, { AxiosInstance, AxiosResponse } from "axios"
 import { useConfigStore } from "@/store"
+import { h } from "vue"
 
 export interface HttpResponse<T = unknown> {
   code?: number
@@ -42,7 +43,11 @@ export function defineRequest<T>(fn: (ax: AxiosInstance) => T) {
       async (response: AxiosResponse<HttpResponse>) => {
         if (response.data.code === 500) {
           const { alert } = useDialog()
-          await alert({ content: response.data.message })
+          await alert({
+            content: () => {
+              return h("div", { class: "justify-center text-hex-d4d6b6 text-center", style: "white-space:pre-wrap;width:250px" }, response.data.message)
+            }
+          })
         }
         return response.data
       },

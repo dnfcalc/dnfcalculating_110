@@ -33,7 +33,7 @@
       const openLanzou = useOpenWindow({ url: "https://wwn.lanzout.com/s/dcalc" })
 
       onMounted(async () => {
-        if (window.ipcRenderer) {
+        if (window.ipcRenderer && !import.meta.env.DEV) {
           try {
             if (!(await api.checkUpdate(APP_VERSION))) {
               return

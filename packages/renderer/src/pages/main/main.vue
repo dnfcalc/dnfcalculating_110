@@ -23,7 +23,7 @@
     const configStore = useConfigStore()
     const characterStore = useCharacterStore()
 
-    onMounted(window.removeLoading)
+    if (window.removeLoading) onMounted(window.removeLoading)
     await characterStore.newCharacter(char)
     appStore.$patch({ title: characterStore.name })
 

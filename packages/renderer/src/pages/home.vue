@@ -29,6 +29,10 @@
     function choose_job(child: IAlterInfo) {
       // const openUrl = child.url ? useOpenWindow({ url: child.url, target: "_blank" }) : useOpenWindow({ url: `/character?name=${child.name}`, width: 1100, height: 750 })
       return async () => {
+        if (child.comment == "首页") {
+          openURL("https://dcalc.gitee.io/dnfcalculating_110/#/")
+          return
+        }
         if (ignores.includes(child.name)) {
           return
         }
@@ -56,8 +60,7 @@
       }
       // router.push("/character/" + alter)
     }
-
-    onMounted(window.removeLoading)
+    if (window.removeLoading) onMounted(window.removeLoading)
 
     const adventure = await api.getAdventure().then(r => r.data)
 
@@ -77,7 +80,12 @@
             </div>
             {renderList(job.children, (child, j) => (
               <div onClick={choose_job(child)} class="cursor-pointer h-22.5 m-1 w-30 duration-300 job-box box-border relative">
-                {child.open && <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e" style="background-image: url('./images/adventure/border.png')"></div>}
+                {child.open && child.name != "sponsor" && (
+                  <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e" style="background-image: url('./images/adventure/border.png')"></div>
+                )}
+                <div class="text-xs text-center justify-center w-full bottom-9.6 text-white absolute" style="letter-spacing:10px;text-indent:10px">
+                  {child.comment}
+                </div>
                 <div class="text-xs text-center w-full bottom-1 text-hex-bea347 absolute">{child.title}</div>
                 <div class="bg-no-repeat bg-auto bg-clip-content h-full w-full z-1 overflow-hidden" style={job_icon(child)}></div>
               </div>

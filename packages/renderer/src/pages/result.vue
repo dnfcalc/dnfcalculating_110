@@ -41,7 +41,7 @@
 
       appStore.title = "详细数据"
 
-      onMounted(window.removeLoading)
+      if (window.removeLoading) onMounted(window.removeLoading)
 
       const result = await api.getResult(uid)
 
@@ -101,7 +101,7 @@
           return renderList(Object.values(res.skills), skill => {
             return (
               <tr>
-                <td width="12%" class="h-9">
+                <td width="12%" class="h-7">
                   <calc-tooltip class="flex justify-center" position="right">
                     {{
                       default() {
@@ -165,7 +165,7 @@
         temp.sort((a, b) => b.order - a.order)
         return renderList(temp, skill => (
           <tr>
-            <td width="12%" class=" h-9">
+            <td width="12%" class="h-7">
               <calc-tooltip class="flex items-center justify-center" position="right">
                 {{
                   default() {
@@ -186,19 +186,19 @@
                 }}
               </calc-tooltip>
             </td>
-            <td width="12%" class="h-9 text-center leading-9">
+            <td width="12%" class="h-7 text-center leading-7">
               {skill.cd}s
             </td>
-            <td width="12%" class="h-9 text-center leading-9">
+            <td width="12%" class="h-7 text-center leading-7">
               {skill.count}
             </td>
-            <td width="24%" class="h-9  leading-9" style={"color:" + skill.damage[1]}>
+            <td width="24%" class="h-7  leading-7" style={"color:" + skill.damage[1]}>
               {skill.damage[0]}
             </td>
-            <td width="24%" class="h-9  leading-9" style={"color:" + skill.avg[1]}>
+            <td width="24%" class="h-7  leading-7" style={"color:" + skill.avg[1]}>
               {skill.avg[0]}
             </td>
-            <td width="14%" class="h-9  pr-2 leading-9">
+            <td width="14%" class="h-7  pr-2 leading-7">
               {to_percent(skill.order / res.total_data[0], 0, "%")}
             </td>
           </tr>

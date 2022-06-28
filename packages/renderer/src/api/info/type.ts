@@ -11,6 +11,7 @@ export interface IAlterInfo {
   class: string[]
   options: string[]
   open?: boolean
+  comment?: string
 }
 
 export interface IEquipmentInfo {

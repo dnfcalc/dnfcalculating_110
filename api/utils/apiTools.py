@@ -30,9 +30,12 @@ def register_exception(app: FastAPI):
     # 捕获全部异常
     @app.exception_handler(Exception)
     async def all_exception_handler(request: Request, ex: Exception):
-        api = str(request.url).split("api/")[1]
-        info = "  ".join(traceback.format_exc().replace(
-            "  ", "").split("\n")[-4:])
+        # api = str(request.url).split("api/")[1]
+        info = traceback.format_exc().replace(
+            "  ", "").split("\n")[-4:-1]
+        info[0] = info[0].split("\\")[-1].replace("\"",":").replace(",","")
+        info = "\n \r".join(info)
+
         # traceback.print_last(sys.exc_info())
         return JSONResponse(
             status_code=status.HTTP_200_OK,
@@ -42,8 +45,8 @@ def register_exception(app: FastAPI):
             },
             content={
                 "code": 500,
-                "message":
-                f"{api}:{info}",
+                "message":info,
+                # f"api:{api} \n \r{info}",
                 "data": []
             })
 
