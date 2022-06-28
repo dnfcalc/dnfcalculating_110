@@ -180,6 +180,7 @@
         "name": "launcher_male",
         "title": "重霄·枪炮师",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
