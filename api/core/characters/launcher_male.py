@@ -307,7 +307,7 @@ class 技能14(主动技能):
 
     def 装备护石(self, x):
         self.倍率 *= 1.25
-        self.CD *= 0.88
+        self.CDR *= 0.88
 
 
 class 技能15(主动技能):
