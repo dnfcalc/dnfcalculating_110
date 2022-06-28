@@ -315,6 +315,7 @@
         "name": "battle_mage",
         "title": "知源·战斗法师",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       },
