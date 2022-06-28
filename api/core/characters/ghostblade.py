@@ -502,7 +502,7 @@ class 技能21(主动技能):
     MP = [1097, 8229]
     无色消耗 = 7
 
-    def 形态变更(self, 形态, char):
+    def 形态变更(self, 形态, char:Character):
         if 形态 == "共鸣":
             self.hit0 = 5
             self.hit1 = 5

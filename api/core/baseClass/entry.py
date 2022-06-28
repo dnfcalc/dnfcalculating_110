@@ -10021,6 +10021,8 @@ def entry_668(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name('炫纹发射').倍率 *=1.1
+        char.get_skill_by_name('炫纹发射').hit0 +=2
         pass
 
 
