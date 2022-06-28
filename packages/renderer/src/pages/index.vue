@@ -50,7 +50,7 @@
               <div onClick={appStore.close} class="cursor-pointer h-4 text-center  text-hex-f0d070 text-opacity-72  w-4 close-icon hover:text-opacity-100"></div>
             </div>
           </div>
-          <div class="w-full pt-6 overflow-y-auto" style="height:calc(100% - 24px);">
+          <div class="w-full mt-6 overflow-y-auto" style="height:calc(100% - 24px);">
             <Suspense>
               <RouterView></RouterView>
             </Suspense>
