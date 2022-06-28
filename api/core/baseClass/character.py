@@ -294,7 +294,7 @@ class Character(角色属性):
 
     # region 词条属性
     def 基础精通加成(self, x: float) -> None:
-        self.__基础精通倍率 += x
+        self.__基础精通倍率 *= 1+x
 
     def 百分比防御减少(self, x: float) -> None:
         self.__百分比减防 += x
@@ -1284,6 +1284,11 @@ class Character(角色属性):
             # print('{}(lv.{}): {} {}'.format(部位, 等级, func, func(self, text=TRUE)))
 
     def __被动倍率计算(self):
+        if self.__基础精通倍率 != 1:
+            基础精通 = self.get_skill_by_name('基础精通')
+            if 基础精通.名称 == '基础精通':
+                基础精通.倍率 *= self.__基础精通倍率
+
         for i in self.技能栏:
             i.被动倍率 = 1
         for i in self.技能栏:
