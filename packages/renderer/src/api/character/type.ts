@@ -60,7 +60,9 @@ export interface IDelearSkillInfo {
   count: number
 }
 
-export interface IResultInfo<R = "delear" | "buffer", S = R extends "buffer" ? IBufferSkillInfo : IDelearSkillInfo> {
+export type IAnyResultInfo = IResultInfo<"buffer"> | IResultInfo<"delear">
+
+export interface IResultInfo<R = "delear" | "buffer"> {
   id: ID
   name: string
   alter: string
@@ -69,7 +71,7 @@ export interface IResultInfo<R = "delear" | "buffer", S = R extends "buffer" ? I
   token?: string
   forget_set?: Record<string, Map<string, any>>
   equips_forget: any
-  skills: Record<string, S>
+  skills: Record<string, R extends "buffer" ? IBufferSkillInfo : IDelearSkillInfo>
   skills_passive: any
   equips: IEquipmentInfo[]
 

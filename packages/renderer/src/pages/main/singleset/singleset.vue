@@ -267,7 +267,7 @@
               </calc-button>
             </div>
             <Profile
-              standardSum={detailsStore.standard?.total_data[0]}
+              standard-data={detailsStore.standard?.total_data}
               details={result.state.value.info}
               total-data={result.state.value.total_data}
               role={charcaterStore.role}
