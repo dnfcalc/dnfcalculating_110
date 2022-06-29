@@ -4730,10 +4730,12 @@ def entry_180(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_181(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['剩余HP超过50%以上时，攻击强化 +N']
+        return ['剩余HP超过50%以上时，攻击强化 +1784']
     if mode == 0:
         pass
     if mode == 1:
+        if hp_rate_num >=50:
+            char.攻击强化加成(成长词条计算(1784, lv))
         pass
 
 
@@ -6042,10 +6044,11 @@ def entry_122(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_153(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['每进行5次攻击，获得效果', '- 攻击强化 +N', '- 物理防御力 -500']
+        return ['每进行5次攻击，获得效果', '- 攻击强化 +89', '- 物理防御力 -500']
     if mode == 0:
         pass
     if mode == 1:
+        char.攻击强化加成(成长词条计算(89, lv))
         pass
 
 
@@ -7044,11 +7047,11 @@ def entry_194(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_195(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['根据敌人韧性破坏次数，攻击强化 +N']
+        return ['根据敌人韧性破坏次数，攻击强化 +193']
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(0, lv) * toughness_num)
+        char.攻击强化加成(成长词条计算(193, lv) * toughness_num)
 
 
 def entry_200(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7518,11 +7521,11 @@ def entry_223(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_224(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['进入地下城时，每30秒以相同几率发动属性，效果持续20秒', '- 攻击强化 +N', '- 所受伤害 -25%']
+        return ['进入地下城时，每30秒以相同几率发动属性，效果持续20秒', '- 攻击强化 +3417', '- 所受伤害 -25%']
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(0, lv))
+        char.攻击强化加成(成长词条计算(3417, lv)*0.5*20/30)
 
 
 def entry_997(char: Character = {}, mode=0, text=False, part='', lv=0):
