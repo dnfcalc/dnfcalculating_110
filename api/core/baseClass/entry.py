@@ -3003,7 +3003,7 @@ def entry_1147(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.技能倍率加成(1, 30, 0.12)
         for skill in char.技能队列:
-            if skill["无色消耗"] == 0 and skill['名称'] !='基础精通':
+            if skill["无色消耗"] == 0 and skill['名称'] != '基础精通':
                 skill["无色消耗"] = 2
     if mode == 1:
         pass
@@ -3479,7 +3479,7 @@ def entry_1033(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1034(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['每8点暗属性强化，火属性强化、光属性强化、冰属性强化 +1(最多增加50)', '每10点暗属性抗性，火属性抗性、光属性抗性、冰属性抗性 -1(最多减少30)']
+        return ['每8点暗属性强化，火属性强化、光属性强化、冰属性强化 +1(最多增加50)', '每10点暗属性强化，火属性抗性、光属性抗性、冰属性抗性 -1(最多减少30)']
     if mode == 0:
         pass
     if mode == 1:
@@ -3487,15 +3487,15 @@ def entry_1034(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.冰属性强化加成(min(50, int(char.暗属性强化() / 8)))
         char.光属性强化加成(min(50, int(char.暗属性强化() / 8)))
         # char.暗属性强化加成(50)
-        char.火属性抗性加成(-min(30, int(char.暗属性抗性() / 10)))
-        char.冰属性抗性加成(-min(30, int(char.暗属性抗性() / 10)))
-        char.光属性抗性加成(-min(30, int(char.暗属性抗性() / 10)))
+        char.火属性抗性加成(-min(30, int(char.暗属性强化() / 10)))
+        char.冰属性抗性加成(-min(30, int(char.暗属性强化() / 10)))
+        char.光属性抗性加成(-min(30, int(char.暗属性强化() / 10)))
         # char.暗属性抗性加成(-30)
 
 
 def entry_1035(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['每8点冰属性强化，火属性强化、光属性强化、暗属性强化 +1(最多增加50)', '每10点冰属性抗性，火属性抗性、光属性抗性、暗属性抗性 -1(最多减少30)']
+        return ['每8点冰属性强化，火属性强化、光属性强化、暗属性强化 +1(最多增加50)', '每10点冰属性强化，火属性抗性、光属性抗性、暗属性抗性 -1(最多减少30)']
     if mode == 0:
         pass
     if mode == 1:
@@ -3503,15 +3503,15 @@ def entry_1035(char: Character = {}, mode=0, text=False, part='', lv=0):
         # char.冰属性强化加成(50)
         char.光属性强化加成(min(50, int(char.冰属性强化() / 8)))
         char.暗属性强化加成(min(50, int(char.冰属性强化() / 8)))
-        char.火属性抗性加成(-min(30, int(char.冰属性抗性() / 10)))
+        char.火属性抗性加成(-min(30, int(char.冰属性强化() / 10)))
         # char.冰属性抗性加成(-30)
-        char.光属性抗性加成(-min(30, int(char.冰属性抗性() / 10)))
-        char.暗属性抗性加成(-min(30, int(char.冰属性抗性() / 10)))
+        char.光属性抗性加成(-min(30, int(char.冰属性强化() / 10)))
+        char.暗属性抗性加成(-min(30, int(char.冰属性强化() / 10)))
 
 
 def entry_1036(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['每8点光属性强化，火属性强化、冰属性强化、暗属性强化 +1(最多增加50)', '每10点光属性抗性，火属性抗性、冰属性抗性、暗属性抗性 -1(最多减少30)']
+        return ['每8点光属性强化，火属性强化、冰属性强化、暗属性强化 +1(最多增加50)', '每10点光属性强化，火属性抗性、冰属性抗性、暗属性抗性 -1(最多减少30)']
     if mode == 0:
         pass
     if mode == 1:
@@ -3519,15 +3519,15 @@ def entry_1036(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.冰属性强化加成(min(50, int(char.光属性强化() / 8)))
         # char.光属性强化加成(50)
         char.暗属性强化加成(min(50, int(char.光属性强化() / 8)))
-        char.火属性抗性加成(-min(30, int(char.光属性抗性() / 10)))
-        char.冰属性抗性加成(-min(30, int(char.光属性抗性() / 10)))
+        char.火属性抗性加成(-min(30, int(char.光属性强化() / 10)))
+        char.冰属性抗性加成(-min(30, int(char.光属性强化() / 10)))
         # char.光属性抗性加成(-30)
-        char.暗属性抗性加成(-min(30, int(char.光属性抗性() / 10)))
+        char.暗属性抗性加成(-min(30, int(char.光属性强化() / 10)))
 
 
 def entry_1037(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['每8点火属性强化，冰属性强化、光属性强化、暗属性强化 +1(最多增加50)', '每10点火属性抗性，冰属性抗性、光属性抗性、暗属性抗性 -1(最多减少30)']
+        return ['每8点火属性强化，冰属性强化、光属性强化、暗属性强化 +1(最多增加50)', '每10点火属性强化，冰属性抗性、光属性抗性、暗属性抗性 -1(最多减少30)']
     if mode == 0:
         pass
     if mode == 1:
@@ -3536,9 +3536,9 @@ def entry_1037(char: Character = {}, mode=0, text=False, part='', lv=0):
         char.光属性强化加成(min(50, int(char.火属性强化() / 8)))
         char.暗属性强化加成(min(50, int(char.火属性强化() / 8)))
         # char.火属性抗性加成(-30)
-        char.冰属性抗性加成(-min(30, int(char.火属性抗性() / 10)))
-        char.光属性抗性加成(-min(30, int(char.火属性抗性() / 10)))
-        char.暗属性抗性加成(-min(30, int(char.火属性抗性() / 10)))
+        char.冰属性抗性加成(-min(30, int(char.火属性强化() / 10)))
+        char.光属性抗性加成(-min(30, int(char.火属性强化() / 10)))
+        char.暗属性抗性加成(-min(30, int(char.火属性强化() / 10)))
 
 
 def entry_1040(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -4734,7 +4734,7 @@ def entry_181(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        if hp_rate_num >=50:
+        if hp_rate_num >= 50:
             char.攻击强化加成(成长词条计算(1784, lv))
         pass
 
