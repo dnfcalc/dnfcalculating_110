@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, shell } from "electron"
+import { app, BrowserWindow, globalShortcut, ipcMain, shell } from "electron"
 import { release } from "os"
 import { join } from "path"
 import { startServer, stopServer } from "./server"
@@ -19,8 +19,6 @@ if (!app.requestSingleInstanceLock()) {
 let win: BrowserWindow | null = null
 
 let storage = {}
-
-console.log(join(__dirname, "../renderer/favicon.ico"))
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -64,7 +62,14 @@ async function createWindow() {
 startServer()
 
 setTimeout(() => {
-  app.whenReady().then(createWindow)
+  app
+    .whenReady()
+    .then(() => {
+      globalShortcut.register("CommandOrControl+Shift+i", function () {
+        return
+      })
+    })
+    .then(createWindow)
 }, 5000)
 
 app.on("window-all-closed", () => {
