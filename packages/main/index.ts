@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, ipcMain, shell } from "electron"
+import { app, BrowserWindow, ipcMain, shell } from "electron"
 import { release } from "os"
 import { join } from "path"
 import { startServer, stopServer } from "./server"
@@ -20,6 +20,8 @@ let win: BrowserWindow | null = null
 
 let storage = {}
 
+console.log(join(__dirname, "../renderer/favicon.ico"))
+
 async function createWindow() {
   win = new BrowserWindow({
     frame: false,
@@ -31,7 +33,8 @@ async function createWindow() {
       preload: join(__dirname, "../preload/index.cjs"),
       nodeIntegration: true,
       contextIsolation: false,
-      webSecurity: false
+      webSecurity: false,
+      devTools: import.meta.env.DEV
     }
   })
   win.setMenuBarVisibility(false)
@@ -56,20 +59,15 @@ async function createWindow() {
     return { action: "deny" }
   })
 
+  win.webContents.closeDevTools()
+
   win.setMenuBarVisibility(false)
 }
 
 startServer()
 
 setTimeout(() => {
-  app
-    .whenReady()
-    .then(() => {
-      globalShortcut.register("CommandOrControl+Shift+i", function () {
-        return
-      })
-    })
-    .then(createWindow)
+  app.whenReady().then(createWindow)
 }, 5000)
 
 app.on("window-all-closed", () => {
