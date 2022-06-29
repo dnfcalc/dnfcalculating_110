@@ -84,7 +84,7 @@
                 {child.open && child.name != "sponsor" && (
                   <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e" style="background-image: url('./images/adventure/border.png')"></div>
                 )}
-                <div class="text-xs text-center text-white w-full bottom-9.6 justify-center absolute" style="letter-spacing:10px;text-indent:10px">
+                <div class="text-xs text-center text-white w-full bottom-9.6 justify-center absolute" style="letter-spacing:10px;text-indent:10px;z-index:999">
                   {child.comment}
                 </div>
                 <div class="text-xs text-center w-full bottom-1 text-hex-bea347 absolute">{child.title}</div>
