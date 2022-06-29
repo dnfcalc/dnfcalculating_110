@@ -127,7 +127,7 @@
         Object.keys(res.skills).forEach(skill => {
           let display_damage = ["", "white"]
           let avg = []
-          const standard_skill = standards.skills[skill] as typeof res.skills[string]
+          const standard_skill = standards.skills?.[skill] as typeof res.skills[string]
           const standard_damage = standard_skill?.damage as number
 
           const current_damage = res.skills[skill].damage
