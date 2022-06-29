@@ -79,6 +79,7 @@
         "name": "spectre",
         "title": "极诣·刃影",
         "default_name": "国服",
+        "open": true,
         "class": [],
         "options": []
       }
