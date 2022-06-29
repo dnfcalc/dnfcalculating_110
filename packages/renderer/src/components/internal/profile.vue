@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
-  import { useCharacterStore, useConfigStore, useDetailsStore, useBasicInfoStore } from "@/store"
+  import { useBasicInfoStore, useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
   import { to_percent } from "@/utils"
   import { computed, defineComponent, PropType, renderList } from "vue"
 
@@ -129,8 +129,11 @@
           return [0]
         }
       },
-      standardSum: {
-        type: Number
+      standardData: {
+        type: Array as PropType<number[]>,
+        default: () => {
+          return [0]
+        }
       },
       equips_forget: {
         type: Object,
@@ -150,22 +153,24 @@
       // }
 
       const current_data = computed(() => props.totalData?.[0] ?? 0)
+      const standard_data = computed(() => props.standardData?.[0] ?? 0)
 
       const result = computed(() => {
-        const total_data = current_data.value
-        if (total_data) {
-          if (props.standardSum) {
-            if (total_data == props.standardSum) {
+        const current = current_data.value
+        const standard = standard_data.value
+
+        if (!!current) {
+          if (!!standard) {
+            if (current == standard) {
               return ["无变化", "white"]
             } else {
-              return [to_percent(total_data / props.standardSum - 1, 0, "%", true), total_data > props.standardSum ? "#3ea74e" : "red"]
+              return [to_percent(current / standard - 1, 0, "%", true), current > standard ? "#3ea74e" : "red"]
             }
           }
           if (props.role == "buffer") {
-            console.log(total_data, to_percent(total_data, 0, "%", true))
-            return [to_percent(total_data / 100, 0, "%", true), "green"]
+            return [to_percent(current / 100, 0, "%", true), "green"]
           }
-          return [total_data.round(0).toLocaleString(), "white"]
+          return [current.round(0).toLocaleString(), "white"]
         }
         return [" -- ", "white"]
       })

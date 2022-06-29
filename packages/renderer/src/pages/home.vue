@@ -60,7 +60,8 @@
       }
       // router.push("/character/" + alter)
     }
-    if (window.removeLoading) onMounted(window.removeLoading)
+
+    onMounted(window.removeLoading)
 
     const adventure = await api.getAdventure().then(r => r.data)
 
@@ -83,11 +84,11 @@
                 {child.open && child.name != "sponsor" && (
                   <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e" style="background-image: url('./images/adventure/border.png')"></div>
                 )}
-                <div class="text-xs text-center justify-center w-full bottom-9.6 text-white absolute" style="letter-spacing:10px;text-indent:10px">
+                <div class="text-xs text-center text-white w-full bottom-9.6 justify-center absolute" style="letter-spacing:10px;text-indent:10px">
                   {child.comment}
                 </div>
                 <div class="text-xs text-center w-full bottom-1 text-hex-bea347 absolute">{child.title}</div>
-                <div class="bg-no-repeat bg-auto bg-clip-content h-full w-full z-1 overflow-hidden" style={job_icon(child)}></div>
+                <div class="bg-no-repeat bg-auto bg-clip-content h-full w-full z-1 overflow-hidden " style={job_icon(child)}></div>
               </div>
             ))}
           </div>

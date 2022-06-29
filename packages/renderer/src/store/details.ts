@@ -1,11 +1,12 @@
 import api from "@/api"
 import { defineStore } from "pinia"
+import { IAnyResultInfo } from "./../api/character/type"
 
 interface IDetailStore {
   part: string
   display_parts: string[]
   standard_uuid: ID
-  _standard: any
+  _standard?: IAnyResultInfo
 }
 
 export const useDetailsStore = defineStore("details", {

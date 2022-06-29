@@ -7,9 +7,13 @@ import "uno.css"
 
 import "./app.scss"
 
+if (!window.removeLoading) {
+  window.removeLoading = () => {}
+}
+
 createApp(App).use(pinia).use(router).mount("#app")
 
-if(window.removeLoading)setTimeout(window.removeLoading, 5000)
+setTimeout(window.removeLoading, 5000)
 
 // console.log('fs', window.fs)
 // console.log('ipcRenderer', window.ipcRenderer)

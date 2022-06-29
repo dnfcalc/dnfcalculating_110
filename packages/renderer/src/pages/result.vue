@@ -1,9 +1,9 @@
 <script lang="tsx">
   import api from "@/api"
-  import { IResultInfo } from "@/api/character/type"
+  import { IAnyResultInfo } from "@/api/character/type"
   import Profile from "@/components/internal/profile.vue"
   import { skill_icon } from "@/pages/main/character/sub/utils"
-  import { useAppStore, useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
+  import { useAppStore, useCharacterStore, useConfigStore } from "@/store"
   import { toMap, to_percent } from "@/utils"
   import { computed, defineComponent, onMounted, renderList } from "vue"
   import { useRoute } from "vue-router"
@@ -30,22 +30,24 @@
 
   export default defineComponent({
     async setup() {
-      const uid = (useRoute().query.res as string) ?? ""
-      const standard = useRoute().query.standard
+      const route = useRoute()
+      const uid = (route.query.res as string) ?? ""
+      const standardId = (route.query.standard as string) ?? ""
       const characterStore = useCharacterStore()
-      const store = useDetailsStore()
       const appStore = useAppStore()
       const configStore = useConfigStore()
 
-      store.setStandard((useRoute().query.standard as string) ?? undefined)
+      console.log(standardId)
 
       appStore.title = "详细数据"
 
-      if (window.removeLoading) onMounted(window.removeLoading)
+      onMounted(window.removeLoading)
+
+      const standards = !!standardId ? await api.getResult(standardId) : ({} as IAnyResultInfo)
 
       const result = await api.getResult(uid)
 
-      const res = toMap(result, ["info", "skills", "skills_passive", "equips_forget"]) as IResultInfo<"buffer"> | IResultInfo<"delear">
+      const res = toMap(result, ["info", "skills", "skills_passive", "equips_forget"]) as IAnyResultInfo
       characterStore.$patch({ alter: res.alter, name: res.name })
       configStore.forge_set = res.forget_set ?? {}
       function skill_tooltip(skill: string) {
@@ -125,7 +127,7 @@
         Object.keys(res.skills).forEach(skill => {
           let display_damage = ["", "white"]
           let avg = []
-          const standard_skill = store.standard?.skiils[skill] as typeof res.skills[string]
+          const standard_skill = standards.skills[skill] as typeof res.skills[string]
           const standard_damage = standard_skill?.damage as number
 
           const current_damage = res.skills[skill].damage
@@ -140,13 +142,13 @@
             display_damage = [Math.round(current_damage).toLocaleString(), "white"]
           }
 
-          if (standard_damage) {
-            if (standard_damage / store.standard?.skills[skill].count == res.skills[skill].damage / res.skills[skill].count) {
+          if (standard_damage && standards.role == "delear") {
+            if (standard_damage / standards.skills[skill].count == res.skills[skill].damage / res.skills[skill].count) {
               avg = ["无变化", "white"]
             } else {
               avg = [
-                to_percent(res.skills[skill].damage / res.skills[skill].count / (store.standard?.skills[skill].damage / store.standard?.skills[skill].count) - 1, 0, "%", true),
-                res.skills[skill].damage / res.skills[skill].count > store.standard?.skills[skill].damage / store.standard?.skills[skill].count ? "#3ea74e" : "red"
+                to_percent(res.skills[skill].damage / res.skills[skill].count / (standards.skills[skill].damage / standards.skills[skill].count) - 1, 0, "%", true),
+                res.skills[skill].damage / res.skills[skill].count > standards.skills[skill].damage / standards.skills[skill].count ? "#3ea74e" : "red"
               ]
             }
           } else {
@@ -319,7 +321,7 @@
                 equList={res.equips}
                 class="!m-0 !p-0"
                 details={res.info}
-                standardSum={store.standard?.total_data}
+                standard-data={standards.total_data}
                 equips_forget={res.equips_forget}
               ></Profile>
             </div>
