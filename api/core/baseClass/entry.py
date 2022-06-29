@@ -3003,7 +3003,7 @@ def entry_1147(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.技能倍率加成(1, 30, 0.12)
         for skill in char.技能队列:
-            if skill["无色消耗"] == 0:
+            if skill["无色消耗"] == 0 and skill['名称'] !='基础精通':
                 skill["无色消耗"] = 2
     if mode == 1:
         pass
@@ -6078,7 +6078,7 @@ def entry_221(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_282(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['每达成10次连击，敌人韧性减少量 +5%(最多增加30%)']
+        return ['每攻击10次敌人，敌人韧性减少量 +5%(最多增加30%)']
     if mode == 0:
         pass
     if mode == 1:
