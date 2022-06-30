@@ -7,11 +7,11 @@ from uuid import uuid1
 from core.baseClass.equipment import equ, equipment
 from core.baseClass.property import 角色属性
 from core.baseClass.skill import 主动技能, 技能, 被动技能
-from core.equipment.基础函数 import (增幅计算, 奶成长词条计算, 左右计算, 成长词条计算, 武器强化计算, 精通计算,
+from core.equipment.property import (增幅计算, 奶成长词条计算, 左右计算, 成长词条计算, 武器强化计算, 精通计算,
                                  耳环计算, 获取基础属性, 部位列表, 锻造四维, 锻造计算)
 from core.store import store
 
-from .avatar import 装扮套装, 装扮套装集合, 装扮集合
+from core.equipment.avatar import 装扮套装, 装扮套装集合, 装扮集合
 
 # from core.baseClass.enchanting import get_encfunc_by_id
 # from core.baseClass.emblems import get_embfunc_by_id
@@ -727,7 +727,7 @@ class Character(角色属性):
     def __打造设置(self, setinfo):
         self.打造详情 = setinfo
         for i in 部位列表 + ('称号', '宠物', '光环', '武器装扮', '皮肤', '宠物装备-红', '宠物装备-绿', '宠物装备-蓝', '快捷装备'):
-            from core.baseClass.enchanting import get_encfunc_by_id
+            from core.equipment.enchanting import get_encfunc_by_id
             id = setinfo.get(i, {}).get('enchanting', 0)
             self.部位附魔[i] = get_encfunc_by_id(id)
 
@@ -1024,7 +1024,7 @@ class Character(角色属性):
                 except:
                     id = 0
                     value = 0
-                from core.baseClass.jade import get_jadefunc_by_id
+                from core.equipment.jade import get_jadefunc_by_id
                 func = get_jadefunc_by_id(id)
                 func(self, value=value)
                 # 打印相关函数和效果
@@ -1069,7 +1069,7 @@ class Character(角色属性):
         setinfo = self.打造详情['others']
         # 收集箱
         try:
-            from core.baseClass.sundry import get_sundriesfunc_by_id
+            from core.equipment.sundry import get_sundriesfunc_by_id
             func = get_sundriesfunc_by_id(setinfo['SJX_TYPE'])
             # print(func)
             func(self, 0, False, setinfo['SJX_XY'], setinfo['SJX_SQ'])
@@ -1077,7 +1077,7 @@ class Character(角色属性):
             pass
         # 勋章
         try:
-            from core.baseClass.sundry import get_sundriesfunc_by_id
+            from core.equipment.sundry import get_sundriesfunc_by_id
             func = get_sundriesfunc_by_id(setinfo['XZ_TYPE'])
             func(self, 0, False, setinfo['XZ_SHZ'], setinfo['XZ_QH'])
         except:
@@ -1088,7 +1088,7 @@ class Character(角色属性):
             else:
                 try:
                     id = setinfo[i]
-                    from core.baseClass.sundry import get_sundriesfunc_by_id
+                    from core.equipment.sundry import get_sundriesfunc_by_id
                     func = get_sundriesfunc_by_id(id)
                     # 站街
                     func(self)
@@ -1114,7 +1114,7 @@ class Character(角色属性):
                         self.基础属性加成(四维=8)
                         pass
         for i in idlist:
-            from core.baseClass.emblems import get_embfunc_by_id
+            from core.equipment.emblems import get_embfunc_by_id
             func = get_embfunc_by_id(i)
             func(self)
             # 打印相关函数和效果
@@ -1559,7 +1559,7 @@ class Character(角色属性):
 
     def jade_upgrade(self):
         temp = []
-        from core.baseClass.jade import get_jade_setinfo, get_jadefunc_by_id
+        from core.equipment.jade import get_jade_setinfo, get_jadefunc_by_id
         for jade in get_jade_setinfo():
             if jade["id"] > 26001 and jade["id"] < 26200:
                 char = deepcopy(self)

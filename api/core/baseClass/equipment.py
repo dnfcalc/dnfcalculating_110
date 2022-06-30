@@ -217,7 +217,7 @@ class equipment_list():
         return damagelist
 
     def set_func_chose(self, choseinfo) -> None:
-        from core.baseClass.entry import variable_set
+        from core.equipment.entry import variable_set
         for i in choseinfo.keys():
             id = int(i)
             if id >= 20000:  # 额外选项，参数设置
@@ -226,7 +226,7 @@ class equipment_list():
             #    id 错误
 
     def get_func_by_id(self, id) -> Function:
-        from core.baseClass.entry import entry_func_list
+        from core.equipment.entry import entry_func_list
         func_list = entry_func_list.get(id, entry_func_list[0])
         return func_list
 
@@ -252,7 +252,7 @@ class equipment_list():
         return funclist
 
     def get_chose_set_info(self) -> List[tuple]:
-        from core.baseClass.entry import entry_chose, entry_func_list
+        from core.equipment.entry import entry_chose, entry_func_list
         info = []
         # for i in entry_func_list.keys():
         #     temp = entry_func_list[i]
@@ -264,7 +264,7 @@ class equipment_list():
         return info + entry_chose
 
     def get_chose_set(self, mode=0) -> List[Dict]:
-        from core.baseClass.entry import multi_select
+        from core.equipment.entry import multi_select
         if mode == 1:
             setinfo = {}
             for i in self.get_chose_set_info():
