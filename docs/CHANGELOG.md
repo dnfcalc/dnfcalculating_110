@@ -37,5 +37,3 @@
 - 修复红紫绿符文效果有误的 ([bdb1ec](https://gitee.com/dcalc/dnfcalculating_110/commit/bdb1ecbb984b069d7b1c76183560b99b765e7682))
 
 ## History
-
-## History
