@@ -58,6 +58,7 @@ export interface IDelearSkillInfo {
   cosume_cube_frag: number
   damage: number
   count: number
+  atk_rate: number
 }
 
 export type IAnyResultInfo = IResultInfo<"buffer"> | IResultInfo<"delear">
