@@ -564,7 +564,7 @@ class classChange(Character):
     def 职业特殊计算(self):
         # 默认105光剑
         from core.baseClass.equipment import equ
-        from core.equipment.基础函数 import 武器强化计算
+        from core.equipment.property import 武器强化计算
         temp = equ.get_equ_by_id(98)
         物理攻击力 = 武器强化计算(temp.等级, temp.品质, self.打造详情.get("副武器", {"cursed_number": 0}).get('cursed_number', 0), temp.类型,
                        '物理')

@@ -6,11 +6,11 @@ from core.baseClass.equipment import equ
 from .token import AlterState, authorize, createToken
 from utils.apiTools import response, Return
 from .response import characterInfo, equipmentInfo
-from core.baseClass.enchanting import get_enchanting_setinfo
-from core.baseClass.emblems import get_emblems_setinfo
-from core.baseClass.jade import get_jade_setinfo
-from core.baseClass.sundry import get_sundries_setinfo
-from core.baseClass.avatar import 装扮集合, 装扮
+from core.equipment.enchanting import get_enchanting_setinfo
+from core.equipment.emblems import get_emblems_setinfo
+from core.equipment.jade import get_jade_setinfo
+from core.equipment.sundry import get_sundries_setinfo
+from core.equipment.avatar import 装扮集合, 装扮
 import core.set as set
 import json
 

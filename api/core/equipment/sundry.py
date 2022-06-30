@@ -634,7 +634,7 @@ def sundries_27060(char: Character = {}, mode=0, text=False, *args):
         except:
             pass
         try:
-            from core.equipment.基础函数 import 勋章计算
+            from core.equipment.property import 勋章计算
             char.基础属性加成(四维=勋章计算(50, '传说', args[1]))
         except:
             pass

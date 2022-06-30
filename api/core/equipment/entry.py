@@ -1,5 +1,5 @@
 from core.baseClass.character import Character
-from core.equipment.基础函数 import 成长词条计算
+from core.equipment.property import 成长词条计算
 
 entry_func_list = {}  # id : enteyfunc 词条函数(数组)列表
 entry_chose = []  # (20000 + id, [chose1, 2, 3...]) 额外选项设置，参考20074消灭敌人词条

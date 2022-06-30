@@ -7,11 +7,11 @@ from cProfile import label
 from typing import Dict, List, Text
 
 import requests
-from core.baseClass.emblems import get_emblems_setinfo
-from core.baseClass.enchanting import get_enchanting_setinfo
+from core.equipment.emblems import get_emblems_setinfo
+from core.equipment.enchanting import get_enchanting_setinfo
 from core.baseClass.equipment import equ, equipment
-from core.baseClass.jade import get_jade_setinfo
-from core.baseClass.sundry import get_sundries_setinfo
+from core.equipment.jade import get_jade_setinfo
+from core.equipment.sundry import get_sundries_setinfo
 
 try:
     os.chdir(os.path.dirname(sys.argv[0]))
