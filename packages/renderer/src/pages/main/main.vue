@@ -56,11 +56,11 @@
             <WatermarkVue content="test" class="h-full w-full top-0 left-0 absolute" src={`./images/characters/${characterStore.alter}/bg.jpg`} />
             <div class="header">
               <calc-tabs route>
-                <calc-tab value={"/character/equips?name=" + characterStore.alter}>装备</calc-tab>
-                <calc-tab value={"/character/skills?name=" + characterStore.alter}>技能</calc-tab>
-                <calc-tab value={"/character/profile?name=" + characterStore.alter}>打造</calc-tab>
-                <calc-tab value={"/character/customize?name=" + characterStore.alter}>自选属性</calc-tab>
-                <calc-tab value={"/character/singleset?name=" + characterStore.alter}>单套选择</calc-tab>
+                <calc-tab value={"/character/equips?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>装备</calc-tab>
+                <calc-tab value={"/character/skills?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>技能</calc-tab>
+                <calc-tab value={"/character/profile?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>打造</calc-tab>
+                <calc-tab value={"/character/customize?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>自选属性</calc-tab>
+                <calc-tab value={"/character/singleset?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>单套选择</calc-tab>
               </calc-tabs>
             </div>
             <div class="center">

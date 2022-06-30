@@ -29,7 +29,8 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       clothes_coat: [],
       clothes_pants: [],
       talisman: [],
-      calc_token: ""
+      calc_token: "",
+      version:""
     }
   },
   getters: {
