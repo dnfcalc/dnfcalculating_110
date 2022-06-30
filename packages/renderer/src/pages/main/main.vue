@@ -18,13 +18,14 @@
   export default defineComponent(async () => {
     const route = useRoute()
     const { alert } = useDialog()
-    const char = route.query.name as string
+    const char = route.query.alter as string
+    const version = route.query.version as string
     const appStore = useAppStore()
     const configStore = useConfigStore()
     const characterStore = useCharacterStore()
 
-    if (window.removeLoading) onMounted(window.removeLoading)
-    await characterStore.newCharacter(char)
+    onMounted(window.removeLoading)
+    await characterStore.newCharacter(char, version)
     appStore.$patch({ title: characterStore.name })
 
     async function calc() {
@@ -55,12 +56,12 @@
           <div class="main">
             <WatermarkVue content="test" class="h-full w-full top-0 left-0 absolute" src={`./images/characters/${characterStore.alter}/bg.jpg`} />
             <div class="header">
-              <calc-tabs route>
-                <calc-tab value={"/character/equips?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>装备</calc-tab>
-                <calc-tab value={"/character/skills?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>技能</calc-tab>
-                <calc-tab value={"/character/profile?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>打造</calc-tab>
-                <calc-tab value={"/character/customize?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>自选属性</calc-tab>
-                <calc-tab value={"/character/singleset?name=" + (characterStore.version && characterStore.version + ".") + characterStore.alter}>单套选择</calc-tab>
+              <calc-tabs route query={{ alter: characterStore.alter, version: characterStore.version }}>
+                <calc-tab value={"/character/equips"}>装备</calc-tab>
+                <calc-tab value={"/character/skills"}>技能</calc-tab>
+                <calc-tab value={"/character/profile"}>打造</calc-tab>
+                <calc-tab value={"/character/customize"}>自选属性</calc-tab>
+                <calc-tab value={"/character/singleset"}>单套选择</calc-tab>
               </calc-tabs>
             </div>
             <div class="center">
