@@ -30,6 +30,7 @@ class Character(角色属性):
     力量智力增加增幅: float = 1.0
     物理魔法攻击力增加增幅: float = 1.0
     所有属性强化增幅: float = 1.0
+    version = ""
 
     等级: int = 110
     防御输入: int = 506109
@@ -208,6 +209,7 @@ class Character(角色属性):
     def getinfo(self) -> Dict:
         info = {}
         info["alter"] = self.实际名称
+        info["version"] = self.version
         info["name"] = self.名称
         info["character"] = self.职业
         info["role"] = 'buffer' if self.类型 == '辅助' else 'delear'

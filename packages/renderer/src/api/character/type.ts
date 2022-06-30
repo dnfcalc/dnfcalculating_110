@@ -18,6 +18,7 @@ export interface ICharacterInfo {
   clothes_coat: string[]
   clothes_pants: string[]
   platinum: string[]
+  version: string
 }
 
 export interface ISkillInfo {

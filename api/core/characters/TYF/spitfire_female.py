@@ -527,6 +527,7 @@ class classChange(Character):
         self.实际名称 = 'spitfire_female'
         self.名称 = '重霄·弹药专家'
         self.角色 = '神枪手(女)'
+        self.version = "TYF"
 
         self.职业 = '弹药专家'
         # 用来筛CP武器的
