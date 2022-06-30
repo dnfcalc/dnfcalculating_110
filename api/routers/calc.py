@@ -37,7 +37,7 @@ async def calc_single(setInfo=Body(None), setName=Body(None), state: AlterState 
     if(state is None or state.alter is None):
         raise Exception("无效token")
     else:
-        alter = state.alter
+        alter = state.alter.split(".")[-1]
         # raise Exception("无效token")
         # 配置信息
     set.save(alter, setName, setInfo)
