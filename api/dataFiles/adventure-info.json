@@ -240,8 +240,8 @@
         "title": "重霄·弹药专家",
         "default_name": "国服",
         "open": true,
-        "class": [],
-        "options": []
+        "class": ["spitfire_female", "TYF.spitfire_female"],
+        "options": ["国服", "韩服"]
       },
       {
         "name": "sponsor",
