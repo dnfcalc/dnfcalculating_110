@@ -8,7 +8,7 @@ from core.baseClass.equipment import equ, equipment
 from core.baseClass.property import 角色属性
 from core.baseClass.skill import 主动技能, 技能, 被动技能
 from core.equipment.property import (增幅计算, 奶成长词条计算, 左右计算, 成长词条计算, 武器强化计算, 精通计算,
-                                 耳环计算, 获取基础属性, 部位列表, 锻造四维, 锻造计算)
+                                     耳环计算, 获取基础属性, 部位列表, 锻造四维, 锻造计算)
 from core.store import store
 
 from core.equipment.avatar import 装扮套装, 装扮套装集合, 装扮集合
@@ -1099,7 +1099,7 @@ class Character(角色属性):
 
     def __徽章计算(self):
         idlist = []
-        for i in 部位列表:  # ('皮肤', '光环', '武器装扮', )
+        for i in 部位列表 + ('皮肤', '光环', '武器装扮'):  # ('皮肤', '光环', '武器装扮', )
             if i in self.打造详情.keys():
                 temp = self.打造详情[i]
                 for j in ['socket_left', 'socket_right']:
