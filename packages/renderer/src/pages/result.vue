@@ -63,7 +63,7 @@
             <div class=" info">冷却时间:{delearSkills.cd}秒</div>
             <div class="info">MP消耗:{delearSkills.mp?.toFixed(0)}</div>
             <div class="info">无色消耗:{delearSkills.cosume_cube_frag}</div>
-            <div class="info">百分比:{delearSkills.rate?.toFixed(0) + "%"}</div>
+            <div class="info">百分比:{delearSkills.atk_rate?.toFixed(0) + "%"}</div>
           </div>
         )
       }
