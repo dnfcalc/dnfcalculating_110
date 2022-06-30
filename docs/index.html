@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no" />
     <link rel="icon" href="./img/logo.ico" />
     <title>DNF计算器</title>
-    <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" /> -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" />
     <!-- 1. Theme -->
-    <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-simple.css" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-simple.css" /> -->
     <!-- <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-simple-dark.css"> -->
     <!-- <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-defaults.css" /> -->
 
@@ -43,6 +43,21 @@
         text-shadow: grey 3px 3px 3px;
       }
 
+      .markdown-section img {
+        max-width: 100%;
+      }
+
+      .markdown-section > p > img {
+        display: block;
+        margin: 0 auto;
+      }
+
+      .markdown-section {
+        position: relative;
+        max-width: 60em;
+        margin: 0 auto;
+        padding: 2rem 45px;
+      }
       .version {
         text-shadow: none;
         top: 0;
@@ -88,31 +103,31 @@
         themeable: {
           // readyTransition : false,
           // responsiveTables: false
-        },
-        plugins: [
-          function (hook, vm) {
-            // load livere
-            hook.beforeEach(function (content) {
-              var comment = ""
-              if (content.indexOf("和计算器相关的BUG、意见可在此处反馈") > 0) comment = "<div id='lv-container' data-id='city' data-uid='MTAyMC80NjcwNC8yMzIxNA=='></div>\n\n----\n"
-              return content + comment
-            })
+        }
+        //   plugins: [
+        //     function (hook, vm) {
+        //       // load livere
+        //       hook.beforeEach(function (content) {
+        //         var comment = ""
+        //         if (content.indexOf("和计算器相关的BUG、意见可在此处反馈") > 0) comment = "<div id='lv-container' data-id='city' data-uid='MTAyMC80NjcwNC8yMzIxNA=='></div>\n\n----\n"
+        //         return content + comment
+        //       })
 
-            hook.doneEach(function () {
-              ;(function (d, s) {
-                var j,
-                  e = d.getElementsByTagName(s)[0]
-                if (typeof LivereTower === "function") {
-                  return
-                }
-                j = d.createElement(s)
-                j.src = "https://cdn-city.livere.com/js/embed.dist.js"
-                j.async = true
-                e.parentNode.insertBefore(j, e)
-              })(document, "script")
-            })
-          }
-        ]
+        //       hook.doneEach(function () {
+        //         ;(function (d, s) {
+        //           var j,
+        //             e = d.getElementsByTagName(s)[0]
+        //           if (typeof LivereTower === "function") {
+        //             return
+        //           }
+        //           j = d.createElement(s)
+        //           j.src = "https://cdn-city.livere.com/js/embed.dist.js"
+        //           j.async = true
+        //           e.parentNode.insertBefore(j, e)
+        //         })(document, "script")
+        //       })
+        //     }
+        //   ]
       }
     </script>
 
