@@ -12005,7 +12005,7 @@ def entry_14021(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.所有属性强化加成(16)
         char.技能攻击力加成(0.16)
-        char.技能攻击力加成(min(char.获取强化等级([part]), 13))
+        char.技能攻击力加成(min(char.获取强化等级([part]), 13)*0.01)
         char.技能恢复加成(15, 30, 0.3)
         char.基础属性加成(三攻=110)
         char.暴击伤害加成(0.1)
