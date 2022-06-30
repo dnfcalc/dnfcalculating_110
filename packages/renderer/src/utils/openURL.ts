@@ -1,11 +1,18 @@
+import querystring from "query-string"
 import { useRouter } from "vue-router"
 
-export default function openURL(url: string, { width = 0, height = 0 } = {}) {
+interface OpenUrlOption {
+  query?: Record<string, string | string[]>
+  width?: number
+  height?: number
+}
+
+export default function openURL(url: string, { query = {}, width = 0, height = 0 }: OpenUrlOption = {}) {
   try {
     if (width * height > 0) {
       if (window.ipcRenderer) {
         window.ipcRenderer.invoke("open-win", {
-          url: url,
+          url: querystring.stringifyUrl({ url, query }),
           width,
           height
         })

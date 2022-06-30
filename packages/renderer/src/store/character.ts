@@ -30,7 +30,7 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       clothes_pants: [],
       talisman: [],
       calc_token: "",
-      version:""
+      version: ""
     }
   },
   getters: {
@@ -42,9 +42,9 @@ export const useCharacterStore = defineStore("CharacterInfo", {
     }
   },
   actions: {
-    async newCharacter(alter: string) {
+    async newCharacter(alter: string, version?: string) {
       const configStore = useConfigStore()
-      const token = await api.getToken(alter)
+      const token = await api.getToken(alter, version)
       configStore.$patch({ token })
       const state = await api.getCharacter()
       this.$patch(state)

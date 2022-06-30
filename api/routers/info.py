@@ -1,18 +1,19 @@
+import json
 from typing import List, Tuple
-from fastapi import APIRouter, Depends
-from pydantic import BaseModel
 
+import core.set as set
 from core.baseClass.equipment import equ
-from .token import AlterState, authorize, createToken
-from utils.apiTools import response, Return
-from .response import characterInfo, equipmentInfo
-from core.equipment.enchanting import get_enchanting_setinfo
+from core.equipment.avatar import 装扮, 装扮集合
 from core.equipment.emblems import get_emblems_setinfo
+from core.equipment.enchanting import get_enchanting_setinfo
 from core.equipment.jade import get_jade_setinfo
 from core.equipment.sundry import get_sundries_setinfo
-from core.equipment.avatar import 装扮集合, 装扮
-import core.set as set
-import json
+from fastapi import APIRouter, Depends
+from pydantic import BaseModel
+from utils.apiTools import Return, response
+
+from .response import characterInfo, equipmentInfo
+from .token import AlterState, authorize, createToken
 
 infoRouter = APIRouter()
 
@@ -93,7 +94,9 @@ async def get_equipment_detail_info(equID):
 
 
 @infoRouter.get('/token/{alter}', response_model=Return[str])
-async def getToken(alter: str):
+async def getToken(alter: str, version: str = None):
+    if version is not None and version != 'default':
+        alter = version + '.' + alter
     token = createToken(alter)
     return response(data=token)
 
@@ -125,9 +128,9 @@ async def get_entry_info():
 
 @infoRouter.get("/config/{name}")
 async def get_config(name, state: AlterState = Depends(authorize)):
-    return response(data=set.get(state.alter.split(".")[-1], name))
+    return response(data=set.get(state.origin, name))
 
 
 @infoRouter.get("/configs")
 async def get_config(state: AlterState = Depends(authorize)):
-    return response(data=set.get_set_list(state.alter.split(".")[-1]))
+    return response(data=set.get_set_list(state.origin))

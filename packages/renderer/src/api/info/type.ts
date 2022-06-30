@@ -3,13 +3,17 @@ export interface IAdventureInfo {
   children: IAlterInfo[]
 }
 
+export interface IAlterOption {
+  name: string
+  title: string
+}
+
 export interface IAlterInfo {
   name: string
   url?: string
   title: string
   default_value: string
-  class: string[]
-  options: string[]
+  options?: IAlterOption[]
   open?: boolean
   comment?: string
 }

@@ -1,16 +1,17 @@
-import time
 import base64
 import hmac
+import time
 from typing import Optional
 
-from fastapi import Body, Header
 from core.store import store
+from fastapi import Body, Header
 
 
 class AlterState:
     def __init__(self, alter: str, token: str):
         self.alter = alter
         self.token = token
+        self.origin = alter.split('.')[-1]
 
 
 def createToken(alter: str, expire=86400):

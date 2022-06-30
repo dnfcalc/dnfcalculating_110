@@ -51,14 +51,15 @@
           return
         }
         if (child.open || import.meta.env.DEV) {
-          if (child.class.length > 0) {
+          const options = child.options ?? []
+          if (options.length > 0) {
             await show({
               content: "请选择打开版本",
               action: () => {
                 return (
                   <div class="flex pb-2 items-center justify-around">
-                    {renderList(child.class.length, index => (
-                      <calc-button onClick={() => openURL("/character?name=" + child.class[index - 1], { width: 1100, height: 750 })}>{child.options[index - 1] ?? ""}</calc-button>
+                    {renderList(options, option => (
+                      <calc-button onClick={() => openURL("/character", { query: { alter: child.name, version: option.name }, width: 1100, height: 750 })}>{option.title}</calc-button>
                     ))}
                   </div>
                 )
@@ -66,7 +67,7 @@
             })
             return
           }
-          openURL("/character?name=" + child.name, { width: 1100, height: 750 })
+          openURL("/character", { query: { alter: child.name }, width: 1100, height: 750 })
         } else {
           await alert({
             content: "未开放的角色!"

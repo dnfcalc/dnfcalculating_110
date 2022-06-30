@@ -5,11 +5,11 @@
    * @Last Modified by:   Kritsu
    * @Last Modified time: 2021/11/17 18:49:19
    */
-  import { defineComponent, computed, provide, renderSlot } from "vue"
   import NSelection from "@/components/base/selection"
   import { listProps } from "@/components/hooks/selection/list"
-  import { useRoute, useRouter } from "vue-router"
   import { BaseType } from "@/components/hooks/types"
+  import { computed, defineComponent, PropType, renderSlot } from "vue"
+  import { LocationQuery, parseQuery, useRouter } from "vue-router"
 
   export default defineComponent({
     name: "calc-tabs",
@@ -23,23 +23,33 @@
       },
       route: {
         type: Boolean
+      },
+      query: {
+        type: [Object, String] as PropType<string | LocationQuery>
       }
     },
     setup(props, { emit, slots }) {
       const router = useRouter()
 
+      const routeQuery = computed(() => {
+        if (typeof props.query == "string") {
+          return parseQuery(props.query)
+        }
+        return props.query ?? {}
+      })
+
       const modelValue = computed<BaseType>({
         get() {
           let val = props.modelValue
           if (props.route) {
-            val = val ?? router.currentRoute.value.fullPath
+            val = val ?? router.currentRoute.value.path
           }
           return val
         },
         set(val) {
           if (props.route && val) {
             val = decodeURIComponent(val.toString())
-            router.push(val as string)
+            router.push({ path: val, query: routeQuery.value })
           }
           emit("update:modelValue", val)
           emit("change", val)
