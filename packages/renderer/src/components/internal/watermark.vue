@@ -71,7 +71,7 @@
             //设置画布宽高为图片宽高
             canvas.width = img.width
             canvas.height = img.height
-            console.log(canvas)
+            // console.log(canvas)
             //设置水印字体
             ctx.font = "30px Microsoft Yahei"
             //   ctx.fillStyle = "color:#fff"

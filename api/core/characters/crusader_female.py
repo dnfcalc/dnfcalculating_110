@@ -255,8 +255,11 @@ class classChange(Character):
         self.实际名称 = 'crusader_female'
         self.名称 = '神启·圣骑士'
         self.角色 = '圣职者(女)'
+
         self.类型 = '辅助'
         self.职业 = '圣骑士'
+        self.转职 = '圣骑士(女)'
+
         self.武器选项 = ['十字架']
         self.输出类型选项 = ['魔法固伤']
         self.防具精通属性 = ['智力']

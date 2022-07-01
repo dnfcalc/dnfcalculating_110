@@ -58,9 +58,13 @@
               action: () => {
                 return (
                   <div class="flex pb-2 items-center justify-around">
-                    {renderList(options, option => (
-                      <calc-button onClick={() => openURL("/character", { query: { alter: child.name, version: option.name }, width: 1100, height: 750 })}>{option.title}</calc-button>
-                    ))}
+                    {renderList(options, option =>
+                      !option.class ? (
+                        <calc-button onClick={() => openURL("/character", { query: { alter: child.name, version: option.name }, width: 1100, height: 750 })}>{option.title}</calc-button>
+                      ) : (
+                        <calc-button onClick={() => openURL("/character", { query: { alter: option.class ?? "", version: option.name }, width: 1100, height: 750 })}>{option.title}</calc-button>
+                      )
+                    )}
                   </div>
                 )
               }

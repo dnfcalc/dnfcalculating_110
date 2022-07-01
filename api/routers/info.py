@@ -95,7 +95,7 @@ async def get_equipment_detail_info(equID):
 
 @infoRouter.get('/token/{alter}', response_model=Return[str])
 async def getToken(alter: str, version: str = None):
-    if version is not None and version != 'default':
+    if version is not None and version != 'default' and version !='':
         alter = version + '.' + alter
     token = createToken(alter)
     return response(data=token)

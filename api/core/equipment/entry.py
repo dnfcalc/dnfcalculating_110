@@ -5800,7 +5800,7 @@ def entry_249(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         for skill in char.技能队列:
-            if skill["无色消耗"] == 0:
+            if skill["无色消耗"] == 0 or skill['名称'] == '神罚之锤':
                 skill["倍率"] *= 1.15
 
 
@@ -5812,7 +5812,7 @@ def entry_878(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
-            if skill["无色消耗"] == 0:
+            if skill["无色消耗"] == 0 or skill['名称'] == '神罚之锤':
                 skill["倍率"] *= 0.95
             if skill["无色消耗"] > 0:
                 skill["倍率"] *= 1.1
@@ -5828,7 +5828,7 @@ def entry_877(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         for skill in char.技能队列:
-            if skill["无色消耗"] == 0:
+            if skill["无色消耗"] == 0  or skill['名称'] == '神罚之锤':
                 skill["倍率"] *= 1.2
             if skill["无色消耗"] > 0:
                 skill["倍率"] *= 0.9

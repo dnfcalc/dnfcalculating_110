@@ -8,6 +8,7 @@ from routers.info import infoRouter
 from routers.calc import calcRouter
 from routers.app import appRouter
 from utils.apiTools import register_exception, register_cors
+from starlette.staticfiles import StaticFiles
 
 app = FastAPI(docs_url=None)
 
@@ -36,6 +37,7 @@ if __name__ == '__main__':
             # 同 reload
             debug=True)
     else:
+        app.mount("/web",StaticFiles(directory="../dist/web/render"),name="static")
         uvicorn.run(
             # 运行的 py 文件:FastAPI 实例对象
             app,
