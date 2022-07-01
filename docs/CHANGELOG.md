@@ -1,5 +1,27 @@
 ## Newest
 
+### 2022.07.01.Beta
+
+#### NewFeatures
+* 支持右键脱下装备 ([87b428](https://gitee.com/dcalc/dnfcalculating_110/commit/87b428c6d1a2ec1cbb55ea5bdd20d90dd0f2a2bb))
+* 添加审判 ([556904](https://gitee.com/dcalc/dnfcalculating_110/commit/556904bd6c9769b201a7e65ed778f0e1cda23bf4))
+
+#### BugFixes
+* 修正战法部分技能伤害异常的问题 ([4b6f0b](https://gitee.com/dcalc/dnfcalculating_110/commit/4b6f0b39f0e182e4830a4fefe20d91f3d5600ced))
+* 修正融化黑暗之温暖属性计算错误<br>
+* fix:修正融化黑暗之温暖属性计算错误 ([3711b1](https://gitee.com/dcalc/dnfcalculating_110/commit/3711b13664bb682b9ebf6b93fee0513bfe94b8ab))
+* 修正装扮部分徽章未生效的情况 fixes #I5EYR3 ([1e3d2c](https://gitee.com/dcalc/dnfcalculating_110/commit/1e3d2c262a63eaa78eaa0f7e3448bb75941748fe))
+* 修正详情打开报错的情况 ([3f4e28](https://gitee.com/dcalc/dnfcalculating_110/commit/3f4e28d85c99ec8d3632e11af0f6e90b826203ac))
+* 修正详情界面百分比显示问题 ([695c9f](https://gitee.com/dcalc/dnfcalculating_110/commit/695c9fe856eaa0548e7f389ae977f0f6cc79c162))
+* 修正部分词条异常 ([c2856c](https://gitee.com/dcalc/dnfcalculating_110/commit/c2856c99f808bf53d89e4af9b0d922d162e47cee))
+* 修正附魔套首饰基础属性错误 ([61a650](https://gitee.com/dcalc/dnfcalculating_110/commit/61a650cd57e673a5cc03c21fe277999b7e581062))
+* 女漫游:修复双鹰回旋无色及MP fixes #I5EYRG ([c2569b](https://gitee.com/dcalc/dnfcalculating_110/commit/c2569b8e335b41fd62abc42815fd16809ce0c8af))
+* 女漫游：修正[死亡锁链]学习间隔 ([b412d4](https://gitee.com/dcalc/dnfcalculating_110/commit/b412d4b309c6bf184851adf6c8197e1eaaab6d9c))
+* 阿修罗：修正[天雷·降魔杵]无色消耗及MP问题 ([bae428](https://gitee.com/dcalc/dnfcalculating_110/commit/bae4282a85617cf7b5b6f9a1a5f0f772424d425e))
+
+
+## History
+
 ### 2022.06.29.Beta
 
 #### NewFeatures
