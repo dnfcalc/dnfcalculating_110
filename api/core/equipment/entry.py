@@ -3703,7 +3703,7 @@ def entry_988(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ['技能MP消耗量在4000以上的技能攻击力 +15%(觉醒除外)']
     if mode == 0:
         for skill in char.技能栏:
-            if skill.是否有伤害 == 1 and skill.MP消耗(武器类型=char.武器类型, 输出类型=char.类型, 额外倍率=char.MP消耗倍率()) >= 4000 and skill.所在等级 not in [50, 85, 100]:
+            if skill.是否有伤害 == 1 and skill.MP消耗(武器类型=char.武器类型, 输出类型=char.类型, 额外倍率=char.MP消耗倍率()) >= 4000 and (skill.所在等级 not in [50, 85, 100] or skill.名称 == '末日虫洞'):
                 skill.倍率 *= 1.15
     if mode == 1:
         pass
