@@ -128,6 +128,21 @@
         }
       }
 
+      function takeOffEqu(equ: IEquipmentInfo) {
+        return (e: Event) => {
+          e.stopPropagation()
+          e.preventDefault()
+          equ_name.value = ""
+          configStore.single_set = configStore.single_set.sort((a, b) => a - b)
+          const index = curEquList.value.findIndex(item => item.typeName == equ.typeName)
+          if (index < 0) {
+            return
+          } else {
+            configStore.single_set.splice(index, 1)
+          }
+        }
+      }
+
       function selectSuit(index: number) {
         return (e: Event) => {
           e.stopPropagation()
@@ -242,6 +257,7 @@
                         hightlight={highlight.value.includes(equ.id)}
                         onClick={chooseEqu(equ)}
                         onDblclick={selectSuit(index)}
+                        onContextmenu={takeOffEqu(equ)}
                         active={isActive(equ)}
                         eq={equ}
                         key={equ.id}
