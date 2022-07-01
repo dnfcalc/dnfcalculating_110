@@ -92,7 +92,7 @@ class 技能2(主动技能):
             self.CD = 1.2
             skill = char.get_skill_by_name("暗天波动眼")
             # 额外倍率暂不确定 应该是跟着觉醒走
-            return skill.等效百分比(形态=形态) * self.TP加成() * 额外倍率
+            return skill.等效百分比(形态=形态, 伤害类型=伤害类型) * self.TP加成() * 额外倍率
 
 
 class 技能3(主动技能):
@@ -225,7 +225,7 @@ class 技能8(主动技能):
             self.CD = 2.5
             skill = char.get_skill_by_name("暗天波动眼")
             # 额外倍率暂不确定 应该是跟着觉醒走
-            return skill.等效百分比(形态=形态) * self.TP加成() * 额外倍率
+            return skill.等效百分比(形态=形态, 伤害类型=伤害类型) * self.TP加成() * 额外倍率
 
 
 class 技能9(主动技能):
@@ -293,7 +293,7 @@ class 技能10(主动技能):
             self.CD = 4.9
             skill = char.get_skill_by_name("暗天波动眼")
             # 额外倍率暂不确定 应该是跟着觉醒走
-            return skill.等效百分比(形态=形态) * self.TP加成() * 额外倍率
+            return skill.等效百分比(形态=形态, 伤害类型=伤害类型) * self.TP加成() * 额外倍率
 
 
 class 技能11(主动技能):
@@ -458,7 +458,7 @@ class 技能15(主动技能):
 
     形态 = ["开眼", "平X"]
 
-    def 形态变更(self, 形态, char:Character):
+    def 形态变更(self, 形态, char: Character):
         if 形态 == '' and len(self.形态) > 0:
             形态 = self.形态[0]
         if 形态 == "开眼":
@@ -655,12 +655,12 @@ class 技能20(主动技能):
     power1 = 1
     power2 = 1
 
-    MP = [800,6000]
+    MP = [800, 6000]
     无色消耗 = 5
 
     形态 = ["终结", "雷针"]
 
-    def 形态变更(self, 形态, char:Character):
+    def 形态变更(self, 形态, char: Character):
         if 形态 == '' and len(self.形态) > 0:
             形态 = self.形态[0]
         if 形态 == "雷针":
