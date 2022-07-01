@@ -47,6 +47,8 @@
 
       const result = await api.getResult(uid)
 
+      configStore.token = result.token ?? configStore.token
+
       const res = toMap(result, ["info", "skills", "skills_passive", "equips_forget"]) as IAnyResultInfo
       characterStore.$patch({ alter: res.alter, name: res.name })
       configStore.forge_set = res.forget_set ?? {}

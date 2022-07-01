@@ -1,12 +1,12 @@
 import importlib
-from fastapi import APIRouter, Body, Depends
+
+import core.set as set
 from core.baseClass.character import Character
 from core.store import store
+from fastapi import APIRouter, Body, Depends
+from utils.apiTools import Return, response
 
 from .token import AlterState, authorize, createToken
-from utils.apiTools import response, Return
-from fastapi import APIRouter, Depends
-import core.set as set
 
 calcRouter = APIRouter()
 
@@ -47,5 +47,6 @@ async def calc_single(setInfo=Body(None), setName=Body(None), state: AlterState 
     module_name = "core.characters." + alter
     character: Character = importlib.import_module(module_name).classChange()
     info = character.calc(setName, setInfo['single_set'], True)
+    info['token'] = state.token
     store.set("/calc/results/"+info.get("id"), info)
     return response(data=info)
