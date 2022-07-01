@@ -117,7 +117,7 @@ export const useBasicInfoStore = defineStore("basicInfo", {
     }
   },
   actions: {
-    async get_equipment_detail(equ_id: number) {
+    async get_equipment_detail(equ_id: ID) {
       //   console.log(equ_id)
       return (await api.getEquipmentDetail(equ_id))?.data
     }

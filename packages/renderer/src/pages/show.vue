@@ -1,9 +1,9 @@
 <script lang="tsx">
-  import { defineComponent, ref, VNode } from "vue"
-  import SkillPanel from "@/components/internal/skill/skill-panel.vue"
-  import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { TreeNode } from "@/components/calc/tree/types"
   import { useDialog } from "@/components/hooks/dialog"
+  import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
+  import SkillPanel from "@/components/internal/skill/skill-panel.vue"
+  import { defineComponent, ref, VNode } from "vue"
 
   export default defineComponent({
     components: { SkillPanel, EquipTips },
@@ -82,7 +82,7 @@
             </calc-select>
           </div>
 
-          <calc-tree data={node} depth="1" />
+          <calc-cascader items={node} depth="1" />
 
           <calc-select editable multiple v-model={test.value}>
             <calc-option value={0}>123</calc-option>

@@ -1,7 +1,7 @@
-import { BaseType, classPropType, valuePropType } from "../types"
-import { computed, PropType, provide, reactive, Ref, watch } from "vue"
-import { AciveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, ModelValueSymbol, Option, UnactiveSymbol } from "./constants"
 import { defineHooks } from "@/components/hooks/define"
+import { computed, PropType, provide, reactive, Ref, watch } from "vue"
+import { BaseType, classPropType, valuePropType } from "../types"
+import { AciveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, Option, UnactiveSymbol } from "./constants"
 
 export const listProps = {
   modelValue: {
@@ -60,6 +60,8 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
 
   const defaultFirst = computed(() => props.defaultFirst ?? !props.multiple)
 
+  let stopWatch = false
+
   watch(actives, val => {
     let value: BaseType | BaseType[] | undefined = undefined
     if (props.multiple) {
@@ -74,7 +76,9 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
   watch(
     () => props.modelValue,
     val => {
+      stopWatch = true
       actives.splice(0, actives.length, ...toArray(val))
+      stopWatch = false
     }
   )
 
