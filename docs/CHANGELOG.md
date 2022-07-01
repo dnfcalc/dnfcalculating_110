@@ -1,6 +1,6 @@
 ## Newest
 
-### 2022.6.29.Beta
+### 2022.06.29.Beta
 
 #### NewFeatures
 
@@ -19,7 +19,7 @@
 - 词条问题修复 ([a35d94](https://gitee.com/dcalc/dnfcalculating_110/commit/a35d94e67db5718d2bf580c5363231900e6e14b7))
 - 阿修罗：修复切换到闪枪无法计算的情况 ([377bc0](https://gitee.com/dcalc/dnfcalculating_110/commit/377bc0ebb30a8f48da5fe05617c829e604196589))
 
-### 2022.6.22.Beta
+### 2022.06.22.Beta
 
 #### NewFeatures
 
@@ -35,4 +35,3 @@
 
 - 修复红紫绿符文效果有误的问题 ([bdb1ec](https://gitee.com/dcalc/dnfcalculating_110/commit/bdb1ecbb984b069d7b1c76183560b99b765e7682))
 
-## History
