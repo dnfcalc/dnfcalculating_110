@@ -107,8 +107,8 @@
             </div>{" "}
           </div>
           <div class="flex h-128 w-full">
-            <div class="px-2px w-50%">
-              <calc-selection class="bg-hex-0d0d0d" v-model={selectEquip.value} active-class="equip-line-selected">
+            <div class="h-full bg-hex-0d0d0d mx-2px w-50%">
+              <calc-selection v-model={selectEquip.value} active-class="equip-line-selected">
                 {renderList(show_list.value, item => {
                   return (
                     <calc-item onDblclick={chooseEqu(item)} value={item.id} class="flex h-9 px-2px items-center justify-between equip-line">
@@ -119,7 +119,7 @@
                   )
                 })}
               </calc-selection>
-              <div v-show={total_page.value > 1} class="flex space-x-4 bg-hex-0d0d0d h-8 w-full items-center justify-center">
+              <div v-show={total_page.value > 1} class="flex space-x-4 h-8 w-full items-center justify-center">
                 <calc-button disabled={pagination.page < 1} class="min-w-5" onClick={pop(-1)}>
                   &lt;
                 </calc-button>
