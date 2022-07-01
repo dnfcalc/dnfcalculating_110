@@ -183,7 +183,7 @@
 
       const equips_forget = computed(() => {
         return (index: string) => {
-          console.log(props.equips_forget)
+          // console.log(props.equips_forget)
           let infos = configStore.forge_set[index]
           if (!infos) return undefined
           return {

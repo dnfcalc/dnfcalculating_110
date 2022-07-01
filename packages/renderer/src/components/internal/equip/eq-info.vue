@@ -380,12 +380,12 @@
           }
         }
 
-        console.log(transform)
+        // console.log(transform)
       }
 
       const iconBages = computed(() => {
         let x = transform.badges && transform.badges.length > 0 ? { color: [transform.badges[0]?.type, transform.badges[1]?.type], num: transform.badges.length } : null
-        console.log(x)
+        // console.log(x)
         return x
       })
 

@@ -17,10 +17,10 @@ export default function openURL(url: string, { query = {}, width = 0, height = 0
           height
         })
       } else {
-        window.open("#" + url, "_blank")
+        window.open("#" + querystring.stringifyUrl({ url, query }), "_blank")
       }
     } else {
-      window.open(url, "_blank")
+      window.open(querystring.stringifyUrl({ url, query }), "_blank")
     }
   } catch (err) {
     const router = useRouter()
@@ -30,6 +30,6 @@ export default function openURL(url: string, { query = {}, width = 0, height = 0
     // window.open(routerURL?.href)
     // router.push(url)
     // 网页端打开
-    router?.push(url)
+    router?.push(querystring.stringifyUrl({ url, query }))
   }
 }

@@ -6,6 +6,7 @@ export interface IAdventureInfo {
 export interface IAlterOption {
   name: string
   title: string
+  class?: string
 }
 
 export interface IAlterInfo {
