@@ -5,6 +5,7 @@
 #### NewFeatures
 * 支持右键脱下装备 ([87b428](https://gitee.com/dcalc/dnfcalculating_110/commit/87b428c6d1a2ec1cbb55ea5bdd20d90dd0f2a2bb))
 * 添加审判 ([556904](https://gitee.com/dcalc/dnfcalculating_110/commit/556904bd6c9769b201a7e65ed778f0e1cda23bf4))
+* 词条颜色区分 ([7e6355](https://gitee.com/dcalc/dnfcalculating_110/commit/7e6355b0220f9fa0712b40ab7b77d183e52bc4cc))
 
 #### BugFixes
 * 修正战法部分技能伤害异常的问题 ([4b6f0b](https://gitee.com/dcalc/dnfcalculating_110/commit/4b6f0b39f0e182e4830a4fefe20d91f3d5600ced))
@@ -56,4 +57,3 @@
 #### BugFixes
 
 - 修复红紫绿符文效果有误的问题 ([bdb1ec](https://gitee.com/dcalc/dnfcalculating_110/commit/bdb1ecbb984b069d7b1c76183560b99b765e7682))
-
