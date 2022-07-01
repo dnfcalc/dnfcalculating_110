@@ -655,6 +655,9 @@ class 技能20(主动技能):
     power1 = 1
     power2 = 1
 
+    MP = [800,6000]
+    无色消耗 = 5
+
     形态 = ["终结", "雷针"]
 
     def 形态变更(self, 形态, char:Character):
