@@ -14106,15 +14106,23 @@ def get_encfunc_by_id(id):
     return enchanting_func_list.get(id, enchanting_20000)
 
 
-def get_enchanting_setinfo():
+def get_enchanting_setinfo(char: Character):
     infolist = []
     for i in enchanting_func_list.keys():
         data = {}
         data['id'] = i
+        enchanting = enchanting_func_list[i]
+        char.评分开始()
+        enchanting(char, mode=0)
+        enchanting(char, mode=1)
+        评分 = char.评分结束()
+        data['rate'] = 评分
         info = eval(enchanting_func_list[i](text=True))
         num = 0
         for k in index:
             data[k] = info[num]
             num += 1
         infolist.append(data)
+    infolist.sort(key=lambda x: x['rate'], reverse=True)
+
     return infolist

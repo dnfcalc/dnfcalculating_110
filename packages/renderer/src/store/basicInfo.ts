@@ -77,7 +77,8 @@ export const useBasicInfoStore = defineStore("basicInfo", {
               position: "辅助装备，魔法石",
               props: item + " Lv+1" + " 四维 + 8",
               type: "技能",
-              rarity: "白金"
+              rarity: "白金",
+              rate: 2000
             })
           })
         })

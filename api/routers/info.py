@@ -84,8 +84,8 @@ async def get_dress(state: AlterState = Depends(authorize)):
 
 
 @infoRouter.get('/enchanting')
-async def get_enchanting():
-    return response(data=get_enchanting_setinfo())
+async def get_enchanting(state: AlterState = Depends(authorize)):
+    return response(data=get_enchanting_setinfo(state.character))
 
 
 @infoRouter.get('/equip/{equID}')
@@ -95,15 +95,15 @@ async def get_equipment_detail_info(equID):
 
 @infoRouter.get('/token/{alter}', response_model=Return[str])
 async def getToken(alter: str, version: str = None):
-    if version is not None and version != 'default' and version !='':
+    if version is not None and version != 'default' and version != '':
         alter = version + '.' + alter
     token = createToken(alter)
     return response(data=token)
 
 
 @infoRouter.get("/emblem")
-async def get_emblem():
-    return response(data=get_emblems_setinfo())
+async def get_emblem(state: AlterState = Depends(authorize)):
+    return response(data=get_emblems_setinfo(state.character))
 
 
 @infoRouter.get("/jade")

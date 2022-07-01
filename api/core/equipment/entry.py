@@ -5828,7 +5828,7 @@ def entry_877(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         for skill in char.技能队列:
-            if skill["无色消耗"] == 0  or skill['名称'] == '神罚之锤':
+            if skill["无色消耗"] == 0 or skill['名称'] == '神罚之锤':
                 skill["倍率"] *= 1.2
             if skill["无色消耗"] > 0:
                 skill["倍率"] *= 0.9
@@ -10204,7 +10204,7 @@ def entry_685(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         buff = char.get_skill_by_name("BUFF")
         buff.倍率 *= 1.08
-        char.get_skill_by_name("圣光突袭").倍率 *=1.2
+        char.get_skill_by_name("圣光突袭").倍率 *= 1.2
         pass
     if mode == 1:
         pass
@@ -11223,7 +11223,7 @@ def entry_10002(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
-        char.buff量加成(1010)
+        char.辅助属性加成(buff量=1010)
     if mode == 1:
         pass
 
@@ -11234,7 +11234,7 @@ def entry_10003(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
-        char.buff量加成(1010)
+        char.辅助属性加成(buff量=1010)
     if mode == 1:
         pass
 
@@ -11245,7 +11245,7 @@ def entry_10004(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +34%"]
     if mode == 0:
         char.技能攻击力加成(0.34)
-        char.buff量加成(1010)
+        char.辅助属性加成(buff量=1010)
     if mode == 1:
         pass
 
@@ -11256,7 +11256,7 @@ def entry_10005(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
-        char.buff量加成(1010)
+        char.辅助属性加成(buff量=1010)
     if mode == 1:
         pass
 
@@ -11268,7 +11268,7 @@ def entry_10006(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.技能攻击力加成(0.29)
         char.移动速度增加(0.04)
-        char.buff量加成(1010)
+        char.辅助属性加成(buff量=1010)
     if mode == 1:
         pass
 
@@ -11279,7 +11279,7 @@ def entry_10007(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
-        char.buff量加成(295)
+        char.辅助属性加成(buff量=295)
     if mode == 1:
         pass
 
@@ -11290,7 +11290,7 @@ def entry_10008(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
-        char.buff量加成(295)
+        char.辅助属性加成(buff量=295)
     if mode == 1:
         pass
 
@@ -11301,7 +11301,7 @@ def entry_10009(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
-        char.buff量加成(295)
+        char.辅助属性加成(buff量=295)
     if mode == 1:
         pass
 
@@ -11312,7 +11312,7 @@ def entry_10010(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
-        char.buff量加成(1875)
+        char.辅助属性加成(buff量=1875)
     if mode == 1:
         pass
 
@@ -11323,7 +11323,7 @@ def entry_10011(char: Character = {}, mode=0, text=False, part='', lv=0):
         return["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
-        char.buff量加成(1875)
+        char.辅助属性加成(buff量=1875)
     if mode == 1:
         pass
 
@@ -11334,7 +11334,7 @@ def entry_10012(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +12%"]
     if mode == 0:
         char.技能攻击力加成(0.12)
-        char.buff量加成(1010)
+        char.辅助属性加成(buff量=1010)
     if mode == 1:
         pass
 
@@ -11345,7 +11345,7 @@ def entry_10013(char: Character = {}, mode=0, text=False, part='', lv=0):
         return ["技能攻击力 +50%"]
     if mode == 0:
         char.技能攻击力加成(0.50)
-        char.buff量加成(11695)
+        char.辅助属性加成(buff量=11695)
     if mode == 1:
         pass
 
@@ -11356,7 +11356,7 @@ def entry_10014(char: Character = {}, mode=0, text=False, part='', lv=0):
         return["技能攻击力 +35%"]
     if mode == 0:
         char.技能攻击力加成(0.35)
-        char.buff量加成(11695)
+        char.辅助属性加成(buff量=11695)
     if mode == 1:
         pass
 

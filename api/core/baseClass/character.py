@@ -7,11 +7,10 @@ from uuid import uuid1
 from core.baseClass.equipment import equ, equipment
 from core.baseClass.property import 角色属性
 from core.baseClass.skill import 主动技能, 技能, 被动技能
+from core.equipment.avatar import 装扮套装, 装扮套装集合, 装扮集合
 from core.equipment.property import (增幅计算, 奶成长词条计算, 左右计算, 成长词条计算, 武器强化计算, 精通计算,
                                      耳环计算, 获取基础属性, 部位列表, 锻造四维, 锻造计算)
 from core.store import store
-
-from core.equipment.avatar import 装扮套装, 装扮套装集合, 装扮集合
 
 # from core.baseClass.enchanting import get_encfunc_by_id
 # from core.baseClass.emblems import get_embfunc_by_id
@@ -222,6 +221,14 @@ class Character(角色属性):
         self.__set_individuation(info)
         return info
 
+    def 评分开始(self):
+        self.评分 = 0
+
+    def 评分结束(self):
+        评分 = self.评分
+        self.评分 = 0
+        return 评分
+
     def 基础属性加成(self,
                物理攻击力=0.00, 魔法攻击力=0.00, 独立攻击力=0.00, 三攻=0,
                力量=0.00, 智力=0, 力智=0, 体力=0, 精神=0, 体精=0, 四维=0,
@@ -240,12 +247,17 @@ class Character(角色属性):
         self.__攻击速度 += float(攻击速度) + float(三速)
         self.__施放速度 += float(施放速度) + float(三速)
         self.__移动速度 += float(移动速度) + float(三速)
+        super().基础属性加成(物理攻击力, 魔法攻击力, 独立攻击力, 三攻,
+                       力量, 智力, 力智, 体力, 精神, 体精, 四维,
+                       物理暴击率, 魔法暴击率, 暴击率,
+                       攻击速度, 施放速度, 移动速度, 三速)
 
     def 属性强化加成(self, 所有属性强化=0.00, 冰属性强化=0.00, 火属性强化=0.00, 暗属性强化=0.00, 光属性强化=0.00):
         self.__火属性强化 += 火属性强化 + 所有属性强化
         self.__冰属性强化 += 冰属性强化 + 所有属性强化
         self.__暗属性强化 += 暗属性强化 + 所有属性强化
         self.__光属性强化 += 光属性强化 + 所有属性强化
+        super().属性强化加成(所有属性强化, 冰属性强化, 火属性强化, 暗属性强化, 光属性强化)
 
     def set_skill_info(self, info, rune_except=[], clothes_pants=[], rune_start_lv=20) -> None:
         skillInfo = []  # 技能
@@ -363,6 +375,7 @@ class Character(角色属性):
 
     def 百分比攻击强化加成(self, x: float) -> None:
         self.__百分比攻击强化 += x
+        super().百分比攻击强化加成(x)
 
     def buff量加成(self, x: float) -> None:
         self.__buff量 += x
@@ -376,6 +389,9 @@ class Character(角色属性):
         self.__觉醒百分比力智 *= 1.0 + 觉醒百分比力智
         self.__buff量 += buff量
         self.__百分比buff量 += 百分比buff量
+
+        super().辅助属性加成(buff固定力智, buff百分比力智, buff固定三攻,
+                       buff百分比三攻, 觉醒固定力智, 觉醒百分比力智, buff量, 百分比buff量)
 
     def 附加伤害加成(self, x: float, 辟邪玉加成=1) -> None:
         self.__附加伤害 += self.附加伤害增加增幅 * x if 辟邪玉加成 == 1 else x
@@ -402,6 +418,7 @@ class Character(角色属性):
                 self.__技能攻击力累加 += x  # 累计计算
         else:
             self.__技能攻击力 *= 1 + x
+        super().技能攻击力加成(x)
 
     def 暴击伤害加成(self, x: float, 辟邪玉加成=1) -> None:
         self.__暴击伤害 += self.暴击伤害增加增幅 * x if 辟邪玉加成 == 1 else x
@@ -423,24 +440,28 @@ class Character(角色属性):
             self.__火属性强化 += self.所有属性强化增幅 * x if 辟邪玉加成 == 1 else x
         else:
             self.__火属性强化 += int(self.所有属性强化增幅 * x)
+        super().属性强化加成(火属性强化=x)
 
     def 冰属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
             self.__冰属性强化 += self.所有属性强化增幅 * x if 辟邪玉加成 == 1 else x
         else:
             self.__冰属性强化 += int(self.所有属性强化增幅 * x)
+        super().属性强化加成(冰属性强化=x)
 
     def 光属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
             self.__光属性强化 += self.所有属性强化增幅 * x if 辟邪玉加成 == 1 else x
         else:
             self.__光属性强化 += int(self.所有属性强化增幅 * x)
+        super().属性强化加成(光属性强化=x)
 
     def 暗属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
             self.__暗属性强化 += self.所有属性强化增幅 * x if 辟邪玉加成 == 1 else x
         else:
             self.__暗属性强化 += int(self.所有属性强化增幅 * x)
+        super().属性强化加成(暗属性强化=x)
 
     def 所有属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
         if mode == 0:
@@ -448,6 +469,7 @@ class Character(角色属性):
         else:
             temp = int(self.所有属性强化增幅 * x)
         self.__所有属性强化(temp)
+        super().属性强化加成(所有属性强化=x)
 
     def 火属性抗性加成(self, x: int) -> None:
         self.__火属性抗性 += x
@@ -521,6 +543,7 @@ class Character(角色属性):
                 else:
                     if i.是否主动 == 1:
                         i.等级加成(lv)
+        super().技能等级加成(加成类型, min, max, lv, exc)
 
     def 技能冷却缩减(self, min: int, max: int, x: float, exc=[int]) -> None:
         for i in self.技能栏:
@@ -1271,7 +1294,7 @@ class Character(角色属性):
             attack = 成长词条计算(atk, 等级)
             buffer = 奶成长词条计算(buff, 等级)
             self.攻击强化加成(attack)
-            self.buff量加成(buffer)
+            self.辅助属性加成(buff量=buffer)
             self.打造[部位]["attack"][序号] = attack
             self.打造[部位]["buffer"][序号] = buffer
         # 词条效果相关计算
@@ -1691,3 +1714,14 @@ class Character(角色属性):
             "jade": jade
         }
         return result
+
+
+def createCharcter(alter: str):
+    character: Character = None
+    module_name = 'core.characters.'+alter
+    try:
+        character = importlib.import_module(module_name).classChange()
+    except:
+        print('create character ' + module_name + ' error.')
+        pass
+    return character
