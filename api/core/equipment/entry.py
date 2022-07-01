@@ -10204,6 +10204,7 @@ def entry_685(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         buff = char.get_skill_by_name("BUFF")
         buff.倍率 *= 1.08
+        char.get_skill_by_name("圣光突袭").倍率 *=1.2
         pass
     if mode == 1:
         pass
