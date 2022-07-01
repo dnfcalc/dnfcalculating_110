@@ -47,6 +47,7 @@ export interface IEnchantingInfo {
   props: string
   type: string | undefined
   rarity: string | undefined
+  rate: number
 }
 
 export interface IJadeInfo {

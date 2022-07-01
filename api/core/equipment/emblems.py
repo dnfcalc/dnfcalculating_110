@@ -123,12 +123,18 @@ def get_embfunc_by_id(id):
     return emblems_func_list.get(id, emblems_25000)
 
 
-def get_emblems_setinfo():
+def get_emblems_setinfo(char: Character = {}):
     infolist = []
     for i in emblems_func_list.keys():
         data = {}
         data['id'] = i
+        emblems = emblems_func_list[i]
         info = eval(emblems_func_list[i](text=True))
+
+        char.评分开始()
+        emblems(char)
+        评分 = char.评分结束()
+        data['rate'] = 评分
         num = 0
         for k in index:
             data[k] = info[num]
