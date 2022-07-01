@@ -100,12 +100,10 @@
                   let name = propNames[i]
                   let index = equip.value.prop.base.findIndex(({ label }: Status) => label == name)
                   if (index >= 0) {
-                    console.log(indexForStatus, label, name, "往前， stop")
                     break
                   } else {
                     let tArr = setTransform(i, name)
                     beforeArr.push(<div class={[rowClassNames]}>{tArr}</div>)
-                    console.log(indexForStatus, label, name, "往前，find")
                   }
                 }
               }
@@ -119,8 +117,6 @@
                     if (index < 0) {
                       let tArr = setTransform(i, name)
                       arrterArr.push(<div class={[rowClassNames]}>{tArr}</div>)
-
-                      console.log(indexForStatus, label, name, "往后，find")
                     }
                   }
                 }
@@ -308,8 +304,6 @@
       })
       function loadTransform(eq: any) {
         if (props.forget) {
-          console.log(props.forget)
-
           if (props.forget.info) {
             transform.growthLvs = props.forget.info["成长词条等级"] ?? [1, 1, 1, 1]
             transform.growthAttacks = props.forget.data["attack"] ?? [0, 0, 0, 0]
@@ -379,15 +373,17 @@
             }
           }
         }
-
-        // console.log(transform)
       }
 
       const iconBages = computed(() => {
         let x = transform.badges && transform.badges.length > 0 ? { color: [transform.badges[0]?.type, transform.badges[1]?.type], num: transform.badges.length } : null
-        // console.log(x)
         return x
       })
+
+      function classForNum(i: number) {
+        let c = (transform.growthLvs[i] ?? 1) <= 20 ? "" : transform.growthLvs[i] <= 50 ? "advanced" : transform.growthLvs[i] <= 80 ? "rare" : transform.growthLvs[i] == 100 ? "epic" : "artifact"
+        return c
+      }
 
       return () => {
         if (!equip.value) {
@@ -524,12 +520,13 @@
                         {is_buffer.value ? (
                           <div class="text-hex-8a6f36  paddleft">
                             <span style="margin-right: 10px;">Buff量</span>
-                            <span>{transform.growthBuffers[i] || p.buffer}</span>
+
+                            <span class={classForNum(i)}>{transform.growthBuffers[i] || p.buffer}</span>
                           </div>
                         ) : (
                           <div class="text-hex-8a6f36 paddleft">
                             <span style="margin-right: 10px;">攻击强化</span>
-                            <span>{transform.growthAttacks[i] || p.attack}</span>
+                            <span class={classForNum(i)}>{transform.growthAttacks[i] || p.attack}</span>
                           </div>
                         )}
 
