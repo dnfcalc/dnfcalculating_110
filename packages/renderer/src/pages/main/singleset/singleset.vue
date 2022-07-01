@@ -3,10 +3,10 @@
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import Profile from "@/components/internal/profile.vue"
   import { useBasicInfoStore, useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
-  import featureList from "@/utils/featureList"
   import openURL from "@/utils/openURL"
   import { useAsyncState, useDebounceFn } from "@vueuse/core"
   import { computed, defineComponent, onUnmounted, ref, renderList, watch } from "vue"
+  import DictionaryVue from "./dictionary.vue"
 
   export interface IJadeUpgrade {
     id: number
@@ -88,29 +88,13 @@
           case WIDSDOM_EQUIP:
             return wisdom.value[index]
           case TITLEANFPET: {
-            const titleMax = Math.ceil(title.value.length / 13 + 1) * 13
-            if (index < titleMax) return title.value[index] ?? undefined
-            else return pet.value[index - titleMax] ?? undefined
+            const titleMax = Math.ceil(title.value.length / 15 + 1) * 15
+            if (index < titleMax) {
+              return title.value[index] ?? undefined
+            } else {
+              return pet.value[index - titleMax] ?? undefined
+            }
             // return title_pet.value[index]
-          }
-
-          case EPIC_EQUIP: {
-            const per = 13
-            const mod = index % per
-            if ([5, 9].includes(mod)) {
-              return undefined
-            }
-
-            index -= Math.trunc(index / per) * 2
-
-            if (mod > 5) {
-              index--
-            }
-
-            if (mod > 9) {
-              index--
-            }
-            return equips.value[index]
           }
         }
       }
@@ -139,38 +123,6 @@
             return
           } else {
             configStore.single_set.splice(index, 1)
-          }
-        }
-      }
-
-      function selectSuit(index: number) {
-        return (e: Event) => {
-          e.stopPropagation()
-          if (type.value == EPIC_EQUIP) {
-            const per = 13
-            const mod = index % per
-
-            const line = Math.trunc(index / per)
-
-            let end = index
-
-            if (mod > 9) {
-              index = line * per + 8
-              end = index + 3
-            } else if (mod > 5) {
-              index = line * per + 5
-              end = index + 3
-            } else {
-              index = line * per
-              end = index + 5
-            }
-
-            index -= line * 2
-            end -= line * 2
-
-            const equip = equips.value.slice(index, end)
-
-            equip.map(chooseEqu).forEach(v => v?.())
           }
         }
       }
@@ -235,39 +187,33 @@
                 <calc-tab value={TITLEANFPET}>称号 宠物</calc-tab>
               </calc-tabs>
             </div>
-            {type.value == EPIC_EQUIP && (
-              <div class="flex bg-hex-000000/45 justify-between items-center">
-                <calc-select class="!h-25px !w-40%" v-model={choose_feature.value} emptyLabel="特性选择">
-                  <calc-option value={0}>全部特性</calc-option>
-                  {renderList(featureList, item => (
-                    <calc-option value={item.value}>{item.label}</calc-option>
-                  ))}
-                </calc-select>
-                名称搜索:
-                <calc-autocomplete class="ml-10px !w-40%" v-model={equ_name.value}></calc-autocomplete>
-              </div>
-            )}
-            <div class={[type.value == EPIC_EQUIP ? "h-145" : "h-152", "w-120 overflow-y-auto equ"]}>
-              {renderList(325, (item, index) => {
-                const equ = getEquip(index)
-                return (
-                  <div class="equ-item">
-                    {equ && (
-                      <EquipTips
-                        hightlight={highlight.value.includes(equ.id)}
-                        onClick={chooseEqu(equ)}
-                        onDblclick={selectSuit(index)}
-                        onContextmenu={takeOffEqu(equ)}
-                        active={isActive(equ)}
-                        eq={equ}
-                        key={equ.id}
-                        canClick={true}
-                        show-tips={false}
-                      ></EquipTips>
-                    )}
-                  </div>
-                )
-              })}
+
+            <div class="w-140">
+              {type.value == EPIC_EQUIP ? (
+                <DictionaryVue class="w-full"></DictionaryVue>
+              ) : (
+                <div class={"h-152 w-full overflow-y-auto equ"}>
+                  {renderList(325, (item, index) => {
+                    const equ = getEquip(index)
+                    return (
+                      <div class="equ-item">
+                        {equ && (
+                          <EquipTips
+                            hightlight={highlight.value.includes(equ.id)}
+                            onClick={chooseEqu(equ)}
+                            onContextmenu={takeOffEqu(equ)}
+                            active={isActive(equ)}
+                            eq={equ}
+                            key={equ.id}
+                            canClick={true}
+                            show-tips={false}
+                          ></EquipTips>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           </div>
           <div>

@@ -22,14 +22,19 @@
         default: 0
       },
       depthStyle: {
-        type: Function as PropType<(depth: number) => string>,
-        default: () => ({})
+        type: Function as PropType<(depth: number) => string>
       }
     },
-    setup(props) {
+    setup(props, { emit }) {
       const isOpen = ref(false)
+
       function open() {
         isOpen.value = !isOpen.value
+        onSelect(props)
+      }
+
+      function onSelect(item: TreeNode) {
+        return emit("select", item)
       }
 
       const depthStyle = computed(() => {
@@ -40,14 +45,14 @@
       })
 
       return () => (
-        <div class="i-tree-item">
+        <div class="w-full i-tree-item">
           <NItem value={props.value} style={depthStyle.value} class="i-tree-item-label" onClick={open}>
             {props.label}
           </NItem>
           <Transition name="dropdown" mode="out-in">
             <div v-show={isOpen.value}>
               {renderList(props.children, item => {
-                return <NTreeNode {...item} depth={props.depth + 1} />
+                return <NTreeNode onSelect={onSelect} {...item} depth={Number(props.depth) + 1} />
               })}
             </div>
           </Transition>
