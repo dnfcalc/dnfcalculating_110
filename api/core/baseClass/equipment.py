@@ -150,6 +150,7 @@ class equipment_list():
     def __init__(self) -> None:
         self.info = get_eq_info_data()
         self.entry_info = get_entry_info_data()
+        self.parts = set()
         self.load_equ()
 
     def load_equ(self) -> None:
@@ -164,6 +165,7 @@ class equipment_list():
             self.equ_id[temp.名称] = i
             self.equ_tuple += (temp, )
             self.equ_id_tuple += (i, )
+            self.parts.add(temp.部位)
 
     def get_json(self, i):
         temp = self.info[str(i)]

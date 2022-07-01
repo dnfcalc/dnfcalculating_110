@@ -3,8 +3,10 @@ import json
 import os
 from math import fabs
 
-from core.baseClass.character import Character
+from core.baseClass.character import Character, createCharcter
 from core.baseClass.equipment import equ
+from core.equipment.emblems import get_emblems_setinfo
+from core.equipment.enchanting import get_enchanting_setinfo
 from core.store import store
 
 
@@ -43,8 +45,7 @@ def get(alter: str, setName: str):
     取存档
     """
     set_info = {}
-    module_name = "core.characters." + alter
-    character: Character = importlib.import_module(module_name).classChange()
+    character = createCharcter(alter)
     info = character.getinfo()
     skillInfo = info['skills']
     buff = info['buff_ratio']
@@ -98,10 +99,31 @@ def get(alter: str, setName: str):
             "mode": item.get("mode", [])
         })
     if not os.path.exists('./sets/{}/{}/store.json'.format(alter, setName)):
+        forge_set = {}
+        enchantings = get_enchanting_setinfo(character)
+        enblems = get_emblems_setinfo(character)
+        for 部位 in equ.parts:
+            ens = [i for i in enchantings if 部位 in i['position']]
+            enchanting = ens[0] if len(ens) > 0 else {}
+
+            ems = [i for i in enblems if 部位 in i['position']]
+            emblem = ems[0] if len(ems) > 0 else {}
+            forge_set[部位] = {
+                'cursed_number': 12,
+                'enchanting': enchanting.get('id', 0),
+                'socket_left': emblem.get('id', 0),
+                'socket_right': emblem.get('id', 0),
+                'growth_first': 40,
+                'growth_second': 40,
+                'growth_third': 40,
+                'growth_fourth': 40,
+            }
+            pass
+        print(forge_set)
         set_info = {
             "skill_set": skill_set,
             "skill_que": [],
-            "forge_set": {},
+            "forge_set": forge_set,
             "clothes_set": {},
             "single_set": [],
             "equip_list": [],
