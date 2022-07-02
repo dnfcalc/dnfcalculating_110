@@ -120,6 +120,11 @@ export const useBasicInfoStore = defineStore("basicInfo", {
     async get_equipment_detail(equ_id: ID) {
       //   console.log(equ_id)
       return (await api.getEquipmentDetail(equ_id))?.data
+    },
+    getEquip(id?: ID) {
+      if (!!id) {
+        return this.equipment_list.find(e => e.id == id)
+      }
     }
   }
 })

@@ -5,9 +5,10 @@
    * @Last Modified by:   Kritsu
    * @Last Modified time: 2021/11/17 18:49:23
    */
-  import { defineComponent, ref, computed, watch, Teleport, onDeactivated, renderSlot, CSSProperties, Transition, render, Fragment, reactive } from "vue"
   import { listProps, useSelectionList } from "@/components/hooks/selection/list"
+  import { computed, CSSProperties, defineComponent, onDeactivated, ref, renderSlot, Teleport, Transition, watch } from "vue"
 
+  import { classPropType, labelPropType } from "@/components/hooks/types"
   import { onClickOutside, useVModel } from "@vueuse/core"
 
   export default defineComponent({
@@ -23,24 +24,33 @@
         default: 120
       },
       emptyLabel: {
-        type: String
+        type: labelPropType
       },
       highlight: {
         type: String,
         // warn remind
         default: ""
+      },
+      labelClass: {
+        type: String,
+        default: ""
+      },
+      inputClass: {
+        type: classPropType,
+        default: ""
       }
     },
 
     setup(props, context) {
+      const modelValue = useVModel(props, "modelValue")
+
       const { render } = useSelectionList(() => {
         return {
           ...props,
+          modelValue: modelValue.value,
           itemClass: "i-select-dropdown-item"
         }
       }, context)
-
-      const modelValue = useVModel(props, "modelValue")
 
       const isOpen = ref(false)
       const triggerRef = ref<HTMLElement>()
@@ -106,6 +116,17 @@
 
       const { slots } = context
 
+      function renderLabel() {
+        const children = render()
+        if (!!children) {
+          if (!Array.isArray(children) || children.length > 0) {
+            return <span class={["i-select-input"].concat(props.inputClass)}>{children}</span>
+          }
+        }
+        const emptyLabel = typeof props.emptyLabel == "function" ? props.emptyLabel() : props.emptyLabel
+        return <span class="w-full pl-2 i-select-input i-select-empty-label">{emptyLabel}</span>
+      }
+
       return () => {
         return (
           <div class={["min-w-20 w-40 i-select "].concat(props.highlight)} onClick={collapse} ref={selectRef}>
@@ -116,8 +137,8 @@
               }}
               ref={triggerRef}
             >
-              <span class="i-select-label">{render() ?? props.emptyLabel}</span>
-              <span class="cursor-pointer i-select-down-icon"></span>
+              {renderLabel()}
+              <calc-button disabled={props.disabled} icon="dropdown" class="cursor-pointer"></calc-button>
             </div>
             <Teleport to="body">
               <Transition name="dropdown" mode="out-in">
@@ -162,45 +183,30 @@
       padding: 0;
       display: flex;
       height: 100%;
-      opacity: 0.9;
 
       justify-content: space-between;
       align-items: center;
 
-      .i-select-label {
-        padding-left: 5px;
+      .i-select-input {
+        padding-left: 8px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         max-width: calc(100% - 20px);
       }
 
-      .i-select-down-icon {
-        background-image: url("./img/select_down.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        border-radius: 2px;
-        width: 15px;
-        height: 14px;
+      .i-select-empty-label {
+        color: #5e5e5e;
       }
 
-      .i-select-down-icon:active {
-        background-image: url("./img/select_down_clicked.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        border-radius: 2px;
-        width: 15px;
-        height: 14px;
+      &:hover {
+        .i-select-empty-label {
+          color: #757575;
+        }
       }
 
       &.disabled {
         color: gray;
-
-        .i-select-down-icon {
-          background-image: url("./img/select_down_disabled.png");
-        }
       }
     }
 

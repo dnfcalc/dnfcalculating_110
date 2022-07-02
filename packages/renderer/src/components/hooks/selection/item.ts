@@ -1,7 +1,8 @@
-import { computed, ComputedRef, inject, onDeactivated, PropType, Ref, renderSlot } from "vue"
+import { computed, inject, onDeactivated, PropType, renderSlot } from "vue"
 import { defineHooks } from "../define"
-import { AciveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, Option, UnactiveSymbol } from "./constants"
-import { BaseType, ClassType, valuePropType } from "../types"
+import { ElementLike } from "../dialog"
+import { BaseType, valuePropType } from "../types"
+import { AciveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, ItemLabelSymbol, UnactiveSymbol } from "./constants"
 
 export const itemProps = {
   value: {
@@ -11,7 +12,7 @@ export const itemProps = {
     }
   },
   label: {
-    type: [Function, String] as PropType<string | ((val: BaseType) => string) | null>,
+    type: [Function, String] as PropType<string | ((val: BaseType) => string) | ElementLike | null>,
     default: () => null
   },
   keepAlive: {
@@ -25,49 +26,39 @@ export const itemProps = {
 }
 
 export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
-  const init = inject<(obj: any) => () => void>(InitSymbol)
+  const init = inject(InitSymbol)
+
+  const parentLabel = inject(ItemLabelSymbol)
 
   function render() {
-    let label = props.label
+    let label = props.label ?? parentLabel
     if (label) {
       if (typeof label == "function") {
-        label = label(props.value)
+        label = label(props.value)!
       }
     }
     return label ?? renderSlot(slots, "default")
   }
 
-  const id = Math.random().toString(36).slice(2, 9)
-
-  const current = computed<Option>(() => {
-    return {
-      id,
-      render,
-      value: props.value
-    }
-  })
-
   if (!!init) {
-    const remove = init(current)
-
+    const remove = init({
+      id: Math.random().toString(16).slice(2),
+      value: props.value,
+      render
+    })
     onDeactivated(remove)
   }
 
-  const isActive = inject<(option: BaseType) => boolean>(IsActiveSymbol) ?? ((_: BaseType) => false)
+  let isActive = inject(IsActiveSymbol, (_: BaseType) => false)
 
-  const changeActive = inject<(option: BaseType) => boolean>(ChangeActiveSymbol) ?? ((_: BaseType) => false)
+  const changeActive = inject(ChangeActiveSymbol, (_: BaseType) => false)
 
   const itemClass = computed(() => {
-    return [inject<ComputedRef<ClassType>>(ItemClassSymbol)?.value ?? ""].concat(isActive(current.value.value) ? activeClass.value : unactiveClass.value)
+    return [inject(ItemClassSymbol)?.value ?? ""].concat(isActive(props.value) ? activeClass.value : unactiveClass.value)
   })
 
-  const activeClass = computed(() => {
-    return inject<ComputedRef<ClassType>>(AciveClassSymbol)?.value ?? "active"
-  })
-
-  const unactiveClass = computed(() => {
-    return inject<ComputedRef<ClassType>>(UnactiveSymbol)?.value ?? "unactive"
-  })
+  const activeClass = computed(() => inject(AciveClassSymbol)?.value ?? "active")
+  const unactiveClass = computed(() => inject(UnactiveSymbol)?.value ?? "unactive")
 
   return {
     change() {
@@ -75,7 +66,6 @@ export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
     },
     render,
     isActive,
-    current,
     activeClass,
     unactiveClass,
     itemClass

@@ -23,7 +23,7 @@
         default: 300
       }
     },
-    setup(props) {
+    setup(props, { emit }) {
       const modelValue = useVModel(props, "modelValue")
 
       const isOpen = ref(false)
@@ -81,11 +81,17 @@
         isOpen.value = droplist.value.length > 0
       }
 
+      function handleKeyPress(event: KeyboardEvent) {
+        if (event.code == "Enter") {
+          emit("enter", modelValue.value)
+        }
+      }
+
       return () => {
         return (
           <div class="i-autocomplete">
             <div class="i-autocomplete-trigger" ref={triggerRef}>
-              <input class="i-autocomplete-input" onFocus={handleInput} onInput={handleInput} type="text" v-model={modelValue.value} placeholder={props.placeholder} />
+              <input onKeypress={handleKeyPress} class="i-autocomplete-input" onFocus={handleInput} onInput={handleInput} type="text" v-model={modelValue.value} placeholder={props.placeholder} />
             </div>
             <Teleport to="body">
               <Transition name="dropdown" mode="out-in">

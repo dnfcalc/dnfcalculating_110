@@ -5,7 +5,7 @@
    * @Last Modified by:   Kritsu
    * @Last Modified time: 2021/11/17 18:49:42
    */
-  import { defineComponent, useSlots, h, renderSlot } from "vue"
+  import { defineComponent, renderSlot } from "vue"
   import { RouterLink } from "vue-router"
 
   export default defineComponent({
@@ -22,23 +22,24 @@
       class: {
         type: [String],
         default: ""
+      },
+      icon: {
+        type: String
       }
     },
     setup(props, { emit, slots }) {
       return () => {
-        return h(
-          //@ts-ignore
-          !!props.to ? RouterLink : "button",
-          {
-            to: props.to,
-            class: {
-              [props.class]: !!props.class,
-              "i-button cursor-pointer outline-none text-shadow": true,
-              small: props.small
-            }
-          },
-          renderSlot(slots, "default")
-        )
+        const proerpties = {
+          to: props.to,
+          class: {
+            [props.class]: !!props.class,
+            "i-button cursor-pointer outline-none text-shadow": true,
+            small: props.small,
+            [`icon-${props.icon}`]: !!props.icon
+          }
+        }
+        const content = renderSlot(slots, "default")
+        return props.to ? <RouterLink {...proerpties}>{content}</RouterLink> : <button {...proerpties}>{content}</button>
       }
     }
   })
@@ -67,9 +68,13 @@
     text-decoration: none;
     transition: all 200ms ease-in-out;
 
-    &.icon {
-      min-width: 28px;
+    &[class*="icon-"] {
+      min-width: 16px;
       width: 28px;
+      height: 28px;
+      padding: 0;
+      border: none !important;
+      transition: all 0.2s ease-in-out;
     }
 
     &:hover {

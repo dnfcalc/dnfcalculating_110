@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
-  import { computed, defineComponent, PropType, reactive, renderList, renderSlot, watch } from "vue"
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
+  import { computed, defineComponent, PropType, reactive, renderList, renderSlot, watch } from "vue"
 
   export default defineComponent({
     props: {
@@ -17,12 +17,12 @@
       },
       // 选中列表
       selected: {
-        type: Array as PropType<number[]>,
+        type: Array as PropType<ID[]>,
         default: () => []
       },
       // 需要高亮的
       highlight: {
-        type: Array as PropType<number[]>,
+        type: Array as PropType<ID[]>,
         default: () => []
       },
       // 是不是有筛选
@@ -34,8 +34,8 @@
     components: { EquipTips },
 
     setup(props, { emit, slots }) {
-      const selected = reactive<number[]>(props.selected)
-      const highlight = reactive<number[]>(props.highlight)
+      const selected = reactive<ID[]>(props.selected)
+      const highlight = reactive<ID[]>(props.highlight)
 
       watch(props.selected, () => {
         selected.splice(0, selected.length, ...props.selected)
@@ -63,7 +63,7 @@
         emit("update:selected", selected)
       }
 
-      function changeState(id: number) {
+      function changeState(id: ID) {
         return () => {
           if (selected.includes(id)) {
             selected.splice(selected.indexOf(id), 1)
@@ -77,13 +77,13 @@
       return () => {
         return (
           <div>
-            <div class="mb-1 flex items-center w-full">
+            <div class="flex mb-1 w-full items-center">
               {renderSlot(slots, "header")}
               <calc-button class="flex-1" onClick={selectAll}>
                 {props.title}
               </calc-button>
             </div>
-            <div class="w-full flex flex-wrap">
+            <div class="flex flex-wrap w-full">
               {renderList(props.list, equ => (
                 <EquipTips
                   class="item"
