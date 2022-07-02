@@ -2,7 +2,6 @@
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useDialog } from "@/components/hooks/dialog"
-  import WatermarkVue from "@/components/internal/watermark.vue"
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
   import openURL from "@/utils/openURL"
@@ -53,12 +52,12 @@
     return () => {
       if (characterStore.alter) {
         return (
-          <div class="main">
+          <div class="main" style={"background-image:url(./images/characters/" + characterStore.alter + "/bg.jpg)"}>
             {
               // <WatermarkVue content="test" class="h-full w-full top-0 left-0 absolute" src={`./images/characters/${characterStore.alter}/bg.jpg`} />
               // <div class="header">
             }
-            <div class="main" style={"background-image:url(./images/characters/" + characterStore.alter + "/bg.jpg)"}>
+            <div class="header">
               <calc-tabs route query={{ alter: characterStore.alter, version: characterStore.version }}>
                 <calc-tab value={"/character/equips"}>装备</calc-tab>
                 <calc-tab value={"/character/skills"}>技能</calc-tab>
