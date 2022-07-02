@@ -50,7 +50,7 @@
                 if (enchant?.position) {
                   parts = enchant.position.split("，").filter(item => !["皮肤", "武器装扮", "光环"].includes(item))
                 }
-                if (name == "socket_left") {
+                if (name == "socket_left" && !["辅助装备", "魔法石"].includes(detailsStore.part)) {
                   appendNames = ["socket_right"]
                 }
               }
