@@ -149,6 +149,32 @@ export const useConfigStore = defineStore("config", {
       return this.dress_set[part]
     },
 
+    addSingle(id: ID, toggle = false) {
+      const basicStore = useBasicInfoStore()
+      const newEquip = basicStore.getEquip(id)
+      if (!newEquip) {
+        return
+      }
+
+      const hasEquip = this.single_set.includes(id)
+
+      basicStore.get_equipment_detail
+
+      this.single_set.push(id)
+
+      const map = new Map<string, ID>()
+      for (let id of this.single_set) {
+        const equip = basicStore.equipment_list.find(e => e.id == id)
+        if (equip) {
+          if (toggle && hasEquip && equip.typeName == newEquip.typeName) {
+            continue
+          }
+          map.set(equip.typeName, id)
+        }
+      }
+      this.single_set = [...map.values()].sort((a, b) => Number(a) - Number(b))
+    },
+
     customizeInit() {
       const infoStore = useBasicInfoStore()
       const temp =
@@ -166,7 +192,7 @@ export const useConfigStore = defineStore("config", {
       }
 
       for (let item of list) {
-        if (keys.indexOf(item.toString()) < 0) {
+        if (item && keys.indexOf(item.toString()) < 0) {
           this.customize[item] = [0, 0, 0, 0]
         }
       }

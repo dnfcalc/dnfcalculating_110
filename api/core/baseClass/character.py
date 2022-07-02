@@ -843,12 +843,10 @@ class Character(角色属性):
                     self.__智力 += 结算[2]
                     self.__体力 += 结算[3]
                     self.__精神 += 结算[4]
-                    print('zhanjie', self.__体力)
                 else:
                     进图智力 += 结算[2]
                     进图体力 += 结算[3]
                     进图精神 += 结算[4]
-                    print('jintu', 进图体力)
 
         进图 = 0
         BUFF补正 = 0

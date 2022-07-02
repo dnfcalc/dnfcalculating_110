@@ -99,9 +99,9 @@
             </calc-option>
           </calc-iconselect>
           <calc-selection onChange={(val: any) => console.log(val)} v-model={model.value} item-class="border-1  " unactive-class="text-red bg-white" active-class="bg-hex-f00 text-white" multiple>
-            <calc-option>123</calc-option>
+            <calc-option value={1}>123</calc-option>
 
-            <calc-option>467</calc-option>
+            <calc-option value={2}>467</calc-option>
           </calc-selection>
 
           <div class="flex mx-12 py-12">

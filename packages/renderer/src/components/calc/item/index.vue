@@ -1,6 +1,6 @@
 <script lang="tsx">
-  import { defineComponent } from "vue"
   import { itemProps, useSelectionItem } from "@/components/hooks/selection/item"
+  import { defineComponent } from "vue"
 
   export default defineComponent({
     name: "i-item",
@@ -9,7 +9,7 @@
       const { itemClass, change, render } = useSelectionItem(props, context)
 
       return () => (
-        <div key={props.keepAlive && !props.key ? props.value?.toString() : props.key} onClick={change} class={itemClass.value}>
+        <div onClick={change} class={itemClass.value}>
           {render()}
         </div>
       )

@@ -60,9 +60,9 @@
         stopWatch()
       })
 
-      const highlight = computed<number[]>({
+      const highlight = computed<ID[]>({
         get() {
-          return equips.value.map(e => (e.features?.includes(choose_feature.value) || (e.name?.includes(equ_name.value) && equ_name.value != "") ? e.id : 0)).filter(e => e > 0)
+          return equips.value.map(e => (e.features?.includes(choose_feature.value) || (e.name?.includes(equ_name.value) && equ_name.value != "") ? e.id : 0)).filter(e => !!e && e > 0)
         },
         set(val) {
           if (val.length === 0) {
@@ -76,7 +76,7 @@
       }
 
       const curEquList = computed(() => {
-        return basicStore.equipment_list.filter(item => configStore.single_set.includes(item.id)).sort((a, b) => a.id - b.id)
+        return basicStore.equipment_list.filter(item => configStore.single_set.includes(item.id)).sort((a, b) => Number(a.id) - Number(b.id))
       })
 
       function getEquip(index: number) {
@@ -102,13 +102,7 @@
       function chooseEqu(equ: IEquipmentInfo) {
         return () => {
           equ_name.value = ""
-          configStore.single_set = configStore.single_set.sort((a, b) => a - b)
-          const index = curEquList.value.findIndex(item => item.typeName == equ.typeName)
-          if (index < 0) {
-            configStore.single_set.push(equ.id)
-          } else {
-            configStore.single_set[index] = equ.id
-          }
+          configStore.addSingle(equ.id)
         }
       }
 
@@ -117,7 +111,7 @@
           e.stopPropagation()
           e.preventDefault()
           equ_name.value = ""
-          configStore.single_set = configStore.single_set.sort((a, b) => a - b)
+          configStore.single_set = configStore.single_set.sort((a, b) => Number(a) - Number(b))
           const index = curEquList.value.findIndex(item => item.typeName == equ.typeName)
           if (index < 0) {
             return

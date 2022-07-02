@@ -47,6 +47,7 @@
           return val
         },
         set(val) {
+          console.log(val)
           if (props.route && val) {
             val = decodeURIComponent(val.toString())
             router.push({ path: val, query: routeQuery.value })

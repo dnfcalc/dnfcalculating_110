@@ -1,11 +1,12 @@
 import { defineHooks } from "@/components/hooks/define"
-import { computed, PropType, provide, reactive, Ref, watch } from "vue"
-import { BaseType, classPropType, valuePropType } from "../types"
-import { AciveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, Option, UnactiveSymbol } from "./constants"
+import { syncRef } from "@vueuse/core"
+import { computed, PropType, provide, reactive } from "vue"
+import { BaseType, classPropType, labelPropType } from "../types"
+import { AciveClassSymbol, ChangeActiveSymbol, InitSymbol, IsActiveSymbol, ItemClassSymbol, ItemLabelSymbol, Option, UnactiveSymbol } from "./constants"
 
 export const listProps = {
   modelValue: {
-    type: valuePropType,
+    type: [String, Number, Array] as PropType<BaseType | BaseType[]>,
     default: () => undefined
   },
   activeClass: {
@@ -20,6 +21,10 @@ export const listProps = {
     type: classPropType,
     default: () => ""
   },
+  label: {
+    type: labelPropType,
+    default: () => null
+  },
 
   /**
    *  多选模式
@@ -29,57 +34,54 @@ export const listProps = {
     default: () => false
   },
 
-  /**
-   *  是否可以反选
-   *  在multiple模式下默认为true
-   */
-  deselect: {
-    type: [Boolean] as PropType<boolean | undefined>,
-    default: () => undefined
+  multipleLimit: {
+    type: Number,
+    default: 0
   },
-  /**
-   *  默认选择第一个
-   *  在multiple模式下默认为false
-   */
-  defaultFirst: {
-    type: Boolean as PropType<boolean | undefined>,
-    default: () => undefined
+
+  defaultValue: {
+    type: [String, Number, Array] as PropType<BaseType | BaseType[]>
   }
 }
 
 export const useSelectionList = defineHooks(listProps, (props, context) => {
-  const options = reactive<Ref<Option>[]>([])
+  const options = reactive<Option[]>([])
 
-  function toArray(value: BaseType | BaseType[]) {
-    return props.multiple && Array.isArray(value) ? [...value] : [value]
+  function toArray(value?: BaseType | BaseType[]): BaseType[] {
+    if (value == undefined) {
+      return []
+    }
+    if (props.multiple && Array.isArray(value)) {
+      return value.filter(v => v != null || v != undefined)
+    }
+    return [value]
   }
 
-  const actives = reactive<BaseType[]>(props.modelValue != undefined ? toArray(props.modelValue) : [])
+  const actives: BaseType[] = reactive<BaseType[]>([...toArray(props.modelValue ?? props.defaultValue)])
 
-  const deselect = computed(() => props.deselect ?? props.multiple)
-
-  const defaultFirst = computed(() => props.defaultFirst ?? !props.multiple)
-
-  let stopWatch = false
-
-  watch(actives, val => {
-    let value: BaseType | BaseType[] | undefined = undefined
-    if (props.multiple) {
-      value = options.filter(e => val.includes(e.value.value)).map(e => e.value.value)
-    } else {
-      value = options.find(e => val.includes(e.value.value))?.value.value
-    }
-    context.emit("change", value)
-    context.emit("update:modelValue", value)
-  })
-
-  watch(
-    () => props.modelValue,
-    val => {
-      stopWatch = true
-      actives.splice(0, actives.length, ...toArray(val))
-      stopWatch = false
-    }
+  syncRef(
+    computed({
+      get() {
+        return props.multiple ? actives : actives[0]
+      },
+      set(val) {
+        if (props.multiple) {
+          actives.splice(0, actives.length, ...toArray(val))
+        } else {
+          actives.splice(0, actives.length, val)
+        }
+      }
+    }),
+    computed({
+      get() {
+        return props.modelValue ?? props.defaultValue
+      },
+      set(val) {
+        context.emit("update:modelValue", val)
+        context.emit("change", val)
+      }
+    }),
+    { immediate: true, deep: true }
   )
 
   provide(
@@ -97,18 +99,24 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
     computed(() => props.itemClass)
   )
 
+  provide(ItemLabelSymbol, props.label)
+
   function isActive(value: BaseType) {
     return actives.includes(value)
   }
 
   function changeActive(option: BaseType) {
-    if (isActive(option) && deselect.value) {
-      actives.splice(actives.indexOf(option), 1)
+    if (isActive(option)) {
+      if (props.multiple) {
+        actives.splice(actives.indexOf(option), 1)
+      }
     } else {
-      if (!props.multiple) {
-        actives.splice(0, actives.length, option)
+      if (props.multiple) {
+        if (props.multipleLimit == 0 || props.multipleLimit > actives.length) {
+          actives.push(option)
+        }
       } else {
-        actives.push(option)
+        actives.splice(0, actives.length, option)
       }
     }
   }
@@ -117,27 +125,31 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
 
   provide(ChangeActiveSymbol, changeActive)
 
-  provide(InitSymbol, (option: Ref<Option>) => {
-    options.push(option)
-
-    if (!actives.includes(option.value.value) && (option.value.value == props.modelValue || (actives.length == 0 && defaultFirst.value))) {
-      actives.push(option.value.value)
-    }
-
-    return () => {
-      const index = options.findIndex(e => e.value.value == option.value.value)
+  provide(InitSymbol, (option: Option) => {
+    function remove() {
+      const index = options.findIndex(e => e.id == option.id)
       if (index > -1) {
         options.splice(index, 1)
       }
     }
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].value == option.value) {
+        options.splice(i, 1)
+        i--
+      }
+    }
+    options.push(option)
+    return remove
   })
 
   function render() {
-    const children = options.filter(e => isActive(e.value.value)).map(e => e.value.render())
-    return props.multiple && children.length > 0 ? children : children[0]
+    const children = options.filter(e => actives.includes(e.value)).map(e => e.render())
+    return props.multiple ? children : children[0]
   }
 
   return {
+    options,
+    actives,
     isActive,
     changeActive,
     render

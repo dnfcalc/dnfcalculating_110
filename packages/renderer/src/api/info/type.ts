@@ -21,13 +21,13 @@ export interface IAlterInfo {
 
 export interface IEquipmentInfo {
   groupId: number
-  id: number
+  id: ID
   type?: string
   typeName: string
   name: string
   icon: string
   state?: boolean
-  features?: number[]
+  features?: ID[]
   alternative: number[]
 }
 
@@ -151,7 +151,7 @@ export interface ICharacterSet {
     }
   >
 
-  single_set: number[]
+  single_set: ID[]
 
   carry_type: string
 

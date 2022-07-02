@@ -1,11 +1,13 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
   import { TreeNode } from "@/components/calc/tree/types"
-  import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
+  import EquipIcon from "@/components/internal/equip/eq-icon.vue"
+
   import EquipInfo from "@/components/internal/equip/eq-info.vue"
   import featureList from "@/utils/featureList"
 
   import { useBasicInfoStore, useCharacterStore, useConfigStore } from "@/store"
+  import { syncRef } from "@vueuse/core"
   import { computed, defineComponent, reactive, ref, renderList, watch } from "vue"
 
   export default defineComponent({
@@ -28,11 +30,12 @@
         }
       ])
 
-      const choose_feature = ref(0)
+      const choose_feature = ref<ID[]>([])
 
       const equips = computed(() =>
         (basicStore.equipment_info?.lv110 ?? []).filter(r => {
-          return r.name.includes(keyword.value.trim()) && (choose_feature.value == 0 || r.features?.includes(choose_feature.value))
+          const feats = choose_feature.value.filter(r => !!r)
+          return r.name.includes(keyword.value.trim()) && (feats.length == 0 || feats.every(f => r.features?.includes(f)))
         })
       )
 
@@ -42,30 +45,50 @@
         return equips.value.slice(start, end)
       })
 
+      function reset() {
+        choose_feature.value = []
+        keyword_cache.value = ""
+        keyword.value = ""
+        pagination.page = 0
+      }
+
       const selectEquip = ref<ID>()
+
+      const keyword_cache = ref("")
 
       const keyword = ref("")
 
       const configStore = useConfigStore()
 
-      function chooseEqu(equ: IEquipmentInfo) {
-        return () => {
-          if (!equ?.id) {
-            return
-          }
-          const index = equips.value.findIndex(item => item.typeName == equ.typeName)
-          if (index < 0) {
-            configStore.single_set.push(equ.id)
-          } else {
-            configStore.single_set[index] = equ.id
-          }
-          configStore.single_set = configStore.single_set.filter(r => !!r)
+      function chooseEqu(equ: IEquipmentInfo, toggle = false) {
+        return (event: Event) => {
+          event.stopPropagation()
+          event.preventDefault()
+          configStore.addSingle(equ.id, toggle)
         }
+      }
+
+      const chooseEquFeature = computed(() => {
+        {
+          const id = selectEquip.value
+          if (id) {
+            const equ = show_list.value.find(e => e.id == id)
+            if (equ) {
+              const featIds = equ.features ?? []
+              return featureList.filter(r => featIds.includes(r.value))
+            }
+          }
+          return []
+        }
+      })
+
+      function isChoose(equ: IEquipmentInfo) {
+        return configStore.single_set.includes(equ.id)
       }
 
       const pagination = reactive({
         page: 0,
-        pageSize: 12
+        pageSize: 10
       })
 
       const total = computed(() => equips.value.length)
@@ -75,65 +98,114 @@
         pagination.page = 0
       })
 
-      watch(
-        () => pagination.page,
-        () => {
-          selectEquip.value = show_list.value[0]?.id
-        }
+      syncRef(
+        computed(() => show_list.value[0]?.id),
+        selectEquip,
+        { direction: "ltr" }
       )
 
-      function pop(step: number) {
-        return () => {
-          let page = pagination.page + step
-          page = Math.max(page, 0)
-          page = Math.min(page, total_page.value - 1)
-          pagination.page = page
-          console.log(page)
+      function gotoPage(page: number) {
+        page = Math.max(page, 0)
+        page = Math.min(page, total_page.value - 1)
+        pagination.page = page
+        console.log(page)
+      }
+
+      function chooseFeature(id: ID) {
+        if (!choose_feature.value.includes(id) && choose_feature.value.length < 5) {
+          choose_feature.value.push(id)
         }
+      }
+
+      function clearFeature() {
+        choose_feature.value = []
+      }
+
+      function labelTag(value: number) {
+        const feat = featureList.find(e => e.value == value)
+        if (!feat) {
+          return <span></span>
+        }
+
+        function removeFeature() {
+          const index = choose_feature.value.indexOf(value)
+          if (index > -1) {
+            choose_feature.value.splice(index, 1)
+          }
+        }
+        return (
+          <span class="cursor-pointer h-4 mt-1 mr-2 leading-4 inline-block feat-tag" onClick={removeFeature}>
+            #{feat.label}
+          </span>
+        )
+      }
+
+      function search() {
+        keyword.value = keyword_cache.value
+        pagination.page = 0
       }
 
       return () => (
         <div class=" w-full">
           <div class="w-full py-2">
-            <div class="flex bg-hex-000000/45 justify-between items-center">
-              <calc-select class="!h-25px !w-40%" v-model={choose_feature.value} emptyLabel="特性选择">
-                <calc-option value={0}>全部特性</calc-option>
-                {renderList(featureList, item => (
-                  <calc-option value={item.value}>{item.label}</calc-option>
-                ))}
-              </calc-select>
-              名称搜索:
-              <calc-autocomplete class="ml-10px !w-40%" v-model={keyword.value}></calc-autocomplete>
+            <div class="bg-hex-000000/45 py-2 px-2 justify-between items-center">
+              <div class="flex mb-2 items-center ">
+                <calc-autocomplete onEnter={search} placeholder="请输入名称搜索" class="flex-1 !h-5" v-model={keyword_cache.value}></calc-autocomplete>
+                <calc-button onClick={search} title="搜索" class="ml-2" icon="search"></calc-button>
+                <calc-button onClick={reset} title="重置" class="ml-4" icon="reset"></calc-button>
+              </div>
+
+              <div class="flex">
+                <calc-select
+                  input-class="text-hex-ffb400 hover:text-hex-fff000 feat-input "
+                  label={labelTag}
+                  multiple
+                  multiple-limit={5}
+                  class="flex-1 !h-5"
+                  v-model={choose_feature.value}
+                  emptyLabel="请选择#标签,最多可选择4个#标签"
+                >
+                  {renderList(featureList, item => (
+                    <calc-option value={item.value}>{item.label}</calc-option>
+                  ))}
+                </calc-select>
+                <calc-button class="ml-2 py-0 !h-5 !leading-5" onClick={clearFeature}>
+                  清空
+                </calc-button>
+              </div>
             </div>{" "}
           </div>
-          <div class="flex h-128 w-full">
-            <div class="h-full bg-hex-0d0d0d mx-2px w-50%">
-              <calc-selection v-model={selectEquip.value} active-class="equip-line-selected">
+          <div class="flex h-110  w-full">
+            <div class="h-full bg-hex-0d0d0d mx-2px  w-50%">
+              <calc-selection v-model={selectEquip.value} active-class="equip-line-selected" class="h-100">
                 {renderList(show_list.value, item => {
                   return (
-                    <calc-item onDblclick={chooseEqu(item)} value={item.id} class="flex h-9 px-2px items-center justify-between equip-line">
-                      <EquipTips eq={item} key={item.id} canClick={true} show-tips={false}></EquipTips>
+                    <calc-item title="鼠标右键点击穿戴" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 px-1 items-center equip-line">
+                      <EquipIcon onClick={chooseEqu(item, true)} hightlight={isChoose(item)} eq={item}></EquipIcon>
                       <span class="text-xs ml-4 text-hex-ffb400">{item.name}</span>
-                      <calc-button onClick={chooseEqu(item)}>穿戴</calc-button>
                     </calc-item>
                   )
                 })}
               </calc-selection>
-              <div v-show={total_page.value > 1} class="flex space-x-4 h-8 w-full items-center justify-center">
-                <calc-button disabled={pagination.page < 1} class="min-w-5" onClick={pop(-1)}>
-                  &lt;
-                </calc-button>
-                <span class="text-center w-12">
-                  {pagination.page + 1}/{total_page.value}
-                </span>
-                <calc-button disabled={pagination.page >= total_page.value - 1} class="min-w-5" onClick={pop(1)}>
-                  &gt;
-                </calc-button>
-              </div>
+              <calc-pagination page={pagination.page} onChange={gotoPage} total-page={total_page.value} v-show={total_page.value > 1}></calc-pagination>
             </div>
 
-            <div class="h-full bg-hex-0d0d0d  w-50%  overflow-y-auto">
-              <EquipInfo class="w-full" eid={selectEquip.value} />
+            <div class="h-full bg-hex-0d0d0d  w-50% ">
+              <div class="h-356px w-full overflow-y-auto">
+                <EquipInfo class="  w-full overflow-y-auto" eid={selectEquip.value} />
+              </div>
+              <div class="bg-hex-030202 h-4px w-full"></div>
+              <div class=" bg-hex-0e0e0e h-16 p-2 items-start">
+                {chooseEquFeature.value?.length ? (
+                  renderList(chooseEquFeature.value, feat => (
+                    <div onClick={() => chooseFeature(feat.value)} class="cursor-pointer h-4 mt-1 mr-2 text-hex-ffb400 leading-4 inline-block underline underline-offset-2 hover:text-hex-fff000">
+                      #{feat.label}
+                    </div>
+                  ))
+                ) : (
+                  <div class="cursor-pointer h-4 mt-1 mr-2  text-hex-86784f leading-4 inline-block underline underline-offset-2 ">#无标签</div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -143,14 +215,23 @@
 </script>
 <style lang="scss">
   .equip-line {
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     background-color: #0d0d0d;
-    &:hover:not(.equip-line-selected) {
-      border: 2px solid #055577;
+    &:hover {
+      background-image: url("@/assets/img/hover_mask.png");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
     }
 
     &-selected {
-      border: 2px solid #ffb400;
+      border: 1px solid #ffb400;
+    }
+  }
+
+  .feat-input {
+    .feat-tag {
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
   }
 </style>

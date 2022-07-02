@@ -1,6 +1,6 @@
 <script lang="tsx">
-  import { computed, defineComponent, reactive, ref, renderList } from "vue"
   import { useCharacterStore, useConfigStore } from "@/store"
+  import { computed, defineComponent, renderList } from "vue"
 
   import { skill_icon } from "./utils"
   export default defineComponent({
@@ -25,7 +25,7 @@
             {renderList(3, item => (
               <div>
                 <div class="cp" style="background-image: url('./images/common/talisman.png')">
-                  <calc-iconselect defaultFirst={false} class="talisman" emptyLabel="点击" columnNum={1} v-model={configStore.talisman_set[item - 1]}>
+                  <calc-iconselect class="talisman" emptyLabel="点击" columnNum={1} v-model={configStore.talisman_set[item - 1]}>
                     {renderList(talismanList.value(item - 1), (talisman, index) => (
                       <calc-option value={talisman}>
                         <div>
@@ -35,7 +35,7 @@
                     ))}
                   </calc-iconselect>
                   {renderList(3, runeItem => (
-                    <calc-iconselect defaultFirst={false} emptyLabel="点击" columnNum={4} class="rune" v-model={configStore.rune_set[(item - 1) * 3 + runeItem - 1]}>
+                    <calc-iconselect emptyLabel="点击" columnNum={4} class="rune" v-model={configStore.rune_set[(item - 1) * 3 + runeItem - 1]}>
                       {renderList(characterStore.rune, (rune, index) => (
                         <>
                           {renderList(runeColor.length, colorindex => (

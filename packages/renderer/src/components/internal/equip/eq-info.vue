@@ -392,7 +392,7 @@
 
         return (
           <div class={["approved-form"].concat([props.colums ? "with-colums" : ""].concat("!max-w-80"))}>
-            <div class="epic title" style="display: flex">
+            <div class="flex flex-wrap  epic title">
               <eq-icon eq={equip.value} badges={iconBages.value}></eq-icon>
               <div class="eq-name" style="margin-left: 8px">
                 <span style="display: flex" class={rarityClass(equip.value.rarity)}>
@@ -401,10 +401,8 @@
                   <span>{equip.value.name}</span>
                 </span>
               </div>
-              <div class="flex-1 eq-name yellow" style="text-align: right">
-                <p style="display: flex">
-                  <span style="width: 100%">{equip.value.position}</span>
-                </p>
+              <div class="flex flex-1 eq-name yellow" style="text-align: right">
+                <span style="width: 100%">{equip.value.position}</span>
               </div>
             </div>
             {transform.badges && transform.badges.length > 0 ? (
