@@ -3,6 +3,7 @@
   import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import { useBasicInfoStore, useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
   import { to_percent } from "@/utils"
+  import { useVModel } from "@vueuse/core"
   import { computed, defineComponent, PropType, renderList } from "vue"
 
   interface DelearProperties {
@@ -138,10 +139,15 @@
       equips_forget: {
         type: Object,
         default: undefined
+      },
+      part: {
+        type: String,
+        default: ""
       }
     },
     components: { EquipTips },
     setup(props, { emit }) {
+      const partModelValue = useVModel(props, "part", emit, { passive: true })
       // let details = props.details as IDetail
 
       const details = computed(() => (props.details as IDetail) ?? undefined)
@@ -246,7 +252,7 @@
         let x = 11
         let y = 11
         let index = display_parts.findIndex(p => p == part)
-        let active = index == display_parts.findIndex(p => p == detailsStore.part)
+        let active = index == display_parts.findIndex(p => p == partModelValue.value)
 
         if (index == 13) index -= 7
         else if (index >= 5 && index <= 12) {
@@ -278,7 +284,7 @@
       function setPart(part: string) {
         return () => {
           // activeIndex.value = index
-          detailsStore.setPart(part)
+          partModelValue.value = part
           emit("partChange", part)
         }
       }

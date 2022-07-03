@@ -15,7 +15,6 @@ export default defineRequest(req => {
       return req.post("/config/save", { name, data }).then(r => r.data)
     },
     getToken(alter: string, version?: string) {
-      console.log(alter)
       return req.get<string>(`/token/${alter}`, { params: { version } }).then(r => r.data)
     }
   }

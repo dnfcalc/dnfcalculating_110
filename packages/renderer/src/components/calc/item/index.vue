@@ -9,7 +9,7 @@
       const { itemClass, change, render } = useSelectionItem(props, context)
 
       return () => (
-        <div onClick={change} class={itemClass.value}>
+        <div key={props.keepAlive && !props.key ? props.value?.toString() : props.key} onClick={change} class={itemClass.value}>
           {render()}
         </div>
       )

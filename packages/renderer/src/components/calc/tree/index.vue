@@ -63,9 +63,6 @@
 
       watch(modelValue, val => {
         val = val ?? props.defaultValue
-
-        console.log(val)
-
         const item = children.value.find(item => item.value === val)
         onSelect(item)
       })

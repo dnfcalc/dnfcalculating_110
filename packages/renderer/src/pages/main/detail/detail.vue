@@ -1,9 +1,9 @@
 <script lang="tsx">
-  import { defineComponent, ref, watch } from "vue"
   import Profile from "@/components/internal/profile.vue"
+  import { defineComponent, ref } from "vue"
+  import Clothes from "./sub/clothes.vue"
   import Equip from "./sub/equip.vue"
   import Jade from "./sub/jade.vue"
-  import Clothes from "./sub/clothes.vue"
   import Others from "./sub/others.vue"
   import Petequ from "./sub/petequ.vue"
   import Special from "./sub/special.vue"
@@ -11,14 +11,16 @@
   export default defineComponent({
     components: { Profile, Equip, Jade, Clothes, Others, Petequ, Special },
     setup() {
+      const part = ref("头肩")
+
       return () => (
         <div class="detail">
           <div>
-            <div class="w-510px bg-hex-00000078">
-              <Profile canChoose={true} showDetail={false} class="ml-auto mr-auto"></Profile>
+            <div class="bg-hex-00000078 w-510px">
+              <Profile v-model:part={part.value} canChoose={true} showDetail={false} class="mr-auto ml-auto"></Profile>
             </div>
             <calc-collapse class="w-510px" title="装备打造(点击人物部位切换)">
-              <Equip />
+              <Equip part={part.value} />
             </calc-collapse>
             <calc-collapse class="w-510px" title="装扮部分">
               <Clothes />
