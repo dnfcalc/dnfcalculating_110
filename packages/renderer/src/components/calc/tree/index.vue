@@ -2,7 +2,7 @@
   import { listProps } from "@/components/hooks/selection/list"
   import { labelPropType, valuePropType } from "@/components/hooks/types"
   import { useVModel } from "@vueuse/core"
-  import { defineComponent, PropType, renderList } from "vue"
+  import { computed, defineComponent, PropType, renderList, watch } from "vue"
   import CalcTreeNode from "./node.vue"
   import { TreeNode } from "./types"
 
@@ -12,6 +12,10 @@
       ...listProps,
       modelValue: {
         type: valuePropType,
+        default: () => null
+      },
+      activeItem: {
+        type: Object as PropType<TreeNode>,
         default: () => null
       },
       idKey: {
@@ -36,11 +40,35 @@
     setup(props, { slots, emit }) {
       const modelValue = useVModel(props, "modelValue")
 
-      function onSelect(item: TreeNode) {
-        console.log(item)
-        emit("select", item)
-        item.onSelect?.()
+      function onSelect(item?: TreeNode) {
+        if (item) {
+          emit("select", item)
+          item.onSelect?.()
+        }
       }
+
+      function loadItem(total: TreeNode[], items: TreeNode[]) {
+        items?.forEach(item => {
+          if (item.children) {
+            loadItem(total, item.children)
+          }
+          total.push(item)
+        })
+        return total
+      }
+
+      const children = computed(() => {
+        return loadItem([], props.data)
+      })
+
+      watch(modelValue, val => {
+        val = val ?? props.defaultValue
+
+        console.log(val)
+
+        const item = children.value.find(item => item.value === val)
+        onSelect(item)
+      })
 
       return () => {
         return (
