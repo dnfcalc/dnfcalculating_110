@@ -1,7 +1,8 @@
 <script lang="tsx">
   import { IEnchantingInfo } from "@/api/info/type"
-  import { compile, computed, defineComponent, ref, renderList } from "vue"
   import { useBasicInfoStore, useCharacterStore, useConfigStore } from "@/store"
+  import { syncRef } from "@vueuse/core"
+  import { computed, defineComponent, renderList } from "vue"
 
   export default defineComponent({
     name: "clothes",
@@ -39,6 +40,7 @@
       const wqzb_enchat = equipInfo<string | number>("武器装扮", "enchanting")
       const wqzb_left = equipInfo<string | number>("武器装扮", "socket_left")
       const wqzb_right = equipInfo<string | number>("武器装扮", "socket_right")
+
       // 皮肤
       const pf_enchat = equipInfo<string | number>("皮肤", "enchanting")
       const pf_left = equipInfo<string | number>("皮肤", "socket_left")
@@ -47,6 +49,10 @@
       const gh_enchat = equipInfo<string | number>("光环", "enchanting")
       const gh_left = equipInfo<string | number>("光环", "socket_left")
       const gh_right = equipInfo<string | number>("光环", "socket_right")
+
+      syncRef(wqzb_left, wqzb_right, { direction: "ltr" })
+      syncRef(pf_left, pf_right, { direction: "ltr" })
+      syncRef(gh_left, gh_right, { direction: "ltr" })
 
       return () => (
         <div class="flex flex-wrap equ-profile">
@@ -59,17 +65,13 @@
               ))}
             </calc-select>
             <calc-select v-model={wqzb_left.value} class="flex-1 !h-20px">
-              <calc-option v-model={wqzb_left.value} value={0}>
-                无
-              </calc-option>
+              <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}
             </calc-select>
             <calc-select v-model={wqzb_right.value} class="flex-1 !h-20px">
-              <calc-option v-model={wqzb_right.value} value={0}>
-                无
-              </calc-option>
+              <calc-option value={0}>无</calc-option>
               {renderList(emblem_list.value ?? [], item => (
                 <calc-option value={item.id}>{`${item.type}[${item.props}]`}</calc-option>
               ))}
