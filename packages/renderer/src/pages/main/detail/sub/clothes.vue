@@ -7,15 +7,9 @@
   export default defineComponent({
     name: "clothes",
     setup(props, { emit, slots }) {
-      const clothes_type = ["神器装扮", "稀有装扮", "节日装扮", "高级装扮"]
-
       const basicInfoStore = useBasicInfoStore()
       const characterStore = useCharacterStore()
       const configStore = useConfigStore()
-
-      const chageSuit = (val: any, val2: any) => {
-        console.log(val)
-      }
 
       const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {
         return basicInfoStore.emblem_info?.filter(item => item.rarity != "白金").sort((a, b) => (b.maxFame ?? 0) - (a.maxFame ?? 0))

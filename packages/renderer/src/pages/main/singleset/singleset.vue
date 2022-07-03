@@ -219,7 +219,6 @@
         page = Math.max(page, 0)
         page = Math.min(page, total_page.value - 1)
         pagination.page = page
-        console.log(page)
       }
 
       function chooseFeature(id: ID) {

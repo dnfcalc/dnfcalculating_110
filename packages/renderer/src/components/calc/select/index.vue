@@ -42,7 +42,7 @@
     },
 
     setup(props, context) {
-      const modelValue = useVModel(props, "modelValue")
+      const modelValue = useVModel(props, "modelValue", context.emit, { passive: true })
 
       const { render } = useSelectionList(() => {
         return {

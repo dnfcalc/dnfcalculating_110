@@ -3,7 +3,6 @@ import { defineStore } from "pinia"
 import { IAnyResultInfo } from "./../api/character/type"
 
 interface IDetailStore {
-  part: string
   display_parts: string[]
   standard_uuid: ID
   _standard?: IAnyResultInfo
@@ -12,7 +11,6 @@ interface IDetailStore {
 export const useDetailsStore = defineStore("details", {
   state: (): IDetailStore => {
     return {
-      part: "头肩",
       display_parts: ["头肩", "上衣", "下装", "腰带", "鞋", "武器", "称号", "手镯", "项链", "辅助装备", "戒指", "耳环", "魔法石", "宠物"],
       standard_uuid: undefined,
       _standard: undefined
@@ -20,9 +18,6 @@ export const useDetailsStore = defineStore("details", {
   },
 
   actions: {
-    setPart(part: string) {
-      this.part = part
-    },
     setStandard(uuid: ID) {
       this.standard_uuid = uuid
       this._standard = undefined

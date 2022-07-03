@@ -1,4 +1,4 @@
-import { computed, inject, onDeactivated, PropType, renderSlot } from "vue"
+import { computed, inject, onDeactivated, PropType, renderSlot, watch } from "vue"
 import { defineHooks } from "../define"
 import { ElementLike } from "../dialog"
 import { BaseType, valuePropType } from "../types"
@@ -26,8 +26,6 @@ export const itemProps = {
 }
 
 export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
-  const init = inject(InitSymbol)
-
   const parentLabel = inject(ItemLabelSymbol)
 
   function render() {
@@ -38,21 +36,27 @@ export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
           label = label(props.value)!
         }
       }
-      if (label) {
-        return [label]
-      }
-      return []
+      return Array.isArray(label) ? label : [label]
     })
   }
 
+  let remove = () => {}
+  const init = inject(InitSymbol)
   if (!!init) {
-    const remove = init({
-      id: Math.random().toString(16).slice(2),
-      label: typeof props.label == "string" ? props.label : undefined,
-      value: props.value,
-      render
-    })
-    onDeactivated(remove)
+    watch(
+      () => props.value,
+      value => {
+        remove()
+        remove = init({
+          id: Math.random().toString(16).slice(2),
+          label: typeof props.label == "string" ? props.label : undefined,
+          value,
+          render
+        })
+      },
+      { immediate: true }
+    )
+    onDeactivated(() => remove())
   }
 
   let isActive = inject(IsActiveSymbol, (_: BaseType) => false)

@@ -1,28 +1,35 @@
 <script lang="tsx">
   import { IEnchantingInfo } from "@/api/info/type"
   import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
+  import { syncRef, syncRefs } from "@vueuse/core"
   import { computed, defineComponent, ref, renderList } from "vue"
   export default defineComponent({
     name: "equip",
+    props: {
+      part: {
+        type: String,
+        default: "头肩"
+      }
+    },
     setup(props, { emit, slots }) {
       const detailsStore = useDetailsStore()
       const configStore = useConfigStore()
       const can_upgrade = computed(() => {
-        return !["称号", "宠物"].includes(detailsStore.part as string)
+        return !["称号", "宠物"].includes(props.part as string)
       })
-      const has_socket = computed(() => ["称号", "宠物", "耳环", "武器"].indexOf(detailsStore.part as string) < 0)
-      const has_socket_right = computed(() => !["辅助装备", "魔法石", "称号", "宠物", "耳环", "武器"].includes(detailsStore.part as string))
-      const has_wisdom = computed(() => ["称号", "宠物", "武器"].indexOf(detailsStore.part as string) < 0)
+      const has_socket = computed(() => ["称号", "宠物", "耳环", "武器"].indexOf(props.part as string) < 0)
+      const has_socket_right = computed(() => !["辅助装备", "魔法石", "称号", "宠物", "耳环", "武器"].includes(props.part as string))
+      const has_wisdom = computed(() => ["称号", "宠物", "武器"].indexOf(props.part as string) < 0)
       const basicInfoStore = useBasicInfoStore()
 
       const enchanting_list = computed<IEnchantingInfo[] | undefined>(() => {
         return basicInfoStore.enchanting_info
-          ?.filter(item => item.position.includes(detailsStore.part) && !item.position.includes("武器装扮") && !item.position.includes("宠物装备"))
+          ?.filter(item => item.position.includes(props.part) && !item.position.includes("武器装扮") && !item.position.includes("宠物装备"))
           .sort((a, b) => b.rate - a.rate)
       })
 
       const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {
-        return basicInfoStore.emblem_info?.filter(item => item.position.includes(detailsStore.part))
+        return basicInfoStore.emblem_info?.filter(item => item.position.includes(props.part))
       })
 
       const global_change = ref(false)
@@ -30,7 +37,7 @@
       const currentInfo = function <T>(name: string, defaultValue?: T) {
         return computed<string | number>({
           get() {
-            return configStore.getForge(detailsStore.part, name) ?? defaultValue ?? 0
+            return configStore.getForge(props.part, name) ?? defaultValue ?? 0
           },
           set(val) {
             if (val == undefined) {
@@ -50,9 +57,6 @@
                 if (enchant?.position) {
                   parts = enchant.position.split("，").filter(item => !["皮肤", "武器装扮", "光环"].includes(item))
                 }
-                if (name == "socket_left" && !["辅助装备", "魔法石"].includes(detailsStore.part)) {
-                  appendNames = ["socket_right"]
-                }
               }
               if (["cursed_type", "cursed_number"].includes(name)) {
                 parts = detailsStore.display_parts.filter(e => !["称号", "宠物"].includes(e))
@@ -60,9 +64,6 @@
 
               if (["growth_first", "growth_second", "growth_third", "growth_fourth"].includes(name)) {
                 parts = detailsStore.display_parts.filter(e => !["称号", "宠物"].includes(e))
-                if (name == "growth_first") {
-                  appendNames = ["growth_second", "growth_third", "growth_fourth"].filter(item => item !== name)
-                }
               }
               if (parts.length) {
                 appendNames.push(name)
@@ -73,7 +74,7 @@
                 })
               }
             }
-            configStore.setForge(detailsStore.part, name, val)
+            configStore.setForge(props.part, name, val)
           }
         })
       }
@@ -111,13 +112,15 @@
       // 成长4
       const growth_fourth = currentInfo<string | number>("growth_fourth", 1)
 
+      syncRef(socket_left, socket_right, { direction: "ltr" })
+      syncRefs(growth_first, [growth_second, growth_third, growth_fourth])
+
       return () => {
         return (
           <div class="flex flex-wrap equ-profile">
             <div class="equ-profile-item">
               <div class="mr-10px row-name">当前部位</div>
-              {detailsStore.part}
-
+              <span> {props.part}</span>
               {can_upgrade.value ? <calc-checkbox style="margin-left:auto" v-model={global_change.value} label="全局修改"></calc-checkbox> : <div></div>}
             </div>
             {can_upgrade.value ? (
