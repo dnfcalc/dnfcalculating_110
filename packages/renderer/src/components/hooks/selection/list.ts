@@ -139,6 +139,7 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
       }
     }
     options.push(option)
+    context.emit("load", option)
     return remove
   })
 

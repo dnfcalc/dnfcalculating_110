@@ -183,6 +183,8 @@
       overflow-y: auto;
       overflow-x: hidden;
       z-index: 2;
+
+      width: 100%;
     }
   }
 

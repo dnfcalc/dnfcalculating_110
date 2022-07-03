@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import NSelection from "@/components/base/selection"
+  import { listProps } from "@/components/hooks/selection/list"
   import { labelPropType, valuePropType } from "@/components/hooks/types"
   import { useVModel } from "@vueuse/core"
   import { defineComponent, PropType, renderList } from "vue"
@@ -9,6 +9,7 @@
   const Tree = defineComponent({
     name: "calc-tree",
     props: {
+      ...listProps,
       modelValue: {
         type: valuePropType,
         default: () => null
@@ -38,15 +39,16 @@
       function onSelect(item: TreeNode) {
         console.log(item)
         emit("select", item)
+        item.onSelect?.()
       }
 
       return () => {
         return (
-          <NSelection activeClass="i-tree-node-active" v-model={modelValue.value} class="i-tree">
+          <calc-selection {...props} activeClass="i-tree-node-active" v-model={modelValue.value} class="i-tree">
             {renderList(props.data, item => {
-              return <CalcTreeNode onSelect={onSelect} depth-style={props.depthStyle} {...item} depth={props.depth} />
+              return <CalcTreeNode {...item} onSelect={onSelect} depth-style={props.depthStyle} depth={props.depth} />
             })}
-          </NSelection>
+          </calc-selection>
         )
       }
     }
@@ -59,10 +61,5 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .i-tree-node-active {
-    color: red;
-    border: 1px solid;
   }
 </style>

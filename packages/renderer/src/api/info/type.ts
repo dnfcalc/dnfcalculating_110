@@ -23,7 +23,8 @@ export interface IEquipmentInfo {
   groupId: number
   id: ID
   type?: string
-  typeName: string
+  rarity?: string
+  part: string
   name: string
   icon: string
   state?: boolean

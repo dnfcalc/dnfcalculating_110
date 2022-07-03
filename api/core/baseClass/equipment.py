@@ -173,12 +173,13 @@ class equipment_list():
             "id": int(i),
             "name": temp["名称"],
             "icon": temp["icon"],
-            "typeName": temp["部位"],
+            "part": temp["部位"],
+            'type': temp['类型'],
             "stable": temp["固有属性"],
             "alternative": temp["可选属性"] if "可选属性" in temp else [],
             "order":  temp["order"] if "order" in temp else 0,
             "features": temp["特性"] if "特性" in temp else [],
-            "type": temp["品质"]
+            "rarity": temp["品质"]
         }
 
     def get_equ_by_id(self, id) -> equipment:

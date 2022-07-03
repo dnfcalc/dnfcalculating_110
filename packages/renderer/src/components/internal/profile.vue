@@ -283,7 +283,7 @@
       }
 
       function getEqu(part: string) {
-        return props.equList.filter(item => item.typeName == part)[0] ?? undefined
+        return props.equList.filter(item => item.part == part)[0] ?? undefined
       }
 
       function renderDelearPropties() {

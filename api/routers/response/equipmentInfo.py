@@ -7,9 +7,10 @@ from cProfile import label
 from typing import Dict, List, Text
 
 import requests
+from core.baseClass.character import createCharcter
+from core.baseClass.equipment import equ, equipment
 from core.equipment.emblems import get_emblems_setinfo
 from core.equipment.enchanting import get_enchanting_setinfo
-from core.baseClass.equipment import equ, equipment
 from core.equipment.jade import get_jade_setinfo
 from core.equipment.sundry import get_sundries_setinfo
 
@@ -25,7 +26,7 @@ class WeaponEquip:
     groupId: int
     id: int
     type: int
-    typeName: str
+    part: str
     icon: str
 
 
@@ -45,9 +46,9 @@ def get_equipment_info(alter: str):
         "title": []
     }
 
-    module_name = "core.characters." + alter
-    character = importlib.import_module(module_name)
-    char = character.classChange()
+    char = createCharcter(alter)
+    if char is None:
+        return equipment_info
     weapons = char.武器选项
     转职 = char.转职
 
@@ -59,11 +60,12 @@ def get_equipment_info(alter: str):
                     "id": int(i),
                     "name": temp["名称"],
                     "icon": temp["icon"],
-                    "typeName": temp["部位"],
+                    "part": temp["部位"],
                     "stable": temp["固有属性"],
                     "features": temp["类型"],
                     "alternative": temp["可选属性"],
-                    "type": temp["品质"]
+                    "rarity": temp["品质"],
+                    'type': temp['类型']
                 }
             )
         if temp['部位'] == "宠物":
@@ -72,11 +74,12 @@ def get_equipment_info(alter: str):
                     "id": int(i),
                     "name": temp["名称"],
                     "icon": temp["icon"],
-                    "typeName": temp["部位"],
+                    "part": temp["部位"],
                     "stable": temp["固有属性"],
                     "features": temp["类型"],
                     "alternative": temp["可选属性"],
-                    "type": temp["品质"]
+                    "rarity": temp["品质"],
+                    'type': temp['类型']
                 }
             )
         if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["部位"] != "武器":
@@ -86,11 +89,12 @@ def get_equipment_info(alter: str):
                     "name": temp["名称"],
                     "icon": temp["icon"],
                     "order": temp["order"],
-                    "typeName": temp["部位"],
+                    "part": temp["部位"],
                     "stable": temp["固有属性"],
                     "alternative": temp["可选属性"],
                     "features": temp["特性"],
-                    "type": temp["品质"]
+                    "rarity": temp["品质"],
+                    'type': temp['类型']
                 }
             )
         if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["类型"] in weapons and (转职 in temp["名称"] or not "胜负之役" in temp["名称"]):
@@ -99,34 +103,37 @@ def get_equipment_info(alter: str):
                     "id": int(i),
                     "name": temp["名称"],
                     "icon": temp["icon"],
-                    "typeName": temp["部位"],
+                    "part": temp["部位"],
                     "stable": temp["固有属性"],
                     "alternative": temp["可选属性"],
-                    "type": temp["品质"]
+                    "rarity": temp["品质"],
+                    'type': temp['类型']
                 }
             )
-        if temp["品质"] == '神话':
+        if temp["品质"] == '神话' and char.类型 != '辅助':
             equipment_info["myth"].append(
                 {
                     "id": int(i),
                     "name": temp["名称"],
                     "icon": temp["icon"],
-                    "typeName": temp["部位"],
+                    "part": temp["部位"],
                     "stable": temp["固有属性"],
                     "alternative": temp["可选属性"],
-                    "type": temp["品质"]
+                    "rarity": temp["品质"],
+                    'type': temp['类型']
                 }
             )
-        if temp["品质"] == '智慧产物':
+        if temp["品质"] == '智慧产物' and char.类型 != '辅助':
             equipment_info["wisdom"].append(
                 {
                     "id": int(i),
                     "name": temp["名称"],
                     "icon": temp["icon"],
-                    "typeName": temp["部位"],
+                    "part": temp["部位"],
                     "stable": temp["固有属性"],
                     "alternative": temp["可选属性"],
-                    "type": temp["品质"]
+                    "rarity": temp["品质"],
+                    'type': temp['类型']
                 }
             )
 

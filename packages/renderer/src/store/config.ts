@@ -167,10 +167,10 @@ export const useConfigStore = defineStore("config", {
       for (let id of this.single_set) {
         const equip = basicStore.equipment_list.find(e => e.id == id)
         if (equip) {
-          if (toggle && hasEquip && equip.typeName == newEquip.typeName) {
+          if (toggle && hasEquip && equip.part == newEquip.part) {
             continue
           }
-          map.set(equip.typeName, id)
+          map.set(equip.part, id)
         }
       }
       this.single_set = [...map.values()].sort((a, b) => Number(a) - Number(b))

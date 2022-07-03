@@ -30,26 +30,26 @@ interface BasicInfoState {
 }
 
 export const useBasicInfoStore = defineStore("basicInfo", {
-  state(): BasicInfoState {
-    return {
-      version: "0.0.0.0",
-      UID: "西瓜",
-      blacklist: [],
-      noticeInfo: [],
-      _equipmentInfo: undefined,
-      _enchantingInfo: undefined,
-      _emblemInfo: undefined,
-      _jadeInfo: undefined,
-      _triggers: undefined,
-      _entries: undefined,
-      _sundriesInfo: undefined,
-      _dresses: undefined
-    }
-  },
+  state: (): BasicInfoState => ({
+    version: "0.0.0.0",
+    UID: "西瓜",
+    blacklist: [],
+    noticeInfo: [],
+    _equipmentInfo: undefined,
+    _enchantingInfo: undefined,
+    _emblemInfo: undefined,
+    _jadeInfo: undefined,
+    _triggers: undefined,
+    _entries: undefined,
+    _sundriesInfo: undefined,
+    _dresses: undefined
+  }),
   getters: {
     equipment_info(state) {
       if (!state._equipmentInfo) {
-        api.getEquipments().then(res => (state._equipmentInfo = res.data))
+        api.getEquipments().then(res => {
+          state._equipmentInfo = res.data
+        })
       }
       return state._equipmentInfo
     },
@@ -57,6 +57,21 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       const info = state._equipmentInfo
       if (info) {
         return [...(info?.lv110 ?? []), ...(info?.myth ?? []), ...(info?.weapon ?? []), ...(info?.wisdom ?? []), ...(info?.title ?? []), ...(info?.pet ?? [])]
+      } else {
+        api.getEquipments().then(res => {
+          state._equipmentInfo = res.data
+        })
+      }
+      return []
+    },
+    equipment_singleset(state) {
+      const info = state._equipmentInfo
+      if (info) {
+        return [...(info?.lv110 ?? []), ...(info?.myth ?? []), ...(info?.weapon ?? []), ...(info?.wisdom ?? [])]
+      } else {
+        api.getEquipments().then(res => {
+          state._equipmentInfo = res.data
+        })
       }
       return []
     },
