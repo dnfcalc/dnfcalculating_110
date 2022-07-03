@@ -130,6 +130,7 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
       const index = options.findIndex(e => e.id == option.id)
       if (index > -1) {
         options.splice(index, 1)
+        context.emit("unload", option)
       }
     }
     for (let i = 0; i < options.length; i++) {

@@ -51,6 +51,7 @@
       return () => (
         <div class="w-full i-tree-item relative">
           <NItem label={props.label} value={props.value} style={depthStyle.value} class="flex i-tree-item-label  items-center" onClick={open}>
+            <div class="top-0 right-0 bottom-0 left-0 absolute i-tree-item-active-mask"></div>
             <div class="top-0 right-0 bottom-0 left-0 absolute i-tree-item-mask"></div>
             <calc-button v-show={props.children?.length} icon={isOpen.value ? "collapse-up" : "collapse-down"}></calc-button>
             <div class="pl-1">{props.label}</div>
@@ -88,6 +89,13 @@
     &:hover {
       .i-tree-item-mask {
         background: url("./img/item_hover.png") no-repeat;
+        background-size: 100% 100%;
+      }
+    }
+
+    &.i-tree-node-active {
+      .i-tree-item-active-mask {
+        background: url("./img/item_active.png") no-repeat;
         background-size: 100% 100%;
       }
     }

@@ -279,6 +279,7 @@
         return () => {
           // activeIndex.value = index
           detailsStore.setPart(part)
+          emit("partChange", part)
         }
       }
 

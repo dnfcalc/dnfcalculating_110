@@ -14,6 +14,7 @@
     id?: string | number
     value?: any
     children?: ICascaderItem[]
+    onSelect?: () => void
   }
 
   export default defineComponent({
@@ -41,8 +42,7 @@
         default: () => []
       }
     },
-
-    setup(props, context) {
+    setup(props, { emit }) {
       const modelValue = useVModel(props, "modelValue")
 
       const isOpen = ref(false)
@@ -112,23 +112,19 @@
           isOpen.value = false
         }
         selectItem.value = item
+        emit("select", item.value)
       }
 
-      watch(selectItem, val => {
-        console.log("change", val)
-      })
-
-      onClickOutside(triggerRef, () => (isOpen.value = false), { ignore: [dropdownRef] })
-
       function loadNode(item: ICascaderItem) {
-        if ((selectItem.value == null || selectItem.value == undefined) && props.defaultValue == item.value) {
+        const value = props.modelValue ?? props.defaultValue
+        if ((selectItem.value == null || selectItem.value == undefined) && value == item.value) {
           selectItem.value = item
-          console.log("onLoad", item)
         }
       }
 
+      onClickOutside(triggerRef, () => (isOpen.value = false), { ignore: [dropdownRef] })
+
       return () => {
-        console.log(selectItem.value)
         return (
           <div class={["min-w-20 w-40 i-cascader"].concat(props.highlight)} onClick={collapse} ref={selectRef}>
             <div
@@ -150,8 +146,8 @@
                   style={dropdownStyle.value}
                   v-show={isOpen.value}
                   ref={dropdownRef}
-                  onSelect={onSelect}
                   onLoad={loadNode}
+                  onSelect={onSelect}
                   data={props.items}
                 />
               </Transition>
