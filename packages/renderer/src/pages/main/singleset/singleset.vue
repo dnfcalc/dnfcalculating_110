@@ -159,6 +159,7 @@
         choose_feature.value = []
         keyword_cache.value = ""
         keyword.value = ""
+        choose_item.value = "-1"
         pagination.page = 0
       }
 
