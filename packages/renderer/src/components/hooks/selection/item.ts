@@ -31,18 +31,24 @@ export const useSelectionItem = defineHooks(itemProps, (props, { slots }) => {
   const parentLabel = inject(ItemLabelSymbol)
 
   function render() {
-    let label = props.label ?? parentLabel
-    if (label) {
-      if (typeof label == "function") {
-        label = label(props.value)!
+    return renderSlot(slots, "default", {}, () => {
+      let label = props.label ?? parentLabel
+      if (label) {
+        if (typeof label == "function") {
+          label = label(props.value)!
+        }
       }
-    }
-    return label ?? renderSlot(slots, "default")
+      if (label) {
+        return [label]
+      }
+      return []
+    })
   }
 
   if (!!init) {
     const remove = init({
       id: Math.random().toString(16).slice(2),
+      label: typeof props.label == "string" ? props.label : undefined,
       value: props.value,
       render
     })

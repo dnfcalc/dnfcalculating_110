@@ -23,6 +23,10 @@
       },
       depthStyle: {
         type: Function as PropType<(depth: number) => string>
+      },
+      depthOffset: {
+        type: String,
+        default: "12px"
       }
     },
     setup(props, { emit }) {
@@ -41,13 +45,15 @@
         if (props.depthStyle) {
           return props.depthStyle(props.depth)
         }
-        return `padding-left: ${props.depth}rem`
+        return `padding-left: calc(${props.depth}*${props.depthOffset} + 12px);`
       })
 
       return () => (
-        <div class="w-full i-tree-item">
-          <NItem value={props.value} style={depthStyle.value} class="i-tree-item-label" onClick={open}>
-            {props.label}
+        <div class="w-full i-tree-item relative">
+          <NItem label={props.label} value={props.value} style={depthStyle.value} class="flex i-tree-item-label  items-center" onClick={open}>
+            <div class="top-0 right-0 bottom-0 left-0 absolute i-tree-item-mask"></div>
+            <calc-button v-show={props.children?.length} icon={isOpen.value ? "collapse-up" : "collapse-down"}></calc-button>
+            <div class="pl-1">{props.label}</div>
           </NItem>
           <Transition name="dropdown" mode="out-in">
             <div v-show={isOpen.value}>
@@ -63,17 +69,48 @@
 
   export default NTreeNode
 </script>
-<style>
+<style lang="scss">
   .i-tree-item {
     display: flex;
     flex-direction: column;
     cursor: pointer;
+
+    border: 1px solid transparent;
+    background-color: black;
   }
 
   .i-tree-item-label {
     flex: 1;
-    padding-left: 0.5rem;
+    height: 16px;
+    min-height: 16px;
     color: #ddc593;
+    position: relative;
+    &:hover {
+      .i-tree-item-mask {
+        background: url("./img/item_hover.png") no-repeat;
+        background-size: 100% 100%;
+      }
+    }
+  }
+
+  .icon-collapse-up {
+    background-image: url("./img/collapse_up.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-width: 13px !important;
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  .icon-collapse-down {
+    background-image: url("./img/collapse_down.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-width: 13px !important;
+    width: 13px !important;
+    height: 13px !important;
   }
 
   .i-tree-dropdown {

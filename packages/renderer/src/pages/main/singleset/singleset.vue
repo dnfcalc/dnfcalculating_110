@@ -16,19 +16,11 @@
     color: string
   }
 
-  const EPIC_EQUIP = 0
-
-  const MYTHIC_EQUIP = 1
-
-  const WIDSDOM_EQUIP = 2
-
-  const WEAPON = 3
-
   const TITLEANFPET = 4
 
   export default defineComponent({
     async setup() {
-      const type = ref(EPIC_EQUIP)
+      const type = ref(TITLEANFPET)
       const configStore = useConfigStore()
       const basicStore = useBasicInfoStore()
       const detailsStore = useDetailsStore()
@@ -81,12 +73,6 @@
 
       function getEquip(index: number) {
         switch (type.value) {
-          case WEAPON:
-            return weapons.value[index]
-          case MYTHIC_EQUIP:
-            return myths.value[index]
-          case WIDSDOM_EQUIP:
-            return wisdom.value[index]
           case TITLEANFPET: {
             const titleMax = Math.ceil(title.value.length / 15 + 1) * 15
             if (index < titleMax) {
@@ -112,7 +98,7 @@
           e.preventDefault()
           equ_name.value = ""
           configStore.single_set = configStore.single_set.sort((a, b) => Number(a) - Number(b))
-          const index = curEquList.value.findIndex(item => item.typeName == equ.typeName)
+          const index = curEquList.value.findIndex(item => item.part == equ.part)
           if (index < 0) {
             return
           } else {
@@ -159,36 +145,30 @@
       })
 
       // onMounted(async () => {
-      //   if (curEquList.value.map(item => item.typeName).length < 12) return
+      //   if (curEquList.value.map(item => item.part).length < 12) return
       //   result.value = await configStore.calc(true)
       // })
 
       // const showequ = () => {}
 
+      const collapse_index = ref(1)
+
+      function changeCollapse(index: number) {
+        return () => {
+          collapse_index.value = index
+        }
+      }
+
       return () => (
         <div class="flex singleset">
           <div class="flex flex-col m-7px mb-0">
-            <div class="h-25px">
-              <calc-tabs item-class="h-6 !w-20%" v-model={type.value}>
-                <calc-tab value={EPIC_EQUIP}>史诗</calc-tab>
-                {charcaterStore.is_delear && (
-                  <>
-                    <calc-tab value={MYTHIC_EQUIP}>神话</calc-tab>
-                    <calc-tab value={WIDSDOM_EQUIP}>智慧产物</calc-tab>
-                  </>
-                )}
-                <calc-tab value={WEAPON}>武器</calc-tab>
-                <calc-tab value={TITLEANFPET}>称号 宠物</calc-tab>
-              </calc-tabs>
-            </div>
-
             <div class="w-140">
-              {type.value == EPIC_EQUIP ? (
+              <calc-collapse modelValue={collapse_index.value == 1} onUpdate:modelValue={changeCollapse(1)} title="装备">
                 <DictionaryVue class="w-full"></DictionaryVue>
-              ) : (
-                <div class={"h-152 w-full overflow-y-auto equ"}>
-                  {renderList(325, (item, index) => {
-                    const equ = getEquip(index)
+              </calc-collapse>
+              <calc-collapse modelValue={collapse_index.value == 2} onUpdate:modelValue={changeCollapse(2)} title="宠物" class="w-full ">
+                <div class="flex  overflow-y-auto">
+                  {renderList(pet.value, (equ, index) => {
                     return (
                       <div class="equ-item">
                         {equ && (
@@ -207,7 +187,29 @@
                     )
                   })}
                 </div>
-              )}
+              </calc-collapse>
+              <calc-collapse modelValue={collapse_index.value == 3} onUpdate:modelValue={changeCollapse(3)} title="称号" class={"w-full "}>
+                <div class="flex  overflow-y-auto">
+                  {renderList(title.value, (equ, index) => {
+                    return (
+                      <div class="equ-item">
+                        {equ && (
+                          <EquipTips
+                            hightlight={highlight.value.includes(equ.id)}
+                            onClick={chooseEqu(equ)}
+                            onContextmenu={takeOffEqu(equ)}
+                            active={isActive(equ)}
+                            eq={equ}
+                            key={equ.id}
+                            canClick={true}
+                            show-tips={false}
+                          ></EquipTips>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </calc-collapse>
             </div>
           </div>
           <div>

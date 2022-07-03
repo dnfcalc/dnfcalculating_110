@@ -10,34 +10,123 @@
   import { syncRef } from "@vueuse/core"
   import { computed, defineComponent, reactive, ref, renderList, watch } from "vue"
 
+  type FilterFunction = (e: IEquipmentInfo) => boolean
+
   export default defineComponent({
     setup() {
       const characterStore = useCharacterStore()
       const basicStore = useBasicInfoStore()
-      const items = computed<TreeNode[]>(() => [
-        {
-          label: "全部类别",
-          value: -1
-        },
-        {
-          label: "武器",
-          children: characterStore.weapon_types.map(r => {
-            return {
-              label: r,
-              value: r
+      const armor_types = ["布甲", "皮甲", "轻甲", "重甲", "板甲"]
+      const armor_parts = ["上衣", "头肩", "下装", "鞋", "腰带"]
+
+      const jewel_parts = ["项链", "戒指", "手镯"]
+
+      const special_parts = ["辅助装备", "魔法石", "耳环"]
+
+      const filter = ref<FilterFunction | null>(null)
+
+      const items = computed<TreeNode[]>(() => {
+        return [
+          {
+            label: "全部类别",
+            value: -1,
+            onSelect() {
+              filter.value = null
             }
-          })
-        }
-      ])
+          },
+          {
+            label: "武器",
+            onSelect() {
+              filter.value = e => e.part == "武器"
+            },
+            children: characterStore.weapon_types.map(r => {
+              return {
+                label: r,
+                value: r,
+                onSelect() {
+                  filter.value = e => e.type == r && e.part == "武器"
+                }
+              }
+            })
+          },
+          {
+            label: "防具",
+            onSelect() {
+              filter.value = e => armor_parts.includes(e.part)
+            },
+            children: armor_parts.map(part => {
+              return {
+                label: part,
+                onSelect() {
+                  filter.value = e => e.part == part
+                },
+                children: armor_types.map(t => {
+                  return {
+                    label: t,
+                    value: `${part}_${t}`,
+                    onSelect() {
+                      filter.value = e => e.type == t && e.part == part
+                    }
+                  }
+                })
+              }
+            })
+          },
+          {
+            label: "首饰",
+            onSelect() {
+              filter.value = e => jewel_parts.includes(e.part)
+            },
+            children: jewel_parts.map(part => {
+              return {
+                label: part,
+                value: part,
+                onSelect() {
+                  filter.value = e => e.part == part
+                }
+              }
+            })
+          },
+          {
+            label: "特殊装备",
+            onSelect() {
+              filter.value = e => special_parts.includes(e.part)
+            },
+            children: special_parts.map(part => {
+              return {
+                label: part,
+                value: part,
+                onSelect() {
+                  filter.value = e => e.part == part
+                }
+              }
+            })
+          }
+        ]
+      })
 
       const choose_feature = ref<ID[]>([])
 
-      const equips = computed(() =>
-        (basicStore.equipment_info?.lv110 ?? []).filter(r => {
+      const equips = computed(() => {
+        let list = basicStore.equipment_list ?? []
+        list = list.filter(r => {
           const feats = choose_feature.value.filter(r => !!r)
           return r.name.includes(keyword.value.trim()) && (feats.length == 0 || feats.every(f => r.features?.includes(f)))
         })
-      )
+        if (!!filter.value && filter.value instanceof Function) {
+          list = list.filter(filter.value)
+        }
+        console.log(Array.from(new Set(list.map(r => r.rarity))))
+        if (!!rarity.value) {
+          console.log(
+            rarity.value,
+            list.map(r => r.rarity)
+          )
+          list = list.filter(r => r.rarity == rarity.value)
+        }
+
+        return list
+      })
 
       const show_list = computed(() => {
         const start = pagination.page * pagination.pageSize
@@ -57,6 +146,8 @@
       const keyword_cache = ref("")
 
       const keyword = ref("")
+
+      const rarity = ref("史诗")
 
       const configStore = useConfigStore()
 
@@ -112,7 +203,7 @@
       }
 
       function chooseFeature(id: ID) {
-        if (!choose_feature.value.includes(id) && choose_feature.value.length < 5) {
+        if (!choose_feature.value.includes(id) && choose_feature.value.length < 4) {
           choose_feature.value.push(id)
         }
       }
@@ -149,7 +240,14 @@
         <div class=" w-full">
           <div class="w-full py-2">
             <div class="bg-hex-000000/45 py-2 px-2 justify-between items-center">
-              <div class="flex mb-2 items-center ">
+              <div class="flex space-x-2 mb-2 items-center ">
+                <calc-cascader default-value={-1} items={items.value} placeholder="请输入名称搜索" class="flex-1 !h-5"></calc-cascader>
+                <calc-select class="!h-5" v-show={characterStore.is_delear} v-model={rarity.value} placeholder="品质">
+                  <calc-option value={""}>全部</calc-option>
+                  <calc-option value="智慧产物">智慧产物</calc-option>
+                  <calc-option value="史诗">史诗</calc-option>
+                  <calc-option value="神话">神话</calc-option>
+                </calc-select>
                 <calc-autocomplete onEnter={search} placeholder="请输入名称搜索" class="flex-1 !h-5" v-model={keyword_cache.value}></calc-autocomplete>
                 <calc-button onClick={search} title="搜索" class="ml-2" icon="search"></calc-button>
                 <calc-button onClick={reset} title="重置" class="ml-4" icon="reset"></calc-button>
@@ -173,28 +271,28 @@
                   清空
                 </calc-button>
               </div>
-            </div>{" "}
+            </div>
           </div>
-          <div class="flex h-110  w-full">
+          <div class="flex h-108  w-full">
             <div class="h-full bg-hex-0d0d0d mx-2px  w-50%">
-              <calc-selection v-model={selectEquip.value} active-class="equip-line-selected" class="h-100">
+              <calc-selection v-model={selectEquip.value} active-class="equip-line-selected" class="h-[calc(100%-3rem)]">
                 {renderList(show_list.value, item => {
                   return (
-                    <calc-item title="鼠标右键点击穿戴" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 px-1 items-center equip-line">
+                    <calc-item title="右键点击穿戴" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 mb-2px px-1 items-center equip-line relative box-border">
+                      <div class="h-full w-full top-0 left-0 absolute mask"></div>
                       <EquipIcon onClick={chooseEqu(item, true)} hightlight={isChoose(item)} eq={item}></EquipIcon>
                       <span class="text-xs ml-4 text-hex-ffb400">{item.name}</span>
                     </calc-item>
                   )
                 })}
               </calc-selection>
-              <calc-pagination page={pagination.page} onChange={gotoPage} total-page={total_page.value} v-show={total_page.value > 1}></calc-pagination>
+              <calc-pagination page={pagination.page} onChange={gotoPage} total-page={total_page.value} v-show={total_page.value > 0}></calc-pagination>
             </div>
 
             <div class="h-full bg-hex-0d0d0d  w-50% ">
-              <div class="h-356px w-full overflow-y-auto">
+              <div class="h-92 w-full overflow-y-auto">
                 <EquipInfo class="  w-full overflow-y-auto" eid={selectEquip.value} />
               </div>
-              <div class="bg-hex-030202 h-4px w-full"></div>
               <div class=" bg-hex-0e0e0e h-16 p-2 items-start">
                 {chooseEquFeature.value?.length ? (
                   renderList(chooseEquFeature.value, feat => (
@@ -216,11 +314,15 @@
 <style lang="scss">
   .equip-line {
     border: 1px solid transparent;
-    background-color: #0d0d0d;
+    background-image: url("./img/dictionary_line.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     &:hover {
-      background-image: url("@/assets/img/hover_mask.png");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
+      .mask {
+        background-image: url("@/assets/img/hover_mask.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
     }
 
     &-selected {

@@ -5,7 +5,7 @@
    * @Last Modified by:   Kritsu
    * @Last Modified time: 2021/11/17 18:49:23
    */
-  import { listProps, useSelectionList } from "@/components/hooks/selection/list"
+  import { listProps } from "@/components/hooks/selection/list"
   import { computed, CSSProperties, defineComponent, onDeactivated, PropType, ref, Teleport, Transition, watch } from "vue"
 
   import { onClickOutside, useVModel } from "@vueuse/core"
@@ -43,13 +43,6 @@
     },
 
     setup(props, context) {
-      const { render } = useSelectionList(() => {
-        return {
-          ...props,
-          itemClass: "i-select-dropdown-item"
-        }
-      }, context)
-
       const modelValue = useVModel(props, "modelValue")
 
       const isOpen = ref(false)
@@ -112,38 +105,55 @@
         window.removeEventListener("scroll", onResize)
       })
 
-      const { slots } = context
-
       const selectItem = ref<ICascaderItem>()
 
       function onSelect(item: ICascaderItem) {
-        console.log(item)
         if (!item.children?.length) {
           isOpen.value = false
         }
         selectItem.value = item
       }
 
+      watch(selectItem, val => {
+        console.log("change", val)
+      })
+
       onClickOutside(triggerRef, () => (isOpen.value = false), { ignore: [dropdownRef] })
 
+      function loadNode(item: ICascaderItem) {
+        if ((selectItem.value == null || selectItem.value == undefined) && props.defaultValue == item.value) {
+          selectItem.value = item
+          console.log("onLoad", item)
+        }
+      }
+
       return () => {
+        console.log(selectItem.value)
         return (
-          <div class={["min-w-20 w-40 i-select "].concat(props.highlight)} onClick={collapse} ref={selectRef}>
+          <div class={["min-w-20 w-40 i-cascader"].concat(props.highlight)} onClick={collapse} ref={selectRef}>
             <div
               class={{
-                "i-select-trigger": true,
+                "i-cascader-trigger": true,
                 disabled: props.disabled
               }}
               ref={triggerRef}
             >
-              <span class="i-select-label">{selectItem.value?.label}</span>
-              <span class="cursor-pointer i-select-down-icon"></span>
+              <span class="i-cascader-label">{selectItem.value?.label}</span>
+              <calc-button icon="dropdown"></calc-button>
             </div>
             <Teleport to="body">
               <Transition name="dropdown" mode="out-in">
-                <div class="i-select-dropdown" style={dropdownStyle.value} v-show={isOpen.value} ref={dropdownRef}>
-                  <calc-tree onSelect={onSelect} data={props.items} />
-                </div>
+                <calc-tree
+                  {...props}
+                  v-model={modelValue.value}
+                  class="py-1 i-cascader-dropdown"
+                  style={dropdownStyle.value}
+                  v-show={isOpen.value}
+                  ref={dropdownRef}
+                  onSelect={onSelect}
+                  onLoad={loadNode}
+                  data={props.items}
+                />
               </Transition>
             </Teleport>
           </div>
@@ -160,7 +170,7 @@
       * @Last Modified time: 2021/11/17 18:03:08
       */
   $text-color: #937639;
-  .i-select {
+  .i-cascader {
     min-width: 80px;
     width: 160px;
     user-select: none;
@@ -178,7 +188,7 @@
     margin: 0;
     display: block;
 
-    .i-select-trigger {
+    .i-cascader-trigger {
       padding: 0;
       display: flex;
       height: 100%;
@@ -187,7 +197,7 @@
       justify-content: space-between;
       align-items: center;
 
-      .i-select-label {
+      .i-cascader-label {
         padding-left: 5px;
         overflow: hidden;
         white-space: nowrap;
@@ -195,7 +205,7 @@
         max-width: calc(100% - 20px);
       }
 
-      .i-select-down-icon {
+      .i-cascader-down-icon {
         background-image: url("./img/select_down.png");
         background-size: cover;
         background-repeat: no-repeat;
@@ -205,7 +215,7 @@
         height: 14px;
       }
 
-      .i-select-down-icon:active {
+      .i-cascader-down-icon:active {
         background-image: url("./img/select_down_clicked.png");
         background-size: cover;
         background-repeat: no-repeat;
@@ -218,20 +228,15 @@
       &.disabled {
         color: gray;
 
-        .i-select-down-icon {
+        .i-cascader-down-icon {
           background-image: url("./img/select_down_disabled.png");
         }
       }
     }
 
-    .i-select-trigger:hover {
+    .i-cascader-trigger:hover {
       opacity: 1;
     }
-  }
-
-  .warn {
-    color: red !important;
-    border: 1px solid #aa8651;
   }
 
   .remind {
@@ -239,10 +244,11 @@
     border: 1px solid #aa8651;
   }
 
-  .i-select-dropdown {
+  .i-cascader-dropdown {
     position: fixed;
     max-height: 160px;
     overflow-y: auto;
+    overflow-x: hidden;
     background: black;
     // font-size: 12px;
     z-index: 888;
@@ -250,29 +256,6 @@
     $hoverColor: #002947;
     $activeColor: lighten($hoverColor, 5%);
     color: $text-color;
-
-    .i-select-dropdown-item {
-      // font-size: 12px;
-      height: 20px;
-      line-height: 20px;
-      margin: 0;
-      padding: 0 5px;
-      border: none;
-      outline: none;
-      appearance: none;
-      display: block;
-      overflow: hidden;
-
-      &.active {
-        background-color: $activeColor;
-        color: #e9c556;
-      }
-
-      &:hover:not(.active) {
-        // font-size: 12px;
-        background-color: $hoverColor;
-      }
-    }
   }
 
   .dropdown-active {

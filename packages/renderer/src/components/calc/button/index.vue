@@ -69,7 +69,7 @@
     transition: all 200ms ease-in-out;
 
     &[class*="icon-"] {
-      min-width: 16px;
+      min-width: 1px;
       width: 28px;
       height: 28px;
       padding: 0;

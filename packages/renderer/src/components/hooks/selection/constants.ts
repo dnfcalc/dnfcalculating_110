@@ -23,6 +23,7 @@ export const IsActiveSymbol: InjectionKey<(_: BaseType) => boolean> = Symbol("[i
 
 export interface Option {
   id?: string
+  label?: string
   value: any | null
   render(): ElementLike
 }
