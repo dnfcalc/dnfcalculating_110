@@ -3548,7 +3548,7 @@ def entry_1040(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(165, lv) * max(hp_rate_num,9))
+        char.攻击强化加成(成长词条计算(165, lv) * min((90-hp_rate_num)/10,9))
 
 
 def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3557,7 +3557,7 @@ def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(362, lv) * max(mp_rate_num,9))
+        char.攻击强化加成(成长词条计算(362, lv) * min((90-mp_rate_num)/10,9))
 
 
 def entry_1042(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8252,7 +8252,7 @@ def entry_371(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 # region HP范围
 hp_rate_num = 0
-hp_rate_num_list = [0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
+hp_rate_num_list = [90, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
 
 
 def set_hp_rate_num(x):
@@ -8436,7 +8436,7 @@ def entry_1078(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 # region MP范围
 mp_rate_num = 0
-mp_rate_num_list = [0, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
+mp_rate_num_list = [90, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
 
 
 def set_mp_rate_num(x):
