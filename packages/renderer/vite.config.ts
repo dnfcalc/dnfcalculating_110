@@ -1,12 +1,12 @@
-import { builtinModules } from "module"
-import { defineConfig, Plugin, PluginOption } from "vite"
-import path from "path"
 import vue from "@vitejs/plugin-vue"
 import jsx from "@vitejs/plugin-vue-jsx"
-import uncomponents from "unplugin-vue-components/vite"
-import pkg from "../../package.json"
+import { builtinModules } from "module"
+import path from "path"
 import unocss from "unocss/vite"
+import uncomponents from "unplugin-vue-components/vite"
+import { defineConfig, Plugin } from "vite"
 import resolve from "vite-plugin-resolve"
+import pkg from "../../package.json"
 
 import { presetUno } from "unocss"
 
@@ -67,10 +67,9 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["electron"]
   },
-  base: "./",
   build: {
     sourcemap: process.env./* from mode option */ NODE_ENV == "development",
-    outDir: "../../dist/web/renderer",
+    outDir: "../../dist/app/renderer",
     assetsDir: "assets",
     rollupOptions: {
       output: {

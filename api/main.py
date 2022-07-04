@@ -1,14 +1,16 @@
 # encoding:utf-8
 # api docs:https://fastapi.tiangolo.com/zh/tutorial/first-steps/
 import os
-from fastapi import FastAPI
-import uvicorn
 import sys
-from routers.info import infoRouter
-from routers.calc import calcRouter
+
+import uvicorn
+from fastapi import FastAPI
 from routers.app import appRouter
-from utils.apiTools import register_exception, register_cors
+from routers.calc import calcRouter
+from routers.info import infoRouter
+from starlette.responses import FileResponse, HTMLResponse
 from starlette.staticfiles import StaticFiles
+from utils.apiTools import register_cors, register_exception
 
 app = FastAPI(docs_url=None)
 
@@ -22,6 +24,12 @@ app.include_router(infoRouter, prefix="/api", tags=['杂项信息接口'])
 
 app.include_router(calcRouter, prefix="/api", tags=['杂项信息接口'])
 app.include_router(appRouter, prefix="/api", tags=['杂项信息接口'])
+
+
+def not_found(request, exc):
+    with open("app/renderer/index.html", "r", encoding="utf-8") as fp:
+        return HTMLResponse(fp.read())
+
 
 if __name__ == '__main__':
     if sys.argv[0].endswith(".py"):
@@ -37,7 +45,9 @@ if __name__ == '__main__':
             # 同 reload
             debug=True)
     else:
-        app.mount("/web",StaticFiles(directory="app/dist/web/renderer"),name="static")
+        app.mount(
+            "/", StaticFiles(directory="app/renderer", html=True), name="static")
+        app.add_exception_handler(404, not_found)
         uvicorn.run(
             # 运行的 py 文件:FastAPI 实例对象
             app,
@@ -48,6 +58,7 @@ if __name__ == '__main__':
             # 热更新，有内容修改自动重启服务器
             reload=False,
             # 同 reload
-            debug=False)
+            debug=False,
+        )
 
     # print(os.getppid())

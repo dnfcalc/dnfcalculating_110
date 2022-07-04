@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { useToggle, useVModel } from "@vueuse/core"
-  import { defineComponent, reactive, ref } from "vue"
+  import { defineComponent } from "vue"
 
   interface EqIconType {
     rarityClass?: string
@@ -53,7 +53,7 @@
                     // eq.value.active ? '' : 'gray'
                   ])}
                 >
-                  <img src={"./images/equipment/" + props.eq.icon} />
+                  <img src={"/images/equipment/" + props.eq.icon} />
                   {true || props.badges == null ? (
                     <div></div>
                   ) : props.badges.color[0] == 0 ? (

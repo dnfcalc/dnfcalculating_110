@@ -1,6 +1,6 @@
 <script lang="tsx">
-  import { computed, defineComponent, reactive, ref, renderList, watch } from "vue"
   import { useBasicInfoStore, useCharacterStore, useConfigStore } from "@/store"
+  import { computed, defineComponent, renderList } from "vue"
   export default defineComponent(() => {
     const configStore = useConfigStore()
     const basicStore = useBasicInfoStore()
@@ -32,7 +32,7 @@
         {equs.value.length > 0 &&
           renderList(equs.value, a => (
             <div class="cus-item">
-              <img src={"./images/equipment/" + a.icon} />
+              <img src={"/images/equipment/" + a.icon} />
               {renderList(4, index => (
                 <div class="mt-5px">
                   <calc-select class="!h-20px !w-530px" v-model={configStore.customize[a.id ?? ""][index - 1]}>

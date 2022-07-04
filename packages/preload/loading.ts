@@ -18,7 +18,7 @@ export function useLoading() {
   width: 210px;
   height: 213px;
   // background: rgba(0,0,0,0);
-  background-image: url("./images/common/loading.gif");
+  background-image: url("/images/common/loading.gif");
   // animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
 }
 .app-loading-wrap {

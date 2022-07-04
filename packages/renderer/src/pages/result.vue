@@ -315,7 +315,7 @@
 
       return () => (
         <>
-          <div class="flex h-full m-0 overflow-hidden detail" style="background: url('./images/common/bg.jpg') no-repeat;background-size:cover">
+          <div class="flex h-full m-0 overflow-hidden detail" style="background: url('/images/common/bg.jpg') no-repeat;background-size:cover">
             <div class="flex h-full w-266px justify-center">
               <Profile
                 total-data={res.total_data}

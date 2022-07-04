@@ -319,7 +319,7 @@
               {town.力量 && (
                 <div class="de-item !pl-0 ">
                   <div class="flex items-center">
-                    <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.力量 + ".png"} />
+                    <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.力量 + ".png"} />
                     <div class="text-hex-836832 name">力量</div>
                   </div>
                   <div class="text-hex-3ea74e">{details.value?.站街?.力量?.toFixed(0)}</div>
@@ -328,7 +328,7 @@
               {town.智力 && (
                 <div class="de-item  !pl-0">
                   <div class="flex items-center">
-                    <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
+                    <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.智力 + ".png"} />
                     <div class="text-hex-836832 name">智力</div>
                   </div>
                   <div class="text-hex-3ea74e">{details.value?.站街?.智力?.toFixed(0)}</div>
@@ -338,7 +338,7 @@
               {town.物理攻击 && (
                 <div class="de-item  !pl-0">
                   <div class="flex items-center">
-                    <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.物理攻击 + ".png"} />
+                    <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.物理攻击 + ".png"} />
                     <div class="text-hex-836832 name">物理攻击</div>
                   </div>
                   <div class="text-hex-3ea74e">{details.value?.站街?.物理攻击?.toFixed(0)}</div>
@@ -348,7 +348,7 @@
               {town.魔法攻击 && (
                 <div class="de-item  !pl-0">
                   <div class="flex items-center">
-                    <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.魔法攻击 + ".png"} />
+                    <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.魔法攻击 + ".png"} />
                     <div class="text-hex-836832 name">魔法攻击</div>
                   </div>
                   <div class="text-hex-3ea74e">{details.value?.站街?.魔法攻击?.toFixed(0)}</div>
@@ -358,7 +358,7 @@
               {town.独立攻击 && (
                 <div class="de-item  !pl-0">
                   <div class="flex items-center">
-                    <img class="h-15px" src={"./images/common/icon/" + ICONS.独立攻击 + ".png"} />
+                    <img class="h-15px" src={"/images/common/icon/" + ICONS.独立攻击 + ".png"} />
                     <div class="text-hex-836832 name">独立攻击</div>
                   </div>
                   <div class="text-hex-3ea74e">{details.value?.站街?.独立攻击?.toFixed(0)}</div>
@@ -367,7 +367,7 @@
 
               <div class="de-item  !p-0">
                 <div class="flex items-center">
-                  <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.攻击属性 + ".png"} />
+                  <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.攻击属性 + ".png"} />
                   <div class="text-hex-836832 name">攻击属性</div>
                 </div>
                 <div class="text-hex-3ea74e">{`火(${details.value?.站街?.火?.toFixed(0)})/冰(${details.value?.站街?.冰?.toFixed(0)})/光(${details.value?.站街?.光?.toFixed(
@@ -446,7 +446,7 @@
                       return (
                         <>
                           <div class="flex items-center">
-                            <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.智力 + ".png"} />
+                            <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.智力 + ".png"} />
                             <div class="text-hex-836832 name">智力</div>
                           </div>
                           <div class="text-hex-3ea74e">{town.智力?.toFixed(0)}</div>
@@ -467,7 +467,7 @@
                       return (
                         <>
                           <div class="flex items-center">
-                            <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.体力 + ".png"} />
+                            <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.体力 + ".png"} />
                             <div class="text-hex-836832 name">体力</div>
                           </div>
                           <div class="text-hex-3ea74e">{town.体力?.toFixed(0)}</div>
@@ -488,7 +488,7 @@
                       return (
                         <>
                           <div class="flex items-center">
-                            <img class="h-15px w-15px" src={"./images/common/icon/" + ICONS.精神 + ".png"} />
+                            <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.精神 + ".png"} />
                             <div class="text-hex-836832 name">精神</div>
                           </div>
                           <div class="text-hex-3ea74e">{town.精神?.toFixed(0)}</div>
@@ -565,10 +565,10 @@
         return (
           <div class="char-info">
             <div class="char-back">
-              <div class="head" style="background-image:url(./images/common/head.png)">
+              <div class="head" style="background-image:url(/images/common/head.png)">
                 <div
                   class="bg-bottom flex h-170px w-266px char"
-                  style={"background-image:url(./images/characters/" + characterStore.alter + "/profile.png);background-repeat: no-repeat; position: absolute;"}
+                  style={"background-image:url(/images/characters/" + characterStore.alter + "/profile.png);background-repeat: no-repeat; position: absolute;"}
                 >
                   [{characterStore.name}]
                   {renderList(display_parts, (item, index) => (
@@ -582,13 +582,13 @@
                     </>
                   ))}
                 </div>
-                <div class="h-150px w-266px" style="background-image:url(./images/common/equ-back.png)"></div>
+                <div class="h-150px w-266px" style="background-image:url(/images/common/equ-back.png)"></div>
               </div>
               {props.showDetail && (
                 <>
                   {props.showMW && (
                     <div class="fame">
-                      <img src="./images/common/fame.png" />
+                      <img src="/images/common/fame.png" />
                       <div class="ml-2px text-hex-836832">冒险家名望</div>
                       <div class="ml-8px text-hex-3ea74e" style="width:55px">
                         {details.value?.fame}
