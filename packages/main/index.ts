@@ -113,13 +113,14 @@ ipcMain.handle("open-win", (event, arg) => {
     }
   })
 
+  console.log(arg.url)
+
   if (app.isPackaged) {
-    childWindow.loadFile(join(__dirname, `../renderer/index.html`), {
-      hash: `${arg.url}`
-    })
+    const url = `http://localhost:17173${arg.url}`
+    childWindow.loadURL(url)
   } else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
-    const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}/#${arg.url}`
+    const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}${arg.url}`
     childWindow.loadURL(url)
     // childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
   }

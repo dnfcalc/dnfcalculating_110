@@ -5,11 +5,11 @@
   import Profile from "@/components/internal/profile.vue"
   import { useBasicInfoStore, useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
   import featureList from "@/utils/featureList"
-  import openURL from "@/utils/openURL"
 
   import EquipIcon from "@/components/internal/equip/eq-icon.vue"
 
   import EquipInfo from "@/components/internal/equip/eq-info.vue"
+  import { useOpenWindow } from "@/hooks/open"
   import { syncRef, useAsyncState, useDebounceFn } from "@vueuse/core"
   import { computed, defineComponent, onUnmounted, reactive, ref, renderList, watch } from "vue"
 
@@ -305,7 +305,9 @@
         }, 200)
       )
 
-      const openDetail = () => openURL(`/result?res=${result.state.value.id}` + (detailsStore.standard_uuid ? `&standard=${detailsStore.standard_uuid}` : ""), { width: 890, height: 600 })
+      const openUrl = useOpenWindow()
+
+      const openDetail = () => openUrl(`/result`, { query: { res: `${result.state.value.id}`, standard: `${detailsStore.standard_uuid}` }, width: 890, height: 600 })
 
       function setStandard() {
         if (result.state.value.total_data[0] > 0) {
