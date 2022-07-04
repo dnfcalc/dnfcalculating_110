@@ -875,8 +875,8 @@ class Character(角色属性):
         buff.BUFF三攻 = self.__buff固定三攻
 
         self.适用数值 = 进图
-        print('copaosee:', self.适用数值, [
-              self.__智力, self.__体力, self.__精神], 进图, BUFF补正)
+        # print('copaosee:', self.适用数值, [
+        #       self.__智力, self.__体力, self.__精神], 进图, BUFF补正)
 
     def 站街系数(self):
         if self.适用属性 == '体力':
@@ -1630,23 +1630,23 @@ class Character(角色属性):
             倍率 = i.独立攻击力倍率(self.武器类型)
             if i.名称 not in self.skills_passive:
                 continue
-        if 倍率 != 1:
-            self.skills_passive[i.名称]['info'].append({
-                "type": "独立攻击力",
-                "info": [round((倍率-1)*100), '所有', '']
-            })
-        倍率 = i.魔法攻击力倍率(self.武器类型)
-        if 倍率 != 1:
-            self.skills_passive[i.名称]['info'].append({
-                "type": "魔法攻击力",
-                "info": [round((倍率-1)*100), '所有', '']
-            })
-        倍率 = i.物理攻击力倍率(self.武器类型)
-        if 倍率 != 1:
-            self.skills_passive[i.名称]['info'].append({
-                "type": "物理攻击力",
-                "info": [round((倍率-1)*100), '所有', '']
-            })
+            if 倍率 != 1:
+                self.skills_passive[i.名称]['info'].append({
+                    "type": "独立攻击力",
+                    "info": [round((倍率-1)*100), '所有', '']
+                })
+            倍率 = i.魔法攻击力倍率(self.武器类型)
+            if 倍率 != 1:
+                self.skills_passive[i.名称]['info'].append({
+                    "type": "魔法攻击力",
+                    "info": [round((倍率-1)*100), '所有', '']
+                })
+            倍率 = i.物理攻击力倍率(self.武器类型)
+            if 倍率 != 1:
+                self.skills_passive[i.名称]['info'].append({
+                    "type": "物理攻击力",
+                    "info": [round((倍率-1)*100), '所有', '']
+                })
         buff = self.get_skill_by_name('BUFF')
         awake = self.get_skill_by_name('一次觉醒')
         result = {
