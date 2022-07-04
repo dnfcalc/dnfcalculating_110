@@ -52,9 +52,9 @@
     return () => {
       if (characterStore.alter) {
         return (
-          <div class="main" style={"background-image:url(./images/characters/" + characterStore.alter + "/bg.jpg)"}>
+          <div class="main" style={"background-image:url(/images/characters/" + characterStore.alter + "/bg.jpg)"}>
             {
-              // <WatermarkVue content="test" class="h-full w-full top-0 left-0 absolute" src={`./images/characters/${characterStore.alter}/bg.jpg`} />
+              // <WatermarkVue content="test" class="h-full w-full top-0 left-0 absolute" src={`/images/characters/${characterStore.alter}/bg.jpg`} />
               // <div class="header">
             }
             <div class="header">

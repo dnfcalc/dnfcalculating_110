@@ -9,14 +9,14 @@
 
   function sub_icon(sub: number) {
     return {
-      backgroundImage: `url(./images/adventure/sub/${sub}.png)`
+      backgroundImage: `url(/images/adventure/sub/${sub}.png)`
     }
   }
 
   function job_icon(child: IAlterInfo) {
     return {
       filter: !(child.open || import.meta.env.DEV) ? `grayscale(100%)` : ``,
-      backgroundImage: `url(./images/adventure/jobs/${child.name}.png)`
+      backgroundImage: `url(/images/adventure/jobs/${child.name}.png)`
     }
   }
 
@@ -92,17 +92,17 @@
     // }
 
     return () => (
-      <div class="bg-cover bg-no-repeat h-auto min-h-full pt-8 pb-12 pl-4 home" style="background-image: url('./images/adventure/bg.jpg')">
+      <div class="bg-cover bg-no-repeat h-auto min-h-full pt-8 pb-12 pl-4 home" style="background-image: url('/images/adventure/bg.jpg')">
         <Update />
         {renderList(adventure, (job, index) => (
           <div class="flex flex-row">
-            <div class="bg-no-repeat bg-center flex flex-wrap h-25 w-30 job-icon-box justify-center items-center relative" style="background-image: url('./images/adventure/flash.png')">
+            <div class="bg-no-repeat bg-center flex flex-wrap h-25 w-30 job-icon-box justify-center items-center relative" style="background-image: url('/images/adventure/flash.png')">
               <div class="bg-center bg-no-repeat h-22.5 w-30" style={sub_icon(index)}></div>
             </div>
             {renderList(job.children, (child, j) => (
               <div onClick={choose_job(child)} class="cursor-pointer h-22.5 m-1 w-30 duration-300 job-box box-border relative">
                 {child.open && child.name != "sponsor" && (
-                  <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e" style="background-image: url('./images/adventure/border.png')"></div>
+                  <div class="bg-no-repeat h-full w-full z-2 duration-200 job-border absolute hover:bg-hex-ffd7002e" style="background-image: url('/images/adventure/border.png')"></div>
                 )}
                 <div class="text-xs text-center text-white w-full bottom-9.6 justify-center absolute" style="letter-spacing:10px;text-indent:10px;z-index:999">
                   {child.comment}

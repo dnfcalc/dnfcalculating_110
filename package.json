@@ -1,7 +1,7 @@
 {
   "name": "dcalc",
-  "version": "2022.07.01.Beta",
-  "main": "dist/web/main/index.cjs",
+  "version": "2022.07.04.Beta",
+  "main": "./dist/app/main/index.cjs",
   "license": "GNU",
   "lint-staged": {
     "**.{js,tsx?,vue,css,scss,html}": [
@@ -12,7 +12,10 @@
     "dev:server": "python ./api/main.py",
     "dev:web": "vite ./packages/renderer",
     "dev:app": "node scripts/watch.mjs",
-    "build:web": "pnpm -r build",
+    "dev": "node scripts/watch.mjs",
+    "build": "pnpm -r --filter internal run build",
+    "build:web": "pnpm  -r --filter !internal build",
+    "build:server": "pnpm -r --filter ./internal run build:server",
     "postinstall": "husky install",
     "clean:pycache": "rimraf ./**/__pycache__",
     "clean:deps": "rimraf ./**/node_modules",
@@ -34,6 +37,7 @@
     "typescript": "^4.5.5",
     "vite": "^2.9.9"
   },
+  "dependencies": {},
   "env": {
     "//": "Used in build scripts",
     "VITE_DEV_SERVER_HOST": "127.0.0.1",

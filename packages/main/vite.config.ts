@@ -5,7 +5,7 @@ import pkg from "./package.json"
 export default defineConfig({
   root: __dirname,
   build: {
-    outDir: "../../dist/web/main",
+    outDir: "../../dist/app/main",
     lib: {
       entry: "index.ts",
       formats: ["cjs"],
