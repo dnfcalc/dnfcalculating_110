@@ -1,6 +1,5 @@
-from core.baseClass.character import Character
+from core.baseClass.character import Character, equipment, 武器强化计算, 锻造计算
 from core.baseClass.skill import 主动技能, 被动技能
-
 # class 主动技能(主动技能):
 #     def 等效CD(self, 武器类型, 输出类型):
 #         if 武器类型 == '矛':
@@ -676,3 +675,18 @@ class classChange(Character):
 
     def set_skill_info(self, info, rune_except=[], clothes_pants=[]):
         super().set_skill_info(info, clothes_pants=['魔法秀'])
+
+    def 武器计算(self, temp: equipment) -> None:
+        self.基础属性加成(物理攻击力=temp.物理攻击力, 魔法攻击力=temp.魔法攻击力, 独立攻击力=temp.独立攻击力)
+        info = self.打造详情.get(temp.部位, {})
+        物理攻击力 = 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
+                       '物理')
+        魔法攻击力 = 武器强化计算(temp.等级, temp.品质, info.get('cursed_number', 0), temp.类型,
+                       '物理')
+        独立攻击力 = 锻造计算(temp.等级, temp.品质, info.get('dz_number', 0))
+
+        self.打造['武器']['强化攻击力'] = [物理攻击力, 魔法攻击力, 0]
+
+        self.打造['武器']['锻造加成'][0] = 独立攻击力
+
+        self.基础属性加成(物理攻击力=物理攻击力, 魔法攻击力=魔法攻击力, 独立攻击力=独立攻击力)

@@ -1161,7 +1161,7 @@ class Character(角色属性):
             elif temp.类型 == '特殊装备':
                 self.__特殊装备计算(temp)
             elif temp.部位 == '武器':
-                self.__武器计算(temp)
+                self.武器计算(temp)
             elif temp.部位 in ['称号', '宠物']:
                 self.__称号宠物计算(temp)
             self.__增幅计算(temp)
@@ -1249,7 +1249,7 @@ class Character(角色属性):
                 self.打造[temp.部位]['强化四维'] = [x]*2
             self.基础属性加成(四维=x)
 
-    def __武器计算(self, temp: equipment) -> None:
+    def 武器计算(self, temp: equipment) -> None:
         self.基础属性加成(**temp.__dict__)
         if temp.等级 == 105 and self.类型 == '辅助':
             self.技能等级加成('主动', 30, 30, 3)
