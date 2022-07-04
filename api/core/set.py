@@ -119,7 +119,7 @@ def get(alter: str, setName: str):
                 'growth_fourth': 40,
             }
             pass
-        print(forge_set)
+        # print(forge_set)
         set_info = {
             "skill_set": skill_set,
             "skill_que": [],
