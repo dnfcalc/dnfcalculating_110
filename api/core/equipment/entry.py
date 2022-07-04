@@ -3548,7 +3548,7 @@ def entry_1040(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(165, lv) * min((90-hp_rate_num)/10,9))
+        char.攻击强化加成(成长词条计算(165, lv) * min((90-hp_rate_num)/10, 9))
 
 
 def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3557,7 +3557,7 @@ def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(362, lv) * min((90-mp_rate_num)/10,9))
+        char.攻击强化加成(成长词条计算(362, lv) * min((90-mp_rate_num)/10, 9))
 
 
 def entry_1042(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -8715,7 +8715,7 @@ def entry_884(char: Character = {}, mode=0, text=False, part='', lv=0):
         for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
             if skill["名称"] in skills:
-                skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
+                skill["等级变化"] += 10-min(len(list(filter(lambda i: i['名称'] ==
                                                         skill['名称'], char.技能队列[0:index-1]))), 10)
         pass
 
@@ -8730,7 +8730,7 @@ def entry_885(char: Character = {}, mode=0, text=False, part='', lv=0):
         for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
             if skill["名称"] in skills:
-                skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
+                skill["等级变化"] += 10-min(len(list(filter(lambda i: i['名称'] ==
                                                         skill['名称'], char.技能队列[0:index-1]))), 10)
 
 
@@ -8758,7 +8758,7 @@ def entry_887(char: Character = {}, mode=0, text=False, part='', lv=0):
         for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
             if skill["名称"] in skills:
-                skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
+                skill["等级变化"] += 10-min(len(list(filter(lambda i: i['名称'] ==
                                                         skill['名称'], char.技能队列[0:index-1]))), 10)
 
 
@@ -8772,7 +8772,7 @@ def entry_888(char: Character = {}, mode=0, text=False, part='', lv=0):
         for index in range(0, len(char.技能队列)):
             skill = char.技能队列[index]
             if skill["名称"] in skills:
-                skill["等级变化"] += 10-max(len(list(filter(lambda i: i['名称'] ==
+                skill["等级变化"] += 10-min(len(list(filter(lambda i: i['名称'] ==
                                                         skill['名称'], char.技能队列[0:index-1]))), 10)
 # endregion
 
