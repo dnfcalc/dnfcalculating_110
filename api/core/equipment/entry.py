@@ -9161,6 +9161,7 @@ def entry_574(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['[释魂飞弹]最大追踪距离+20%', '[释魂飞弹]每次发射消耗的灵魂数量+2']
     if mode == 0:
+        char.get_skill_by_name('释魂飞弹').power0 += 2
         pass
     if mode == 1:
         pass

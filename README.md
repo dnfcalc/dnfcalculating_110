@@ -2,6 +2,10 @@
 
 web:vue3+TS+electron+vite<br> 参考项目：https://github.com/caoxiemeihao/electron-vue-vite <br>使用拖拽组件：https://github.com/SortableJS/vue.draggable.next <br> api:python+FastAPI
 
+## 联系
+
+Email:wxh_email@yeah.net
+
 ## 项目依赖安装
 
 先安装好 python3.6 以上、node 16 以上 以及 Git
