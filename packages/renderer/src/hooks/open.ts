@@ -1,15 +1,16 @@
 import { useDialog } from "@/components/hooks/dialog"
 import { MaybeRef } from "@vueuse/core"
+import querystring from "query-string"
 import { h, isRef } from "vue"
 import { useRouter } from "vue-router"
 
 interface UseOpenOption {
-  url?: MaybeRef<string> | (() => string)
   /*
 
   */
   width?: number
   height?: number
+  query?: Record<string, string | string[] | undefined>
 
   /**
    * 是否打开新页面
@@ -21,13 +22,7 @@ export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
   const { show, close, randomId } = useDialog()
   const router = useRouter()
 
-  const fn = async ({ width, height, target, url: maybeUrl }: UseOpenOption = {}) => {
-    width = width ?? opt?.width ?? 0
-    height = height ?? opt?.height ?? 0
-    // _self
-    target = target ?? opt?.target ?? "_blank"
-    maybeUrl = maybeUrl ?? opt?.url
-
+  return async (maybeUrl: MaybeRef<string> | (() => string), { width = 0, height = 0, target = "_self", query = {} }: UseOpenOption = {}) => {
     let url = isRef(maybeUrl) ? maybeUrl.value : typeof maybeUrl === "function" ? maybeUrl() : maybeUrl
     if (!url) {
       console.log(opt, width, height, maybeUrl)
@@ -36,14 +31,14 @@ export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
 
     console.log(location)
 
-    let tempURL = "#" + url
-
-    if (url.startsWith("/") || url.startsWith("#")) {
-      url = `${location.origin}${location.pathname}${router.resolve(url).href}`
+    if (url.startsWith("/")) {
+      url = router.resolve(url).href
     }
+    url = querystring.stringifyUrl({ url, query })
+    console.log(url)
     try {
       let _target = target
-      if (!target) {
+      if (!_target) {
         const rs = await show({
           content: "请确认打开新页面的方式",
           okButton: "当前窗口",
@@ -58,14 +53,12 @@ export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
         }
       }
 
-      console.log(tempURL)
-
       if (_target == "_blank" || width * height < 1) {
         window.open(url, "_blank")
       } else if (_target == "_self") {
         if (window.ipcRenderer) {
           window.ipcRenderer.invoke("open-win", {
-            tempURL,
+            url,
             width,
             height
           })
@@ -98,7 +91,6 @@ export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
         window.removeEventListener("message", onClose)
       }
     } catch (err) {
-      const router = useRouter()
       // let routerURL = router?.resolve({
       //   path: url
       // })
@@ -109,10 +101,4 @@ export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
       console.error(err)
     }
   }
-
-  if (opt?.immediate) {
-    fn()
-  }
-
-  return fn
 }

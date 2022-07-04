@@ -2,9 +2,9 @@
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
   import { useDialog } from "@/components/hooks/dialog"
+  import { useOpenWindow } from "@/hooks/open"
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import openURL from "@/utils/openURL"
   import { defineComponent, onMounted, renderList } from "vue"
   import { useRoute } from "vue-router"
 
@@ -17,6 +17,7 @@
   export default defineComponent(async () => {
     const route = useRoute()
     const { alert } = useDialog()
+    const openUrl = useOpenWindow()
     const char = route.query.alter as string
     const version = route.query.version as string
     const appStore = useAppStore()
@@ -42,10 +43,10 @@
       const saveData = await configStore.calc(route.path.endsWith("/singleset"))
       if (saveData instanceof Array) {
         // 排行界面
-        openURL("/ranking?uid=" + saveData.id, { width: 800, height: 800 })
+        openUrl("/ranking", { query: { uid: saveData.id?.toString() }, width: 800, height: 800 })
       } else if (saveData) {
         // 详情界面
-        openURL(`/result?res=${saveData.id}`, { width: 890, height: 600 })
+        openUrl(`/result?res=${saveData.id}`, { width: 890, height: 600 })
       }
     }
 

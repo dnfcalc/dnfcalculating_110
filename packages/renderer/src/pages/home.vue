@@ -2,8 +2,8 @@
   import api from "@/api"
   import { IAlterInfo } from "@/api/info/type"
   import { useDialog } from "@/components/hooks/dialog"
+  import { useOpenWindow } from "@/hooks/open"
   import { useAppStore } from "@/store"
-  import openURL from "@/utils/openURL"
   import { defineComponent, onMounted, renderList } from "vue"
   import Update from "./update.vue"
 
@@ -24,13 +24,13 @@
     const appStore = useAppStore()
 
     const { alert, show } = useDialog()
+    const openUrl = useOpenWindow()
 
     // 获取角色相关信息，判定是否开放
     function choose_job(child: IAlterInfo) {
-      // const openUrl = child.url ? useOpenWindow({ url: child.url, target: "_blank" }) : useOpenWindow({ url: `/character?name=${child.name}`, width: 1100, height: 750 })
       return async () => {
         if (child.comment == "首页") {
-          openURL("https://dcalc.gitee.io/dnfcalculating_110/#/")
+          openUrl("https://dcalc.gitee.io/dnfcalculating_110/#/")
           return
         }
         if (ignores.includes(child.name)) {
@@ -47,7 +47,7 @@
           return
         }
         if (child.name == "sponsor") {
-          openURL(child.url ?? "")
+          openUrl(child.url ?? "")
           return
         }
         if (child.open || import.meta.env.DEV) {
@@ -60,9 +60,9 @@
                   <div class="flex pb-2 items-center justify-around">
                     {renderList(options, option =>
                       !option.class ? (
-                        <calc-button onClick={() => openURL("/character", { query: { alter: child.name, version: option.name }, width: 1100, height: 750 })}>{option.title}</calc-button>
+                        <calc-button onClick={() => openUrl("/character", { query: { alter: child.name, version: option.name }, width: 1100, height: 750 })}>{option.title}</calc-button>
                       ) : (
-                        <calc-button onClick={() => openURL("/character", { query: { alter: option.class ?? "", version: option.name }, width: 1100, height: 750 })}>{option.title}</calc-button>
+                        <calc-button onClick={() => openUrl("/character", { query: { alter: option.class ?? "", version: option.name }, width: 1100, height: 750 })}>{option.title}</calc-button>
                       )
                     )}
                   </div>
@@ -71,7 +71,7 @@
             })
             return
           }
-          openURL("/character", { query: { alter: child.name }, width: 1100, height: 750 })
+          openUrl("/character", { query: { alter: child.name }, width: 1100, height: 750 })
         } else {
           await alert({
             content: "未开放的角色!"

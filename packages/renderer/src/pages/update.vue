@@ -9,6 +9,7 @@
   export default defineComponent({
     setup(props, { emit }) {
       const { alert, show } = useDialog()
+      const openUrl = useOpenWindow()
       const updateData = reactive({ current: 0, total: 0 })
 
       const isComplete = ref(false)
@@ -30,8 +31,6 @@
         }
       }
 
-      const openLanzou = useOpenWindow({ url: "https://wwn.lanzout.com/s/dcalc" })
-
       onMounted(async () => {
         if (window.ipcRenderer && !import.meta.env.DEV) {
           try {
@@ -52,7 +51,7 @@
             })
 
             if (res.status == "reject") {
-              openLanzou()
+              openUrl("https://wwn.lanzout.com/s/dcalc")
             } else if (res.status == "ok") {
               await autoUpdate()
             } else {
