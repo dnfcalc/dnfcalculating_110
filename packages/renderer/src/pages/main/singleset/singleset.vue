@@ -169,7 +169,7 @@
 
       const keyword = ref("")
 
-      const rarity = ref("史诗")
+      const rarity = ref("")
 
       function chooseEqu(equ: IEquipmentInfo, toggle = false) {
         return (event: Event) => {
@@ -199,7 +199,7 @@
 
       const pagination = reactive({
         page: 0,
-        pageSize: 10
+        pageSize: 11
       })
 
       const total = computed(() => equips.value.length)
