@@ -22,6 +22,7 @@ def entry_1247(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['技能MP消耗量 -50%', '被击时，所受伤害 +15%']
     if mode == 0:
+        char.MP消耗量加成(-0.5)
         pass
     if mode == 1:
         pass
@@ -3547,7 +3548,7 @@ def entry_1040(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(165, lv) * 9)
+        char.攻击强化加成(成长词条计算(165, lv) * max(hp_rate_num,9))
 
 
 def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -3556,7 +3557,7 @@ def entry_1041(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(362, lv) * 9)
+        char.攻击强化加成(成长词条计算(362, lv) * max(mp_rate_num,9))
 
 
 def entry_1042(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -10454,8 +10455,8 @@ def entry_712(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         百八念珠 = char.get_skill_by_name('百八念珠')
-        百八念珠.hit0 += 10
-        百八念珠.hit1 += 10
+        百八念珠.power0 *= 30/20
+        百八念珠.power1 *= 20/10
         char.get_skill_by_name('退魔阴阳符').hit1 += 3
         pass
 
