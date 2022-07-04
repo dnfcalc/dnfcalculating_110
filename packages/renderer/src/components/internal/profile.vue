@@ -293,6 +293,19 @@
         return props.equList.filter(item => item.part == part)[0] ?? undefined
       }
 
+      function getEquCustom(part: string) {
+        const id = (props.equList.filter(item => item.part == part)[0] ?? undefined).id
+        if (id) {
+          const customs = configStore.customize[id.toString()]
+          let temp: any = []
+          customs?.forEach(index => {
+            temp.push(basicStore.entry_list?.[index.toString()])
+          })
+          console.log(temp)
+          return temp
+        } else return []
+      }
+
       function renderDelearPropties() {
         const properties = details.value?.properties
         const town = details.value?.站街
@@ -564,7 +577,7 @@
                         {currentInfo(item)}
                       </div>
                       <div onClick={setPart(item)} class="h-7 w-7 absolute" style={partIconStyle(item)}>
-                        {getEqu(item) && <EquipTips forget={equips_forget.value(item)} eq={getEqu(item)} canClick={false} show-tips></EquipTips>}
+                        {getEqu(item) && <EquipTips forget={equips_forget.value(item)} eq={getEqu(item)} pps={getEquCustom(item)} canClick={false} show-tips></EquipTips>}
                       </div>
                     </>
                   ))}

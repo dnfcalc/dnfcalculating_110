@@ -501,7 +501,7 @@
                     <div class="yellow">
                       属性 {i + 1} - Lv{transform.growthLvs[i]}
                     </div>
-                    {renderList(x.props, p => (
+                    {renderList(x?.props, p => (
                       <div class="strong paddleft">{p}</div>
                     ))}
                   </div>
