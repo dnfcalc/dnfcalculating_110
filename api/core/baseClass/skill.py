@@ -166,6 +166,7 @@ class 主动技能(技能):
         else:
             name = 类型
         等效倍率 = 0.0
+        print(self.名称)
         for i in range(0, 8):
             data = getattr(self, '{}data{}'.format(name, i), [])
             if 等级 < len(data) and 等级 > 0:

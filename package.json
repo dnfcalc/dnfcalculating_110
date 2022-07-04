@@ -12,7 +12,6 @@
     "dev:server": "python ./api/main.py",
     "dev:web": "vite ./packages/renderer",
     "dev:app": "node scripts/watch.mjs",
-    "dev": "node scripts/watch.mjs",
     "build": "pnpm -r --filter internal run build",
     "build:web": "pnpm  -r --filter !internal build",
     "build:server": "pnpm -r --filter ./internal run build:server",

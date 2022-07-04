@@ -384,10 +384,21 @@
                 <div class=" text-hex-836832">直伤</div>
                 <div class="text-hex-3ea74e">{`${(properties.伤害比例?.[0] ?? 1).round(2) * 100}%`}</div>
               </div>
-              <div class="de-item">
-                <div class=" text-hex-836832">攻击强化</div>
-                <div class="text-hex-3ea74e">{properties.攻击强化?.round(0)}</div>
-              </div>
+              <calc-tooltip class="de-item" position="bottom">
+                {{
+                  default() {
+                    return (
+                      <>
+                        <div class="text-hex-836832">攻击强化</div>
+                        <div class="text-hex-3ea74e">{(((properties.攻击强化 ?? 0) * (100 + properties.百分比攻击强化 ?? 0)) / 100).toFixed(0)}</div>
+                      </>
+                    )
+                  },
+                  popper() {
+                    return <div class="text-white py-1 px-2">{`攻击强化:${properties.攻击强化}(+${properties.百分比攻击强化?.toFixed(2)}%)`}</div>
+                  }
+                }}
+              </calc-tooltip>
               <div class="de-item">
                 <div class=" text-hex-836832">攻击强化%</div>
                 <div class="text-hex-3ea74e">{properties.百分比攻击强化?.toFixed(2) + "%"}</div>
