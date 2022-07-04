@@ -301,7 +301,7 @@
           customs?.forEach(index => {
             temp.push(basicStore.entry_list?.[index.toString()])
           })
-          console.log(temp)
+          // console.log(temp)
           return temp
         } else return []
       }

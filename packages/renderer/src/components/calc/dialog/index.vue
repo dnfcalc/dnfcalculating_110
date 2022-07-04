@@ -98,11 +98,7 @@
             <Transition name="dialog" mode="out-in">
               {(props.cache || visible.value) && (
                 <div v-show={visible.value} class={["dialog-mask w-full h-full fixed top-0 left-0 z-999 flex justify-center items-center "].concat(props.mask ? "bg-hex-000 bg-opacity-66" : "")}>
-                  <div
-                    ref={dialogRef}
-                    class={["h-auto border-1 border-hex-2b2b2b border-solid  shadow-sm round-1 dialog min-w-48 max-w-100", isFixed.value ? "fixed" : "", props.class]}
-                    style={style.value}
-                  >
+                  <div ref={dialogRef} class={["h-auto border-1 border-hex-2b2b2b border-solid  shadow-sm round-1 dialog min-w-48", isFixed.value ? "fixed" : "", props.class]} style={style.value}>
                     {props.header && (
                       <div ref={headerRef} class="flex h-4 px-1 leading-4 z-9999 justify-center relative app-header">
                         <div class="text-xs text-shadow ">{props.header}</div>
