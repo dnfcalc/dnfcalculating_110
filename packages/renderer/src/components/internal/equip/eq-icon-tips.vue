@@ -35,6 +35,10 @@
       forget: {
         type: Object,
         default: () => {}
+      },
+      pps: {
+        type: Array,
+        default: () => []
       }
     },
     setup(props, { emit }) {
@@ -62,7 +66,7 @@
                 )
               },
               popper() {
-                return <eq-info colums={props.colums} forget={props.forget} eid={Number(props.eq.id)} pps={props.eq.groupId == 10 ? props.eq.props : null}></eq-info>
+                return <eq-info colums={props.colums} forget={props.forget} eid={Number(props.eq.id)} pps={props.pps}></eq-info>
               }
             }}
           </calc-tooltip>

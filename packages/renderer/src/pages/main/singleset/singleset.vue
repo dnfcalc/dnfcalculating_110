@@ -199,7 +199,7 @@
 
       const pagination = reactive({
         page: 0,
-        pageSize: 11
+        pageSize: 10
       })
 
       const total = computed(() => equips.value.length)
