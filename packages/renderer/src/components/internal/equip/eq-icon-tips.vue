@@ -48,28 +48,22 @@
 
       const active = useVModel(props, "active")
 
+      function renderEqinfo() {
+        return <eq-icon class="eq-item-icon" forget={props.forget} eq={props.eq} canClick={props.canClick} onClick={handleClick} v-model:active={active.value} hightlight={props.hightlight}></eq-icon>
+      }
+
       return () => {
-        return (
+        return props.showTips ? (
           <calc-tooltip lazy>
             {{
-              default() {
-                return (
-                  <eq-icon
-                    class="eq-item-icon"
-                    forget={props.forget}
-                    eq={props.eq}
-                    canClick={props.canClick}
-                    onClick={handleClick}
-                    v-model:active={active.value}
-                    hightlight={props.hightlight}
-                  ></eq-icon>
-                )
-              },
+              default: renderEqinfo,
               popper() {
                 return <eq-info colums={props.colums} forget={props.forget} eid={Number(props.eq.id)} pps={props.pps}></eq-info>
               }
             }}
           </calc-tooltip>
+        ) : (
+          renderEqinfo()
         )
       }
     }
