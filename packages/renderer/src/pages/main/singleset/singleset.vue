@@ -243,7 +243,7 @@
           }
         }
         return (
-          <span class="cursor-pointer h-4 mt-1 mr-2 leading-4 inline-block feat-tag" onClick={removeFeature}>
+          <span class="cursor-pointer h-4 mt-1 mr-2 leading-4 inline-block calc-tag" onClick={removeFeature}>
             #{feat.label}
           </span>
         )
@@ -386,7 +386,7 @@
 
                       <div class="flex">
                         <calc-select
-                          input-class="text-hex-ffb400 hover:text-hex-fff000 feat-input "
+                          input-class="calc-tags-input"
                           label={labelTag}
                           multiple
                           multiple-limit={5}
@@ -417,13 +417,16 @@
                             </calc-item>
                           )
                         })}
+                        {renderList(pagination.pageSize - show_list.value.length, i => (
+                          <div class="flex h-9 mb-2px px-1 justify-between items-center equip-line relative box-border"></div>
+                        ))}
                       </calc-selection>
                       <calc-pagination page={pagination.page} onChange={gotoPage} total-page={total_page.value} v-show={total_page.value > 0}></calc-pagination>
                     </div>
 
                     <div class="h-full bg-hex-0d0d0d  w-52% ">
-                      <div class="h-92 w-full overflow-y-auto">
-                        <EquipInfo class="  w-full overflow-y-auto" eid={selectEquip.value} />
+                      <div class="h-92 w-full pb-4 overflow-y-auto">
+                        <EquipInfo small eid={selectEquip.value} />
                       </div>
                       <div class=" bg-hex-0e0e0e h-16 p-2 items-start">
                         {chooseEquFeature.value?.length ? (
@@ -528,6 +531,21 @@
     }
   })
 </script>
+
+<style lang="scss">
+  .calc-tags-input {
+    .calc-tag {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      color: #ffb400 !important;
+
+      &:hover {
+        color: #fff000 !important;
+      }
+    }
+  }
+</style>
+
 <style lang="scss" scoped>
   .equip-line {
     border: 1px solid transparent;
@@ -554,12 +572,6 @@
     background-position: center;
   }
 
-  .feat-input {
-    .feat-tag {
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-  }
   .singleset {
     .equ {
       display: flex;
