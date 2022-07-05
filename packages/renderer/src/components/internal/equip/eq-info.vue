@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { useBasicInfoStore, useCharacterStore } from "@/store"
   import { asyncComputed } from "@vueuse/core"
-  import { computed, defineComponent, PropType, reactive, renderList } from "vue"
+  import { computed, defineComponent, renderList, reactive } from "vue"
 
   import EqIcon from "./eq-icon.vue"
 
@@ -25,7 +25,7 @@
     components: { EqIcon },
     props: {
       eid: {
-        type: [Number, String] as PropType<ID>
+        type: Number
       },
       simple: {
         type: Boolean,
@@ -35,11 +35,7 @@
         type: Boolean,
         default: false
       },
-      star: {
-        type: Boolean,
-        default: false
-      },
-      isStar: {
+      small: {
         type: Boolean,
         default: false
       },
@@ -391,18 +387,20 @@
         }
 
         return (
-          <div class={["approved-form"].concat([props.colums ? "with-colums" : ""].concat("!max-w-80"))}>
-            <div class="flex flex-wrap  epic title">
+          <div class={["approved-form"].concat([props.colums ? "with-colums" : "", props.small ? "small" : ""])}>
+            <div class="epic title" style="display: flex">
               <eq-icon eq={equip.value} badges={iconBages.value}></eq-icon>
-              <div class="eq-name" style="margin-left: 8px">
-                <span style="display: flex" class={rarityClass(equip.value.rarity)}>
-                  {transform.reinforce > 0 ? <span style="margin-right: 4px">+{transform.reinforce}</span> : <span></span>}
-                  {transform.refine > 0 ? <span>({transform.refine})</span> : <span></span>}
-                  <span>{equip.value.name}</span>
-                </span>
-              </div>
-              <div class="flex flex-1 eq-name yellow" style="text-align: right">
-                <span style="width: 100%">{equip.value.position}</span>
+              <div class="eq-name" style="width: 100%; margin-left: 8px">
+                <div>
+                  <span style="display: flex" class={rarityClass(equip.value.rarity)}>
+                    {transform.reinforce > 0 ? <span style="margin-right: 4px">+{transform.reinforce}</span> : <span></span>}
+                    {transform.refine > 0 ? <span>({transform.refine})</span> : <span></span>}
+                    <span>{equip.value.name}</span>
+                  </span>
+                </div>
+                <div class="eq-name yellow" style="width: 100%; text-align: right">
+                  <span>{equip.value.position}</span>
+                </div>
               </div>
             </div>
             {transform.badges && transform.badges.length > 0 ? (
@@ -423,16 +421,6 @@
               <div></div>
             )}
             <div class="hr"></div>
-            {
-              //   !props.simple && (
-              //   <div>
-              //     <div class="hr"></div>
-              //     <div class="fame">
-              //       <img src="images/common/fame.png" />
-              //       冒险家名望 {equip.value.fame}
-              //     </div>
-              //     <div class="hr"></div>
-            }
             {transform.reinforce > 0 || transform.refine > 0 ? (
               <span>
                 {transform.reinforce > 0 ? (
@@ -501,7 +489,7 @@
                     <div class="yellow">
                       属性 {i + 1} - Lv{transform.growthLvs[i]}
                     </div>
-                    {renderList(x?.props, p => (
+                    {renderList(x.props, p => (
                       <div class="strong paddleft">{p}</div>
                     ))}
                   </div>
