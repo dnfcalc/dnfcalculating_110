@@ -101,7 +101,9 @@
   .eq-item-box {
     width: 30px;
     height: 30px;
-    display: inline-block;
+    // display: inline-block;
+    display: flex;
+    align-content: center;
   }
 
   .floatLayer {
