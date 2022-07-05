@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { useBasicInfoStore, useCharacterStore } from "@/store"
   import { asyncComputed } from "@vueuse/core"
-  import { computed, defineComponent, renderList, reactive } from "vue"
+  import { computed, defineComponent, PropType, reactive, renderList } from "vue"
 
   import EqIcon from "./eq-icon.vue"
 
@@ -25,7 +25,7 @@
     components: { EqIcon },
     props: {
       eid: {
-        type: Number
+        type: [Number, String] as PropType<ID>
       },
       simple: {
         type: Boolean,
