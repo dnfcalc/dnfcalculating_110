@@ -396,7 +396,7 @@
                           emptyLabel="请选择#标签,最多可选择4个#标签"
                         >
                           {renderList(featureList, item => (
-                            <calc-option value={item.value}>{item.label}</calc-option>
+                            <calc-option value={item.value}></calc-option>
                           ))}
                         </calc-select>
                         <calc-button class="ml-2 py-0 !h-5 !leading-5" onClick={clearFeature}>

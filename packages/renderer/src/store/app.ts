@@ -14,7 +14,11 @@ export const useAppStore = defineStore("app", {
   },
   actions: {
     minimize() {
-      window.ipcRenderer.invoke("minimize-win")
+      if (window.ipcRenderer) {
+        window.ipcRenderer.invoke("minimize-win")
+      } else {
+        window.parent.postMessage("minimize-win", location.origin)
+      }
     },
     close() {
       if (window.ipcRenderer) {
