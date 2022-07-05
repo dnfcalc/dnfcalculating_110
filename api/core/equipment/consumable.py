@@ -120,6 +120,17 @@ def consumable_28009(char: Character = {}, mode=0, text=False, rate=1.0):
         char.基础属性加成(智力=30*rate, 力量=30*rate)
         pass
 
+# 甜蜜喜糖
+
+
+def consumable_28010(char: Character = {}, mode=0, text=False, rate=1.0):
+    if mode == 0:
+        # char.基础属性加成(物理攻击力=25 * rate)
+        pass
+    if mode == 1:
+        char.基础属性加成(智力=88*rate, 力量=88*rate)
+        pass
+
 
 # 药剂id范围 28001~29000
 for i in range(28001, 29000):

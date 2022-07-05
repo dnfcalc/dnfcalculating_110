@@ -1,6 +1,5 @@
 .approved-form {
   line-height: 16px;
-  width: calc(100% - 23px);
   text-align: left;
   display: inline-block;
   // background-color: #000;
@@ -59,10 +58,6 @@
         }
       }
     }
-  }
-
-  &.small {
-    width: auto;
   }
 }
 

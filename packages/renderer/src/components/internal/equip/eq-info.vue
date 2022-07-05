@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { useBasicInfoStore, useCharacterStore } from "@/store"
   import { asyncComputed } from "@vueuse/core"
-  import { computed, defineComponent, renderList, reactive } from "vue"
+  import { computed, defineComponent, renderList, reactive, PropType } from "vue"
 
   import EqIcon from "./eq-icon.vue"
 
@@ -25,7 +25,7 @@
     components: { EqIcon },
     props: {
       eid: {
-        type: Number
+        type: [Number, String] as PropType<ID>
       },
       simple: {
         type: Boolean,
@@ -398,7 +398,7 @@
           return <div></div>
         }
         return (
-          <div class={["approved-form"].concat([props.colums ? "with-colums" : "", props.small ? "small" : ""])}>
+          <div class={["approved-form"].concat([props.colums ? "with-colums" : ""])}>
             <div class="epic title" style="display: flex">
               <eq-icon eq={equip.value} badges={iconBages.value}></eq-icon>
               <div class="eq-name" style="width: 100%; margin-left: 8px">
