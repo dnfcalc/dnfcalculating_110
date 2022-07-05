@@ -410,9 +410,9 @@
                       <calc-selection v-model={selectEquip.value} active-class="equip-line-selected" class="h-[calc(100%-3rem)]">
                         {renderList(show_list.value, item => {
                           return (
-                            <calc-item title="右键点击穿戴" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 mb-2px px-1 items-center equip-line relative box-border">
+                            <calc-item title="点击穿戴/卸下" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 mb-2px px-1 items-center equip-line relative box-border">
                               <div class="h-full w-full top-0 left-0 absolute mask"></div>
-                              <EquipIcon onClick={chooseEqu(item, true)} hightlight={isChoose(item)} eq={item}></EquipIcon>
+                              <EquipIcon onClick={chooseEqu(item, true)} hightlight={isChoose(item)} hightlightclass="hightLight2" eq={item}></EquipIcon>
                               <span class="text-xs ml-4 text-hex-ffb400">{item.name}</span>
                             </calc-item>
                           )
