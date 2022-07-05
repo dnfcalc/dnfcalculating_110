@@ -55,6 +55,8 @@
     setup(props, { emit, slots }) {
       const basicStore = useBasicInfoStore()
 
+      console.log(props.pps)
+
       const equip = asyncComputed(async () => {
         if (props.eid != undefined) {
           let temp = await basicStore.get_equipment_detail(props.eid)
@@ -361,10 +363,6 @@
               }
               if (dz && dz.length > 1) {
                 transform.reinforceInfo.refineSW = dz[1]
-                // transform.reinforceInfo.refine[0] = dz[1];
-                // transform.reinforceInfo.refine[1] = dz[1];
-                // transform.reinforceInfo.refine[2] = dz[1];
-                // transform.reinforceInfo.refine[3] = dz[1];
               }
             }
           }
@@ -381,11 +379,24 @@
         return c
       }
 
+      function renderLevel(i: number) {
+        return is_buffer.value ? (
+          <div class="text-hex-8a6f36  paddleft">
+            <span style="margin-right: 10px;">Buff量</span>
+            <span class={classForNum(i)}>{transform.growthBuffers[i] || 0}</span>
+          </div>
+        ) : (
+          <div class="text-hex-8a6f36 paddleft">
+            <span style="margin-right: 10px;">攻击强化</span>
+            <span class={classForNum(i)}>{transform.growthAttacks[i] || 0}</span>
+          </div>
+        )
+      }
+
       return () => {
         if (!equip.value) {
           return <div></div>
         }
-
         return (
           <div class={["approved-form"].concat([props.colums ? "with-colums" : "", props.small ? "small" : ""])}>
             <div class="epic title" style="display: flex">
@@ -484,16 +495,26 @@
               </div>
             )}
             {props.pps != null && props.pps.length > 0
-              ? renderList(props.pps, (x: any, i: number) => (
-                  <div style="padding-top: 5px">
-                    <div class="yellow">
-                      属性 {i + 1} - Lv{transform.growthLvs[i]}
+              ? renderList(props.pps, (x: any, i: number) =>
+                  x != null ? (
+                    <div style="padding-top: 5px">
+                      <div class="yellow">
+                        属性 {i + 1} - Lv{transform.growthLvs[i]}
+                      </div>
+                      {renderLevel(i)}
+                      {renderList(x.props, p => (
+                        <div class="strong paddleft">{p}</div>
+                      ))}
                     </div>
-                    {renderList(x.props, p => (
-                      <div class="strong paddleft">{p}</div>
-                    ))}
-                  </div>
-                ))
+                  ) : (
+                    <div class="paddleft suiji-props gey">
+                      <div class="yellow">
+                        属性 {i + 1} - Lv{transform.growthLvs[i]}
+                      </div>
+                      <span>请切换 [自选属性] 页面选择属性</span>
+                    </div>
+                  )
+                )
               : renderList(equip.value.prop.growthProps, (p, i: number) => (
                   <div style="padding-bottom: 5px">
                     {p.props && p.props.length > 0 ? (
@@ -503,19 +524,7 @@
                             属性 {i + 1} - Lv{transform.growthLvs[i] || 1}
                           </span>
                         </div>
-                        {is_buffer.value ? (
-                          <div class="text-hex-8a6f36  paddleft">
-                            <span style="margin-right: 10px;">Buff量</span>
-
-                            <span class={classForNum(i)}>{transform.growthBuffers[i] || p.buffer}</span>
-                          </div>
-                        ) : (
-                          <div class="text-hex-8a6f36 paddleft">
-                            <span style="margin-right: 10px;">攻击强化</span>
-                            <span class={classForNum(i)}>{transform.growthAttacks[i] || p.attack}</span>
-                          </div>
-                        )}
-
+                        {renderLevel(i)}
                         {renderList(p.props, s => (
                           <div class="strong paddleft">
                             <span>{s}</span>
