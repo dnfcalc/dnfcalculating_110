@@ -29,6 +29,10 @@
       showHighlight: {
         type: Boolean,
         default: false
+      },
+      showTips: {
+        type: Boolean,
+        default: true
       }
     },
     components: { EquipTips },
@@ -89,7 +93,7 @@
                   class="item"
                   eq={equ}
                   canClick={true}
-                  show-tips
+                  showTips={props.showTips}
                   active={selected.includes(equ.id)}
                   hightlight={props.highlight.includes(equ.id)}
                   onUpdate:active={changeState(equ.id)}

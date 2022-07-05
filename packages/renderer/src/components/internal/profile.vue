@@ -365,7 +365,7 @@
                 </div>
               )}
 
-              <div class="de-item  !p-0">
+              <div class="de-item !pl-0 w-100%">
                 <div class="flex items-center">
                   <img class="h-15px w-15px" src={"/images/common/icon/" + ICONS.攻击属性 + ".png"} />
                   <div class="text-hex-836832 name">攻击属性</div>
@@ -574,7 +574,7 @@
 
       return () => {
         return (
-          <div class="char-info">
+          <div class="char-info" style="letter-spacing: -0.05px;">
             <div class="char-back">
               <div class="head" style="background-image:url(/images/common/head.png)">
                 <div
@@ -688,7 +688,7 @@
           box-sizing: border-box;
           img {
             padding-left: 5px;
-            padding-right: 5px;
+            padding-right: 3px;
             width: 15px;
             height: 15px;
           }

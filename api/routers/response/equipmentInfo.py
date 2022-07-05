@@ -43,7 +43,8 @@ def get_equipment_info(alter: str):
         "weapon": [],
         "wisdom": [],
         "pet": [],
-        "title": []
+        "title": [],
+        "consumable":[]
     }
 
     char = createCharcter(alter)
@@ -139,6 +140,17 @@ def get_equipment_info(alter: str):
 
     equipment_info["lv110"].sort(key=lambda x: x["order"])
 
+    consumable_info = {}
+    with open("./dataFiles/consumable-data.json", encoding='utf-8') as fp:
+        consumable_info = json.load(fp)
+    for i in consumable_info.keys():
+        temp = consumable_info[i]
+        equipment_info["consumable"].append({
+                    "id": int(i),
+                    "name": temp["名称"],
+                    "icon": temp["icon"],
+                    "props": temp["props"],
+        })
     return equipment_info
 
 
