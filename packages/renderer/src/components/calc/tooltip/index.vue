@@ -21,10 +21,7 @@
     setup(props, { slots, emit }) {
       return () => {
         return (
-          <n-tooltip
-            {...props}
-            pop-class="i-popper z-999 fixed top-0 left-0 bg-black bg-opacity-80 border-1 border-hex-5b472a"
-          >
+          <n-tooltip {...props} pop-class="i-popper z-999 fixed top-0 left-0 bg-black bg-opacity-90 border-1 border-hex-5b472a">
             {slots}
           </n-tooltip>
         )
