@@ -13,7 +13,7 @@
     "name": "swordman_female",
     "children": [
       { "name": "sword_master", "title": "极诣·驭剑士" },
-      { "name": "dark_templar", "title": "极诣·暗殿骑士" },
+      { "name": "dark_templar", "title": "极诣·暗殿骑士", "open": true },
       { "name": "demon_slayer", "title": "极诣·契魔者", "open": true },
       { "name": "vegabond", "title": "极诣·流浪武士", "open": true },
       { "name": "spectre", "title": "极诣·刃影", "open": true }
