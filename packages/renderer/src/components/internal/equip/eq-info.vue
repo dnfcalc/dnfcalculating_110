@@ -497,7 +497,7 @@
             {props.pps != null && props.pps.length > 0
               ? renderList(props.pps, (x: any, i: number) =>
                   x != null ? (
-                    <div class="suiji-props" style="padding-top: 5px">
+                    <div class="suiji-props">
                       <div class="yellow">
                         属性 {i + 1} - Lv{transform.growthLvs[i]}
                       </div>
