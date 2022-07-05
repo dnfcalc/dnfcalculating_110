@@ -42,6 +42,7 @@ class Character(角色属性):
     部位装备: Dict[str, int] = {}  # {部位: 装备id}
     部位附魔: Dict[str, Function] = {}  # {部位: 附魔函数}
     词条等级: Dict[str, List[int]] = {}  # {部位: [等级1, 2, 3, 4]}
+    药剂: List[int] = []
 
     # 需要职业自定义数据
     实际名称 = ''
@@ -99,9 +100,11 @@ class Character(角色属性):
 
         self.系统奶系数: float = 0.0
         self.系统奶基数: float = 0.0
-        self.年宠技能 = False
-        self.白兔子技能 = False
-        self.斗神之吼秘药 = False
+
+        self.斗神宠物 = 1.0
+        # self.年宠技能 = False
+        # self.白兔子技能 = False
+        # self.斗神之吼秘药 = False
 
         self.辅助对象力智 = 5000
         self.辅助对象三攻 = 3000
@@ -579,6 +582,9 @@ class Character(角色属性):
         self.__光属性强化 += x
         self.__暗属性强化 += x
 
+    def 斗神宠物加成(self, x: float) -> None:
+        self.斗神宠物 += x
+
     # endregion
 
     # region 面板相关函数
@@ -695,13 +701,11 @@ class Character(角色属性):
     # 图内显示的三攻(不参与伤害计算)
 
     def 面板物理攻击力(self) -> float:
-        面板物理攻击 = self.__基础面板物理攻击力() * (1 + self.__百分比三攻) * (
-            1 + self.年宠技能 * 0.10 + self.斗神之吼秘药 * 0.12 + self.白兔子技能 * 0.20)
+        面板物理攻击 = self.__基础面板物理攻击力() * (1 + self.__百分比三攻) * (self.斗神宠物加成)
         return 面板物理攻击
 
     def 面板魔法攻击力(self) -> float:
-        面板魔法攻击 = self.__基础面板魔法攻击力() * (1 + self.__百分比三攻) * (
-            1 + self.年宠技能 * 0.10 + self.斗神之吼秘药 * 0.12 + self.白兔子技能 * 0.20)
+        面板魔法攻击 = self.__基础面板魔法攻击力() * (1 + self.__百分比三攻) * (self.斗神宠物加成)
         return 面板魔法攻击
 
     def 面板独立攻击力(self) -> float:
@@ -768,6 +772,9 @@ class Character(角色属性):
                 '形态': item.get('mode', '')
             })
 
+    def __药剂设置(self, setinfo):
+        self.药剂 = setinfo
+
     # 设置技能相关参数
     def __skill_set(self, setinfo):
         for i in setinfo:
@@ -827,6 +834,7 @@ class Character(角色属性):
             }
         self.职业特殊计算()
         if self.类型 != '辅助':
+            self.__药剂计算()
             self.__CD倍率计算()
             self.__加算冷却计算()
             self.__被动倍率计算()
@@ -1278,6 +1286,12 @@ class Character(角色属性):
     def 职业装备特殊计算(self) -> None:
         pass
 
+    def __药剂计算(self) -> None:
+        from core.equipment.consumable import get_sundriesfunc_by_id
+        for item in self.药剂:
+            func = get_sundriesfunc_by_id(item)
+            func(self, rate=self.__消耗品效果, mode=1)
+
     def __装备词条计算(self):
         # 攻击强化相关计算
         for i in 部位列表:
@@ -1555,7 +1569,8 @@ class Character(角色属性):
         旧 *= 1 + self.__持续伤害
         旧 *= 1 + self.__附加伤害 + self.__属性附加 * self.属性倍率
 
-        self.伤害指数 = (新 * 基础面板 + 旧 * 旧版面板) * self.__技能攻击力 * self.属性倍率 * 基准倍率
+        self.伤害指数 = (新 * 基础面板 + 旧 * 旧版面板) * self.__技能攻击力 * \
+            self.属性倍率 * 基准倍率 * self.斗神宠物
 
         # 7.8日,伤害数据压缩
         self.伤害指数 /= 1000
@@ -1577,6 +1592,8 @@ class Character(角色属性):
         self.__skill_set(info['skill_set'])
         # 获取装备选项数据
         self.__equ_chose_set(info['trigger_set'])
+        # 药剂设置
+        self.__药剂设置(info["consumable_list"])
 
         self.__hotkey_set(info['hotkey_set'])
 
