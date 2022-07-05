@@ -144,8 +144,6 @@ class 神启·圣骑士技能2(辅助职业主动技能):
     def 结算统计(self, context: Buffer):
         buffer_power = context.BUFF量()
 
-        print(self.适用数值)
-
         新词条倍率 = (((self.适用数值 + 4348) / 620 + 1) *
                  (buffer_power + 3488) * 0.0000357) if buffer_power > 0 else 0
 
