@@ -379,14 +379,14 @@
         return c
       }
 
-      function renderLevel(i: number) {
+      function renderLevel(i: number, left: boolean) {
         return is_buffer.value ? (
-          <div class="text-hex-8a6f36  paddleft">
+          <div class={["text-hex-8a6f36"].concat(left ? "paddleft" : "")}>
             <span style="margin-right: 10px;">Buff量</span>
             <span class={classForNum(i)}>{transform.growthBuffers[i] || 0}</span>
           </div>
         ) : (
-          <div class="text-hex-8a6f36 paddleft">
+          <div class={["text-hex-8a6f36"].concat(left ? "paddleft" : "")}>
             <span style="margin-right: 10px;">攻击强化</span>
             <span class={classForNum(i)}>{transform.growthAttacks[i] || 0}</span>
           </div>
@@ -497,17 +497,17 @@
             {props.pps != null && props.pps.length > 0
               ? renderList(props.pps, (x: any, i: number) =>
                   x != null ? (
-                    <div style="padding-top: 5px">
+                    <div class="suiji-props" style="padding-top: 5px">
                       <div class="yellow">
                         属性 {i + 1} - Lv{transform.growthLvs[i]}
                       </div>
-                      {renderLevel(i)}
+                      {renderLevel(i, false)}
                       {renderList(x.props, p => (
-                        <div class="strong paddleft">{p}</div>
+                        <div class="strong">{p}</div>
                       ))}
                     </div>
                   ) : (
-                    <div class="paddleft suiji-props gey">
+                    <div class="suiji-props gey">
                       <div class="yellow">
                         属性 {i + 1} - Lv{transform.growthLvs[i]}
                       </div>
@@ -524,7 +524,7 @@
                             属性 {i + 1} - Lv{transform.growthLvs[i] || 1}
                           </span>
                         </div>
-                        {renderLevel(i)}
+                        {renderLevel(i, true)}
                         {renderList(p.props, s => (
                           <div class="strong paddleft">
                             <span>{s}</span>
