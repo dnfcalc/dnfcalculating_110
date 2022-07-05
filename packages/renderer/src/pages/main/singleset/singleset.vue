@@ -406,7 +406,7 @@
                     </div>
                   </div>
                   <div class="flex h-108  w-full">
-                    <div class="h-full bg-hex-0d0d0d mx-2px  w-50%">
+                    <div class="h-full bg-hex-0d0d0d mx-2px w-48%">
                       <calc-selection v-model={selectEquip.value} active-class="equip-line-selected" class="h-[calc(100%-3rem)]">
                         {renderList(show_list.value, item => {
                           return (
@@ -421,7 +421,7 @@
                       <calc-pagination page={pagination.page} onChange={gotoPage} total-page={total_page.value} v-show={total_page.value > 0}></calc-pagination>
                     </div>
 
-                    <div class="h-full bg-hex-0d0d0d  w-50% ">
+                    <div class="h-full bg-hex-0d0d0d  w-52% ">
                       <div class="h-92 w-full overflow-y-auto">
                         <EquipInfo class="  w-full overflow-y-auto" eid={selectEquip.value} />
                       </div>
