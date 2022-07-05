@@ -39,6 +39,7 @@ export interface IEquipmentList {
   wisdom: IEquipmentInfo[]
   title: IEquipmentInfo[]
   pet: IEquipmentInfo[]
+  consumable: IEquipmentInfo[]
 }
 
 export interface IEnchantingInfo {
@@ -143,6 +144,8 @@ export interface ICharacterSet {
   weapons_list: number[]
 
   lv110_list: number[]
+
+  consumable_list: number[]
 
   dress_set: Record<
     string,

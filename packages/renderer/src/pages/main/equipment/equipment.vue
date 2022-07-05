@@ -13,9 +13,9 @@
       const basicStore = useBasicInfoStore()
       const choose_feature = ref(0)
 
-      const highlight = computed<number[]>({
+      const highlight = computed<ID[]>({
         get() {
-          return equips.value.map(e => (e.features?.includes(choose_feature.value) ? e.id : 0)).filter(e => e > 0)
+          return equips.value.map(e => (e.features?.includes(choose_feature.value) ? e.id : 0)).filter(e => (e ?? 0) > 0)
         },
         set(val) {
           if (val.length === 0) {
@@ -35,6 +35,7 @@
       const wisdoms = computed(() => basicStore.equipment_info?.wisdom ?? [])
       const pets = computed(() => basicStore.equipment_info?.pet ?? [])
       const titles = computed(() => basicStore.equipment_info?.title ?? [])
+      const consumable = computed(() => basicStore.equipment_info?.consumable ?? [])
 
       const selected_110 = computed({
         get() {
@@ -69,6 +70,15 @@
         },
         set(val: number[]) {
           configStore.wisdom_list = val
+        }
+      })
+
+      const selected_consumable = computed({
+        get() {
+          return configStore.consumable_list
+        },
+        set(val: number[]) {
+          configStore.consumable_list = val
         }
       })
 
@@ -115,7 +125,7 @@
             <EquipList class="equ-else-sort" list={pets.value} title="宠物" />
           </div>
           <div class="w-390px ml-5px flex flex-col">
-            <EquipList class="equ-else-sort" title="药剂" />
+            <EquipList class="equ-else-sort" list={consumable.value} v-model:selected={selected_consumable.value} showTips={false} title="药剂" />
             <div class="equ-trigger !w-390px">
               {trigger_list.value &&
                 renderList(trigger_list.value, (trigger, index) => (

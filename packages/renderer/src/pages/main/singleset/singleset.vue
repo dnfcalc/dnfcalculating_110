@@ -367,7 +367,7 @@
       return () => (
         <div class="flex singleset">
           <div class="flex flex-col m-7px mb-0">
-            <div class="w-140">
+            <div class="w-125">
               <calc-collapse modelValue={collapse_index.value == 1} onUpdate:modelValue={changeCollapse(1)} title="装备">
                 <div class=" w-full">
                   <div class="w-full py-2">
