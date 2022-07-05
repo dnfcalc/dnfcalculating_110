@@ -125,7 +125,7 @@
             <EquipList class="equ-else-sort" list={pets.value} title="宠物" />
           </div>
           <div class="w-390px ml-5px flex flex-col">
-            <EquipList class="equ-else-sort" list={consumable.value} v-model:selected={selected_consumable.value} showTips={false} title="药剂" />
+            <EquipList class="consumable-sort" list={consumable.value} v-model:selected={selected_consumable.value} showTips={false} title="药剂" />
             <div class="equ-trigger !w-390px">
               {trigger_list.value &&
                 renderList(trigger_list.value, (trigger, index) => (
@@ -202,6 +202,23 @@
       width: 30px;
       height: 34px;
       margin-left: 6px;
+      // &:nth-child(7n + 1) {
+      //   margin-left: 0px;
+      // }
+    }
+  }
+
+  .consumable-sort {
+    margin-top: 5px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    background-color: rgba(255, 255, 255, 0.1);
+    .item {
+      width: 30px;
+      height: 34px;
+      margin-left: 5px;
       // &:nth-child(7n + 1) {
       //   margin-left: 0px;
       // }
