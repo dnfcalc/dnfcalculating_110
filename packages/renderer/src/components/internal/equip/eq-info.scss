@@ -8,7 +8,7 @@
   color: #b1a785;
   position: relative;
   z-index: 5;
-  width: 280px;
+  width: 270px;
   // font-size: 12px;
 
   &.with-colums {
@@ -145,7 +145,7 @@
     top: 4px;
     width: 12px;
     height: 12px;
-    background-image: url(https://www.tianyongxian.com/dnfstatic/images/icons/base/suiji.png);
+    background-image: url(@/assets/img/icon/switch.png);
   }
 
   &.can-select {
