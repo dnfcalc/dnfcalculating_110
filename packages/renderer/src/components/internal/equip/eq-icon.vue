@@ -132,7 +132,6 @@
   .eq-icon {
     width: 30px;
     height: 30px;
-    background-image: linear-gradient(#e66465, #000);
     position: relative;
     display: inline-block;
     border-radius: 3px;
@@ -157,28 +156,53 @@
       left: 1px;
     }
 
-    &.normal {
-      background-image: linear-gradient(#ffffff, #000);
-    }
-    &.advanced {
-      background-image: linear-gradient(#61c8de, #000);
-    }
-    &.rare {
-      background-image: linear-gradient(#a060e4, #000);
-    }
-    &.artifact {
-      background-image: linear-gradient(#ef00ef, #000);
-    }
-    &.legend {
-      background-image: linear-gradient(#e96e00, #000);
-    }
-    &.epic {
-      background-image: linear-gradient(#e7a300, #000);
-    }
-    &.myth {
-      background-image: linear-gradient(#e7a300, #000);
+    &::after {
+      content: "";
+      width: 27px;
+      height: 27px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1.5px solid;
+      border-image: linear-gradient(red, #000) 1;
+      clip-path: inset(0 round 2px);
     }
 
+    &.normal {
+      &::after {
+        border-image: linear-gradient(#e7a300, #000) 1;
+      }
+    }
+    &.advanced {
+      &::after {
+        border-image: linear-gradient(#61c8de, #000) 1;
+      }
+    }
+    &.rare {
+      &::after {
+        border-image: linear-gradient(#a060e4, #000) 1;
+      }
+    }
+    &.artifact {
+      &::after {
+        border-image: linear-gradient(#ef00ef, #000) 1;
+      }
+    }
+    &.legend {
+      &::after {
+        border-image: linear-gradient(#e96e00, #000) 1;
+      }
+    }
+    &.epic {
+      &::after {
+        border-image: linear-gradient(#e7a300, #000) 1;
+      }
+    }
+    &.myth {
+      &::after {
+        border-image: linear-gradient(#f8c63d, #cc66e7) 1;
+      }
+    }
     // &.can-click:hover {
     //   cursor: pointer;
     //   background-image: linear-gradient(#3ae7fa, #3ae7fa);
@@ -186,10 +210,11 @@
 
     > img {
       position: relative;
-      top: 1px;
-      left: 1px;
-      width: 28px;
-      height: 28px;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 2px;
     }
 
     .kong-box {
