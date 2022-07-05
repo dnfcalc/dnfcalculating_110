@@ -173,8 +173,7 @@
 
       function chooseEqu(equ: IEquipmentInfo, toggle = false) {
         return (event: Event) => {
-          event.stopPropagation()
-          event.preventDefault()
+          selectEquip.value = equ.id
           configStore.addSingle(equ.id, toggle)
         }
       }
@@ -410,10 +409,11 @@
                       <calc-selection v-model={selectEquip.value} active-class="equip-line-selected" class="h-[calc(100%-3rem)]">
                         {renderList(show_list.value, item => {
                           return (
-                            <calc-item title="点击穿戴/卸下" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 mb-2px px-1 items-center equip-line relative box-border">
+                            <calc-item title="点击穿戴/卸下" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 mb-2px px-1 justify-between items-center equip-line relative box-border">
                               <div class="h-full w-full top-0 left-0 absolute mask"></div>
-                              <EquipIcon onClick={chooseEqu(item, true)} hightlight={isChoose(item)} hightlightclass="hightLight2" eq={item}></EquipIcon>
+                              <EquipIcon onClick={chooseEqu(item, true)} eq={item}></EquipIcon>
                               <span class="text-xs ml-4 text-hex-ffb400">{item.name}</span>
+                              <span class={["h-4 w-6"].concat(isChoose(item) ? "icon-checked" : "")}></span>
                             </calc-item>
                           )
                         })}
@@ -545,6 +545,13 @@
     &-selected {
       border: 1px solid #ffb400;
     }
+  }
+
+  .icon-checked {
+    background-image: url("@/assets/img/item_checked.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .feat-input {
