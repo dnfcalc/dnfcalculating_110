@@ -2,7 +2,7 @@
   import { useDialog } from "@/components/hooks/dialog"
   import Draggable from "@/components/vuedraggable/vuedraggable"
   import { useCharacterStore, useConfigStore } from "@/store"
-  import { onKeyStroke } from "@vueuse/core"
+  import { onKeyStroke, useDebounceFn } from "@vueuse/core"
   import { defineComponent, renderList } from "vue"
   import Cp from "./sub/cp.vue"
   import SkillList from "./sub/list.vue"
@@ -25,7 +25,7 @@
 
       onKeyStroke(
         hotKeys,
-        event => {
+        useDebounceFn(event => {
           event.preventDefault()
           let { key } = event
           if (key.length == 1) {
@@ -36,7 +36,6 @@
           const index = keys.indexOf(key)
           if (index > -1) {
             const skill_name = configStore.hotkey_set[index]
-            // console.log(skill_name)
             if (skill_name) {
               const skill = characterStore.skills.find(skill => skill.name == skill_name)
               if (skill) {
@@ -44,7 +43,7 @@
               }
             }
           }
-        },
+        }, 20),
         {}
       )
 
@@ -62,7 +61,6 @@
       const changeMode = (skill: { name: string; id: number; mode: string; modes: string[] | undefined }) => {
         return () => {
           let index = skill.modes?.indexOf(skill.mode) ?? 0
-          console.log(index)
           index = index >= 0 ? (index + 1 >= (skill.modes?.length ?? 0) ? 0 : index + 1) : 0
           skill.mode = skill.modes?.[index] ?? ""
         }
@@ -73,11 +71,12 @@
         return (
           <div
             class="h-7 m-2px w-7"
+            title={skill.mode ? `${skill.name}[${skill.mode}]` : skill.name}
             style={"position: relative;" + (skill.modes?.length ?? 0 > 0 ? (skill.modes?.indexOf(skill.mode) ?? 0 > 0 ? "background-color: " + colors[skill.modes?.indexOf(skill.mode) ?? 0] : 0) : "")}
             onClick={changeMode(skill)}
           >
             <img style={skill.modes?.length ?? 0 > 0 ? (skill.modes?.indexOf(skill.mode) ?? 0 > 0 ? "mix-blend-mode: luminosity;" : "") : ""} src={skill_icon(characterStore.alter, skill.name)} />
-            {skill.modes && skill.modes.length > 0 && <div class="size-11">{skill.mode}</div>}
+            {skill.modes && skill.modes.length > 0 && <div class="text-xs top-0 right-0 absolute">{skill.mode}</div>}
           </div>
           // <div class="list-group-item">{item.element.name}</div>
         )

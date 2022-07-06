@@ -10,6 +10,13 @@ declare global {
     removeLoading: () => void
   }
 
+  interface PagingData<T> {
+    data: T[]
+    totalCount: number
+    pageSize: number
+    pageIndex: number
+  }
+
   interface Number {
     plus(value: number): number
 

@@ -47,7 +47,7 @@ export const useBasicInfoStore = defineStore("basicInfo", {
   getters: {
     equipment_info(state) {
       if (!state._equipmentInfo) {
-        api.getEquipments().then(res => {
+        api.equips().then(res => {
           state._equipmentInfo = res.data
         })
       }
@@ -58,18 +58,21 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       if (info) {
         return [...(info?.lv110 ?? []), ...(info?.myth ?? []), ...(info?.weapon ?? []), ...(info?.wisdom ?? []), ...(info?.title ?? []), ...(info?.pet ?? [])]
       } else {
-        api.getEquipments().then(res => {
+        api.equips().then(res => {
           state._equipmentInfo = res.data
         })
       }
       return []
+    },
+    equiment_ids() {
+      return this.equipment_list.map(r => r.id)
     },
     equipment_singleset(state) {
       const info = state._equipmentInfo
       if (info) {
         return [...(info?.lv110 ?? []), ...(info?.myth ?? []), ...(info?.weapon ?? []), ...(info?.wisdom ?? [])]
       } else {
-        api.getEquipments().then(res => {
+        api.equips().then(res => {
           state._equipmentInfo = res.data
         })
       }
@@ -77,13 +80,13 @@ export const useBasicInfoStore = defineStore("basicInfo", {
     },
     enchanting_info(state) {
       if (!state._enchantingInfo) {
-        api.getEnchanting().then(res => (state._enchantingInfo = res.data))
+        api.enchantings().then(res => (state._enchantingInfo = res.data))
       }
       return state._enchantingInfo
     },
     emblem_info(state) {
       if (!state._emblemInfo) {
-        api.getEmblems().then(res => {
+        api.emblems().then(res => {
           state._emblemInfo = res.data
           useCharacterStore().platinum.forEach(item => {
             state._emblemInfo?.push({
@@ -102,31 +105,31 @@ export const useBasicInfoStore = defineStore("basicInfo", {
     },
     jade_info(state) {
       if (!state._jadeInfo) {
-        api.getJade().then(res => (state._jadeInfo = res.data))
+        api.jades().then(res => (state._jadeInfo = res.data))
       }
       return state._jadeInfo
     },
     sundries_info(state) {
       if (!state._sundriesInfo) {
-        api.getsundries().then(res => (state._sundriesInfo = res.data))
+        api.sundries().then(res => (state._sundriesInfo = res.data))
       }
       return state._sundriesInfo
     },
     trigger_list(state) {
       if (!state._triggers) {
-        api.gettriggers().then(res => (state._triggers = res.data))
+        api.triggers().then(res => (state._triggers = res.data))
       }
       return state._triggers
     },
     entry_list(state) {
       if (!state._entries) {
-        api.getentries().then(res => (state._entries = res.data))
+        api.entries().then(res => (state._entries = res.data))
       }
       return state._entries
     },
     dress_list(state) {
       if (!state._dresses) {
-        api.getDressList().then(res => (state._dresses = res.data))
+        api.dressList().then(res => (state._dresses = res.data))
       }
       return state._dresses ?? {}
     }
@@ -134,7 +137,7 @@ export const useBasicInfoStore = defineStore("basicInfo", {
   actions: {
     async get_equipment_detail(equ_id: ID) {
       //   console.log(equ_id)
-      return (await api.getEquipmentDetail(equ_id))?.data
+      return (await api.equipmentDetail(equ_id))?.data
     },
     getEquip(id?: ID) {
       if (!!id) {

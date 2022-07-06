@@ -1,8 +1,8 @@
 <script lang="tsx">
-  import { defineComponent, ref } from "vue"
-  import EqInfo from "./eq-info.vue"
-  import EqIcon from "./eq-icon.vue"
   import { useVModel } from "@vueuse/core"
+  import { defineComponent } from "vue"
+  import EqIcon from "./eq-icon.vue"
+  import EqInfo from "./eq-info.vue"
 
   export default defineComponent({
     name: "eq-icon-tips",
