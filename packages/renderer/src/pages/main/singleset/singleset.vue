@@ -10,7 +10,7 @@
 
   import EquipInfo from "@/components/internal/equip/eq-info.vue"
   import { useOpenWindow } from "@/hooks/open"
-  import { syncRef, useAsyncState, useDebounceFn } from "@vueuse/core"
+  import { onKeyStroke, syncRef, useAsyncState, useDebounceFn } from "@vueuse/core"
   import { computed, defineComponent, onUnmounted, reactive, ref, renderList, watch } from "vue"
 
   export interface IJadeUpgrade {
@@ -41,6 +41,8 @@
       const jewel_parts = ["项链", "戒指", "手镯"]
 
       const special_parts = ["辅助装备", "魔法石", "耳环"]
+
+      const else_parts = ["称号", "宠物"]
 
       const filter = ref<FilterFunction | null>(null)
 
@@ -125,6 +127,22 @@
                 }
               }
             })
+          },
+          {
+            label: "其它",
+            value: "其它",
+            onSelect() {
+              filter.value = e => special_parts.includes(e.part)
+            },
+            children: else_parts.map(part => {
+              return {
+                label: part,
+                value: part,
+                onSelect() {
+                  filter.value = e => e.part == part
+                }
+              }
+            })
           }
         ]
       })
@@ -173,6 +191,7 @@
 
       function chooseEqu(equ: IEquipmentInfo, toggle = false) {
         return (event: Event) => {
+          event.preventDefault()
           selectEquip.value = equ.id
           configStore.addSingle(equ.id, toggle)
         }
@@ -198,7 +217,7 @@
 
       const pagination = reactive({
         page: 0,
-        pageSize: 10
+        pageSize: 14
       })
 
       const total = computed(() => equips.value.length)
@@ -267,8 +286,20 @@
         }
       )
 
+      const removePrev = onKeyStroke(["F1", "PageUp"], (e: Event) => {
+        e.preventDefault()
+        gotoPage(pagination.page - 1)
+      })
+
+      const removeNext = onKeyStroke(["F2", "PageDown"], (e: Event) => {
+        e.preventDefault()
+        gotoPage(pagination.page + 1)
+      })
+
       onUnmounted(() => {
         stopWatch()
+        removePrev()
+        removeNext()
       })
 
       function isActive(equ: IEquipmentInfo) {
@@ -340,156 +371,100 @@
 
       // const showequ = () => {}
 
-      const collapse_index = ref(1)
-
-      function changeCollapse(index: number) {
-        return () => {
-          collapse_index.value = index
-        }
-      }
-
       function changePart(part: string) {
-        switch (part) {
-          case "称号":
-            collapse_index.value = 3
-            break
-          case "宠物":
-            collapse_index.value = 2
-            break
-          default:
-            collapse_index.value = 1
-            choose_item.value = part
-            break
-        }
+        // switch (part) {
+        //   case "称号":
+        //     collapse_index.value = 3
+        //     break
+        //   case "宠物":
+        //     collapse_index.value = 2
+        //     break
+        //   default:
+        choose_item.value = part
+        // break
+        // }
       }
 
       return () => (
         <div class="flex singleset">
           <div class="flex flex-col m-7px mb-0">
             <div class="w-125">
-              <calc-collapse modelValue={collapse_index.value == 1} onUpdate:modelValue={changeCollapse(1)} title="装备">
-                <div class=" w-full">
-                  <div class="w-full py-2">
-                    <div class="bg-hex-000000/45 py-2 px-2 justify-between items-center">
-                      <div class="flex space-x-2 mb-2 items-center ">
-                        <calc-cascader v-model={choose_item.value} items={items.value} placeholder="请输入名称搜索" class="flex-1 !h-5"></calc-cascader>
-                        <calc-select class="!h-5" v-show={characterStore.is_delear} v-model={rarity.value} placeholder="品质">
-                          <calc-option value={""}>全部</calc-option>
-                          <calc-option value="智慧产物">智慧产物</calc-option>
-                          <calc-option value="史诗">史诗</calc-option>
-                          <calc-option value="神话">神话</calc-option>
-                        </calc-select>
-                        <calc-autocomplete onEnter={search} placeholder="请输入名称搜索" class="flex-1 !h-5" v-model={keyword_cache.value}></calc-autocomplete>
-                        <calc-button onClick={search} title="搜索" class="ml-2" icon="search"></calc-button>
-                        <calc-button onClick={reset} title="重置" class="ml-4" icon="reset"></calc-button>
-                      </div>
-
-                      <div class="flex">
-                        <calc-select
-                          input-class="calc-tags-input"
-                          label={labelTag}
-                          multiple
-                          multiple-limit={5}
-                          class="flex-1 !h-5"
-                          v-model={choose_feature.value}
-                          emptyLabel="请选择#标签,最多可选择4个#标签"
-                        >
-                          {renderList(featureList, item => (
-                            <calc-option value={item.value}></calc-option>
-                          ))}
-                        </calc-select>
-                        <calc-button class="ml-2 py-0 !h-5 !leading-5" onClick={clearFeature}>
-                          清空
-                        </calc-button>
-                      </div>
+              <div class=" w-full">
+                <div class="w-full pb-1.5">
+                  <div class="bg-hex-000000/45 py-2 px-2 justify-between items-center">
+                    <div class="flex space-x-2 mb-2 items-center ">
+                      <calc-cascader v-model={choose_item.value} items={items.value} placeholder="请输入名称搜索" class="flex-1 !h-5"></calc-cascader>
+                      <calc-select class="!h-5" v-show={characterStore.is_delear} v-model={rarity.value} placeholder="品质">
+                        <calc-option value={""}>全部</calc-option>
+                        <calc-option value="智慧产物">智慧产物</calc-option>
+                        <calc-option value="史诗">史诗</calc-option>
+                        <calc-option value="神话">神话</calc-option>
+                        <calc-option value="传说">传说</calc-option>
+                        <calc-option value="稀有">稀有</calc-option>
+                      </calc-select>
+                      <calc-autocomplete onEnter={search} placeholder="请输入名称搜索" class="flex-1 !h-5" v-model={keyword_cache.value}></calc-autocomplete>
+                      <calc-button onClick={search} title="搜索" class="ml-2" icon="search"></calc-button>
+                      <calc-button onClick={reset} title="重置" class="ml-4" icon="reset"></calc-button>
                     </div>
-                  </div>
-                  <div class="flex h-108  w-full">
-                    <div class="h-full bg-hex-0d0d0d mx-2px w-48%">
-                      <calc-selection v-model={selectEquip.value} active-class="equip-line-selected" class="h-[calc(100%-3rem)]">
-                        {renderList(show_list.value, item => {
-                          return (
-                            <calc-item title="点击穿戴/卸下" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 mb-2px px-1 justify-between items-center equip-line relative box-border">
-                              <div class="h-full w-full top-0 left-0 absolute mask"></div>
-                              <EquipIcon onClick={chooseEqu(item, true)} eq={item}></EquipIcon>
-                              <span class="text-xs ml-4 text-hex-ffb400">{item.name}</span>
-                              <span class={["h-4 w-6"].concat(isChoose(item) ? "icon-checked" : "")}></span>
-                            </calc-item>
-                          )
-                        })}
-                        {renderList(pagination.pageSize - show_list.value.length, i => (
-                          <div class="flex h-9 mb-2px px-1 justify-between items-center equip-line relative box-border"></div>
+
+                    <div class="flex">
+                      <calc-select
+                        input-class="calc-tags-input"
+                        label={labelTag}
+                        multiple
+                        multiple-limit={5}
+                        class="flex-1 !h-5"
+                        v-model={choose_feature.value}
+                        emptyLabel="请选择#标签,最多可选择4个#标签"
+                      >
+                        {renderList(featureList, item => (
+                          <calc-option value={item.value}></calc-option>
                         ))}
-                      </calc-selection>
-                      <calc-pagination page={pagination.page} onChange={gotoPage} total-page={total_page.value} v-show={total_page.value > 0}></calc-pagination>
-                    </div>
-
-                    <div class="h-full bg-hex-0d0d0d w-52% s-left">
-                      <div class="h-92 w-full pb-4 overflow-y-auto !max-w-100%">
-                        <EquipInfo eid={selectEquip.value} />
-                      </div>
-                      <div class=" bg-hex-0e0e0e h-16 p-2 items-start">
-                        {chooseEquFeature.value?.length ? (
-                          renderList(chooseEquFeature.value, feat => (
-                            <div
-                              onClick={() => chooseFeature(feat.value)}
-                              class="cursor-pointer h-4 mt-1 mr-2 text-hex-ffb400 leading-4 inline-block underline underline-offset-2 hover:text-hex-fff000"
-                            >
-                              #{feat.label}
-                            </div>
-                          ))
-                        ) : (
-                          <div class="cursor-pointer h-4 mt-1 mr-2  text-hex-86784f leading-4 inline-block underline underline-offset-2 ">#无标签</div>
-                        )}
-                      </div>
+                      </calc-select>
+                      <calc-button class="ml-2 py-0 !h-5 !leading-5" onClick={clearFeature}>
+                        清空
+                      </calc-button>
                     </div>
                   </div>
-                </div>{" "}
-              </calc-collapse>
-              <calc-collapse modelValue={collapse_index.value == 2} onUpdate:modelValue={changeCollapse(2)} title="宠物" class="w-full ">
-                <div class="flex  overflow-y-auto">
-                  {renderList(pet.value, (equ, index) => {
-                    return (
-                      <div class="equ-item">
-                        {equ && (
-                          <EquipTips
-                            hightlight={isChoose(equ)}
-                            onClick={chooseEqu(equ)}
-                            onContextmenu={takeOffEqu(equ)}
-                            active={isActive(equ)}
-                            eq={equ}
-                            key={equ.id}
-                            canClick={true}
-                            show-tips={false}
-                          ></EquipTips>
-                        )}
-                      </div>
-                    )
-                  })}
                 </div>
-              </calc-collapse>
-              <calc-collapse modelValue={collapse_index.value == 3} onUpdate:modelValue={changeCollapse(3)} title="称号" class={"w-full "}>
-                <div class="flex  overflow-y-auto">
-                  {renderList(title.value, (equ, index) => {
-                    return (
-                      <div class="equ-item">
-                        {equ && (
-                          <EquipTips
-                            hightlight={isChoose(equ)}
-                            onClick={chooseEqu(equ)}
-                            onContextmenu={takeOffEqu(equ)}
-                            active={isActive(equ)}
-                            eq={equ}
-                            key={equ.id}
-                            canClick={true}
-                            show-tips={false}
-                          ></EquipTips>
-                        )}
-                      </div>
-                    )
-                  })}
+                <div class="flex h-142  w-full">
+                  <div class="h-full bg-hex-0d0d0d mx-2px w-48%">
+                    <calc-selection v-model={selectEquip.value} active-class="equip-line-selected" class="h-[calc(100%-2.5rem)]">
+                      {renderList(show_list.value, item => {
+                        return (
+                          <calc-item title="右键点击穿戴" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 mb-2px px-1 justify-between items-center equip-line relative box-border">
+                            <div class="h-full w-full top-0 left-0 absolute mask"></div>
+                            <EquipIcon onClick={chooseEqu(item, true)} eq={item}></EquipIcon>
+                            <span class="text-xs ml-4 text-hex-ffb400">{item.name}</span>
+                            <span class={["h-4 w-6"].concat(isChoose(item) ? "icon-checked" : "")}></span>
+                          </calc-item>
+                        )
+                      })}
+                      {renderList(pagination.pageSize - show_list.value.length, i => (
+                        <div class="flex h-9 mb-2px px-1 justify-between items-center equip-line relative box-border"></div>
+                      ))}
+                    </calc-selection>
+                    <calc-pagination page={pagination.page} onChange={gotoPage} total-page={total_page.value} v-show={total_page.value > 0}></calc-pagination>
+                  </div>
+
+                  <div class="h-full bg-hex-0d0d0d w-52% s-left">
+                    <div class="h-115 w-full pb-4 overflow-y-auto !max-w-100%">
+                      <EquipInfo eid={selectEquip.value} />
+                    </div>
+                    <div class=" bg-hex-0e0e0e h-17 p-2 items-start">
+                      {chooseEquFeature.value?.length ? (
+                        renderList(chooseEquFeature.value, feat => (
+                          <div onClick={() => chooseFeature(feat.value)} class="cursor-pointer h-4 mt-1 mr-2 text-hex-ffb400 leading-4 inline-block underline underline-offset-2 hover:text-hex-fff000">
+                            #{feat.label}
+                          </div>
+                        ))
+                      ) : (
+                        <div class="cursor-pointer h-4 mt-1 mr-2  text-hex-86784f leading-4 inline-block underline underline-offset-2 ">#无标签</div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </calc-collapse>
+              </div>
             </div>
           </div>
           <div>

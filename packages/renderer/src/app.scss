@@ -6,8 +6,8 @@
 }
 
 @font-face {
-  font-family: "ArkPixel";
-  src: url("@/assets/fonts/ark-pixel.woff2");
+  font-family: "dcalc";
+  src: url("@/assets/fonts/dcalc.ttf");
 }
 
 :root {
@@ -31,7 +31,7 @@ body,
 
 * {
   // font-family: "ArkPixel", "Consola", sans-serif;
-  font-family: "SimSun";
+  font-family: "dcalc", "SimSun";
   font-size: 12px;
   text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
 }
