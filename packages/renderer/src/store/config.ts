@@ -1,5 +1,5 @@
 import api from "@/api"
-import { IResultInfo } from "@/api/character/type"
+import { IResultInfo, ISkillInfo } from "@/api/character/type"
 import { ICharacterSet } from "@/api/info/type"
 import { toMap, toObj } from "@/utils"
 import { defineStore } from "pinia"
@@ -63,7 +63,12 @@ export const useConfigStore = defineStore("config", {
         dress_set: state.dress_set,
         single_set: state.single_set,
         trigger_set: state.trigger_set,
-        skill_que: state.skill_que,
+        skill_que: state.skill_que.map((r, id) => {
+          return {
+            ...r,
+            id: id
+          }
+        }),
         wisdom_list: state.wisdom_list,
         myths_list: state.myths_list,
         weapons_list: state.weapons_list,
@@ -176,6 +181,10 @@ export const useConfigStore = defineStore("config", {
         }
       }
       this.single_set = [...map.values()].sort((a, b) => Number(a) - Number(b))
+    },
+
+    addSkillQueue(skill: ISkillInfo) {
+      this.skill_que.push({ name: skill.name, mode: skill.mode?.[0] ?? "", modes: skill.mode })
     },
 
     customizeInit() {
