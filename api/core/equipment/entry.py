@@ -7774,9 +7774,9 @@ def entry_1122(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         # char.指令技攻加成(0.10, exc=[])
         for i in char.技能栏:
-            if i.手搓 == True and i.名称 in char.hotkey:
+            if i.所在等级 not in [50, 85, 100] and i.手搓 == True and i.名称 in char.hotkey:
                 if i.是否有伤害 == 1:
-                    i.倍率 *= 1.1
+                    i.倍率 *= (1 + 0.1 * char.技能伤害增加增幅)
 
 
 def entry_1135(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7785,10 +7785,7 @@ def entry_1135(char: Character = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        for i in char.技能栏:
-            if i.手搓 == True and i.所在等级 not in [50, 85, 100]:
-                if i.是否有伤害 == 1:
-                    i.倍率 *= 1.05
+        char.指令技攻加成(0.05)
 
 
 def entry_1136(char: Character = {}, mode=0, text=False, part='', lv=0):
@@ -7807,7 +7804,7 @@ def entry_1137(char: Character = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         for i in char.技能栏:
-            if i.手搓 == True and i.所在等级 not in [50, 85, 100]:
+            if i.手搓 == True and i.所在等级 not in [50, 85, 100] and i.名称 != '神罚之锤':
                 if i.是否有伤害 == 1:
                     if i.手搓指令数 == 1:
                         i.倍率 *= 1.07
@@ -9391,6 +9388,7 @@ def entry_599(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['[蓄念炮]蓄力时间删除', '[蓄念炮]冷却时间删除']
     if mode == 0:
+        char.get_skill_by_name("念气波").CP武器 = True
         pass
     if mode == 1:
         pass
@@ -9400,6 +9398,7 @@ def entry_600(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['气功师转职时对[念气波]冷却时间减少功能删除', '[念气波]冷却时间 +4秒，技能攻击力 +120%，念气波大小 +20%']
     if mode == 0:
+        char.get_skill_by_name("念气波").倍率 *= 2.2
         pass
     if mode == 1:
         pass
@@ -9407,7 +9406,7 @@ def entry_600(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_601(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['[念气波]技能命中时，[聚能念起炮]技能剩余冷却时间 -5%']
+        return ['[念气波]技能命中时，[聚能念气炮]技能剩余冷却时间 -5%']
     if mode == 0:
         pass
     if mode == 1:
@@ -9416,8 +9415,9 @@ def entry_601(char: Character = {}, mode=0, text=False, part='', lv=0):
 
 def entry_602(char: Character = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['[念气波]使用时，有10%的几率发射念起螺旋', '- 念起螺旋攻击能是蓄念炮影响下念气波技能攻击力的500%']
+        return ['[念气波]使用时，有10%的几率发射念气螺旋', '- 念气螺旋攻击能是蓄念炮影响下念气波技能攻击力的500%']
     if mode == 0:
+        char.get_skill_by_name("念气波").倍率 *= 1.5
         pass
     if mode == 1:
         pass

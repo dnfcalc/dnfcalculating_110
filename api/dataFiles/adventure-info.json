@@ -32,7 +32,7 @@
   {
     "name": "fighter_female",
     "children": [
-      { "name": "nenmaster_female", "title": "归元·气功师" },
+      { "name": "nenmaster_female", "title": "归元·气功师", "open": true },
       { "name": "striker_female", "title": "归元·散打" },
       { "name": "brawler_female", "title": "归元·街霸", "open": true },
       { "name": "grappler_female", "title": "归元·柔道家" },
