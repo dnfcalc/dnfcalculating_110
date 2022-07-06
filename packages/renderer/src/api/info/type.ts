@@ -178,3 +178,23 @@ export interface ICharacterSet {
 
   hotkey_set: string[]
 }
+
+export interface IRecommendRequest {
+  page: number
+  size: number
+  alter?: string
+  keyword?: string
+}
+
+export interface IRecommendEquip {
+  id: ID
+  props?: ID[]
+}
+
+export interface IRecommendInfo {
+  id: ID
+  name: string
+  alter: string
+  author: string
+  equips: IRecommendEquip[]
+}

@@ -97,10 +97,12 @@
     }
 
     &.small {
-      min-width: 60px;
-      height: 24px;
-      line-height: 24px;
+      min-width: 28px;
+      height: 20px;
+      line-height: 20px;
       font-size: 12px;
+      padding-top: 0;
+      padding-bottom: 0;
     }
   }
 

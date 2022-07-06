@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { useBasicInfoStore, useCharacterStore } from "@/store"
   import { asyncComputed } from "@vueuse/core"
-  import { computed, defineComponent, renderList, reactive, PropType } from "vue"
+  import { computed, defineComponent, PropType, reactive, renderList } from "vue"
 
   import EqIcon from "./eq-icon.vue"
 
@@ -54,8 +54,6 @@
     },
     setup(props, { emit, slots }) {
       const basicStore = useBasicInfoStore()
-
-      console.log(props.pps)
 
       const equip = asyncComputed(async () => {
         if (props.eid != undefined) {

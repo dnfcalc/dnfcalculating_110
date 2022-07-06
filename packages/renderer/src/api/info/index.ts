@@ -1,37 +1,40 @@
-import { IAdventureInfo, IEquipmentList, IEnchantingInfo, IJadeInfo, ITrigger, Dress } from "./type"
 import { defineRequest } from "../common"
+import { Dress, IAdventureInfo, IEnchantingInfo, IEquipmentList, IJadeInfo, IRecommendInfo, IRecommendRequest, ITrigger } from "./type"
 
 export default defineRequest(request => {
   return {
-    getAdventure() {
+    adventures() {
       return request.get<IAdventureInfo[]>("/adventure")
     },
-    getEquipments() {
+    equips() {
       return request.get<IEquipmentList>(`/equips`)
     },
-    getEquipmentDetail(equipId: ID) {
+    equipmentDetail(equipId: ID) {
       return request.get<any>(`/equip/${String(equipId)}`)
     },
-    getEnchanting() {
+    enchantings() {
       return request.get<IEnchantingInfo[]>("/enchanting")
     },
-    getEmblems() {
+    emblems() {
       return request.get<IEnchantingInfo[]>("/emblem")
     },
-    getJade() {
+    jades() {
       return request.get<IJadeInfo[]>("/jade")
     },
-    getsundries() {
+    sundries() {
       return request.get<IEnchantingInfo[]>("/sundries")
     },
-    gettriggers() {
+    triggers() {
       return request.get<ITrigger[]>("/triggers")
     },
-    getentries() {
+    entries() {
       return request.get<Record<string, { attack: number; buff: number; props: string[] }>>("/entries")
     },
-    getDressList() {
+    dressList() {
       return request.get<Record<string, Dress[]>>("/dress")
+    },
+    recommends(params: IRecommendRequest) {
+      return request.get<PagingData<IRecommendInfo>>("https://dnf.skycity.top:8017/api/DCalc/LoadRecommendPage", { params }).then(r => r as unknown as PagingData<IRecommendInfo>)
     }
   }
 })

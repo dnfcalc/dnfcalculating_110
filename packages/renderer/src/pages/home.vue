@@ -83,7 +83,7 @@
 
     onMounted(window.removeLoading)
 
-    const adventure = await api.getAdventure().then(r => r.data)
+    const adventure = await api.adventures().then(r => r.data)
 
     const ignores = ["empty"]
 

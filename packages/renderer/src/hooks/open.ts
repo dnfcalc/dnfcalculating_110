@@ -29,13 +29,10 @@ export function useOpenWindow(opt?: UseOpenOption & { immediate?: boolean }) {
       return
     }
 
-    console.log(location)
-
     if (url.startsWith("/")) {
       url = router.resolve(url).href
     }
     url = querystring.stringifyUrl({ url, query })
-    console.log(url)
     try {
       let _target = target
       if (!_target) {
