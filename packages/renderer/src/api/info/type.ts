@@ -86,6 +86,12 @@ export interface KTV<T> {
   [key: number | string]: T
 }
 
+export interface BaseSkill {
+  name: string
+
+  mode?: string[]
+}
+
 export interface SkillSet {
   //技能名
   name: string
@@ -122,16 +128,15 @@ interface EquipSet {
 
   data: Map<string, any>
 }
-interface skillQue {
+interface SkillQueue {
   name: string
-  id: number
   mode?: string
   modes?: string[]
 }
 
 export interface ICharacterSet {
   skill_set: SkillSet[]
-  skill_que: skillQue[]
+  skill_que: SkillQueue[]
 
   forge_set: Record<string, Map<string, any>>
 

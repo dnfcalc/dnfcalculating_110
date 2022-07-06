@@ -2,7 +2,7 @@
   import api from "@/api"
   import { IAnyResultInfo } from "@/api/character/type"
   import Profile from "@/components/internal/profile.vue"
-  import { skill_icon } from "@/pages/main/character/sub/utils"
+  import { skill_icon } from "@/pages/character/skills/sub/utils"
   import { useAppStore, useCharacterStore, useConfigStore } from "@/store"
   import { toMap, to_percent } from "@/utils"
   import { computed, defineComponent, onMounted, renderList } from "vue"

@@ -59,30 +59,29 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
 
   const actives: BaseType[] = reactive<BaseType[]>([...toArray(props.modelValue ?? props.defaultValue)])
 
-  syncRef(
-    computed({
-      get() {
-        return props.multiple ? actives : actives[0]
-      },
-      set(val) {
-        if (props.multiple) {
-          actives.splice(0, actives.length, ...toArray(val))
-        } else {
-          actives.splice(0, actives.length, val)
-        }
+  const currentValue = computed({
+    get() {
+      return props.multiple ? actives : actives[0]
+    },
+    set(val) {
+      if (props.multiple) {
+        actives.splice(0, actives.length, ...toArray(val))
+      } else {
+        actives.splice(0, actives.length, val)
       }
-    }),
-    computed({
-      get() {
-        return props.modelValue ?? props.defaultValue
-      },
-      set(val) {
-        context.emit("update:modelValue", val)
-        context.emit("change", val)
-      }
-    }),
-    { immediate: true, deep: true }
-  )
+    }
+  })
+
+  const modelValue = computed({
+    get() {
+      return props.modelValue ?? props.defaultValue
+    },
+    set(val) {
+      context.emit("update:modelValue", val)
+    }
+  })
+
+  syncRef(currentValue, modelValue, { immediate: true, deep: true })
 
   provide(
     AciveClassSymbol,
@@ -119,6 +118,7 @@ export const useSelectionList = defineHooks(listProps, (props, context) => {
         actives.splice(0, actives.length, option)
       }
     }
+    context.emit("change", currentValue.value)
   }
 
   provide(IsActiveSymbol, isActive)

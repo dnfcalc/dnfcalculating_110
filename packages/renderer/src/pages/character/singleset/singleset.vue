@@ -1,7 +1,6 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
   import { TreeNode } from "@/components/calc/tree/types"
-  import EquipTips from "@/components/internal/equip/eq-icon-tips.vue"
   import Profile from "@/components/internal/profile.vue"
   import { useBasicInfoStore, useCharacterStore, useConfigStore, useDetailsStore } from "@/store"
   import featureList from "@/utils/featureList"

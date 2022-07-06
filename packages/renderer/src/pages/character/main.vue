@@ -8,11 +8,11 @@
   import { defineComponent, onMounted, renderList } from "vue"
   import { useRoute } from "vue-router"
 
-  // import Character from "@/pages/main/character/character.vue"
-  // import Customize from "@/pages/main/customize/customize.vue"
-  // import Equipment from "@/pages/main/equipment/equipment.vue"
-  // import Detail from "@/pages/main/detail/detail.vue"
-  // import Singleset from "@/pages/main/singleset/singleset.vue"
+  // import Character from "@/pages/character/character/character.vue"
+  // import Customize from "@/pages/character/customize/customize.vue"
+  // import Equipment from "@/pages/character/equipment/equipment.vue"
+  // import Detail from "@/pages/character/detail/detail.vue"
+  // import Singleset from "@/pages/character/singleset/singleset.vue"
 
   export default defineComponent(async () => {
     const route = useRoute()

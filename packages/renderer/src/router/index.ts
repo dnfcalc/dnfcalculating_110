@@ -11,20 +11,16 @@ const routes: RouteRecordRaw[] = [
     name: "home",
     component: () => import("@/pages/home.vue")
   },
-
   {
     path: "/character",
     redirect: "/character/equips",
     name: "main",
-    component: () => import("@/pages/main/main.vue"),
+    component: () => import("@/pages/character/main.vue"),
     children: [
       {
         path: "/character/skills",
-        name: "skill",
-        // meta: {
-        //   title: "角色"
-        // },
-        component: () => import("@/pages/main/character/character.vue"),
+        name: "skills",
+        component: () => import("@/pages/character/skills/skills.vue"),
         meta: {
           keepAlive: true
         }
@@ -32,7 +28,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/character/equips",
         name: "equipment",
-        component: () => import("@/pages/main/equipment/equipment.vue"),
+        component: () => import("@/pages/character/equipment/equipment.vue"),
         meta: {
           keepAlive: true
         }
@@ -40,7 +36,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/character/profile",
         name: "profile",
-        component: () => import("@/pages/main/detail/detail.vue"),
+        component: () => import("@/pages/character/detail/detail.vue"),
         meta: {
           keepAlive: true
         }
@@ -48,7 +44,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/character/customize",
         name: "customize",
-        component: () => import("@/pages/main/customize/customize.vue"),
+        component: () => import("@/pages/character/customize/customize.vue"),
         meta: {
           keepAlive: true
         }
@@ -56,7 +52,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: "/character/singleset",
         name: "singleset",
-        component: () => import("@/pages/main/singleset/singleset.vue"),
+        component: () => import("@/pages/character/singleset/singleset.vue"),
         meta: {
           keepAlive: true
         }
