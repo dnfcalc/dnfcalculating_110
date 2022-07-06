@@ -574,7 +574,7 @@
 
       return () => {
         return (
-          <div class="char-info" style="letter-spacing: -0.05px;">
+          <div class="char-info">
             <div class="char-back">
               <div class="head" style="background-image:url(/images/common/head.png)">
                 <div
