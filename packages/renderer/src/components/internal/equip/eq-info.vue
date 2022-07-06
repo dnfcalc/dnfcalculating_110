@@ -226,12 +226,12 @@
 
       const sum_buffer = computed(() => {
         let s = 0
-        if (equip.value?.prop.growthProps && equip.value.prop.growthProps.length > 0) {
+        if (transform.growthBuffers && transform.growthBuffers.length > 0) {
           let a = equip.value.prop.growthProps
 
-          for (let i = 0; i < a.length; i++) {
-            let item = a[i]
-            s += transform.growthBuffers[i] ?? item.buffer ?? 0
+          for (let i = 0; i < transform.growthBuffers.length; i++) {
+            let item = a == null ? null : a[i]
+            s += transform.growthBuffers[i] ?? item?.buffer ?? 0
           }
         }
         return s
@@ -239,12 +239,12 @@
 
       const sum_attack = computed(() => {
         let s = 0
-        if (equip.value?.prop.growthProps && equip.value.prop.growthProps.length > 0) {
+        if (transform.growthBuffers && transform.growthBuffers.length > 0) {
           let a = equip.value.prop.growthProps
 
-          for (let i = 0; i < a.length; i++) {
-            let item = a[i]
-            s += transform.growthAttacks[i] ?? item.attack ?? 0
+          for (let i = 0; i < transform.growthBuffers.length; i++) {
+            let item = a == null ? null : a[i]
+            s += transform.growthAttacks[i] ?? item?.attack ?? 0
           }
         }
         return s
@@ -380,15 +380,16 @@
       }
 
       function renderLevel(i: number, left: boolean) {
+        let a = equip.value.prop.growthProps && equip.value.prop.growthProps.length > i ? equip.value.prop.growthProps[i] : null
         return is_buffer.value ? (
           <div class={["text-hex-8a6f36"].concat(left ? "paddleft" : "")}>
             <span style="margin-right: 10px;">Buff量</span>
-            <span class={classForNum(i)}>{transform.growthBuffers[i] || 0}</span>
+            <span class={classForNum(i)}>{transform.growthBuffers[i] || a?.buffer || 0}</span>
           </div>
         ) : (
           <div class={["text-hex-8a6f36"].concat(left ? "paddleft" : "")}>
             <span style="margin-right: 10px;">攻击强化</span>
-            <span class={classForNum(i)}>{transform.growthAttacks[i] || 0}</span>
+            <span class={classForNum(i)}>{transform.growthAttacks[i] || a?.attack || 0}</span>
           </div>
         )
       }
