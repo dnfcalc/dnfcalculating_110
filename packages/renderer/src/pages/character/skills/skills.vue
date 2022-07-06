@@ -36,7 +36,7 @@
           const index = keys.indexOf(key)
           if (index > -1) {
             const skill_name = configStore.hotkey_set[index]
-            console.log(skill_name)
+            // console.log(skill_name)
             if (skill_name) {
               const skill = characterStore.skills.find(skill => skill.name == skill_name)
               if (skill) {
@@ -180,5 +180,15 @@
     width: 28px;
     background-color: black;
     border: rgb(29, 29, 29) solid 1px;
+  }
+  .size-11 {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    font-size: 12px;
+    transform: scale(0.85);
+    color: #fee86b;
+    text-shadow: #000 2px 0 0, #000 0 2px 0, #000 -2px 0 0, #000 0 -2px 0;
+    -webkit-font-smoothing: antialiased;
   }
 </style>

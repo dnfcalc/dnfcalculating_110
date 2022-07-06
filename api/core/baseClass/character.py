@@ -356,7 +356,7 @@ class Character(角色属性):
 
     def 指令技攻加成(self, x: float, min=1, max=100, exc=[50, 85, 100]) -> None:
         for i in self.技能栏:
-            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc and i.手搓 == True:
+            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc and i.手搓 == True and i.名称 != '神罚之锤':
                 if i.是否有伤害 == 1:
                     i.倍率 *= (1 + x * self.技能伤害增加增幅)
 
@@ -993,7 +993,7 @@ class Character(角色属性):
                 temp['damage'] = temp.get('damage', 0) + damage
                 temp['count'] = temp.get('count', 0) + 1
                 skill_dict[k.名称] = temp
-                if k.名称 not in ['爆裂弹', '杀意波动', '万毒噬心诀']:
+                if k.名称 not in ['爆裂弹', '杀意波动', '万毒噬心诀', '神罚之锤']:
                     无色消耗 += i['无色消耗']
         data['skills_passive'] = {}
         for i in self.技能栏:
@@ -1335,9 +1335,13 @@ class Character(角色属性):
                 非关联技能 = getattr(i, "非关联技能"+index, ["无"])
                 try:
                     加成倍率 = eval("i.加成倍率"+index+"(self.武器类型)")
+                    if i.名称 == "蓄念炮":
+                        print(eval("i.加成倍率"+index+"(self.武器类型)"),
+                              eval("i.加成描述"+index+"(self.武器类型)"))
                 except:
                     加成倍率 = 1.0
                 try:
+                    # print(i.名称, 加成倍率, eval("i.加成描述"+index+"(self.武器类型)"))
                     if 加成倍率 != 1:
                         self.skills_passive[i.名称]['info'].append({
                             "type": "倍率",
