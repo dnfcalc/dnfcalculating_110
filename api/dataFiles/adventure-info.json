@@ -126,7 +126,7 @@
     "children": [
       { "name": "elven_knight", "title": "皓曦·精灵骑士" },
       { "name": "chaos", "title": "皓曦·混沌魔灵" },
-      { "name": "paladin", "title": "皓曦·帕拉丁" },
+      { "name": "paladin", "title": "皓曦·帕拉丁", "open": true },
       { "name": "dragon_knight", "title": "皓曦·龙骑士" },
       { "name": "empty", "title": "" }
     ]
