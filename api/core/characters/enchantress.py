@@ -153,7 +153,7 @@ class 知源·小魔女技能2(辅助职业主动技能):
         倍率 = self.倍率
 
         偏爱 = context.get_skill_by_name('小魔女的偏爱')
-        if 偏爱.是否启用 and not (hasattr(context, '偏爱独立计算') and context.偏爱独立计算):
+        if 偏爱.等级 > 0 and 偏爱.是否启用 and not (hasattr(context, '偏爱独立计算') and context.偏爱独立计算):
             倍率 *= 1 + 偏爱.增幅倍率
 
         力智 = int((新词条力智 + 旧词条力智) * 倍率)
@@ -177,7 +177,7 @@ class 知源·小魔女技能3(辅助职业主动技能):
         if buff.是否启用:
             values = buff.结算统计(context)
 
-            if hasattr(context, '偏爱独立计算') and context.偏爱独立计算 and 偏爱.是否启用:
+            if 偏爱.等级 > 0 and 偏爱.是否启用 and (hasattr(context, '偏爱独立计算') and context.偏爱独立计算):
                 temps = 偏爱.结算统计(context)
                 for i in range(len(temps)):
                     values[i] += temps[i]
