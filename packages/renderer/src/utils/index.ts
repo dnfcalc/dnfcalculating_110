@@ -294,6 +294,6 @@ export function rarityClass(type: string) {
     case "传说":
       return "legend"
     default:
-      return ""
+      return "epic"
   }
 }
