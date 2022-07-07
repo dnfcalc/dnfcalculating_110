@@ -1,5 +1,6 @@
 <script lang="tsx">
   import { useBasicInfoStore, useCharacterStore } from "@/store"
+  import { rarityClass } from "@/utils"
   import { asyncComputed } from "@vueuse/core"
   import { computed, defineComponent, PropType, reactive, renderList } from "vue"
 
@@ -247,23 +248,6 @@
         }
         return s
       })
-
-      const rarityClass = function (type: string) {
-        switch (type) {
-          case "史诗":
-            return "epic"
-          case "神话":
-            return "myth"
-          case "智慧产物":
-            return "epic"
-          case "神器":
-            return "artifact"
-          case "稀有":
-            return "rare"
-          default:
-            return ""
-        }
-      }
 
       const propNames = ["力量", "智力", "体力", "精神", "物理攻击力", "魔法攻击力", "独立攻击力"]
       const badgeNames = ["白金徽章镶嵌栏", "红色徽章镶嵌栏", "绿色徽章镶嵌栏", "蓝色徽章镶嵌栏", "黄色徽章镶嵌栏"]

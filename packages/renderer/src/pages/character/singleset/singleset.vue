@@ -12,6 +12,7 @@
   import { syncRef, useAsyncState, useDebounceFn } from "@vueuse/core"
   import { computed, defineComponent, onUnmounted, reactive, ref, renderList, watch } from "vue"
   import RecommendsVue from "./recommends.vue"
+  import { rarityClass } from "@/utils"
 
   export interface IJadeUpgrade {
     id: number
@@ -401,7 +402,7 @@
                           <calc-item title="右键点击穿戴" onContextmenu={chooseEqu(item)} value={item.id} class="flex h-9 mb-2px px-1 justify-between items-center equip-line relative box-border">
                             <div class="h-full w-full top-0 left-0 absolute mask"></div>
                             <EquipIcon onClick={chooseEqu(item, true)} eq={item}></EquipIcon>
-                            <span class="text-xs ml-4 text-hex-ffb400">{item.name}</span>
+                            <span class={["text-xs", "ml-4", rarityClass(item.rarity ?? "")]}>{item.name}</span>
                             <span class={["h-4 w-6"].concat(isChoose(item) ? "icon-checked" : "")}></span>
                           </calc-item>
                         )

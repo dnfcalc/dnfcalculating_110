@@ -1,6 +1,7 @@
 <script lang="tsx">
   import { IEquipmentInfo } from "@/api/info/type"
   import { useBasicInfoStore } from "@/store"
+  import { rarityClass } from "@/utils"
   import { useToggle, useVModel } from "@vueuse/core"
   import { computed, defineComponent, PropType } from "vue"
 
@@ -67,7 +68,7 @@
               {equip.value && equip.value.icon ? (
                 <div
                   class={["eq-icon"].concat([
-                    equip.value?.rarity ?? "epic"
+                    rarityClass(equip.value?.rarity ?? "")
                     // eq.value.active ? '' : 'gray'
                   ])}
                 >

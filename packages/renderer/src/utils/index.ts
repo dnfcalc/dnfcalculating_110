@@ -278,3 +278,22 @@ export function setSession(key: string, value: any) {
     sessionStorage.setItem(key, JSON.stringify(value))
   }
 }
+
+export function rarityClass(type: string) {
+  switch (type) {
+    case "史诗":
+      return "epic"
+    case "神话":
+      return "myth"
+    case "智慧产物":
+      return "epic"
+    case "神器":
+      return "artifact"
+    case "稀有":
+      return "rare"
+    case "传说":
+      return "legend"
+    default:
+      return ""
+  }
+}
