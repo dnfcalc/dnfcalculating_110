@@ -4,11 +4,12 @@
   "main": "./dist/app/main/index.cjs",
   "license": "GNU",
   "lint-staged": {
-    "**.{js,tsx?,vue,css,scss,html}": [
+    "**.{js,tsx?,py,vue,css,scss,html}": [
       "prettier --write "
     ]
   },
   "scripts": {
+    "dev": "pnpm dev:app",
     "dev:server": "python ./api/main.py",
     "dev:web": "vite ./packages/renderer",
     "dev:app": "node scripts/watch.mjs",
