@@ -134,3 +134,4 @@ async def get_config(name, state: AlterState = Depends(authorize)):
 @infoRouter.get("/configs")
 async def get_config(state: AlterState = Depends(authorize)):
     return response(data=set.get_set_list(state.origin))
+
