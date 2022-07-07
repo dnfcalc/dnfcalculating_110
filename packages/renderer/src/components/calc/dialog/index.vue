@@ -1,4 +1,5 @@
 <script lang="tsx">
+  import { provideShow } from "@/components/hooks/show"
   import { onClickOutside, onKeyDown, syncRef, useDraggable, useVModel } from "@vueuse/core"
   import { computed, defineComponent, PropType, ref, renderSlot, Teleport, Transition, watch } from "vue"
 
@@ -53,6 +54,8 @@
       const headerRef = ref<HTMLElement | null>(null)
 
       const visible = ref(props.visible)
+
+      provideShow(visible)
 
       const loaded = ref(!props.lazy)
 
