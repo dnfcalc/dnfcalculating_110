@@ -9,10 +9,10 @@
 
   import EquipInfo from "@/components/internal/equip/eq-info.vue"
   import { useOpenWindow } from "@/hooks/open"
+  import { rarityClass } from "@/utils"
   import { syncRef, useAsyncState, useDebounceFn } from "@vueuse/core"
   import { computed, defineComponent, onUnmounted, reactive, ref, renderList, watch } from "vue"
   import RecommendsVue from "./recommends.vue"
-  import { rarityClass } from "@/utils"
 
   export interface IJadeUpgrade {
     id: number
@@ -42,7 +42,7 @@
 
       const else_parts = ["称号", "宠物"]
 
-      const filter = ref<FilterFunction | null>(null)
+      const filter = ref<FilterFunction | null>(e => e.part == "武器")
 
       const items = computed<TreeNode[]>(() => {
         return [
