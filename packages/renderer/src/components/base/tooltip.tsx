@@ -140,7 +140,7 @@ export default defineComponent({
             <Transition name="dropdown" mode="out-in">
               {mounted.value && !props.disabled && (
                 <div class={["i-popper z-999", props.popClass]} style={dropdownStyle.value} ref={popupRef}>
-                  {renderSlot(slots, "popper")}
+                  {renderSlot(slots, "popper", isOpen.value)}
                 </div>
               )}
             </Transition>

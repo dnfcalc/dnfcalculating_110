@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { useVModel } from "@vueuse/core"
-  import { defineComponent } from "vue"
+  import { defineComponent, ref } from "vue"
   import EqIcon from "./eq-icon.vue"
   import EqInfo from "./eq-info.vue"
 
@@ -48,7 +48,7 @@
 
       const active = useVModel(props, "active")
 
-      function renderEqIcon() {
+      function renderEqinfo() {
         return <eq-icon class="eq-item-icon" eq={props.eq} canClick={props.canClick} onClick={handleClick} v-model:active={active.value} hightlight={props.hightlight}></eq-icon>
       }
 
@@ -56,14 +56,14 @@
         return props.showTips ? (
           <calc-tooltip lazy>
             {{
-              default: renderEqIcon,
-              popper() {
-                return <eq-info colums={props.colums} forget={props.forget} eid={Number(props.eq.id)} pps={props.pps}></eq-info>
+              default: renderEqinfo,
+              popper(isShow: boolean) {
+                return <eq-info colums={props.colums} is-show={isShow ?? false} with-transform forget={props.forget} eid={Number(props.eq.id)} pps={props.pps}></eq-info>
               }
             }}
           </calc-tooltip>
         ) : (
-          renderEqIcon()
+          renderEqinfo()
         )
       }
     }
