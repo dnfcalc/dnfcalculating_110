@@ -67,7 +67,10 @@
 
       const skillQueChange = (skill: ISkillInfo) => {
         return (count: number) => {
-          let indexs = configStore.skill_que.map((s, i) => (s.name == skill.name ? i : -1)).filter(i => i > -1)
+          let indexs = configStore.skill_que
+            .map((s, i) => (s.name == skill.name ? i : -1))
+            .filter(i => i > -1)
+            .sort((a, b) => b - a)
           if (indexs.length > count) {
             // 删除后几位
             for (let i = 0; i < indexs.length - count; i++) {
