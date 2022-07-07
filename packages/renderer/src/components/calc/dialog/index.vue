@@ -56,9 +56,10 @@
 
       const loaded = ref(!props.lazy)
 
-      watch(visible, val => {
+      const stopLoadWatch = watch(visible, val => {
         if (val) {
           loaded.value = true
+          stopLoadWatch()
         }
       })
 

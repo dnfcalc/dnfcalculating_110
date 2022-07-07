@@ -4,6 +4,7 @@
  * @Last Modified by:   Kritsu
  * @Last Modified time: 2021/11/17 18:49:42
  */
+import { syncRefs, useVModel } from "@vueuse/core"
 import { computed, CSSProperties, defineComponent, nextTick, PropType, reactive, ref, renderSlot, Teleport, Transition, watch } from "vue"
 
 export const tooltipProps = {
@@ -21,15 +22,26 @@ export const tooltipProps = {
   lazy: {
     type: Boolean,
     default: () => false
+  },
+  visible: {
+    type: Boolean,
+    default: () => false
+  },
+  disabled: {
+    type: Boolean,
+    default: () => false
   }
 }
 
 export default defineComponent({
   name: "i-tooltip",
-  emits: ["change"],
+  emits: ["change", "update:visible"],
   props: tooltipProps,
   setup(props, { slots, emit }) {
-    const isOpen = ref(false)
+    const isOpen = ref(props.visible)
+
+    syncRefs(useVModel(props, "visible"), isOpen)
+
     let timer: NodeJS.Timeout
 
     const triggerRef = ref<HTMLElement>()
@@ -50,17 +62,25 @@ export default defineComponent({
     const mounted = ref(false)
 
     function onMouseover() {
+      if (props.disabled) {
+        return
+      }
       timer = setTimeout(
         function () {
           isOpen.value = true
+          emit("change", true)
         },
         props.lazy ? 800 : 100
       )
     }
 
     function onMouseout() {
+      if (props.disabled) {
+        return
+      }
       clearTimeout(timer)
       isOpen.value = false
+      emit("change", false)
     }
 
     function resize() {
@@ -109,7 +129,6 @@ export default defineComponent({
       if (val) {
         mounted.value = true
       }
-      emit("change", val)
       nextTick(resize)
     })
 
@@ -119,7 +138,7 @@ export default defineComponent({
           {renderSlot(slots, "default")}
           <Teleport to="body">
             <Transition name="dropdown" mode="out-in">
-              {mounted.value && (
+              {mounted.value && !props.disabled && (
                 <div class={["i-popper z-999", props.popClass]} style={dropdownStyle.value} ref={popupRef}>
                   {renderSlot(slots, "popper")}
                 </div>

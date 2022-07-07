@@ -45,7 +45,7 @@
         default: "hightLight"
       }
     },
-    setup(props, { emit }) {
+    setup(props) {
       const active = useVModel(props, "active")
       const badgeClass = ["white", "red", "green", "blue", "yellow"]
       const toggle = useToggle(active)
