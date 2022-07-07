@@ -8,6 +8,8 @@ from fastapi import FastAPI
 from routers.app import appRouter
 from routers.calc import calcRouter
 from routers.info import infoRouter
+from routers.skycity import skycityRouter
+
 from starlette.responses import FileResponse, HTMLResponse
 from starlette.staticfiles import StaticFiles
 from utils.apiTools import register_cors, register_exception
@@ -20,10 +22,11 @@ register_exception(app)
 register_cors(app)
 
 # 路由添加注册
-app.include_router(infoRouter, prefix="/api", tags=['杂项信息接口'])
+app.include_router(infoRouter, prefix="/api", tags=['信息接口'])
 
-app.include_router(calcRouter, prefix="/api", tags=['杂项信息接口'])
-app.include_router(appRouter, prefix="/api", tags=['杂项信息接口'])
+app.include_router(calcRouter, prefix="/api", tags=['信息接口'])
+app.include_router(appRouter, prefix="/api", tags=['信息接口'])
+app.include_router(skycityRouter, prefix="/api", tags=['信息接口'])
 
 
 def not_found(request, exc):

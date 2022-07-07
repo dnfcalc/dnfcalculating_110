@@ -41,7 +41,7 @@
         }
       )
 
-      const totalPage = computed(() => Math.floor(state.value.totalCount / params.size) + 1)
+      const totalPage = computed(() => Math.ceil(state.value.totalCount / params.size))
 
       function apply(eq: IRecommendInfo) {
         return () => {

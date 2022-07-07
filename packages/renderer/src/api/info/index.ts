@@ -34,7 +34,7 @@ export default defineRequest(request => {
       return request.get<Record<string, Dress[]>>("/dress")
     },
     recommends(params: IRecommendRequest) {
-      return request.get<PagingData<IRecommendInfo>>("https://dnf.skycity.top:8017/api/DCalc/LoadRecommendPage", { params }).then(r => r as unknown as PagingData<IRecommendInfo>)
+      return request.get<PagingData<IRecommendInfo>>("/recommend", { params }).then(r => r as unknown as PagingData<IRecommendInfo>)
     }
   }
 })
