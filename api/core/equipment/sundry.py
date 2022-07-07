@@ -608,7 +608,19 @@ def sundries_27058(char: Character = {}, mode=0, text=False, *args):
     if text:
         return "(0, '收集箱', '夏日套')"
     if mode == 0:
-        pass
+        # 可变参数
+        xy = 0
+        sq = 0
+        try:
+            xy = args[0]
+        except:
+            pass
+        try:
+            sq = args[1]
+        except:
+            pass
+        char.基础属性加成(四维=sq*5,三攻=xy*5)
+        char.所有属性强化加成(sq*1)
     if mode == 1:
         pass
 

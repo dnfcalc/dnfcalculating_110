@@ -13993,6 +13993,14 @@ def enchanting_24304(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 1:
         pass
 
+def enchanting_24304(char: Character = {}, mode=0, text=False, rate=1.0):
+    if text:
+        return "(0, '宠物装备-红', '攻击强化(8%)')"
+    if mode == 0:
+        char.百分比攻击强化加成(0.08)
+        pass
+    if mode == 1:
+        pass
 
 def enchanting_24351(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
@@ -14058,7 +14066,7 @@ def enchanting_24551(char: Character = {}, mode=0, text=False, rate=1.0):
 
 def enchanting_24601(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
-        return "(0, '快捷装备', '三攻(40)|附加伤害(8%)|攻击强化(8%)')"
+        return "(0, '快捷装备', '三攻(30)|附加伤害(8%)|攻击强化(8%)')"
     if mode == 0:
         pass
     if mode == 1:
@@ -14090,6 +14098,16 @@ def enchanting_24603(char: Character = {}, mode=0, text=False, rate=1.0):
         char.基础属性加成(四维=50)
         pass
 
+
+def enchanting_24601(char: Character = {}, mode=0, text=False, rate=1.0):
+    if text:
+        return "(0, '快捷装备', '三攻(30)|攻击强化(8%)')"
+    if mode == 0:
+        pass
+    if mode == 1:
+        char.基础属性加成(三攻=30)
+        char.百分比攻击强化加成(0.08)
+        pass
 # endregion
 
 
