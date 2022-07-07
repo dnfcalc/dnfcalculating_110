@@ -151,7 +151,8 @@
     height: 30px;
     position: relative;
     display: inline-block;
-    border-radius: 3px;
+    border-radius: 2px;
+    overflow: hidden;
 
     &.gray {
       -webkit-filter: grayscale(100%);
@@ -164,30 +165,32 @@
 
     &::before {
       content: "";
-      width: 28px;
-      height: 28px;
-      display: inline-block;
+      width: 26px;
+      height: 26px;
       position: absolute;
-      background-color: rgba($color: #000000, $alpha: 1);
+      // border: 1px solid rgba(#666666, 0.5);
       top: 1px;
       left: 1px;
+      z-index: 1;
     }
 
     &::after {
       content: "";
-      width: 27px;
-      height: 27px;
+      width: 30px;
+      height: 30px;
       position: absolute;
       top: 0;
       left: 0;
-      border: 1.5px solid;
-      border-image: linear-gradient(red, #000) 1;
-      clip-path: inset(0 round 2px);
+      background-image: url(@/assets/img/rarity/稀有.png);
+      background-size: 100%;
+      //border: 1.5px solid;
+      //border-image: linear-gradient(#e7a300, #000) 1;
+      //clip-path: inset(0 round 2px);
     }
 
     &.normal {
       &::after {
-        border-image: linear-gradient(#e7a300, #000) 1;
+        background-image: url(@/assets/img/rarity/史诗.png);
       }
     }
     &.advanced {
@@ -197,27 +200,27 @@
     }
     &.rare {
       &::after {
-        border-image: linear-gradient(#a060e4, #000) 1;
+        background-image: url(@/assets/img/rarity/稀有.png);
       }
     }
     &.artifact {
       &::after {
-        border-image: linear-gradient(#ef00ef, #000) 1;
+        background-image: url(@/assets/img/rarity/神奇.png);
       }
     }
     &.legend {
       &::after {
-        border-image: linear-gradient(#e96e00, #000) 1;
+        background-image: url(@/assets/img/rarity/传说.png);
       }
     }
     &.epic {
       &::after {
-        border-image: linear-gradient(#e7a300, #000) 1;
+        background-image: url(@/assets/img/rarity/史诗.png);
       }
     }
     &.myth {
       &::after {
-        border-image: linear-gradient(#f8c63d, #cc66e7) 1;
+        background-image: url(@/assets/img/rarity/神话.png);
       }
     }
     // &.can-click:hover {
