@@ -6,6 +6,7 @@
  */
 import { syncRefs, useVModel } from "@vueuse/core"
 import { computed, CSSProperties, defineComponent, nextTick, PropType, reactive, ref, renderSlot, Teleport, Transition, watch } from "vue"
+import { provideShow } from "../hooks/show"
 
 export const tooltipProps = {
   popClass: {
@@ -41,6 +42,8 @@ export default defineComponent({
     const isOpen = ref(props.visible)
 
     syncRefs(useVModel(props, "visible"), isOpen)
+
+    provideShow(isOpen)
 
     let timer: NodeJS.Timeout
 
@@ -140,7 +143,7 @@ export default defineComponent({
             <Transition name="dropdown" mode="out-in">
               {mounted.value && !props.disabled && (
                 <div class={["i-popper z-999", props.popClass]} style={dropdownStyle.value} ref={popupRef}>
-                  {renderSlot(slots, "popper", isOpen.value)}
+                  {renderSlot(slots, "popper")}
                 </div>
               )}
             </Transition>

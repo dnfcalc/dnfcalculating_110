@@ -348,7 +348,7 @@
       return () => (
         <div class="flex singleset" ref={singleRef}>
           <calc-dialog lazy header="流派推荐(玩家上传)" v-model:visible={recommendVisible.value}>
-            <RecommendsVue v-model:visible={recommendVisible.value}></RecommendsVue>
+            <RecommendsVue></RecommendsVue>
           </calc-dialog>
 
           <div class="flex flex-col m-7px mb-0">

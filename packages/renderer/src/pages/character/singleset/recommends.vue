@@ -1,20 +1,13 @@
 <script lang="tsx">
   import api from "@/api"
   import { IRecommendInfo, IRecommendRequest } from "@/api/info/type"
+  import { isShow, onShow } from "@/components/hooks/show"
   import EqIconVue from "@/components/internal/equip/eq-icon.vue"
   import { useCharacterStore, useConfigStore } from "@/store"
-  import { useAsyncState, useVModel } from "@vueuse/core"
+  import { useAsyncState } from "@vueuse/core"
   import { computed, defineComponent, reactive, renderList } from "vue"
   export default defineComponent({
-    props: {
-      visible: {
-        type: Boolean,
-        default: false
-      }
-    },
-    setup(props) {
-      const visible = useVModel(props, "visible")
-
+    setup() {
       const characterStore = useCharacterStore()
       const configStore = useConfigStore()
 
@@ -36,9 +29,14 @@
           totalCount: 1
         },
         {
-          resetOnExecute: false
+          resetOnExecute: false,
+          immediate: false
         }
       )
+
+      const visible = isShow()
+
+      onShow(execute, { immediate: true })
 
       const totalPage = computed(() => Math.ceil(state.value.totalCount / params.size))
 
