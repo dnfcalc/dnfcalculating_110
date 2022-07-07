@@ -1,6 +1,6 @@
 import api from "@/api"
 import { defineStore } from "pinia"
-import { Dress, IEnchantingInfo, IEquipmentList, IJadeInfo, ITrigger } from "../api/info/type"
+import { Dress, IEnchantingInfo, IEquipmentInfo, IEquipmentList, IJadeInfo, ITrigger } from "../api/info/type"
 import { useCharacterStore } from "./character"
 
 interface BasicInfoState {
@@ -65,7 +65,8 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       return []
     },
     equiment_ids() {
-      return this.equipment_list.map(r => r.id)
+      const list = this.equipment_list as IEquipmentInfo[]
+      return list.map(item => item.id)
     },
     equipment_singleset(state) {
       const info = state._equipmentInfo
