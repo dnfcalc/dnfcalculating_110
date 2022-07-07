@@ -3,47 +3,22 @@
 ### 2022.07.08.Beta
 
 #### NewFeatures
-* 新增无名空岛搭配导入<br>
-* new:新增无名空岛搭配导入. ([f1321f](https://gitee.com/dcalc/dnfcalculating_110/commit/f1321fab99abf78fda1f0e812151a23f6c8146a7))
-* 根据角色属性进行权重排序<br>
-* new:根据角色属性进行权重排序 ([1c46a2](https://gitee.com/dcalc/dnfcalculating_110/commit/1c46a275e6201593c577dc54f827a75a39179787))
+* 新增无名空岛搭配导入. ([f1321f](https://gitee.com/dcalc/dnfcalculating_110/commit/f1321fab99abf78fda1f0e812151a23f6c8146a7))
+* 根据角色属性进行权重排序 ([1c46a2](https://gitee.com/dcalc/dnfcalculating_110/commit/1c46a275e6201593c577dc54f827a75a39179787))
 * 添加夏日礼包相关 ([c7b308](https://gitee.com/dcalc/dnfcalculating_110/commit/c7b308f99aafeaa8179f22e9b005c3d3cfc7a9b0))
 * 添加女气功 ([0186e4](https://gitee.com/dcalc/dnfcalculating_110/commit/0186e44afed6e5467ab7aaf6eebca93f04e25c6a))
 * 添加帕拉丁 ([63e5a4](https://gitee.com/dcalc/dnfcalculating_110/commit/63e5a461e0e31592c1c54004ade086b8488be6d5))
-* 添加技能快捷键<br>
-* new:添加技能快捷键 ([dd3851](https://gitee.com/dcalc/dnfcalculating_110/commit/dd38514b185e045d20f2dd5c164f9d543a30df42))
+* 添加技能快捷键 ([dd3851](https://gitee.com/dcalc/dnfcalculating_110/commit/dd38514b185e045d20f2dd5c164f9d543a30df42))
 * 添加暗殿骑士 ([08713a](https://gitee.com/dcalc/dnfcalculating_110/commit/08713a7282d1f239aea1e9a286ecaf6cbe33e7d2))
 * 添加自选属性显示 ([38532f](https://gitee.com/dcalc/dnfcalculating_110/commit/38532f0dbb16b1f450799b6ddf0b5ec96d1c6d25))
 * 添加药剂 ([1b51c5](https://gitee.com/dcalc/dnfcalculating_110/commit/1b51c50c4bfc64b7bdb9c047e3fa3755d1c3f3bb))
 * 添加药剂 ([c5dc64](https://gitee.com/dcalc/dnfcalculating_110/commit/c5dc64c1351d04907529304dc5ff59e9b8f89076))
-* 自选史诗重构<br>
-* new:自选史诗重构 ([1db248](https://gitee.com/dcalc/dnfcalculating_110/commit/1db248aaa57d5245dc692349f2469830c3e4e4ac))
-* 自选页面重构<br>
-* new:自选页面重构 ([48bc4d](https://gitee.com/dcalc/dnfcalculating_110/commit/48bc4d08dd73ba2010accb3b346d1839724d6f3f))
+* 自选史诗重构 ([1db248](https://gitee.com/dcalc/dnfcalculating_110/commit/1db248aaa57d5245dc692349f2469830c3e4e4ac))
+* 自选页面重构 ([48bc4d](https://gitee.com/dcalc/dnfcalculating_110/commit/48bc4d08dd73ba2010accb3b346d1839724d6f3f))
 
 #### BugFixes
-* dcalc/dnfcalculating_110<br>
-* Merge branch 'master' of gitee.com:dcalc/dnfcalculating_110<br>
-* refactor . ([82171c](https://gitee.com/dcalc/dnfcalculating_110/commit/82171cf87ae5ba184151d9a6c05d4dde3a4e8197))
-* fix bugs.<br>
-* fix bugs. ([3f60a7](https://gitee.com/dcalc/dnfcalculating_110/commit/3f60a797a6602e7faab3ee1160ba6c82b531e8cd))
-* fix bugs.<br>
-* fix bugs. ([72c287](https://gitee.com/dcalc/dnfcalculating_110/commit/72c287b719c14153be927306af7c3430513cf300))
-* fix bugs.<br>
-* fix bugs. ([99c79b](https://gitee.com/dcalc/dnfcalculating_110/commit/99c79b0859054bae9ad791b9a682dc67285e4922))
-* fix bugs.<br>
-* fix bugs. ([d63c59](https://gitee.com/dcalc/dnfcalculating_110/commit/d63c59a065e5e75ef4c6b5bfb22afc70aff3b521))
-* fix components.<br>
-* chore.<br>
-* fix components. ([f7b2c2](https://gitee.com/dcalc/dnfcalculating_110/commit/f7b2c29d86834a801f241f10ee41e5e95a540f0a))
-* fix components.<br>
-* fix components. ([14a9d2](https://gitee.com/dcalc/dnfcalculating_110/commit/14a9d2673e8c6a3ec262a0aba02416852b0e9d5f))
-* fix style. ([3da697](https://gitee.com/dcalc/dnfcalculating_110/commit/3da697973e1f332135365d5062ef046ac59fe763))
-* 修复了奶萝偏爱等级为0依然适用偏爱的bug<br>
-* Merge branch 'master' of gitee.com:dcalc/dnfcalculating_110<br>
-* chore.<br>
-* fix:修复了奶萝偏爱等级为0时依然适用偏爱的bug<br>
-* fix bugs. ([b39177](https://gitee.com/dcalc/dnfcalculating_110/commit/b39177b37d6d4a7f8427351872fe88f52f64fdc0))
+
+* 修复了奶萝偏爱等级为0时依然适用偏爱的bug ([b39177](https://gitee.com/dcalc/dnfcalculating_110/commit/b39177b37d6d4a7f8427351872fe88f52f64fdc0))
 * 修正mp鞋、低血裤子的条件判断，hp、mp选择范围默认为90%以上 ([a67095](https://gitee.com/dcalc/dnfcalculating_110/commit/a67095eab2adf6acd330408c466376a4c1aff916))
 * 修正奶爸、奶妈BUFF基础 ([32707d](https://gitee.com/dcalc/dnfcalculating_110/commit/32707df005d08a7df4ad347d545449c0f69d8f10))
 * 修正部分装备名称 ([d0b6ff](https://gitee.com/dcalc/dnfcalculating_110/commit/d0b6ff09a19061fc7f206444fa901253f5282fc3))
