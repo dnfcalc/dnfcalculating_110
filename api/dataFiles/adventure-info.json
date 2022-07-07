@@ -5,8 +5,8 @@
       { "title": "极诣·剑魂", "name": "weapon_master" },
       { "name": "soul_bender", "title": "极诣·鬼泣" },
       { "name": "berserker", "title": "极诣·狂战士", "open": true },
-      { "name": "ghostblade", "title": "极诣·剑影", "open": true },
-      { "name": "asura", "title": "极诣·阿修罗", "open": true }
+      { "name": "asura", "title": "极诣·阿修罗", "open": true },
+      { "name": "ghostblade", "title": "极诣·剑影", "open": true }
     ]
   },
   {

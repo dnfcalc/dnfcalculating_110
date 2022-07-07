@@ -10,7 +10,6 @@
 #### BugFixes
 * 修正战法部分技能伤害异常的问题 ([4b6f0b](https://gitee.com/dcalc/dnfcalculating_110/commit/4b6f0b39f0e182e4830a4fefe20d91f3d5600ced))
 * 修正融化黑暗之温暖属性计算错误<br>
-* fix:修正融化黑暗之温暖属性计算错误 ([3711b1](https://gitee.com/dcalc/dnfcalculating_110/commit/3711b13664bb682b9ebf6b93fee0513bfe94b8ab))
 * 修正装扮部分徽章未生效的情况 fixes #I5EYR3 ([1e3d2c](https://gitee.com/dcalc/dnfcalculating_110/commit/1e3d2c262a63eaa78eaa0f7e3448bb75941748fe))
 * 修正详情打开报错的情况 ([3f4e28](https://gitee.com/dcalc/dnfcalculating_110/commit/3f4e28d85c99ec8d3632e11af0f6e90b826203ac))
 * 修正详情界面百分比显示问题 ([695c9f](https://gitee.com/dcalc/dnfcalculating_110/commit/695c9fe856eaa0548e7f389ae977f0f6cc79c162))
