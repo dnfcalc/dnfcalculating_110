@@ -200,3 +200,32 @@ body,
   background-size: 10px 10px;
   background-position: center;
 }
+
+.normal {
+  color: #ffffff;
+}
+.advanced {
+  color: #68d5ed;
+}
+.rare {
+  color: #b36bff;
+}
+.artifact {
+  color: #ff00ff;
+}
+.legend {
+  color: #e96e00;
+}
+.epic {
+  color: #ffb400;
+}
+.myth {
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f8c63d), color-stop(1, #cc66e7));
+  color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  -webkit-background-clip: text;
+  > span {
+    text-shadow: none !important;
+  }
+}

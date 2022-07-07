@@ -576,7 +576,7 @@
                       <div onClick={setPart(part)} class="absolute" style={infoStyle(part)}>
                         {currentInfo(part)}
                       </div>
-                      <div onClick={setPart(part)} class="h-7 w-7 absolute " style={partIconStyle(part)}>
+                      <div onClick={setPart(part)} class="absolute " style={partIconStyle(part)}>
                         <div class="h-full w-full relative overflow-hidden">
                           {getEqu(part) ? (
                             <EquipTips
