@@ -14,7 +14,7 @@
     info: string
   }
 
-  interface forBadgeArray {
+  interface BadgeItem {
     type: number
     props: string[]
   }
@@ -62,6 +62,7 @@
           if (props.withTransform) {
             loadTransform(temp) // 加载打造数据
           }
+          console.log(temp)
           return temp
         }
       })
@@ -197,28 +198,6 @@
         }
       }
 
-      const growthClass = function (id: number) {
-        const classNames = []
-
-        if (id == 100) {
-          classNames.push("yellow")
-        } else if (id == 102) {
-          classNames.push("strong")
-        }
-        if (id > 100) {
-          classNames.push("paddleft")
-        }
-        if (id >= 1000) {
-          classNames.push("suiji-props")
-          if (id > 1000) {
-            classNames.push("yellow")
-          } else {
-            classNames.push("gey")
-          }
-        }
-        return classNames
-      }
-
       const characterStore = useCharacterStore()
 
       const is_buffer = computed(() => characterStore.is_buffer)
@@ -279,7 +258,7 @@
         growthLvs: [1, 1, 1, 1], // 词条等级
         growthAttacks: [0, 0, 0, 0], // 词条等级
         growthBuffers: [0, 0, 0, 0], // 词条等级
-        badges: [] as forBadgeArray[] //[ { type: 1,  props: [ "智力 +30", ] }, { type: 2,  props: [ "智力+30 魔爆+3%", ] }, { type: 3,  props: [ "物攻 +20", ] },
+        badges: [] as BadgeItem[] //[ { type: 1,  props: [ "智力 +30", ] }, { type: 2,  props: [ "智力+30 魔爆+3%", ] }, { type: 3,  props: [ "物攻 +20", ] },
         //{ type: 4,  props: [ "智力 +15", ] }, { type: 0,  props: [  "四维+8 [冰之领悟]技能Lv+1", ] }, ], // 徽章
       })
       function loadTransform(eq: any) {
