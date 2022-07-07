@@ -12,11 +12,6 @@ interface ConfigState extends ICharacterSet {
   _configlist: string[] | undefined
 }
 
-interface datawithuid {
-  UID?: string
-  type?: number
-}
-
 export const useConfigStore = defineStore("config", {
   state: (): ConfigState => {
     return {
@@ -54,17 +49,8 @@ export const useConfigStore = defineStore("config", {
       return state._configlist
     },
     data(state) {
-      const basicStore = useBasicInfoStore()
-      const map = new Map<string, ID>()
-      for (let id of state.single_set) {
-        const equip = basicStore.equipment_list.find(e => e.id == id)
-        if (equip) {
-          map.set(equip.part, id)
-        }
-      }
-      const single_set = [...map.values()].sort((a, b) => Number(a) - Number(b))
       return {
-        single_set,
+        single_set: state.single_set,
         equip_list: [...state.wisdom_list, ...state.myths_list, ...state.weapons_list, ...state.lv110_list],
         carry_type: state.carry_type,
         attack_attribute: state.attack_attribute,
@@ -179,15 +165,29 @@ export const useConfigStore = defineStore("config", {
         }
       }
       this.single_set.push(id)
+      this.trimSingle()
     },
 
-    importSignle(ids: ID[]) {
+    importSingle(ids: ID[]) {
       const basicStore = useBasicInfoStore()
       ids = ids.filter(id => basicStore.equiment_ids.includes(id))
       if (ids.length == 0) {
         return
       }
       this.single_set.push(...ids)
+      this.trimSingle()
+    },
+
+    trimSingle() {
+      const basicStore = useBasicInfoStore()
+      const map = new Map<string, ID>()
+      for (let id of this.single_set) {
+        const equip = basicStore.getEquip(id)
+        if (equip) {
+          map.set(equip.part, id)
+        }
+      }
+      this.single_set = [...map.values()].sort((a, b) => Number(a) - Number(b))
     },
     addSkillQueue(skill: ISkillInfo) {
       this.skill_que.push({ name: skill.name, mode: skill.mode?.[0] ?? "", modes: skill.mode })

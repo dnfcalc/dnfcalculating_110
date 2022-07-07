@@ -44,8 +44,8 @@
 
       function apply(item: IRecommendInfo) {
         return () => {
-          configStore.importSignle(item.equips.map(r => r.id))
-          visible.value = true
+          configStore.importSingle(item.equips.map(r => r.id))
+          visible.value = false
         }
       }
 
