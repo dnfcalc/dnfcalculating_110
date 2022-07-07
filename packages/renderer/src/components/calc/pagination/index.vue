@@ -1,5 +1,6 @@
 <script lang="tsx">
-  import { computed, defineComponent } from "vue"
+  import { onKeyStroke } from "@vueuse/core"
+  import { computed, defineComponent, onUnmounted, PropType } from "vue"
 
   export default defineComponent({
     props: {
@@ -14,6 +15,14 @@
       minPage: {
         type: Number,
         default: () => 1
+      },
+      parent: {
+        type: Object as PropType<HTMLElement>,
+        default: () => document
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       }
     },
     setup(props, { emit }) {
@@ -26,30 +35,40 @@
         }
       })
 
-      function prev() {
-        if (page.value > 0) {
+      function prev(e: Event) {
+        e.preventDefault()
+        if (page.value > 1 && !props.disabled) {
           page.value--
           emit("prev")
           emit("change", page.value)
         }
       }
 
-      function next() {
-        if (page.value < props.totalPage) {
+      function next(e: Event) {
+        e.preventDefault()
+        if (page.value < props.totalPage && !props.disabled) {
           page.value = page.value + 1
           emit("next")
           emit("change", page.value)
         }
       }
 
+      const removePrev = onKeyStroke(["F1", "PageUp"], prev, { target: props.parent })
+      const removeNext = onKeyStroke(["F2", "PageDown"], next, { target: props.parent })
+
+      onUnmounted(() => {
+        removePrev()
+        removeNext()
+      })
+
       return () => {
         return (
           <div class="flex space-x-1 h-10 w-full items-center justify-center">
-            <calc-button icon="prev" disabled={page.value <= 1} onClick={prev}></calc-button>
+            <calc-button icon="prev" disabled={page.value <= 1 || props.disabled} onClick={prev}></calc-button>
             <span class="text-center w-8">
               {page.value}/{props.totalPage}
             </span>
-            <calc-button icon="next" disabled={props.page >= props.totalPage} onClick={next}></calc-button>
+            <calc-button icon="next" disabled={props.page >= props.totalPage || props.disabled} onClick={next}></calc-button>
           </div>
         )
       }

@@ -2,7 +2,7 @@
   import api from "@/api"
   import { IRecommendInfo, IRecommendRequest } from "@/api/info/type"
   import EqIconVue from "@/components/internal/equip/eq-icon.vue"
-  import { useBasicInfoStore, useCharacterStore, useConfigStore } from "@/store"
+  import { useCharacterStore, useConfigStore } from "@/store"
   import { useAsyncState, useVModel } from "@vueuse/core"
   import { computed, defineComponent, reactive, renderList } from "vue"
   export default defineComponent({
@@ -16,7 +16,6 @@
       const visible = useVModel(props, "visible")
 
       const characterStore = useCharacterStore()
-      const infoStore = useBasicInfoStore()
       const configStore = useConfigStore()
 
       const params = reactive<IRecommendRequest>({
@@ -43,47 +42,45 @@
 
       const totalPage = computed(() => Math.ceil(state.value.totalCount / params.size))
 
-      function apply(eq: IRecommendInfo) {
+      function apply(item: IRecommendInfo) {
         return () => {
-          configStore.single_set = eq.equips.map(r => r.id).filter(r => infoStore.equiment_ids.includes(r))
-          visible.value = false
+          configStore.importSignle(item.equips.map(r => r.id))
+          visible.value = true
         }
       }
 
       return () => {
         return (
-          <calc-dialog header="流派推荐(玩家上传)" v-model:visible={visible.value}>
-            <div class="h-132 py-2 px-4 text-hex-e9c556 w-120 overflow-y-auto">
-              <div class="flex space-x-4 w-full box-border items-center">
-                <calc-autocomplete class="flex-1" placeholder="输入关键字搜索流派搭配" v-model={params.keyword}></calc-autocomplete>
-                <calc-button onClick={execute}>搜索</calc-button>
-              </div>
-              <div class="h-108">
-                {renderList(state.value.data, item => {
-                  return (
-                    <div class="mx-auto  my-2 ">
-                      <div class="flex h-6 text-sm leading-6 w-96 items-center justify-between">
-                        <span>{item.name}</span>
-                        <span>[{item.author}]</span>
-                      </div>
-                      <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                          {renderList(item.equips.slice(0, 12), eq => {
-                            return <EqIconVue class="px-1px" eid={eq.id}></EqIconVue>
-                          })}
-                        </div>
-                        <calc-button onClick={apply(item)}>应用</calc-button>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-              <calc-pagination class="h-8" v-model:page={params.page} onChange={() => execute()} totalPage={totalPage.value}></calc-pagination>
-              <a href="https://www.skycity.top/dictionary?from=dcalc" target="__blank" class="flex w-full text-hex-f4e713 justify-center">
-                Power by SkyCity
-              </a>
+          <div class="h-132 py-2 px-4 text-hex-e9c556 w-120 overflow-y-auto">
+            <div class="flex space-x-4 w-full box-border items-center">
+              <calc-autocomplete class="flex-1" placeholder="输入关键字搜索流派搭配" v-model={params.keyword}></calc-autocomplete>
+              <calc-button onClick={execute}>搜索</calc-button>
             </div>
-          </calc-dialog>
+            <div class="h-108">
+              {renderList(state.value.data, item => {
+                return (
+                  <div class="mx-auto  my-2 ">
+                    <div class="flex h-6 text-sm leading-6 w-96 items-center justify-between">
+                      <span>{item.name}</span>
+                      <span>[{item.author}]</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center">
+                        {renderList(item.equips.slice(0, 12), eq => {
+                          return <EqIconVue class="px-1px" eid={eq.id}></EqIconVue>
+                        })}
+                      </div>
+                      <calc-button onClick={apply(item)}>应用</calc-button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            <calc-pagination disabled={!visible.value} class="h-8" v-model:page={params.page} onChange={() => execute()} totalPage={totalPage.value}></calc-pagination>
+            <a href="https://www.skycity.top/dictionary?from=dcalc" target="__blank" class="flex w-full text-hex-f4e713 justify-center">
+              Power by SkyCity
+            </a>
+          </div>
         )
       }
     }

@@ -9,7 +9,7 @@
 
   import EquipInfo from "@/components/internal/equip/eq-info.vue"
   import { useOpenWindow } from "@/hooks/open"
-  import { onKeyStroke, syncRef, useAsyncState, useDebounceFn } from "@vueuse/core"
+  import { syncRef, useAsyncState, useDebounceFn } from "@vueuse/core"
   import { computed, defineComponent, onUnmounted, reactive, ref, renderList, watch } from "vue"
   import RecommendsVue from "./recommends.vue"
 
@@ -57,6 +57,7 @@
             value: "武器",
             onSelect() {
               filter.value = e => e.part == "武器"
+              choose_part.value = "武器"
             },
             children: characterStore.weapon_types.map(r => {
               return {
@@ -64,6 +65,7 @@
                 value: r,
                 onSelect() {
                   filter.value = e => e.type == r && e.part == "武器"
+                  choose_part.value = "武器"
                 }
               }
             })
@@ -80,6 +82,7 @@
                 value: part,
                 onSelect() {
                   filter.value = e => e.part == part
+                  choose_part.value = part
                 },
                 children: armor_types.map(t => {
                   return {
@@ -87,6 +90,7 @@
                     value: `${part}_${t}`,
                     onSelect() {
                       filter.value = e => e.type == t && e.part == part
+                      choose_part.value = part
                     }
                   }
                 })
@@ -105,6 +109,7 @@
                 value: part,
                 onSelect() {
                   filter.value = e => e.part == part
+                  choose_part.value = part
                 }
               }
             })
@@ -121,6 +126,7 @@
                 value: part,
                 onSelect() {
                   filter.value = e => e.part == part
+                  choose_part.value = part
                 }
               }
             })
@@ -137,6 +143,7 @@
                 value: part,
                 onSelect() {
                   filter.value = e => e.part == part
+                  choose_part.value = part
                 }
               }
             })
@@ -168,15 +175,19 @@
         return equips.value.slice(start, end)
       })
 
+      const choose_item = ref("武器")
       const choose_part = ref("武器")
 
       function reset() {
         choose_feature.value = []
         keyword.cache = ""
         keyword.value = ""
+        choose_item.value = "武器"
         choose_part.value = "武器"
         pagination.page = 1
       }
+
+      syncRef(choose_item, choose_part, { direction: "rtl" })
 
       const selectEquip = ref<ID>()
 
@@ -278,24 +289,8 @@
         }
       )
 
-      const removePrev = onKeyStroke(["F1", "PageUp"], (e: Event) => {
-        e.preventDefault()
-        if (pagination.page > 1) {
-          pagination.page--
-        }
-      })
-
-      const removeNext = onKeyStroke(["F2", "PageDown"], (e: Event) => {
-        e.preventDefault()
-        if (pagination.page < total_page.value) {
-          pagination.page++
-        }
-      })
-
       onUnmounted(() => {
         stopWatch()
-        removePrev()
-        removeNext()
       })
 
       const curEquList = computed(() => {
@@ -347,9 +342,13 @@
         recommendVisible.value = true
       }
 
+      const singleRef = ref<HTMLElement | null>(null)
+
       return () => (
-        <div class="flex singleset">
-          <RecommendsVue v-model:visible={recommendVisible.value}></RecommendsVue>
+        <div class="flex singleset" ref={singleRef}>
+          <calc-dialog lazy header="流派推荐(玩家上传)" v-model:visible={recommendVisible.value}>
+            <RecommendsVue v-model:visible={recommendVisible.value}></RecommendsVue>
+          </calc-dialog>
 
           <div class="flex flex-col m-7px mb-0">
             <div class="w-125">
@@ -357,7 +356,7 @@
                 <div class="w-full pb-1.5">
                   <div class="bg-hex-000000/45 py-2 px-2 justify-between items-center">
                     <div class="flex space-x-2 mb-2 items-center ">
-                      <calc-cascader v-model={choose_part.value} items={items.value} placeholder="请输入名称搜索" class="flex-1 !h-5"></calc-cascader>
+                      <calc-cascader v-model={choose_item.value} items={items.value} placeholder="请输入名称搜索" class="flex-1 !h-5"></calc-cascader>
                       <calc-select class="!h-5" v-show={characterStore.is_delear} v-model={rarity.value} placeholder="品质">
                         <calc-option value={""}>全部</calc-option>
                         <calc-option value="智慧产物">智慧产物</calc-option>
@@ -411,7 +410,7 @@
                         <div class="flex h-9 mb-2px px-1 justify-between items-center equip-line relative box-border"></div>
                       ))}
                     </calc-selection>
-                    <calc-pagination v-model:page={pagination.page} total-page={total_page.value} v-show={total_page.value > 0}></calc-pagination>
+                    <calc-pagination disabled={recommendVisible.value} v-model:page={pagination.page} total-page={total_page.value} v-show={total_page.value > 0}></calc-pagination>
                   </div>
 
                   <div class="h-full bg-hex-0d0d0d w-52% s-left">

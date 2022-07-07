@@ -54,14 +54,23 @@ export const useConfigStore = defineStore("config", {
       return state._configlist
     },
     data(state) {
+      const basicStore = useBasicInfoStore()
+      const map = new Map<string, ID>()
+      for (let id of state.single_set) {
+        const equip = basicStore.equipment_list.find(e => e.id == id)
+        if (equip) {
+          map.set(equip.part, id)
+        }
+      }
+      const single_set = [...map.values()].sort((a, b) => Number(a) - Number(b))
       return {
+        single_set,
         equip_list: [...state.wisdom_list, ...state.myths_list, ...state.weapons_list, ...state.lv110_list],
         carry_type: state.carry_type,
         attack_attribute: state.attack_attribute,
         skill_set: state.skill_set,
         forge_set: state.forge_set,
         dress_set: state.dress_set,
-        single_set: state.single_set,
         trigger_set: state.trigger_set,
         skill_que: state.skill_que.map((r, id) => {
           return {
@@ -163,26 +172,24 @@ export const useConfigStore = defineStore("config", {
       if (!newEquip) {
         return
       }
-
-      const hasEquip = this.single_set.includes(id)
-
-      basicStore.get_equipment_detail
-
-      this.single_set.push(id)
-
-      const map = new Map<string, ID>()
-      for (let id of this.single_set) {
-        const equip = basicStore.equipment_list.find(e => e.id == id)
-        if (equip) {
-          if (toggle && hasEquip && equip.part == newEquip.part) {
-            continue
-          }
-          map.set(equip.part, id)
+      if (toggle) {
+        const index = this.single_set.indexOf(id)
+        if (index > -1) {
+          this.single_set.splice(index, 1)
+          return
         }
       }
-      this.single_set = [...map.values()].sort((a, b) => Number(a) - Number(b))
+      this.single_set.push(id)
     },
 
+    importSignle(ids: ID[]) {
+      const basicStore = useBasicInfoStore()
+      ids = ids.filter(id => basicStore.equiment_ids.includes(id))
+      if (ids.length == 0) {
+        return
+      }
+      this.single_set.push(...ids)
+    },
     addSkillQueue(skill: ISkillInfo) {
       this.skill_que.push({ name: skill.name, mode: skill.mode?.[0] ?? "", modes: skill.mode })
     },
