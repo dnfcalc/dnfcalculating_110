@@ -2,7 +2,7 @@
   import { useBasicInfoStore, useCharacterStore } from "@/store"
   import { rarityClass } from "@/utils"
   import { asyncComputed } from "@vueuse/core"
-  import { computed, defineComponent, PropType, reactive, renderList } from "vue"
+  import { computed, defineComponent, PropType, reactive, renderList, watch } from "vue"
 
   import EqIcon from "./eq-icon.vue"
 
@@ -50,7 +50,11 @@
       },
       withTransform: {
         type: Boolean,
-        default: true
+        default: false
+      },
+      isShow: {
+        type: Boolean,
+        default: false
       }
     },
     setup(props, { emit, slots }) {
@@ -59,10 +63,7 @@
       const equip = asyncComputed(async () => {
         if (props.eid != undefined) {
           let temp = await basicStore.get_equipment_detail(props.eid)
-          if (props.withTransform) {
-            loadTransform(temp) // 加载打造数据
-          }
-          console.log(temp)
+          if (props.withTransform) loadTransform(temp)
           return temp
         }
       })
@@ -198,6 +199,28 @@
         }
       }
 
+      const growthClass = function (id: number) {
+        const classNames = []
+
+        if (id == 100) {
+          classNames.push("yellow")
+        } else if (id == 102) {
+          classNames.push("strong")
+        }
+        if (id > 100) {
+          classNames.push("paddleft")
+        }
+        if (id >= 1000) {
+          classNames.push("suiji-props")
+          if (id > 1000) {
+            classNames.push("yellow")
+          } else {
+            classNames.push("gey")
+          }
+        }
+        return classNames
+      }
+
       const characterStore = useCharacterStore()
 
       const is_buffer = computed(() => characterStore.is_buffer)
@@ -262,6 +285,7 @@
         //{ type: 4,  props: [ "智力 +15", ] }, { type: 0,  props: [  "四维+8 [冰之领悟]技能Lv+1", ] }, ], // 徽章
       })
       function loadTransform(eq: any) {
+        console.log("loadTransform", eq)
         if (props.forget) {
           if (props.forget.info) {
             transform.growthLvs = props.forget.info["成长词条等级"] ?? [1, 1, 1, 1]
@@ -329,6 +353,12 @@
           }
         }
       }
+
+      watch(props, () => {
+        if (props.isShow) {
+          loadTransform(equip.value) // 加载打造数据
+        }
+      })
 
       const iconBages = computed(() => {
         let x = transform.badges && transform.badges.length > 0 ? { color: [transform.badges[0]?.type, transform.badges[1]?.type], num: transform.badges.length } : null
