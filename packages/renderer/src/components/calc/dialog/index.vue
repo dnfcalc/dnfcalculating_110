@@ -40,7 +40,7 @@
       },
       lazy: {
         type: Boolean,
-        default: () => true
+        default: () => false
       },
       drag: {
         type: String as PropType<"header" | "all" | "none">,
