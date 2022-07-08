@@ -205,7 +205,7 @@
     }
     &.artifact {
       &::after {
-        background-image: url(@/assets/img/rarity/神奇.png);
+        background-image: url(@/assets/img/rarity/神器.png);
       }
     }
     &.legend {
