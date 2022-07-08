@@ -2,16 +2,17 @@ import requests
 
 from fastapi import APIRouter, Depends
 from utils.apiTools import Return, response
+from .token import AlterState, authorize, createToken
 
-skycityRouter = APIRouter()
+openRouter = APIRouter()
 
 
 class RecommentClass(Return):
     totalCount: int = 1
 
 
-global equ_ids
-equ_ids = {
+global equ_ids_skycity
+equ_ids_skycity = {
     '1464': 0,
     '1465': 1,
     '1466': 2,
@@ -51,20 +52,31 @@ equ_ids = {
 }
 
 
-@skycityRouter.get("/recommend")
-async def get_recommend(page: int = 1, size: int = 7, keyword: str = "", alter: str = ""):
+@openRouter.get("/skycity/recommend")
+async def get_recommend(page: int = 1, size: int = 7, keyword: str = "",state: AlterState = Depends(authorize)):
+    if(state is None or state.alter is None):
+        raise Exception("无效token")
+    alter = state.alter
+    if alter == 'crusader_male_carry':
+        alter = 'crusader_male'
     try:
         data = requests.get(
             "https://www.skycity.top:8017/api/DCalc/LoadRecommendPage?page={}&size={}&keyword={}&alter={}".format(
                 page, size, keyword, alter),
             timeout=10).json()
     except:
-        raise("空岛水管炸了，请稍后重试")
+        raise Exception("空岛水管炸了，请稍后重试")
     info = data.get("data", {})
     if info != {}:
         for item in info:
             equips = item.get("equips", [])
             for equ in equips:
-                equ["id"] = equ_ids.get(str(equ["id"]), equ["id"])
+                equ["id"] = equ_ids_skycity.get(str(equ["id"]), equ["id"])
 
     return RecommentClass(code=200, message="", data=data.get("data", {}), totalCount=data.get("totalCount", 0))
+
+
+@openRouter.get("/colg/recommend")
+async def get_recommend(page: int = 1, size: int = 7, keyword: str = "",state: AlterState = Depends(authorize)):
+
+    return RecommentClass(code=200, message="", data={}, totalCount=0)

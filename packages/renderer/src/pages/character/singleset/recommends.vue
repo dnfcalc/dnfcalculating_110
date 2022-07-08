@@ -43,6 +43,10 @@
       function apply(item: IRecommendInfo) {
         return () => {
           configStore.importSingle(item.equips.map(r => r.id))
+          item.equips.forEach(eq => {
+            eq.props = eq.props ?? []
+            if (eq.props.length > 0) configStore.customize[eq.id ?? 0] = eq.props as number[]
+          })
           visible.value = false
         }
       }
