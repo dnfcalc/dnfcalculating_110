@@ -627,6 +627,12 @@ class 技能19(主动技能):
         else:
             return round(1.06 + 0.02 * self.等级, 5)
 
+    def 感电加成(self):
+        if self.等级 == 0:
+            return 1.0
+        else:
+            return round(1.186+0.002* self.等级,4)
+
 
 class 技能20(主动技能):
     名称 = '天雷·降魔杵'
@@ -803,3 +809,11 @@ class classChange(Character):
         self.技能序号 = 技能序号
 
         super().__init__()
+
+    def 职业特殊计算(self):
+        雷神之息 = self.get_skill_by_name('雷神之息')
+        self.伤害系数['感电'] *= 雷神之息.感电加成()
+        self.skills_passive['雷神之息']['info'].append({
+            "type": "倍率",
+            "info": [round((雷神之息.感电加成() -1)*100,2), '感电', '无']
+        })

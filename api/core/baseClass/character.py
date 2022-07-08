@@ -160,7 +160,7 @@ class Character(角色属性):
         self.__基础精通倍率: float = 1.0
         self.__伤害比例: Dict[str, float] = {
             '直伤': 1.0, '中毒': 0.0, '灼烧': 0.0, '感电': 0.0, '出血': 0.0}
-        self.__伤害系数: Dict[str, float] = {
+        self.伤害系数: Dict[str, float] = {
             '中毒': 1.0, '灼烧': 1.0, '感电': 1.0, '出血': 1.0}
         self.__异常抗性: Dict[str, float] = {}
         self.__条件技攻: Dict[str, float] = {}
@@ -326,7 +326,7 @@ class Character(角色属性):
 
     def 异常增伤(self, 类型: str, x: float) -> None:
         # 中毒 灼烧 感电 出血
-        self.__伤害系数[类型] = self.__伤害系数.get(类型, 1.0) + x
+        self.伤害系数[类型] = self.伤害系数.get(类型, 1.0) + x
 
     def 异常抗性加成(self, 类型: str, x: float) -> None:
         # 中毒 灼烧 感电 出血 冰冻 减速 眩晕 诅咒 失明 石化 睡眠 混乱 束缚
@@ -978,7 +978,7 @@ class Character(角色属性):
                 damage = 直伤 * self.伤害指数 * k.被动倍率 * \
                     (self.__伤害比例.get("直伤", 0.0)) / 100
                 for item in ['中毒', '灼烧', '感电', '出血']:
-                    系数 = self.__伤害系数.get(item, 0.0)
+                    系数 = self.伤害系数.get(item, 0.0)
                     # 出血 叠层 1层1%出血伤害 满10%
                     if item == '出血':
                         系数 *= 1.1
@@ -1704,7 +1704,7 @@ class Character(角色属性):
                     '百分比攻击强化': round(self.__百分比攻击强化*100, 1),
                     'MP消耗量': round(self.__MP消耗量*100-100, 2),
                     '伤害比例': [self.__伤害比例.get('直伤', 1), self.__伤害比例.get('中毒', 0), self.__伤害比例.get('灼烧', 0), self.__伤害比例.get('感电', 0), self.__伤害比例.get('出血', 0)],
-                    '伤害系数': [self.__伤害系数.get('直伤', 1), self.__伤害系数.get('中毒', 1)-1, self.__伤害系数.get('灼烧', 1)-1, self.__伤害系数.get('感电',  1)-1, self.__伤害系数.get('出血',  1)-1],
+                    '伤害系数': [self.伤害系数.get('直伤', 1), self.伤害系数.get('中毒', 1)-1, self.伤害系数.get('灼烧', 1)-1, self.伤害系数.get('感电',  1)-1, self.伤害系数.get('出血',  1)-1],
                     '无色消耗': temp['无色消耗'],
                     '条件冷却': self.__条件冷却,
                     "条件恢复": self.__条件冷却恢复,
