@@ -9,10 +9,8 @@ from routers.app import appRouter
 from routers.calc import calcRouter
 from routers.info import infoRouter
 from routers.skycity import skycityRouter
-
-from starlette.responses import FileResponse, HTMLResponse
-from starlette.staticfiles import StaticFiles
 from utils.apiTools import register_cors, register_exception
+from utils.render import Renderer
 
 app = FastAPI(docs_url=None)
 
@@ -28,17 +26,13 @@ app.include_router(calcRouter, prefix="/api", tags=['信息接口'])
 app.include_router(appRouter, prefix="/api", tags=['信息接口'])
 app.include_router(skycityRouter, prefix="/api", tags=['信息接口'])
 
-
-def not_found(request, exc):
-    with open("app/renderer/index.html", "r", encoding="utf-8") as fp:
-        return HTMLResponse(fp.read())
-
-
 if __name__ == '__main__':
     if sys.argv[0].endswith(".py"):
+
+        print(app)
         uvicorn.run(
             # 运行的 py 文件:FastAPI 实例对象
-            app="main:app",
+            "main:app",
             # 访问url，默认 127.0.0.1
             host="0.0.0.0",
             # 访问端口，默认 8080,后续需要做端口检测是否被占用
@@ -49,8 +43,7 @@ if __name__ == '__main__':
             debug=True)
     else:
         app.mount(
-            "/", StaticFiles(directory="app/renderer", html=True), name="static")
-        app.add_exception_handler(404, not_found)
+            "/", Renderer(directory="app/renderer", html=True), name="static")
         uvicorn.run(
             # 运行的 py 文件:FastAPI 实例对象
             app,
