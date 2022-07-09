@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "启动自检更新",
+    "items": [
+      { "value": 0, "label": "开启" },
+      { "value": 1, "label": "关闭" }
+    ],
+    "remark": "软件启动时是否自动检查更新(关闭后请手动检查更新)",
+    "default": 0
+  },
+  {
+    "id": 2,
+    "name": "装备版本",
+    "items": [
+      { "value": 0, "label": "国服" },
+      { "value": 1, "label": "韩服" }
+    ],
+    "remark": "切换装备版本进行计算",
+    "default": 0
+  }
+]
