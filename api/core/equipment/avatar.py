@@ -1,6 +1,6 @@
-from core.baseClass.property import 角色属性
 from typing import Tuple
 
+from core.baseClass.property import CharacterProperty
 
 装扮选项属性 = {
     "神器": {
@@ -39,7 +39,7 @@ class 装扮:
     套装: str
     选项集合: Tuple[str]
 
-    def 效果(self, 角色: 角色属性, 选项: str):
+    def 效果(self, 角色: CharacterProperty, 选项: str):
         if 选项 in self.选项集合:
             数值 = 装扮选项属性[self.品质][选项]
             角色.基础属性加成(**{选项: 数值})
@@ -234,7 +234,7 @@ class 装扮套装:
     兼容于: str = None
     所需数量: int
 
-    def 效果(self, 属性: 角色属性):
+    def 效果(self, 属性: CharacterProperty):
         pass
 
 
@@ -243,7 +243,7 @@ class 神器装扮3(装扮套装):
     兼容于 = "稀有装扮"
     所需数量 = 3
 
-    def 效果(self, 属性: 角色属性):
+    def 效果(self, 属性: CharacterProperty):
         # print("effect unique suit 3")
         属性.基础属性加成(四维=50, 三速=3)
 
@@ -254,7 +254,7 @@ class 神器装扮8(装扮套装):
     兼容于 = "稀有装扮"
     所需数量 = 8
 
-    def 效果(self, 属性: 角色属性):
+    def 效果(self, 属性: CharacterProperty):
         # print("effect unique suit 8")
         属性.基础属性加成(四维=50, 三速=3)
         属性.属性强化加成(10)
@@ -265,7 +265,7 @@ class 稀有装扮3(装扮套装):
     名称 = "稀有装扮"
     所需数量 = 3
 
-    def 效果(self, 属性: 角色属性):
+    def 效果(self, 属性: CharacterProperty):
         # print("effect rare suit 3")
         属性.基础属性加成(四维=40, 三速=2)
 
@@ -275,7 +275,7 @@ class 稀有装扮8(装扮套装):
     名称 = "稀有装扮"
     所需数量 = 8
 
-    def 效果(self, 属性: 角色属性):
+    def 效果(self, 属性: CharacterProperty):
         # print("effect rare suit 8")
         属性.基础属性加成(四维=40, 三速=2)
         属性.所有属性强化加成(6)
@@ -286,7 +286,7 @@ class 节日装扮8(装扮套装):
     名称 = "节日装扮"
     所需数量 = 8
 
-    def 效果(self, 属性: 角色属性):
+    def 效果(self, 属性: CharacterProperty):
         属性.基础属性加成(四维=25, 三速=2)
 
 
@@ -295,7 +295,7 @@ class 高级装扮3(装扮套装):
     名称 = "高级装扮"
     所需数量 = 3
 
-    def 效果(self, 属性: 角色属性):
+    def 效果(self, 属性: CharacterProperty):
         # print("effect uncommon suit 3")
         属性.基础属性加成(四维=10)
 
@@ -305,7 +305,7 @@ class 高级装扮8(装扮套装):
     名称 = "高级装扮"
     所需数量 = 8
 
-    def 效果(self, 属性: 角色属性):
+    def 效果(self, 属性: CharacterProperty):
         # print("effect uncommon suit 8")
         属性.基础属性加成(四维=10, 三速=1)
 

@@ -3,7 +3,7 @@ from typing import Union
 from core.baseClass.skill import 主动技能, 技能, 被动技能
 
 
-class 角色属性:
+class CharacterProperty:
 
     评分: float = 0
 
@@ -114,7 +114,15 @@ class 角色属性:
             self.评分 += max(光属性强化, 暗属性强化, 火属性强化, 冰属性强化) * 200
         pass
 
+    def 评分开始(self):
+        self.评分 = 0
+
+    def 评分结束(self):
+        评分 = self.评分
+        self.评分 = 0
+        return 评分
     # region 其它函数
     #     def get_skill_by_name(self, name) -> 技能 | 主动技能 | 被动技能:
+
     def get_skill_by_name(self, name) -> Union[技能, 主动技能, 被动技能]:
         pass

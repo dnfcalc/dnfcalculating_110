@@ -1,9 +1,9 @@
 
-from core.baseClass.property import 角色属性
+from core.baseClass.property import CharacterProperty
 from core.baseClass.skill import 技能
 
 
-class Buffer(角色属性):
+class Buffer(CharacterProperty):
 
     def BUFF量():
         return 0

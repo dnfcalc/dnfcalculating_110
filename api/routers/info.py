@@ -78,41 +78,6 @@ async def get_entry_info():
     return response(data=equ.entry_info)
 
 
-@infoRouter.get("/details")
-async def get_details(state: AlterState = Depends(authorize)):
-    if(state is None or state.alter is None):
-        raise Exception("无效token")
-    character = characterInfo.get_character_info(state.alter)
-    infolist = {}
-    i = 0
-    for dress in 装扮集合:
-        部位 = dress.部位
-        if 部位 not in infolist:
-            infolist[部位] = []
-        选项集合 = dress.选项集合
-        if dress.部位 == '上衣':
-            选项集合 = 选项集合 + tuple(character['clothes_coat'])
-        elif dress.部位 == '下装':
-            选项集合 = 选项集合 + tuple(character['clothes_pants'])
-        data = {}
-        data['id'] = i
-        data['options'] = 选项集合
-        data['part'] = 部位
-        data['rarity'] = dress.品质
-        data['suit'] = dress.套装
-        data['name'] = "{品质}装扮{部位}".format(品质=dress.品质, 部位=dress.部位)
-        i += 1
-        infolist[部位].append(data)
-    details = {
-        "dress": infolist,
-        "enchanting": get_enchanting_setinfo(state.character),
-        "emblem": get_emblems_setinfo(state.character),
-        "jade": get_jade_setinfo(),
-        "sundries": get_sundries_setinfo()
-    }
-    return response(data=details)
-
-
 @infoRouter.get("/config/{name}")
 async def get_config(name, state: AlterState = Depends(authorize)):
     return response(data=set.get(state.origin, name))

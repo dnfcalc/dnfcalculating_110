@@ -1,9 +1,9 @@
-from core.baseClass.character import Character
+from core.baseClass.property import CharacterProperty
 
 consumable_list = {}
 
 
-def consumable_28000(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28000(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         pass
     if mode == 1:
@@ -12,7 +12,7 @@ def consumable_28000(char: Character = {}, mode=0, text=False, rate=1.0):
 # 斗神之吼秘药
 
 
-def consumable_28001(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28001(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -23,7 +23,7 @@ def consumable_28001(char: Character = {}, mode=0, text=False, rate=1.0):
 # 赛丽亚的特调酷饮
 
 
-def consumable_28002(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28002(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -34,7 +34,7 @@ def consumable_28002(char: Character = {}, mode=0, text=False, rate=1.0):
 # [冒险]属性强化药水
 
 
-def consumable_28003(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28003(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -45,7 +45,7 @@ def consumable_28003(char: Character = {}, mode=0, text=False, rate=1.0):
 # 魔界战力释放秘药
 
 
-def consumable_28004(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28004(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -56,7 +56,7 @@ def consumable_28004(char: Character = {}, mode=0, text=False, rate=1.0):
 # 顶级力量灵药
 
 
-def consumable_28005(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28005(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -67,7 +67,7 @@ def consumable_28005(char: Character = {}, mode=0, text=False, rate=1.0):
 # 顶级智力灵药
 
 
-def consumable_28006(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28006(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -78,7 +78,7 @@ def consumable_28006(char: Character = {}, mode=0, text=False, rate=1.0):
 # 活力秘药
 
 
-def consumable_28007(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28007(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -89,7 +89,7 @@ def consumable_28007(char: Character = {}, mode=0, text=False, rate=1.0):
 # 虚祖皇家能量秘药
 
 
-def consumable_28008(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28008(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -101,7 +101,7 @@ def consumable_28008(char: Character = {}, mode=0, text=False, rate=1.0):
 # 黄金羊毛
 
 
-def consumable_28009(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28009(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -112,7 +112,7 @@ def consumable_28009(char: Character = {}, mode=0, text=False, rate=1.0):
 # 龙之气息
 
 
-def consumable_28009(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28009(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
@@ -123,7 +123,7 @@ def consumable_28009(char: Character = {}, mode=0, text=False, rate=1.0):
 # 甜蜜喜糖
 
 
-def consumable_28010(char: Character = {}, mode=0, text=False, rate=1.0):
+def consumable_28010(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if mode == 0:
         # char.基础属性加成(物理攻击力=25 * rate)
         pass

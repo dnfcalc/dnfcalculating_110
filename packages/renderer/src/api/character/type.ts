@@ -1,6 +1,6 @@
-import { IEquipmentInfo } from "../info/type"
+import { IDetailsInfo, IEquipmentInfo } from "../info/type"
 
-export interface ICharacterInfo {
+export interface ICharacterInfo extends IDetailsInfo {
   name: string
   alter: string
   character: string

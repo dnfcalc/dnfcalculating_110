@@ -5,11 +5,15 @@ from typing import Dict, List, Union
 from uuid import uuid1
 
 from core.baseClass.equipment import equ, equipment
-from core.baseClass.property import 角色属性
+from core.baseClass.property import CharacterProperty
 from core.baseClass.skill import 主动技能, 技能, 被动技能
 from core.equipment.avatar import 装扮套装, 装扮套装集合, 装扮集合
+from core.equipment.emblems import get_emblems_setinfo
+from core.equipment.enchanting import get_enchanting_setinfo
+from core.equipment.jade import get_jade_setinfo
 from core.equipment.property import (增幅计算, 奶成长词条计算, 左右计算, 成长词条计算, 武器强化计算, 精通计算,
                                      耳环计算, 获取基础属性, 部位列表, 锻造四维, 锻造计算)
+from core.equipment.sundry import get_sundries_setinfo
 from core.store import store
 
 # from core.baseClass.enchanting import get_encfunc_by_id
@@ -17,7 +21,7 @@ from core.store import store
 # from core.baseClass.jade import get_jadefunc_by_id
 
 
-class Character(角色属性):
+class Character(CharacterProperty):
     等级 = 110
     # 辟邪玉属性
     附加伤害增加增幅: float = 1.0
@@ -222,15 +226,43 @@ class Character(角色属性):
         info["buff_ratio"] = self.buff
         self.set_skill_info(info)
         self.__set_individuation(info)
+        dress_list = {}
+        i = 0
+        for dress in 装扮集合:
+            部位 = dress.部位
+            if 部位 not in dress_list:
+                dress_list[部位] = []
+            选项集合 = dress.选项集合
+            if dress.部位 == '上衣':
+                选项集合 = 选项集合 + tuple(info['clothes_coat'])
+            elif dress.部位 == '下装':
+                选项集合 = 选项集合 + tuple(info['clothes_pants'])
+            data = {}
+            data['id'] = i
+            data['options'] = 选项集合
+            data['part'] = 部位
+            data['rarity'] = dress.品质
+            data['suit'] = dress.套装
+            data['name'] = "{品质}装扮{部位}".format(品质=dress.品质, 部位=dress.部位)
+            i += 1
+            dress_list[部位].append(data)
+        info['dress'] = dress_list
+        info['enchanting'] = get_enchanting_setinfo(self)
+        info['emblem'] = get_emblems_setinfo(self)
+        info['jade'] = get_jade_setinfo()
+        info['sundries'] = get_sundries_setinfo()
+
+        for item in info['platinum']:
+            info['emblem'].append({
+                'id': item,
+                'maxFame': 232,
+                'position': ["辅助装备", "魔法石"],
+                'props': item + " Lv+1" + " 四维 + 8",
+                'type': "技能",
+                'rarity': "白金",
+                'rate': 2000
+            })
         return info
-
-    def 评分开始(self):
-        self.评分 = 0
-
-    def 评分结束(self):
-        评分 = self.评分
-        self.评分 = 0
-        return 评分
 
     def 基础属性加成(self,
                物理攻击力=0.00, 魔法攻击力=0.00, 独立攻击力=0.00, 三攻=0,
