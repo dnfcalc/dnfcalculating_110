@@ -88,6 +88,7 @@ def after_downloaded(file_path):
         os.rename("./elevate.exe", "./elevate.exe.del")
     except:
         pass
+    safeRm("./app/renderer")
     zip_file = zipfile.ZipFile(file_path)
     zip_list = zip_file.namelist()  # 得到压缩包里所有文件
     for f in zip_list:
