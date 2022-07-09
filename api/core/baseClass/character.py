@@ -290,7 +290,7 @@ class Character(角色属性):
             if skill.所在等级 >= rune_start_lv and skill.所在等级 <= 80 and skill.所在等级 != 50 and skill.是否有伤害 == 1 and skill.名称 not in rune_except:
                 rune.append(skill.名称)
             # 白金
-            if skill.所在等级 <= 70 and skill.所在等级 not in [48, 50]:
+            if skill.所在等级 >= 15 and skill.所在等级 <= 70 and skill.所在等级 not in [48, 50]:
                 platinum.append(skill.名称)
             # 时装
             if skill.所在等级 <= 95:

@@ -191,26 +191,43 @@
       const equips_forget = function (index: string) {
         // console.log(props.equips_forget)
         let infos = configStore.forge_set[index]
-        if (!infos) return undefined
+        const details = basicStore.details
+        if (!infos || !details) {
+          return undefined
+        }
+
+        const growth_first = infos.get("growth_first") ?? 1
+        const growth_second = infos.get("growth_second") ?? 1
+        const growth_third = infos.get("growth_third") ?? 1
+        const growth_fourth = infos.get("growth_fourth") ?? 1
+
+        const cursed_type = infos.get("cursed_type") ?? 1
+        const cursed_number = infos.get("cursed_number") ?? 0
+        const dz_number = infos.get("dz_number") ?? 0
+        const enchanting_id = infos.get("enchanting") ?? 0
+        const enchanting = details.enchanting.find(e => e.id == enchanting_id)?.props.split("|")
+        const socket_left = infos.get("socket_left") ?? 0
+        const socket_right = infos.get("socket_right") ?? 0
+        const socket = [details.emblem.find(e => e.id == socket_left)?.props, details.emblem.find(e => e.id == socket_right)?.props]
+
         return {
           info: {
-            成长词条等级: [infos.get("growth_first") ?? 1, infos.get("growth_second") ?? 1, infos.get("growth_third") ?? 1, infos.get("growth_fourth") ?? 1],
+            成长词条等级: [growth_first, growth_second, growth_third, growth_fourth],
             // 1增幅 2强化
-            强化类型: infos.get("cursed_type") ?? 1,
-            强化数值: infos.get("cursed_number") ?? 0,
-            锻造数值: infos.get("dz_number") ?? 0,
-            附魔: basicStore.details.enchanting?.filter(item => item.id == infos.get("enchanting") ?? 0)?.[0]?.props?.split("|"),
-            徽章: [
-              basicStore.details.emblem?.filter(item => item.id == infos.get("socket_left") ?? 0)?.[0]?.props,
-              basicStore.details.emblem?.filter(item => item.id == infos.get("socket_right") ?? 0)?.[0]?.props
-            ]
+            强化类型: cursed_type,
+            强化数值: cursed_number,
+            锻造数值: dz_number,
+            附魔: enchanting,
+            徽章: socket
           },
           data: props.equips_forget?.[index]
         }
       }
 
       function currentInfo(part: string) {
-        if (["称号", "宠物"].indexOf(part) >= 0) return ""
+        if (["称号", "宠物"].indexOf(part) >= 0) {
+          return ""
+        }
         let num = configStore.getForge(part, "cursed_number") ?? 0
         if (getEqu(part)?.type == "智慧产物") {
           num = configStore.getForge(part, "wisdom_number") ?? 0

@@ -54,7 +54,7 @@
             <div class="row-name">武器装扮</div>
             <calc-select v-model={wqzb_enchat.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position == "武器装扮") ?? [], item => (
+              {renderList(basicInfoStore.details?.enchanting.filter(item => item.position.includes("武器装扮")) ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -75,7 +75,7 @@
             <div class="row-name">皮肤</div>
             <calc-select v-model={pf_enchat.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position == "皮肤") ?? [], item => (
+              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position.includes("皮肤")) ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -96,7 +96,7 @@
             <div class="row-name">光环</div>
             <calc-select v-model={gh_enchat.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position == "光环") ?? [], item => (
+              {renderList(basicInfoStore.details?.enchanting.filter(item => item.position.includes("光环")) ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -113,12 +113,12 @@
               ))}
             </calc-select>
           </div>
-          {renderList(basicInfoStore.details?.dress, (list, part) => {
+          {renderList(basicInfoStore.details?.dress ?? {}, (list, part) => {
             const current = computed({
               get() {
                 if (!configStore.dress_set[part]) {
                   configStore.dress_set[part] = {
-                    id: list[0]?.id,
+                    id: list[0].id,
                     option: ""
                   }
                 }

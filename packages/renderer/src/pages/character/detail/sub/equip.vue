@@ -49,13 +49,13 @@
               if (name === "enchanting") {
                 const enchant = basicInfoStore.details?.enchanting?.find(item => item.id == val) as IEnchantingInfo | undefined
                 if (enchant?.position) {
-                  parts = enchant.position.split("，")
+                  parts = enchant.position
                 }
               }
               if (name === "socket_left" || name === "socket_right") {
                 const enchant = basicInfoStore.details?.emblem?.find(item => item.id.toString() == val.toString()) as IEnchantingInfo | undefined
                 if (enchant?.position) {
-                  parts = enchant.position.split("，").filter(item => !["皮肤", "武器装扮", "光环"].includes(item))
+                  parts = enchant.position.filter(item => !["皮肤", "武器装扮", "光环"].includes(item))
                 }
               }
               if (["cursed_type", "cursed_number"].includes(name)) {

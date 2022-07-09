@@ -1,6 +1,6 @@
 <script lang="tsx">
+  import { useBasicInfoStore, useConfigStore } from "@/store"
   import { computed, defineComponent, renderList } from "vue"
-  import { useConfigStore, useBasicInfoStore } from "@/store"
 
   export default defineComponent({
     name: "petequ",
@@ -30,27 +30,27 @@
         <div class="flex flex-wrap equ-profile">
           <div class="equ-profile-item">
             <div class="row-name">红色</div>
-            <calc-select v-model={red.value} class="!h-20px flex-1">
+            <calc-select v-model={red.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position == "宠物装备-红") ?? [], item => (
+              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position.includes("宠物装备-红")) ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
           </div>
           <div class="equ-profile-item">
             <div class="row-name">绿色</div>
-            <calc-select v-model={green.value} class="!h-20px flex-1">
+            <calc-select v-model={green.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position == "宠物装备-绿") ?? [], item => (
+              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position.includes("宠物装备-绿")) ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
           </div>
           <div class="equ-profile-item">
             <div class="row-name">蓝色</div>
-            <calc-select v-model={blue.value} class="!h-20px flex-1">
+            <calc-select v-model={blue.value} class="flex-1 !h-20px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position == "宠物装备-蓝") ?? [], item => (
+              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position.includes("宠物装备-蓝")) ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>

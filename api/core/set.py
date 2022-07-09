@@ -103,10 +103,10 @@ def get(alter: str, setName: str):
         enchantings = get_enchanting_setinfo(character)
         enblems = get_emblems_setinfo(character)
         for 部位 in equ.parts:
-            ens = [i for i in enchantings if 部位 in i['position'].split(", ")]
+            ens = [i for i in enchantings if 部位 in i['position']]
             enchanting = ens[0] if len(ens) > 0 else {}
 
-            ems = [i for i in enblems if 部位 in i['position'].split(", ")]
+            ems = [i for i in enblems if 部位 in i['position']]
             emblem = ems[0] if len(ems) > 0 else {}
             forge_set[部位] = {
                 'cursed_number': 12,
