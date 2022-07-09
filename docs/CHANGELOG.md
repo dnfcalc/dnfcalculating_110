@@ -1,5 +1,15 @@
 ## Newest
 
+### 2022.07.09.Beta
+
+#### NewFeatures
+* 对接第三方的自定义词条 ([78826b](https://gitee.com/dcalc/dnfcalculating_110/commit/78826b126d474350d6ce76e896311a730bfbe468))
+
+#### BugFixes
+* 修复mime-type导致的页面白屏.<br>
+* fix:修复mime-type导致的页面白屏. ([771693](https://gitee.com/dcalc/dnfcalculating_110/commit/771693ba8566b24b1970809ae6bde332f573522a))
+* 阿修罗：增加二觉被动对感电伤害的加成 ([a8a14b](https://gitee.com/dcalc/dnfcalculating_110/commit/a8a14ba18b6a4f6c84190d8b066a045d97fe0db1))
+
 ### 2022.07.08.Beta
 
 #### NewFeatures
@@ -46,6 +56,7 @@
 * 女漫游:修复双鹰回旋无色及MP fixes #I5EYRG ([c2569b](https://gitee.com/dcalc/dnfcalculating_110/commit/c2569b8e335b41fd62abc42815fd16809ce0c8af))
 * 女漫游：修正[死亡锁链]学习间隔 ([b412d4](https://gitee.com/dcalc/dnfcalculating_110/commit/b412d4b309c6bf184851adf6c8197e1eaaab6d9c))
 * 阿修罗：修正[天雷·降魔杵]无色消耗及MP问题 ([bae428](https://gitee.com/dcalc/dnfcalculating_110/commit/bae4282a85617cf7b5b6f9a1a5f0f772424d425e))
+
 
 
 
