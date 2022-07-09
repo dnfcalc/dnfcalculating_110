@@ -32,7 +32,7 @@
             <div class="row-name">红色</div>
             <calc-select v-model={red.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "宠物装备-红") ?? [], item => (
+              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position == "宠物装备-红") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -41,7 +41,7 @@
             <div class="row-name">绿色</div>
             <calc-select v-model={green.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "宠物装备-绿") ?? [], item => (
+              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position == "宠物装备-绿") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -50,7 +50,7 @@
             <div class="row-name">蓝色</div>
             <calc-select v-model={blue.value} class="!h-20px flex-1">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.enchanting_info?.filter(item => item.position == "宠物装备-蓝") ?? [], item => (
+              {renderList(basicInfoStore.details?.enchanting?.filter(item => item.position == "宠物装备-蓝") ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>

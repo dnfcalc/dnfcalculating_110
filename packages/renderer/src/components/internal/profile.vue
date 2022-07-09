@@ -199,10 +199,10 @@
             强化类型: infos.get("cursed_type") ?? 1,
             强化数值: infos.get("cursed_number") ?? 0,
             锻造数值: infos.get("dz_number") ?? 0,
-            附魔: basicStore.enchanting_info?.filter(item => item.id == infos.get("enchanting") ?? 0)?.[0]?.props?.split("|"),
+            附魔: basicStore.details.enchanting?.filter(item => item.id == infos.get("enchanting") ?? 0)?.[0]?.props?.split("|"),
             徽章: [
-              basicStore.emblem_info?.filter(item => item.id == infos.get("socket_left") ?? 0)?.[0]?.props,
-              basicStore.emblem_info?.filter(item => item.id == infos.get("socket_right") ?? 0)?.[0]?.props
+              basicStore.details.emblem?.filter(item => item.id == infos.get("socket_left") ?? 0)?.[0]?.props,
+              basicStore.details.emblem?.filter(item => item.id == infos.get("socket_right") ?? 0)?.[0]?.props
             ]
           },
           data: props.equips_forget?.[index]

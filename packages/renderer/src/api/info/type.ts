@@ -198,3 +198,11 @@ export interface IRecommendInfo {
   author: string
   equips: IRecommendEquip[]
 }
+
+export interface IDetailsInfo {
+  enchanting: IEnchantingInfo[]
+  emblem: IEnchantingInfo[]
+  jade: IJadeInfo[]
+  sundries: IEnchantingInfo[]
+  dress: Dress[]
+}

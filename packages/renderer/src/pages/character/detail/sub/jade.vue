@@ -26,7 +26,7 @@
           if (id == -1) return undefined
           else {
             let res = []
-            const cur = basicInfoStore.jade_info?.find(e => e.id == id) as IJadeInfo
+            const cur = basicInfoStore.details?.jade?.find(e => e.id == id) as IJadeInfo
             if (cur) {
               const { max, min, unit, pre } = cur
               //
@@ -69,7 +69,7 @@
           <div class="flex mt-5px">
             <calc-select v-model={jade_First_type.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.jade_info ?? [], item => (
+              {renderList(basicInfoStore.details?.jade ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -83,7 +83,7 @@
           <div class="flex mt-5px">
             <calc-select v-model={jade_Second_type.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.jade_info ?? [], item => (
+              {renderList(basicInfoStore.details?.jade ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -98,7 +98,7 @@
           <div class="flex mt-5px">
             <calc-select v-model={jade_Third_type.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.jade_info ?? [], item => (
+              {renderList(basicInfoStore.details?.jade ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
@@ -113,7 +113,7 @@
           <div class="flex mt-5px">
             <calc-select v-model={jade_Fourth_type.value} class="!h-20px flex-1 !mr-10px">
               <calc-option value={0}>无</calc-option>
-              {renderList(basicInfoStore.jade_info ?? [], item => (
+              {renderList(basicInfoStore.details?.jade ?? [], item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>

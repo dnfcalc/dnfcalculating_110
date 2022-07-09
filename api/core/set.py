@@ -151,3 +151,14 @@ def get(alter: str, setName: str):
             set_info['trigger_set'] = trigger
 
     return set_info
+
+
+def get_global():
+    info = []
+    with open("./dataFiles/set-info.json", encoding='utf-8') as fp:
+        info = json.load(fp)
+    detail = [0] * len(info)
+    if os.path.exists('./sets/global-set.json'):
+        with open('./sets/global-set.json', encoding='utf-8') as fp:
+            detail = json.load(fp)
+    return {"info": info, "detail": detail}
