@@ -13993,6 +13993,7 @@ def enchanting_24304(char: Character = {}, mode=0, text=False, rate=1.0):
     if mode == 1:
         pass
 
+
 def enchanting_24304(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
         return "(0, '宠物装备-红', '攻击强化(8%)')"
@@ -14001,6 +14002,7 @@ def enchanting_24304(char: Character = {}, mode=0, text=False, rate=1.0):
         pass
     if mode == 1:
         pass
+
 
 def enchanting_24351(char: Character = {}, mode=0, text=False, rate=1.0):
     if text:
