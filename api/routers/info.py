@@ -55,11 +55,6 @@ async def get_equipment(state: AlterState = Depends(authorize)):
     return response(data=equipmentInfo.get_equipment_info(state.alter))
 
 
-@infoRouter.get('/enchanting')
-async def get_enchanting(state: AlterState = Depends(authorize)):
-    return response(data=get_enchanting_setinfo(state.character))
-
-
 @infoRouter.get('/equip/{equID}')
 async def get_equipment_detail_info(equID):
     return response(data=equipmentInfo.get_equipment_detail_info(equID))
@@ -71,6 +66,11 @@ async def getToken(alter: str, version: str = None):
         alter = version + '.' + alter
     token = createToken(alter)
     return response(data=token)
+
+
+@infoRouter.get("/triggers")
+async def get_triggers():
+    return response(data=equ.get_chose_set())
 
 
 @infoRouter.get("/entries")
