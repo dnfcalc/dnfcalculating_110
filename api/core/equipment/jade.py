@@ -1,4 +1,4 @@
-from core.baseClass.character import Character
+from core.baseClass.property import CharacterProperty
 
 jade_func_list = {}
 
@@ -6,7 +6,7 @@ jade_func_list = {}
 index = ("maxFame", "min", "max", "unit", "pre", "props")
 
 
-def jade_26000(char: Character = {}, text=False, value=0):
+def jade_26000(char: CharacterProperty = {}, text=False, value=0):
     if text:
         return "(0, 1, 1, '', 0, '无')"
 
@@ -140,37 +140,37 @@ for i in range(26001, 26020):
         pass
 
 
-def jade_26201(char=Character, text=False, value=0):
+def jade_26201(char=CharacterProperty, text=False, value=0):
     if text:
         return "(76, -25, 25, '', 1, 'Lv30 Buff技能力智增加')"
     char.辅助属性加成(buff固定力智=value, 百分比buff量=value / 1000)
 
 
-def jade_26202(char=Character, text=False, value=0):
+def jade_26202(char=CharacterProperty, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, 'Lv30 Buff技能力智增加%')"
     char.辅助属性加成(buff百分比力智=value / 100, 百分比buff量=value / 200)
 
 
-def jade_26203(char=Character, text=False, value=0):
+def jade_26203(char=CharacterProperty, text=False, value=0):
     if text:
         return "(76, -5, 5, '', 1, 'Lv30 Buff技能三攻增加')"
     char.辅助属性加成(buff固定三攻=value, 百分比buff量=value / 200)
 
 
-def jade_26204(char=Character, text=False, value=0):
+def jade_26204(char=CharacterProperty, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 0.1, 'Lv30 Buff技能三攻增加%')"
     char.辅助属性加成(buff百分比三攻=value / 100, 百分比buff量=value / 200)
 
 
-def jade_26205(char=Character, text=False, value=0):
+def jade_26205(char=CharacterProperty, text=False, value=0):
     if text:
         return "(76, -100, 100, '', 1, 'Lv50 主动技能力智增加')"
     char.辅助属性加成(觉醒固定力智=value, 百分比buff量=value / 4000)
 
 
-def jade_26206(char=Character, text=False, value=0):
+def jade_26206(char=CharacterProperty, text=False, value=0):
     if text:
         return "(76, -5, 5, '%', 1, 'Lv50 主动技能力智增加%')"
     char.辅助属性加成(觉醒百分比力智=value/100, 百分比buff量=value / 200)

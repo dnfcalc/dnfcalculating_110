@@ -30,7 +30,12 @@ export const useCharacterStore = defineStore("CharacterInfo", {
       clothes_pants: [],
       talisman: [],
       calc_token: "",
-      version: ""
+      version: "",
+      enchanting: [],
+      emblem: [],
+      dress: {},
+      jade: [],
+      sundries: []
     }
   },
   getters: {
