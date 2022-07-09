@@ -94,17 +94,21 @@ export const useBasicInfoStore = defineStore("basicInfo", {
     },
     details(state) {
       if (!state._details) {
-        api.detailList().then(res => (state._details = res.data))
-        useCharacterStore().platinum.forEach(item => {
-          state._details?.emblem?.push({
-            id: item,
-            maxFame: 232,
-            position: "辅助装备，魔法石",
-            props: item + " Lv+1" + " 四维 + 8",
-            type: "技能",
-            rarity: "白金",
-            rate: 2000
-          })
+        const { platinum } = useCharacterStore()
+        api.detailList().then(res => {
+          state._details = res.data
+
+          state._details?.emblem.push(
+            ...platinum.map(item => ({
+              id: item,
+              maxFame: 232,
+              position: ["辅助装备", "魔法石"],
+              props: item + " Lv+1" + " 四维 + 8",
+              type: "技能",
+              rarity: "白金",
+              rate: 2000
+            }))
+          )
         })
       }
       return state._details

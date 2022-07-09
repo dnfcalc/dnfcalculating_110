@@ -45,7 +45,7 @@ export interface IEquipmentList {
 export interface IEnchantingInfo {
   id: string | number
   maxFame: number | undefined
-  position: string
+  position: string[]
   props: string
   type: string | undefined
   rarity: string | undefined
@@ -204,5 +204,5 @@ export interface IDetailsInfo {
   emblem: IEnchantingInfo[]
   jade: IJadeInfo[]
   sundries: IEnchantingInfo[]
-  dress: Dress[]
+  dress: Record<string, Dress[]>
 }
