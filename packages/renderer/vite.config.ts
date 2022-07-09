@@ -70,18 +70,18 @@ export default defineConfig({
   build: {
     sourcemap: process.env./* from mode option */ NODE_ENV == "development",
     outDir: "../../dist/app/renderer",
-    assetsDir: "assets",
-    rollupOptions: {
-      output: {
-        // 重点在这里哦
-        // entryFileNames: `assets/[name].${timestamp}.js`,
-        // chunkFileNames: `assets/[name].${timestamp}.js`,
-        // assetFileNames: `assets/[name].${timestamp}.[ext]`
-        entryFileNames: `assets/[name].js`,
-        chunkFileNames: `assets/[name].js`,
-        assetFileNames: `assets/[name].[ext]`
-      }
-    }
+    assetsDir: "assets"
+    // rollupOptions: {
+    //   output: {
+    //     // 重点在这里哦
+    //     // entryFileNames: `assets/[name].${timestamp}.js`,
+    //     // chunkFileNames: `assets/[name].${timestamp}.js`,
+    //     // assetFileNames: `assets/[name].${timestamp}.[ext]`
+    //     // entryFileNames: `assets/[name].js`,
+    //     // chunkFileNames: `assets/[name].js`,
+    //     assetFileNames: `assets/[name].[ext]`
+    //   }
+    // }
   },
   server: {
     host: pkg.env.VITE_DEV_SERVER_HOST,
