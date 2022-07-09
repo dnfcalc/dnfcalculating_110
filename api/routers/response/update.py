@@ -23,6 +23,8 @@ def check_update(version: str):
         os.system('RMDIR /Q /S "{}"'.format('./__ZFJtemp'))
         safeRm("./elevate.exe.del")
         safeRm("./dnfcalc-api.exe.del")
+    if os.path.exists("./app/renderer.del"):
+        os.system('RMDIR /Q /S "{}"'.format('./app/renderer.del'))
     folder_info = lzy.get_folder_info_by_url(
         'https://wwn.lanzout.com/s/dcalc')
     if folder_info.code != LanZouCloud.SUCCESS:
@@ -86,9 +88,9 @@ def after_downloaded(file_path):
     try:
         os.rename("./dnfcalc-api.exe", "./dnfcalc-api.exe.del")
         os.rename("./elevate.exe", "./elevate.exe.del")
+        os.rename("./app/renderer", "./app/renderer.del")
     except:
         pass
-    safeRm("./app/renderer")
     zip_file = zipfile.ZipFile(file_path)
     zip_list = zip_file.namelist()  # 得到压缩包里所有文件
     for f in zip_list:
