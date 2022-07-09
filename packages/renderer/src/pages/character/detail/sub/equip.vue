@@ -23,13 +23,13 @@
       const basicInfoStore = useBasicInfoStore()
 
       const enchanting_list = computed<IEnchantingInfo[] | undefined>(() => {
-        return basicInfoStore.enchanting_info
+        return basicInfoStore.details?.enchanting
           ?.filter(item => item.position.includes(props.part) && !item.position.includes("武器装扮") && !item.position.includes("宠物装备"))
           .sort((a, b) => b.rate - a.rate)
       })
 
       const emblem_list = computed<IEnchantingInfo[] | undefined>(() => {
-        return basicInfoStore.emblem_info?.filter(item => item.position.includes(props.part))
+        return basicInfoStore.details?.emblem?.filter(item => item.position.includes(props.part))
       })
 
       const global_change = ref(false)
@@ -47,13 +47,13 @@
               let parts: string[] = []
               let appendNames: string[] = []
               if (name === "enchanting") {
-                const enchant = basicInfoStore.enchanting_info?.find(item => item.id == val) as IEnchantingInfo | undefined
+                const enchant = basicInfoStore.details?.enchanting?.find(item => item.id == val) as IEnchantingInfo | undefined
                 if (enchant?.position) {
                   parts = enchant.position.split("，")
                 }
               }
               if (name === "socket_left" || name === "socket_right") {
-                const enchant = basicInfoStore.emblem_info?.find(item => item.id.toString() == val.toString()) as IEnchantingInfo | undefined
+                const enchant = basicInfoStore.details?.emblem?.find(item => item.id.toString() == val.toString()) as IEnchantingInfo | undefined
                 if (enchant?.position) {
                   parts = enchant.position.split("，").filter(item => !["皮肤", "武器装扮", "光环"].includes(item))
                 }

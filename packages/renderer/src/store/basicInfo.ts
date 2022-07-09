@@ -1,6 +1,6 @@
 import api from "@/api"
 import { defineStore } from "pinia"
-import { Dress, IEnchantingInfo, IEquipmentInfo, IEquipmentList, IJadeInfo, ITrigger } from "../api/info/type"
+import { Dress, IDetailsInfo, IEnchantingInfo, IEquipmentInfo, IEquipmentList, IJadeInfo, ITrigger } from "../api/info/type"
 import { useCharacterStore } from "./character"
 
 interface BasicInfoState {
@@ -25,8 +25,8 @@ interface BasicInfoState {
   // 触发词条选择
   _triggers: ITrigger[] | undefined
   _entries: Record<string, { attack: number; buff: number; props: string[] }> | undefined
-
   _dresses?: Record<string, Dress[]>
+  _details: IDetailsInfo | undefined
 }
 
 export const useBasicInfoStore = defineStore("basicInfo", {
@@ -42,7 +42,8 @@ export const useBasicInfoStore = defineStore("basicInfo", {
     _triggers: undefined,
     _entries: undefined,
     _sundriesInfo: undefined,
-    _dresses: undefined
+    _dresses: undefined,
+    _details: undefined
   }),
   getters: {
     equipment_info(state) {
@@ -79,43 +80,6 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       }
       return []
     },
-    enchanting_info(state) {
-      if (!state._enchantingInfo) {
-        api.enchantings().then(res => (state._enchantingInfo = res.data))
-      }
-      return state._enchantingInfo
-    },
-    emblem_info(state) {
-      if (!state._emblemInfo) {
-        api.emblems().then(res => {
-          state._emblemInfo = res.data
-          useCharacterStore().platinum.forEach(item => {
-            state._emblemInfo?.push({
-              id: item,
-              maxFame: 232,
-              position: "辅助装备，魔法石",
-              props: item + " Lv+1" + " 四维 + 8",
-              type: "技能",
-              rarity: "白金",
-              rate: 2000
-            })
-          })
-        })
-      }
-      return state._emblemInfo
-    },
-    jade_info(state) {
-      if (!state._jadeInfo) {
-        api.jades().then(res => (state._jadeInfo = res.data))
-      }
-      return state._jadeInfo
-    },
-    sundries_info(state) {
-      if (!state._sundriesInfo) {
-        api.sundries().then(res => (state._sundriesInfo = res.data))
-      }
-      return state._sundriesInfo
-    },
     trigger_list(state) {
       if (!state._triggers) {
         api.triggers().then(res => (state._triggers = res.data))
@@ -128,11 +92,22 @@ export const useBasicInfoStore = defineStore("basicInfo", {
       }
       return state._entries
     },
-    dress_list(state) {
-      if (!state._dresses) {
-        api.dressList().then(res => (state._dresses = res.data))
+    details(state) {
+      if (!state._details) {
+        api.detailList().then(res => (state._details = res.data))
+        useCharacterStore().platinum.forEach(item => {
+          state._details?.emblem?.push({
+            id: item,
+            maxFame: 232,
+            position: "辅助装备，魔法石",
+            props: item + " Lv+1" + " 四维 + 8",
+            type: "技能",
+            rarity: "白金",
+            rate: 2000
+          })
+        })
       }
-      return state._dresses ?? {}
+      return state._details
     }
   },
   actions: {

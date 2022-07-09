@@ -55,8 +55,31 @@ async def get_equipment(state: AlterState = Depends(authorize)):
     return response(data=equipmentInfo.get_equipment_info(state.alter))
 
 
-@infoRouter.get("/dress")
-async def get_dress(state: AlterState = Depends(authorize)):
+@infoRouter.get('/enchanting')
+async def get_enchanting(state: AlterState = Depends(authorize)):
+    return response(data=get_enchanting_setinfo(state.character))
+
+
+@infoRouter.get('/equip/{equID}')
+async def get_equipment_detail_info(equID):
+    return response(data=equipmentInfo.get_equipment_detail_info(equID))
+
+
+@infoRouter.get('/token/{alter}', response_model=Return[str])
+async def getToken(alter: str, version: str = None):
+    if version is not None and version != 'default' and version != '':
+        alter = version + '.' + alter
+    token = createToken(alter)
+    return response(data=token)
+
+
+@infoRouter.get("/entries")
+async def get_entry_info():
+    return response(data=equ.entry_info)
+
+
+@infoRouter.get("/details")
+async def get_details(state: AlterState = Depends(authorize)):
     if(state is None or state.alter is None):
         raise Exception("无效token")
     character = characterInfo.get_character_info(state.alter)
@@ -80,50 +103,14 @@ async def get_dress(state: AlterState = Depends(authorize)):
         data['name'] = "{品质}装扮{部位}".format(品质=dress.品质, 部位=dress.部位)
         i += 1
         infolist[部位].append(data)
-    return response(data=infolist)
-
-
-@infoRouter.get('/enchanting')
-async def get_enchanting(state: AlterState = Depends(authorize)):
-    return response(data=get_enchanting_setinfo(state.character))
-
-
-@infoRouter.get('/equip/{equID}')
-async def get_equipment_detail_info(equID):
-    return response(data=equipmentInfo.get_equipment_detail_info(equID))
-
-
-@infoRouter.get('/token/{alter}', response_model=Return[str])
-async def getToken(alter: str, version: str = None):
-    if version is not None and version != 'default' and version != '':
-        alter = version + '.' + alter
-    token = createToken(alter)
-    return response(data=token)
-
-
-@infoRouter.get("/emblem")
-async def get_emblem(state: AlterState = Depends(authorize)):
-    return response(data=get_emblems_setinfo(state.character))
-
-
-@infoRouter.get("/jade")
-async def get_jade():
-    return response(data=get_jade_setinfo())
-
-
-@infoRouter.get("/sundries")
-async def get_sundries():
-    return response(data=get_sundries_setinfo())
-
-
-@infoRouter.get("/triggers")
-async def get_triggers():
-    return response(data=equ.get_chose_set())
-
-
-@infoRouter.get("/entries")
-async def get_entry_info():
-    return response(data=equ.entry_info)
+    details = {
+        "dress": infolist,
+        "enchanting": get_enchanting_setinfo(state.character),
+        "emblem": get_emblems_setinfo(state.character),
+        "jade": get_jade_setinfo(),
+        "sundries": get_sundries_setinfo()
+    }
+    return response(data=details)
 
 
 @infoRouter.get("/config/{name}")
@@ -132,6 +119,10 @@ async def get_config(name, state: AlterState = Depends(authorize)):
 
 
 @infoRouter.get("/configs")
-async def get_config(state: AlterState = Depends(authorize)):
+async def get_config_list(state: AlterState = Depends(authorize)):
     return response(data=set.get_set_list(state.origin))
 
+
+@infoRouter.get("/global/detail")
+async def get_global():
+    return response(data=set.get_global())
