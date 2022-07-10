@@ -17,8 +17,9 @@
       const can_upgrade = computed(() => {
         return !["称号", "宠物"].includes(props.part as string)
       })
-      const has_socket = computed(() => ["称号", "宠物", "耳环", "武器"].indexOf(props.part as string) < 0)
-      const has_socket_right = computed(() => !["辅助装备", "魔法石", "称号", "宠物", "耳环", "武器"].includes(props.part as string))
+
+      const has_socket = computed(() => !["称号", "宠物", "耳环", "武器"].includes(props.part as string))
+      const has_socket_right = computed(() => has_socket.value && !["辅助装备", "魔法石"].includes(props.part as string))
       const has_wisdom = computed(() => ["称号", "宠物", "武器"].indexOf(props.part as string) < 0)
       const basicInfoStore = useBasicInfoStore()
 
@@ -41,6 +42,9 @@
           },
           set(val) {
             if (val == undefined) {
+              return
+            }
+            if (name == "socket_right" && !has_socket_right.value) {
               return
             }
             if (global_change.value) {
@@ -170,7 +174,7 @@
                     <calc-option value={item.id}>{`${item.rarity}${item.type}徽章[${item.props}]`}</calc-option>
                   ))}
                 </calc-select>
-                {has_socket_right.value && has_socket.value && (
+                {has_socket_right.value && (
                   <calc-select v-model={socket_right.value} class="flex-1 !h-20px">
                     <calc-option value={0}>无</calc-option>
                     {renderList(emblem_list.value ?? [], item => (
