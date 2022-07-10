@@ -257,7 +257,7 @@ class 神器装扮8(装扮套装):
     def 效果(self, 属性: CharacterProperty):
         # print("effect unique suit 8")
         属性.基础属性加成(四维=50, 三速=3)
-        属性.属性强化加成(10)
+        属性.所有属性强化加成(10)
 
 
 class 稀有装扮3(装扮套装):

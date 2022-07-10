@@ -126,3 +126,193 @@ class CharacterProperty:
 
     def get_skill_by_name(self, name) -> Union[技能, 主动技能, 被动技能]:
         pass
+
+    def 已穿戴神话(self):
+        pass
+
+    def 穿戴低于105(self):
+        pass
+
+    def 获取强化等级(self, part=[]):
+        pass
+
+    def 获取改造等级(self, part=[]):
+        pass
+
+    # region 词条属性
+
+    def 基础精通加成(self, x: float) -> None:
+        pass
+
+    def 百分比防御减少(self, x: float) -> None:
+        pass
+
+    def 固定防御减少(self, x: int) -> None:
+        pass
+
+    def 伤害类型转化(self, 类型1: str, 类型2: str, x: float) -> None:
+        pass
+
+    def 异常增伤(self, 类型: str, x: float) -> None:
+        pass
+
+    def 异常抗性加成(self, 类型: str, x: float) -> None:
+        pass
+
+    def 属性攻击(self, 类型: str) -> None:
+        pass
+
+    def 所有异常抗性加成(self, x: float) -> None:
+        pass
+
+    def 条件技攻加成(self, 类型: str, x: float) -> None:
+        pass
+
+    def 条件冷却加成(self, 类型: str, x: float) -> None:
+        pass
+
+    def 条件冷却恢复加成(self, 类型: str, x: float) -> None:
+        pass
+
+    def 指令效果加成(self, 类型: str, x: float) -> None:
+        pass
+
+    def 指令技攻加成(self, x: float, min=1, max=100, exc=[50, 85, 100]) -> None:
+        pass
+
+    def 消耗品加成(self, x: float) -> None:
+        pass
+
+    def MP消耗量加成(self, x: float) -> None:
+        pass
+
+    def 攻击强化加成(self, x: float) -> None:
+        pass
+
+    def 百分比攻击强化加成(self, x: float) -> None:
+        pass
+
+    def buff量加成(self, x: float) -> None:
+        pass
+
+    def 辅助属性加成(self, buff固定力智=0, buff百分比力智=0.0, buff固定三攻=0, buff百分比三攻=0.0, 觉醒固定力智=0, 觉醒百分比力智=0.0, buff量=0, 百分比buff量=0.0):
+        pass
+
+    def 附加伤害加成(self, x: float, 辟邪玉加成=1) -> None:
+        pass
+
+    def 持续伤害加成(self, x: float) -> None:
+        pass
+
+    def 属性附加加成(self, x: float) -> None:
+        pass
+
+    def 技能攻击力加成(self, x: float, 辟邪玉加成=1, 适用累加=1) -> None:
+        pass
+
+    def 暴击伤害加成(self, x: float, 辟邪玉加成=1) -> None:
+        pass
+
+    def 伤害增加加成(self, x: float, 辟邪玉加成=1) -> None:
+        pass
+
+    def 最终伤害加成(self, x: float, 辟邪玉加成=1) -> None:
+        pass
+
+    def 百分比力智加成(self, x: float, 辟邪玉加成=1) -> None:
+        pass
+
+    def 百分比三攻加成(self, x: float, 辟邪玉加成=1) -> None:
+        pass
+
+    def 火属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
+        pass
+
+    def 冰属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
+        pass
+
+    def 光属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
+        pass
+
+    def 暗属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
+        pass
+
+    def 所有属性强化加成(self, x: float, 辟邪玉加成=1, mode=0) -> None:
+        pass
+
+    def 火属性抗性加成(self, x: int) -> None:
+        pass
+
+    def 冰属性抗性加成(self, x: int) -> None:
+        pass
+
+    def 光属性抗性加成(self, x: int) -> None:
+        pass
+
+    def 暗属性抗性加成(self, x: int) -> None:
+        pass
+
+    def 所有属性抗性加成(self, x: int) -> None:
+        pass
+
+    def 攻击速度增加(self, x: float) -> None:
+        pass
+
+    def 移动速度增加(self, x: float) -> None:
+        pass
+
+    def 施放速度增加(self, x: float) -> None:
+        pass
+
+    def 所有速度增加(self, x: float) -> None:
+        pass
+
+    def 命中率增加(self, x: float) -> None:
+        pass
+
+    def 回避率增加(self, x: float) -> None:
+        pass
+
+    def 物理暴击率增加(self, x: float) -> None:
+        pass
+
+    def 魔法暴击率增加(self, x: float) -> None:
+        pass
+
+    def 暴击率增加(self, x: float) -> None:
+        pass
+
+    def buff技能等级加成(self, LV: int, lv: int) -> None:
+        pass
+
+    def 武器装扮等级加成(self, Lv: int, lv: int) -> None:
+        pass
+
+    def 技能获取(self, min: int, max: int, exc=[]) -> None:
+        pass
+
+    def 技能等级加成(self, 加成类型: str, min: int, max: int, lv: int, exc=[int]) -> None:
+        pass
+
+    def 技能冷却缩减(self, min: int, max: int, x: float, exc=[int]) -> None:
+        pass
+
+    def 加算冷却缩减(self, x: float) -> None:
+        pass
+
+    def 技能恢复加成(self, min: int, max: int, x: float, exc=[int]) -> None:
+        pass
+
+    def 技能倍率加成(self, min: int, max: int, x: float, exc=[int]) -> None:
+        pass
+
+    def 单技能加成(self, 名称: str, 倍率=1.0, CD=1.0, lv=0) -> None:
+        pass
+
+    def __所有属性强化(self, x: float) -> None:
+        pass
+
+    def 斗神宠物加成(self, x: float) -> None:
+        pass
+
+    # endregion
