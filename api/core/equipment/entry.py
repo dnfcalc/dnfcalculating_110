@@ -2260,8 +2260,9 @@ def entry_967(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.火属性强化加成(5)
-        char.火属性抗性加成(-10)
+        if '灼烧' in state_type:
+            char.火属性强化加成(5*5)
+            char.火属性抗性加成(-10*5)
 
 
 def entry_969(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -2320,7 +2321,8 @@ def entry_976(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.所有属性抗性加成(25)
+        if len(list(set([char.火属性强化(), char.光属性强化(), char.冰属性强化(), char.暗属性强化()]))) == 1:
+            char.所有属性抗性加成(25)
 
 
 def entry_978(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -2485,8 +2487,10 @@ def entry_1249(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['HP在40%以下时，物理、魔法防御力 +14000，攻击强化 2816']
     if mode == 0:
-        char.攻击强化加成(成长词条计算(2816, lv))
+        pass
     if mode == 1:
+        if hp_rate_num < 40:
+            char.攻击强化加成(成长词条计算(2816, lv))
         pass
 
 
@@ -3566,7 +3570,7 @@ def entry_1042(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(156, lv) * 19)
+        char.攻击强化加成(成长词条计算(156, lv) * min((90-hp_rate_num)/5, 19))
 
 
 def entry_1045(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3875,7 +3879,7 @@ def entry_930(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(889, lv) * 3)
+        char.攻击强化加成(成长词条计算(889, lv) * min(3,len(state_type)))
 
 
 def entry_932(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
