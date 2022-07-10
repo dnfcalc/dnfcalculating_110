@@ -45,6 +45,7 @@
               return
             }
             if (name == "socket_right" && !has_socket_right.value) {
+              configStore.setForge(props.part, name, 0)
               return
             }
             if (global_change.value) {

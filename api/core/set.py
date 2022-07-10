@@ -2,6 +2,7 @@ import importlib
 import json
 import os
 from math import fabs
+from core.baseClass.equipment import refresh_equ
 
 from core.baseClass.character import Character, createCharcter
 from core.baseClass.equipment import equ
@@ -158,7 +159,16 @@ def get_global():
     with open("./dataFiles/set-info.json", encoding='utf-8') as fp:
         info = json.load(fp)
     detail = [0] * len(info)
-    if os.path.exists('./sets/global-set.json'):
-        with open('./sets/global-set.json', encoding='utf-8') as fp:
-            detail = json.load(fp)
+    with open('./sets/global-set.json', encoding='utf-8') as fp:
+        detail = json.load(fp)
+    # store.set('/global', detail)
     return {"info": info, "detail": detail}
+
+
+def set_global(setInfo):
+    with open('./sets/global.json', "w", encoding='utf-8') as fp:
+        json.dump(setInfo, fp, ensure_ascii=False, indent=2)
+    from core.baseClass.equipment import refresh_equ
+    refresh_equ()
+    return setInfo
+    # store.set('/global', setInfo)

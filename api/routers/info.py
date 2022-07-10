@@ -8,7 +8,7 @@ from core.equipment.emblems import get_emblems_setinfo
 from core.equipment.enchanting import get_enchanting_setinfo
 from core.equipment.jade import get_jade_setinfo
 from core.equipment.sundry import get_sundries_setinfo
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Body, Depends
 from pydantic import BaseModel
 from utils.apiTools import Return, response
 
@@ -91,3 +91,8 @@ async def get_config_list(state: AlterState = Depends(authorize)):
 @infoRouter.get("/global/detail")
 async def get_global():
     return response(data=set.get_global())
+
+
+@infoRouter.post("/global/set")
+async def get_global(setInfo=Body(None)):
+    return response(data=set.set_global(setInfo))
