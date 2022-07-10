@@ -1,6 +1,5 @@
 # encoding:utf-8
 # api docs:https://fastapi.tiangolo.com/zh/tutorial/first-steps/
-import os
 import sys
 
 import uvicorn
@@ -26,10 +25,26 @@ app.include_router(calcRouter, prefix="/api", tags=['计算接口'])
 app.include_router(appRouter, prefix="/api", tags=['服务接口'])
 app.include_router(openRouter, prefix="/api", tags=['三方接口'])
 
-if __name__ == '__main__':
-    if sys.argv[0].endswith(".py"):
 
-        print(app)
+def global_init():
+    import os
+    import json
+
+    info = []
+    with open("./dataFiles/set-info.json", encoding='utf-8') as fp:
+        info = json.load(fp)
+    detail = [0] * len(info)
+    if not os.path.exists('./sets'):
+        os.makedirs('./sets')
+        with open('./sets/global.json', "w", encoding='utf-8') as fp:
+            json.dump(detail, fp, ensure_ascii=False, indent=2)
+
+
+if __name__ == '__main__':
+
+    global_init()
+
+    if sys.argv[0].endswith(".py"):
         uvicorn.run(
             # 运行的 py 文件:FastAPI 实例对象
             "main:app",

@@ -20,9 +20,20 @@ def get_eq_info_data():
 
 
 def get_entry_info_data():
+    global version
     entry_info = {}
-    with open("./dataFiles/entry-data.json", encoding='utf-8') as fp:
-        entry_info = json.load(fp)
+    try:
+        with open('./sets/global.json', encoding='utf-8') as fp:
+            version = json.load(fp)[1]
+    except:
+        version = 0
+    if version == 0:
+        with open("./dataFiles/entry-data.json", encoding='utf-8') as fp:
+            entry_info = json.load(fp)
+    print(version)
+    if version == 1:
+        with open("./dataFiles/entry-data-hf.json", encoding='utf-8') as fp:
+            entry_info = json.load(fp)
     return entry_info
 
 
@@ -220,7 +231,10 @@ class equipment_list():
         return damagelist
 
     def set_func_chose(self, choseinfo) -> None:
-        from core.equipment.entry import variable_set
+        if version == 0:
+            from core.equipment.entry import variable_set
+        if version == 1:
+            from core.equipment.entry_hf import variable_set
         for i in choseinfo.keys():
             id = int(i)
             if id >= 20000:  # 额外选项，参数设置
@@ -229,7 +243,10 @@ class equipment_list():
             #    id 错误
 
     def get_func_by_id(self, id) -> Function:
-        from core.equipment.entry import entry_func_list
+        if version == 0:
+            from core.equipment.entry import entry_func_list
+        if version == 1:
+            from core.equipment.entry_hf import entry_func_list
         func_list = entry_func_list.get(id, entry_func_list[0])
         return func_list
 
@@ -255,7 +272,10 @@ class equipment_list():
         return funclist
 
     def get_chose_set_info(self) -> List[tuple]:
-        from core.equipment.entry import entry_chose, entry_func_list
+        if version == 0:
+            from core.equipment.entry import entry_chose, entry_func_list
+        if version == 1:
+            from core.equipment.entry_hf import entry_chose, entry_func_list
         info = []
         # for i in entry_func_list.keys():
         #     temp = entry_func_list[i]
@@ -267,7 +287,10 @@ class equipment_list():
         return info + entry_chose
 
     def get_chose_set(self, mode=0) -> List[Dict]:
-        from core.equipment.entry import multi_select
+        if version == 0:
+            from core.equipment.entry import multi_select
+        if version == 1:
+            from core.equipment.entry_hf import multi_select
         if mode == 1:
             setinfo = {}
             for i in self.get_chose_set_info():
@@ -288,4 +311,9 @@ class equipment_list():
     #         print(self.get_equ_by_id(key).成长属性,customize[key])
 
 
-equ = equipment_list()
+def refresh_equ():
+    global equ
+    equ = equipment_list()
+
+
+refresh_equ()
