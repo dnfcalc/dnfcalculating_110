@@ -33,6 +33,10 @@
           openUrl("https://dcalc.gitee.io/dnfcalculating_110/#/")
           return
         }
+        if (child.comment == "设置") {
+          openUrl("/set", { width: 600, height: 500 })
+          return
+        }
         if (ignores.includes(child.name)) {
           return
         }

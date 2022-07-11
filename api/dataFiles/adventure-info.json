@@ -36,7 +36,7 @@
       { "name": "striker_female", "title": "归元·散打" },
       { "name": "brawler_female", "title": "归元·街霸", "open": true },
       { "name": "grappler_female", "title": "归元·柔道家" },
-      { "name": "empty", "title": "" }
+      { "name": "empty", "title": "", "comment": "设置" }
     ]
   },
   {

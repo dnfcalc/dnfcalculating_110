@@ -45,11 +45,11 @@ if __name__ == '__main__':
     global_init()
 
     if sys.argv[0].endswith(".py"):
-        uvicorn.run(
+        config = uvicorn.Config(
             # 运行的 py 文件:FastAPI 实例对象
             "main:app",
             # 访问url，默认 127.0.0.1
-            host="0.0.0.0",
+            # host="0.0.0.0",
             # 访问端口，默认 8080,后续需要做端口检测是否被占用
             port=17173,
             # 热更新，有内容修改自动重启服务器
@@ -59,17 +59,18 @@ if __name__ == '__main__':
     else:
         app.mount(
             "/", Renderer(directory="app/renderer", html=True), name="static")
-        uvicorn.run(
+        config = uvicorn.Config(
             # 运行的 py 文件:FastAPI 实例对象
-            app,
+            "main:app",
             # 访问url，默认 127.0.0.1
-            host="0.0.0.0",
+            # host="0.0.0.0",
             # 访问端口，默认 8080,后续需要做端口检测是否被占用
             port=17173,
             # 热更新，有内容修改自动重启服务器
-            reload=False,
+            reload=True,
             # 同 reload
-            debug=False,
-        )
+            debug=True)
+    server = uvicorn.Server(config)
+    server.run()
 
     # print(os.getppid())
