@@ -531,6 +531,19 @@ class 技能22(主动技能):
     MP = [4028, 4028]
     无色消耗 = 15
 
+# 念气归元
+class 技能23(被动技能):
+    名称 = '念气归元'
+    所在等级 = 95
+    等级上限 = 40
+    学习间隔 = 3
+    等级精通 = 30
+
+    def 加成倍率(self, 武器类型):
+        if self.等级 == 0:
+            return 1.0
+        else:
+            return round(1.18 + 0.02 * self.等级, 5)
 
 class classChange(Character):
     def __init__(self):
