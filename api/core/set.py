@@ -159,7 +159,7 @@ def get_global():
     with open("./dataFiles/set-info.json", encoding='utf-8') as fp:
         info = json.load(fp)
     detail = [0] * len(info)
-    with open('./sets/global-set.json', encoding='utf-8') as fp:
+    with open('./sets/global.json', encoding='utf-8') as fp:
         detail = json.load(fp)
     # store.set('/global', detail)
     return {"info": info, "detail": detail}

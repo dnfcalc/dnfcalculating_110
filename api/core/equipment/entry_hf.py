@@ -1026,7 +1026,7 @@ def entry_949(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_950(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['攻击时，在自身脚下生成光之领域，站在光之领域上时应用一下效果(冷却时间1秒，最多叠加1次)', '- 所受伤害 -10%', '- 技能攻击力 +5%', '- 所有属性强化 +10', '- 攻击5次时，光之领域大小增加(最多5次)', '- 离开光之领域时，光之领域立即删除']
+        return ['攻击时，在自身脚下生成光之领域，站在光之领域上时应用以下效果(冷却时间1秒，最多叠加1次)', '- 所受伤害 -10%', '- 技能攻击力 +5%', '- 所有属性强化 +10', '- 攻击5次时，光之领域大小增加(最多5次)', '- 离开光之领域时，光之领域立即删除']
     if mode == 0:
         pass
     if mode == 1:
@@ -8192,7 +8192,7 @@ def entry_340(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_341(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['HP高于40%以上时，光属性抗性 +40', 'HP低于40%以下时，物理、魔法防御力??+14000?']
+        return ['HP高于40%以上时，光属性抗性 +40', 'HP低于40%以下时，物理、魔法防御力 +14000?']
     if mode == 0:
         pass
     if mode == 1:
@@ -8202,7 +8202,7 @@ def entry_341(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_342(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['HP高于40%以上时，暗属性抗性 +40', 'HP低于40%以下时，攻击速度 +15%，施放速度 +22.5%?']
+        return ['HP高于40%以上时，暗属性抗性 +40', 'HP低于40%以下时，攻击速度 +15%，施放速度 +22.5%']
     if mode == 0:
         pass
     if mode == 1:
@@ -8476,7 +8476,7 @@ def entry_826(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1077(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['HP低于50%一下时，适用以下效果', '- 物理、魔法防御力+7000', '- 攻击强化 +2223', '- 技能攻击力 +7%', '所受伤害 +10%']
+        return ['HP低于50%以下时，适用以下效果', '- 物理、魔法防御力+7000', '- 攻击强化 +2223', '- 技能攻击力 +7%', '所受伤害 +10%']
     if mode == 0:
         pass
     if mode == 1:

@@ -5883,7 +5883,7 @@ def enchanting_20641(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
 
 def enchanting_20642(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if text:
-        return (106, '头肩,腰带,鞋', '体(90)')
+        return (106, '头肩,腰带,鞋,武器,上衣,下装', '体(90)')
     if mode == 0:
         char.基础属性加成(体力=90 * rate)
     if mode == 1:
@@ -5892,7 +5892,7 @@ def enchanting_20642(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
 
 def enchanting_20643(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if text:
-        return (130, '头肩,腰带,鞋', '体(100)')
+        return (130, '头肩,腰带,鞋,武器,上衣,下装', '体(100)')
     if mode == 0:
         char.基础属性加成(体力=100 * rate)
     if mode == 1:
@@ -5910,7 +5910,7 @@ def enchanting_20644(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
 
 def enchanting_20645(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if text:
-        return (106, '头肩,腰带,鞋', '精(90)')
+        return (106, '头肩,腰带,鞋,武器,上衣,下装', '精(90)')
     if mode == 0:
         char.基础属性加成(精神=90 * rate)
     if mode == 1:
@@ -5919,7 +5919,7 @@ def enchanting_20645(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
 
 def enchanting_20646(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if text:
-        return (130, '头肩,腰带,鞋', '精(100)')
+        return (130, '头肩,腰带,鞋,武器,上衣,下装', '精(100)')
     if mode == 0:
         char.基础属性加成(精神=100 * rate)
     if mode == 1:

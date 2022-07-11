@@ -93,6 +93,6 @@ async def get_global():
     return response(data=set.get_global())
 
 
-@infoRouter.post("/global/set")
+@infoRouter.post("/global/save")
 async def get_global(setInfo=Body(None)):
     return response(data=set.set_global(setInfo))

@@ -12,6 +12,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/home.vue")
   },
   {
+    path: "/set",
+    name: "set",
+    component: () => import("@/pages/set.vue")
+  },
+  {
     path: "/character",
     redirect: "/character/equips",
     name: "main",

@@ -16,6 +16,12 @@ export default defineRequest(req => {
     },
     getToken(alter: string, version?: string) {
       return req.get<string>(`/token/${alter}`, { params: { version } }).then(r => r.data)
+    },
+    getGlobalSet() {
+      return req.get<any>(`/global/detail`).then(r => r.data)
+    },
+    saveGlobalSet(info: number[]) {
+      return req.post<string>(`/global/save`, info).then(r => r.data)
     }
   }
 })
