@@ -11,7 +11,7 @@ variable_set = {}  # id : setfunc  参数返回设置函数
 
 def entry_980(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['获得该装备词条的队友之间获得效果', '- 相互分摊伤害', '- 其他队友受到伤害时，自身攻击速度、移动速度 +2%，效果持续5秒(最多叠加5次)', '被击伤害 +10%']
+        return ['获得该装备词条的队友之间获得效果', '- 相互分摊伤害', '- 其他队友受到伤害时，自身攻击速度、施放速度 +2%，效果持续5秒(最多叠加5次)', '被击伤害 +10%']
     if mode == 0:
         pass
     if mode == 1:
@@ -30,7 +30,7 @@ def entry_1247(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1248(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['生成最大HP45%的自动充能保护罩，保护罩存在状态下10秒不被攻击时充能到最大值', '装备时，适用55%的HP(装备解除前，当前HP无法超过HP最大值的55%)']
+        return ['进入地下城时，消耗45%的HP，HP最大可恢复上限 -45%（无法恢复超过限制值的HP）', '生成最大HP65%的自动充能保护罩（5秒内自身或保护膜均未被击时，保护罩开始充能，5秒内从0充电至最大值）']
     if mode == 0:
         pass
     if mode == 1:
@@ -453,7 +453,7 @@ def entry_1126(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1127(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['受到总HP20%以上的伤害时，自身进入眩晕状态(冷却时间3秒)', ' 自身进入眩晕状态时，技能冷却时间恢复速度 +20%(觉醒技能除外)']
+        return ['受到总HP20%以上的伤害时，自身进入眩晕状态(冷却时间30秒)', ' 自身进入眩晕状态时，技能冷却时间恢复速度 +20%(觉醒技能除外)']
     if mode == 0:
         pass
     if mode == 1:
@@ -516,7 +516,7 @@ def entry_1104(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1107(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['施放技能时，有10%的几率随机初始技能冷却时间20秒以内的技能(冷却时间20秒,觉醒除外)']
+        return ['施放技能时，有10%的几率随机初始1个剩余冷却时间在20秒以内的技能的冷却时间(冷却时间20秒,觉醒技能除外)']
     if mode == 0:
         pass
     if mode == 1:
@@ -1058,7 +1058,7 @@ def entry_939(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_940(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['攻击时，有10%的几率，向300px范围内敌人坠落闪电(冷却时间1秒)', '被闪电击中的敌人进入感电状态(冷却时间15秒)']
+        return ['攻击时，有20%的几率，向300px范围内敌人坠落闪电(冷却时间1秒)', '被闪电击中的敌人进入感电状态(冷却时间15秒)']
     if mode == 0:
         pass
     if mode == 1:
@@ -1121,7 +1121,7 @@ def entry_929(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_931(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['攻击时，敌人的异常数量增加时，物理、魔法防御力 +4000(最多叠加3次)']
+        return ['攻击异常状态敌人时，每1种异常状态，物理、魔法防御力 +4000(最多叠加3次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -1211,7 +1211,7 @@ def entry_906(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_889(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['穿戴时生成灵魂剑', '施放技能时，灵魂剑累积5层灵魂(最多50)', '普攻时，消耗1层灵魂，灵魂剑对敌人额外造成伤害(冷却时间0.1秒)', '灵魂满层数时，普攻时，消耗所有灵魂层数，灵魂剑对敌人额外造成伤害']
+        return ['穿戴时生成灵魂剑', '施放技能时，灵魂剑累积5层灵魂(最多50)', '普通攻击、跳跃、前冲攻击时，消耗1层灵魂，灵魂剑对敌人额外造成伤害(冷却时间0.1秒)', '灵魂满层数时，普攻时，消耗所有灵魂层数，灵魂剑对敌人额外造成伤害']
     if mode == 0:
         pass
     if mode == 1:
@@ -1370,7 +1370,7 @@ def entry_863(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_860(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['被击时，所有属性强化 -1，被击时所受伤害-1%(最多叠加10次，该属性仅在受到HP1%以上伤害时适用)']
+        return ['被击时，所有属性强化 -1，被击时所受伤害-1%(最多叠加20次，该属性仅在受到HP1%以上伤害时适用)']
     if mode == 0:
         pass
     if mode == 1:
@@ -2426,7 +2426,7 @@ def entry_1237(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1239(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['装备提供的异常状态抗性总和超过5%以上时，增加相同数值的异常伤害(最多增加10%，适用于所有场景)']
+        return ['装备提供的异常状态抗性总和超过5%以上时，增加相同数值的异常伤害(最多增加10%)', '- 包括武器、防具、首饰、特殊装备、时装、徽章']
     if mode == 0:
         pass
     if mode == 1:
@@ -2438,7 +2438,7 @@ def entry_1239(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1240(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['穿戴装备的强化/增幅数值总和每增加6，攻击强化 272(最多叠加24次)']
+        return ['穿戴装备的强化/增幅数值总和每增加6，攻击强化 272(最多叠加24次)', '- 包括武器、防具、首饰、特殊装备']
     if mode == 0:
         x = char.获取强化等级()
         char.攻击强化加成(成长词条计算(272, lv) * min(24, int(x / 6)))
@@ -2448,7 +2448,7 @@ def entry_1240(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1241(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['穿戴装备的强化/增幅数值总和每增加1，所有速度 +2%(最多叠加12次)']
+        return ['该装备的强化/增幅数值总和每增加1，所有速度 +2%(最多叠加12次)']
     if mode == 0:
         x = char.获取强化等级([part])
         char.所有速度增加(0.02 * min(12, x))
@@ -2476,7 +2476,7 @@ def entry_1245(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1246(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['除武器之外的其他物品提供的攻击速度增加量总和超过140%以上时，技能攻击力 +30%']
+        return ['装备提供的攻击速度增加量总和超过140%以上时，技能攻击力 +30%', '- 包括防具、首饰、特殊装备、时装、徽章、宠物、守护珠、称号']
     if mode == 0:
         char.技能攻击力加成(0.3)
     if mode == 1:
@@ -2485,12 +2485,13 @@ def entry_1246(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1249(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['HP在40%以下时，物理、魔法防御力 +14000，攻击强化 2816']
+        return ['HP低于40%时适用以下效果', '- 物理、魔法防御力+1400', '- 攻击强化 +2816', '- 技能冷却时间 -15%（最多叠加1次，觉醒技能除外）']
     if mode == 0:
         pass
     if mode == 1:
         if hp_rate_num < 40:
             char.攻击强化加成(成长词条计算(2816, lv))
+            char.技能冷却缩减(1,100,0.15,[50,85,100])
         pass
 
 
@@ -2540,7 +2541,7 @@ def entry_1253(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1254(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['根据穿戴的所有装备的品级百分比总和适用以下效果：', '- 800%以上：移动速度 +5%', '- 900%以上：攻击速度 +5%，施放速度 +7.5%', '- 1000%以上：物理、魔法暴击率 +5%', '- 1150%以上：技能攻击力 +5%']
+        return ['根据穿戴的所有装备的品级百分比总和适用以下效果：', '- 800%以上：移动速度 +5%', '- 900%以上：攻击速度 +5%，施放速度 +7.5%', '- 1000%以上：物理、魔法暴击率 +5%', '- 1080%以上：技能攻击力 +5%', '- 包括武器、防具、首饰、特殊装备，不包括称号和副武器']
     if mode == 0:
         pass
     if mode == 1:
@@ -2549,7 +2550,7 @@ def entry_1254(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1255(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['根据装备的品级百分比适用以下效果：', '- 90%以下: 攻击强化 445', '- 90%~95%: 攻击强化 1186', '- 95%以上: 攻击强化 3557']
+        return ['根据该装备的品级百分比适用以下效果：', '- 85%以下: 攻击强化 445', '- 85%~90%: 攻击强化 1186', '- 90%以上: 攻击强化 3557']
     if mode == 0:
         pass
     if mode == 1:
@@ -3875,7 +3876,7 @@ def entry_925(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_930(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['攻击时，敌人的异常数量增加时，攻击强化 +889(最多叠加3次)']
+        return ['攻击异常状态敌人时，每1种异常状态，攻击强化 +889(最多叠加3次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -4225,7 +4226,7 @@ def entry_872(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_873(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['冰冻抗性 -3% 聊天窗输入含“冰”时，自身进入10秒冰冻(冷却时间30秒)', '该装备词条的冰冻在聊天窗输入含“砰”时解除']
+        return ['冰冻抗性 -3% 聊天窗输入含“冰”时，自身进入10秒冰冻(冷却时间30秒)', '该装备词条的冰冻在聊天窗输入含“叮”时解除']
     if mode == 0:
         char.异常抗性加成('冰冻', -0.03)
     if mode == 1:
@@ -4510,7 +4511,7 @@ def entry_105(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_114(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['受身蹲伏结束后60秒内，攻击速度+40%，移动速度+40%，施放速度+60%(冷却时间10秒，最多叠加1次)', '每3次攻击，回避率 +3%(最多叠加10次)']
+        return ['受身蹲伏结束后60秒内，攻击速度+40%，移动速度+40%，施放速度+60%(冷却时间10秒，最多叠加1次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -5878,7 +5879,7 @@ def entry_1109(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1110(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['施放消耗无色小晶块的技能时，根据无色消耗量，获得能量(最多100)', ' 获得的能量达100时，消耗所有能量，使用的技能剩余冷却时间 -5%(觉醒除外)', ' 普攻、施放无需无色技能时，消耗1点能量']
+        return ['施放消耗无色小晶块的技能时，根据无色消耗量，获得能量(最多100)', ' 获得的能量达100时，消耗所有能量，使用的技能剩余冷却时间 -5%(觉醒除外)', ' 普通攻击、跳跃、前冲攻击、施放不消耗无色小晶块的技能时，消耗1点能量']
     if mode == 0:
         pass
     if mode == 1:
@@ -6086,7 +6087,7 @@ def entry_221(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_282(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['每攻击10次敌人，敌人韧性减少量 +5%(最多增加30%)']
+        return ['每达成10次连击，敌人韧性减少量 +5%(最多增加30%)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6491,7 +6492,7 @@ def entry_372(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_301(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['自身所有异常状态抗性之和超过50%以上时，火属性强化 +35']
+        return ['自身最高的异常状态抗性数值超过50%以上时，火属性强化 +35']
     if mode == 0:
         pass
     if mode == 1:
@@ -6500,7 +6501,7 @@ def entry_301(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_302(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['自身所有异常状态抗性之和超过50%以上时，冰属性强化 +35']
+        return ['自身最高的异常状态抗性数值超过50%以上时，冰属性强化 +35']
     if mode == 0:
         pass
     if mode == 1:
@@ -6509,7 +6510,7 @@ def entry_302(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_303(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['自身所有异常状态抗性之和超过50%以上时，光属性强化 +35']
+        return ['自身最高的异常状态抗性数值超过50%以上时，光属性强化 +35']
     if mode == 0:
         pass
     if mode == 1:
@@ -6518,7 +6519,7 @@ def entry_303(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_304(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['自身所有异常状态抗性之和超过50%以上时，暗属性强化 +35']
+        return ['自身最高的异常状态抗性数值超过50%以上时，暗属性强化 +35']
     if mode == 0:
         pass
     if mode == 1:
@@ -6785,7 +6786,7 @@ def entry_409(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_139(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个出血状态的敌人，攻击强化 +356(最多叠加10次)']
+        return ['500px范围内，每存在1个出血状态的对象，攻击强化 +356(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6795,7 +6796,7 @@ def entry_139(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_140(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个中毒状态的敌人，攻击强化 +356(最多叠加10次)']
+        return ['500px范围内，每存在1个中毒状态的对象，攻击强化 +356(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6805,7 +6806,7 @@ def entry_140(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_141(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个灼伤状态的敌人，攻击强化 +356(最多叠加10次)']
+        return ['500px范围内，每存在1个灼伤状态的对象，攻击强化 +356(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6815,7 +6816,7 @@ def entry_141(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_142(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个感电状态的敌人，攻击强化 +356(最多叠加10次)']
+        return ['500px范围内，每存在1个感电状态的对象，攻击强化 +356(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6825,7 +6826,7 @@ def entry_142(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_143(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个冰冻状态的敌人，攻击强化 +385(最多叠加10次)']
+        return ['500px范围内，每存在1个冰冻状态的对象，攻击强化 +385(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6835,7 +6836,7 @@ def entry_143(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_144(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个减速状态的敌人，攻击强化 + 385(最多叠加10次)']
+        return ['500px范围内，每存在1个减速状态的对象，攻击强化 +385(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6845,7 +6846,7 @@ def entry_144(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_145(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个眩晕状态的敌人，攻击强化 +385(最多叠加10次)']
+        return ['500px范围内，每存在1个眩晕状态的对象，攻击强化 +385(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6855,7 +6856,7 @@ def entry_145(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_146(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个诅咒状态的敌人，攻击强化 +385(最多叠加10次)']
+        return ['500px范围内，每存在1个诅咒状态的对象，攻击强化 +385(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6865,7 +6866,7 @@ def entry_146(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_147(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个失明状态的敌人，攻击强化 +385(最多叠加10次)']
+        return ['500px范围内，每存在1个失明状态的对象，攻击强化 +385(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6875,7 +6876,7 @@ def entry_147(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_148(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个石化状态的敌人，攻击强化 +385(最多叠加10次)']
+        return ['500px范围内，每存在1个石化状态的对象，攻击强化 +385(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6885,7 +6886,7 @@ def entry_148(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_149(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个睡眠状态的敌人，攻击强化 +385(最多叠加10次)']
+        return ['500px范围内，每存在1个睡眠状态的对象，攻击强化 +385(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6895,7 +6896,7 @@ def entry_149(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_150(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个混乱状态的敌人，攻击强化 +385(最多叠加10次)']
+        return ['500px范围内，每存在1个混乱状态的对象，攻击强化 +385(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -6905,7 +6906,7 @@ def entry_150(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_151(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['500px范围内，每存在1个束缚状态的敌人，攻击强化 +385(最多叠加10次)']
+        return ['500px范围内，每存在1个束缚状态的对象，攻击强化 +385(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -7362,7 +7363,7 @@ def entry_212(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1060(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['普通攻击时，不消耗无色小晶块的技能剩余冷却时间 -1%(冷却时间0.1秒)', ' 施放消耗无色小晶块的技能时，不消耗无色小晶块的技能冷却时间+2%，持续30秒(最多叠加10次)']
+        return ['普通攻击、跳跃、前冲攻击时，不消耗无色小晶块的技能剩余冷却时间 -1%(冷却时间0.1秒)', ' 施放消耗无色小晶块的技能时，不消耗无色小晶块的技能冷却时间+2%，持续30秒(最多叠加10次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -7390,7 +7391,7 @@ def entry_391(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1056(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['普通攻击时，Lv15~35主动技能攻击力 +3%，效果持续10秒(最多叠加10次)', '施放Lv45以上技能时，技能攻击力增加效果叠加次数 -1']
+        return ['普通攻击、跳跃、前冲攻击时，Lv15~35主动技能攻击力 +3%，效果持续10秒(最多叠加10次)', '施放Lv45以上技能时，技能攻击力增加效果叠加次数 -1']
     if mode == 0:
         pass
     if mode == 1:
@@ -7401,7 +7402,7 @@ def entry_1056(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1057(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['普通攻击时，Lv15~35主动技能冷却时间恢复速度 +1%，效果持续10秒(最多叠加10次)', '施放Lv45以上技能时，技能冷却时间恢复速度增加效果叠加次数 -1']
+        return ['普通攻击、跳跃、前冲攻击时，Lv15~35主动技能冷却时间恢复速度 +1%，效果持续10秒(最多叠加10次)', '施放Lv45以上技能时，技能冷却时间恢复速度增加效果叠加次数 -1']
     if mode == 0:
         pass
     if mode == 1:
@@ -7421,7 +7422,7 @@ def entry_1059(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1061(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['普通攻击时，攻击速度 +10%，施放速度 +10%，效果持续2秒(最多叠加3次)']
+        return ['普通攻击、跳跃、前冲攻击时，攻击速度 +10%，施放速度 +10%，效果持续2秒(最多叠加3次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -7432,7 +7433,7 @@ def entry_1061(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1062(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['普通攻击时，基础精通攻击力 +15%，持续5秒(冷却时间0.1秒，最多叠加3次)', ' 施放技能时，消耗所有基础精通重叠次数，根据消耗率比例，技能攻击力 +5%，技能冷却时间 +8%，效果持续5秒(只在没有该Buff时发动)']
+        return ['普通攻击、跳跃、前冲攻击时，基础精通攻击力 +15%，持续5秒(冷却时间0.1秒，最多叠加3次)', ' 施放技能时，消耗所有基础精通重叠次数，根据消耗率比例，技能攻击力 +5%，技能冷却时间 +8%，效果持续5秒(只在没有该Buff时发动)']
     if mode == 0:
         pass
     if mode == 1:
@@ -7446,7 +7447,7 @@ def entry_1062(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1063(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['普通攻击时，有15%的几率，使敌人随机进入灼伤、感电、出血、中毒状态中的1种(冷却时间10秒)']
+        return ['普通攻击、跳跃、前冲攻击时, 有15%的几率，使敌人随机进入灼伤、感电、出血、中毒状态中的1种(冷却时间10秒)']
     if mode == 0:
         pass
     if mode == 1:
@@ -7455,7 +7456,7 @@ def entry_1063(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1064(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['普通攻击时，攻击速度 +10%，施放速度 +10%，效果持续5秒(冷却时间0.1秒，最多叠加3次)']
+        return ['普通攻击、跳跃、前冲攻击时，攻击速度 +10%，施放速度 +10%，效果持续5秒(冷却时间0.1秒，最多叠加3次)']
     if mode == 0:
         pass
     if mode == 1:
@@ -8627,7 +8628,7 @@ def entry_799(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_800(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['[装备操作键]输入时，消耗15%的HP，5秒内召唤神圣盾牌(冷却时间45秒，词条不会使HP减少至1%以下)', '- 神圣盾牌的HP以自身HP最大值30%为准', '- 神圣盾牌存在于地图上时，物理、魔法防御力 +20%']
+        return ['[装备操作键]输入时，消耗15%的HP，5秒内召唤神圣盾牌(冷却时间45秒，词条不会使HP减少至1%以下)', '- 神圣盾牌的HP以自身HP最大值30%为准', '- 防御前方敌人的攻击，但限制移动', '- 神圣盾牌存在于地图上时，物理、魔法防御力 +20%']
     if mode == 0:
         pass
     if mode == 1:
@@ -9723,7 +9724,7 @@ def entry_633(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_634(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['[G-S.P.猎鹰]技能冷却时间 -20%']
+        return ['[G-S.P. 猎鹰]技能冷却时间 -20%']
     if mode == 0:
         pass
     if mode == 1:
