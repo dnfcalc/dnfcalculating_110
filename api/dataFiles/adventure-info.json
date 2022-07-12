@@ -2,85 +2,224 @@
   {
     "name": "swordman_male",
     "children": [
-      { "title": "极诣·剑魂", "name": "weapon_master" },
-      { "name": "soul_bender", "title": "极诣·鬼泣" },
-      { "name": "berserker", "title": "极诣·狂战士", "open": true },
-      { "name": "asura", "title": "极诣·阿修罗", "open": true },
-      { "name": "ghostblade", "title": "极诣·剑影", "open": true }
+      {
+        "title": "极诣·剑魂",
+        "name": "weapon_master"
+      },
+      {
+        "name": "soul_bender",
+        "title": "极诣·鬼泣"
+      },
+      {
+        "name": "berserker",
+        "title": "极诣·狂战士",
+        "open": true
+      },
+      {
+        "name": "asura",
+        "title": "极诣·阿修罗",
+        "open": true
+      },
+      {
+        "name": "ghostblade",
+        "title": "极诣·剑影",
+        "open": true
+      }
     ]
   },
   {
     "name": "swordman_female",
     "children": [
-      { "name": "sword_master", "title": "极诣·驭剑士" },
-      { "name": "dark_templar", "title": "极诣·暗殿骑士", "open": true },
-      { "name": "demon_slayer", "title": "极诣·契魔者", "open": true },
-      { "name": "vegabond", "title": "极诣·流浪武士", "open": true },
-      { "name": "spectre", "title": "极诣·刃影", "open": true }
+      {
+        "name": "sword_master",
+        "title": "极诣·驭剑士"
+      },
+      {
+        "name": "dark_templar",
+        "title": "极诣·暗殿骑士",
+        "open": true
+      },
+      {
+        "name": "demon_slayer",
+        "title": "极诣·契魔者",
+        "open": true
+      },
+      {
+        "name": "vegabond",
+        "title": "极诣·流浪武士",
+        "open": true
+      },
+      {
+        "name": "spectre",
+        "title": "极诣·刃影",
+        "open": true
+      }
     ]
   },
   {
     "name": "fighter_male",
     "children": [
-      { "name": "nenmaster_male", "title": "归元·气功师" },
-      { "name": "striker_male", "title": "归元·散打" },
-      { "name": "brawler_male", "title": "归元·街霸" },
-      { "name": "grappler_male", "title": "归元·柔道家" },
-      { "name": "empty", "title": "", "comment": "首页" }
+      {
+        "name": "nenmaster_male",
+        "title": "归元·气功师"
+      },
+      {
+        "name": "striker_male",
+        "title": "归元·散打",
+        "open": true
+      },
+      {
+        "name": "brawler_male",
+        "title": "归元·街霸"
+      },
+      {
+        "name": "grappler_male",
+        "title": "归元·柔道家"
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "comment": "首页"
+      }
     ]
   },
   {
     "name": "fighter_female",
     "children": [
-      { "name": "nenmaster_female", "title": "归元·气功师", "open": true },
-      { "name": "striker_female", "title": "归元·散打" },
-      { "name": "brawler_female", "title": "归元·街霸", "open": true },
-      { "name": "grappler_female", "title": "归元·柔道家" },
-      { "name": "empty", "title": "", "comment": "设置" }
+      {
+        "name": "nenmaster_female",
+        "title": "归元·气功师",
+        "open": true
+      },
+      {
+        "name": "striker_female",
+        "title": "归元·散打"
+      },
+      {
+        "name": "brawler_female",
+        "title": "归元·街霸",
+        "open": true
+      },
+      {
+        "name": "grappler_female",
+        "title": "归元·柔道家"
+      },
+      {
+        "name": "empty",
+        "title": "",
+        "comment": "设置"
+      }
     ]
   },
   {
     "name": "gunner_male",
     "children": [
-      { "name": "ranger_male", "title": "重霄·漫游枪手" },
-      { "name": "launcher_male", "title": "重霄·枪炮师", "open": true },
-      { "name": "mechanic_male", "title": "重霄·机械师" },
-      { "name": "spitfire_male", "title": "重霄·弹药专家", "open": false },
-      { "name": "assault", "title": "重霄·合金战士" }
+      {
+        "name": "ranger_male",
+        "title": "重霄·漫游枪手"
+      },
+      {
+        "name": "launcher_male",
+        "title": "重霄·枪炮师",
+        "open": true
+      },
+      {
+        "name": "mechanic_male",
+        "title": "重霄·机械师"
+      },
+      {
+        "name": "spitfire_male",
+        "title": "重霄·弹药专家",
+        "open": false
+      },
+      {
+        "name": "assault",
+        "title": "重霄·合金战士"
+      }
     ]
   },
   {
     "name": "gunner_female",
     "children": [
-      { "name": "ranger_female", "title": "重霄·漫游枪手", "open": true },
-      { "name": "launcher_female", "title": "重霄·枪炮师", "open": true },
-      { "name": "mechanic_female", "title": "重霄·机械师" },
+      {
+        "name": "ranger_female",
+        "title": "重霄·漫游枪手",
+        "open": true
+      },
+      {
+        "name": "launcher_female",
+        "title": "重霄·枪炮师",
+        "open": true
+      },
+      {
+        "name": "mechanic_female",
+        "title": "重霄·机械师"
+      },
       {
         "name": "spitfire_female",
         "title": "重霄·弹药专家",
         "open": true
       },
-      { "name": "sponsor", "url": "https://bbs.colg.cn", "title": "", "open": true }
+      {
+        "name": "sponsor",
+        "url": "https://bbs.colg.cn",
+        "title": "",
+        "open": true
+      }
     ]
   },
   {
     "name": "mage_male",
     "children": [
-      { "name": "elemental_bomber", "title": "知源·元素爆破师" },
-      { "name": "glacial_master", "title": "知源·冰结师", "open": true },
-      { "name": "blood_mage", "title": "知源·血法师" },
-      { "name": "swift_master", "title": "知源·逐风者" },
-      { "name": "dimension_walker", "title": "知源·次元行者" }
+      {
+        "name": "elemental_bomber",
+        "title": "知源·元素爆破师"
+      },
+      {
+        "name": "glacial_master",
+        "title": "知源·冰结师",
+        "open": true
+      },
+      {
+        "name": "blood_mage",
+        "title": "知源·血法师"
+      },
+      {
+        "name": "swift_master",
+        "title": "知源·逐风者"
+      },
+      {
+        "name": "dimension_walker",
+        "title": "知源·次元行者"
+      }
     ]
   },
   {
     "name": "mage_female",
     "children": [
-      { "name": "elementalist", "title": "知源·元素师", "open": true },
-      { "name": "summoner", "title": "知源·召唤师" },
-      { "name": "battle_mage", "title": "知源·战斗法师", "open": true },
-      { "name": "witch", "title": "知源·魔道学者" },
-      { "name": "enchantress", "title": "知源·小魔女", "open": true }
+      {
+        "name": "elementalist",
+        "title": "知源·元素师",
+        "open": true
+      },
+      {
+        "name": "summoner",
+        "title": "知源·召唤师"
+      },
+      {
+        "name": "battle_mage",
+        "title": "知源·战斗法师",
+        "open": true
+      },
+      {
+        "name": "witch",
+        "title": "知源·魔道学者"
+      },
+      {
+        "name": "enchantress",
+        "title": "知源·小魔女",
+        "open": true
+      }
     ]
   },
   {
@@ -91,74 +230,189 @@
         "title": "神启·圣骑士",
         "open": true,
         "options": [
-          { "name": "default", "title": "奶系" },
-          { "name": "default", "title": "输出", "class": "crusader_male_carry" }
+          {
+            "name": "default",
+            "title": "奶系"
+          },
+          {
+            "name": "default",
+            "title": "输出",
+            "class": "crusader_male_carry"
+          }
         ]
       },
-      { "name": "infighter", "title": "神启·蓝拳圣使" },
-      { "name": "exorcist", "title": "神启·驱魔师" },
-      { "name": "avenger", "title": "神启·复仇者" },
-      { "name": "empty", "title": "" }
+      {
+        "name": "infighter",
+        "title": "神启·蓝拳圣使"
+      },
+      {
+        "name": "exorcist",
+        "title": "神启·驱魔师"
+      },
+      {
+        "name": "avenger",
+        "title": "神启·复仇者"
+      },
+      {
+        "name": "empty",
+        "title": ""
+      }
     ]
   },
   {
     "name": "priest_female",
     "children": [
-      { "name": "crusader_female", "title": "神启·圣骑士", "open": true },
-      { "name": "inquistor", "title": "神启·异端审判者" },
-      { "name": "sorceress", "title": "神启·巫女", "open": true },
-      { "name": "mistress", "title": "神启·诱魔者" },
-      { "name": "empty", "title": "" }
+      {
+        "name": "crusader_female",
+        "title": "神启·圣骑士",
+        "open": true
+      },
+      {
+        "name": "inquistor",
+        "title": "神启·异端审判者"
+      },
+      {
+        "name": "sorceress",
+        "title": "神启·巫女",
+        "open": true
+      },
+      {
+        "name": "mistress",
+        "title": "神启·诱魔者"
+      },
+      {
+        "name": "empty",
+        "title": ""
+      }
     ]
   },
   {
     "name": "thief",
     "children": [
-      { "name": "rogue", "title": "隐夜·刺客" },
-      { "name": "necro", "title": "隐夜·死灵术士" },
-      { "name": "kunoichi", "title": "隐夜·忍者" },
-      { "name": "shadow_dancer", "title": "隐夜·影舞者" },
-      { "name": "empty", "title": "" }
+      {
+        "name": "rogue",
+        "title": "隐夜·刺客"
+      },
+      {
+        "name": "necro",
+        "title": "隐夜·死灵术士"
+      },
+      {
+        "name": "kunoichi",
+        "title": "隐夜·忍者"
+      },
+      {
+        "name": "shadow_dancer",
+        "title": "隐夜·影舞者"
+      },
+      {
+        "name": "empty",
+        "title": ""
+      }
     ]
   },
   {
     "name": "knight",
     "children": [
-      { "name": "elven_knight", "title": "皓曦·精灵骑士" },
-      { "name": "chaos", "title": "皓曦·混沌魔灵" },
-      { "name": "paladin", "title": "皓曦·帕拉丁", "open": true },
-      { "name": "dragon_knight", "title": "皓曦·龙骑士" },
-      { "name": "empty", "title": "" }
+      {
+        "name": "elven_knight",
+        "title": "皓曦·精灵骑士"
+      },
+      {
+        "name": "chaos",
+        "title": "皓曦·混沌魔灵"
+      },
+      {
+        "name": "paladin",
+        "title": "皓曦·帕拉丁",
+        "open": true
+      },
+      {
+        "name": "dragon_knight",
+        "title": "皓曦·龙骑士"
+      },
+      {
+        "name": "empty",
+        "title": ""
+      }
     ]
   },
   {
     "name": "demonic_lancer",
     "children": [
-      { "name": "vanguard", "title": "千魂·征战者" },
-      { "name": "skirmisher", "title": "千魂·决战者" },
-      { "name": "dragoon", "title": "千魂·狩猎者", "open": true },
-      { "name": "impaler", "title": "千魂·暗枪士" },
-      { "name": "empty", "title": "" }
+      {
+        "name": "vanguard",
+        "title": "千魂·征战者"
+      },
+      {
+        "name": "skirmisher",
+        "title": "千魂·决战者"
+      },
+      {
+        "name": "dragoon",
+        "title": "千魂·狩猎者",
+        "open": true
+      },
+      {
+        "name": "impaler",
+        "title": "千魂·暗枪士"
+      },
+      {
+        "name": "empty",
+        "title": ""
+      }
     ]
   },
   {
     "name": "gunblader",
     "children": [
-      { "name": "hitman", "title": "苍暮·暗刃", "open": true },
-      { "name": "agent", "title": "苍暮·特工" },
-      { "name": "trouble_shooter", "title": "苍暮·战线佣兵" },
-      { "name": "specialist", "title": "苍暮·源能专家" },
-      { "name": "empty", "title": "" }
+      {
+        "name": "hitman",
+        "title": "苍暮·暗刃",
+        "open": true
+      },
+      {
+        "name": "agent",
+        "title": "苍暮·特工"
+      },
+      {
+        "name": "trouble_shooter",
+        "title": "苍暮·战线佣兵"
+      },
+      {
+        "name": "specialist",
+        "title": "苍暮·源能专家"
+      },
+      {
+        "name": "empty",
+        "title": ""
+      }
     ]
   },
   {
     "name": "extra",
     "children": [
-      { "name": "creator", "title": "知源·缔造者", "open": true },
-      { "name": "dark_knight", "title": "极诣·黑暗武士" },
-      { "name": "empty", "title": "" },
-      { "name": "empty", "title": "" },
-      { "name": "empty", "title": "" }
+      {
+        "name": "creator",
+        "title": "知源·缔造者",
+        "open": true
+      },
+      {
+        "name": "dark_knight",
+        "title": "极诣·黑暗武士"
+      },
+      {
+        "name": "empty",
+        "title": ""
+      },
+      {
+        "name": "empty",
+        "title": ""
+      },
+      {
+        "name": "empty",
+        "title": ""
+      }
     ]
   }
 ]

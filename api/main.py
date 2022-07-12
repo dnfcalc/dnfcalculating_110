@@ -43,33 +43,35 @@ def global_init():
 if __name__ == '__main__':
 
     global_init()
+    try:
+        if sys.argv[0].endswith(".py"):
+            uvicorn.run(
+                # 运行的 py 文件:FastAPI 实例对象
+                "main:app",
+                # 访问url，默认 127.0.0.1
+                # host="0.0.0.0",
+                # 访问端口，默认 8080,后续需要做端口检测是否被占用
+                port=17173,
+                # 热更新，有内容修改自动重启服务器
+                reload=True,
+                # 同 reload
+                debug=True)
+        else:
+            app.mount(
+                "/", Renderer(directory="app/renderer", html=True), name="static")
+            uvicorn.run(
+                # 运行的 py 文件:FastAPI 实例对象
+                app,
+                # 访问url，默认 127.0.0.1
+                # host="0.0.0.0",
+                # 访问端口，默认 8080,后续需要做端口检测是否被占用
+                port=17173,
+                # 热更新，有内容修改自动重启服务器
+                reload=False,
+                # 同 reload
+                debug=False,
+            )
+    except Exception as ex:
+        print(ex)
 
-    if sys.argv[0].endswith(".py"):
-        uvicorn.run(
-            # 运行的 py 文件:FastAPI 实例对象
-            "main:app",
-            # 访问url，默认 127.0.0.1
-            # host="0.0.0.0",
-            # 访问端口，默认 8080,后续需要做端口检测是否被占用
-            port=17173,
-            # 热更新，有内容修改自动重启服务器
-            reload=True,
-            # 同 reload
-            debug=True)
-
-    else:
-        app.mount(
-            "/", Renderer(directory="app/renderer", html=True), name="static")
-        uvicorn.run(
-            # 运行的 py 文件:FastAPI 实例对象
-            "app",
-            # 访问url，默认 127.0.0.1
-            # host="0.0.0.0",
-            # 访问端口，默认 8080,后续需要做端口检测是否被占用
-            port=17173,
-            # 热更新，有内容修改自动重启服务器
-            reload=False,
-            # 同 reload
-            debug=False
-        )
     # print(os.getppid())
