@@ -5092,7 +5092,7 @@ def set_enemy_type(x):
 
 
 entry_chose.append((20037, ['选择敌人类型'] + ['攻击{}敌人'.format(i)
-                                         for i in enemy_type_list[1:]],""))
+                                         for i in enemy_type_list[1:]], ""))
 variable_set[20037] = set_enemy_type
 
 
@@ -5212,7 +5212,7 @@ def set_state_type(x):
 
 
 entry_chose.append((20042, ['选择敌人状态'] + ['攻击{}敌人'.format(i)
-                                         for i in state_type_list[1:]],""))
+                                         for i in state_type_list[1:]], ""))
 variable_set[20042] = set_state_type
 
 
@@ -5406,7 +5406,7 @@ def set_boss_time(x):
     boss_time = boss_time_list[x[0]]
 
 
-entry_chose.append((20216, ['选择攻击领主状态'] + ['前20秒(正面)', '20-30秒(负面)'],""))
+entry_chose.append((20216, ['选择攻击领主状态'] + ['前20秒(正面)', '20-30秒(负面)'], ""))
 multi_select[20216] = False
 variable_set[20216] = set_boss_time
 
@@ -5558,7 +5558,7 @@ def set_attack_type(x):
 
 
 entry_chose.append((20351, ['选择攻击类型'] + ['{}'.format(i)
-                                         for i in attack_type_list[1:]],""))
+                                         for i in attack_type_list[1:]], ""))
 variable_set[20351] = set_attack_type
 
 
@@ -5658,7 +5658,7 @@ def set_kill_num(x):
 
 
 entry_chose.append((20074, ['选择消灭敌人层数'] + ['消灭敌人：{}个'.format(i)
-                                           for i in kill_num_list[1:]],""))
+                                           for i in kill_num_list[1:]], ""))
 multi_select[20074] = False
 variable_set[20074] = set_kill_num
 
@@ -6060,7 +6060,7 @@ def set_combo_num(x):
 
 
 entry_chose.append((20113, ['选择连击次数'] + ['{}连击'.format(i)
-                                         for i in combo_num_list[1:]],""))
+                                         for i in combo_num_list[1:]], ""))
 multi_select[20113] = False
 variable_set[20113] = set_combo_num
 
@@ -6104,11 +6104,11 @@ def entry_122(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_153(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['每进行5次攻击，获得效果', '- 攻击强化 +N', '- 物理防御力 -500']
+        return ['每进行5次攻击，获得效果(最多叠加20次)', '- 攻击强化 +89', '- 物理防御力 -500', '- 魔法防御力 -500']
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(89, lv))
+        char.攻击强化加成(成长词条计算(89, lv)*20)
         pass
 
 
@@ -6669,7 +6669,7 @@ def set_teammate_num(x):
 
 
 entry_chose.append((20165, ['选择队员数量'] + ['队员：{}名'.format(i)
-                                         for i in teammate_num_list[1:]],""))
+                                         for i in teammate_num_list[1:]], ""))
 multi_select[20165] = False
 variable_set[20165] = set_teammate_num
 
@@ -6733,7 +6733,7 @@ def set_enemy_num(x):
 
 
 entry_chose.append((20183, ['选择敌人数量'] + ['{}个敌人'.format(i)
-                                         for i in enemy_num_list[1:]],""))
+                                         for i in enemy_num_list[1:]], ""))
 multi_select[20183] = False
 variable_set[20183] = set_enemy_num
 
@@ -7047,7 +7047,7 @@ def set_dungeons_type(x):
 
 
 entry_chose.append((20189, ['选择地下城类型'] + ['{}'.format(i)
-                                          for i in dungeons_type_list[1:]],""))
+                                          for i in dungeons_type_list[1:]], ""))
 variable_set[20189] = set_dungeons_type
 
 
@@ -7091,7 +7091,7 @@ def set_toughness_num(x):
 
 
 entry_chose.append((20194, ['选择敌人韧性削减'] + ['韧性减少：{}%'.format(i * 10)
-                                           for i in toughness_num_list[1:]],""))
+                                           for i in toughness_num_list[1:]], ""))
 multi_select[20194] = False
 variable_set[20194] = set_toughness_num
 
@@ -7533,7 +7533,7 @@ def set_distance_num(x):
 
 
 entry_chose.append((20253, ['选择敌人距离'] + ['距离{}~{}px'.format(i, i + 50)
-                                         for i in distance_num_list[1:]],""))
+                                         for i in distance_num_list[1:]], ""))
 multi_select[20253] = False
 variable_set[20253] = set_distance_num
 
@@ -8334,7 +8334,7 @@ entry_chose.append((20814, ['选择HP范围'] +
                      '70%~80%',
                      '80%~90%',
                      '90%以上',
-                     ],""))
+                     ], ""))
 multi_select[20814] = False
 variable_set[20814] = set_hp_rate_num
 
@@ -8519,7 +8519,7 @@ entry_chose.append((20813, ['选择MP范围'] +
                      '70%~80%',
                      '80%~90%',
                      '90%以上',
-                     ],""))
+                     ], ""))
 multi_select[20813] = False
 variable_set[20813] = set_mp_rate_num
 
@@ -8744,7 +8744,7 @@ def set_gold_num(x):
 
 
 entry_chose.append((20840, ['选择金币数量'] + ['{}千万'.format(i)
-                                         for i in gold_num_list[1:]],""))
+                                         for i in gold_num_list[1:]], ""))
 multi_select[20840] = False
 variable_set[20840] = set_gold_num
 
@@ -9287,8 +9287,8 @@ def set_cp_striker_male(x):
 
 
 entry_chose.append((30579, ['CP武器-[双重释放]Buff触发',
-                     'CP武器-[双重释放]Buff未触发',
-                     ],"striker_male"))
+                            'CP武器-[双重释放]Buff未触发',
+                            ], "striker_male"))
 multi_select[30579] = False
 variable_set[30579] = set_cp_striker_male
 
@@ -10919,7 +10919,7 @@ def entry_751(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.get_skill_by_name('光焰枪').倍率 *=1.3
+        char.get_skill_by_name('光焰枪').倍率 *= 1.3
         pass
 
 
@@ -10929,8 +10929,8 @@ def entry_752(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.get_skill_by_name('地龙狩').倍率 *=1.3
-        char.get_skill_by_name('无尽杀戮').倍率 *=1.3
+        char.get_skill_by_name('地龙狩').倍率 *= 1.3
+        char.get_skill_by_name('无尽杀戮').倍率 *= 1.3
         pass
 
 
@@ -10949,7 +10949,7 @@ def entry_754(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.get_skill_by_name('猎杀枪').CD *=0.7
+        char.get_skill_by_name('猎杀枪').CD *= 0.7
         pass
 
 

@@ -445,13 +445,15 @@ def 获取基础属性(角色, 职业):
 
 
 def 成长词条计算(基础, 等级):
-    if 等级 > 80: raise Exception("目前最大支持到80级")
-    return round(134.72 * round(基础 / 134.72, 2) * 成长词条系数[min(79, 等级 - 1)])
+    if 等级 > 81:
+        raise Exception("目前最大支持到80级")
+    return round(134.72 * round(基础 / 134.72, 2) * 成长词条系数[min(80, 等级 - 1)])
 
 
 def 奶成长词条计算(基础, 等级):
-    if 等级 > 80: raise Exception("目前最大支持到80级")
+    if 等级 > 81:
+        raise Exception("目前最大支持到80级")
     if 基础 in [474, 479, 484, 489, 494, 499, 504, 509, 514]:
-        return round(134.72 * round(基础 / 134.72, 2) * 成长词条系数[min(79, 等级 - 1)])
+        return round(134.72 * round(基础 / 134.72, 2) * 成长词条系数[min(80, 等级 - 1)])
     else:
-        return round(159.96 * round(基础 / 159.96, 2) * 成长词条系数[min(79, 等级 - 1)])
+        return round(159.96 * round(基础 / 159.96, 2) * 成长词条系数[min(80, 等级 - 1)])

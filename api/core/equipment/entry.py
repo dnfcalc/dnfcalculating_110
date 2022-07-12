@@ -6046,11 +6046,11 @@ def entry_122(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_153(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['每进行5次攻击，获得效果', '- 攻击强化 +89', '- 物理防御力 -500']
+        return ['每进行5次攻击，获得效果(最多叠加20次)', '- 攻击强化 +89', '- 物理防御力 -500', '- 魔法防御力 -500']
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(89, lv))
+        char.攻击强化加成(成长词条计算(89, lv)*20)
         pass
 
 
