@@ -4571,9 +4571,7 @@ def entry_114(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击速度加成(0.4)
-        char.移动速度加成(0.4)
-        char.释放速度加成(0.6)
+        char.基础属性加成(攻击速度=0.4, 移动速度=0.4, 施放速度=0.6)
 
 
 def entry_123(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -4618,9 +4616,7 @@ def entry_127(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击速度加成(0.2)
-        char.移动速度加成(0.2)
-        char.释放速度加成(0.2)
+        char.基础属性加成(攻击速度=0.2, 移动速度=0.2, 施放速度=0.2)
 
 
 def entry_152(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -5880,7 +5876,7 @@ def entry_878(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
                 skill["倍率"] *= 1.1
                 skill["无色消耗"] *= 2**min(len(list(filter(lambda i: i['名称'] ==
                                                         skill['名称'], char.技能队列[0:index]))), 3)
-        # todo 释放一次翻倍
+        # todo 施放一次翻倍
 
 
 def entry_877(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6084,8 +6080,8 @@ def entry_116(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击速度加成(0.03 * min(10, int(combo_num / 3)))
-        char.释放速度加成(0.045 * min(10, int(combo_num / 3)))
+        char.基础属性加成(攻击速度=0.03 * min(10, int(combo_num / 3)),
+                    施放速度=0.045 * min(10, int(combo_num / 3)))
 
 
 def entry_117(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6103,7 +6099,7 @@ def entry_122(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.移动速度加成(0.03 * min(10, int(combo_num / 3)))
+        char.基础属性加成(移动速度=0.03 * min(10, int(combo_num / 3)))
 
 
 def entry_153(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -9346,7 +9342,7 @@ def entry_585(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_586(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['[禅语·形灭]释放速度+20%、攻击范围+10%']
+        return ['[禅语·形灭]施放速度+20%、攻击范围+10%']
     if mode == 0:
         pass
     if mode == 1:
@@ -9382,7 +9378,7 @@ def entry_589(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_590(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['[地狱风火轮]释放后的僵直时间内可以使用转职技能']
+        return ['[地狱风火轮]施放后的僵直时间内可以使用转职技能']
     if mode == 0:
         pass
     if mode == 1:
@@ -9583,7 +9579,7 @@ def entry_611(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         skill = char.get_skill_by_name("激光炮")
-        skill.基础释放次数 = 3
+        skill.基础施放次数 = 3
         skill.CD = 7
         pass
 
@@ -9657,7 +9653,7 @@ def entry_618(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_619(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['穿戴时，生成光谱效果；释放[双鹰回旋]时增加30%的攻击速度，持续4秒(最多叠加1次）']
+        return ['穿戴时，生成光谱效果；施放[双鹰回旋]时增加30%的攻击速度，持续4秒(最多叠加1次）']
     if mode == 0:
         pass
     if mode == 1:
@@ -9711,7 +9707,7 @@ def entry_624(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_625(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['聚合弹释放时消耗所有超负荷装载的特殊弹药,强化攻击力', '—消耗1发特殊弹药：聚合弹攻击力+15%', '—消耗2发特殊弹药：聚合弹攻击力+40%', '消耗3发特殊弹药：聚合弹攻击力+80%']
+        return ['聚合弹施放时消耗所有超负荷装载的特殊弹药,强化攻击力', '—消耗1发特殊弹药：聚合弹攻击力+15%', '—消耗2发特殊弹药：聚合弹攻击力+40%', '消耗3发特殊弹药：聚合弹攻击力+80%']
     if mode == 0:
         pass
     if mode == 1:
@@ -9720,7 +9716,7 @@ def entry_625(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_626(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['聚合弹在其他技能释放时可以取消释放动作使用']
+        return ['聚合弹在其他技能施放时可以取消施放动作使用']
     if mode == 0:
         pass
     if mode == 1:
@@ -9729,7 +9725,7 @@ def entry_626(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_627(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['M-3喷火器释放时将火焰压缩发射']
+        return ['M-3喷火器施放时将火焰压缩发射']
     if mode == 0:
         pass
     if mode == 1:
@@ -9738,7 +9734,7 @@ def entry_627(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_628(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['聚焦喷火器释放时将火焰压缩发射']
+        return ['聚焦喷火器施放时将火焰压缩发射']
     if mode == 0:
         pass
     if mode == 1:
@@ -9854,8 +9850,8 @@ def entry_640(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['G-14手雷、G-35L感电手雷、G-18C冰冻手雷最大装载数+2']
     if mode == 0:
-        char.get_skill_by_name("G35感电手雷").基础释放次数 += 2
-        char.get_skill_by_name("G18冰冻手雷").基础释放次数 += 2
+        char.get_skill_by_name("G35感电手雷").基础施放次数 += 2
+        char.get_skill_by_name("G18冰冻手雷").基础施放次数 += 2
         pass
     if mode == 1:
         pass
@@ -9931,7 +9927,7 @@ def entry_647(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_648(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['其他技能释放时可以使用[元素炮]取消']
+        return ['其他技能施放时可以使用[元素炮]取消']
     if mode == 0:
         pass
     if mode == 1:
@@ -10210,7 +10206,7 @@ def entry_677(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_678(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['蚀月附灵技能追加操作使用时删除释放动作']
+        return ['蚀月附灵技能追加操作使用时删除施放动作']
     if mode == 0:
         pass
     if mode == 1:
@@ -10219,7 +10215,7 @@ def entry_678(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_679(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['[哇咔咔!]不需要释放动作就可以使用']
+        return ['[哇咔咔!]不需要施放动作就可以使用']
     if mode == 0:
         pass
     if mode == 1:
@@ -10645,7 +10641,7 @@ def entry_723(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_724(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['忍法:六道轮回技能释放完毕后恢复5个残影']
+        return ['忍法:六道轮回技能施放完毕后恢复5个残影']
     if mode == 0:
         pass
     if mode == 1:
@@ -10654,7 +10650,7 @@ def entry_724(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_725(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['忍法:六道轮回技能释放时获得5秒霸体护甲']
+        return ['忍法:六道轮回技能施放时获得5秒霸体护甲']
     if mode == 0:
         pass
     if mode == 1:
@@ -11063,7 +11059,7 @@ def entry_768(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_769(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['爆裂斩释放时3秒内转职技能攻击力 +20%(觉醒技除外)', '爆裂斩爆炸范围 +10%']
+        return ['爆裂斩施放时3秒内转职技能攻击力 +20%(觉醒技除外)', '爆裂斩爆炸范围 +10%']
     if mode == 0:
         pass
     if mode == 1:

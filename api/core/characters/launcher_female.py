@@ -183,7 +183,7 @@ class 技能8(主动技能):
     是否有护石 = 1
 
     def 装备护石(self):
-        self.基础释放次数 = 4
+        self.基础施放次数 = 4
         self.hit0 = 2
         self.倍率 *= 1.27
         self.CD = 4
@@ -392,7 +392,7 @@ class 技能17(主动技能):
     def 装备护石(self):
         self.倍率 *= 0.64
         self.CDR = 18
-        self.基础释放次数 = 1.0
+        self.基础施放次数 = 1.0
         # self.恢复 = 1.0
 
 
