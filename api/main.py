@@ -27,12 +27,13 @@ app.include_router(openRouter, prefix="/api", tags=['三方接口'])
 
 
 def global_init():
-    import os
     import json
+    import os
 
     info = []
-    with open("./dataFiles/set-info.json", encoding='utf-8') as fp:
-        info = json.load(fp)
+    if os.path.exists("./dataFiles/set-info.json"):
+        with open("./dataFiles/set-info.json", encoding='utf-8') as fp:
+            info = json.load(fp)
     detail = [0] * len(info)
     if not os.path.exists('./sets'):
         os.makedirs('./sets')
@@ -61,15 +62,15 @@ if __name__ == '__main__':
             "/", Renderer(directory="app/renderer", html=True), name="static")
         config = uvicorn.Config(
             # 运行的 py 文件:FastAPI 实例对象
-            "main:app",
+            app,
             # 访问url，默认 127.0.0.1
             # host="0.0.0.0",
             # 访问端口，默认 8080,后续需要做端口检测是否被占用
             port=17173,
             # 热更新，有内容修改自动重启服务器
-            reload=True,
+            reload=False,
             # 同 reload
-            debug=True)
+            debug=False)
     server = uvicorn.Server(config)
     server.run()
 
