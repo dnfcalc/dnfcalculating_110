@@ -51,7 +51,7 @@ def get(alter: str, setName: str):
     skillInfo = info['skills']
     buff = info['buff_ratio']
     skill_set = []
-    trigger = equ.get_chose_set(mode=1)
+    trigger = equ.get_chose_set(mode=1,alter=alter)
     dress_set = {
         "头发": {
             "id": 0,

@@ -285,7 +285,7 @@ class equipment_list():
         #     info.append((i, ctext))
         return info + entry_chose
 
-    def get_chose_set(self, mode=0) -> List[Dict]:
+    def get_chose_set(self, mode=0,alter="") -> List[Dict]:
         if version == 0:
             from core.equipment.entry import multi_select
         if version == 1:
@@ -293,15 +293,17 @@ class equipment_list():
         if mode == 1:
             setinfo = {}
             for i in self.get_chose_set_info():
-                setinfo[i[0]] = [0]
+                if i[2] == "" or i[2] == alter:
+                    setinfo[i[0]] = [0]
         else:
             setinfo = []
             for i in self.get_chose_set_info():
-                setinfo.append({
-                    "id": i[0],
-                    "selectList": i[1],
-                    "multi-select": multi_select.get(i[0], True)
-                })
+                if i[2] == "" or i[2] == alter:
+                    setinfo.append({
+                        "id": i[0],
+                        "selectList": i[1],
+                        "multi-select": multi_select.get(i[0], True)
+                    })
         return setinfo
 
     # def set_equ_customize(self, customize):

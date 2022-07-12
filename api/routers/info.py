@@ -69,8 +69,8 @@ async def getToken(alter: str, version: str = None):
 
 
 @infoRouter.get("/triggers")
-async def get_triggers():
-    return response(data=equ.get_chose_set())
+async def get_triggers(state: AlterState = Depends(authorize)):
+    return response(data=equ.get_chose_set(alter = state.alter))
 
 
 @infoRouter.get("/entries")

@@ -712,19 +712,19 @@ class Character(CharacterProperty):
 
     # 新词条计算的三攻(旧词条需要额外乘百分比三攻)
 
-    def __基础面板物理攻击力(self) -> float:
+    def 基础面板物理攻击力(self) -> float:
         面板物理攻击 = self.__物理攻击力
         for i in self.技能栏:
             面板物理攻击 *= i.物理攻击力倍率进图(self.武器类型)
         return 面板物理攻击 * self.__站街物理攻击力倍率()
 
-    def __基础面板魔法攻击力(self) -> float:
+    def 基础面板魔法攻击力(self) -> float:
         面板魔法攻击 = self.__魔法攻击力
         for i in self.技能栏:
             面板魔法攻击 *= i.魔法攻击力倍率进图(self.武器类型)
         return 面板魔法攻击 * self.__站街魔法攻击力倍率()
 
-    def __基础面板独立攻击力(self) -> float:
+    def 基础面板独立攻击力(self) -> float:
         面板独立攻击 = self.__独立攻击力
         for i in self.技能栏:
             面板独立攻击 *= i.独立攻击力倍率进图(self.武器类型)
@@ -733,15 +733,15 @@ class Character(CharacterProperty):
     # 图内显示的三攻(不参与伤害计算)
 
     def 面板物理攻击力(self) -> float:
-        面板物理攻击 = self.__基础面板物理攻击力() * (1 + self.__百分比三攻) * (self.斗神宠物加成)
+        面板物理攻击 = self.基础面板物理攻击力() * (1 + self.__百分比三攻) * (self.斗神宠物加成)
         return 面板物理攻击
 
     def 面板魔法攻击力(self) -> float:
-        面板魔法攻击 = self.__基础面板魔法攻击力() * (1 + self.__百分比三攻) * (self.斗神宠物加成)
+        面板魔法攻击 = self.基础面板魔法攻击力() * (1 + self.__百分比三攻) * (self.斗神宠物加成)
         return 面板魔法攻击
 
     def 面板独立攻击力(self) -> float:
-        面板独立攻击 = self.__基础面板独立攻击力() * (1 + self.__百分比三攻)
+        面板独立攻击 = self.基础面板独立攻击力() * (1 + self.__百分比三攻)
         return 面板独立攻击
     # endregion
 
@@ -1564,23 +1564,23 @@ class Character(CharacterProperty):
         # 基础面板 不含百分比力智和百分比三攻
         if mode == 0:
             if self.类型 == '物理百分比':
-                return int((self.__基础面板力量() / 250 + 1) * self.__基础面板物理攻击力())
+                return int((self.__基础面板力量() / 250 + 1) * self.基础面板物理攻击力())
             elif self.类型 == '魔法百分比':
-                return int((self.__基础面板智力() / 250 + 1) * self.__基础面板魔法攻击力())
+                return int((self.__基础面板智力() / 250 + 1) * self.基础面板魔法攻击力())
             elif self.类型 == '物理固伤':
-                return int((self.__基础面板力量() / 250 + 1) * self.__基础面板独立攻击力())
+                return int((self.__基础面板力量() / 250 + 1) * self.基础面板独立攻击力())
             elif self.类型 == '魔法固伤':
-                return int((self.__基础面板智力() / 250 + 1) * self.__基础面板独立攻击力())
+                return int((self.__基础面板智力() / 250 + 1) * self.基础面板独立攻击力())
         # 旧版算法 不含斗神、宠物技能等
         else:
             if self.类型 == '物理百分比':
-                return int((self.面板力量() / 250 + 1) * self.__基础面板物理攻击力() * (1 + self.__百分比三攻))
+                return int((self.面板力量() / 250 + 1) * self.基础面板物理攻击力() * (1 + self.__百分比三攻))
             elif self.类型 == '魔法百分比':
-                return int((self.面板智力() / 250 + 1) * self.__基础面板魔法攻击力() * (1 + self.__百分比三攻))
+                return int((self.面板智力() / 250 + 1) * self.基础面板魔法攻击力() * (1 + self.__百分比三攻))
             elif self.类型 == '物理固伤':
-                return int((self.面板力量() / 250 + 1) * self.__基础面板独立攻击力() * (1 + self.__百分比三攻))
+                return int((self.面板力量() / 250 + 1) * self.基础面板独立攻击力() * (1 + self.__百分比三攻))
             elif self.类型 == '魔法固伤':
-                return int((self.面板智力() / 250 + 1) * self.__基础面板独立攻击力() * (1 + self.__百分比三攻))
+                return int((self.面板智力() / 250 + 1) * self.基础面板独立攻击力() * (1 + self.__百分比三攻))
 
     def 伤害指数计算(self):
 
