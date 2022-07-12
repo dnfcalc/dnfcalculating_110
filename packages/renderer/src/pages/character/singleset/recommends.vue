@@ -4,7 +4,7 @@
   import { isShow, onShow } from "@/components/hooks/show"
   import EqIconVue from "@/components/internal/equip/eq-icon.vue"
   import { useCharacterStore, useConfigStore } from "@/store"
-  import { useAsyncState } from "@vueuse/core"
+  import { useAsyncState, useDebounceFn } from "@vueuse/core"
   import { computed, defineComponent, reactive, renderList } from "vue"
   export default defineComponent({
     setup() {
@@ -18,7 +18,7 @@
         alter: characterStore.alter
       })
 
-      const { state, execute } = useAsyncState(
+      const { state, execute, isLoading } = useAsyncState(
         () => {
           return api.recommends(params)
         },
@@ -30,7 +30,8 @@
         },
         {
           resetOnExecute: false,
-          immediate: false
+          immediate: false,
+          onError: Promise.reject
         }
       )
 
@@ -51,6 +52,8 @@
         }
       }
 
+      const onPageChange = useDebounceFn(() => execute(), 200)
+
       return () => {
         return (
           <div class="h-132 py-2 px-4 text-hex-e9c556 w-120 overflow-y-auto">
@@ -58,10 +61,10 @@
               <calc-autocomplete class="flex-1" placeholder="输入关键字搜索流派搭配" v-model={params.keyword}></calc-autocomplete>
               <calc-button onClick={execute}>搜索</calc-button>
             </div>
-            <div class="h-108">
+            <calc-loading class="space-y-2 h-108" loading={isLoading.value}>
               {renderList(state.value.data, item => {
                 return (
-                  <div class="mx-auto  my-2 ">
+                  <div class="mx-auto">
                     <div class="flex h-6 text-sm leading-6 w-96 items-center justify-between">
                       <span>{item.name}</span>
                       <span>[{item.author}]</span>
@@ -77,8 +80,8 @@
                   </div>
                 )
               })}
-            </div>
-            <calc-pagination disabled={!visible.value} class="h-8" v-model:page={params.page} onChange={() => execute()} totalPage={totalPage.value}></calc-pagination>
+            </calc-loading>
+            <calc-pagination disabled={!visible.value} class="h-8" v-model:page={params.page} onChange={onPageChange} totalPage={totalPage.value}></calc-pagination>
             <a href="https://www.skycity.top/dictionary?from=dcalc" target="__blank" class="flex w-full text-hex-f4e713 justify-center">
               Power by SkyCity
             </a>

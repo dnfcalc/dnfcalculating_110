@@ -28,12 +28,17 @@
     setup(props, { emit }) {
       const page = computed({
         get() {
-          return Math.max(Math.min(props.page, props.totalPage), props.minPage)
+          if (isNaN(props.page)) {
+            return props.minPage
+          }
+          return Math.max(Math.min(props.page, totalPage.value), props.minPage)
         },
         set(val) {
           emit("update:page", val)
         }
       })
+
+      const totalPage = computed(() => (isNaN(props.totalPage) ? props.minPage : props.totalPage))
 
       function prev(e: Event) {
         e.preventDefault()
@@ -46,7 +51,7 @@
 
       function next(e: Event) {
         e.preventDefault()
-        if (page.value < props.totalPage && !props.disabled) {
+        if (page.value < totalPage.value && !props.disabled) {
           page.value = page.value + 1
           emit("next")
           emit("change", page.value)
@@ -66,9 +71,9 @@
           <div class="flex space-x-1 h-10 w-full items-center justify-center">
             <calc-button icon="prev" disabled={page.value <= 1 || props.disabled} onClick={prev}></calc-button>
             <span class="text-center w-8">
-              {page.value}/{props.totalPage}
+              {page.value}/{totalPage.value}
             </span>
-            <calc-button icon="next" disabled={props.page >= props.totalPage || props.disabled} onClick={next}></calc-button>
+            <calc-button icon="next" disabled={page.value >= totalPage.value || props.disabled} onClick={next}></calc-button>
           </div>
         )
       }
