@@ -1367,9 +1367,6 @@ class Character(CharacterProperty):
                 非关联技能 = getattr(i, "非关联技能"+index, ["无"])
                 try:
                     加成倍率 = eval("i.加成倍率"+index+"(self.武器类型)")
-                    if i.名称 == "蓄念炮":
-                        print(eval("i.加成倍率"+index+"(self.武器类型)"),
-                              eval("i.加成描述"+index+"(self.武器类型)"))
                 except:
                     加成倍率 = 1.0
                 try:
