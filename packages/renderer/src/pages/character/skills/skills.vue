@@ -108,6 +108,9 @@
                       <div class="h-7 m-1 w-7 skill-slot-item relative">
                         <calc-iconselect columnNum={5} v-model={configStore.hotkey_set[i]}>
                           <calc-option class="bg-hex-000000 h-28px w-28px items-center justify-center !flex" value=""></calc-option>
+                          <calc-option class="bg-hex-000000 h-28px w-28px items-center justify-center !flex" value="其它">
+                            其它
+                          </calc-option>
                           {renderList(skillList(i), skill => (
                             <calc-option value={skill.name}>
                               <div>
