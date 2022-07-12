@@ -165,14 +165,15 @@ class 主动技能(技能):
             name = ''
         else:
             name = 类型
-        等效倍率 = 0.0
+        百分比 = 0.0
         for i in range(0, 8):
             data = getattr(self, '{}data{}'.format(name, i), [])
             if 等级 < len(data) and 等级 > 0:
                 hit = getattr(self, '{}hit{}'.format(name, i), 1)
                 power = getattr(self, '{}power{}'.format(name, i), 1)
-                等效倍率 += data[等级] * hit * power
-        return 等效倍率
+                百分比 += data[等级] * hit * power
+        return 百分比
+
 
     def 等效百分比(self, **argv):
         # 武器类型 额外等级 额外倍率 伤害类型 形态
@@ -186,9 +187,12 @@ class 主动技能(技能):
         self.形态变更(形态, char)
         等级 = min(self.等级 + 额外等级, self.等级上限)
 
-        等效倍率 = self.基础百分比(伤害类型, 等级)
+        百分比 = self.基础百分比(伤害类型, 等级)
 
-        return 等效倍率 * self.TP加成() * self.倍率 * 额外倍率
+        return 百分比 * self.TP加成() * self.倍率 * 额外倍率
+
+    def 武器CD系数(self, 武器类型, 输出类型):
+        return 武器冷却惩罚(武器类型, 输出类型)
 
     def 等效CD(self, **argv):
         # 武器类型 输出类型 额外CDR 手搓收益 恢复
@@ -208,7 +212,7 @@ class 主动技能(技能):
                 cdr = 0.95
             if self.所在等级 in [50, 100]:
                 cdr = 0.95
-        return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / (self.恢复 if 恢复 else 1) * 武器冷却惩罚(武器类型, 输出类型), self.CD * 0.3, 1), 1)
+        return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / (self.恢复 if 恢复 else 1) * self.武器CD系数(武器类型, 输出类型), self.CD * 0.3, 1), 1)
 
     def MP消耗(self, **argv):
         # 武器类型 输出类型 额外CDR 手搓收益 恢复=True
