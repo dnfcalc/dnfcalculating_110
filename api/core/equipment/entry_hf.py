@@ -10897,6 +10897,7 @@ def entry_751(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name('光焰枪').倍率 *=1.3
         pass
 
 
@@ -10906,6 +10907,8 @@ def entry_752(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name('地龙狩').倍率 *=1.3
+        char.get_skill_by_name('无尽杀戮').倍率 *=1.3
         pass
 
 
@@ -10924,6 +10927,7 @@ def entry_754(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name('猎杀枪').CD *=0.7
         pass
 
 

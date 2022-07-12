@@ -30,7 +30,6 @@ def get_entry_info_data():
     if version == 0:
         with open("./dataFiles/entry-data.json", encoding='utf-8') as fp:
             entry_info = json.load(fp)
-    print(version)
     if version == 1:
         with open("./dataFiles/entry-data-hf.json", encoding='utf-8') as fp:
             entry_info = json.load(fp)

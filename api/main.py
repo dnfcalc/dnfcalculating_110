@@ -11,7 +11,7 @@ from routers.open import openRouter
 from utils.apiTools import register_cors, register_exception
 from utils.render import Renderer
 
-app = FastAPI(docs_url=None)
+app = FastAPI(docs_url=None,redoc_url=None)
 
 # 全局的异常处理
 register_exception(app)
@@ -29,7 +29,6 @@ app.include_router(openRouter, prefix="/api", tags=['三方接口'])
 def global_init():
     import json
     import os
-
     info = []
     if os.path.exists("./dataFiles/set-info.json"):
         with open("./dataFiles/set-info.json", encoding='utf-8') as fp:
@@ -46,7 +45,7 @@ if __name__ == '__main__':
     global_init()
 
     if sys.argv[0].endswith(".py"):
-        config = uvicorn.Config(
+        uvicorn.run(
             # 运行的 py 文件:FastAPI 实例对象
             "main:app",
             # 访问url，默认 127.0.0.1
@@ -57,12 +56,13 @@ if __name__ == '__main__':
             reload=True,
             # 同 reload
             debug=True)
+
     else:
         app.mount(
             "/", Renderer(directory="app/renderer", html=True), name="static")
-        config = uvicorn.Config(
+        uvicorn.run(
             # 运行的 py 文件:FastAPI 实例对象
-            app,
+            "app",
             # 访问url，默认 127.0.0.1
             # host="0.0.0.0",
             # 访问端口，默认 8080,后续需要做端口检测是否被占用
@@ -70,8 +70,6 @@ if __name__ == '__main__':
             # 热更新，有内容修改自动重启服务器
             reload=False,
             # 同 reload
-            debug=False)
-    server = uvicorn.Server(config)
-    server.run()
-
+            debug=False
+        )
     # print(os.getppid())
