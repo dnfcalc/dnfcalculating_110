@@ -53,7 +53,7 @@ export const useConfigStore = defineStore("config", {
     equ_sort(state) {
       let temp: number[][] = []
       const equs = useBasicInfoStore().equipment_list
-      const parts = ["称号", "宠物", "武器", "上衣", "下装", "头肩", "腰带", "鞋", "手镯", "项链", "戒指", "辅助装备", "魔法石", "耳环"]
+      const parts = ["称号", "宠物", "武器", "上衣", "头肩", "下装", "腰带", "鞋", "手镯", "项链", "戒指", "辅助装备", "魔法石", "耳环"]
       const lists = [...state.wisdom_list, ...state.myths_list, ...state.lv110_list, ...this.weapons_list, ...this.pet_list, ...this.title_list]
       parts.forEach(part => {
         temp.push(equs.filter(a => a.part == part && lists.includes(a.id as number)).map(a => a.id as number) ?? [])

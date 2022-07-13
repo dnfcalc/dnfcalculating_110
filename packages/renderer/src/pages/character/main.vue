@@ -5,7 +5,7 @@
   import { useOpenWindow } from "@/hooks/open"
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import { defineComponent, onMounted, renderList } from "vue"
+  import { defineComponent, onMounted, ref, renderList } from "vue"
   import { useRoute } from "vue-router"
 
   // import Character from "@/pages/character/character/character.vue"
@@ -16,19 +16,21 @@
 
   export default defineComponent(async () => {
     const route = useRoute()
-    const { alert } = useDialog()
+    const { confirm } = useDialog()
     const openUrl = useOpenWindow()
     const char = route.query.alter as string
     const version = route.query.version as string
     const appStore = useAppStore()
     const configStore = useConfigStore()
     const characterStore = useCharacterStore()
+    const canClick = ref(true)
 
     onMounted(window.removeLoading)
     await characterStore.newCharacter(char, version)
     appStore.$patch({ title: characterStore.name })
 
     async function calc() {
+      canClick.value = false
       // alert({
       //   content: () => <>暂不支持多套计算</>
       // })
@@ -36,25 +38,30 @@
       // 一堆前处理和判断，然后计算
       if (!route.path.endsWith("/singleset")) {
         let total = (configStore.equ_sort as number[][]).reduce((a, b) => a * b.length, 1)
-        if (total == 0 && import.meta.env.DEV) {
+        if (total == 0) {
           await alert({
             content: "请确保每个部位都选择了装备"
           })
+          canClick.value = true
           return
         } else {
-          // await alert({
-          //   content: `暂不支持多套计算,请使用单套选择`
-          // })
-          // return
+          let res = await confirm({
+            content: `共计${total}组合,可能耗时较久,是否继续?`
+          })
+          if (res.isOk) {
+            const saveData = await configStore.calc(route.path.endsWith("/singleset"))
+            if (saveData) {
+              if (!route.path.endsWith("/singleset")) {
+                // 排行界面
+                openUrl(`/ranking?res=${saveData.id}`, { width: 700, height: 650 })
+              } else if (saveData) {
+                // 详情界面
+                openUrl(`/result?res=${saveData.id}`, { width: 890, height: 600 })
+              }
+            }
+          }
+          canClick.value = true
         }
-      }
-      const saveData = await configStore.calc(route.path.endsWith("/singleset"))
-      if (saveData instanceof Array) {
-        // 排行界面
-        openUrl("/ranking", { query: { uid: saveData.id?.toString() }, width: 800, height: 800 })
-      } else if (saveData) {
-        // 详情界面
-        openUrl(`/result?res=${saveData.id}`, { width: 890, height: 600 })
       }
     }
 
@@ -91,29 +98,6 @@
               )}
             </div>
 
-            {
-              // <div class="header">
-              //   <calc-tabs v-model={tab.value}>
-              //     <calc-tab value={0}>装备</calc-tab>
-              //     <calc-tab value={1}>技能</calc-tab>
-              //     <calc-tab value={2}>打造</calc-tab>
-              //     <calc-tab value={3}>自选属性</calc-tab>
-              //     <calc-tab value={4}>单套选择</calc-tab>
-              //   </calc-tabs>
-              // </div>
-              // <div class="center">
-              //   {characterStore.alter && (
-              //     <>
-              //       {tab.value == 0 && <Equipment style={tab.value == 0 ? "" : "display:none"}></Equipment>}
-              //       <Character style={tab.value == 1 ? "" : "display:none"}></Character>
-              //       <Detail style={tab.value == 2 ? "" : "display:none"}></Detail>
-              //       <Customize style={tab.value == 3 ? "" : "display:none"}></Customize>
-              //       <Singleset style={tab.value == 4 ? "" : "display:none"}></Singleset>
-              //     </>
-              //   )}
-              // </div>
-            }
-
             <div class="footer">
               <div class="flex col-4 justify-center">
                 <calc-select onChange={characterStore.calc} v-model={configStore.carry_type} class="!h-22px">
@@ -130,25 +114,9 @@
                   ))}
                 </calc-select>
               </div>
-              {
-                // <div class="flex col-4 justify-center">
-                //   <calc-select class="!h-22px">
-                //     <calc-option value={0}>攻击属性：自适应</calc-option>
-                //     <calc-option value={1}>攻击属性：火</calc-option>
-                //     <calc-option value={2}>攻击属性：冰</calc-option>
-                //     <calc-option value={3}>攻击属性：光</calc-option>
-                //     <calc-option value={4}>攻击属性：暗</calc-option>
-                //   </calc-select>
-                // </div>
-                //   <div class="flex col-4 justify-center">
-                //     <calc-select class="!h-22px">
-                //       <calc-option value={0}>计算模式：减枝</calc-option>
-                //       <calc-option value={1}>计算模式：全部</calc-option>
-                //     </calc-select>
-                //   </div>
-              }
+
               <div class="flex col-4 justify-center">
-                <calc-button class="w-80% !h-28px" onClick={calc}>
+                <calc-button class="w-80% !h-28px" disabled={!canClick.value} onClick={calc}>
                   开始计算
                 </calc-button>
               </div>

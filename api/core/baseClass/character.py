@@ -1646,8 +1646,9 @@ class Character(CharacterProperty):
                 })
         return temp
 
-    def calc(self, setName: str = 'set', equipList: List[int] = [], withJade=False):
-        info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
+    def calc(self, setName: str = 'set', equipList: List[int] = [], withJade=False, info=None):
+        if info == None:
+            info = store.get("/{}/setinfo/{}".format(self.实际名称, setName))
         self.calc_init(info, equipList)
         jade = []
         if withJade and self.类型 != '辅助':

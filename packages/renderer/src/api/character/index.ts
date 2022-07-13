@@ -1,5 +1,5 @@
 import { defineRequest } from "../common"
-import { IAnyResultInfo, ICharacterInfo } from "./type"
+import { IAnyResultInfo, ICharacterInfo, IRankList } from "./type"
 
 export default defineRequest(request => {
   return {
@@ -11,6 +11,12 @@ export default defineRequest(request => {
     },
     getResult(id: string) {
       return request.get<IAnyResultInfo>(`/calc/result/${id}`).then(r => r.data)
+    },
+    getRank(id: string) {
+      return request.get<IRankList>(`/calc/rank/${id}`).then(r => r.data)
+    },
+    getRankResult(params: any) {
+      return request.post<string>(`/calc/rankresult`,params).then(r => r.data)
     }
   }
 })
