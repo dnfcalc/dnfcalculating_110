@@ -285,7 +285,7 @@
         //{ type: 4,  props: [ "智力 +15", ] }, { type: 0,  props: [  "四维+8 [冰之领悟]技能Lv+1", ] }, ], // 徽章
       })
       function loadTransform(eq: any) {
-        console.log("loadTransform", eq)
+        // console.log("loadTransform", eq)
         if (props.forget) {
           if (props.forget.info) {
             transform.growthLvs = props.forget.info["成长词条等级"] ?? [1, 1, 1, 1]

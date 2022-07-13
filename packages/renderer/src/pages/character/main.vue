@@ -35,10 +35,18 @@
       // return
       // 一堆前处理和判断，然后计算
       if (!route.path.endsWith("/singleset")) {
-        await alert({
-          content: "暂不支持多套计算,请使用单套选择"
-        })
-        return
+        let total = (configStore.equ_sort as number[][]).reduce((a, b) => a * b.length, 1)
+        if (total == 0 && import.meta.env.DEV) {
+          await alert({
+            content: "请确保每个部位都选择了装备"
+          })
+          return
+        } else {
+          // await alert({
+          //   content: `暂不支持多套计算,请使用单套选择`
+          // })
+          // return
+        }
       }
       const saveData = await configStore.calc(route.path.endsWith("/singleset"))
       if (saveData instanceof Array) {

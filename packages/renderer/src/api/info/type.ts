@@ -152,6 +152,9 @@ export interface ICharacterSet {
 
   consumable_list: number[]
 
+  title_list: number[]
+  pet_list: number[]
+
   dress_set: Record<
     string,
     {

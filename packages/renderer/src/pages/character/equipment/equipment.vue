@@ -82,6 +82,24 @@
         }
       })
 
+      const selected_pet = computed({
+        get() {
+          return configStore.pet_list
+        },
+        set(val: number[]) {
+          configStore.pet_list = val
+        }
+      })
+
+      const selected_title = computed({
+        get() {
+          return configStore.title_list
+        },
+        set(val: number[]) {
+          configStore.title_list = val
+        }
+      })
+
       const trigger_list = computed(() => basicStore.trigger_list ?? [])
 
       // 没有的就补，多的就删
@@ -121,8 +139,8 @@
             <EquipList v-model:selected={selected_myths.value} class="equ-else-sort" list={myths.value} title="神话装备" />
             <EquipList v-model:selected={selected_wisdom.value} class="equ-else-sort" list={wisdoms.value} title="智慧产物" />
             <EquipList v-model:selected={selected_weapons.value} class="equ-else-sort" list={weapons.value} title="武器列表" />
-            <EquipList class="equ-else-sort" list={titles.value} title="称号" />
-            <EquipList class="equ-else-sort" list={pets.value} title="宠物" />
+            <EquipList class="equ-else-sort" v-model:selected={selected_title.value} list={titles.value} title="称号" />
+            <EquipList class="equ-else-sort" v-model:selected={selected_pet.value} list={pets.value} title="宠物" />
           </div>
           <div class="w-390px ml-5px flex flex-col">
             <EquipList class="consumable-sort" list={consumable.value} v-model:selected={selected_consumable.value} showTips={false} title="药剂" />

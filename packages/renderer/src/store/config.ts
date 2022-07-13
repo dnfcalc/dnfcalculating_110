@@ -31,6 +31,8 @@ export const useConfigStore = defineStore("config", {
       weapons_list: [],
       trigger_set: {},
       skill_que: [],
+      title_list: [],
+      pet_list: [],
       token: "",
       _configlist: undefined,
       customize: {},
@@ -48,10 +50,20 @@ export const useConfigStore = defineStore("config", {
       state._configlist?.push("新建存档")
       return state._configlist
     },
+    equ_sort(state) {
+      let temp: number[][] = []
+      const equs = useBasicInfoStore().equipment_list
+      const parts = ["称号", "宠物", "武器", "上衣", "下装", "头肩", "腰带", "鞋", "手镯", "项链", "戒指", "辅助装备", "魔法石", "耳环"]
+      const lists = [...state.wisdom_list, ...state.myths_list, ...state.lv110_list, ...this.weapons_list, ...this.pet_list, ...this.title_list]
+      parts.forEach(part => {
+        temp.push(equs.filter(a => a.part == part && lists.includes(a.id as number)).map(a => a.id as number) ?? [])
+      })
+      return temp
+    },
     data(state) {
       return {
         single_set: state.single_set,
-        equip_list: [...state.wisdom_list, ...state.myths_list, ...state.weapons_list, ...state.lv110_list],
+        equip_list: this.equ_sort,
         carry_type: state.carry_type,
         attack_attribute: state.attack_attribute,
         skill_set: state.skill_set,
@@ -66,6 +78,8 @@ export const useConfigStore = defineStore("config", {
         }),
         wisdom_list: state.wisdom_list,
         myths_list: state.myths_list,
+        title_list: state.title_list,
+        pet_list: state.pet_list,
         weapons_list: state.weapons_list,
         lv110_list: state.lv110_list,
         consumable_list: state.consumable_list,

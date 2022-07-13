@@ -10,6 +10,7 @@ from routers.info import infoRouter
 from routers.open import openRouter
 from utils.apiTools import register_cors, register_exception
 from utils.render import Renderer
+import multiprocessing
 
 app = FastAPI(docs_url=None,redoc_url=None)
 
