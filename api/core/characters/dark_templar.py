@@ -172,7 +172,7 @@ class 技能9(主动技能):
         if self.TP等级 == 0:
             return 1
         else:
-            return (self.power0-1) * (0.72 + self.TP成长 * self.TP等级) / self.power0
+            return (self.power0-1) * 2*(0.72 + self.TP成长 * self.TP等级) / self.power0
 
 
 class 技能10(主动技能):
