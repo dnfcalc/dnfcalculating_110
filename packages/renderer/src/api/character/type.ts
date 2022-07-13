@@ -62,6 +62,13 @@ export interface IDelearSkillInfo {
   atk_rate: number
 }
 
+export interface IRankList {
+  id: string
+  rank: number[][][]
+  setInfo: any
+  token: string
+}
+
 export type IAnyResultInfo = IResultInfo<"buffer"> | IResultInfo<"delear">
 
 export interface IResultInfo<R = "delear" | "buffer"> {
