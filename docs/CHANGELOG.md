@@ -1,5 +1,25 @@
 ## Newest
 
+### 2022.07.14.Beta
+
+#### NewFeatures
+* 优化自动更新 ([8b2998](https://gitee.com/dcalc/dnfcalculating_110/commit/8b29988ea993e02dfd2a86151ee406e2e9c60015))
+* 添加多套计算支持(实验性功能,待优化) ([d0b057](https://gitee.com/dcalc/dnfcalculating_110/commit/d0b0578a11f3f51a0ac9c155deb3e23029c4be81))
+* 添加狩猎者 ([8dcbb7](https://gitee.com/dcalc/dnfcalculating_110/commit/8dcbb7bd389535876ba1fcf792e507e96844d017))
+* 添加男散打 ([975d75](https://gitee.com/dcalc/dnfcalculating_110/commit/975d756ede5108e4627fce480974fa4a58d46623))
+* 添加韩服装备改版词条 ([5860df](https://gitee.com/dcalc/dnfcalculating_110/commit/5860df818056f3e9ac24c8225ed06e1a2459667f))
+
+#### BugFixes
+* fix bugs.<br>
+* fix bugs. ([b71ede](https://gitee.com/dcalc/dnfcalculating_110/commit/b71ede300441e93c404543f39cc5d5682f659082))
+* fix typos.<br>
+* fix typos. ([e63bf8](https://gitee.com/dcalc/dnfcalculating_110/commit/e63bf871eff01849819f9b58f851e0e3644bfa3a))
+* 修复白金徽章多一个的bug<br>
+* fix:修复白金徽章多一个的bug ([4ca8c8](https://gitee.com/dcalc/dnfcalculating_110/commit/4ca8c8f73db5a6fbc3f97df55984014dcff607ec))
+* 修正宠物初始附魔错误 ([81e5cc](https://gitee.com/dcalc/dnfcalculating_110/commit/81e5cc62cd593f01de6e2bb55112a6b487bb5eb3))
+* 极诣·暗殿骑士：修正释魂飞弹TP问题 ([cdd01e](https://gitee.com/dcalc/dnfcalculating_110/commit/cdd01e2c73cbb74f9075a76fb695affbacd28b38))
+* 气功师·女：修复三觉被动缺失的情况 ([8adcf4](https://gitee.com/dcalc/dnfcalculating_110/commit/8adcf4214e6b94fd88dd8e64b2bd0f0ed831cef5))
+
 ### 2022.07.09.Beta
 
 #### NewFeatures
@@ -56,6 +76,7 @@
 * 女漫游:修复双鹰回旋无色及MP fixes #I5EYRG ([c2569b](https://gitee.com/dcalc/dnfcalculating_110/commit/c2569b8e335b41fd62abc42815fd16809ce0c8af))
 * 女漫游：修正[死亡锁链]学习间隔 ([b412d4](https://gitee.com/dcalc/dnfcalculating_110/commit/b412d4b309c6bf184851adf6c8197e1eaaab6d9c))
 * 阿修罗：修正[天雷·降魔杵]无色消耗及MP问题 ([bae428](https://gitee.com/dcalc/dnfcalculating_110/commit/bae4282a85617cf7b5b6f9a1a5f0f772424d425e))
+
 
 
 
