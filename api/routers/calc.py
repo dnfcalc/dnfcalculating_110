@@ -12,7 +12,7 @@ from utils.apiTools import Return, response
 
 from .token import AlterState, authorize, createToken
 from concurrent.futures import ProcessPoolExecutor
-from multiprocessing import cpu_count,freeze_support
+from multiprocessing import cpu_count, freeze_support
 import itertools
 
 calcRouter = APIRouter()
@@ -50,15 +50,26 @@ async def calc(setInfo=Body(None), setName=Body(None), state: AlterState = Depen
     }
     combos = list(itertools.product(*sort))
     number = len(combos)
+    batch_size = 20000
     minheap = MinHeap(2 << 64)
     result = []
     freeze_support()
     with ProcessPoolExecutor(max_workers=max(cpu_count()-2, 1)) as executor:
-        result = executor.map(calc_single_rank, [alter]*number,
-                              combos, [setInfo]*number)
-    # 可能需要优化，实际测试大概14W数据循环加入1秒左右
-    for item in result:
-        minheap.add(item)
+        # 1W个处理一次
+        batch_numbers = int(number/batch_size)+1
+        for batch in range(0, batch_numbers):
+            batch_combo = combos[batch_size*(batch):batch_size*(batch+1)]
+            batch_heap = MinHeap(batch_size)
+            print("批次:"+str(batch+1), batch_heap)
+            result = None
+            result = executor.map(calc_single_rank, [alter]*len(batch_combo),
+                                  batch_combo, [setInfo]*len(batch_combo))
+            for item in result:
+                batch_heap.add(item)
+            minheap.merge(batch_heap)
+        # result = None
+        # result = executor.map(calc_single_rank, [alter]*number,
+        #                       combos, [setInfo]*number)
     result = {
         "rank": minheap.getTop()[:50],
         "token": state.token,
