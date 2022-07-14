@@ -8,7 +8,7 @@ from typing import Dict, List, Text
 
 import requests
 from core.baseClass.character import createCharcter
-from core.baseClass.equipment import equ, equipment
+from core.baseClass.equipment import get_equ, equipment
 from core.equipment.emblems import get_emblems_setinfo
 from core.equipment.enchanting import get_enchanting_setinfo
 from core.equipment.jade import get_jade_setinfo
@@ -52,6 +52,8 @@ def get_equipment_info(alter: str):
         return equipment_info
     weapons = char.武器选项
     转职 = char.转职
+
+    equ = get_equ()
 
     for i in equ.info.keys():
         temp = equ.info[i]
@@ -156,6 +158,7 @@ def get_equipment_info(alter: str):
 
 def get_equipment_detail_info(equID):
     equipment_detail_info = {}
+    equ = get_equ()
     cur = equ.info[equID]
     growths = equ.entry_info
     # 基础属性

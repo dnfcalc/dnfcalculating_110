@@ -5,7 +5,7 @@ from math import fabs
 from core.baseClass.equipment import refresh_equ
 
 from core.baseClass.character import Character, createCharcter
-from core.baseClass.equipment import equ
+from core.baseClass.equipment import get_equ
 from core.equipment.emblems import get_emblems_setinfo
 from core.equipment.enchanting import get_enchanting_setinfo
 from core.store import store
@@ -51,6 +51,7 @@ def get(alter: str, setName: str):
     skillInfo = info['skills']
     buff = info['buff_ratio']
     skill_set = []
+    equ = get_equ()
     trigger = equ.get_chose_set(mode=1,alter=alter)
     dress_set = {
         "头发": {

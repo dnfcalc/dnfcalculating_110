@@ -2,7 +2,7 @@ import json
 from typing import List, Tuple
 
 import core.set as set
-from core.baseClass.equipment import equ
+from core.baseClass.equipment import get_equ
 from core.equipment.avatar import 装扮, 装扮集合
 from core.equipment.emblems import get_emblems_setinfo
 from core.equipment.enchanting import get_enchanting_setinfo
@@ -70,12 +70,12 @@ async def getToken(alter: str, version: str = None):
 
 @infoRouter.get("/triggers")
 async def get_triggers(state: AlterState = Depends(authorize)):
-    return response(data=equ.get_chose_set(alter = state.alter))
+    return response(data=get_equ().get_chose_set(alter = state.alter))
 
 
 @infoRouter.get("/entries")
 async def get_entry_info():
-    return response(data=equ.entry_info)
+    return response(data=get_equ().entry_info)
 
 
 @infoRouter.get("/config/{name}")

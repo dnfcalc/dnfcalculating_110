@@ -4,7 +4,7 @@ from pyclbr import Function
 from typing import Dict, List, Union
 from uuid import uuid1
 
-from core.baseClass.equipment import equ, equipment
+from core.baseClass.equipment import get_equ, equipment
 from core.baseClass.property import CharacterProperty
 from core.baseClass.skill import 主动技能, 技能, 被动技能
 from core.equipment.avatar import 装扮套装, 装扮套装集合, 装扮集合
@@ -752,14 +752,14 @@ class Character(CharacterProperty):
 
     def 已穿戴神话(self):
         for i in self.装备栏:
-            temp = equ.get_equ_by_id(i)
+            temp = get_equ().get_equ_by_id(i)
             if temp.品质 == '神话':
                 return True
         return False
 
     def 穿戴低于105(self):
         for i in self.装备栏:
-            temp = equ.get_equ_by_id(i)
+            temp = get_equ().get_equ_by_id(i)
             if temp.等级 < 105 and temp.部位 not in ['称号', '宠物']:
                 return True
         return False
@@ -819,7 +819,7 @@ class Character(CharacterProperty):
 
     # 设置装备选项参数
     def __equ_chose_set(self, setinfo):
-        equ.set_func_chose(setinfo)
+        get_equ().set_func_chose(setinfo)
         # for i in setinfo:
         #    equ.set_func_chose({i['id']: i['select']})
 
@@ -839,7 +839,7 @@ class Character(CharacterProperty):
         self.装备栏 = []
         self.部位装备 = {}
         for i in idlist:
-            装备 = equ.get_equ_by_id(i)
+            装备 = get_equ().get_equ_by_id(i)
             self.部位装备.update({装备.部位: i})
         for k in self.部位装备.keys():
             self.装备栏.append(self.部位装备[k])
@@ -1193,7 +1193,7 @@ class Character(CharacterProperty):
 
     def __装备基础(self):
         for id in self.装备栏:
-            temp = equ.get_equ_by_id(id)
+            temp = get_equ().get_equ_by_id(id)
             if '甲' in temp.类型:
                 self.__防具计算(temp)
             elif temp.类型 == '首饰':
@@ -1331,7 +1331,7 @@ class Character(CharacterProperty):
             for j in ["growth_first", "growth_second", "growth_third", "growth_fourth"]:
                 temp.append(self.打造详情.get(i, {}).get(j, 1))
             self.词条等级[i] = temp
-        成长词条组合 = equ.get_damagelist_by_idlist(self.装备栏, self.自定义词条)
+        成长词条组合 = get_equ().get_damagelist_by_idlist(self.装备栏, self.自定义词条)
 
         for 部位, 序号, atk, buff in 成长词条组合:
             等级 = self.词条等级[部位][序号]
@@ -1342,7 +1342,7 @@ class Character(CharacterProperty):
             self.打造[部位]["attack"][序号] = attack
             self.打造[部位]["buffer"][序号] = buffer
         # 词条效果相关计算
-        for func, 部位, 序号 in equ.get_func_list_by_idlist(self.装备栏, self.自定义词条):
+        for func, 部位, 序号 in get_equ().get_func_list_by_idlist(self.装备栏, self.自定义词条):
             if 序号 >= 0:
                 等级 = self.词条等级[部位][序号]
             else:
@@ -1706,7 +1706,7 @@ class Character(CharacterProperty):
             'name': self.名称,
             'role': 'buffer' if self.类型 == '辅助' else 'delear',
             'forget_set': info['forge_set'],
-            'equips': list(map(lambda x: equ.get_json(x), self.装备栏)),
+            'equips': list(map(lambda x: get_equ().get_json(x), self.装备栏)),
             'equips_forget': self.打造,
             'info': {
                 # 站街

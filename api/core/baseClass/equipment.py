@@ -316,5 +316,7 @@ def refresh_equ():
     global equ
     equ = equipment_list()
 
+def get_equ():
+    return equ
 
 refresh_equ()

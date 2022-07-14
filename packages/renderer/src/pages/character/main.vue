@@ -72,16 +72,15 @@
         if (res.isOk) {
           const saveData = await configStore.calc(route.path.endsWith("/singleset"))
           if (saveData) {
-            if (!route.path.endsWith("/singleset")) {
-              // 排行界面
-              openUrl(`/ranking?res=${saveData.id}`, { width: 700, height: 650 })
-            } else if (saveData) {
-              // 详情界面
-              openUrl(`/result?res=${saveData.id}`, { width: 890, height: 600 })
-            }
+            // 排行界面
+            openUrl(`/ranking?res=${saveData.id}`, { width: 700, height: 650 })
           }
         }
         canClick.value = true
+      } else {
+        const saveData = await configStore.calc(route.path.endsWith("/singleset"))
+        // 详情界面
+        openUrl(`/result?res=${saveData.id}`, { width: 890, height: 600 })
       }
     }
 

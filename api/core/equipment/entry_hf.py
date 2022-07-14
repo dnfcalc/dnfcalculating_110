@@ -1075,7 +1075,7 @@ def entry_935(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(1482, lv)*5)
+        char.攻击强化加成(成长词条计算(1482, lv)*3)
         char.技能攻击力加成(0.05)
         pass
 
