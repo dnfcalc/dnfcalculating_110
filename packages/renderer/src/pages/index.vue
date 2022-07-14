@@ -18,7 +18,8 @@
         return route.meta.title ?? appStore.title
       })
 
-      if (!import.meta.env.DEV) {
+      // if (!import.meta.env.DEV) {
+      if (false) {
         const timer = setInterval(async () => {
           try {
             await api.heartbeat()

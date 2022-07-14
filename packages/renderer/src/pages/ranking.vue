@@ -53,7 +53,7 @@
                   <EquipTips class="mr-5px" eq={equInfo(equ)} canClick={false} show-tips={false}></EquipTips>
                 ))}
                 <calc-button class="w-120px h-30px ml-20px" onClick={() => calc(item[1])}>
-                  {(item[0][0] / 1000000).toFixed(0)} | {((item[0][0] / max) * 100).toFixed(2)}%
+                  {(item[0][0] / 1000000 > 1 ? item[0][0] / 1000000 : item[0][0]).toFixed(0)} | {((item[0][0] / max) * 100).toFixed(2)}%
                 </calc-button>
               </div>
             ))}

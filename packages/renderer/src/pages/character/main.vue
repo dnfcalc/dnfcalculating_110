@@ -5,7 +5,7 @@
   import { useOpenWindow } from "@/hooks/open"
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAppStore } from "@/store/app"
-  import { defineComponent, onMounted, ref, renderList } from "vue"
+  import { defineComponent, h, onMounted, ref, renderList } from "vue"
   import { useRoute } from "vue-router"
 
   // import Character from "@/pages/character/character/character.vue"
@@ -16,7 +16,7 @@
 
   export default defineComponent(async () => {
     const route = useRoute()
-    const { confirm } = useDialog()
+    const { alert, confirm } = useDialog()
     const openUrl = useOpenWindow()
     const char = route.query.alter as string
     const version = route.query.version as string
@@ -37,6 +37,13 @@
       // return
       // 一堆前处理和判断，然后计算
       if (!route.path.endsWith("/singleset")) {
+        if (configStore.skill_que.length == 0 && characterStore.is_delear) {
+          await alert({
+            content: "请先设置技能次数"
+          })
+          canClick.value = true
+          return
+        }
         let total = (configStore.equ_sort as number[][]).reduce((a, b) => a * b.length, 1)
         if (total == 0) {
           await alert({
@@ -44,24 +51,37 @@
           })
           canClick.value = true
           return
-        } else {
-          let res = await confirm({
-            content: `共计${total}组合,可能耗时较久,是否继续?`
+        }
+        if (total > 1000000) {
+          await alert({
+            content: "组合数已超100W,请酌情减少各部位数量后再计算"
           })
-          if (res.isOk) {
-            const saveData = await configStore.calc(route.path.endsWith("/singleset"))
-            if (saveData) {
-              if (!route.path.endsWith("/singleset")) {
-                // 排行界面
-                openUrl(`/ranking?res=${saveData.id}`, { width: 700, height: 650 })
-              } else if (saveData) {
-                // 详情界面
-                openUrl(`/result?res=${saveData.id}`, { width: 890, height: 600 })
-              }
+          canClick.value = true
+          return
+        }
+
+        let res = await confirm({
+          content: () => {
+            return h(
+              "div",
+              { class: "justify-center text-center", style: "white-space:pre-wrap;width:250px;color:white" },
+              `共计${total.toLocaleString()}个组合\n\n多套计算为实验性功能,后续会进行减枝优化\n请酌情减少各部位数量,尤其称号 武器 宠物\n\n组合较多时,CPU和内存会拉满且耗时较久\n\n大批次数据炸机自行承担,是否确认计算??!!`
+            )
+          }
+        })
+        if (res.isOk) {
+          const saveData = await configStore.calc(route.path.endsWith("/singleset"))
+          if (saveData) {
+            if (!route.path.endsWith("/singleset")) {
+              // 排行界面
+              openUrl(`/ranking?res=${saveData.id}`, { width: 700, height: 650 })
+            } else if (saveData) {
+              // 详情界面
+              openUrl(`/result?res=${saveData.id}`, { width: 890, height: 600 })
             }
           }
-          canClick.value = true
         }
+        canClick.value = true
       }
     }
 
