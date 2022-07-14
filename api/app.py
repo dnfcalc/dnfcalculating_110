@@ -24,7 +24,7 @@ app.include_router(calcRouter, prefix="/api", tags=['计算接口'])
 app.include_router(appRouter, prefix="/api", tags=['服务接口'])
 app.include_router(openRouter, prefix="/api", tags=['三方接口'])
 
-if os.path.exists("app/renderer"):
+if os.path.exists("./app/renderer"):
     app.mount("/", Renderer(directory="app/renderer", html=True), name="static")
 
 def global_init():
@@ -37,5 +37,8 @@ def global_init():
     detail = [0] * len(info)
     if not os.path.exists('./sets'):
         os.makedirs('./sets')
+        with open('./sets/global.json', "w", encoding='utf-8') as fp:
+            json.dump(detail, fp, ensure_ascii=False, indent=2)
+    if not os.path.exists("./dataFiles/global.json"):
         with open('./sets/global.json', "w", encoding='utf-8') as fp:
             json.dump(detail, fp, ensure_ascii=False, indent=2)
