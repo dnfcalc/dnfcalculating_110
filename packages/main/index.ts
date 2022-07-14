@@ -40,7 +40,7 @@ async function createWindow() {
   win.setMenuBarVisibility(false)
 
   if (app.isPackaged) {
-    win.webContents.session.clearCache().then(res => win?.loadURL("http://localhost:17173"))
+    win?.loadURL("http://localhost:17173")
   } else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env["VITE_DEV_SERVER_HOST"]}:${process.env["VITE_DEV_SERVER_PORT"]}`
@@ -144,9 +144,11 @@ ipcMain.handle("close-win", event => {
 })
 
 ipcMain.handle("restart", () => {
-  app.relaunch()
-  app.quit()
-  console.log("restart...")
+  win?.webContents.session.clearCache().then(res => {
+    app.relaunch()
+    app.quit()
+    console.log("restart...")
+  })
 })
 
 ipcMain.handle("getStorage", (event, arg) => {
