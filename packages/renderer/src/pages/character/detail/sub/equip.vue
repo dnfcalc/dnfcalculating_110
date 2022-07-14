@@ -118,7 +118,8 @@
       const growth_fourth = currentInfo<string | number>("growth_fourth", 1)
 
       syncRef(socket_left, socket_right, { direction: "ltr" })
-      syncRefs(growth_first, [growth_second, growth_third, growth_fourth])
+      // toFix
+      // syncRefs(growth_first, [growth_second, growth_third, growth_fourth])
 
       return () => {
         return (
