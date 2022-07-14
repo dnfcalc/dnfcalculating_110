@@ -366,7 +366,7 @@
       })
 
       function classForNum(i: number) {
-        let c = (transform.growthLvs[i] ?? 1) <= 20 ? "" : transform.growthLvs[i] <= 50 ? "advanced" : transform.growthLvs[i] <= 80 ? "rare" : transform.growthLvs[i] == 100 ? "epic" : "artifact"
+        let c = (transform.growthLvs[i] ?? 1) <= 20 ? "" : transform.growthLvs[i] <= 50 ? "advanced" : transform.growthLvs[i] < 80 ? "rare" : transform.growthLvs[i] == 100 ? "epic" : "artifact"
         return c
       }
 
