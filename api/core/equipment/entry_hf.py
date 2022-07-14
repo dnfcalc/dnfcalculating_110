@@ -7839,7 +7839,7 @@ def entry_1122(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         # char.指令技攻加成(0.10, exc=[])
         for i in char.技能栏:
-            if i.所在等级 not in [50, 85, 100] and i.手搓 == True and i.名称 in char.hotkey:
+            if i.手搓 == True and i.名称 in char.hotkey:
                 if i.是否有伤害 == 1:
                     i.倍率 *= (1 + 0.1 * char.技能伤害增加增幅)
 

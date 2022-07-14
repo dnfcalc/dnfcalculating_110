@@ -76,12 +76,12 @@
             openUrl(`/ranking?res=${saveData.id}`, { width: 700, height: 650 })
           }
         }
-        canClick.value = true
       } else {
         const saveData = await configStore.calc(route.path.endsWith("/singleset"))
         // 详情界面
         openUrl(`/result?res=${saveData.id}`, { width: 890, height: 600 })
       }
+      canClick.value = true
     }
 
     return () => {
