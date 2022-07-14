@@ -12,7 +12,7 @@ from utils.apiTools import Return, response
 
 from .token import AlterState, authorize, createToken
 from concurrent.futures import ProcessPoolExecutor
-from multiprocessing import cpu_count
+from multiprocessing import cpu_count,freeze_support
 import itertools
 
 calcRouter = APIRouter()
@@ -52,7 +52,8 @@ async def calc(setInfo=Body(None), setName=Body(None), state: AlterState = Depen
     number = len(combos)
     minheap = MinHeap(2 << 64)
     result = []
-    with ProcessPoolExecutor(max_workers=max(cpu_count()-1, 1)) as executor:
+    freeze_support()
+    with ProcessPoolExecutor(max_workers=max(cpu_count()-2, 1)) as executor:
         result = executor.map(calc_single_rank, [alter]*number,
                               combos, [setInfo]*number)
     # 可能需要优化，实际测试大概14W数据循环加入1秒左右
