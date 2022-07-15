@@ -17,7 +17,7 @@ def consumable_28001(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.斗神宠物加成(0.12*rate)
+        char.斗神宠物加成(int(12*rate)/100)
         pass
 
 # 赛丽亚的特调酷饮
@@ -28,7 +28,7 @@ def consumable_28002(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.所有属性强化加成(5*rate, 1, 1)
+        char.所有属性强化加成(int(5*rate), 1, 1)
         pass
 
 # [冒险]属性强化药水
@@ -39,7 +39,7 @@ def consumable_28003(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.所有属性强化加成(10*rate, 1, 1)
+        char.所有属性强化加成(int(10*rate), 1, 1)
         pass
 
 # 魔界战力释放秘药
@@ -50,7 +50,7 @@ def consumable_28004(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.基础属性加成(智力=150*rate, 力量=150*rate)
+        char.基础属性加成(智力=int(150*rate), 力量=int(150*rate))
         pass
 
 # 顶级力量灵药
@@ -61,7 +61,7 @@ def consumable_28005(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.基础属性加成(力量=175*rate)
+        char.基础属性加成(力量=int(175*rate))
         pass
 
 # 顶级智力灵药
@@ -72,7 +72,7 @@ def consumable_28006(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.基础属性加成(智力=175*rate)
+        char.基础属性加成(智力=int(175*rate))
         pass
 
 # 活力秘药
@@ -83,7 +83,7 @@ def consumable_28007(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.基础属性加成(智力=50*rate, 力量=50*rate)
+        char.基础属性加成(智力=int(50*rate), 力量=int(50*rate))
         pass
 
 # 虚祖皇家能量秘药
@@ -94,8 +94,8 @@ def consumable_28008(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.基础属性加成(智力=100*rate, 力量=100*rate)
-        char.所有属性强化加成(5*rate, mode=1)
+        char.基础属性加成(智力=int(100*rate), 力量=int(100*rate))
+        char.所有属性强化加成(int(5*rate), mode=1)
         pass
 
 # 黄金羊毛
@@ -106,7 +106,7 @@ def consumable_28009(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.基础属性加成(智力=60*rate, 力量=60*rate)
+        char.基础属性加成(智力=int(60*rate), 力量=int(60*rate))
         pass
 
 # 龙之气息
@@ -117,7 +117,7 @@ def consumable_28009(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.基础属性加成(智力=30*rate, 力量=30*rate)
+        char.基础属性加成(智力=int(30*rate), 力量=int(30*rate))
         pass
 
 # 甜蜜喜糖
@@ -128,7 +128,7 @@ def consumable_28010(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         # char.基础属性加成(物理攻击力=25 * rate)
         pass
     if mode == 1:
-        char.基础属性加成(智力=88*rate, 力量=88*rate)
+        char.基础属性加成(智力=int(88*rate), 力量=int(88*rate))
         pass
 
 

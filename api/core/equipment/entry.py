@@ -3627,6 +3627,25 @@ def entry_1049(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
             pass
 
 
+mp_used = 0
+mp_used_list = [0, 1, 2, 3, 4, 5]
+
+
+def set_mp_used(x):
+    global mp_used
+    mp_used = mp_used_list[x[0]]
+
+entry_chose.append((21050,
+                    ['已消耗MP 0~29999',
+                     '已消耗MP 30000~59999',
+                     '已消耗MP 60000~89999',
+                     '已消耗MP 90000~119999',
+                     '已消耗MP 120000~149999',
+                     '已消耗MP 150000+',
+                     ], ""))
+multi_select[21050] = False
+variable_set[21050] = set_mp_used
+
 def entry_1050(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['每消耗30000点MP，攻击强化 +889，效果持续20秒(最多叠加5次)']
@@ -3634,7 +3653,7 @@ def entry_1050(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         # 先当全程
-        char.攻击强化加成(成长词条计算(889, lv) * 5)
+        char.攻击强化加成(成长词条计算(889, lv) * mp_used)
 
 
 def entry_1052(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):

@@ -9,6 +9,7 @@
 - 添加狩猎者 ([8dcbb7](https://gitee.com/dcalc/dnfcalculating_110/commit/8dcbb7bd389535876ba1fcf792e507e96844d017))
 - 添加男散打 ([975d75](https://gitee.com/dcalc/dnfcalculating_110/commit/975d756ede5108e4627fce480974fa4a58d46623))
 - 添加韩服装备改版词条 ([5860df](https://gitee.com/dcalc/dnfcalculating_110/commit/5860df818056f3e9ac24c8225ed06e1a2459667f))
+- 词条成长等级支持到Lv80
 
 #### BugFixes
 
@@ -25,8 +26,7 @@
 
 #### BugFixes
 
-- 修复 mime-type 导致的页面白屏.<br>
-- fix:修复 mime-type 导致的页面白屏. ([771693](https://gitee.com/dcalc/dnfcalculating_110/commit/771693ba8566b24b1970809ae6bde332f573522a))
+- 修复 mime-type 导致的页面白屏. ([771693](https://gitee.com/dcalc/dnfcalculating_110/commit/771693ba8566b24b1970809ae6bde332f573522a))
 - 阿修罗：增加二觉被动对感电伤害的加成 ([a8a14b](https://gitee.com/dcalc/dnfcalculating_110/commit/a8a14ba18b6a4f6c84190d8b066a045d97fe0db1))
 
 ### 2022.07.08.Beta

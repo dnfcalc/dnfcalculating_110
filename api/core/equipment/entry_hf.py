@@ -2416,6 +2416,7 @@ def entry_1223(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.攻击强化加成(成长词条计算(2371,lv))
         char.技能等级加成('所有', 1, 25, 1)
 
 
@@ -2791,6 +2792,7 @@ def entry_1217(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         char.攻击速度增加(0.2)
         char.施放速度增加(0.3)
+        char.移动速度增加(0.2)
         char.技能攻击力加成(0.05)
 
 
@@ -3097,7 +3099,7 @@ def entry_1162(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(889, lv) * 10)
+        char.攻击强化加成(成长词条计算(889, lv) * 5)
         char.技能攻击力加成(0.07)
 
 
@@ -3165,9 +3167,9 @@ def entry_1080(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能倍率加成(1, 35, -0.02 * 5)
-        char.技能恢复加成(40, 80, 0.1 * 5, [50, 85, 100])
-        char.条件冷却恢复加成("Lv40~80[觉醒除外]", 0.1*5)
+        for i in range(0,5):
+            char.技能倍率加成(1, 35, -0.02)
+            char.技能恢复加成(40, 80, 0.1, [50, 85, 100])
 
 
 def entry_1081(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3232,9 +3234,10 @@ def entry_1087(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能倍率加成(40, 80, -0.02 * 5)
-        char.技能恢复加成(1, 35, 0.1 * 5, [50, 85, 100])
-        char.条件冷却恢复加成("Lv1~35", 0.1)
+
+        for i in range(0,5):
+            char.技能倍率加成(40, 80, -0.02)
+            char.技能恢复加成(1, 35, 0.1, [50, 85, 100])
 
 
 def entry_1088(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3683,6 +3686,24 @@ def entry_1049(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
                 char.技能队列[index]["倍率"] *= 1.2
             pass
 
+mp_used = 0
+mp_used_list = [0, 1, 2, 3, 4, 5]
+
+
+def set_mp_used(x):
+    global mp_used
+    mp_used = mp_used_list[x[0]]
+
+entry_chose.append((21050,
+                    ['已消耗MP 0~29999',
+                     '已消耗MP 30000~59999',
+                     '已消耗MP 60000~89999',
+                     '已消耗MP 90000~119999',
+                     '已消耗MP 120000~149999',
+                     '已消耗MP 150000+',
+                     ], ""))
+multi_select[21050] = False
+variable_set[21050] = set_mp_used
 
 def entry_1050(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
@@ -3691,7 +3712,7 @@ def entry_1050(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         # 先当全程
-        char.攻击强化加成(成长词条计算(889, lv) * 5)
+        char.攻击强化加成(成长词条计算(889, lv) * mp_used)
 
 
 def entry_1052(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3930,8 +3951,9 @@ def entry_925(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能倍率加成(35, 80, 0.02)
-        char.所有异常抗性加成(0.03 * 5)
+        for i in range(0,4):
+            char.技能倍率加成(35, 80, 0.02)
+            char.所有异常抗性加成(0.04)
 
 
 def entry_930(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3971,7 +3993,7 @@ def entry_937(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.攻击强化加成(成长词条计算(356, lv) * 10)
-        char.移动速度增加(0.01 * 10)
+        char.移动速度增加(-0.01 * 10)
 
 
 def entry_938(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3992,6 +4014,7 @@ def entry_943(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         char.异常增伤('灼烧', 0.1)
+        char.技能攻击力加成(0.05)
 
 
 def entry_875(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -4188,9 +4211,11 @@ def entry_854(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['所有属性强化 +10', '物理、魔法暴击率 +5%']
     if mode == 0:
+        char.所有属性强化加成(10)
+        char.暴击率增加(0.05)
         pass
     if mode == 1:
-        char.暴击率增加(0.05)
+        pass
 
 
 def entry_855(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
