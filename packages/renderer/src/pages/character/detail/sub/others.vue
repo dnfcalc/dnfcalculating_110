@@ -109,7 +109,7 @@
             <div class="row-name">训练官Buff</div>
             <calc-select v-model={gh_buff_SW.value} class="flex-1 !h-20px">
               <calc-option value="0">无</calc-option>
-              {renderList(gh_buff_GJ_list.value, item => (
+              {renderList(gh_buff_SW_list.value, item => (
                 <calc-option value={item.id}>{item.props}</calc-option>
               ))}
             </calc-select>
