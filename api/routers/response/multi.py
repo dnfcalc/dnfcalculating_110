@@ -24,9 +24,9 @@ def calc_single_rank(alter, equipList, setInfo, lock):
     except Exception as ex:
         print(traceback.format_exc())
     # 加了锁之后CPU拉不满 要等待
-    lock.acquire()
+    # lock.acquire()
     sval.value += 1
-    lock.release()
+    # lock.release()
     return (temp.get("total_data"), equipList)
 
 
@@ -48,7 +48,7 @@ def calc_multi(state, setInfo):
     combos = list(itertools.product(*sort))
     number = len(combos)
     batch_size = 20000
-    minheap = MinHeap(2 << 64)
+    minheap = MinHeap(number)
     result = []
     freeze_support()
     executor = ProcessPoolExecutor(max_workers=max(

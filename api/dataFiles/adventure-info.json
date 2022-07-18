@@ -329,7 +329,8 @@
       },
       {
         "name": "dragon_knight",
-        "title": "皓曦·龙骑士"
+        "title": "皓曦·龙骑士",
+        "open": true
       },
       {
         "name": "empty",

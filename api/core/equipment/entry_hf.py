@@ -10836,6 +10836,9 @@ def entry_739(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['龙刃无双更变为最大使用两次的堆栈型技能', '- 攻击力 -40%', '- 充能时间10秒']
     if mode == 0:
+        龙刃无双 = char.get_skill_by_name("龙刃无双")
+        龙刃无双.倍率 *= 0.6
+        龙刃无双.CD = 10
         pass
     if mode == 1:
         pass
@@ -10847,6 +10850,7 @@ def entry_740(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name("龙刃无双").CDR *= 0.9
         pass
 
 
@@ -10856,6 +10860,7 @@ def entry_741(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.技能攻击力加成(0.05)
         pass
 
 
@@ -10865,6 +10870,11 @@ def entry_742(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name("火焰吐息").CDR *=0.9
+        char.get_skill_by_name("龙语召唤：阿斯特拉").CDR *=0.9
+        char.get_skill_by_name("龙之撕咬").CDR *=0.9
+        char.get_skill_by_name("魔龙之息").CDR *=0.9
+        char.get_skill_by_name("魔龙天翔").CDR *=0.9
         pass
 
 
