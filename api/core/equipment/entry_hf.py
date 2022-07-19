@@ -9904,6 +9904,9 @@ def entry_625(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        聚合弹 = char.get_skill_by_name("聚合弹")
+        聚合弹.倍率 *= 1.8
+        聚合弹.CP武器 = True
         pass
 
 

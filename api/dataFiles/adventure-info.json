@@ -130,7 +130,7 @@
       {
         "name": "spitfire_male",
         "title": "重霄·弹药专家",
-        "open": false
+        "open": true
       },
       {
         "name": "assault",
