@@ -999,7 +999,7 @@ class Character(CharacterProperty):
                     temp['cd'] = k.等效CD(
                         武器类型=self.武器类型, 输出类型=self.类型, 额外CDR=i['CDR'])
                     temp['mp'] = k.MP消耗(
-                        武器类型=self.武器类型, 输出类型=self.类型, 额外倍率=self.__MP消耗量)
+                        武器类型=self.武器类型, 输出类型=self.类型, 额外倍率=self.__MP消耗量,char=self)
                     temp['atk_rate'] = k.等效百分比(武器类型=self.武器类型, char=self)
                     temp['cosume_cube_frag'] = k.无色消耗
                     temp['level'] = k.等级

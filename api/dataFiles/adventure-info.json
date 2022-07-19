@@ -295,7 +295,8 @@
       },
       {
         "name": "necro",
-        "title": "隐夜·死灵术士"
+        "title": "隐夜·死灵术士",
+        "open": true
       },
       {
         "name": "kunoichi",

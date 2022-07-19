@@ -76,7 +76,7 @@
             onClick={changeMode(skill)}
           >
             <img style={skill.modes?.length ?? 0 > 0 ? (skill.modes?.indexOf(skill.mode) ?? 0 > 0 ? "mix-blend-mode: luminosity;" : "") : ""} src={skill_icon(characterStore.alter, skill.name)} />
-            {skill.modes && skill.modes.length > 0 && <div class="text-xs top-0 right-0 absolute">{skill.mode}</div>}
+            {skill.modes && skill.modes.length > 0 && <div class="size-11">{skill.mode}</div>}
           </div>
           // <div class="list-group-item">{item.element.name}</div>
         )

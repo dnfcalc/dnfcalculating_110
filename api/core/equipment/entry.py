@@ -3728,7 +3728,7 @@ def entry_988(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         return ['技能MP消耗量在4000以上的技能攻击力 +15%(觉醒除外)']
     if mode == 0:
         for skill in char.技能栏:
-            if skill.是否有伤害 == 1 and skill.MP消耗(武器类型=char.武器类型, 输出类型=char.类型, 额外倍率=char.MP消耗倍率()) >= 4000 and (skill.所在等级 not in [50, 85, 100] or skill.名称 == '末日虫洞'):
+            if skill.是否有伤害 == 1 and skill.MP消耗(武器类型=char.武器类型, 输出类型=char.类型, 额外倍率=char.MP消耗倍率(),char=char) >= 4000 and (skill.所在等级 not in [50, 85, 100] or skill.名称 == '末日虫洞'):
                 skill.倍率 *= 1.15
     if mode == 1:
         pass
@@ -10533,6 +10533,10 @@ def entry_715(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        莱迪娅 = char.get_skill_by_name("降临：僵尸莱迪娅")
+        莱迪娅.基础施放次数 = 3
+        莱迪娅.power0 = 0.45
+        莱迪娅.CD = 15
         pass
 
 
@@ -10542,6 +10546,7 @@ def entry_716(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name("降临：僵尸莱迪娅").CP武器 = True
         pass
 
 
@@ -10556,10 +10561,13 @@ def entry_717(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_718(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['使用特定技能攻击拥有恐怖烙印的敌人减少对应技能10的剩余冷却时间', '[特定技能]', '- 暗黑蛛丝引', '- 暴君极刑斩', '- 死灵之缚']
+        return ['使用特定技能攻击拥有恐怖烙印的敌人减少对应技能10%的剩余冷却时间', '[特定技能]', '- 暗黑蛛丝引', '- 暴君极刑斩', '- 死灵之缚']
     if mode == 0:
         pass
     if mode == 1:
+        char.get_skill_by_name("暗黑蛛丝引").CD = 0.9
+        char.get_skill_by_name("暴君极刑斩").CD = 0.9
+        char.get_skill_by_name("死灵之缚").CD = 0.9
         pass
 
 
@@ -10766,7 +10774,7 @@ def entry_740(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.get_skill_by_name("龙刃无双").CDR *= 0.9
+        char.get_skill_by_name("龙刃无双").CD *= 0.9
         pass
 
 
