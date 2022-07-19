@@ -2,7 +2,8 @@
 from core.baseClass.skill import 技能
 from core.baseClass.character import Character
 from core.baseClass.skill import 主动技能, 被动技能
-
+class 主动技能(主动技能):
+    不加成冰枪技能倍率 = 1
 
 class 技能0(主动技能):
     名称 = '冰魄剑'
@@ -341,8 +342,9 @@ class 技能17(被动技能):
 
     关联技能 = ['冰魄之弓', '破冰飞刃', '冰雪风暴', '千旋冰轮破',
             '冰凌破', '千里冰封', '极冰领域', '永罪冰狱', '永劫：纳斯特隆德']
-    关联技能2 = ['冰魄剑', '寒冰连枪', '冰魄旋枪', '旋冰穿刺', '冰魄锤击', '极冰绽放', '碎冰破', '极冰猎魔斩']
+    冰枪关联技能 = ['冰魄剑', '寒冰连枪', '冰魄旋枪', '旋冰穿刺', '冰魄锤击', '极冰绽放', '碎冰破', '极冰猎魔斩']
     额外冰枪攻击力 = 0
+    额外冰枪倍率 = 1
 
     def 加成倍率(self, 武器类型):
         if self.等级 == 0:
@@ -350,7 +352,7 @@ class 技能17(被动技能):
         else:
             return round(1.16 + 0.02 * self.等级, 5)
 
-    def 加成倍率2(self, 武器类型):
+    def 冰枪加成倍率(self, 武器类型):
         if self.等级 == 0:
             return 1.0
         else:
@@ -518,6 +520,37 @@ class classChange(Character):
     def 职业特殊计算(self):
         if self.get_skill_by_name('水晶剑').等级 != 0:
             self.get_skill_by_name('冰魄剑').技能形态改变()
+        冰之技艺 = self.get_skill_by_name('冰之技艺')
+        temp = [0]* len(冰之技艺.冰枪关联技能)
+        for i in range(len(temp)-1):
+            temp[i] = 冰之技艺.冰枪关联技能[i]+','
+        temp[len(temp)-1] = 冰之技艺.冰枪关联技能[len(temp)-1]
+        self.skills_passive['冰之技艺']['info'] = [{
+            "type": "倍率",
+            "info": [(冰之技艺.冰枪加成倍率(self.武器类型) - 1) * 100 , temp, '无']
+        },
+        ]
 
     def set_skill_info(self, info, rune_except=[], clothes_pants=[]):
         super().set_skill_info(info, clothes_pants=['远古记忆'])
+
+    def 技能倍率加成(self, min: int, max: int, x: float, exc=[int]) -> None:
+        if min <= 75 and max >= 75:
+            self.get_skill_by_name('冰之技艺').额外冰枪倍率 *= (1 + x * self.技能伤害增加增幅)
+        for i in self.技能栏:
+            if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
+                if i.是否有伤害 == 1:
+                    if i.名称 in self.get_skill_by_name('冰之技艺').冰枪关联技能 and i.所在等级 != 75:
+                        i.不加成冰枪技能倍率 *= (1 + x * self.技能伤害增加增幅)
+                    else:
+                        i.倍率 *= (1 + x * self.技能伤害增加增幅)
+
+    def 伤害指数计算(self):
+
+        iceneedle = self.get_skill_by_name('冰之技艺')
+        for i in self.技能栏:
+            if i.名称 in self.get_skill_by_name('冰之技艺').冰枪关联技能:
+               i.倍率 *= (i.不加成冰枪技能倍率 + (iceneedle.冰枪加成倍率(self.武器类型) - 1) * iceneedle.额外冰枪倍率)
+
+        super().伤害指数计算()
+
