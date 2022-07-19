@@ -92,6 +92,8 @@ def entry_1213(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '中毒' in own_state_type and '中毒' not in state_type:
+            state_type.append('中毒')
         pass
 
 
@@ -119,7 +121,8 @@ def entry_1206(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(1482, lv))
+        if '出血' in own_state_type:
+            char.攻击强化加成(成长词条计算(1482, lv))
         pass
 
 
@@ -129,6 +132,8 @@ def entry_1207(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '出血' in own_state_type and '出血' not in state_type:
+            state_type.append('出血')
         pass
 
 
@@ -466,9 +471,11 @@ def entry_1126(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         pass
 
+
 own_state_type = []
 own_state_type_list = ['', '出血', '中毒', '灼烧', '感电', '眩晕',
-                   '诅咒', '睡眠', '束缚', '冰冻', '减速', '石化', '失明', '混乱']
+                       '诅咒', '睡眠', '束缚', '冰冻', '减速', '石化', '失明', '混乱']
+
 
 def set_own_state_type(x):
     global own_state_type
@@ -478,8 +485,9 @@ def set_own_state_type(x):
 
 
 entry_chose.append((21127, ['选择自身异常状态'] + ['自身处于{}状态'.format(i)
-                                         for i in own_state_type_list[1:]],""))
+                                           for i in own_state_type_list[1:]], ""))
 variable_set[21127] = set_own_state_type
+
 
 def entry_1127(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
@@ -488,7 +496,7 @@ def entry_1127(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if '眩晕' in own_state_type:
-            char.技能恢复加成(0.2,1,100,[50,85,100])
+            char.技能恢复加成(0.2, 1, 100, [50, 85, 100])
         pass
 
 
@@ -832,7 +840,8 @@ def entry_993(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能恢复加成(1, 100, 0.5, [50, 85, 100])
+        if "睡眠" in own_state_type:
+            char.技能恢复加成(1, 100, 0.5, [50, 85, 100])
         pass
 
 
@@ -851,6 +860,8 @@ def entry_995(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if "冰冻" not in state_type:
+            state_type.append('冰冻')
         pass
 
 
@@ -860,6 +871,8 @@ def entry_996(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if "灼烧" not in state_type:
+            state_type.append('灼烧')
         pass
 
 
@@ -1051,6 +1064,8 @@ def entry_950(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.技能攻击力加成(0.05)
+        char.所有属性强化加成(10, mode=1)
         pass
 
 
@@ -1069,6 +1084,8 @@ def entry_952(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '诅咒' not in state_type:
+            state_type.append('诅咒')
         pass
 
 
@@ -1116,6 +1133,8 @@ def entry_940(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '感电' not in state_type:
+            state_type.append('感电')
         pass
 
 
@@ -1134,6 +1153,8 @@ def entry_942(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '失明' not in state_type:
+            state_type.append('失明')
         pass
 
 
@@ -1188,6 +1209,8 @@ def entry_919(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '感电' in state_type and '感电' not in own_state_type:
+            own_state_type.append('感电')
         pass
 
 
@@ -1206,6 +1229,10 @@ def entry_924(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '石化' not in state_type:
+            state_type.append('石化')
+        if '石化' in state_type:
+            char.技能攻击力加成(0.05)
         pass
 
 
@@ -1255,6 +1282,8 @@ def entry_918(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '感电' in state_type:
+            char.技能攻击力加成(0.03)
         pass
 
 
@@ -1746,6 +1775,8 @@ def entry_59(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '灼烧' not in state_type:
+            state_type.append('灼烧')
         pass
 
 
@@ -1755,6 +1786,8 @@ def entry_60(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '中毒' not in state_type:
+            state_type.append('中毒')
         pass
 
 
@@ -1764,6 +1797,8 @@ def entry_61(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '出血' not in state_type:
+            state_type.append('出血')
         pass
 
 
@@ -1773,6 +1808,8 @@ def entry_62(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '感电' not in state_type:
+            state_type.append('感电')
         pass
 
 
@@ -1782,6 +1819,8 @@ def entry_63(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '冰冻' not in state_type:
+            state_type.append('冰冻')
         pass
 
 
@@ -1791,6 +1830,8 @@ def entry_64(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '减速' not in state_type:
+            state_type.append('减速')
         pass
 
 
@@ -1800,6 +1841,8 @@ def entry_65(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '眩晕' not in state_type:
+            state_type.append('眩晕')
         pass
 
 
@@ -1809,6 +1852,8 @@ def entry_66(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '诅咒' not in state_type:
+            state_type.append('诅咒')
         pass
 
 
@@ -1818,6 +1863,8 @@ def entry_67(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '失明' not in state_type:
+            state_type.append('失明')
         pass
 
 
@@ -1827,6 +1874,8 @@ def entry_68(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '石化' not in state_type:
+            state_type.append('石化')
         pass
 
 
@@ -1836,6 +1885,8 @@ def entry_69(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '睡眠' not in state_type:
+            state_type.append('睡眠')
         pass
 
 
@@ -1845,6 +1896,8 @@ def entry_70(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '混乱' not in state_type:
+            state_type.append('混乱')
         pass
 
 
@@ -1854,6 +1907,8 @@ def entry_71(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '束缚' not in state_type:
+            state_type.append('束缚')
         pass
 
 
@@ -2334,7 +2389,7 @@ def entry_967(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_969(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['攻击灼伤状态敌人时，引发火焰爆炸（冷却时间0.5秒，无视敌人防御，伤害量为总攻击强化数值的7%）攻击灼伤状态敌人时，技能攻击力 +2%']
+        return ['攻击灼伤状态敌人时，引发火焰爆炸（冷却时间0.5秒，无视敌人防御，伤害量为总攻击强化数值的7%","攻击灼伤状态敌人时，技能攻击力 +2%']
     if mode == 0:
         pass
     if mode == 1:
@@ -2431,7 +2486,7 @@ def entry_1223(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.攻击强化加成(成长词条计算(2371,lv))
+        char.攻击强化加成(成长词条计算(2371, lv))
         char.技能等级加成('所有', 1, 25, 1)
 
 
@@ -2461,7 +2516,8 @@ def entry_1229(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.异常抗性加成('睡眠', -0.2)
     if mode == 1:
-        char.攻击强化加成(成长词条计算(3705, lv))
+        if '睡眠' in own_state_type:
+            char.攻击强化加成(成长词条计算(3705, lv))
         pass
 
 
@@ -2741,6 +2797,7 @@ def entry_1204(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
             char.移动速度增加(-0.15)
             char.施放速度增加(-0.15)
 
+
 def entry_1205(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['自身处于出血状态时，物理、魔法暴击率 +10%，攻击速度 +5%，施放速度 +7.5%', '被击时，自身进入出血状态，持续10秒(冷却时间5秒)']
@@ -2795,7 +2852,7 @@ def entry_1215(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        if len(own_state_type)>=1:
+        if len(own_state_type) >= 1:
             char.技能恢复加成(1, 45, 0.5)
             char.条件冷却恢复加成("Lv1~45", 0.5)
 
@@ -2806,7 +2863,7 @@ def entry_1216(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        if len(own_state_type)>=3:
+        if len(own_state_type) >= 3:
             char.技能恢复加成(60, 100, 0.5, [50, 85, 100])
             char.条件冷却恢复加成("Lv60~100[觉醒除外]", 0.5)
 
@@ -2839,6 +2896,8 @@ def entry_1219(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '出血' not in own_state_type:
+            own_state_type.append("出血")
         if '出血' in own_state_type:
             char.技能恢复加成(1, 100, 0.1, [50, 85, 100])
             char.条件冷却恢复加成("所有[觉醒除外]", 0.1)
@@ -2855,8 +2914,8 @@ def entry_1220(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
             char.攻击速度增加(0.15)
             char.施放速度增加(0.15)
         if '中毒' in own_state_type:
-        # 待完善
-        # char.所有速度增加(0.3)
+            # 待完善
+            # char.所有速度增加(0.3)
             char.技能攻击力加成(0.1)
         # char.技能恢复加成(1, 100, 0.3, [50, 85, 100])
 
@@ -2887,7 +2946,8 @@ def entry_1169(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.技能攻击力加成(0.08)
+        if '背面攻击' in attack_type:
+            char.技能攻击力加成(0.08)
 
 
 def entry_1173(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3004,6 +3064,8 @@ def entry_1123(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '中毒' not in own_state_type:
+            own_state_type.append('中毒')
         if '中毒' in own_state_type:
             char.技能恢复加成(1, 100, 0.25, [50, 85, 100])
             char.条件冷却恢复加成("所有[觉醒除外]", 0.25)
@@ -3211,7 +3273,7 @@ def entry_1080(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        for i in range(0,5):
+        for i in range(0, 5):
             char.技能倍率加成(1, 35, -0.02)
             char.技能恢复加成(40, 80, 0.1, [50, 85, 100])
 
@@ -3233,7 +3295,7 @@ def entry_1082(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.所有属性强化加成(30)
+        char.所有属性强化加成(30, mode=1)
 
 
 def entry_1083(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3242,7 +3304,7 @@ def entry_1083(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.所有属性强化加成(3 * 5)
+        char.所有属性强化加成(3, mode=1)*5
 
 
 def entry_1084(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3251,7 +3313,7 @@ def entry_1084(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.所有属性强化加成(3 * 5)
+        char.所有属性强化加成(3, mode=1)*5
 
 
 def entry_1085(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3260,7 +3322,7 @@ def entry_1085(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.所有属性强化加成(3 * 5)
+        char.所有属性强化加成(3, mode=1)*5
 
 
 def entry_1086(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3269,7 +3331,7 @@ def entry_1086(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.所有属性强化加成(3 * 5)
+        char.所有属性强化加成(3, mode=1)*5
 
 
 def entry_1087(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3279,7 +3341,7 @@ def entry_1087(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
 
-        for i in range(0,5):
+        for i in range(0, 5):
             char.技能倍率加成(40, 80, -0.02)
             char.技能恢复加成(1, 35, 0.1, [50, 85, 100])
 
@@ -3391,6 +3453,8 @@ def entry_1011(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '感电' not in own_state_type:
+            own_state_type.append('感电')
         if '感电' in own_state_type:
             char.所有属性强化加成(20, mode=1)
             char.所有属性抗性加成(15)
@@ -3731,6 +3795,7 @@ def entry_1049(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
                 char.技能队列[index]["倍率"] *= 1.2
             pass
 
+
 mp_used = 0
 mp_used_list = [0, 1, 2, 3, 4, 5]
 
@@ -3738,6 +3803,7 @@ mp_used_list = [0, 1, 2, 3, 4, 5]
 def set_mp_used(x):
     global mp_used
     mp_used = mp_used_list[x[0]]
+
 
 entry_chose.append((21050,
                     ['已消耗MP 0~29999',
@@ -3749,6 +3815,7 @@ entry_chose.append((21050,
                      ], ""))
 multi_select[21050] = False
 variable_set[21050] = set_mp_used
+
 
 def entry_1050(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
@@ -3832,7 +3899,7 @@ def entry_988(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         return ['技能MP消耗量在4000以上的技能攻击力 +15%(觉醒除外)']
     if mode == 0:
         for skill in char.技能栏:
-            if skill.是否有伤害 == 1 and skill.MP消耗(武器类型=char.武器类型, 输出类型=char.类型, 额外倍率=char.MP消耗倍率(),char=char) >= 4000 and (skill.所在等级 not in [50, 85, 100] or skill.名称 == '末日虫洞'):
+            if skill.是否有伤害 == 1 and skill.MP消耗(武器类型=char.武器类型, 输出类型=char.类型, 额外倍率=char.MP消耗倍率(), char=char) >= 4000 and (skill.所在等级 not in [50, 85, 100] or skill.名称 == '末日虫洞'):
                 skill.倍率 *= 1.15
     if mode == 1:
         pass
@@ -3976,6 +4043,8 @@ def entry_920(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '感电' in state_type and '眩晕' not in state_type:
+            state_type.append('眩晕')
         if '眩晕' in state_type:
             char.技能攻击力加成(0.05)
 
@@ -3996,7 +4065,7 @@ def entry_925(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        for i in range(0,4):
+        for i in range(0, 4):
             char.技能倍率加成(35, 80, 0.02)
             char.所有异常抗性加成(0.04)
 
@@ -4058,8 +4127,13 @@ def entry_943(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '灼烧' not in state_type:
+            state_type.append('灼烧')
+        if '灼烧' not in own_state_type:
+            own_state_type.append('灼烧')
         if '灼烧' in own_state_type:
             char.技能攻击力加成(0.05)
+
 
 def entry_875(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
@@ -4361,6 +4435,8 @@ def entry_873(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         char.异常抗性加成('冰冻', -0.03)
     if mode == 1:
+        if '冰冻' not in own_state_type:
+            own_state_type.append('冰冻')
         pass
 
 
@@ -4829,6 +4905,8 @@ def entry_177(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['角色伤害的10%转化为中毒伤害']
     if mode == 0:
+        if '中毒' not in state_type:
+            state_type.append("中毒")
         char.伤害类型转化('直伤', '中毒', 0.1)
     if mode == 1:
         pass
@@ -4838,6 +4916,8 @@ def entry_178(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['角色伤害的10%转化为灼伤伤害']
     if mode == 0:
+        if '灼烧' not in state_type:
+            state_type.append("灼烧")
         char.伤害类型转化('直伤', '灼烧', 0.1)
     if mode == 1:
         pass
@@ -4847,6 +4927,8 @@ def entry_179(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['角色伤害的10%转化为感电伤害']
     if mode == 0:
+        if '感电' not in state_type:
+            state_type.append("感电")
         char.伤害类型转化('直伤', '感电', 0.1)
     if mode == 1:
         pass
@@ -4856,6 +4938,8 @@ def entry_180(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['角色伤害的10%转化为出血伤害']
     if mode == 0:
+        if '出血' not in state_type:
+            state_type.append("出血")
         char.伤害类型转化('直伤', '出血', 0.1)
     if mode == 1:
         pass
@@ -4863,7 +4947,7 @@ def entry_180(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_181(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['剩余HP超过50%以上时，攻击强化 +N']
+        return ['剩余HP超过50%以上时，攻击强化 +1784']
     if mode == 0:
         pass
     if mode == 1:
@@ -8421,7 +8505,7 @@ def entry_814(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if hp_rate_num < 10:
-            char.攻击强化加成(成长词条计算(4446,lv))
+            char.攻击强化加成(成长词条计算(4446, lv))
         pass
 
 
@@ -8706,6 +8790,8 @@ def entry_793(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '感电' not in state_type:
+            state_type.append('感电')
         if '感电' in state_type:
             char.技能攻击力加成(0.02)
 
@@ -8716,6 +8802,8 @@ def entry_794(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '失明' not in state_type:
+            state_type.append('失明')
         if '失明' in state_type:
             char.技能攻击力加成(0.1)
 
@@ -8726,6 +8814,8 @@ def entry_795(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '灼烧' not in state_type:
+            state_type.append('灼烧')
         if '灼烧' in state_type:
             char.技能攻击力加成(0.02)
 
@@ -8736,6 +8826,8 @@ def entry_796(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '眩晕' not in state_type:
+            state_type.append('眩晕')
         if '眩晕' in state_type:
             char.技能攻击力加成(0.05)
 
@@ -8746,6 +8838,8 @@ def entry_797(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        if '冰冻' not in state_type:
+            state_type.append('冰冻')
         if '冰冻' in state_type:
             char.技能攻击力加成(0.05)
 
@@ -10700,6 +10794,7 @@ def entry_718(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         char.get_skill_by_name("死灵之缚").CD = 0.9
         pass
 
+
 def entry_719(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
         return ['剑刃风暴每次攻击获得的终结点 +100%, 位移速度 +30%，吸附能力 +30%']
@@ -10923,11 +11018,11 @@ def entry_742(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.get_skill_by_name("火焰吐息").CDR *=0.9
-        char.get_skill_by_name("龙语召唤：阿斯特拉").CDR *=0.9
-        char.get_skill_by_name("龙之撕咬").CDR *=0.9
-        char.get_skill_by_name("魔龙之息").CDR *=0.9
-        char.get_skill_by_name("魔龙天翔").CDR *=0.9
+        char.get_skill_by_name("火焰吐息").CDR *= 0.9
+        char.get_skill_by_name("龙语召唤：阿斯特拉").CDR *= 0.9
+        char.get_skill_by_name("龙之撕咬").CDR *= 0.9
+        char.get_skill_by_name("魔龙之息").CDR *= 0.9
+        char.get_skill_by_name("魔龙天翔").CDR *= 0.9
         pass
 
 
