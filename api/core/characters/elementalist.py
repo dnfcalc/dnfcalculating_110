@@ -130,7 +130,7 @@ class 技能5(主动技能):
         return super().等效百分比(**argv)*self.天雷攻击力增加率
 
     def 装备护石(self):
-        self.hit = 1
+        self.hit0 = 1
         self.天雷攻击力增加率 = 6.35
 
 

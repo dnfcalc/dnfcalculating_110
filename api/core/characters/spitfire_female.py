@@ -77,7 +77,7 @@ class 技能3(被动技能):
     关联技能2 = ['所有']
 
     def 加成倍率(self, 武器类型):
-        return self.加成数值
+        return 1.1
 
     def 加成倍率2(self, 武器类型):
         if self.等级 == 0:

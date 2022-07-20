@@ -52,7 +52,7 @@ def get(alter: str, setName: str):
     buff = info['buff_ratio']
     skill_set = []
     equ = get_equ()
-    trigger = equ.get_chose_set(mode=1,alter=alter)
+    trigger = equ.get_chose_set(mode=1, alter=alter)
     dress_set = {
         "头发": {
             "id": 0,
@@ -111,14 +111,14 @@ def get(alter: str, setName: str):
             ems = [i for i in enblems if 部位 in i['position']]
             emblem = ems[0] if len(ems) > 0 else {}
             forge_set[部位] = {
-                'cursed_number': 12,
+                'cursed_number': 0 if 部位 in ['称号', '宠物'] else 12,
                 'enchanting': enchanting.get('id', 0),
                 'socket_left': emblem.get('id', 0),
                 'socket_right': emblem.get('id', 0),
-                'growth_first': 40,
-                'growth_second': 40,
-                'growth_third': 40,
-                'growth_fourth': 40,
+                'growth_first': 0 if 部位 in ['称号', '宠物'] else 40,
+                'growth_second': 0 if 部位 in ['称号', '宠物'] else 40,
+                'growth_third': 0 if 部位 in ['称号', '宠物'] else 40,
+                'growth_fourth': 0 if 部位 in ['称号', '宠物'] else 40,
             }
             pass
         # print(forge_set)
