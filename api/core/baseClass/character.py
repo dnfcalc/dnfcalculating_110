@@ -525,7 +525,6 @@ class Character(CharacterProperty):
         self.暗属性抗性加成(x)
 
     def 攻击速度增加(self, x: float) -> None:
-        print(x)
         self.__攻击速度 += x
 
     def 移动速度增加(self, x: float) -> None:
