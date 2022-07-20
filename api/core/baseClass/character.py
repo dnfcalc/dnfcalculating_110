@@ -525,6 +525,7 @@ class Character(CharacterProperty):
         self.暗属性抗性加成(x)
 
     def 攻击速度增加(self, x: float) -> None:
+        print(x)
         self.__攻击速度 += x
 
     def 移动速度增加(self, x: float) -> None:
@@ -1749,7 +1750,8 @@ class Character(CharacterProperty):
                     'buff_attack_per': self.__buff百分比三攻,
                     'buff_attack': self.__buff固定三攻,
                     'awake_intstr_per': self.__觉醒百分比力智,
-                    'awake_intstr': self.__觉醒固定力智
+                    'awake_intstr': self.__觉醒固定力智,
+                    '攻击速度':self.__攻击速度
                     # 其他老词条·····
                 }
             },

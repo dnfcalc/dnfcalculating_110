@@ -1,6 +1,6 @@
 import hashlib
 import sys
-from .storex import store
+from core.store import store
 
 
 def get_mac_address():

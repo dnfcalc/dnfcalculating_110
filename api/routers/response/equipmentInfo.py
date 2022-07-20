@@ -85,7 +85,7 @@ def get_equipment_info(alter: str):
                     'type': temp['类型']
                 }
             )
-        if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["部位"] != "武器":
+        if temp["等级"] == 105 and temp["品质"] == '史诗' and temp["部位"] != "武器" and "[军团副本]" not in temp['名称']:
             equipment_info["lv110"].append(
                 {
                     "id": int(i),

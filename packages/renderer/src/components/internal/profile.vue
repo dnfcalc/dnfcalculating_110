@@ -15,6 +15,7 @@
     伤害比例: number[]
     伤害系数: number[]
     无色消耗: number
+    攻击速度: number
   }
 
   interface BufferProperties {
@@ -430,6 +431,10 @@
               <div class="de-item">
                 <div class=" text-hex-836832">出血</div>
                 <div class="text-hex-3ea74e">{`${(properties.伤害比例?.[4] ?? 0) * 100}%(+${((properties.伤害系数?.[4] ?? 0).round(2) * 100).toFixed(0)}%)`}</div>
+              </div>
+              <div class="de-item">
+                <div class=" text-hex-836832">装备攻速</div>
+                <div class="text-hex-3ea74e">{(properties.攻击速度 * 100).toFixed(2) + "%"}</div>
               </div>
             </div>
           </>
