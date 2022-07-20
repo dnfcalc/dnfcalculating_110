@@ -1,7 +1,7 @@
 
   ![avatar](img\logo.ico)
 
-  # DNF 计算器 <small class="version">2022.07.14.Beta</small>
+  # DNF 计算器 <small class="version">2022.07.20.Beta</small>
 
   > sponsored by Colg
 
