@@ -595,11 +595,12 @@ class Character(CharacterProperty):
                 if i.是否有伤害 == 1:
                     i.恢复 += x
 
-    def 技能倍率加成(self, min: int, max: int, x: float, exc=[int]) -> None:
+    def 技能倍率加成(self, min: int, max: int, x: float, exc=[int],type="all") -> None:
         for i in self.技能栏:
             if i.所在等级 >= min and i.所在等级 <= max and i.所在等级 not in exc:
                 if i.是否有伤害 == 1:
-                    i.倍率 *= (1 + x * self.技能伤害增加增幅)
+                    if type =="all" or ( type=="active" and i.是否主动 == 1):
+                        i.倍率 *= (1 + x * self.技能伤害增加增幅)
 
     def 单技能加成(self, 名称: str, 倍率=1.0, CD=1.0, lv=0) -> None:
         i = self.get_skill_by_name(名称)

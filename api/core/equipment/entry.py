@@ -3212,7 +3212,7 @@ def entry_1081(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 1:
         for item in range(0, 3):
             char.基础精通加成(0.15)
-            char.技能倍率加成(15, 30, 0.05)
+            char.技能倍率加成(15, 30, 0.05,type="active")
 
 
 def entry_1082(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -3348,11 +3348,14 @@ def entry_1102(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         return ['施放技能时，根据技能消耗的无色小晶块数量增加该技能的攻击力', '- 消耗1个以上时，技能攻击力+2%', '- 消耗15个以上时，技能攻击力+10%', '- 消耗30个以上时，技能攻击力+20%']
     if mode == 0:
         for skill in char.技能队列:
-            if skill["无色消耗"] >= 30:
+            无色消耗 = skill["无色消耗"]
+            if skill['名称'] == '炫纹发射':
+                无色消耗 = min(无色消耗,3)
+            if 无色消耗 >= 30:
                 skill["倍率"] *= 1.2
-            elif skill["无色消耗"] >= 15:
+            elif 无色消耗 >= 15:
                 skill["倍率"] *= 1.1
-            elif skill["无色消耗"] >= 1:
+            elif 无色消耗 >= 1:
                 skill["倍率"] *= 1.02
     if mode == 1:
         pass
@@ -3777,7 +3780,7 @@ def entry_983(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         return ['基础精通技能攻击力增加量+30%', 'Lv15~30主动技能攻击力 +10%', '消耗无色小晶块的技能攻击力-15%']
     if mode == 0:
         char.基础精通加成(0.3)
-        char.技能倍率加成(15, 30, 0.1)
+        char.技能倍率加成(15, 30, 0.1,type="active")
         for skill in char.技能队列:
             if skill["无色消耗"] > 0:
                 skill["倍率"] *= 0.85
@@ -3790,7 +3793,7 @@ def entry_984(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         return ['基础精通技能攻击力增加量+30%', 'Lv15~30主动技能攻击力 +10%', '消耗无色小晶块的技能冷却时间+10%']
     if mode == 0:
         char.基础精通加成(0.3)
-        char.技能倍率加成(15, 30, 0.1)
+        char.技能倍率加成(15, 30, 0.1,type="active")
         for skill in char.技能队列:
             if skill["无色消耗"] > 0:
                 skill["CDR"] *= 1.1
@@ -7524,7 +7527,7 @@ def entry_1056(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         for item in range(0, 10):
-            char.技能倍率加成(15, 35, 0.03)
+            char.技能倍率加成(15, 35, 0.03,type="active")
         pass
 
 
@@ -12724,9 +12727,9 @@ def entry_14044(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0)
         char.附加伤害加成(0.03)
         if 改造lv >= 1:
             char.伤害增加加成(0.07)
-            char.技能倍率加成(50, 50, 0.3)
-            char.技能倍率加成(85, 85, 0.25)
-            char.技能倍率加成(100, 100, 0.16)
+            char.技能倍率加成(50, 50, 0.3,type="active")
+            char.技能倍率加成(85, 85, 0.25,type="active")
+            char.技能倍率加成(100, 100, 0.16,type="active")
             pass
         if 改造lv >= 5:
             char.技能攻击力加成(0.12)

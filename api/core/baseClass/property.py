@@ -303,7 +303,7 @@ class CharacterProperty:
     def 技能恢复加成(self, min: int, max: int, x: float, exc=[int]) -> None:
         pass
 
-    def 技能倍率加成(self, min: int, max: int, x: float, exc=[int]) -> None:
+    def 技能倍率加成(self, min: int, max: int, x: float, exc=[int],type="all") -> None:
         pass
 
     def 单技能加成(self, 名称: str, 倍率=1.0, CD=1.0, lv=0) -> None:
