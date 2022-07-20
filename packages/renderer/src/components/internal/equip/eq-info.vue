@@ -235,6 +235,13 @@
             s += transform.growthBuffers[i] ?? item?.buffer ?? 0
           }
         }
+        if (s == 0) {
+          for (let i = 0; i < 4; i++) {
+            let item = equip.value.prop.growthProps && equip.value.prop.growthProps.length > i ? equip.value.prop.growthProps[i] : null
+            s += item?.buffer ?? 0
+          }
+        }
+
         return s
       })
 
@@ -246,6 +253,12 @@
           for (let i = 0; i < transform.growthBuffers.length; i++) {
             let item = a == null ? null : a[i]
             s += transform.growthAttacks[i] ?? item?.attack ?? 0
+          }
+        }
+        if (s == 0) {
+          for (let i = 0; i < 4; i++) {
+            let item = equip.value.prop.growthProps && equip.value.prop.growthProps.length > i ? equip.value.prop.growthProps[i] : null
+            s += item?.attack ?? 0
           }
         }
         return s
