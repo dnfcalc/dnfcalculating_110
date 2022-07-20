@@ -2614,6 +2614,10 @@ def entry_1254(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.移动速度增加(0.05)
+        char.攻击速度增加(0.05)
+        char.施放速度增加(0.075)
+        char.暴击率增加(0.05)
         char.技能攻击力加成(0.05)
 
 
@@ -2864,7 +2868,8 @@ def entry_1222(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
         pass
     if mode == 1:
         if '灼烧' in own_state_type:
-            char.所有属性强化加成(3, mode=1)*10
+            for i in range(0,10):
+                char.所有属性强化加成(3, mode=1)
 
 
 def entry_1166(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6123,7 +6128,8 @@ def entry_1119(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.所有属性强化加成(3 ,mode=1)*5
+        for i in range(0,5):
+            char.所有属性强化加成(3 ,mode=1)
 
 
 def entry_1120(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6170,7 +6176,8 @@ def entry_113(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.光属性强化加成(4,mode=1)* min(10, int(combo_num / 3))
+        for i in range(0,min(10, int(combo_num / 3))):
+            char.光属性强化加成(4,mode=1)
 
 
 def entry_116(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6263,7 +6270,8 @@ def entry_336(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.火属性强化加成(4,mode=1)* min(10, int(combo_num / 3))
+        for i in range(0,min(10, int(combo_num / 3))):
+            char.火属性强化加成(4,mode=1)
 
 
 def entry_337(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6272,7 +6280,8 @@ def entry_337(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.冰属性强化加成(4,mode=1)* min(10, int(combo_num / 3))
+        for i in range(0,min(10, int(combo_num / 3))):
+            char.冰属性强化加成(4,mode=1)
 
 
 def entry_338(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6281,7 +6290,8 @@ def entry_338(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.暗属性强化加成(4,mode=1)* min(10, int(combo_num / 3))
+        for i in range(0,min(10, int(combo_num / 3))):
+            char.暗属性强化加成(4,mode=1)
 
 
 def entry_891(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6844,7 +6854,8 @@ def entry_183(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.火属性强化加成(7,mode=1) * min(10, enemy_num)
+        for i in range(0,min(10, enemy_num)):
+            char.火属性强化加成(7,mode=1)
 
 
 def entry_184(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6853,7 +6864,8 @@ def entry_184(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.冰属性强化加成(7,mode=1) * min(10, enemy_num)
+        for i in range(0,min(10, enemy_num)):
+            char.冰属性强化加成(7,mode=1)
 
 
 def entry_185(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6862,7 +6874,8 @@ def entry_185(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.光属性强化加成(7,mode=1) * min(10, enemy_num)
+        for i in range(0,min(10, enemy_num)):
+            char.光属性强化加成(7,mode=1)
 
 
 def entry_186(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
@@ -6871,7 +6884,8 @@ def entry_186(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.暗属性强化加成(7,mode=1) * min(10, enemy_num)
+        for i in range(0,min(10, enemy_num)):
+            char.暗属性强化加成(7,mode=1)
 
 
 def entry_266(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
