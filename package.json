@@ -34,10 +34,9 @@
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "sortablejs": "1.14.0",
-    "typescript": "^4.5.5",
-    "vite": "^2.9.9"
+    "typescript": "^4.7.4",
+    "vite": "^3.0.2"
   },
-  "dependencies": {},
   "env": {
     "//": "Used in build scripts",
     "VITE_DEV_SERVER_HOST": "127.0.0.1",
