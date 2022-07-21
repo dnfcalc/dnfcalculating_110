@@ -10986,24 +10986,24 @@ def enchanting_21175(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
         pass
 
 
-def enchanting_21176(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
-    if text:
-        return (168, '鞋', '三攻(36)|技攻(3%)')
-    if mode == 0:
-        char.基础属性加成(三攻=36 * rate)
-        char.技能攻击力加成(0.03 * rate)
-    if mode == 1:
-        pass
+# def enchanting_21176(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
+    # if text:
+    #     return (168, '鞋', '三攻(36)|技攻(3%)')
+    # if mode == 0:
+    #     char.基础属性加成(三攻=36 * rate)
+    #     char.技能攻击力加成(0.03 * rate)
+    # if mode == 1:
+    #     pass
 
 
-def enchanting_21177(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
-    if text:
-        return (168, '腰带', '三攻(36)|技攻(3%)')
-    if mode == 0:
-        char.基础属性加成(三攻=36 * rate)
-        char.技能攻击力加成(0.03 * rate)
-    if mode == 1:
-        pass
+# def enchanting_21177(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
+#     if text:
+#         return (168, '腰带', '三攻(36)|技攻(3%)')
+#     if mode == 0:
+#         char.基础属性加成(三攻=36 * rate)
+#         char.技能攻击力加成(0.03 * rate)
+#     if mode == 1:
+#         pass
 
 
 def enchanting_21178(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
@@ -13718,7 +13718,7 @@ def enchanting_21493(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
 
 def enchanting_23001(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if text:
-        return (168, '腰带，鞋', '三攻(36)|技攻(3%)')
+        return (168, '腰带,鞋', '三攻(36)|技攻(3%)')
     if mode == 0:
         char.基础属性加成(三攻=36 * rate)
         char.技能攻击力加成(0.03 * rate)
@@ -13728,7 +13728,7 @@ def enchanting_23001(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
 
 def enchanting_23002(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if text:
-        return (168, '腰带，鞋', '三攻(36)|Lv1~50主动+1')
+        return (168, '腰带,鞋', '三攻(36)|Lv1~50主动+1')
     if mode == 0:
         char.基础属性加成(三攻=36 * rate)
         if rate == 1:
@@ -13739,7 +13739,7 @@ def enchanting_23002(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
 
 def enchanting_23003(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if text:
-        return (147, '项链，手镯，戒指', '所有属性强化(33)')
+        return (147, '项链,手镯,戒指', '所有属性强化(33)')
     if mode == 0:
         char.所有属性强化加成(33 * rate)
     if mode == 1:
@@ -13748,7 +13748,7 @@ def enchanting_23003(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
 
 def enchanting_23004(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if text:
-        return (147, '项链，手镯，戒指', '冰强(35)|暗强(35)')
+        return (147, '项链,手镯,戒指', '冰强(35)|暗强(35)')
     if mode == 0:
         char.冰属性强化加成(35 * rate)
         char.暗属性强化加成(35 * rate)
@@ -13758,7 +13758,7 @@ def enchanting_23004(char: CharacterProperty = {}, mode=0, text=False, rate=1.0)
 
 def enchanting_23005(char: CharacterProperty = {}, mode=0, text=False, rate=1.0):
     if text:
-        return (147, '项链，手镯，戒指', '火强(35)|光强(35)')
+        return (147, '项链,手镯,戒指', '火强(35)|光强(35)')
     if mode == 0:
         char.火属性强化加成(35 * rate)
         char.光属性强化加成(35 * rate)
