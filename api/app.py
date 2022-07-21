@@ -39,6 +39,6 @@ def global_init():
         os.makedirs('./sets')
         with open('./sets/global.json', "w", encoding='utf-8') as fp:
             json.dump(detail, fp, ensure_ascii=False, indent=2)
-    if not os.path.exists("./dataFiles/global.json"):
+    if not os.path.exists("./sets/global.json"):
         with open('./sets/global.json', "w", encoding='utf-8') as fp:
             json.dump(detail, fp, ensure_ascii=False, indent=2)
