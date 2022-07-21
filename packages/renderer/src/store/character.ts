@@ -58,6 +58,10 @@ export const useCharacterStore = defineStore("CharacterInfo", {
     },
     calc() {
       this.calc_token = new Date().getTime().toString()
+    },
+    async load() {
+      const state = await api.getCharacter()
+      this.$patch(state)
     }
   }
 })

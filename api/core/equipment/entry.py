@@ -1010,6 +1010,8 @@ def entry_948(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        char.攻击速度增加(0.08*3)
+        char.移动速度增加(0.2)
         pass
 
 

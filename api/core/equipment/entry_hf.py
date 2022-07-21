@@ -8072,7 +8072,7 @@ def entry_1135(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
-        char.指令技攻加成(0.08)
+        char.指令技攻加成(0.08,exc=[])
 
 
 def entry_1136(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):

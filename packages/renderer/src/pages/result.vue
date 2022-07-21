@@ -50,7 +50,8 @@
       configStore.token = result.token ?? configStore.token
 
       const res = toMap(result, ["info", "skills", "skills_passive", "equips_forget"]) as IAnyResultInfo
-      characterStore.$patch({ alter: res.alter, name: res.name })
+      await characterStore.load()
+      // characterStore.$patch({ alter: res.alter, name: res.name })
       configStore.forge_set = res.forget_set ?? {}
       function skill_tooltip(skill: string) {
         if (res.role == "buffer") {

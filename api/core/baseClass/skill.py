@@ -212,7 +212,7 @@ class 主动技能(技能):
                 cdr = 0.95
             if self.所在等级 in [50, 100]:
                 cdr = 0.95
-        return round(max(self.CD * cdr*手搓收益 * self.CDR * 额外CDR / (self.恢复 if 恢复 else 1) * self.武器CD系数(武器类型, 输出类型), self.CD * 0.3, 1), 1)
+        return round(max(self.CD * cdr * 手搓收益 * self.CDR * 额外CDR / (self.恢复 if 恢复 else 1) * self.武器CD系数(武器类型, 输出类型), self.CD * 0.3, 1), 1)
 
     def MP消耗(self, **argv):
         # 武器类型 输出类型 额外CDR 手搓收益 恢复=True
