@@ -1,3 +1,4 @@
+import json
 import requests
 
 from fastapi import APIRouter, Depends
@@ -72,11 +73,13 @@ async def get_recommend(page: int = 1, size: int = 7, keyword: str = "",state: A
             equips = item.get("equips", [])
             for equ in equips:
                 equ["id"] = equ_ids_skycity.get(str(equ["id"]), equ["id"])
-
     return RecommentClass(code=200, message="", data=data.get("data", {}), totalCount=data.get("totalCount", 0))
 
 
 @openRouter.get("/colg/recommend")
 async def get_recommend(page: int = 1, size: int = 7, keyword: str = "",state: AlterState = Depends(authorize)):
-
-    return RecommentClass(code=200, message="", data={}, totalCount=0)
+    data = {}
+    with open("./流派推荐.json", encoding='utf-8') as fp:
+        data = json.load(fp)
+        data=data.get("data", {})
+    return RecommentClass(code=200, message="", data=data.get("data", {}), totalCount=data.get("totalCount", 0))

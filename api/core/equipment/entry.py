@@ -4882,12 +4882,12 @@ def entry_180(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_181(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['剩余HP超过50%以上时，攻击强化 +1784']
+        return ['剩余HP超过50%以上时，攻击强化 +1778']
     if mode == 0:
         pass
     if mode == 1:
         if hp_rate_num >= 50:
-            char.攻击强化加成(成长词条计算(1784, lv))
+            char.攻击强化加成(成长词条计算(1778, lv))
         pass
 
 
