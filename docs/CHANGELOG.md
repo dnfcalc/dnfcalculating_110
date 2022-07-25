@@ -1,5 +1,17 @@
 ## Newest
 
+### 2022.07.25.Beta
+
+#### NewFeatures
+* 添加总词条显示 ([d91f1e](https://gitee.com/dcalc/dnfcalculating_110/commit/d91f1ebdded3b7ee7cda760689ffcc31c93d0a1d))
+
+#### BugFixes
+* 修复奇奇怪怪的bug ([e4214a](https://gitee.com/dcalc/dnfcalculating_110/commit/e4214a0b11989579137cc1539068d355ba8fc713))
+* 修正部分装备计算时报错 ([bdc687](https://gitee.com/dcalc/dnfcalculating_110/commit/bdc68776212ad02eb2eb78b128ce5f341eaa1a11))
+* 死灵术士：修复巴拉克的野心护石缺失的情况 ([0dd8f4](https://gitee.com/dcalc/dnfcalculating_110/commit/0dd8f4238a2cb8db5133cb69793e396b2defddd0))
+* 首饰附魔缺失修复 ([b2a372](https://gitee.com/dcalc/dnfcalculating_110/commit/b2a37203971fdf54f8ddcee0cb3011c820d94947))
+* 龙神：修复报错 ([31ebdd](https://gitee.com/dcalc/dnfcalculating_110/commit/31ebddf8e9674135932e755104565942eccdb595))
+
 ### 2022.07.20.Beta
 
 #### NewFeatures
@@ -96,6 +108,7 @@
 - 女漫游:修复双鹰回旋无色及 MP fixes #I5EYRG ([c2569b](https://gitee.com/dcalc/dnfcalculating_110/commit/c2569b8e335b41fd62abc42815fd16809ce0c8af))
 - 女漫游：修正[死亡锁链]学习间隔 ([b412d4](https://gitee.com/dcalc/dnfcalculating_110/commit/b412d4b309c6bf184851adf6c8197e1eaaab6d9c))
 - 阿修罗：修正[天雷·降魔杵]无色消耗及 MP 问题 ([bae428](https://gitee.com/dcalc/dnfcalculating_110/commit/bae4282a85617cf7b5b6f9a1a5f0f772424d425e))
+
 
 ## History
 
