@@ -34,6 +34,7 @@ def entry_1248(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if mode == 0:
         pass
     if mode == 1:
+        hp_rate_num = min(55,hp_rate_num)
         pass
 
 
@@ -2556,7 +2557,7 @@ def entry_1246(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
 
 def entry_1249(char: CharacterProperty = {}, mode=0, text=False, part='', lv=0):
     if text:
-        return ['HP低于40%时适用以下效果', '- 物理、魔法防御力+1400', '- 攻击强化 +2816', '- 技能冷却时间 -15%（最多叠加1次，觉醒技能除外）']
+        return ['HP低于40%时适用以下效果', '- 物理、魔法防御力+14000', '- 攻击强化 +2816', '- 技能冷却时间 -15%（最多叠加1次，觉醒技能除外）']
     if mode == 0:
         pass
     if mode == 1:
