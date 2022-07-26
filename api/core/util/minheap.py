@@ -4,7 +4,7 @@ from heapq import heapify, heappush, heappushpop
 
 class MinHeap:
     def __init__(self, top_n,h=[]):
-        self.h = h
+        self.h = h[:]
         self.length = top_n
         heapify(self.h)
 
