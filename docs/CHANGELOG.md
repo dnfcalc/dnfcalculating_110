@@ -1,5 +1,10 @@
 ## Newest
 
+### 2022.07.26.Beta
+
+#### BugFixes
+* 修复龙神报错 ([cef4fd](https://gitee.com/dcalc/dnfcalculating_110/commit/cef4fd4a1a9894e2ecf80b6936b4a41c6487257b))
+
 ### 2022.07.25.Beta
 
 #### NewFeatures
@@ -108,6 +113,7 @@
 - 女漫游:修复双鹰回旋无色及 MP fixes #I5EYRG ([c2569b](https://gitee.com/dcalc/dnfcalculating_110/commit/c2569b8e335b41fd62abc42815fd16809ce0c8af))
 - 女漫游：修正[死亡锁链]学习间隔 ([b412d4](https://gitee.com/dcalc/dnfcalculating_110/commit/b412d4b309c6bf184851adf6c8197e1eaaab6d9c))
 - 阿修罗：修正[天雷·降魔杵]无色消耗及 MP 问题 ([bae428](https://gitee.com/dcalc/dnfcalculating_110/commit/bae4282a85617cf7b5b6f9a1a5f0f772424d425e))
+
 
 
 ## History
