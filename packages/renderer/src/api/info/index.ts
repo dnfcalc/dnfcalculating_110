@@ -18,7 +18,10 @@ export default defineRequest(request => {
     entries() {
       return request.get<Record<string, { attack: number; buff: number; props: string[] }>>("/entries")
     },
-    recommends(params: IRecommendRequest) {
+    recommends(params: IRecommendRequest, source: string = "skycity") {
+      if (source == "colg") {
+        return request.get<PagingData<IRecommendInfo>>("/colg/recommend", { params }).then(r => r as unknown as PagingData<IRecommendInfo>)
+      }
       return request.get<PagingData<IRecommendInfo>>("/skycity/recommend", { params }).then(r => r as unknown as PagingData<IRecommendInfo>)
     },
     detailList() {

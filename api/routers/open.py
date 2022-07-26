@@ -79,7 +79,15 @@ async def get_recommend(page: int = 1, size: int = 7, keyword: str = "",state: A
 @openRouter.get("/colg/recommend")
 async def get_recommend(page: int = 1, size: int = 7, keyword: str = "",state: AlterState = Depends(authorize)):
     data = {}
-    with open("./流派推荐.json", encoding='utf-8') as fp:
-        data = json.load(fp)
+    if(state is None or state.alter is None):
+        raise Exception("无效token")
+    alter = state.alter
+    try:
+        data = requests.get(
+                "https://bbs.colg.cn/colg_activity_new-simulator.html/getRecommendList?page={}&size={}&keyword={}&alter={}".format(
+                    page, size, keyword, alter),
+                timeout=10).json()
         data=data.get("data", {})
+    except:
+        raise Exception("请稍后重试")
     return RecommentClass(code=200, message="", data=data.get("data", {}), totalCount=data.get("totalCount", 0))

@@ -5,7 +5,7 @@
   import EqIconVue from "@/components/internal/equip/eq-icon.vue"
   import { useCharacterStore, useConfigStore } from "@/store"
   import { useAsyncState, useDebounceFn } from "@vueuse/core"
-  import { computed, defineComponent, reactive, renderList } from "vue"
+  import { computed, defineComponent, reactive, ref, renderList } from "vue"
   export default defineComponent({
     setup() {
       const characterStore = useCharacterStore()
@@ -18,9 +18,10 @@
         alter: characterStore.alter
       })
 
+      const sourse = ref("colg")
       const { state, execute, isLoading } = useAsyncState(
         () => {
-          return api.recommends(params)
+          return api.recommends(params, sourse.value)
         },
         {
           data: [],
@@ -56,7 +57,18 @@
 
       return () => {
         return (
-          <div class="h-132 py-2 px-4 text-hex-e9c556 w-120 overflow-y-auto">
+          <div class="h-137 py-2 px-4 text-hex-e9c556 w-120 overflow-y-auto">
+            <calc-tabs
+              v-model={sourse.value}
+              onChange={() => {
+                params.page = 1
+                execute()
+              }}
+              class="!mb-5px"
+            >
+              <calc-tab value={"colg"}>colg</calc-tab>
+              <calc-tab value={"skycity"}>无名空岛</calc-tab>
+            </calc-tabs>
             <div class="flex space-x-4 w-full box-border items-center">
               <calc-autocomplete class="flex-1" placeholder="输入关键字搜索流派搭配" v-model={params.keyword}></calc-autocomplete>
               <calc-button onClick={execute}>搜索</calc-button>
@@ -82,8 +94,8 @@
               })}
             </calc-loading>
             <calc-pagination disabled={!visible.value} class="h-8" v-model:page={params.page} onChange={onPageChange} totalPage={totalPage.value}></calc-pagination>
-            <a href="https://www.skycity.top/dictionary?from=dcalc" target="__blank" class="flex w-full text-hex-f4e713 justify-center">
-              Power by SkyCity
+            <a href={sourse.value == "colg" ? "https://bbs.colg.cn/" : "https://www.skycity.top/dictionary?from=dcalc"} target="__blank" class="flex w-full text-hex-f4e713 justify-center">
+              Power by {sourse.value}
             </a>
           </div>
         )
