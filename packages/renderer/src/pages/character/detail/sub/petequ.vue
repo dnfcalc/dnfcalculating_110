@@ -4,7 +4,7 @@
 
   export default defineComponent({
     name: "petequ",
-    setup(props, { emit, slots }) {
+    setup() {
       const configStore = useConfigStore()
       const basicInfoStore = useBasicInfoStore()
       const equipInfo = function <T>(part: string, name: string, defaultValue?: T) {

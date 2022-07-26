@@ -5,7 +5,7 @@
   export default defineComponent({
     name: "others",
 
-    setup(props, { emit, slots }) {
+    setup() {
       const configStore = useConfigStore()
       const currentInfo = function <T>(name: string, defaultValue?: T) {
         return computed<string | number>({

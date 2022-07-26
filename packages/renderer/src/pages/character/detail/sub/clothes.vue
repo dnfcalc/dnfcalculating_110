@@ -6,7 +6,7 @@
 
   export default defineComponent({
     name: "clothes",
-    setup(props, { emit, slots }) {
+    setup() {
       const basicInfoStore = useBasicInfoStore()
       const characterStore = useCharacterStore()
       const configStore = useConfigStore()

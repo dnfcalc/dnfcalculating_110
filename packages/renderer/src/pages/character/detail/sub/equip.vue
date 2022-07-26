@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { IEnchantingInfo } from "@/api/info/type"
   import { useBasicInfoStore, useConfigStore, useDetailsStore } from "@/store"
-  import { syncRef, syncRefs } from "@vueuse/core"
+  import { syncRef } from "@vueuse/core"
   import { computed, defineComponent, ref, renderList } from "vue"
   export default defineComponent({
     name: "equip",
@@ -11,7 +11,7 @@
         default: "头肩"
       }
     },
-    setup(props, { emit, slots }) {
+    setup(props) {
       const detailsStore = useDetailsStore()
       const configStore = useConfigStore()
       const can_upgrade = computed(() => {
@@ -20,7 +20,7 @@
 
       const has_socket = computed(() => !["称号", "宠物", "耳环", "武器"].includes(props.part as string))
       const has_socket_right = computed(() => has_socket.value && !["辅助装备", "魔法石"].includes(props.part as string))
-      const has_wisdom = computed(() => ["称号", "宠物", "武器"].indexOf(props.part as string) < 0)
+      const has_wisdom = computed(() => ["称号", "宠物", "武器"].includes(props.part as string))
       const basicInfoStore = useBasicInfoStore()
 
       const enchanting_list = computed<IEnchantingInfo[] | undefined>(() => {

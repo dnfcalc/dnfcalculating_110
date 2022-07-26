@@ -1,10 +1,10 @@
 <script lang="tsx">
+  import { useCharacterStore, useConfigStore } from "@/store"
   import { computed, defineComponent, renderList } from "vue"
-  import { useConfigStore, useCharacterStore } from "@/store"
 
   export default defineComponent({
     name: "special",
-    setup(props, { emit, slots }) {
+    setup() {
       const configStore = useConfigStore()
       const equipInfo = function <T>(part: string, name: string, defaultValue?: T) {
         return computed<string | number>({
@@ -25,7 +25,7 @@
         <div class="flex flex-wrap equ-profile">
           <div class="equ-profile-item">
             <div class="row-name">副武器</div>
-            <calc-select disabled={useCharacterStore().alter != "vegabond"} v-model={second_weapon.value} class="!h-20px flex-1">
+            <calc-select disabled={useCharacterStore().alter != "vegabond"} v-model={second_weapon.value} class="flex-1 !h-20px">
               {renderList(32, i => (
                 <calc-option value={i - 1}>{i - 1}</calc-option>
               ))}
