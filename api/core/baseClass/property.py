@@ -186,16 +186,7 @@ class CharacterProperty:
     def MP消耗量加成(self, x: float) -> None:
         pass
 
-    def 攻击强化加成(self, x: float) -> None:
-        pass
-
-    def 百分比攻击强化加成(self, x: float) -> None:
-        pass
-
     def buff量加成(self, x: float) -> None:
-        pass
-
-    def 辅助属性加成(self, buff固定力智=0, buff百分比力智=0.0, buff固定三攻=0, buff百分比三攻=0.0, 觉醒固定力智=0, 觉醒百分比力智=0.0, buff量=0, 百分比buff量=0.0):
         pass
 
     def 附加伤害加成(self, x: float, 辟邪玉加成=1) -> None:
@@ -205,9 +196,6 @@ class CharacterProperty:
         pass
 
     def 属性附加加成(self, x: float) -> None:
-        pass
-
-    def 技能攻击力加成(self, x: float, 辟邪玉加成=1, 适用累加=1) -> None:
         pass
 
     def 暴击伤害加成(self, x: float, 辟邪玉加成=1) -> None:
@@ -291,9 +279,6 @@ class CharacterProperty:
     def 技能获取(self, min: int, max: int, exc=[]) -> None:
         pass
 
-    def 技能等级加成(self, 加成类型: str, min: int, max: int, lv: int, exc=[int]) -> None:
-        pass
-
     def 技能冷却缩减(self, min: int, max: int, x: float, exc=[int]) -> None:
         pass
 
@@ -303,7 +288,7 @@ class CharacterProperty:
     def 技能恢复加成(self, min: int, max: int, x: float, exc=[int]) -> None:
         pass
 
-    def 技能倍率加成(self, min: int, max: int, x: float, exc=[int],type="all") -> None:
+    def 技能倍率加成(self, min: int, max: int, x: float, exc=[int], type="all") -> None:
         pass
 
     def 单技能加成(self, 名称: str, 倍率=1.0, CD=1.0, lv=0) -> None:
